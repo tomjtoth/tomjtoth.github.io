@@ -1,124 +1,126 @@
-🌯 tortilla:
-  - tortillawraps
-  - sipuli
-  - 700 g kanasuikaleet
-  - sienet
-  - salaatti
-  - viilikerma
-  - salsa
-  - tortillamauste
+main dishes:
+  🌯 tortilla:
+    - tortillawraps
+    - sipuli
+    - 700 g kanasuikaleet
+    - sienet
+    - salaatti
+    - viilikerma
+    - salsa
+    - tortillamauste
 
-🍕 pitsa:
-  - pitsa
-  - oliivit
-  - kalkkuna
-  - ananas
-  - juustoraaste
+  🍕 pitsa:
+    - pitsa
+    - oliivit
+    - kalkkuna
+    - ananas
+    - juustoraaste
 
-🍖 karjalanpaisti:
-  - 500 g karjalanpaistia
-  - 2 porkkanaa
-  - sipuli
-  - laakerinlehdet
-  - kokonaiset maustepippurit
-  - perunat
-  - vihannekset
+  🍖 karjalanpaisti:
+    - 500 g karjalanpaistia
+    - 2 porkkanaa
+    - sipuli
+    - laakerinlehdet
+    - kokonaiset maustepippurit
+    - perunat
+    - vihannekset
 
-🍗 kana ja riisi:
-  - 500 g kanafileet
-  - riisi
-  - vihannekset
+  🍗 kana ja riisi:
+    - 500 g kanafileet
+    - riisi
+    - vihannekset
 
-🍜 wokki:
-  - wokkivihannekset
-  - 500-700 g marinoitu kana
-  - nuudelit
-  - mifu
+  🍜 wokki:
+    - wokkivihannekset
+    - 500-700 g marinoitu kana
+    - nuudelit
+    - mifu
 
-🍝 soijabolognese:
-  - soijarouhe
-  - makaroni
-  - tomaattimurska
-  - sipuli
-  - valkosipuli
-  - soijakastike
-  - ketsuppi
-  - kasvisliemikuutio
-  - pizzamauste
+  🍝 soijabolognese:
+    - soijarouhe
+    - makaroni
+    - tomaattimurska
+    - sipuli
+    - valkosipuli
+    - soijakastike
+    - ketsuppi
+    - kasvisliemikuutio
+    - pizzamauste
 
-🍲 broilerijauhelihapata:
-  - 400 g kanajauheliha
-  - sipuli
-  - valkosipuli
-  - mauste
-  - curry
-  - kaneli
-  - liemikuutio
-  - 300 g perunoita
-  - 300 g bataattia
-  - 200 g maissi
-  - sitruunamehu
+  🍲 broilerijauhelihapata:
+    - 400 g kanajauheliha
+    - sipuli
+    - valkosipuli
+    - mauste
+    - curry
+    - kaneli
+    - liemikuutio
+    - 300 g perunoita
+    - 300 g bataattia
+    - 200 g maissi
+    - sitruunamehu
 
-🐓 broilerivuoka:
-  - makaroni
-  - valkosipuli
-  - 300-500 g kanan fileesuikaleet
-  - tomaattimurska
-  - 150 g pakastepinaatti
+  🐓 broilerivuoka:
+    - makaroni
+    - valkosipuli
+    - 300-500 g kanan fileesuikaleet
+    - tomaattimurska
+    - 150 g pakastepinaatti
 
-🐔 uunikana:
-  - 400-600 g kanafileet
-  - 4-6 perunaa
-  - 2 porkkanaa
-  - parsa- tai kukkakaali
-  - oliivit
-  - rosmariini
+  🐔 uunikana:
+    - 400-600 g kanafileet
+    - 4-6 perunaa
+    - 2 porkkanaa
+    - parsa- tai kukkakaali
+    - oliivit
+    - rosmariini
 
-🐟 lohi:
-  - lohi
-  - riisi?
-  - perunat?
-  - vihannekset
+  🐟 lohi:
+    - lohi
+    - riisi?
+    - perunat?
+    - vihannekset
 
-🐟 seiti:
-  - seiti
-  - maissi
-  - riisi
-  - curry
-  - kookosmaito tai -kerma
+  🐟 seiti:
+    - seiti
+    - maissi
+    - riisi
+    - curry
+    - kookosmaito tai -kerma
 
-🐥 broilerikiusaus:
-  - 1 kg peruna-sipulisekoitus
-  - 500 g kanasuikaleet
-  - rosmariini
-  - curry
-  - 2 kpl kerma
-  - koskenlaskija-dippi
-  - vihannekset
+  🐥 broilerikiusaus:
+    - 1 kg peruna-sipulisekoitus
+    - 500 g kanasuikaleet
+    - rosmariini
+    - curry
+    - 2 kpl kerma
+    - koskenlaskija-dippi
+    - vihannekset
 
-🐷 kinkkukiusaus:
-  - 1 kg peruna-sipulisekoitus
-  - 300 g kotimaista keittokinkkua
-  - 2 kpl pippurikerma
-  - vihannekset
+  🐷 kinkkukiusaus:
+    - 1 kg peruna-sipulisekoitus
+    - 300 g kotimaista keittokinkkua
+    - 2 kpl pippurikerma
+    - vihannekset
 
-🥕 vakioruoka:
-  - porkkanat
-  - 700 g kanasuikaleet
+  🥕 vakioruoka:
+    - porkkanat
+    - 700 g kanasuikaleet
 
-🥘 pippurinen kanapata:
-  - 400-600 g kanafileet
-  - sipuli
-  - 100 g herkkusieniä
-  - 200 g ruusukaalia
-  - kasvisliemikuutio
-  - tomaattimurska
-  - koskenlaskija-juusto
-  - perunat
+  🥘 pippurinen kanapata:
+    - 400-600 g kanafileet
+    - sipuli
+    - 100 g herkkusieniä
+    - 200 g ruusukaalia
+    - kasvisliemikuutio
+    - tomaattimurska
+    - koskenlaskija-juusto
+    - perunat
 
-🥞 kuivakakku:
-  - 2dl rusinoita
-  - banaani
-  - 2dl banaanijogurttia
-  - 2 munaa
-  - 3dl sokeria
+desserts:
+  🥞 kuivakakku:
+    - 2dl rusinoita
+    - banaani
+    - 2dl banaanijogurttia
+    - 2 munaa
+    - 3dl sokeria

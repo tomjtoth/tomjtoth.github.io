@@ -1,12 +1,192 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<title>ostoslista</title>
 </head>
 <body>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+<h1>Ateriat</h1>
+<ul id="ateriat"></ul>
+
+<h1>Ruokaaineet</h1>
+<ul id="ruokaaineet"></ul>
 
 </body>
-</html> 
+
+<script type="text/javascript">
+
+const cookbook = {
+    'main dishes': {
+        '🌯 tortilla': [
+            'tortillawraps',
+            'sipuli',
+            '700 g kanasuikaleet',
+            'sienet',
+            'salaatti',
+            'viilikerma',
+            'salsa',
+            'tortillamauste',
+        ],
+
+        '🍕 pitsa': [
+            'pitsa',
+            'oliivit',
+            'kalkkuna',
+            'ananas',
+            'juustoraaste',
+        ],
+
+        '🍖 karjalanpaisti': [
+            '500 g karjalanpaistia',
+            '2 porkkanaa',
+            'sipuli',
+            'laakerinlehdet',
+            'kokonaiset maustepippurit',
+            'perunat',
+            'vihannekset',
+        ],
+
+        '🍗 kana ja riisi': [
+            '500 g kanafileet',
+            'riisi',
+            'vihannekset',
+        ],
+
+        '🍜 wokki': [
+            'wokkivihannekset',
+            '500-700 g marinoitu kana',
+            'nuudelit',
+            'mifu',
+        ],
+
+        '🍝 soijabolognese': [
+            'soijarouhe',
+            'makaroni',
+            'tomaattimurska',
+            'sipuli',
+            'valkosipuli',
+            'soijakastike',
+            'ketsuppi',
+            'kasvisliemikuutio',
+            'pizzamauste',
+        ],
+
+        '🍲 broilerijauhelihapata': [
+            '400 g kanajauheliha',
+            'sipuli',
+            'valkosipuli',
+            'mauste',
+            'curry',
+            'kaneli',
+            'liemikuutio',
+            '300 g perunoita',
+            '300 g bataattia',
+            '200 g maissi',
+            'sitruunamehu',
+        ],
+
+        '🐓 broilerivuoka': [
+            'makaroni',
+            'valkosipuli',
+            '300-500 g kanan fileesuikaleet',
+            'tomaattimurska',
+            '150 g pakastepinaatti',
+        ],
+
+        '🐔 uunikana': [
+            '400-600 g kanafileet',
+            '4-6 perunaa',
+            '2 porkkanaa',
+            'parsa- tai kukkakaali',
+            'oliivit',
+            'rosmariini',
+        ],
+
+        '🐟 lohi': [
+            'lohi',
+            'riisi?',
+            'perunat?',
+            'vihannekset',
+        ],
+
+        '🐟 seiti': [
+            'seiti',
+            'maissi',
+            'riisi',
+            'curry',
+            'kookosmaito tai -kerma',
+        ],
+
+        '🐥 broilerikiusaus': [
+            '1 kg peruna-sipulisekoitus',
+            '500 g kanasuikaleet',
+            'rosmariini',
+            'curry',
+            '2 kpl kerma',
+            'koskenlaskija-dippi',
+            'vihannekset',
+        ],
+
+        '🐷 kinkkukiusaus': [
+            '1 kg peruna-sipulisekoitus',
+            '300 g kotimaista keittokinkkua',
+            '2 kpl pippurikerma',
+            'vihannekset',
+        ],
+
+        '🥕 vakioruoka':[
+            'porkkanat',
+            '700 g kanasuikaleet',
+        ],
+
+        '🥘 pippurinen kanapata': [
+            '400-600 g kanafileet',
+            'sipuli',
+            '100 g herkkusieniä',
+            '200 g ruusukaalia',
+            'kasvisliemikuutio',
+            'tomaattimurska',
+            'koskenlaskija-juusto',
+            'perunat',
+        ],
+    },
+
+    'desserts': {
+        '🥞 kuivakakku': [
+            '2dl rusinoita',
+            'banaani',
+            '2dl banaanijogurttia',
+            '2 munaa',
+            '3dl sokeria',
+        ],
+    }
+}
+
+const regexes = [
+    -500, /(cit+ari|K-supermarket|K-citimarket):?(sta)?/,
+    -100, /tokman+i/,
+    5, /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|kaneli|(musta.*)?pip+uri|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
+    10, /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/,
+    15, /kokis|kalja|olut|pepsi|mehu/,
+    20, /banaani|omena|mandariini|sien(i|et)|vi+nirypä+le+|hedelmä|sitru+na|ru+suka+l/,
+    25, /perun(a|oi).*(?!lastu|sipuli)|(?!^perun.*)sipuli|parsa.*ka+li|pork+ana|sala+t+i|(?!^wok.*)vihan+ek?s|bata+t+i/,
+    30, /(?!^ko+kos.*)(mai[dt]o|kerma)|voi|jogh?urt|hi+va/,
+    35, /(?!^veke)juusto|(koskenlask)?dip+i?/,
+    40, /liha|kana(?!.*muna)|mifu/,
+    45, /karjalanpa/,
+    50, /kalk+una|kink+u/,
+    55, /pitsa|ri+sipi+rak+a/,
+    60, /perunalastu|pähkinä|sipsi/,
+    65, /muna|oli+vi|toma+t+imurska|ananas|ko+kos/,
+    70, /lei[pv]ä/,
+    75, /nu+deli|makaroni|soija.*r.*h|ri+si|öljy/,
+    80, /vehnäja|muro|mysli/,
+    85, /sokeri/,
+    90, /hernek/,
+    95, /suklaa|kark+i/,
+    100, /pakaste|jätski|jäätelö|wok+ivihan+e|peruna.*sipuli|sei[dt]i|mais+i|ben.*jer+y/,
+    105, /vekeju+sto|loh[ei]/
+]
+</script>
+
+</html>
