@@ -225,7 +225,7 @@ for (var i = 0; i < 7; i++) {
                 if (!js_ingredients.has(i)) {
                     js_ingredients.set(i, [])
                 }
-                js_ingredients.get(i).push(ingredient);
+                js_ingredients.get(i).push(`${ingredient} (${dish})`);
                 found = true;
                 break;
             }
