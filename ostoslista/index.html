@@ -27,7 +27,7 @@ function getRandomKey(obj) {
 }
 
 
-// no instructions atm, perhaps later
+// no cooking instructions atm, perhaps later
 const cookbook = {
     'main dishes': {
         '🌯 tortilla': [
@@ -207,18 +207,46 @@ const html_ingredients = document.getElementById('ingredients');
 const html_dishes = document.getElementById('dishes');
 const js_dishes = cookbook['main dishes'];
 
-
+const js_ingredients = new Map();
+js_ingredients.set(-1, []);
 
 for (var i = 0; i < 7; i++) {
     let dish = getRandomKey(js_dishes);
     let html_dish = document.createElement('li');
     html_dish.innerText = dish;
-    html_dishes.appendChild(html_dish)
+    html_dishes.appendChild(html_dish);
 
+
+    for (let ingredient of js_dishes[dish]) {
+        let found = false;
+        for (let i = 0; i < regexes.length; i ++) {
+            if (ingredient.match(regexes[i])) {
+                if (!js_ingredients.has(i)) {
+                    js_ingredients.set(i, [])
+                }
+                js_ingredients.get(i).push(ingredient);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            // shove it under -1 index, as in unsorted
+        }
+    }
 
     // avoiding re-occurence
-    delete js_dishes[dish]
+    delete js_dishes[dish];
 }
+
+for (const [order, ingredients] of [...js_ingredients.entries()].sort()) {
+    for (const ingredient of ingredients) {
+        let html_ingredient = document.createElement('li');
+        html_ingredient.innerText = ingredient;
+        html_ingredients.appendChild(html_ingredient);
+    }
+}
+
+
 
 
 </script>
