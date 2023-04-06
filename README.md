@@ -1,4 +1,4 @@
 # Csá
 
-[bevásárlólista](ostoslista/index.html)
-[termékek](ostokset/README.md)
+- [bevásárlólista](ostoslista/index.html)
+- [termékek](ostokset/README.md)
