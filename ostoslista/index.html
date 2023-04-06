@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>ostoslista</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
 </head>
 <body>
 
@@ -238,7 +239,17 @@ for (var i = 0; i < 7; i++) {
     delete js_dishes[dish];
 }
 
-for (const [order, ingredients] of [...js_ingredients.entries()].sort()) {
+for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => {
+        let left = parseInt(a[0]);
+        let right = parseInt(b[0]);
+        if (left < right) {
+            return -1;
+        }
+        if (left < right) {
+            return 1;
+        }
+        return 0;
+    })) {
     for (const ingredient of ingredients) {
         let html_ingredient = document.createElement('li');
         html_ingredient.innerText = ingredient;
