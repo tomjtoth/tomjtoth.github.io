@@ -5,15 +5,27 @@
 </head>
 <body>
 
-<h1>Ateriat</h1>
-<ul id="ateriat"></ul>
+<h2>Ateriat</h2>
+<ul id="dishes"></ul>
 
-<h1>Ruokaaineet</h1>
-<ul id="ruokaaineet"></ul>
+<h2>Ruokaaineet</h2>
+<ul id="ingredients"></ul>
 
 </body>
 
 <script type="text/javascript">
+
+function getRandomKey(obj) {
+    const keys = Object.keys(obj);
+    let index = Math.floor(Math.random() * keys.length);
+    let cntr = 0;
+    for (let key of keys) {
+        if (cntr++ === index) {
+            return key;
+        }
+    }
+}
+
 
 // no instructions atm, perhaps later
 const cookbook = {
@@ -161,7 +173,7 @@ const cookbook = {
             '3dl sokeria',
         ],
     }
-}
+};
 
 // arranges ingredients the way I go through my local shop
 const regexes = [
@@ -188,8 +200,25 @@ const regexes = [
     /suklaa|kark+i/,
     /pakaste|jätski|jäätelö|wok+ivihan+e|peruna.*sipuli|sei[dt]i|mais+i|ben.*jer+y/,
     /vekeju+sto|loh[ei]/,
-]
+];
 
+
+const html_ingredients = document.getElementById('ingredients');
+const html_dishes = document.getElementById('dishes');
+const js_dishes = cookbook['main dishes'];
+
+
+
+for (var i = 0; i < 7; i++) {
+    let dish = getRandomKey(js_dishes);
+    let html_dish = document.createElement('li');
+    html_dish.innerText = dish;
+    html_dishes.appendChild(html_dish)
+
+
+    // avoiding re-occurence
+    delete js_dishes[dish]
+}
 
 
 </script>
