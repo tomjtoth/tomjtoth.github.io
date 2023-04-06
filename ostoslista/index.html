@@ -15,6 +15,7 @@
 
 <script type="text/javascript">
 
+// no instructions atm, perhaps later
 const cookbook = {
     'main dishes': {
         '🌯 tortilla': [
@@ -162,31 +163,35 @@ const cookbook = {
     }
 }
 
+// arranges ingredients the way I go through my local shop
 const regexes = [
-    -500, /(cit+ari|K-supermarket|K-citimarket):?(sta)?/,
-    -100, /tokman+i/,
-    5, /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|kaneli|(musta.*)?pip+uri|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
-    10, /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/,
-    15, /kokis|kalja|olut|pepsi|mehu/,
-    20, /banaani|omena|mandariini|sien(i|et)|vi+nirypä+le+|hedelmä|sitru+na|ru+suka+l/,
-    25, /perun(a|oi).*(?!lastu|sipuli)|(?!^perun.*)sipuli|parsa.*ka+li|pork+ana|sala+t+i|(?!^wok.*)vihan+ek?s|bata+t+i/,
-    30, /(?!^ko+kos.*)(mai[dt]o|kerma)|voi|jogh?urt|hi+va/,
-    35, /(?!^veke)juusto|(koskenlask)?dip+i?/,
-    40, /liha|kana(?!.*muna)|mifu/,
-    45, /karjalanpa/,
-    50, /kalk+una|kink+u/,
-    55, /pitsa|ri+sipi+rak+a/,
-    60, /perunalastu|pähkinä|sipsi/,
-    65, /muna|oli+vi|toma+t+imurska|ananas|ko+kos/,
-    70, /lei[pv]ä/,
-    75, /nu+deli|makaroni|soija.*r.*h|ri+si|öljy/,
-    80, /vehnäja|muro|mysli/,
-    85, /sokeri/,
-    90, /hernek/,
-    95, /suklaa|kark+i/,
-    100, /pakaste|jätski|jäätelö|wok+ivihan+e|peruna.*sipuli|sei[dt]i|mais+i|ben.*jer+y/,
-    105, /vekeju+sto|loh[ei]/
+    /(cit+ari|K-supermarket|K-citimarket):?(sta)?/,
+    /tokman+i/,
+    /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|kaneli|(musta.*)?pip+uri|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
+    /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/,
+    /kokis|kalja|olut|pepsi|mehu/,
+    /banaani|omena|mandariini|sien(i|et)|vi+nirypä+le+|hedelmä|sitru+na|ru+suka+l/,
+    /perun(a|oi).*(?!lastu|sipuli)|(?!^perun.*)sipuli|parsa.*ka+li|pork+ana|sala+t+i|(?!^wok.*)vihan+ek?s|bata+t+i/,
+    /(?!^ko+kos.*)(mai[dt]o|kerma)|voi|jogh?urt|hi+va/,
+    /(?!^veke)juusto|(koskenlask)?dip+i?/,
+    /liha|kana(?!.*muna)|mifu/,
+    /karjalanpa/,
+    /kalk+una|kink+u/,
+    /pitsa|ri+sipi+rak+a/,
+    /perunalastu|pähkinä|sipsi/,
+    /muna|oli+vi|toma+t+imurska|ananas|ko+kos/,
+    /lei[pv]ä/,
+    /nu+deli|makaroni|soija.*r.*h|ri+si|öljy/,
+    /vehnäja|muro|mysli/,
+    /sokeri/,
+    /hernek/,
+    /suklaa|kark+i/,
+    /pakaste|jätski|jäätelö|wok+ivihan+e|peruna.*sipuli|sei[dt]i|mais+i|ben.*jer+y/,
+    /vekeju+sto|loh[ei]/,
 ]
+
+
+
 </script>
 
 </html>
