@@ -6,6 +6,9 @@
 </head>
 <body>
 
+<button onclick="hist()">History</button>
+<button onclick="next()">Next</button>
+
 <h2>Ateriat</h2>
 <ul id="dishes"></ul>
 
@@ -16,165 +19,182 @@
 
 <script type="text/javascript">
 
-function getRandomKey(obj) {
-    const keys = Object.keys(obj);
-    let index = Math.floor(Math.random() * keys.length);
-    let cntr = 0;
-    for (let key of keys) {
-        if (cntr++ === index) {
-            return key;
-        }
-    }
-}
+const cookbook = Array.from(`
+# 🌯 tortilla
+
+- paista sipulit
+- sitten lisää sienet
+- lopuksi lisää lihaa, ja jauhe ennen kuin neste haihtuisi
+
+tortillawraps
+sipuli
+700 g kanasuikaleet
+sienet
+salaatti
+viilikerma
+salsa
+tortillamauste
 
 
-// no cooking instructions atm, perhaps later
-const cookbook = {
-    'main dishes': {
-        '🌯 tortilla': [
-            'tortillawraps',
-            'sipuli',
-            '700 g kanasuikaleet',
-            'sienet',
-            'salaatti',
-            'viilikerma',
-            'salsa',
-            'tortillamauste',
-        ],
+# 🍕 pitsa
 
-        '🍕 pitsa': [
-            'pitsa',
-            'oliivit',
-            'kalkkuna',
-            'ananas',
-            'juustoraaste',
-        ],
+eka 3 kerrosta tulee olla:
+- tomaattikastike
+- pitsamauste ja juustoraaste
 
-        '🍖 karjalanpaisti': [
-            '500 g karjalanpaistia',
-            '2 porkkanaa',
-            'sipuli',
-            'laakerinlehdet',
-            'kokonaiset maustepippurit',
-            'perunat',
-            'vihannekset',
-        ],
+pitsa
+oliivit
+kalkkuna
+ananas
+juustoraaste
 
-        '🍗 kana ja riisi': [
-            '500 g kanafileet',
-            'riisi',
-            'vihannekset',
-        ],
 
-        '🍜 wokki': [
-            'wokkivihannekset',
-            '500-700 g marinoitu kana',
-            'nuudelit',
-            'mifu',
-        ],
+# 🍖 karjalanpaisti
 
-        '🍝 soijabolognese': [
-            'soijarouhe',
-            'makaroni',
-            'tomaattimurska',
-            'sipuli',
-            'valkosipuli',
-            'soijakastike',
-            'ketsuppi',
-            'kasvisliemikuutio',
-            'pizzamauste',
-        ],
+500 g karjalanpaistia
+2 porkkanaa
+sipuli
+laakerinlehdet
+kokonaiset maustepippurit
+perunat
+vihannekset
 
-        '🍲 broilerijauhelihapata': [
-            '400 g kanajauheliha',
-            'sipuli',
-            'valkosipuli',
-            'mauste',
-            'curry',
-            'kaneli',
-            'liemikuutio',
-            '300 g perunoita',
-            '300 g bataattia',
-            '200 g maissi',
-            'sitruunamehu',
-        ],
 
-        '🐓 broilerivuoka': [
-            'makaroni',
-            'valkosipuli',
-            '300-500 g kanan fileesuikaleet',
-            'tomaattimurska',
-            '150 g pakastepinaatti',
-        ],
+# 🍗 kana ja riisi
 
-        '🐔 uunikana': [
-            '400-600 g kanafileet',
-            '4-6 perunaa',
-            '2 porkkanaa',
-            'parsa- tai kukkakaali',
-            'oliivit',
-            'rosmariini',
-        ],
+500 g kanafileet
+riisi
+vihannekset
 
-        '🐟 lohi': [
-            'lohi',
-            'riisi?',
-            'perunat?',
-            'vihannekset',
-        ],
 
-        '🐟 seiti': [
-            'seiti',
-            'maissi',
-            'riisi',
-            'curry',
-            'kookosmaito tai -kerma',
-        ],
+# 🍜 wokki
 
-        '🐥 broilerikiusaus': [
-            '1 kg peruna-sipulisekoitus',
-            '500 g kanasuikaleet',
-            'rosmariini',
-            'curry',
-            '2 kpl kerma',
-            'koskenlaskija-dippi',
-            'vihannekset',
-        ],
+wokkivihannekset
+500-700 g marinoitu kana
+nuudelit
+mifu
 
-        '🐷 kinkkukiusaus': [
-            '1 kg peruna-sipulisekoitus',
-            '300 g kotimaista keittokinkkua',
-            '2 kpl pippurikerma',
-            'vihannekset',
-        ],
 
-        '🥕 vakioruoka':[
-            'porkkanat',
-            '700 g kanasuikaleet',
-        ],
+# 🍝 soijabolognese
 
-        '🥘 pippurinen kanapata': [
-            '400-600 g kanafileet',
-            'sipuli',
-            '100 g herkkusieniä',
-            '200 g ruusukaalia',
-            'kasvisliemikuutio',
-            'tomaattimurska',
-            'koskenlaskija-juusto',
-            'perunat',
-        ],
-    },
+soijarouhe
+makaroni
+tomaattimurska
+sipuli
+valkosipuli
+soijakastike
+ketsuppi
+kasvisliemikuutio
+pizzamauste
 
-    'desserts': {
-        '🥞 kuivakakku': [
-            '2dl rusinoita',
-            'banaani',
-            '2dl banaanijogurttia',
-            '2 munaa',
-            '3dl sokeria',
-        ],
-    }
-};
+
+# 🍲 broilerijauhelihapata
+
+400 g kanajauheliha
+sipuli
+valkosipuli
+mauste
+curry
+kaneli
+liemikuutio
+300 g perunoita
+300 g bataattia
+200 g maissi
+sitruunamehu
+
+
+# 🐓 broilerivuoka
+
+makaroni
+valkosipuli
+300-500 g kanan fileesuikaleet
+tomaattimurska
+150 g pakastepinaatti
+
+
+# 🐔 uunikana
+
+400-600 g kanafileet
+4-6 perunaa
+2 porkkanaa
+parsa- tai kukkakaali
+oliivit
+rosmariini
+
+
+# 🐟 lohi
+
+lohi
+riisi?
+perunat?
+vihannekset
+
+
+# 🐟 seiti
+
+seiti
+maissi
+riisi?
+500g perunaa?
+curry?
+kookosmaito tai -kerma
+
+
+# 🐥 broilerikiusaus
+
+1 kg peruna-sipulisekoitus
+500 g kanasuikaleet
+rosmariini
+curry
+2 kpl kerma
+koskenlaskija-dippi
+vihannekset
+
+
+# 🐷 kinkkukiusaus
+
+1 kg peruna-sipulisekoitus
+300 g kotimaista keittokinkkua
+2 kpl pippurikerma
+vihannekset
+
+
+# 🥕 vakioruoka
+
+- käytä toi UFO höyrytinjuttu
+
+porkkanat
+700 g kanasuikaleet
+
+
+# 🥘 pippurinen kanapata
+
+400-600 g kanafileet
+sipuli
+100 g herkkusieniä
+200 g ruusukaalia
+kasvisliemikuutio
+tomaattimurska
+koskenlaskija-juusto
+perunat
+
+
+# 🥞 kuivakakku
+@ dessert
+
+2dl rusinoita
+banaani
+2dl banaanijogurttia
+2 munaa
+3dl sokeria
+`.matchAll(/# (?<name>[^\n]+)\n(?:\@ (?<type>[^\n]+)\n)?\n(?:(?<instr>[^#]+?)\n\n)?(?<ingr>[^#]+?)(?:\n\n|\n$)/gms))
+.map(mobj => {
+    let name = mobj.groups.name;
+    let type = mobj.groups.type;
+    let instructions = mobj.groups.instr;
+    let ingredients = mobj.groups.ingr.split('\n');
+    return {name, type, instructions, ingredients}
+});
 
 // arranges ingredients the way I go through my local shop
 const regexes = [
@@ -203,43 +223,61 @@ const regexes = [
     /vekeju+sto|loh[ei]/,
 ];
 
-
 const html_ingredients = document.getElementById('ingredients');
 const html_dishes = document.getElementById('dishes');
-const js_dishes = cookbook['main dishes'];
+const menu = new Set();
 
-const js_ingredients = new Map();
-js_ingredients.set(-1, []);
+function getRandDish() {
+    let i, dish;
+    do {
+        i = Math.floor(Math.random() * cookbook.length);
+        dish = cookbook[i];
+    } while (menu.has(i) && dish.type === undefined);
+    menu.add(i);
+    return dish;
+}
 
-for (var i = 0; i < 7; i++) {
-    let dish = getRandomKey(js_dishes);
-    let html_dish = document.createElement('li');
-    html_dish.innerText = dish;
-    html_dishes.appendChild(html_dish);
+function hist() {
+    return
+}
 
+function next() {
+    // on button click
+    if (menu.size > 0) {
+        const hist = JSON.parse(Storage.getItem('hist'));
+        hist.push(`${Date.now()},${JSON.stringify(menu)}`);
+        Storage.setItem('hist', JSON.stringify(hist));
+        menu.clear();
+    }
 
-    for (let ingredient of js_dishes[dish]) {
-        let found = false;
-        for (let i = 0; i < regexes.length; i ++) {
-            if (ingredient.match(regexes[i])) {
-                if (!js_ingredients.has(i)) {
-                    js_ingredients.set(i, [])
+    const js_ingredients = new Map();
+    js_ingredients.set(-1, []);
+
+    for (var i = 0; i < 7; i++) {
+        let dish = getRandDish();
+        let html_dish = document.createElement('li');
+        html_dish.innerText = dish.name;
+        html_dishes.appendChild(html_dish);
+
+        for (let ingredient of dish.ingredients) {
+            let found = false;
+            for (let i = 0; i < regexes.length; i ++) {
+                if (ingredient.match(regexes[i])) {
+                    if (!js_ingredients.has(i)) {
+                        js_ingredients.set(i, [])
+                    }
+                    js_ingredients.get(i).push(`${ingredient} (${dish.name})`);
+                    found = true;
+                    break;
                 }
-                js_ingredients.get(i).push(`${ingredient} (${dish})`);
-                found = true;
-                break;
             }
-        }
-        if (!found) {
-            // shove it under -1 index, as in unsorted
+            if (!found) {
+                js_ingredients.get(-1).push(`NOT FOUND: ${ingredient} (${dish.name})`)
+            }
         }
     }
 
-    // avoiding re-occurence
-    delete js_dishes[dish];
-}
-
-for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => {
+    for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => {
         let left = parseInt(a[0]);
         let right = parseInt(b[0]);
         if (left < right) {
@@ -250,16 +288,16 @@ for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => 
         }
         return 0;
     })) {
-    for (const ingredient of ingredients) {
-        let html_ingredient = document.createElement('li');
-        html_ingredient.innerText = ingredient;
-        html_ingredients.appendChild(html_ingredient);
+        for (const ingredient of ingredients) {
+            let html_ingredient = document.createElement('li');
+            html_ingredient.innerText = ingredient;
+            html_ingredients.appendChild(html_ingredient);
+        }
     }
+
 }
 
-
-
-
+next()
 </script>
 
 </html>
