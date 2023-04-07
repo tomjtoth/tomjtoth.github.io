@@ -7,13 +7,13 @@
 <body>
 
 <button onclick="hist()">History</button>
-<button onclick="next()">Next</button>
+<button onclick="shuffle()">Shuffle</button>
 
 <h2>Ateriat</h2>
-<ul id="dishes"></ul>
+<div id="dishes"></div>
 
 <h2>Ruokaaineet</h2>
-<ul id="ingredients"></ul>
+<div id="ingredients"></div>
 
 </body>
 
@@ -241,7 +241,8 @@ function hist() {
     alert(localStorage.getItem('hist'));
 }
 
-function next() {
+function shuffle() {
+    
     // on button click
     if (menu.size > 0) {
         let hist = JSON.parse(localStorage.getItem('hist'));
@@ -256,7 +257,7 @@ function next() {
     const js_ingredients = new Map();
     js_ingredients.set(-1, []);
 
-    for (var i = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i++) {
         let dish = getRandDish();
         let html_dish = document.createElement('li');
         html_dish.innerText = dish.name;
@@ -280,6 +281,8 @@ function next() {
         }
     }
 
+    let cntr = 0;
+
     for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => {
         let left = parseInt(a[0]);
         let right = parseInt(b[0]);
@@ -292,15 +295,23 @@ function next() {
         return 0;
     })) {
         for (const ingredient of ingredients) {
-            let html_ingredient = document.createElement('li');
-            html_ingredient.innerText = ingredient;
-            html_ingredients.appendChild(html_ingredient);
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.id = 'i' + cntr;
+            html_ingredients.appendChild(cb);
+
+            const lbl = document.createElement('label');
+            lbl.setAttribute('for', 'i' + cntr++);
+            lbl.innerText = ingredient;
+            html_ingredients.appendChild(lbl);
+
+            html_ingredients.appendChild(document.createElement("br"));
         }
     }
 
 }
 
-next()
+shuffle()
 </script>
 
 </html>
