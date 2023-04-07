@@ -232,22 +232,25 @@ function getRandDish() {
     do {
         i = Math.floor(Math.random() * cookbook.length);
         dish = cookbook[i];
-    } while (menu.has(i) && dish.type === undefined);
+    } while (menu.has(i) || dish.type !== undefined);
     menu.add(i);
     return dish;
 }
 
 function hist() {
-    return
+    alert(localStorage.getItem('hist'));
 }
 
 function next() {
     // on button click
     if (menu.size > 0) {
-        const hist = JSON.parse(Storage.getItem('hist'));
-        hist.push(`${Date.now()},${JSON.stringify(menu)}`);
-        Storage.setItem('hist', JSON.stringify(hist));
+        let hist = JSON.parse(localStorage.getItem('hist'));
+        if (!hist) hist = [];
+        hist.push(`${Date.now()},${JSON.stringify([...menu])}`);
+        localStorage.setItem('hist', JSON.stringify(hist));
         menu.clear();
+        html_dishes.innerHTML = '';
+        html_ingredients.innerHTML = '';
     }
 
     const js_ingredients = new Map();
