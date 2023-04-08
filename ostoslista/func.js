@@ -1,0 +1,117 @@
+const html_ingredients = document.getElementById('ingredients');
+const html_dishes = document.getElementById('dishes');
+
+const menu = new Set(JSON.parse(localStorage.getItem('persistent')));
+
+function reset_checkboxes() {
+    for (const btn of document.querySelectorAll('.ingr_btn, .ingr_btn2')) {
+        btn.classList.remove('active');
+    }
+}
+
+function shuffle() {
+    menu.clear();
+    for (let i = 0; i < 7; i++) {
+        let j;
+        do {
+            j = Math.floor(Math.random() * cookbook.length);
+        } while (menu.has(j) || cookbook[j].type !== undefined);
+        menu.add(j);
+    }
+    localStorage.setItem('persistent', JSON.stringify([...menu]));
+    build();
+}
+
+function build() {
+    // drop all current entries
+    html_dishes.innerHTML = '';
+    html_ingredients.innerHTML = '';
+
+    const js_ingredients = new Map();
+    js_ingredients.set(-1, []);
+    let alternating = 0;
+
+    for (const i of menu) {
+        const dish = cookbook[i];
+
+        // clickable button as name of dish
+        const dish_btn = document.createElement('button');
+        dish_btn.innerText = dish.name;
+
+        dish_btn.setAttribute('class', alternating++ % 2 == 0 ? 'dish_btn' : 'dish_btn2');
+        dish_btn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+        html_dishes.appendChild(dish_btn);
+
+        // paragraph containing instructions
+        const dish_p = document.createElement('p');
+        dish_p.innerText = dish.instructions 
+            ? dish.instructions 
+            : 'Ohje puuttu, LYCKA TILL!';
+
+        // div responsible for hiding/showing its child paragraph
+        const dish_div = document.createElement('div');
+        dish_div.setAttribute('class', 'dish_div');
+        dish_div.appendChild(dish_p);
+        html_dishes.appendChild(dish_div);        
+
+        for (let ingredient of dish.ingredients) {
+            let found = false;
+            for (let i = 0; i < regexes.length; i ++) {
+                if (ingredient.match(regexes[i])) {
+                    if (!js_ingredients.has(i)) {
+                        js_ingredients.set(i, [])
+                    }
+
+                    js_ingredients.get(i).push(`${ingredient} (${dish.name})`);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                js_ingredients.get(-1).push(`NOT FOUND: ${ingredient} (${dish.name})`)
+            }
+        }
+    }
+
+    for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => {
+        let left = parseInt(a[0]);
+        let right = parseInt(b[0]);
+        if (left < right) {
+            return -1;
+        }
+        if (left < right) {
+            return 1;
+        }
+        return 0;
+    })) {
+        for (const ingredient of ingredients) {
+            const ingr_btn = document.createElement('button');
+            ingr_btn.innerText = ingredient;
+            
+            ingr_btn.setAttribute('class', alternating++ % 2 == 0 ? 'ingr_btn' : 'ingr_btn2');
+            ingr_btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+            html_ingredients.appendChild(ingr_btn);
+        }
+    }
+}
+
+function main() {
+    if (menu.size > 0) {
+        build()
+    } else {
+        shuffle()
+    }
+    
+}
+
+main()
