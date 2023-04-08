@@ -1,16 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ostoslista</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
+<style>
+.dish_btn, .ingr_btn {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.dish_btn.active, .dish_btn:hover, .ingr_btn:hover {
+    background-color: #555;
+}
+
+.dish_div {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+
+
+.ingr_btn.active {
+    background-color: rgb(25, 149, 25);
+}
+</style>
 </head>
 <body>
 
-<button onclick="hist()">History</button>
+<button onclick="reset_checkboxes()">Reset Ticks</button>
 <button onclick="shuffle()">Shuffle</button>
 
 <h2>Ateriat</h2>
-<ul id="dishes"></ul>
+<div id="dishes"></div>
 
 <h2>Ruokaaineet</h2>
 <div id="ingredients"></div>
@@ -225,43 +256,66 @@ const regexes = [
 
 const html_ingredients = document.getElementById('ingredients');
 const html_dishes = document.getElementById('dishes');
-const menu = new Set();
 
-function getRandDish() {
-    let i, dish;
-    do {
-        i = Math.floor(Math.random() * cookbook.length);
-        dish = cookbook[i];
-    } while (menu.has(i) || dish.type !== undefined);
-    menu.add(i);
-    return dish;
-}
+const menu = new Set(JSON.parse(localStorage.getItem('persistent')));
 
-function hist() {
-    alert(localStorage.getItem('hist'));
+function reset_checkboxes() {
+    return
 }
 
 function shuffle() {
-    
-    // on button click
-    if (menu.size > 0) {
-        let hist = JSON.parse(localStorage.getItem('hist'));
-        if (!hist) hist = [];
-        hist.push(`${Date.now()},${JSON.stringify([...menu])}`);
-        localStorage.setItem('hist', JSON.stringify(hist));
-        menu.clear();
-        html_dishes.innerHTML = '';
-        html_ingredients.innerHTML = '';
+    menu.clear();
+    for (let i = 0; i < 7; i++) {
+        let j;
+        do {
+            j = Math.floor(Math.random() * cookbook.length);
+        } while (menu.has(j) || cookbook[j].type !== undefined);
+        menu.add(j);
     }
+    localStorage.setItem('persistent', JSON.stringify([...menu]));
+    build();
+}
+
+function build() {
+    // drop all current entries
+    html_dishes.innerHTML = '';
+    html_ingredients.innerHTML = '';
 
     const js_ingredients = new Map();
     js_ingredients.set(-1, []);
 
-    for (let i = 0; i < 7; i++) {
-        let dish = getRandDish();
-        let html_dish = document.createElement('li');
-        html_dish.innerText = dish.name;
-        html_dishes.appendChild(html_dish);
+    for (const i of menu) {
+        const dish = cookbook[i];
+
+        // clickable button as name of dish
+        const dish_btn = document.createElement('button');
+        dish_btn.innerText = dish.name;
+
+        dish_btn.setAttribute('class', 'dish_btn');
+        dish_btn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+        html_dishes.appendChild(dish_btn);
+
+        // paragraph containing instructions
+        const dish_p = document.createElement('p');
+        dish_p.innerText = dish.instructions 
+            ? dish.instructions 
+            : 'Ohje puuttu, LYCKA TILL!';
+
+        // div responsible for hiding/showing its child paragraph
+        const dish_div = document.createElement('div');
+        dish_div.setAttribute('class', 'dish_div');
+        dish_div.appendChild(dish_p);
+        html_dishes.appendChild(dish_div);
+
+        
 
         for (let ingredient of dish.ingredients) {
             let found = false;
@@ -270,6 +324,7 @@ function shuffle() {
                     if (!js_ingredients.has(i)) {
                         js_ingredients.set(i, [])
                     }
+
                     js_ingredients.get(i).push(`${ingredient} (${dish.name})`);
                     found = true;
                     break;
@@ -280,8 +335,6 @@ function shuffle() {
             }
         }
     }
-
-    let cntr = 0;
 
     for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => {
         let left = parseInt(a[0]);
@@ -295,22 +348,18 @@ function shuffle() {
         return 0;
     })) {
         for (const ingredient of ingredients) {
-            const cb = document.createElement('input');
-            cb.type = 'checkbox';
-            cb.id = 'i' + cntr;
-            html_ingredients.appendChild(cb);
-
-            const lbl = document.createElement('label');
-            lbl.setAttribute('for', 'i' + cntr++);
-            lbl.innerText = ingredient;
-            html_ingredients.appendChild(lbl);
-
-            html_ingredients.appendChild(document.createElement("br"));
+            const ingr_btn = document.createElement('button');
+            ingr_btn.innerText = ingredient;
+            
+            ingr_btn.setAttribute('class', 'ingr_btn');
+            ingr_btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+            html_ingredients.appendChild(ingr_btn);
         }
     }
-
 }
-
+        
 shuffle()
 </script>
 
