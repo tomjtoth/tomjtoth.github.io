@@ -5,8 +5,9 @@
 <title>ostoslista</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
 <style>
-.dish_btn, .ingr_btn {
-    background-color: #777;
+.dish_btn, .ingr_btn,
+.dish_btn2, .ingr_btn2 {
+    background-color: #666;
     color: white;
     cursor: pointer;
     padding: 18px;
@@ -17,7 +18,13 @@
     font-size: 15px;
 }
 
-.dish_btn.active, .dish_btn:hover, .ingr_btn:hover {
+.dish_btn2, .ingr_btn2 {
+    background-color: #888;
+}
+
+.dish_btn.active, .dish_btn2.active,
+.dish_btn:hover, .dish_btn2:hover,
+.ingr_btn:hover, .ingr_btn2:hover {
     background-color: #555;
 }
 
@@ -31,7 +38,11 @@
 
 
 .ingr_btn.active {
-    background-color: rgb(25, 149, 25);
+    background-color: #080;
+}
+
+.ingr_btn2.active {
+    background-color: #2a2;
 }
 </style>
 </head>
@@ -192,9 +203,9 @@ vihannekset
 
 # 🥕 vakioruoka
 
-- käytä toi UFO höyrytinjuttu
+käytä toi UFO höyrytinjuttu
 
-porkkanat
+kilon porkkanat
 700 g kanasuikaleet
 
 
@@ -218,7 +229,25 @@ banaani
 2dl banaanijogurttia
 2 munaa
 3dl sokeria
-`.matchAll(/# (?<name>[^\n]+)\n(?:\@ (?<type>[^\n]+)\n)?\n(?:(?<instr>[^#]+?)\n\n)?(?<ingr>[^#]+?)(?:\n\n|\n$)/gms))
+
+
+# 🫓 lángos
+
+- 3dl jauhoa + suolaa laitat isoon kulhoon*
+- maito mukiin -> 36˚
+- siihen laitat hiivaa + sokeria
+- 5 minuuttia annat ne piereskelemään, laitat jonnekin lämpimään
+- kaadat mukin kulhoon*
+- 1 sormella sekoitat, sitten összegyúrod
+
+0,5dl maito
+0,5 teeusikka sokeri
+0,5 teelusikka suola
+3dl vehnäjauho
+50g hiiva (riittää 4 päivälle)
+`
+// https://regex101.com/r/ofnra6
+.matchAll(/# (?<name>[^\n]+)\n(?:\@ (?<type>[^\n]+)\n)?\n(?:(?<instr>[^#]+?)\n\n)?(?<ingr>[^#]+?)(?:\n\n|\n$)/gms))
 .map(mobj => {
     let name = mobj.groups.name;
     let type = mobj.groups.type;
@@ -283,6 +312,7 @@ function build() {
 
     const js_ingredients = new Map();
     js_ingredients.set(-1, []);
+    let alternating = 0;
 
     for (const i of menu) {
         const dish = cookbook[i];
@@ -291,7 +321,7 @@ function build() {
         const dish_btn = document.createElement('button');
         dish_btn.innerText = dish.name;
 
-        dish_btn.setAttribute('class', 'dish_btn');
+        dish_btn.setAttribute('class', alternating++ % 2 == 0 ? 'dish_btn' : 'dish_btn2');
         dish_btn.addEventListener('click', function() {
             this.classList.toggle('active');
             var content = this.nextElementSibling;
@@ -313,9 +343,7 @@ function build() {
         const dish_div = document.createElement('div');
         dish_div.setAttribute('class', 'dish_div');
         dish_div.appendChild(dish_p);
-        html_dishes.appendChild(dish_div);
-
-        
+        html_dishes.appendChild(dish_div);        
 
         for (let ingredient of dish.ingredients) {
             let found = false;
@@ -351,7 +379,7 @@ function build() {
             const ingr_btn = document.createElement('button');
             ingr_btn.innerText = ingredient;
             
-            ingr_btn.setAttribute('class', 'ingr_btn');
+            ingr_btn.setAttribute('class', alternating++ % 2 == 0 ? 'ingr_btn' : 'ingr_btn2');
             ingr_btn.addEventListener('click', function() {
                 this.classList.toggle('active');
             });
