@@ -160,7 +160,7 @@ banaani
     )
         .matchAll(/(?<=#)\w+/g)).map(mo_tag => mo_tag[0]);
     const preference = parseInt(mo_dish.groups.pref);
-    const re_ingr = /"([\p{Letter} ,.\d-]+)" *[-:]?/gu;
+    const re_ingr = /"([\p{Letter} ,.\d'-]+)" *[-:]?/gu;
     const instructions = mo_dish.groups.descr.replace(re_ingr, '$1');
     const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingr)).map(mo_i => mo_i[1]);
     return {name, tags,preference, instructions, ingredients}
