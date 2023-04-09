@@ -1,165 +1,137 @@
+// splitting at 3+ linefeeds
 const cookbook = Array.from(`
-# 🌯 tortilla
+🌯 tortilla
+#windy #spicy
+-5
 
-- paista sipulit
-- sitten lisää sienet
-- lopuksi lisää lihaa, ja jauhe ennen kuin neste haihtuisi
+- pilkkoo ja paista "1kpl sipuli"
+- lisää "sienisäilyke" kyytiin
+- lisää "700g kanasuikale" -et, ja "tortillamauste" ennen kuin sen neste haihtuisi
 
-tortillawraps
-sipuli
-700 g kanasuikaleet
-sienet
-salaatti
-viilikerma
-salsa
-tortillamauste
+lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakastike" ja "salaatti"
 
 
-# 🍕 pitsa
+🍕 pitsa
+#coke
++5
 
-eka 3 kerrosta tulee olla:
-- tomaattikastike
-- pitsamauste ja juustoraaste
-
-pitsa
-oliivit
-kalkkuna
-ananas
-juustoraaste
+- rullaa "pitsataikina" auki ja levitä tomaattikastike
+- ripottele vähän "pitsamauste" ja "juustoraaste"
+- pilkkoo "kalkkuna" ja laita päälle
+- avaa "ananassäilyke" ja levitä nekin
+- laita "oliivit" myös
 
 
-# 🍖 karjalanpaisti
+🍲 kanapasta
+#csirke #tészta #brokkoli
+-1
+- laita "300-500 g maustamattomat kanasuikaleet" pannulle ruskistumaan, mausta suolalla ja lisää hetken päästä joukkoon "100 g herkkusieni"
+- laita "400 g makaroni" kiehumaan ja jos haluat niin myös "parsakaali" omaan erilliseen kattilaan
+- lisää kanan joukkoon "kolme pippuria tuorejuusto" ja 1 dl vettä, sekoita ja anna hautua
+- ruoka on valmis, kun makaronit (ja parsakaali) ovat kypsiä
 
-500 g karjalanpaistia
-2 porkkanaa
-sipuli
-laakerinlehdet
-kokonaiset maustepippurit
-perunat
-vihannekset
+🍗 kana ja riisi
+#kana #rizs
+2
+- paista "500g kanafileet"
+- keitä "riisi"
+- laita riisin kyytiin "pakastevihannekset"
 
+🍜 wokki
+#mifu #wokki #nuudeli
+3
+- ruskista "mifu" tai "500–700 g marinoitu kana" pannulla
+- samaan aikaan keitä " 2 kpl nuudelipussi" 5 desilitrassa vettä
+- lisää "wokkivihannekset" mifun joukkoon ja paista kypsäksi
+- kun vesi on imeytynyt nuudeleihin, sekoita kaikki ainekset keskenään
 
-# 🍗 kana ja riisi
+🍝 soijabolognese
+#soijarouhe
+4
+- pilko 1 kpl "sipuli", 2 kpl "valkosipuli" ja lisää pannulle
+- kun sipulit alkavat paistua, lisää 2 dl "soijarouhe" joukkoon
+- lisää noin 2 rkl "soijakastike" ja sekoita
+- lisää "400g tomaattimurska", lisää vettä purkkiin ja kaada pannulle
+- lisää "kasvisliemikuutio", "ketsuppi", "pizzamauste" ja "pippuri" ja jätä kastike hautumaan
+- laita "makaroni" kiehumaan, lisää hieman "suola" ja kun makaronit ovat kypsiä niin jó étvágyat!
 
-500 g kanafileet
-riisi
-vihannekset
+🍲 broilerijauhelihapata
+#ONION #windy #jauheliha #bataatti #peruna
+0
+- pilko 1 kpl "sipuli", 2 kpl "valkosipuli" ja lisää ne pannulle
+- kun sipulit alkaa paistua, lisää "400g kanajauheliha" mukaan ja paista niin ettei näy enää pinkkiä väriä
+- pilko ja kuori samalla "300 g peruna" ja "300 g bataatti"
+- laita kanan sekaan "suola", "pippuri", "curry" ja "kaneli"
+- lisää 5 dl vettä ja "kasvisliemikuutio" joukkoon ja sekoita
+- lisää perunat, bataatit ja "200 g maissi" ja sekoita
+- anna hautua liedellä kunnes juurekset ovat pehmeitä
 
+🐓 kanakastike
+#unclebens
+-3
+- ruskista "300-500 g kanasuikaleet" pannulla (700 g kanaa on jo liikaa, mutta voit kokeilla ;) ) ja kun suikaleet ovat ruskistuneet lisää "uncle ben's -kastike" ja anna hautua vähän aikaa
+- keitä samalla 3 dl "riisi" ja lisää sekaan "200 g maissi"
 
-# 🍜 wokki
+🐔 uunikana
+#chickenintheoven
+5
+- kuori ja pilko "500 g peruna", "2 kpl porkkana" ja "parsakaali" sekä laita ne kulhoon
+- mausta kasvikset "suola", "pippuri", "rosmariini" ja jos haluat niin myös "paprikamauste"
+- voitele uunivuoka öljyllä ja asettele siihen " marinoidut kanafileet" ja heitä päälle maustetut kasvikset
+- anna kypsentyä uunissa 1 h
 
-wokkivihannekset
-500-700 g marinoitu kana
-nuudelit
-mifu
+🐟 lohi
+#lohifilee
+0
+- ota uunipelti ja laita siihen leivinpaperi sekä folio
+- laita "lohi" pellille ja mausta "suola" ja "pippuri" sekä kääri folioon
+- laita uuniin 30-40 minuutiksi
+- laita vesi riisille kiehumaan, lisää myös "kasvisliemikuutio" ja "maissi" joukkoon
 
+🐟 seiti
+#fisk
++5
+- paista pannulla "seiti"
+- samalla keitä "riisi" 
+- enne kuin riisin kaikki nesteet haihtuisi, lisää kyytiin "200g maissi"
+- vaihtoehtoisesti tee muussi "500g peruna" -sta
 
-# 🍝 soijabolognese
+🍔 hampparit
+#jättebra #hamburgare
++5
+- paista "halloumi" pannulla
+- paahda "hampparisämpylät" leivänpaahtimessa
+- lisää "hampparikastike", "cheddar" ja "salaatti"
 
-soijarouhe
-makaroni
-tomaattimurska
-sipuli
-valkosipuli
-soijakastike
-ketsuppi
-kasvisliemikuutio
-pizzamauste
+🐷 kinkkukiusaus
+#kinkku
+-5
+- pilko "keittokinkku"
+- voitele uunivuoka öljyllä ja lisää siihen "1 kg peruna-sipulisekoitus" ja "keittokinkku"
+- lisää kulhoon "2 kpl ruokakerma" ja lisää joukkoon mausteita esim. "suola", "pippuri" ja "timjami", sekoita ja kaada vuokaan ruuan päälle
+- kypsennä uunissa 1 h
+- voit keittää liedellä lisäksi "pakastevihannekset"
 
-
-# 🍲 broilerijauhelihapata
-
-400 g kanajauheliha
-sipuli
-valkosipuli
-mauste
-curry
-kaneli
-liemikuutio
-300 g perunoita
-300 g bataattia
-200 g maissi
-sitruunamehu
-
-
-# 🐓 broilerivuoka
-
-makaroni
-valkosipuli
-300-500 g kanan fileesuikaleet
-tomaattimurska
-150 g pakastepinaatti
-
-
-# 🐔 uunikana
-
-400-600 g kanafileet
-4-6 perunaa
-2 porkkanaa
-parsa- tai kukkakaali
-oliivit
-rosmariini
-
-
-# 🐟 lohi
-
-lohi
-riisi?
-perunat?
-vihannekset
-
-
-# 🐟 seiti
-
-seiti
-maissi
-riisi?
-500g perunaa?
-curry?
-kookosmaito tai -kerma
-
-
-# 🐥 broilerikiusaus
-
-1 kg peruna-sipulisekoitus
-500 g kanasuikaleet
-rosmariini
-curry
-2 kpl kerma
-koskenlaskija-dippi
-vihannekset
-
-
-# 🐷 kinkkukiusaus
-
-1 kg peruna-sipulisekoitus
-300 g kotimaista keittokinkkua
-2 kpl pippurikerma
-vihannekset
-
-
-# 🥕 vakioruoka
-
+🥕 vakioruoka
+#since2018
++100
 käytä toi UFO höyrytinjuttu
 
 kilon porkkanat
 700 g kanasuikaleet
 
 
-# 🥘 pippurinen kanapata
+🥘 makaronimuhennos
+#pääkallopata
+1
+- pilko "1 kpl sipuli" ja "2 kpl valkosipuli" ja lisää ne pannulla
+- kun sipuli alkaa paistua, lisää joukkoon "400 g kanajauheliha" ja paista kunnes pinkki väri hävinnyt
+- mausta seos "suola", "pippuri", "curry", "kaneli" ja "paprikamauste". älä paista liian kauan, ettei mausteet pala ja seos kuivu!
+- laita samalla "400 g makaroni" kiehumaan, lisää veteen "kasvisliemikuutio"
+- kun makaronit ja lihaseos ovat kypsiä, sekoita ne ja nauti!
 
-400-600 g kanafileet
-sipuli
-100 g herkkusieniä
-200 g ruusukaalia
-kasvisliemikuutio
-tomaattimurska
-koskenlaskija-juusto
-perunat
-
-
-# 🥞 kuivakakku
-@ dessert
+🥞 kuivakakku
+#dessert #nam
 
 2dl rusinoita
 banaani
@@ -168,29 +140,34 @@ banaani
 3dl sokeria
 
 
-# 🫓 lángos
+🫓 lángos
+#easy #greasy #hungarian #delicious
++10
 
-- 3dl jauhoa + suolaa laitat isoon kulhoon*
-- maito mukiin -> 36˚
-- siihen laitat hiivaa + sokeria
-- 5 minuuttia annat ne piereskelemään, laitat jonnekin lämpimään
-- kaadat mukin kulhoon*
-- 1 sormella sekoitat, sitten összegyúrod
-
-0,5dl maito
-0,5 teeusikka sokeri
-0,5 teelusikka suola
-3dl vehnäjauho
-50g hiiva (riittää 4 päivälle)
+- laita isoon kulhoon "3dl vehnäjauhoa" + "0,5tl suolaa"
+- lämmitä mukissa "0,5dl maito" 36 asteiseksi
+- revi (maitoon) pieniksi paloiksi "12,5g tuorehiivaa"
+- lisää "0,5tl sokeria"
+- anna hiivat tehostumaan 5 minuuttia jossain lämpimässä paikassa
+- kaada mukin sisällöt kulhoon ja sekoitat (alussa 1 sormella)
+- kun taikina ei enää jää kiinni kulhoon, laita ~tunniksi takaisin
+#TAUKO
+- faf
 `
 // https://regex101.com/r/ofnra6
-.matchAll(/# (?<name>[^\n]+)\n(?:\@ (?<type>[^\n]+)\n)?\n(?:(?<instr>[^#]+?)\n\n)?(?<ingr>[^#]+?)(?:\n\n|\n$)/gms))
-.map(mobj => {
-    let name = mobj.groups.name;
-    let type = mobj.groups.type;
-    let instructions = mobj.groups.instr;
-    let ingredients = mobj.groups.ingr.split('\n');
-    return {name, type, instructions, ingredients}
+.matchAll(/(?<name>\p{Emoji_Presentation} .+)\n+(?:(?<tags>(?:#[\p{Letter}\d_]+ )*#[\p{Letter}\d_]+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>\P{Emoji_Presentation}+)\n/ug))
+.map(mo_dish => {
+    const name = mo_dish.groups.name;
+    const tags = Array.from((mo_dish.groups.tags
+        ? mo_dish.groups.tags
+        : ''
+    )
+        .matchAll(/(?<=#)\w+/g)).map(mo_tag => mo_tag[0]);
+    const preference = parseInt(mo_dish.groups.pref);
+    const re_ingr = /"([\p{Letter} \d]+)" *[-:]?/gu;
+    const instructions = mo_dish.groups.descr.replace(re_ingr, '$1');
+    const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingr)).map(mo_i => mo_i[1]);
+    return {name, tags,preference, instructions, ingredients}
 });
 
 // arranges ingredients the way I go through my local shop

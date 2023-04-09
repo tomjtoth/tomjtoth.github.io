@@ -1,4 +1,6 @@
-# Csá
+# About
 
-- [bevásárlólista](ostoslista/index.html)
-- [termékek](ostokset/README.md)
+The usual..
+
+- [shopping list](ostoslista/index.html)
+- [products](ostokset/README.md)

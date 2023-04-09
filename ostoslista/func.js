@@ -15,7 +15,7 @@ function shuffle() {
         let j;
         do {
             j = Math.floor(Math.random() * cookbook.length);
-        } while (menu.has(j) || cookbook[j].type !== undefined);
+        } while (menu.has(j) || cookbook[j].tags.includes('dessert'));
         menu.add(j);
     }
     localStorage.setItem('persistent', JSON.stringify([...menu]));
@@ -76,7 +76,7 @@ function build() {
                 }
             }
             if (!found) {
-                js_ingredients.get(-1).push(`NOT FOUND: ${ingredient} (${dish.name})`)
+                js_ingredients.get(-1).push(`UNSORTED: ${ingredient} (${dish.name})`)
             }
         }
     }
