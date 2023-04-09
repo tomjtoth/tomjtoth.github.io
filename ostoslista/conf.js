@@ -1,10 +1,9 @@
 // splitting at 3+ linefeeds
-const cookbook = Array.from(`
-🌯 tortilla
+const cookbook = Array.from(`🌯 tortilla
 #windy #spicy
 -5
 
-- pilkkoo ja paista "1kpl sipuli"
+- pilkkoo ja paista "sipuli"
 - lisää "sienisäilyke" kyytiin
 - lisää "700g kanasuikale" -et, ja "tortillamauste" ennen kuin sen neste haihtuisi
 
@@ -16,7 +15,7 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 +5
 
 - rullaa "pitsataikina" auki ja levitä tomaattikastike
-- ripottele vähän "pitsamauste" ja "juustoraaste"
+- ripottele vähän "pizzamauste" ja "juustoraaste"
 - pilkkoo "kalkkuna" ja laita päälle
 - avaa "ananassäilyke" ja levitä nekin
 - laita "oliivit" myös
@@ -77,7 +76,7 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 5
 - kuori ja pilko "500 g peruna", "2 kpl porkkana" ja "parsakaali" sekä laita ne kulhoon
 - mausta kasvikset "suola", "pippuri", "rosmariini" ja jos haluat niin myös "paprikamauste"
-- voitele uunivuoka öljyllä ja asettele siihen " marinoidut kanafileet" ja heitä päälle maustetut kasvikset
+- voitele uunivuoka öljyllä ja asettele siihen "marinoidut kanafileet" ja heitä päälle maustetut kasvikset
 - anna kypsentyä uunissa 1 h
 
 🐟 lohi
@@ -115,11 +114,8 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 🥕 vakioruoka
 #since2018
 +100
-käytä toi UFO höyrytinjuttu
-
-kilon porkkanat
-700 g kanasuikaleet
-
+- pilko ja keitä 1 kg "porkkanat", käytä toi UFO höyrytinjuttu
+- paista "700 g kanasuikaleet"
 
 🥘 makaronimuhennos
 #pääkallopata
@@ -164,7 +160,7 @@ banaani
     )
         .matchAll(/(?<=#)\w+/g)).map(mo_tag => mo_tag[0]);
     const preference = parseInt(mo_dish.groups.pref);
-    const re_ingr = /"([\p{Letter} \d]+)" *[-:]?/gu;
+    const re_ingr = /"([\p{Letter} ,.\d]+)" *[-:]?/gu;
     const instructions = mo_dish.groups.descr.replace(re_ingr, '$1');
     const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingr)).map(mo_i => mo_i[1]);
     return {name, tags,preference, instructions, ingredients}
