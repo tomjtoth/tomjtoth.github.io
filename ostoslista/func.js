@@ -51,10 +51,8 @@ function build() {
 
         // paragraph containing instructions
         const dish_p = document.createElement('p');
-        dish_p.innerText = dish.instructions 
-            ? dish.instructions 
-            : 'Ohje puuttu, LYCKA TILL!';
-
+        dish_p.innerText = dish.instructions;
+        
         // div responsible for hiding/showing its child paragraph
         const dish_div = document.createElement('div');
         dish_div.setAttribute('class', 'dish_div');
