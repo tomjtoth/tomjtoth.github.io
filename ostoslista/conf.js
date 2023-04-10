@@ -1,5 +1,9 @@
-// splitting at 3+ linefeeds
-const cookbook = Array.from(`🌯 tortilla
+const re_ingredients = /"([^"]+)"(?: *[-:])?/g;
+const re_tags = /(?<=#)\S+/g;
+
+// dishes between emojis
+const cookbook = Array.from(`
+🌯 tortilla
 #windy #spicy
 -5
 
@@ -23,7 +27,8 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 
 🍲 kanapasta
 #csirke #tészta #brokkoli
--1
+-10
+
 - laita "300-500 g maustamattomat kanasuikaleet" pannulle ruskistumaan, mausta suolalla ja lisää hetken päästä joukkoon "100 g herkkusieni"
 - laita "400 g makaroni" kiehumaan ja jos haluat niin myös "parsakaali" omaan erilliseen kattilaan
 - lisää kanan joukkoon "kolme pippuria tuorejuusto" ja 1 dl vettä, sekoita ja anna hautua
@@ -31,14 +36,16 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 
 🍗 kana ja riisi
 #kana #rizs
-2
++10
+
 - paista "500g kanafileet"
 - keitä "riisi"
 - laita riisin kyytiin "pakastevihannekset"
 
 🍜 wokki
 #mifu #wokki #nuudeli
-3
++10
+
 - ruskista "mifu" tai "500–700 g marinoitu kana" pannulla
 - samaan aikaan keitä " 2 kpl nuudelipussi" 5 desilitrassa vettä
 - lisää "wokkivihannekset" mifun joukkoon ja paista kypsäksi
@@ -46,7 +53,8 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 
 🍝 soijabolognese
 #soijarouhe
-4
++10
+
 - pilko 1 kpl "sipuli", 2 kpl "valkosipuli" ja lisää pannulle
 - kun sipulit alkavat paistua, lisää 2 dl "soijarouhe" joukkoon
 - lisää noin 2 rkl "soijakastike" ja sekoita
@@ -56,7 +64,7 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 
 🍲 broilerijauhelihapata
 #ONION #windy #jauheliha #bataatti #peruna
-0
+
 - pilko 1 kpl "sipuli", 2 kpl "valkosipuli" ja lisää ne pannulle
 - kun sipulit alkaa paistua, lisää "400g kanajauheliha" mukaan ja paista niin ettei näy enää pinkkiä väriä
 - pilko ja kuori samalla "300 g peruna" ja "300 g bataatti"
@@ -68,12 +76,13 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 🐓 kanakastike
 #unclebens
 -3
-- ruskista "300-500 g kanasuikaleet" pannulla (700 g kanaa on jo liikaa, mutta voit kokeilla ;) ) ja kun suikaleet ovat ruskistuneet lisää "uncle ben's -kastike" ja anna hautua vähän aikaa
+
+- ruskista "300-500 g kanasuikaleet" pannulla ja kun suikaleet ovat ruskistuneet lisää "uncle ben's -kastike" ja anna hautua vähän aikaa
 - keitä samalla 3 dl "riisi" ja lisää sekaan "200 g maissi"
 
 🐔 uunikana
 #chickenintheoven
-5
++5
 - kuori ja pilko "500 g peruna", "2 kpl porkkana" ja "parsakaali" sekä laita ne kulhoon
 - mausta kasvikset "suola", "pippuri", "rosmariini" ja jos haluat niin myös "paprikamauste"
 - voitele uunivuoka öljyllä ja asettele siihen "marinoidut kanafileet" ja heitä päälle maustetut kasvikset
@@ -81,7 +90,8 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 
 🐟 lohi
 #lohifilee
-0
+-10
+
 - ota uunipelti ja laita siihen leivinpaperi sekä folio
 - laita "lohi" pellille ja mausta "suola" ja "pippuri" sekä kääri folioon
 - laita uuniin 30-40 minuutiksi
@@ -89,7 +99,8 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 
 🐟 seiti
 #fisk
-+5
++10
+
 - paista pannulla "seiti"
 - samalla keitä "riisi" 
 - enne kuin riisin kaikki nesteet haihtuisi, lisää kyytiin "200g maissi"
@@ -98,6 +109,7 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 🍔 hampparit
 #jättebra #hamburgare
 +5
+
 - paista "halloumi" pannulla
 - paahda "hampparisämpylät" leivänpaahtimessa
 - lisää "hampparikastike", "cheddar" ja "salaatti"
@@ -105,6 +117,7 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 🐷 kinkkukiusaus
 #kinkku
 -5
+
 - pilko "keittokinkku"
 - voitele uunivuoka öljyllä ja lisää siihen "1 kg peruna-sipulisekoitus" ja "keittokinkku"
 - lisää kulhoon "2 kpl ruokakerma" ja lisää joukkoon mausteita esim. "suola", "pippuri" ja "timjami", sekoita ja kaada vuokaan ruuan päälle
@@ -113,13 +126,15 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 
 🥕 vakioruoka
 #since2018
-+100
+-10
+
 - pilko ja keitä 1 kg "porkkanat", käytä toi UFO höyrytinjuttu
 - paista "700 g kanasuikaleet"
 
 🥘 makaronimuhennos
 #pääkallopata
 1
+
 - pilko "1 kpl sipuli" ja "2 kpl valkosipuli" ja lisää ne pannulla
 - kun sipuli alkaa paistua, lisää joukkoon "400 g kanajauheliha" ja paista kunnes pinkki väri hävinnyt
 - mausta seos "suola", "pippuri", "curry", "kaneli" ja "paprikamauste". älä paista liian kauan, ettei mausteet pala ja seos kuivu!
@@ -148,21 +163,25 @@ banaani
 - kaada mukin sisällöt kulhoon ja sekoitat (alussa 1 sormella)
 - kun taikina ei enää jää kiinni kulhoon, laita ~tunniksi takaisin
 #TAUKO
-- faf
+- aloita venyttämään taikinaa leveäksi lautaseksi
+- 180 asteiseen "3dl öljy" -yn heitä 1 kerralla (litrasessa kattilassa)
+- laita paistetut taikinat lautaselle, jossa 1kpl servetti (imee öljyn)
+- murskaa "1-2kpl valkosipulia" ja löystä se vedellä ja pari tipalla öljyllä
+- levitä eka sipulinesteen paistetun taikinan päälle
+- sitten tulee "villikerma"
+- ja lopuksi "juustoraaste"
 `
-// https://regex101.com/r/ofnra6
-.matchAll(/(?<name>\p{Emoji_Presentation} .+)\n+(?:(?<tags>(?:#[\p{Letter}\d_]+ )*#[\p{Letter}\d_]+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>\P{Emoji_Presentation}+)\n/ug))
+//https://regex101.com/r/UuPPL1/1
+.matchAll(/(?<name>\p{Emoji_Presentation} .+)\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>\P{Emoji_Presentation}+)\n/ug))
 .map(mo_dish => {
     const name = mo_dish.groups.name;
     const tags = Array.from((mo_dish.groups.tags
         ? mo_dish.groups.tags
         : ''
-    )
-        .matchAll(/(?<=#)\w+/g)).map(mo_tag => mo_tag[0]);
+    ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
     const preference = parseInt(mo_dish.groups.pref);
-    const re_ingr = /"([\p{Letter} ,.\d'-]+)" *[-:]?/gu;
-    const instructions = mo_dish.groups.descr.replace(re_ingr, '$1');
-    const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingr)).map(mo_i => mo_i[1]);
+    const instructions = mo_dish.groups.descr.replace(re_ingredients, '$1');
+    const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients)).map(mo_i => mo_i[1]);
     return {name, tags,preference, instructions, ingredients}
 });
 
@@ -170,22 +189,23 @@ banaani
 const regexes = [
     /(cit+ari|K-supermarket|K-citimarket):?(sta)?/,
     /tokman+i/,
-    /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|kaneli|(musta.*)?pip+uri|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
+    /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|timjami|kaneli|(musta.*)?pip+uri|suola+|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
     /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/,
     /kokis|kalja|olut|pepsi|mehu/,
     /banaani|omena|mandariini|sien(i|et)|vi+nirypä+le+|hedelmä|sitru+na|ru+suka+l/,
     /perun(a|oi).*(?!lastu|sipuli)|(?!^perun.*)sipuli|parsa.*ka+li|pork+ana|sala+t+i|(?!^wok.*)vihan+ek?s|bata+t+i/,
-    /(?!^ko+kos.*)(mai[dt]o|kerma)|voi|jogh?urt|hi+va/,
-    /(?!^veke)juusto|(koskenlask)?dip+i?/,
+    /(?!^ko+kos.*)(?:mai[dt]o|kerma)|voi|jogh?urt|hi+va/,
+    /(?!^veke)juusto|(koskenlask)?.+dip+i?|hallou?m|cheddar/,
     /liha|kana(?!.*muna)|mifu/,
     /karjalanpa/,
     /kalk+una|kink+u/,
     /pitsa|ri+sipi+rak+a/,
-    /perunalastu|pähkinä|sipsi/,
+    /perunalastu|pähkinä|sipsi|hampparikastike/,
     /muna|oli+vi|toma+t+imurska|ananas|ko+kos/,
-    /lei[pv]ä/,
+    /lei[pv]ä|sämpylä/,
     /nu+deli|makaroni|soija.*r.*h|ri+si|öljy/,
     /vehnäja|muro|mysli/,
+    /uncle ben/i,
     /sokeri/,
     /hernek/,
     /suklaa|kark+i/,

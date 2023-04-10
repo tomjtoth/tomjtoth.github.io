@@ -1,7 +1,6 @@
 const html_ingredients = document.getElementById('ingredients');
 const html_dishes = document.getElementById('dishes');
-
-const menu = new Set(JSON.parse(localStorage.getItem('persistent')));
+const menu = new Set(JSON.parse(localStorage.getItem('menu')));
 
 function reset_checkboxes() {
     for (const btn of document.querySelectorAll('.ingr_btn, .ingr_btn2')) {
@@ -18,7 +17,7 @@ function shuffle() {
         } while (menu.has(j) || cookbook[j].tags.includes('dessert'));
         menu.add(j);
     }
-    localStorage.setItem('persistent', JSON.stringify([...menu]));
+    localStorage.setItem('menu', JSON.stringify([...menu]));
     build();
 }
 
@@ -111,7 +110,6 @@ function main() {
     } else {
         shuffle()
     }
-    
 }
 
 main()
