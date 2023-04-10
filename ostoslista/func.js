@@ -40,7 +40,7 @@ function build() {
         dish_btn.setAttribute('class', alternating++ % 2 == 0 ? 'dish_btn' : 'dish_btn2');
         dish_btn.addEventListener('click', function() {
             this.classList.toggle('active');
-            var content = this.nextElementSibling;
+            const content = this.nextElementSibling;
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
             } else {
@@ -52,7 +52,7 @@ function build() {
         // paragraph containing instructions
         const dish_p = document.createElement('p');
         dish_p.innerText = dish.instructions;
-        
+
         // div responsible for hiding/showing its child paragraph
         const dish_div = document.createElement('div');
         dish_div.setAttribute('class', 'dish_div');
@@ -79,8 +79,8 @@ function build() {
     }
 
     for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => {
-        let left = parseInt(a[0]);
-        let right = parseInt(b[0]);
+        const left = parseInt(a[0]);
+        const right = parseInt(b[0]);
         if (left < right) {
             return -1;
         }
