@@ -79,8 +79,8 @@ function build() {
     }
 
     for (const [order, ingredients] of [...js_ingredients.entries()].sort((a, b) => {
-        const left = parseInt(a[0]);
-        const right = parseInt(b[0]);
+        let left = parseInt(a[0]);
+        let right = parseInt(b[0]);
         if (left < right) {
             return -1;
         }
