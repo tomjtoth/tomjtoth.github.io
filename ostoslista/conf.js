@@ -1,18 +1,18 @@
 const re_ingredients = /"([^"]+)"(?: *[-:])?/g;
 const re_tags = /(?<=#)\S+/g;
 
+// https://regex101.com/r/UuPPL1
 // dishes between emojis
 const cookbook = Array.from(`
 🌯 tortilla
 #windy #spicy
 -5
 
-- pilkkoo ja paista "sipuli"
-- lisää "sienisäilyke" kyytiin
+- pilkkoo ja paista "1kpl sipuli"
+- lisää "~200g sienisäilyke" kyytiin
 - lisää "700g kanasuikale" -et, ja "tortillamauste" ennen kuin sen neste haihtuisi
 
 lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakastike" ja "salaatti"
-
 
 🍕 pitsa
 #coke
@@ -23,7 +23,6 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 - pilkkoo "kalkkuna" ja laita päälle
 - avaa "ananassäilyke" ja levitä nekin
 - laita "oliivit" myös
-
 
 🍲 kanapasta
 #csirke #tészta #brokkoli
@@ -83,6 +82,7 @@ lopuksi annostele "tortillawraps" -iin, laita päälle "villikerma" + "salsakast
 🐔 uunikana
 #chickenintheoven
 +5
+
 - kuori ja pilko "500 g peruna", "2 kpl porkkana" ja "parsakaali" sekä laita ne kulhoon
 - mausta kasvikset "suola", "pippuri", "rosmariini" ja jos haluat niin myös "paprikamauste"
 - voitele uunivuoka öljyllä ja asettele siihen "marinoidut kanafileet" ja heitä päälle maustetut kasvikset
@@ -150,10 +150,10 @@ banaani
 2 munaa
 3dl sokeria
 
-
 🫓 lángos
 #easy #greasy #hungarian #delicious
 +10
+https://www.nosalty.hu/recept/igazi-strandos-langos?adag=2#ingredients
 
 - laita isoon kulhoon "3dl vehnäjauhoa" + "0,5tl suolaa"
 - lämmitä mukissa "0,5dl maito" 36 asteiseksi
@@ -170,9 +170,31 @@ banaani
 - levitä eka sipulinesteen paistetun taikinan päälle
 - sitten tulee "villikerma"
 - ja lopuksi "juustoraaste"
+
+🍗 paprikás csirke
+#paprikakana
++5
+
+- pilko 1 kpl "sipuli", 2 kpl "valkosipuli", 1 kpl "tomaatti" ja 1 kpl "paprika" ja paista hetki
+- lisää "400 g kanafileet", 3 rkl "paprikamauste", 1 tl "suola", 1/2 tl "pippuri" ja noin 2 dl vettä niin että lihat juuri ja juuri peittyvät. lisää 2 kpl "laakerinlehti" ja sekoita hyvin. 
+- jätä hautumaan kannen alle 30-45 minuutiksi kunnes lihat ovat kypsiä
+- laita "makaroni" kiehumaan
+- sekoita kulhossa "150 g creme fraiche" ja 1 rkl "vehnäjauho" keskenään tasaiseksi ja kaada lihojen joukkoon. kuumenna hetki.
+- syö "leipä?" ja "pikkukurkut?" kanssa
+
+🥩 pippuri-timjamipossu
+#possu
++3
+
+- pilko 1 kpl "sipuli" ja 2 kpl "valkosipuli" ja laita ne kasariin
+- kun sipulit alkavat paistua, lisää joukkoon "300 g possun fileesuikaleet" ja ruskista
+- ripottele pinnalle 1 rkl "vehnäjauho", sekoita hyvin ja lisää "ruokakerma" ja 1 dl vettä. sekoita taas hyvin.
+- lisää sekaan "125 g mustapippurituorejuusto" ja mausta 1 tl "timjami". timjamia voi myös laittaa enemmän, jos tykkäät.
+- sekoita tasaiseksi ja anna hautua kannen alla vähintään 15 min
+- voit syödä kastikkeen esimerkiksi "perunat?" tai "makaroni?" kanssa ja keittää lisäksi "vihannekset?"
+
 `
-//https://regex101.com/r/UuPPL1/1
-.matchAll(/(?<name>\p{Emoji_Presentation} .+)\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>\P{Emoji_Presentation}+)\n/ug))
+.matchAll(/(?<name>\p{Emoji_Presentation} .+)\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?:(?<url>http[^\n]+)\n+)?(?<descr>\P{Emoji_Presentation}+)\n/ug))
 .map(mo_dish => {
     const name = mo_dish.groups.name;
     const tags = Array.from((mo_dish.groups.tags
