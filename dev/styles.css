@@ -1,0 +1,48 @@
+.reset_btn, .shuffle_btn,
+.dish_btn, .ingr_btn,
+.dish_btn2, .ingr_btn2 {
+    background-color: #666;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.reset_btn, .shuffle_btn {
+    width: 50%;
+    text-align: center;
+    float: left;
+    font-size: 20px;
+}
+
+
+.dish_btn2, .ingr_btn2, .shuffle_btn {
+    background-color: #888;
+}
+
+.dish_btn.active, .dish_btn2.active,
+.dish_btn:hover, .dish_btn2:hover,
+.ingr_btn:hover, .ingr_btn2:hover {
+    background-color: #555;
+}
+
+.dish_div {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+
+
+.ingr_btn.active {
+    background-color: #080;
+}
+
+.ingr_btn2.active {
+    background-color: #2a2;
+}
