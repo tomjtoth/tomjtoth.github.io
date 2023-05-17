@@ -4,7 +4,7 @@
 <script type="text/javascript">
 
 fetch("../recipies/README.md").then((res) => {
-    var body = res.value;
+    var body = res.text().value;
     document.getElementById("test").innerHTML = body;
 })
 
