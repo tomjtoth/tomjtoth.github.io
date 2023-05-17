@@ -4,9 +4,10 @@
 <script type="text/javascript">
 
 fetch("../recipies/README.md").then((res) => {
-    console.log(res.text());
-    alert(res.text())
-    document.getElementById("test").innerHTML = res.text();
+    var body = res.text();
+    console.log(body);
+    alert(body)
+    document.getElementById("test").innerHTML = body;
 })
 
 </script>
