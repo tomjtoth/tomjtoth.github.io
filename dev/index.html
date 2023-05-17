@@ -26,12 +26,10 @@
 <script>
 
 all_promises.then((values) => {
-    var recipies = values[0];
-    document.getElementById("test").innerHTML = recipies;
-
+    
     // https://regex101.com/r/UuPPL1
     // dishes between emojis
-    const cookbook = Array.from(cookbook
+    const cookbook = Array.from(values[0]
     .matchAll(/# (?<name>\p{Emoji_Presentation} .+)\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?:(?<url>http[^\n]+)\n+)?(?<descr>(?:.|\n)+?(?=\n# |\n$))/ug))
     .map(mo_dish => {
         const name = mo_dish.groups.name;
