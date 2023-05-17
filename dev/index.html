@@ -3,9 +3,10 @@
 <head>
 <script type="text/javascript">
 
-fetch("../recipies/README.md").then((res) => {
-    const body = res.text();
-    document.getElementById("test").innerHTML = body;
+fetch("../recipies/README.md")
+.then((res) => res.text())
+.then((value) => {
+    document.getElementById("test").innerHTML = value;
 })
 
 </script>
