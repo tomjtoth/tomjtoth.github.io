@@ -109,5 +109,3 @@ function main() {
         shuffle()
     }
 }
-
-main()

@@ -1,6 +1,7 @@
-# About
+## About
 
-The usual..
+These help me in the store.
 
 - [shopping list](ostoslista/index.html)
-- [products](ostokset/README.md)
+    - asdf
+- [products](products/README.md)
