@@ -103,7 +103,7 @@ function build() {
 }
 
 function main([recipies]) {
-    const cookbook = Array.from(recipies
+    cookbook = Array.from(recipies
     .matchAll(re_dishes))
     .map(mo_dish => {
         const name = mo_dish.groups.name;
