@@ -103,11 +103,8 @@ function build() {
 }
 
 function main([recipies]) {
-        
-    // https://regex101.com/r/UuPPL1
-    // dishes between emojis
     const cookbook = Array.from(recipies
-    .matchAll(/# (?<name>\p{Emoji_Presentation} .+)\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?:(?<url>http[^\n]+)\n+)?(?<descr>(?:.|\n)+?(?=\n# |\n$))/ug))
+    .matchAll(re_dishes))
     .map(mo_dish => {
         const name = mo_dish.groups.name;
         const tags = Array.from((mo_dish.groups.tags
