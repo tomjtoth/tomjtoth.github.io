@@ -102,12 +102,24 @@ function build() {
     }
 }
 
-function main() {
+function main([recipies]) {
+    cookbook = Array.from(recipies
+    .matchAll(re_dishes))
+    .map(mo_dish => {
+        const name = mo_dish.groups.name;
+        const tags = Array.from((mo_dish.groups.tags
+            ? mo_dish.groups.tags
+            : ''
+        ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
+        const preference = parseInt(mo_dish.groups.pref);
+        const instructions = mo_dish.groups.descr.replace(re_ingredients, '$1');
+        const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients)).map(mo_i => mo_i[1]);
+        return {name, tags,preference, instructions, ingredients}
+    });
+    
     if (menu.size > 0) {
         build()
     } else {
         shuffle()
     }
 }
-
-main()

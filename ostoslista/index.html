@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="fi">
 <head>
 <link rel="stylesheet" href="styles.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ostoslista</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
+<script type="text/javascript">
+    const all_promises = Promise.all([
+        fetch("../recipies/README.md").then((res) => res.text()),
+    ])
+</script>
 </head>
 <body>
 <div>
@@ -18,4 +23,9 @@
 </body>
 <script type="text/javascript" src="conf.js"></script>
 <script type="text/javascript" src="func.js"></script>
+<script>
+var cookbook;
+all_promises.then((values) => main(values))
+
+</script>
 </html>
