@@ -6,8 +6,6 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 #windy #spicy
 -5
 
-Some short description.
-
 1. pilkkoo ja paista `1kpl sipuli`
 1. lisää `~200g sienisäilyke` kyytiin
 1. lisää `700g kanasuikale` -et, ja `tortillamauste` ennen kuin sen neste haihtuisi
@@ -151,7 +149,7 @@ banaani
 2 munaa
 3dl sokeria
 
-## 🫓 [lángos](https://www.nosalty.hu/recept/igazi-strandos-langos?adag=2#ingredients)
+## [🫓 lángos](https://www.nosalty.hu/recept/igazi-strandos-langos?adag=2#ingredients)
 #easy #greasy #hungarian #delicious
 +10
 
@@ -192,4 +190,3 @@ banaani
 1. lisää sekaan `125 g mustapippurituorejuusto` ja mausta 1 tl `timjami`. timjamia voi myös laittaa enemmän, jos tykkäät.
 1. sekoita tasaiseksi ja anna hautua kannen alla vähintään 15 min
 1. voit syödä kastikkeen esimerkiksi `perunat?` tai `makaroni?` kanssa ja keittää lisäksi `vihannekset?`
-

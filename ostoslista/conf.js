@@ -1,5 +1,5 @@
 // https://regex101.com/r/UuPPL1    
-const re_dishes = /# (?<name>\p{Emoji_Presentation} .+)\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?:(?<url>http[^\n]+)\n+)?(?<descr>(?:.|\n)+?(?=\n# |\n$))/ug;
+const re_dishes = /## \[?(?<name>\p{Emoji_Presentation} .+?)(?:\]\((?<url>[^\)]+)\))?\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>(?:.|\n)+?(?=\n## |\n$))/ug;
 
 // https://regex101.com/r/kmOAfs
 const re_ingredients = /\[`(?<ingr0>[^`]+)`\]\((?<url>[^)]+)\)|`(?<ingr1>[^`]+)`/g;
