@@ -2,7 +2,7 @@
 const re_dishes = /## \[?(?<name>\p{Emoji_Presentation} .+?)(?:\]\((?<url>[^\)]+)\))?\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>(?:.|\n)+?(?=\n## |\n$))/ug;
 
 // https://regex101.com/r/kmOAfs
-const re_ingredients = /\[`(?<ingr0>[^`]+)`\]\((?<url>[^)]+)\)|`(?<ingr1>[^`]+)`/g;
+const re_ingredients = /\[?`(?<ingr>[^`]+)`(?:\]\((?<url>[^\)]+)\))?/g;
 const re_tags = /(?<=#)\S+/g;
 
 // arranges ingredients the way I go through my local shop
