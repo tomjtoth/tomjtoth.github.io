@@ -1,6 +1,6 @@
 # Ruokaohjeet
 
-Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslista/index.html) arvotaan ja hankittavia aineksia kasataan näistä.
+Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslista/index.html) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
 
 ## 🌯 tortilla
 #windy #spicy
