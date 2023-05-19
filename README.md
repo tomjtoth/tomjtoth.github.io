@@ -1,7 +1,9 @@
-## About
+# Kuvaus
 
-These help me in the store.
+Tässä lähinnä itselleni staattiset sivustot, jotkut auttavat minua kaupassa. Selain riittää, ei tarvitse tunnistautua minnekään!
 
-- [shopping list](ostoslista/index.html)
-    - asdf
-- [products](products/README.md)
+- [ostoslista](ostoslista/index.html)
+    - kasaa ostettavia kamoja minimipanostuksella puoleltani
+    - tutustu myös itse [ruokaohjeisiin](ruokaohjeet/README.md)
+- [tuotteet](tuotteet/README.md)
+    - muistuttaa vältettävistä tuotteista
