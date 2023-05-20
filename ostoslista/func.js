@@ -1,18 +1,10 @@
 // gets the previous conf, overrides by querystring
 function parse(name) {
-    let conf = localStorage.getItem(name);
-    if (!conf) {
-        conf = '[]'
-    }
-    const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has(name)) {
-        const tags = urlParams.get(name).split(",");
-        if (tags.some(tag => isNaN(tag))) {
-            tags.map(tag => `"${tag}"`)
-        }
-        conf = `[${tags.join(",")}]`
+        return urlParams.get(name)
     }
-    return JSON.parse(conf);
+    const conf = JSON.parse(localStorage.getItem(name));
+    return conf ? conf : [];
 }
 
 // resets the items which are set to green
@@ -152,11 +144,14 @@ function main([recipies_md]) {
     }
 }
 
+const urlParams = new URLSearchParams(window.location.search);
+
 const html_ingredients = document.getElementById('items');
 const html_dishes = document.getElementById('dishes');
 
 const dish_indices = parse("dishes")
 const extra_items = parse("items")
+const test = parse("itemsddd")
 
 var recipies;
 
