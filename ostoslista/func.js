@@ -67,7 +67,7 @@ function build() {
 
         // paragraph containing instructions
         const dish_p = document.createElement('p');
-        dish_p.innerText = dish.instructions.replace(/^( *)1\. /g, "$1- ");
+        dish_p.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
 
         // div responsible for hiding/showing its child paragraph
         const dish_div = document.createElement('div');
