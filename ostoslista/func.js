@@ -1,7 +1,7 @@
 // gets the previous conf, overrides by querystring
 function parse(name) {
     if (urlParams.has(name)) {
-        return urlParams.get(name)
+        return urlParams.get(name).split(",")
     }
     const conf = JSON.parse(localStorage.getItem(name));
     return conf ? conf : [];
