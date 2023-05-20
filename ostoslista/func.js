@@ -10,7 +10,7 @@ function parse(name) {
         if (tags.some(tag => isNaN(tag))) {
             tags.map(tag => `"${tag}"`)
         }
-        conf = `[${",".join(tags)}]`
+        conf = `[${tags.join(",")}]`
     }
     return JSON.parse(conf);
 }
