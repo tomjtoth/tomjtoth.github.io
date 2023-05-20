@@ -32,27 +32,27 @@ function shuffle() {
     build();
 }
 
-// shoves the item in it's ordered place
-function assign(arr, name, dish = null) {
-    let found = false;
-    for (const [j, regex] of the_order) {
-        if (mo_ingr.groups.name.match(regex)) {
-            if (!arr[j+1]) {
-                arr[j+1] = []
-            }
-
-            arr[j+1].push({name, dish});
-            found = true;
-            break;
-        }
-    }
-    if (!found) {
-        arr[0].push({name, dish})
-    }
-}
-
 // builds the dishes and items divs
 function build() {
+
+    // shoves the item in it's ordered place
+    function assign(name, dish = null) {
+        let found = false;
+        for (const [j, regex] of the_order) {
+            if (mo_ingr.groups.name.match(regex)) {
+                if (!items[j+1]) {
+                    items[j+1] = []
+                }
+
+                items[j+1].push({name, dish});
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            items[0].push({name, dish})
+        }
+    }
 
     // drop all current entries
     html_dishes.innerHTML = '';
@@ -98,12 +98,12 @@ function build() {
 
         
         for (const mo_ingr of dish.ingredients) {
-            assign(items, mo_ingr.groups.name, dish.name)    
+            assign(mo_ingr.groups.name, dish.name)    
         }
     }
 
     for (const extra of extra_items) {
-        assign(items, extra)
+        assign(extra)
     }
 
     for (const row_in_shop of items) {
@@ -151,7 +151,6 @@ const html_dishes = document.getElementById('dishes');
 
 const dish_indices = parse("dishes")
 const extra_items = parse("items")
-const test = parse("itemsddd")
 
 var recipies;
 
