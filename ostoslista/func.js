@@ -77,13 +77,13 @@ function build() {
 
         for (const mo_ingr of dish.ingredients) {
             let found = false;
-            for (const [i, regex] of the_order) {
+            for (const [j, regex] of the_order) {
                 if (mo_ingr.groups.name.match(regex)) {
-                    if (!items.has(i)) {
-                        items.set(i, [])
+                    if (!items.has(j)) {
+                        items.set(j, [])
                     }
 
-                    items.get(i).push([mo_ingr, dish]);
+                    items.get(j).push([mo_ingr, dish]);
                     found = true;
                     break;
                 }
