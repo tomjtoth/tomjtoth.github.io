@@ -1,12 +1,12 @@
-// https://regex101.com/r/UuPPL1    
-const re_dishes = /## \[?(?<name>\p{Emoji_Presentation} .+?)(?:\]\((?<url>[^\)]+)\))?\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>(?:.|\n)+?(?=\n## |\n$))/ug;
+// https://regex101.com/r/UuPPL1
+const re_dishes = /## \[?(?<name>.+?)(?:\]\((?<url>[^\)]+)\))?\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>(?:.|\n)+?(?=\n## |\n$))/g;
 
 // https://regex101.com/r/kmOAfs
-const re_ingredients = /\[?`(?<ingr>[^`]+)`(?:\]\((?<url>[^\)]+)\))?/g;
+const re_ingredients = /\[?`(?<name>[^`]+)`(?:\]\((?<url>[^\)]+)\))?/g;
 const re_tags = /(?<=#)\S+/g;
 
 // arranges ingredients the way I go through my local shop
-const regexes = [
+const the_order = [
     // ennen PRISMA:a
     /(cit+ari|K-supermarket|K-cit[iy]market):?(sta)?/,
     /tokman+i/,
