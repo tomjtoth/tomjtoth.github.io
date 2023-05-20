@@ -75,21 +75,21 @@ function build() {
         dish_div.appendChild(dish_p);
         html_dishes.appendChild(dish_div);        
 
-        for (const ingredient of dish.ingredients) {
+        for (const mo_ingr of dish.ingredients) {
             let found = false;
             for (const [i, regex] of the_order) {
-                if (ingredient.match(regex)) {
+                if (mo_ingr.groups.name.match(regex)) {
                     if (!items.has(i)) {
                         items.set(i, [])
                     }
 
-                    items.get(i).push([ingredient, dish]);
+                    items.get(i).push([mo_ingr, dish]);
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                items.get(-1).push((ingredient, dish))
+                items.get(-1).push([mo_ingr, dish])
             }
         }
     }
