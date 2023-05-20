@@ -39,7 +39,7 @@ function build() {
     function assign(name, dish = null) {
         let found = false;
         for (const [j, regex] of the_order.entries()) {
-            if (mo_ingr.groups.name.match(regex)) {
+            if (name.match(regex)) {
                 if (!items[j+1]) {
                     items[j+1] = []
                 }
