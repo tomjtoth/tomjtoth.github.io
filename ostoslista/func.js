@@ -1,22 +1,28 @@
-const html_ingredients = document.getElementById('items');
-const html_dishes = document.getElementById('dishes');
-
-let dish_conf = localStorage.getItem('dishes');
-if (!dish_conf) {
-    dish_conf = '[]'
+// gets the previous conf, overrides by querystring
+function parse(name) {
+    let conf = localStorage.getItem(name);
+    if (!conf) {
+        conf = '[]'
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has(name)) {
+        const tags = urlParams.get(name).split(",");
+        if (tags.some(tag => isNaN(tag))) {
+            tags.map(tag => `"${tag}"`)
+        }
+        conf = `[${",".join(tags)}]`
+    }
+    return JSON.parse(conf);
 }
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.has("dishes")) {
-    dish_conf = `[${urlParams.get("dishes")}]`
-}
-const dish_indices = JSON.parse(dish_conf);
 
+// resets the items which are set to green
 function reset_checkboxes() {
     for (const btn of document.querySelectorAll('.ingr_btn, .ingr_btn2')) {
         btn.classList.remove('active');
     }
 }
 
+// randomly re-picks dishes
 function shuffle() {
     let n = dish_indices.length;
     if (n == 0) {
@@ -34,13 +40,36 @@ function shuffle() {
     build();
 }
 
+// shoves the item in it's ordered place
+function assign(arr, name, dish = null) {
+    let found = false;
+    for (const [j, regex] of the_order) {
+        if (mo_ingr.groups.name.match(regex)) {
+            if (!arr[j+1]) {
+                arr[j+1] = []
+            }
+
+            arr[j+1].push({name, dish});
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        arr[0].push({name, dish})
+    }
+}
+
+// builds the dishes and items divs
 function build() {
+
     // drop all current entries
     html_dishes.innerHTML = '';
     html_ingredients.innerHTML = '';
 
-    const items = new Map();
-    items.set(-1, []);
+    // indice 0 is for UNSORTED items
+    const items = [[]];
+    items.length = the_order.length + 1;
+
     let alternating = 0;
 
     for (const i of dish_indices) {
@@ -73,44 +102,25 @@ function build() {
         const dish_div = document.createElement('div');
         dish_div.setAttribute('class', 'dish_div');
         dish_div.appendChild(dish_p);
-        html_dishes.appendChild(dish_div);        
+        html_dishes.appendChild(dish_div);
 
+        
         for (const mo_ingr of dish.ingredients) {
-            let found = false;
-            for (const [j, regex] of the_order) {
-                if (mo_ingr.groups.name.match(regex)) {
-                    if (!items.has(j)) {
-                        items.set(j, [])
-                    }
-
-                    items.get(j).push([mo_ingr.groups.name, dish.name]);
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                items.get(-1).push([mo_ingr.groups.name, dish.name])
-            }
+            assign(items, mo_ingr.groups.name, dish.name)    
         }
     }
 
-    for (const [_, equivalent_items] of [...items.entries()].sort((a, b) => {
-        const left = parseInt(a[0]);
-        const right = parseInt(b[0]);
-        if (left < right) {
-            return -1;
-        }
-        if (left < right) {
-            return 1;
-        }
-        return 0;
-    })) {
-        for (const item of equivalent_items) {
+    for (const extra of extra_items) {
+        assign(items, extra)
+    }
+
+    for (const row_in_shop of items) {
+        for (const item of row_in_shop) {
             const ingr_btn = document.createElement('button');
 
             // show name of dish in parenths if present
-            ingr_btn.innerText = `${item[0]}${item.length > 1 ? ` (${item[1].name})` : "" }`;
-            
+            ingr_btn.innerText = item.name + (item.dish ? ` ("${item.dish})` : "");
+
             ingr_btn.setAttribute('class', alternating++ % 2 == 0 ? 'ingr_btn' : 'ingr_btn2');
             ingr_btn.addEventListener('click', () => {
                 this.classList.toggle('active');
@@ -119,8 +129,6 @@ function build() {
         }
     }
 }
-
-var recipies;
 
 function main([recipies_md]) {
     recipies = Array.from(recipies_md
@@ -143,3 +151,12 @@ function main([recipies_md]) {
         shuffle()
     }
 }
+
+const html_ingredients = document.getElementById('items');
+const html_dishes = document.getElementById('dishes');
+
+const dish_indices = parse("dishes")
+const extra_items = parse("items")
+
+var recipies;
+
