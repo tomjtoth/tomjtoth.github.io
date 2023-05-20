@@ -7,7 +7,7 @@ if (!dish_conf) {
 }
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has("dishes")) {
-    dish_conf = urlParams.get("dishes")
+    dish_conf = `[${urlParams.get("dishes")}]`
 }
 const dish_indices = JSON.parse(dish_conf);
 
@@ -83,13 +83,13 @@ function build() {
                         items.set(j, [])
                     }
 
-                    items.get(j).push([mo_ingr, dish]);
+                    items.get(j).push([mo_ingr.groups.name, dish.name]);
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                items.get(-1).push([mo_ingr, dish])
+                items.get(-1).push([mo_ingr.groups.name, dish.name])
             }
         }
     }
