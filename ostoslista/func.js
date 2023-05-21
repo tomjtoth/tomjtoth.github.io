@@ -137,7 +137,7 @@ function main([recipies_md]) {
         ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
         const preference = parseInt(mo_dish.groups.pref);
         const instructions = mo_dish.groups.descr.replace(re_ingredients, '$1');
-        const ingredients = mo_dish.groups.descr.matchAll(re_ingredients);
+        const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
         return {name, tags, preference, instructions, ingredients}
     });
     
