@@ -107,6 +107,9 @@ function build() {
     }
 
     for (const row_in_shop of items) {
+        // items as an Array might include unvisited rows
+        if (!row_in_shop) continue;
+
         for (const item of row_in_shop) {
             const ingr_btn = document.createElement('button');
 
