@@ -75,7 +75,7 @@ function build() {
         // TODO: get rid of 2 different classes and simply make bg-color darker a bit via JS
         dish_btn.setAttribute('class', alternating++ % 2 == 0 ? 'dish_btn' : 'dish_btn2');
 
-        dish_btn.addEventListener('click', () => {
+        dish_btn.addEventListener('click', function() {
             this.classList.toggle('active');
             const content = this.nextElementSibling;
             if (content.style.maxHeight) {
@@ -114,10 +114,10 @@ function build() {
             const ingr_btn = document.createElement('button');
 
             // show name of dish in parenths if present
-            ingr_btn.innerText = item.name + (item.dish ? ` ("${item.dish})` : "");
+            ingr_btn.innerText = item.name + (item.dish ? ` (${item.dish})` : "");
 
             ingr_btn.setAttribute('class', alternating++ % 2 == 0 ? 'ingr_btn' : 'ingr_btn2');
-            ingr_btn.addEventListener('click', () => {
+            ingr_btn.addEventListener('click', function() {
                 this.classList.toggle('active');
             });
             html_ingredients.appendChild(ingr_btn);
