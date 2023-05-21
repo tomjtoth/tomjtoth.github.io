@@ -106,7 +106,7 @@ function build() {
         assign(extra)
     }
 
-    for (const row_in_shop of items) {
+    for (const [row_nro, row_in_shop] of items.entries()) {
         // items as an Array might include unvisited rows
         if (!row_in_shop) continue;
 
@@ -114,7 +114,8 @@ function build() {
             const ingr_btn = document.createElement('button');
 
             // show name of dish in parenths if present
-            ingr_btn.innerText = item.name + (item.dish ? ` (${item.dish})` : "");
+            ingr_btn.innerText = (row_nro == 0 ? "UNSORTED: " : "")
+                + item.name + (item.dish ? ` (${item.dish})` : "");
 
             ingr_btn.setAttribute('class', alternating++ % 2 == 0 ? 'ingr_btn' : 'ingr_btn2');
             ingr_btn.addEventListener('click', function() {
