@@ -1,10 +1,14 @@
+function store(name, obj) {
+    localStorage.setItem(name, JSON.stringify(obj))
+}
+
 // gets the previous conf, overrides by querystring
 function parse(name, check_qs = true) {
     if (check_qs && urlParams.has(name)) {
         reset_qs = true;
         
         const res = urlParams.get(name).split(",");
-        localStorage.setItem(name, JSON.stringify(res))
+        store(name, res);
         return res;
     }
     const conf = JSON.parse(localStorage.getItem(name));
@@ -32,7 +36,7 @@ function shuffle() {
         } while (dish_indices.includes(j) || recipies[j].tags.includes('dessert'));
         dish_indices.push(j);
     }
-    localStorage.setItem('dishes', JSON.stringify(dish_indices));
+    store('dishes', dish_indices);
     build();
 }
 
@@ -179,6 +183,7 @@ function add_extra_item() {
     const item = window.prompt("enter item name");
     if (item != null) {
         extra_items.push(item);
+        store("items", extra_items);
         build();
     }
 }
