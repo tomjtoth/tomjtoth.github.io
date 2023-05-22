@@ -1,7 +1,7 @@
 // gets the previous conf, overrides by querystring
-function parse(name) {
-    if (urlParams.has(name)) {
-        return urlParams.get(name).split(",")
+function parse(name, querystring = true) {
+    if (querystring && urlParams.has(name)) {
+        return urlParams.get(name).split(",");
     }
     const conf = JSON.parse(localStorage.getItem(name));
     return conf ? conf : [];
@@ -113,14 +113,14 @@ function build() {
         for (const item of row_in_shop) {
             const ingr_btn = document.createElement('button');
 
-            // show name of dish in parenths if present
-            ingr_btn.innerText = (row_nro == 0 ? "UNSORTED: " : "")
+                // show name of dish in parenths if present
+                ingr_btn.innerText = (row_nro == 0 ? "UNSORTED: " : "")
                 + item.name + (item.dish ? ` (${item.dish})` : "");
 
-            ingr_btn.setAttribute('class', alternating++ % 2 == 0 ? 'ingr_btn' : 'ingr_btn2');
-            ingr_btn.addEventListener('click', function() {
-                this.classList.toggle('active');
-            });
+                ingr_btn.setAttribute('class', alternating++ % 2 == 0 ? 'ingr_btn' : 'ingr_btn2');
+                ingr_btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
             html_ingredients.appendChild(ingr_btn);
         }
     }
@@ -142,9 +142,17 @@ function main([recipies_md]) {
     });
     
     if (dish_indices.length > 0) {
-        build()
+        build();
     } else {
-        shuffle()
+        shuffle();
+    }
+}
+
+function add_extra_item() {
+    const item = window.prompt("enter item name");
+    if (item != null) {
+        extra_items.push(item);
+        build();
     }
 }
 
@@ -153,8 +161,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const html_ingredients = document.getElementById('items');
 const html_dishes = document.getElementById('dishes');
 
-const dish_indices = parse("dishes")
-const extra_items = parse("items")
+const dish_indices = parse("dishes");
+const extra_items = parse("items");
+window.location.search = null;
+
+const checked_items = parse("checked_items", false);
 
 var recipies;
-
