@@ -15,13 +15,6 @@ function parse(name, check_qs = true) {
     return conf ? conf : [];
 }
 
-// resets the items which are set to green
-function reset_checkboxes() {
-    for (const btn of document.querySelectorAll('.ingr_btn, .ingr_btn2, .item_btn, .item_btn2')) {
-        btn.classList.remove('active');
-    }
-}
-
 // randomly re-picks dishes
 function shuffle() {
     let n = dish_indices.length;
