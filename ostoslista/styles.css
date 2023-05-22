@@ -5,7 +5,9 @@ h2 {
     font-size: 20px;
 }
 
-.reset_btn, .shuffle_btn,
+.shuffle_btn,
+.add_dish_btn,
+.add_item_btn,
 .dish_btn, .dish_btn2,
 .ingr_btn, .ingr_btn2,
 .item_btn, .item_btn2 {
@@ -20,15 +22,15 @@ h2 {
     font-size: 15px;
 }
 
-.reset_btn, .shuffle_btn {
-    width: 50%;
+.shuffle_btn, .add_dish_btn, .add_item_btn {
+    width: 1/3;
     text-align: center;
-    float: left;
+    /*float: left;*/
     font-size: 20px;
 }
 
 
-.dish_btn2, .ingr_btn2, .item_btn2, .shuffle_btn {
+.dish_btn2, .ingr_btn2, .item_btn2, .add_dish_btn {
     background-color: #888;
 }
 
