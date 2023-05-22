@@ -6,7 +6,7 @@ function store(name, obj) {
 function parse(name, check_qs = true) {
     if (check_qs && urlParams.has(name)) {
         reset_qs = true;
-        
+
         const res = urlParams.get(name).split(",");
         store(name, res);
         return res;
@@ -62,6 +62,60 @@ function build() {
         }
     }
 
+    function create_item_row(item, row_nro) {
+
+        const item_btn = document.createElement('button');
+        item_btn.item = item;
+
+        item_btn.innerText = (row_nro == 0 ? "TUNTEMATON: " : "")
+            + item.name
+            + (item.dish ? ` (${item.dish})` : "");
+
+        if (item.dish) {
+            item_btn.setAttribute('class', alternating++ % 2 == 0
+                ? 'ingr_btn'
+                : 'ingr_btn2');
+            item_btn.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+
+            return item_btn;
+        }
+
+        // below starts an item button not related to a dish
+
+        item_btn.setAttribute('class', alternating++ % 2 == 0
+            ? 'item_btn'
+            : 'item_btn2');
+        item_btn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            this.nextElementSibling.classList.toggle('active');
+        });
+
+        const item_btn_rm = document.createElement('button');
+        item_btn_rm.innerText = "DEL";
+
+        item_btn_rm.setAttribute('class', alternating++ % 2 == 0
+            ? 'item_btn_rm'
+            : 'item_btn_rm2');
+        item_btn_rm.addEventListener('click', function() {
+            item = this.previousElementSibling.item;
+            extra_items.splice(extra_items.indexOf(item.name), 1);
+            store("items", extra_items);
+
+            // removing the parent div from the rendered page
+            this.parentElement.parentElement
+                .removeChild(this.parentElement);
+        });
+
+        const item_div = document.createElement('div');
+
+        item_div.appendChild(item_btn);
+        item_div.appendChild(item_btn_rm);
+
+        return item_div;
+    }
+
     // drop all current entries
     html_dishes.innerHTML = '';
     html_ingredients.innerHTML = '';
@@ -104,9 +158,9 @@ function build() {
         dish_div.appendChild(dish_p);
         html_dishes.appendChild(dish_div);
 
-        
+
         for (const mo_ingr of dish.ingredients) {
-            assign(mo_ingr.groups.name, dish.name)    
+            assign(mo_ingr.groups.name, dish.name)
         }
     }
 
@@ -119,40 +173,7 @@ function build() {
         if (!row_in_shop) continue;
 
         for (const item of row_in_shop) {
-            const item_btn = document.createElement('button');
-
-            if (item.dish) {
-                // show name of dish in parenths if present
-                item_btn.innerText = (row_nro == 0 ? "TUNTEMATON: " : "")
-                + `${item.name} (${item.dish})`;
-
-                item_btn.setAttribute('class', alternating++ % 2 == 0 
-                    ? 'ingr_btn' 
-                    : 'ingr_btn2');
-                item_btn.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                });
-            } else {
-                item_btn.innerText = (row_nro == 0 ? "TUNTEMATON: " : "")
-                + item.name;
-                item_btn.setAttribute('class', alternating++ % 2 == 0 
-                    ? 'item_btn' 
-                    : 'item_btn2');
-                item_btn.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                });
-            }
-
-            html_ingredients.appendChild(item_btn);
-
-            if (!item.dish) {
-                const ingr_btn_rem = document.createElement('button');
-                ingr_btn_rem.innerText = "-";
-                ingr_btn_rem.addEventListener('click', function() {
-                    return
-                });
-                html_ingredients.appendChild(ingr_btn_rem);
-            }
+            html_ingredients.appendChild(create_item_row(item, row_nro));
         }
     }
 }
@@ -171,7 +192,7 @@ function main([recipies_md]) {
         const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
         return {name, tags, preference, instructions, ingredients}
     });
-    
+
     if (dish_indices.length > 0) {
         build();
     } else {
