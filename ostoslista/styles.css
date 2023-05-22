@@ -6,8 +6,9 @@ h2 {
 }
 
 .reset_btn, .shuffle_btn,
-.dish_btn, .ingr_btn,
-.dish_btn2, .ingr_btn2 {
+.dish_btn, .dish_btn2,
+.ingr_btn, .ingr_btn2,
+.item_btn, .item_btn2 {
     background-color: #666;
     color: white;
     cursor: pointer;
@@ -27,14 +28,19 @@ h2 {
 }
 
 
-.dish_btn2, .ingr_btn2, .shuffle_btn {
+.dish_btn2, .ingr_btn2, .item_btn2, .shuffle_btn {
     background-color: #888;
 }
 
 .dish_btn.active, .dish_btn2.active,
 .dish_btn:hover, .dish_btn2:hover,
-.ingr_btn:hover, .ingr_btn2:hover {
+.ingr_btn:hover, .ingr_btn2:hover,
+.item_btn:hover, .item_btn2:hover {
     background-color: #555;
+}
+
+item_btn2 {
+    width: 90%;
 }
 
 .dish_div {
@@ -46,10 +52,10 @@ h2 {
 }
 
 
-.ingr_btn.active {
+.ingr_btn.active, .item_btn.active {
     background-color: #080;
 }
 
-.ingr_btn2.active {
+.ingr_btn2.active, .item_btn2.active {
     background-color: #2a2;
 }

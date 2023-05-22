@@ -1,7 +1,11 @@
 // gets the previous conf, overrides by querystring
-function parse(name, querystring = true) {
-    if (querystring && urlParams.has(name)) {
-        return urlParams.get(name).split(",");
+function parse(name, check_qs = true) {
+    if (check_qs && urlParams.has(name)) {
+        reset_qs = true;
+        
+        const res = urlParams.get(name).split(",");
+        localStorage.setItem(name, JSON.stringify(res))
+        return res;
     }
     const conf = JSON.parse(localStorage.getItem(name));
     return conf ? conf : [];
@@ -9,7 +13,7 @@ function parse(name, querystring = true) {
 
 // resets the items which are set to green
 function reset_checkboxes() {
-    for (const btn of document.querySelectorAll('.ingr_btn, .ingr_btn2')) {
+    for (const btn of document.querySelectorAll('.ingr_btn, .ingr_btn2, .item_btn, .item_btn2')) {
         btn.classList.remove('active');
     }
 }
@@ -111,17 +115,40 @@ function build() {
         if (!row_in_shop) continue;
 
         for (const item of row_in_shop) {
-            const ingr_btn = document.createElement('button');
+            const item_btn = document.createElement('button');
 
+            if (item.dish) {
                 // show name of dish in parenths if present
-                ingr_btn.innerText = (row_nro == 0 ? "UNSORTED: " : "")
-                + item.name + (item.dish ? ` (${item.dish})` : "");
+                item_btn.innerText = (row_nro == 0 ? "TUNTEMATON: " : "")
+                + `${item.name} (${item.dish})`;
 
-                ingr_btn.setAttribute('class', alternating++ % 2 == 0 ? 'ingr_btn' : 'ingr_btn2');
-                ingr_btn.addEventListener('click', function() {
+                item_btn.setAttribute('class', alternating++ % 2 == 0 
+                    ? 'ingr_btn' 
+                    : 'ingr_btn2');
+                item_btn.addEventListener('click', function() {
                     this.classList.toggle('active');
                 });
-            html_ingredients.appendChild(ingr_btn);
+            } else {
+                item_btn.innerText = (row_nro == 0 ? "TUNTEMATON: " : "")
+                + item.name;
+                item_btn.setAttribute('class', alternating++ % 2 == 0 
+                    ? 'item_btn' 
+                    : 'item_btn2');
+                item_btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            }
+
+            html_ingredients.appendChild(item_btn);
+
+            if (!item.dish) {
+                const ingr_btn_rem = document.createElement('button');
+                ingr_btn_rem.innerText = "-";
+                ingr_btn_rem.addEventListener('click', function() {
+                    return
+                });
+                html_ingredients.appendChild(ingr_btn_rem);
+            }
         }
     }
 }
@@ -161,9 +188,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const html_ingredients = document.getElementById('items');
 const html_dishes = document.getElementById('dishes');
 
+var reset_qs = false;
 const dish_indices = parse("dishes");
 const extra_items = parse("items");
-window.location.search = null;
+if (reset_qs) window.location.search = "";
 
 const checked_items = parse("checked_items", false);
 
