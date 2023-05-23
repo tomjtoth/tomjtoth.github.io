@@ -94,6 +94,7 @@ h2 {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
+    overflow: auto;
     width: 80%;
     height: 80%;
 }
