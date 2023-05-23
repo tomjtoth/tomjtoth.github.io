@@ -8,10 +8,8 @@ h2 {
 .btn-shuffle,
 .btn-dish-add,
 .btn-item-add,
-
 .btn-dish-0, .btn-dish-1,
 .btn-dish-rm-0, .btn-dish-rm-1,
-
 .btn-ingr-0, .btn-ingr-1,
 .btn-item-0, .btn-item-1
 .btn-item-rm-0, .btn-item-rm-1 {
@@ -52,7 +50,7 @@ h2 {
 
 .btn-dish-rm-0, .btn-dish-rm-1,
 .btn-item-rm-0, .btn-item-rm-1 {
-    background-color: yellow;
+    background-color: red;
     width: 10%;
     float: left;
 }

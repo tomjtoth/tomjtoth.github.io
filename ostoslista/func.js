@@ -67,7 +67,7 @@ function build() {
         // shall not be removable, since it's part of the recipie
         // hence own class
         if (item.dish) {
-            btn_item.setAttribute('class', `btn-ingr-${alternating++ % 2}`);
+            btn_item.setAttribute('class', `btn-ingr-${++row_parity % 2}`);
             btn_item.addEventListener('click', function() {
                 this.classList.toggle('active');
             });
@@ -77,7 +77,7 @@ function build() {
 
         // below starts an item button not related to a dish
 
-        btn_item.setAttribute('class', `btn-item-${alternating++ % 2}`);
+        btn_item.setAttribute('class', `btn-item-${++row_parity % 2}`);
         btn_item.addEventListener('click', function() {
             this.classList.toggle('active');
             this.nextElementSibling.classList.toggle('active');
@@ -87,7 +87,7 @@ function build() {
         btn_item_rm.innerText = "DEL";
 
         // alternating not incremented, because it is in the same row
-        btn_item_rm.setAttribute('class', `btn-item-rm-${alternating % 2}`);
+        btn_item_rm.setAttribute('class', `btn-item-rm-${row_parity % 2}`);
         btn_item_rm.addEventListener('click', function() {
             item = this.previousElementSibling.item;
             extra_items.splice(extra_items.indexOf(item.name), 1);
@@ -114,7 +114,7 @@ function build() {
     const items = [[]];
     items.length = the_order.length + 1;
 
-    let alternating = 0;
+    let row_parity = 0;
 
     for (const i of dish_indices) {
 
@@ -124,7 +124,7 @@ function build() {
         const btn_dish = document.createElement('button');
         btn_dish.innerText = dish.name;
         
-        btn_dish.setAttribute('class', `btn-dish-${alternating++ % 2}`);
+        btn_dish.setAttribute('class', `btn-dish-${++row_parity % 2}`);
         btn_dish.addEventListener('click', function() {
             this.classList.toggle('active');
             const content = this.parentElement.nextElementSibling;
@@ -136,10 +136,10 @@ function build() {
         });
 
         const btn_dish_rm = document.createElement('btn');
-        btn_dish_rm.innerText = '-';
+        btn_dish_rm.innerText = "DEL";
         btn_dish_rm.dish_index = i;
 
-        btn_dish_rm.setAttribute('class', `btn-dish-rm-${alternating % 2}`);
+        btn_dish_rm.setAttribute('class', `btn-dish-rm-${row_parity % 2}`);
         btn_dish_rm.addEventListener('click', function() {
             dish_indices.splice(
                 dish_indices.indexOf(this.dish_index), 1
