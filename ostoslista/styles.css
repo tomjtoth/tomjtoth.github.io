@@ -38,8 +38,10 @@ h2 {
 }
 
 .btn-dish-0:hover, .btn-dish-1:hover,
+.btn-dish-rm-0:hover, .btn-dish-rm-1:hover,
 .btn-ingr-0:hover, .btn-ingr-1:hover,
-.btn-item-0:hover, .btn-item-1:hover {
+.btn-item-0:hover, .btn-item-1:hover,
+.btn-item-rm-0:hover, .btn-item-rm-1:hover {
     background-color: #555;
 }
 
