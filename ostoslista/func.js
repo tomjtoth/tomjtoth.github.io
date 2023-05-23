@@ -123,31 +123,44 @@ function build() {
         // clickable button as name of dish
         const btn_dish = document.createElement('button');
         btn_dish.innerText = dish.name;
-
-        // TODO: get rid of 2 different classes and simply make bg-color darker a bit via JS
+        
         btn_dish.setAttribute('class', `btn-dish-${alternating++ % 2}`);
-
         btn_dish.addEventListener('click', function() {
             this.classList.toggle('active');
-            const content = this.nextElementSibling;
+            const content = this.parentElement.nextElementSibling;
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
             }
         });
-        div_dishes.appendChild(btn_dish);
+
+        const btn_dish_rm = document.createElement('btn');
+        btn_dish_rm.innerText = '-';
+        btn_dish_rm.dish_index = i;
+
+        btn_dish_rm.setAttribute('class', `btn-dish-rm-${alternating % 2}`);
+        btn_dish_rm.addEventListener('click', function() {
+            dish_indices.splice(
+                dish_indices.indexOf(this.dish_index), 1
+            );
+            build();
+        });
+
+        const div_dish_row = document.createElement('div');
+        div_dish_row.appendChild(btn_dish);
+        div_dish_row.appendChild(btn_dish_rm);
+        div_dishes.appendChild(div_dish_row);
 
         // paragraph containing instructions
-        const dish_p = document.createElement('p');
-        dish_p.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
+        const p_dish_instr = document.createElement('p');
+        p_dish_instr.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
 
         // div responsible for hiding/showing its child paragraph
-        const div_dish = document.createElement('div');
-        div_dish.setAttribute('class', 'dish_div');
-        div_dish.appendChild(dish_p);
-        div_dishes.appendChild(div_dish);
-
+        const div_dish_instr = document.createElement('div');
+        div_dish_instr.setAttribute('class', 'div-dish-instr');
+        div_dish_instr.appendChild(p_dish_instr);
+        div_dishes.appendChild(div_dish_instr);
 
         for (const mo_ingr of dish.ingredients) {
             assign(mo_ingr.groups.name, dish.name)

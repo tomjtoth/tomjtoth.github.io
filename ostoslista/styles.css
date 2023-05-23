@@ -37,7 +37,7 @@ h2 {
     background-color: #888;
 }
 
-.btn-dish-0.active, .btn-dish-1.active,
+/*.btn-dish-0.active, .btn-dish-1.active,*/
 .btn-dish-0:hover, .btn-dish-1:hover,
 .btn-ingr-0:hover, .btn-ingr-1:hover,
 .btn-item-0:hover, .btn-item-1:hover {
@@ -52,11 +52,12 @@ h2 {
 
 .btn-dish-rm-0, .btn-dish-rm-1,
 .btn-item-rm-0, .btn-item-rm-1 {
+    background-color: yellow;
     width: 10%;
     float: left;
 }
 
-.div-dish {
+.div-dish-instr {
     padding: 0 18px;
     max-height: 0;
     overflow: hidden;
