@@ -226,6 +226,7 @@ function build_modal_dishes() {
             div_modal_dishes.style.display = "none";
             build();
         });
+        div_modal_dishes.appendChild(btn_dish);
     }
 }
 
