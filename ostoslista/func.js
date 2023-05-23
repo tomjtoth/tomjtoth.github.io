@@ -57,41 +57,38 @@ function build() {
 
     function create_item_row(item, row_nro) {
 
-        const item_btn = document.createElement('button');
-        item_btn.item = item;
+        const btn_item = document.createElement('button');
+        btn_item.item = item;
 
-        item_btn.innerText = (row_nro == 0 ? "TUNTEMATON: " : "")
+        btn_item.innerText = (row_nro == 0 ? "TUNTEMATON: " : "")
             + item.name
             + (item.dish ? ` (${item.dish})` : "");
 
+        // shall not be removable, since it's part of the recipie
+        // hence own class
         if (item.dish) {
-            item_btn.setAttribute('class', alternating++ % 2 == 0
-                ? 'ingr_btn'
-                : 'ingr_btn2');
-            item_btn.addEventListener('click', function() {
+            btn_item.setAttribute('class', `btn-ingr-${alternating++ % 2}`);
+            btn_item.addEventListener('click', function() {
                 this.classList.toggle('active');
             });
 
-            return item_btn;
+            return btn_item;
         }
 
         // below starts an item button not related to a dish
 
-        item_btn.setAttribute('class', alternating++ % 2 == 0
-            ? 'item_btn'
-            : 'item_btn2');
-        item_btn.addEventListener('click', function() {
+        btn_item.setAttribute('class', `btn-item-${alternating++ % 2}`);
+        btn_item.addEventListener('click', function() {
             this.classList.toggle('active');
             this.nextElementSibling.classList.toggle('active');
         });
 
-        const item_btn_rm = document.createElement('button');
-        item_btn_rm.innerText = "DEL";
+        const btn_item_rm = document.createElement('button');
+        btn_item_rm.innerText = "DEL";
 
-        item_btn_rm.setAttribute('class', alternating++ % 2 == 0
-            ? 'item_btn_rm'
-            : 'item_btn_rm2');
-        item_btn_rm.addEventListener('click', function() {
+        // alternating not incremented, because it is in the same row
+        btn_item_rm.setAttribute('class', `btn-item-rm-${alternating % 2}`);
+        btn_item_rm.addEventListener('click', function() {
             item = this.previousElementSibling.item;
             extra_items.splice(extra_items.indexOf(item.name), 1);
             store("items", extra_items);
@@ -101,17 +98,17 @@ function build() {
                 .removeChild(this.parentElement);
         });
 
-        const item_div = document.createElement('div');
+        const div_item = document.createElement('div');
 
-        item_div.appendChild(item_btn);
-        item_div.appendChild(item_btn_rm);
+        div_item.appendChild(btn_item);
+        div_item.appendChild(btn_item_rm);
 
-        return item_div;
+        return div_item;
     }
 
     // drop all current entries
-    html_dishes.innerHTML = '';
-    html_ingredients.innerHTML = '';
+    div_dishes.innerHTML = '';
+    div_items.innerHTML = '';
 
     // indice 0 is for UNSORTED items
     const items = [[]];
@@ -124,13 +121,13 @@ function build() {
         const dish = recipies[i];
 
         // clickable button as name of dish
-        const dish_btn = document.createElement('button');
-        dish_btn.innerText = dish.name;
+        const btn_dish = document.createElement('button');
+        btn_dish.innerText = dish.name;
 
         // TODO: get rid of 2 different classes and simply make bg-color darker a bit via JS
-        dish_btn.setAttribute('class', alternating++ % 2 == 0 ? 'dish_btn' : 'dish_btn2');
+        btn_dish.setAttribute('class', `btn-dish-${alternating++ % 2}`);
 
-        dish_btn.addEventListener('click', function() {
+        btn_dish.addEventListener('click', function() {
             this.classList.toggle('active');
             const content = this.nextElementSibling;
             if (content.style.maxHeight) {
@@ -139,17 +136,17 @@ function build() {
                 content.style.maxHeight = content.scrollHeight + "px";
             }
         });
-        html_dishes.appendChild(dish_btn);
+        div_dishes.appendChild(btn_dish);
 
         // paragraph containing instructions
         const dish_p = document.createElement('p');
         dish_p.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
 
         // div responsible for hiding/showing its child paragraph
-        const dish_div = document.createElement('div');
-        dish_div.setAttribute('class', 'dish_div');
-        dish_div.appendChild(dish_p);
-        html_dishes.appendChild(dish_div);
+        const div_dish = document.createElement('div');
+        div_dish.setAttribute('class', 'dish_div');
+        div_dish.appendChild(dish_p);
+        div_dishes.appendChild(div_dish);
 
 
         for (const mo_ingr of dish.ingredients) {
@@ -166,7 +163,7 @@ function build() {
         if (!row_in_shop) continue;
 
         for (const item of row_in_shop) {
-            html_ingredients.appendChild(create_item_row(item, row_nro));
+            div_items.appendChild(create_item_row(item, row_nro));
         }
     }
 }
@@ -204,8 +201,8 @@ function add_extra_item() {
 
 const urlParams = new URLSearchParams(window.location.search);
 
-const html_ingredients = document.getElementById('items');
-const html_dishes = document.getElementById('dishes');
+const div_items = document.getElementById('items');
+const div_dishes = document.getElementById('dishes');
 
 var reset_qs = false;
 const dish_indices = parse("dishes");
