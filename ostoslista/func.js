@@ -142,8 +142,8 @@ function build() {
         btn_dish_rm.setAttribute('class', `btn-dish-rm-${row_parity % 2}`);
         btn_dish_rm.addEventListener('click', function() {
             dish_indices.splice(
-                dish_indices.indexOf(this.dish_index), 1
-            );
+                dish_indices.indexOf(this.dish_index), 1);
+            store('dishes', dish_indices);
             build();
         });
 
