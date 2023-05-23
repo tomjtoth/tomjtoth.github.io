@@ -229,6 +229,10 @@ function build_modal_dishes() {
     }
 }
 
+function add_dish() {
+    div_modal_dishes.style.display = "block";
+}
+
 const urlParams = new URLSearchParams(window.location.search);
 
 const div_items = document.getElementById('items');
