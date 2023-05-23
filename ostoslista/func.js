@@ -240,6 +240,10 @@ const div_items = document.getElementById('items');
 const div_dishes = document.getElementById('dishes');
 const div_modal_dishes = document.getElementById('modal-dishes');
 
+div_modal_dishes.addEventListener('click', function() {
+    this.style.display = "none";
+})
+
 var reset_qs = false;
 const dish_indices = parse("dishes");
 const extra_items = parse("items");
