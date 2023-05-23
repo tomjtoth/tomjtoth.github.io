@@ -84,7 +84,7 @@ function build() {
         });
 
         const btn_item_rm = document.createElement('button');
-        btn_item_rm.innerText = "DEL";
+        btn_item_rm.innerText = '-';
 
         // alternating not incremented, because it is in the same row
         btn_item_rm.setAttribute('class', `btn-item-rm-${row_parity % 2}`);
@@ -136,7 +136,7 @@ function build() {
         });
 
         const btn_dish_rm = document.createElement('btn');
-        btn_dish_rm.innerText = "DEL";
+        btn_dish_rm.innerText = '-';
         btn_dish_rm.dish_index = i;
 
         btn_dish_rm.setAttribute('class', `btn-dish-rm-${row_parity % 2}`);
@@ -159,7 +159,7 @@ function build() {
         // div responsible for hiding/showing its child paragraph
         const div_dish_instr = document.createElement('div');
         div_dish_instr.setAttribute('class', 'div-dish-instr');
-        div_dish_instr.appendChild(p_dish_instr);
+        //div_dish_instr.appendChild(p_dish_instr);
         div_dishes.appendChild(div_dish_instr);
 
         for (const mo_ingr of dish.ingredients) {
