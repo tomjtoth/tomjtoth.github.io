@@ -215,6 +215,7 @@ function add_extra_item() {
 }
 
 function build_modal_dishes() {
+    const div_modal_content_dishes = div_modal_dishes.firstChild;
     for (const [i, recipie] of recipies.entries()) {
         const btn_dish = document.createElement('btn');
         btn_dish.innerText = recipie.name;
@@ -226,7 +227,7 @@ function build_modal_dishes() {
             div_modal_dishes.style.display = "none";
             build();
         });
-        div_modal_dishes.appendChild(btn_dish);
+        div_modal_content_dishes.appendChild(btn_dish);
     }
 }
 
