@@ -196,6 +196,8 @@ function main([recipies_md]) {
         return {name, tags, preference, instructions, ingredients}
     });
 
+    build_modal_dishes();
+
     if (dish_indices.length > 0) {
         build();
     } else {
@@ -212,10 +214,26 @@ function add_extra_item() {
     }
 }
 
+function build_modal_dishes() {
+    for (const [i, recipie] of recipies.entries()) {
+        const btn_dish = document.createElement('btn');
+        btn_dish.innerText = recipie.name;
+        btn_dish.dish_index = i;
+        btn_dish.setAttribute('class', `btn-dish-${i % 2}`)
+        btn_dish.addEventListener('click', function() {
+            dish_indices.push(this.dish_index);
+            store('dishes', dish_indices);
+            div_modal_dishes.style.display = "none";
+            build();
+        });
+    }
+}
+
 const urlParams = new URLSearchParams(window.location.search);
 
 const div_items = document.getElementById('items');
 const div_dishes = document.getElementById('dishes');
+const div_modal_dishes = document.getElementById('modal-dishes');
 
 var reset_qs = false;
 const dish_indices = parse("dishes");
