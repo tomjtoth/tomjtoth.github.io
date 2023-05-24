@@ -102,5 +102,6 @@ h2 {
 
 #modal-dishes-content .btn-dish-0,
 #modal-dishes-content .btn-dish-1 {
+    width: -moz-available; /* mozilla specific (?) */
     width: stretch;
 }
