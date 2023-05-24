@@ -135,7 +135,7 @@ function build() {
             }
         });
 
-        const btn_dish_rm = document.createElement('btn');
+        const btn_dish_rm = document.createElement('button');
         btn_dish_rm.innerText = '-';
         btn_dish_rm.dish_index = i;
 
