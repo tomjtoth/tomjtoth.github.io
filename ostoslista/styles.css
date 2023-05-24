@@ -47,14 +47,14 @@ h2 {
 
 .btn-dish-0, .btn-dish-1,
 .btn-item-0, .btn-item-1 {
-    width: 90%;
+    width: 95%;
     display: inline;
 }
 
 .btn-dish-rm-0, .btn-dish-rm-1,
 .btn-item-rm-0, .btn-item-rm-1 {
     background-color: #888;
-    width: 10%;
+    width: 5%;
     display: inline;
 }
 

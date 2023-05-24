@@ -84,7 +84,7 @@ function build() {
         });
 
         const btn_item_rm = document.createElement('button');
-        btn_item_rm.innerText = '-';
+        btn_item_rm.innerText = "DEL";
 
         // alternating not incremented, because it is in the same row
         btn_item_rm.setAttribute('class', `btn-item-rm-${row_parity % 2}`);
@@ -136,7 +136,7 @@ function build() {
         });
 
         const btn_dish_rm = document.createElement('button');
-        btn_dish_rm.innerText = '-';
+        btn_dish_rm.innerText = "DEL";
         btn_dish_rm.dish_index = i;
 
         btn_dish_rm.setAttribute('class', `btn-dish-rm-${row_parity % 2}`);
