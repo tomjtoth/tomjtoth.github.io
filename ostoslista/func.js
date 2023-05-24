@@ -194,6 +194,14 @@ function main([recipies_md]) {
         const instructions = mo_dish.groups.descr.replace(re_ingredients, '$1');
         const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
         return {name, tags, preference, instructions, ingredients}
+    })
+    .sort((a, b) => {
+        const left = a.name.charAt(3);
+        const right = b.name.charAt(3);
+
+        if (left < right) return -1;
+        if (left > right) return 1;
+        return 0;
     });
 
     build_modal_dishes();
