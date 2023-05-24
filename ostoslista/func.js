@@ -225,7 +225,7 @@ function add_extra_item() {
 function build_modal_dishes() {
     for (const [i, recipie] of recipies.entries()) {
         const btn_dish = document.createElement('btn');
-        btn_dish.innerText = recipie.name;
+        btn_dish.innerText = `${i}: ${recipie.name}`;
         btn_dish.dish_index = i;
         btn_dish.setAttribute('class', `btn-dish-${i % 2}`)
         btn_dish.addEventListener('click', function() {
