@@ -33,6 +33,31 @@ function shuffle() {
     build();
 }
 
+function create_btn(name, onactivate, ondel = null) {
+
+    const btn = document.createElement("button");
+    
+    if (ondel) {
+        const span1 = document.createElement("span");
+        const span2 = document.createElement("span");
+
+        span1.innerText = name;
+        span1.addEventListener("click", onactivate);
+        btn.appendChild(span1);
+        
+        span2.innerText = "DEL";
+        span2.setAttribute("class", "span-rm");
+        span2.addEventListener("click", ondel);
+        btn.appendChild(span2);
+
+    } else {
+        btn.innerText = name;
+        btn.addEventListener("click", onactivate);
+    }
+
+    return btn;
+}
+
 // builds the dishes and items divs
 function build() {
 
@@ -55,57 +80,6 @@ function build() {
         }
     }
 
-    function create_item_row(item, row_nro) {
-
-        const btn_item = document.createElement('button');
-        btn_item.item = item;
-
-        btn_item.innerText = (row_nro == 0 ? "TUNTEMATON: " : "")
-            + item.name
-            + (item.dish ? ` (${item.dish})` : "");
-
-        // shall not be removable, since it's part of the recipie
-        // hence own class
-        if (item.dish) {
-            btn_item.setAttribute('class', `btn-ingr-${++row_parity % 2}`);
-            btn_item.addEventListener('click', function() {
-                this.classList.toggle('active');
-            });
-
-            return btn_item;
-        }
-
-        // below starts an item button not related to a dish
-
-        btn_item.setAttribute('class', `btn-item-${++row_parity % 2}`);
-        btn_item.addEventListener('click', function() {
-            this.classList.toggle('active');
-            this.nextElementSibling.classList.toggle('active');
-        });
-
-        const btn_item_rm = document.createElement('button');
-        btn_item_rm.innerText = "DEL";
-
-        // alternating not incremented, because it is in the same row
-        btn_item_rm.setAttribute('class', `btn-item-rm-${row_parity % 2}`);
-        btn_item_rm.addEventListener('click', function() {
-            item = this.previousElementSibling.item;
-            extra_items.splice(extra_items.indexOf(item.name), 1);
-            store("items", extra_items);
-
-            // removing the parent div from the rendered page
-            this.parentElement.parentElement
-                .removeChild(this.parentElement);
-        });
-
-        const div_item = document.createElement('div');
-
-        div_item.appendChild(btn_item);
-        div_item.appendChild(btn_item_rm);
-
-        return div_item;
-    }
-
     // drop all current entries
     div_dishes.innerHTML = '';
     div_items.innerHTML = '';
@@ -114,18 +88,14 @@ function build() {
     const items = [[]];
     items.length = the_order.length + 1;
 
-    let row_parity = 0;
-
+    // populate dish buttons in div-dishes
     for (const i of dish_indices) {
 
         const dish = recipies[i];
 
-        // clickable button as name of dish
-        const btn_dish = document.createElement("button");
-        btn_dish.innerText = dish.name;
-        
-        btn_dish.setAttribute("class", `btn-dish-${++row_parity % 2}`);
-        btn_dish.addEventListener("click", function() {
+        div_dishes.appendChild(create_btn(
+            dish.name,
+            function() {
             this.classList.toggle("active");
             const content = this.parentElement.nextElementSibling;
             if (content.style.maxHeight) {
@@ -133,24 +103,14 @@ function build() {
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
             }
-        });
-
-        const btn_dish_rm = document.createElement("button");
-        btn_dish_rm.innerText = "DEL";
-        btn_dish_rm.dish_index = i;
-
-        btn_dish_rm.setAttribute("class", `btn-dish-rm-${row_parity % 2}`);
-        btn_dish_rm.addEventListener("click", function() {
+            },
+            function() {
             dish_indices.splice(
-                dish_indices.indexOf(this.dish_index), 1);
+                    dish_indices.indexOf(i), 1);
             store("dishes", dish_indices);
             build();
-        });
-
-        const div_dish_row = document.createElement("div");
-        div_dish_row.appendChild(btn_dish);
-        div_dish_row.appendChild(btn_dish_rm);
-        div_dishes.appendChild(div_dish_row);
+            }
+        ));
 
         // paragraph containing instructions
         const p_dish_instr = document.createElement('p');
@@ -176,7 +136,21 @@ function build() {
         if (!row_in_shop) continue;
 
         for (const item of row_in_shop) {
-            div_items.appendChild(create_item_row(item, row_nro));
+            div_items.appendChild(create_btn(
+                (row_nro == 0 ? "TUNTEMATON: " : "")
+                + item.name
+                + (item.dish ? ` (${item.dish})` : ''), 
+
+                function() {
+                    this.classList.toggle("active");
+                },
+                
+                item.dish ? null : function() {
+                    extra_items.splice(extra_items.indexOf(item.name), 1);
+                    store("items", extra_items);
+                    build();
+                }
+            ));
         }
     }
 }
@@ -224,17 +198,15 @@ function add_item() {
 
 function build_modal_dishes() {
     for (const [i, recipie] of recipies.entries()) {
-        const btn_dish = document.createElement("btn");
-        btn_dish.innerText = `${i}: ${recipie.name}`;
-        btn_dish.dish_index = i;
-        btn_dish.setAttribute("class", `btn-dish-${i % 2}`)
-        btn_dish.addEventListener("click", function() {
-            dish_indices.push(this.dish_index);
+        div_modal_dishes_content.appendChild(create_btn(
+            `${i}: ${recipie.name}`,
+            function() {
+                dish_indices.push(i);
             store("dishes", dish_indices);
             div_modal_dishes.style.display = "none";
             build();
-        });
-        div_modal_dishes_content.appendChild(btn_dish);
+            }
+        ));
     }
 }
 
