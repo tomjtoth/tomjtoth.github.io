@@ -142,7 +142,7 @@ function build() {
                 + (item.dish ? ` (${item.dish})` : ''), 
 
                 function() {
-                    this.classList.toggle("active");
+                    (item.dish ? this : this.parentElement).classList.toggle("active");
                 },
                 
                 item.dish ? null : function() {
