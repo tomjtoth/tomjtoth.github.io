@@ -96,19 +96,19 @@ function build() {
         div_dishes.appendChild(create_btn(
             dish.name,
             function() {
-            this.classList.toggle("active");
-            const content = this.parentElement.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
+                this.classList.toggle("active");
+                const content = this.parentElement.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
             },
             function() {
-            dish_indices.splice(
+                dish_indices.splice(
                     dish_indices.indexOf(i), 1);
-            store("dishes", dish_indices);
-            build();
+                store("dishes", dish_indices);
+                build();
             }
         ));
 
@@ -202,9 +202,9 @@ function build_modal_dishes() {
             `${i}: ${recipie.name}`,
             function() {
                 dish_indices.push(i);
-            store("dishes", dish_indices);
-            div_modal_dishes.style.display = "none";
-            build();
+                store("dishes", dish_indices);
+                div_modal_dishes.style.display = "none";
+                build();
             }
         ));
     }
@@ -220,11 +220,12 @@ const div_items = document.getElementById("items");
 const div_dishes = document.getElementById("dishes");
 const div_modal_dishes = document.getElementById("modal-dishes");
 const div_modal_dishes_content = document.getElementById("modal-dishes-content");
-
+const div_modal_conf = document.getElementById("modal-conf");
 
 div_modal_dishes.addEventListener("click", function() {
     this.style.display = "none";
 })
+
 
 var reset_qs = false;
 const dish_indices = parse("dishes");
