@@ -26,10 +26,10 @@ function shuffle() {
         let j;
         do {
             j = Math.floor(Math.random() * recipies.length);
-        } while (dish_indices.includes(j) || recipies[j].tags.includes('dessert'));
+        } while (dish_indices.includes(j) || recipies[j].tags.includes("dessert"));
         dish_indices.push(j);
     }
-    store('dishes', dish_indices);
+    store("dishes", dish_indices);
     build();
 }
 
@@ -121,12 +121,12 @@ function build() {
         const dish = recipies[i];
 
         // clickable button as name of dish
-        const btn_dish = document.createElement('button');
+        const btn_dish = document.createElement("button");
         btn_dish.innerText = dish.name;
         
-        btn_dish.setAttribute('class', `btn-dish-${++row_parity % 2}`);
-        btn_dish.addEventListener('click', function() {
-            this.classList.toggle('active');
+        btn_dish.setAttribute("class", `btn-dish-${++row_parity % 2}`);
+        btn_dish.addEventListener("click", function() {
+            this.classList.toggle("active");
             const content = this.parentElement.nextElementSibling;
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
@@ -135,19 +135,19 @@ function build() {
             }
         });
 
-        const btn_dish_rm = document.createElement('button');
+        const btn_dish_rm = document.createElement("button");
         btn_dish_rm.innerText = "DEL";
         btn_dish_rm.dish_index = i;
 
-        btn_dish_rm.setAttribute('class', `btn-dish-rm-${row_parity % 2}`);
-        btn_dish_rm.addEventListener('click', function() {
+        btn_dish_rm.setAttribute("class", `btn-dish-rm-${row_parity % 2}`);
+        btn_dish_rm.addEventListener("click", function() {
             dish_indices.splice(
                 dish_indices.indexOf(this.dish_index), 1);
-            store('dishes', dish_indices);
+            store("dishes", dish_indices);
             build();
         });
 
-        const div_dish_row = document.createElement('div');
+        const div_dish_row = document.createElement("div");
         div_dish_row.appendChild(btn_dish);
         div_dish_row.appendChild(btn_dish_rm);
         div_dishes.appendChild(div_dish_row);
@@ -191,7 +191,7 @@ function main([recipies_md]) {
             : ''
         ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
         const preference = parseInt(mo_dish.groups.pref);
-        const instructions = mo_dish.groups.descr.replace(re_ingredients, '$1');
+        const instructions = mo_dish.groups.descr.replace(re_ingredients, "$1");
         const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
         return {name, tags, preference, instructions, ingredients}
     })
@@ -224,13 +224,13 @@ function add_extra_item() {
 
 function build_modal_dishes() {
     for (const [i, recipie] of recipies.entries()) {
-        const btn_dish = document.createElement('btn');
+        const btn_dish = document.createElement("btn");
         btn_dish.innerText = `${i}: ${recipie.name}`;
         btn_dish.dish_index = i;
-        btn_dish.setAttribute('class', `btn-dish-${i % 2}`)
-        btn_dish.addEventListener('click', function() {
+        btn_dish.setAttribute("class", `btn-dish-${i % 2}`)
+        btn_dish.addEventListener("click", function() {
             dish_indices.push(this.dish_index);
-            store('dishes', dish_indices);
+            store("dishes", dish_indices);
             div_modal_dishes.style.display = "none";
             build();
         });
@@ -244,13 +244,13 @@ function add_dish() {
 
 const urlParams = new URLSearchParams(window.location.search);
 
-const div_items = document.getElementById('items');
-const div_dishes = document.getElementById('dishes');
-const div_modal_dishes = document.getElementById('modal-dishes');
-const div_modal_dishes_content = document.getElementById('modal-dishes-content');
+const div_items = document.getElementById("items");
+const div_dishes = document.getElementById("dishes");
+const div_modal_dishes = document.getElementById("modal-dishes");
+const div_modal_dishes_content = document.getElementById("modal-dishes-content");
 
 
-div_modal_dishes.addEventListener('click', function() {
+div_modal_dishes.addEventListener("click", function() {
     this.style.display = "none";
 })
 
