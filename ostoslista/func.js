@@ -157,8 +157,8 @@ function build() {
         p_dish_instr.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
 
         // div responsible for hiding/showing its child paragraph
-        const div_dish_instr = document.createElement('div');
-        div_dish_instr.setAttribute('class', 'div-dish-instr');
+        const div_dish_instr = document.createElement("div");
+        div_dish_instr.setAttribute("class", "div-dish-instr");
         div_dish_instr.appendChild(p_dish_instr);
         div_dishes.appendChild(div_dish_instr);
 
