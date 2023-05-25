@@ -110,7 +110,7 @@ function build() {
     div_dishes.innerHTML = '';
     div_items.innerHTML = '';
 
-    // indice 0 is for UNSORTED items
+    // index 0 is for UNSORTED items
     const items = [[]];
     items.length = the_order.length + 1;
 
