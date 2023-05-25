@@ -196,8 +196,8 @@ function main([recipies_md]) {
         return {name, tags, preference, instructions, ingredients}
     })
     .sort((a, b) => {
-        const left = a.name.charAt(3);
-        const right = b.name.charAt(3);
+        const left = a.name.substring(3);
+        const right = b.name.substring(3);
 
         if (left < right) return -1;
         if (left > right) return 1;
