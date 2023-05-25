@@ -52,6 +52,7 @@ div#dishes button {
     cursor: pointer;
     border: none;
     outline: none;
+    padding: 10px;
 }
 
 div#items button:nth-child(even),
@@ -71,7 +72,6 @@ div#dishes button.active:nth-child(even) {
 
 button span:nth-child(2n) {
     padding-left: 20px;
-    padding: 10px;
 }
 
 .modal {
