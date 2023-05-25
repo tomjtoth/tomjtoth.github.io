@@ -70,6 +70,10 @@ div#dishes button.active:nth-child(even) {
     background-color: #2a2;
 }
 
+span:nth-child(2n) {
+    padding-left: 20px;
+}
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
