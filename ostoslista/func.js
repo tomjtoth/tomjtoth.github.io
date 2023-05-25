@@ -213,9 +213,9 @@ function main([recipies_md]) {
     }
 }
 
-function add_extra_item() {
+function add_item() {
     const item = window.prompt("enter item name");
-    if (item != null) {
+    if (item != '') {
         extra_items.push(item);
         store("items", extra_items);
         build();
