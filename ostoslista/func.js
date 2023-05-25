@@ -105,10 +105,12 @@ function build() {
                 }
             },
             function() {
-                dish_indices.splice(
-                    dish_indices.indexOf(i), 1);
-                store("dishes", dish_indices);
-                build();
+                if (confirm(`Really DELETE ${dish.name}?`)) {
+                    dish_indices.splice(
+                        dish_indices.indexOf(i), 1);
+                    store("dishes", dish_indices);
+                    build();
+                }
             }
         ));
 
@@ -146,9 +148,11 @@ function build() {
                 },
                 
                 item.dish ? null : function() {
-                    extra_items.splice(extra_items.indexOf(item.name), 1);
-                    store("items", extra_items);
-                    build();
+                    if (confirm(`Really DELETE ${item.name}?`)) {
+                        extra_items.splice(extra_items.indexOf(item.name), 1);
+                        store("items", extra_items);
+                        build();
+                    }
                 }
             ));
         }
@@ -220,7 +224,6 @@ const div_items = document.getElementById("items");
 const div_dishes = document.getElementById("dishes");
 const div_modal_dishes = document.getElementById("modal-dishes");
 const div_modal_dishes_content = document.getElementById("modal-dishes-content");
-const div_modal_conf = document.getElementById("modal-conf");
 
 div_modal_dishes.addEventListener("click", function() {
     this.style.display = "none";
