@@ -70,6 +70,10 @@ div#dishes button.active:nth-child(even) {
     background-color: #2a2;
 }
 
+button span:nth-child(1n) {
+    width: 100%;
+}
+
 button span:nth-child(2n) {
     padding-left: 20px;
 }

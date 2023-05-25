@@ -42,7 +42,7 @@ function create_btn(name, onactivate, ondel = null) {
         const span2 = document.createElement("span");
 
         span1.innerText = name;
-        btn.addEventListener("click", onactivate);
+        span1.addEventListener("click", onactivate);
         btn.appendChild(span1);
         
         span2.innerText = "DEL";
