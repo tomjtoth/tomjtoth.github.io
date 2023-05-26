@@ -36,23 +36,20 @@ function shuffle() {
 function create_btn(name, onactivate, ondel = null) {
 
     const btn = document.createElement("button");
+    btn.addEventListener("click", onactivate);    
     
     if (ondel) {
         const span1 = document.createElement("span");
-        const span2 = document.createElement("span");
-
         span1.innerText = name;
-        span1.addEventListener("click", onactivate);
         btn.appendChild(span1);
         
+        const span2 = document.createElement("span");
         span2.innerText = "DEL";
-        span2.setAttribute("class", "span-rm");
         span2.addEventListener("click", ondel);
         btn.appendChild(span2);
 
     } else {
         btn.innerText = name;
-        btn.addEventListener("click", onactivate);
     }
 
     return btn;
@@ -96,21 +93,21 @@ function build() {
         div_dishes.appendChild(create_btn(
             dish.name,
             function() {
-                this.classList.toggle("active");
-                const content = this.parentElement.nextElementSibling;
+                const content = this.nextElementSibling;
                 if (content.style.maxHeight) {
                     content.style.maxHeight = null;
                 } else {
                     content.style.maxHeight = content.scrollHeight + "px";
                 }
             },
-            function() {
+            function(ev) {
                 if (confirm(`Really DELETE ${dish.name}?`)) {
                     dish_indices.splice(
                         dish_indices.indexOf(i), 1);
                     store("dishes", dish_indices);
                     build();
                 }
+                ev.stopPropagation();
             }
         ));
 
@@ -144,15 +141,16 @@ function build() {
                 + (item.dish ? ` (${item.dish})` : ''), 
 
                 function() {
-                    (item.dish ? this : this.parentElement).classList.toggle("active");
+                    this.classList.toggle("active");
                 },
                 
-                item.dish ? null : function() {
+                item.dish ? null : function(ev) {
                     if (confirm(`Really DELETE ${item.name}?`)) {
                         extra_items.splice(extra_items.indexOf(item.name), 1);
                         store("items", extra_items);
                         build();
                     }
+                    ev.stopPropagation();
                 }
             ));
         }
