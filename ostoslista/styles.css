@@ -71,11 +71,11 @@ div#dishes button.active:nth-child(even) {
 }
 
 button span:nth-child(1n) {
-    text-align: left;
+    float: left;
 }
 
 button span:nth-child(2n) {
-    text-align: right;
+    float: right;
 }
 
 .modal {
