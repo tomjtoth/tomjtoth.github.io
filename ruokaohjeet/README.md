@@ -27,7 +27,7 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. laita `300-500 g maustamattomat kanasuikaleet` pannulle ruskistumaan, mausta suolalla
 1. lisää hetken päästä joukkoon `100 g herkkusieni`
 1. laita `400 g makaroni` kiehumaan
-    - haluattessasi myös `parsakaali ?` omaan erilliseen kattilaan
+    - haluattessasi myös `parsakaali?` omaan erilliseen kattilaan
 1. lisää kanan joukkoon `kolme pippuria tuorejuusto` ja 1 dl vettä, sekoita ja anna hautua
 1. ruoka on valmis, kun makaronit (ja parsakaali) ovat kypsiä
 
@@ -43,7 +43,7 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 #mifu #wokki #nuudeli
 +10
 
-1. ruskista `mifu ?` tai `500–700 g marinoitu kana ?` pannulla
+1. ruskista `mifu?` tai `500–700 g marinoitu kana?` pannulla
 1. samaan aikaan keitä `2 kpl nuudelipussi` 5 desilitrassa vedessä
 1. lisää `wokkivihannekset` mifun joukkoon ja paista kypsäksi
 1. kun vesi on imeytynyt nuudeleihin, sekoita kaikki ainekset keskenään
@@ -121,7 +121,7 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. voitele uunivuoka öljyllä ja lisää siihen `1 kg peruna-sipulisekoitus` ja keittokinkku
 1. lisää kulhoon [`2 kpl ruokakerma`](https://www.s-kaupat.fi/tuote/kotimaista-2-dl-laktoositon-15-uht-ruokakerma/6414893385498) ja lisää joukkoon mausteita esim. `suola`, `pippuri` ja `timjami`, sekoita ja kaada vuokaan ruuan päälle
 1. kypsennä uunissa 1 tunti
-1. voit keittää liedellä lisäksi `pakastevihannekset ?`
+1. voit keittää liedellä lisäksi `pakastevihannekset?`
 
 ## 🥕 vakioruoka
 #since2018
@@ -179,7 +179,7 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. jätä hautumaan kannen alle 30-45 minuutiksi kunnes lihat ovat kypsiä
 1. laita `400g makaroni` kiehumaan
 1. sekoita kulhossa `150g creme fraiche` ja `1 rkl vehnäjauho` keskenään tasaiseksi ja kaada lihojen joukkoon, kuumenna hetki.
-1. syö `leipä ?` ja `pikkukurkut ?` kanssa
+1. syö `leipä?` ja `pikkukurkut?` kanssa
 
 ## 🥩 pippuri-timjamipossu
 #possu
@@ -191,4 +191,4 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. lisää sekaan `125 g mustapippurituorejuusto` ja mausta 1 tl `timjami`
     - timjamia voi myös laittaa enemmän, jos tykkäät
 1. sekoita tasaiseksi ja anna hautua kannen alla vähintään 15 minsaa
-1. voit syödä kastikkeen esimerkiksi `perunat ?` tai `makaroni ?` -n kanssa ja keittää lisäksi `vihannekset ?`
+1. voit syödä kastikkeen esimerkiksi `perunat?` tai `makaroni?` -n kanssa ja keittää lisäksi `vihannekset?`
