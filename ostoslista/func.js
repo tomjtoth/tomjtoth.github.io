@@ -17,15 +17,16 @@ function parse(name, check_qs = true) {
 
 // randomly re-picks dishes
 function shuffle() {
+    const rec_len = recipies.length;
     let n = dish_indices.length;
     if (n == 0) {
         n = 3
     }
     dish_indices.length = 0;
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < n && i < rec_len - 1; i++) {
         let j;
         do {
-            j = Math.floor(Math.random() * recipies.length);
+            j = Math.floor(Math.random() * rec_len);
         } while (dish_indices.includes(j) || recipies[j].tags.includes("dessert"));
         dish_indices.push(j);
     }
