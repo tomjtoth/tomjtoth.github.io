@@ -15,7 +15,10 @@ button {
     font-size: 15px;
 }
 
-button:hover {
+button:hover,
+div#controls button:nth-child(even):hover,
+div#items button:nth-child(even):hover,
+div#dishes button:nth-child(4n-1):hover {
     background-color: #555;
 }
 
