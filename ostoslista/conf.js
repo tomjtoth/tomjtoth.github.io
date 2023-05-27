@@ -24,7 +24,7 @@ const the_order = [
     /karjalanpa/,
     /kalk+una|kink+u/,
     /pi(?:zz|ts)a|ri+sipi+rak+a/,
-    /muna|oliivi|tomaattimurska|ananas|kookosmai[dt]o||pikkukurkut/,
+    /muna|oliivi|tomaattimurska|ananas|kookosmai[dt]o|pikkukurkut/,
     /perunalastu|pähkinä|sipsi|hampparikastike/,
     /lei[pv]ä|sämpylä/,
     /nu+deli|makaroni|soija.*r.*h|ri+si|öljy/,
