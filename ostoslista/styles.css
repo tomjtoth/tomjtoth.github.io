@@ -30,6 +30,7 @@ div#dishes, div#items {
 div#controls {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 div#controls button,
