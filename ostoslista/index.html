@@ -9,7 +9,9 @@
         <script type="text/javascript">
             // possibly more promises later (?)
             const all_promises = Promise.all([
-                fetch("../ruokaohjeet/README.md").then((res) => res.text()),
+                fetch("../ruokaohjeet/README.md")
+                    .then((res) => res.text())
+                    .catch((reason) => alert(`Failed to fetch recipies: ${reason}`)),
             ]);
         </script>
     </head>
