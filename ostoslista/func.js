@@ -22,6 +22,9 @@ function shuffle() {
     if (n == 0) {
         n = 3
     }
+    for (const i of dish_indices) {
+        rm_dish(i, false);
+    }
     dish_indices.length = 0;
     for (let i = 0; i < n && i < rec_len - 1; i++) {
         let j;
@@ -29,21 +32,21 @@ function shuffle() {
             j = Math.floor(Math.random() * rec_len);
         } while (dish_indices.includes(j) || recipies[j].tags.includes("dessert"));
         dish_indices.push(j);
+        add_dish(j);
     }
     store("dishes", dish_indices);
-    build();
 }
 
 function create_btn(name, onactivate, ondel = null) {
 
     const btn = document.createElement("button");
-    btn.addEventListener("click", onactivate);    
-    
+    btn.addEventListener("click", onactivate);
+
     if (ondel) {
         const span1 = document.createElement("span");
         span1.innerText = name;
         btn.appendChild(span1);
-        
+
         const span2 = document.createElement("span");
         span2.innerText = "DEL";
         span2.addEventListener("click", ondel);
@@ -56,104 +59,125 @@ function create_btn(name, onactivate, ondel = null) {
     return btn;
 }
 
-// builds the dishes and items divs
-function build() {
+function add_dish(dish_idx) {
 
-    // shoves the item in it's ordered place
-    function assign(name, dish = null) {
-        let found = false;
-        for (const [j, regex] of the_order.entries()) {
-            if (name.match(regex)) {
-                if (!items[j+1]) {
-                    items[j+1] = []
-                }
-
-                items[j+1].push({name, dish});
-                found = true;
-                break;
+    const dish = recipies[dish_idx];
+    const btn = create_btn(
+        dish.name,
+        function() {
+            const content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
             }
-        }
-        if (!found) {
-            items[0].push({name, dish})
-        }
-    }
-
-    // drop all current entries
-    div_dishes.innerHTML = '';
-    div_items.innerHTML = '';
-
-    // index 0 is for UNSORTED items
-    const items = [[]];
-    items.length = the_order.length + 1;
-
-    // populate dish buttons in div-dishes
-    for (const i of dish_indices) {
-
-        const dish = recipies[i];
-
-        div_dishes.appendChild(create_btn(
-            dish.name,
-            function() {
-                const content = this.nextElementSibling;
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
-            },
-            function(ev) {
-                if (confirm(`Really DELETE ${dish.name}?`)) {
-                    dish_indices.splice(
-                        dish_indices.indexOf(i), 1);
-                    store("dishes", dish_indices);
-                    build();
-                }
-                ev.stopPropagation();
+        },
+        function(ev) {
+            if (confirm(`Really DELETE ${dish.name}?`)) {
+                rm_dish(dish_idx);
             }
-        ));
+            ev.stopPropagation();
+        }
+    );
+    btn.dish_idx = dish_idx;
+    div_dishes.appendChild(btn);
 
-        // paragraph containing instructions
-        const p_dish_instr = document.createElement('p');
-        p_dish_instr.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
+    // paragraph containing instructions
+    const p_dish_instr = document.createElement('p');
+    p_dish_instr.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
 
-        // div responsible for hiding/showing its child paragraph
-        const div_dish_instr = document.createElement("div");
-        div_dish_instr.setAttribute("class", "div-dish-instr");
-        div_dish_instr.appendChild(p_dish_instr);
-        div_dishes.appendChild(div_dish_instr);
+    // div responsible for hiding/showing its child paragraph
+    const div_dish_instr = document.createElement("div");
+    div_dish_instr.setAttribute("class", "div-dish-instr");
+    div_dish_instr.appendChild(p_dish_instr);
+    div_dishes.appendChild(div_dish_instr);
 
-        for (const mo_ingr of dish.ingredients) {
-            assign(mo_ingr.groups.name, dish.name)
+    for (const mo_ingr of dish.ingredients) {
+        add_item(
+            mo_ingr.groups.name,
+            get_item_order(mo_ingr.groups.name),
+            dish_idx
+        );
+
+    }
+}
+
+function rm_dish(dish_idx, splicing = true) {
+    if (splicing) {
+        dish_indices.splice(
+            dish_indices.indexOf(dish_idx), 1);
+        store("dishes", dish_indices);
+    }
+
+    for (const item of recipies[dish_idx].ingredients) {
+        rm_item(item.groups.name, dish_idx);
+    }
+
+    for (const dish of div_dishes.childNodes) {
+        if (dish.dish_idx == dish_idx) {
+            // instructions in the collapsible
+            div_dishes.removeChild(dish.nextSibling);
+
+            // the always-visible button itself
+            div_dishes.removeChild(dish);
         }
     }
+}
 
-    for (const extra of extra_items) {
-        assign(extra)
+function get_item_order(name) {
+    let i = 0;
+    for (const [j, regex] of the_order.entries()) {
+        if (name.match(regex)) {
+            i = j+1;
+            break;
+        }
     }
+    return i
+}
 
-    for (const [row_nro, row_in_shop] of items.entries()) {
-        // items as an Array might include unvisited rows
-        if (!row_in_shop) continue;
+function add_item(item, order, dish_idx = -1) {
+    const dish = dish_idx > -1 ? recipies[dish_idx] : null;
+    const new_btn = create_btn(
+        (order == 0 ? "TUNTEMATON: " : "")
+        + item
+        + (dish ? ` (${dish.name})` : ''),
 
-        for (const item of row_in_shop) {
-            div_items.appendChild(create_btn(
-                (row_nro == 0 ? "TUNTEMATON: " : "")
-                + item.name
-                + (item.dish ? ` (${item.dish})` : ''), 
+        function() {
+            this.classList.toggle("active");
+        },
 
-                function() {
-                    this.classList.toggle("active");
-                },
-                
-                item.dish ? null : function(ev) {
-                    if (confirm(`Really DELETE ${item.name}?`)) {
-                        extra_items.splice(extra_items.indexOf(item.name), 1);
-                        store("items", extra_items);
-                        build();
-                    }
-                    ev.stopPropagation();
-                }
-            ));
+        dish ? null : function(ev) {
+            if (confirm(`Really DELETE ${item}?`)) {
+                extra_items.splice(extra_items.indexOf(item), 1);
+                store("items", extra_items);
+                rm_item(item);
+            }
+            ev.stopPropagation();
+        }
+    );
+    new_btn.order = order;
+    new_btn.item_name = item;
+    new_btn.dish_idx = dish_idx;
+
+    let inserted = false;
+    for (const existing_btn of div_items.childNodes) {
+        if (order <= existing_btn.order) {
+            div_items.insertBefore(new_btn, existing_btn);
+            inserted = true;
+            break;
+        }
+    }
+    if (inserted) return;
+
+    // on 1st run and on new largest `order` nro
+    div_items.appendChild(new_btn);
+}
+
+function rm_item(item_name, dish_idx = -1) {
+    for (const itemNode of div_items.childNodes) {
+        if (itemNode.item_name == item_name && itemNode.dish_idx == dish_idx) {
+            div_items.removeChild(itemNode);
+            return;
         }
     }
 }
@@ -183,19 +207,12 @@ function main([recipies_md]) {
 
     build_modal_dishes();
 
-    if (dish_indices.length > 0) {
-        build();
-    } else {
-        shuffle();
+    for (const i of dish_indices) {
+        add_dish(i);
     }
-}
 
-function add_item() {
-    const item = window.prompt("enter item name");
-    if (item != '' && item != null) {
-        extra_items.push(item);
-        store("items", extra_items);
-        build();
+    for (const extra of extra_items) {
+        add_item(extra, get_item_order(extra));
     }
 }
 
@@ -207,14 +224,23 @@ function build_modal_dishes() {
                 dish_indices.push(i);
                 store("dishes", dish_indices);
                 div_modal_dishes.style.display = "none";
-                build();
+                add_dish(i);
             }
         ));
     }
 }
 
-function add_dish() {
+function new_dish() {
     div_modal_dishes.style.display = "block";
+}
+
+function new_item() {
+    const item = window.prompt("enter item name");
+    if (item != '' && item != null) {
+        extra_items.push(item);
+        store("items", extra_items);
+        add_item(item, get_item_order(item));
+    }
 }
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -227,7 +253,6 @@ const div_modal_dishes_content = document.getElementById("modal-dishes-content")
 div_modal_dishes.addEventListener("click", function() {
     this.style.display = "none";
 })
-
 
 var reset_qs = false;
 const dish_indices = parse("dishes");
