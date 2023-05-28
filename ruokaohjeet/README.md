@@ -75,8 +75,10 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 #unclebens
 -3
 
-1. ruskista `300-500 g kanasuikaleet` pannulla ja kun suikaleet ovat ruskistuneet lisää `uncle ben's -kastike` ja anna hautua vähän aikaa
-1. keitä samalla 3 dl `riisi` ja lisää sekaan `200 g maissi`
+1. ruskista `300-500 g kanasuikaleet` pannulla
+1. kun suikaleet ovat ruskistuneet lisää `uncle ben's -kastike` ja anna hautua vähän aikaa
+1. keitä samalla 3 dl `riisi`
+1. lisää sekaan `200 g maissi`
 
 ## 🐔 uunikana
 #chickenintheoven
