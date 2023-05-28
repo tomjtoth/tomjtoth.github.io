@@ -67,7 +67,7 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. kun sipulit alkaa paistua, lisää `400g kanajauheliha` mukaan ja paista niin ettei näy enää pinkkiä väriä
 1. pilko ja kuori samalla `300 g peruna` ja `300 g bataatti`
 1. mausta kanaa `suola` -lla, `pippuri` -lla, `curry` -lla ja `kaneli` -lla
-1. lisää 5 dl vettä ja `kasvisliemikuutio` joukkoon ja sekoita
+1. lisää 5 dl vettä ja `1 kpl kasvisliemikuutio` joukkoon ja sekoita
 1. lisää perunat, bataatit ja `200 g maissi` ja sekoita
 1. anna hautua liedellä kunnes juurekset ovat pehmeitä
 
