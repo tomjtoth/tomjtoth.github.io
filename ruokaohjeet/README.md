@@ -3,12 +3,11 @@
 Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslista/index.html) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
 
 ## 🌯 tortilla
-#windy #spicy
 -5
 
-1. pilkkoo ja paista `1kpl sipuli`
-1. lisää `~ 200g sienisäilyke` kyytiin
-1. lisää `700g kanasuikale` -et, ja `tortillamauste` ennen kuin sen neste haihtuisi
+1. pilkkoo ja paista `1 kpl sipuli`
+1. lisää `~ 200 g sienisäilyke` kyytiin
+1. lisää `700 g kanasuikale` -et, ja `tortillamauste` ennen kuin sen neste haihtuisi
 1. annostele `tortillawraps` -iin, laita päälle `villikerma` + `salsakastike` ja `salaatti`
 
 ## 🍕 pitsa
@@ -21,7 +20,6 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. laita `oliivit` myös
 
 ## 🍲 kanapasta
-#csirke #tészta #brokkoli
 -10
 
 1. laita `300-500 g maustamattomat kanasuikaleet` pannulle ruskistumaan, mausta suolalla
@@ -32,15 +30,13 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. ruoka on valmis, kun makaronit (ja parsakaali) ovat kypsiä
 
 ## 🍗 kana ja riisi
-#kana #rizs
 +10
 
-1. paista `500g kanafileet`
+1. paista `500 g kanafileet`
 1. keitä `riisi`
 1. laita riisin kyytiin `pakastevihannekset`
 
 ## 🍜 wokki
-#mifu #wokki #nuudeli
 +10
 
 1. ruskista `mifu?` tai `500–700 g marinoitu kana?` pannulla
@@ -49,22 +45,20 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. kun vesi on imeytynyt nuudeleihin, sekoita kaikki ainekset keskenään
 
 ## 🍝 soijabolognese
-#soijarouhe
 +10
 
 1. pilko `1 kpl sipuli`, `2 kpl valkosipuli` ja lisää pannulle
 1. kun sipulit alkavat paistua, lisää `2 dl soijarouhe` joukkoon
 1. lisää noin 2 rkl `soijakastike` ja sekoita
-1. lisää `400g tomaattimurska`, lisää vettä purkkiin ja kaada pannulle
+1. lisää `400 g tomaattimurska`, lisää vettä purkkiin ja kaada pannulle
 1. lisää `kasvisliemikuutio`, `ketsuppi`, `pizzamauste` ja `pippuri` ja jätä kastike hautumaan
 1. laita `makaroni` kiehumaan, lisää hieman `suola`
 1. kun makaronit ovat kypsiä, niin jó étvágyat!
 
 ## 🍲 broilerijauhelihapata
-#ONION #windy #jauheliha #bataatti #peruna
 
 1. pilko `1 kpl sipuli`, `2 kpl valkosipuli` ja lisää ne pannulle
-1. kun sipulit alkaa paistua, lisää `400g kanajauheliha` mukaan ja paista niin ettei näy enää pinkkiä väriä
+1. kun sipulit alkaa paistua, lisää `400 g kanajauheliha` mukaan ja paista niin ettei näy enää pinkkiä väriä
 1. pilko ja kuori samalla `300 g peruna` ja `300 g bataatti`
 1. mausta kanaa `suola` -lla, `pippuri` -lla, `curry` -lla ja `kaneli` -lla
 1. lisää 5 dl vettä ja `1 kpl kasvisliemikuutio` joukkoon ja sekoita
@@ -72,7 +66,6 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. anna hautua liedellä kunnes juurekset ovat pehmeitä
 
 ## 🐓 kanakastike
-#unclebens
 -3
 
 1. ruskista `300-500 g kanasuikaleet` pannulla
@@ -81,7 +74,6 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. lisää sekaan `200 g maissi`
 
 ## 🐔 uunikana
-#chickenintheoven
 +5
 
 1. kuori ja pilko `500 g peruna`, `2 kpl porkkana` ja `parsakaali` sekä laita ne kulhoon
@@ -98,16 +90,14 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. laita vesi riisille kiehumaan, lisää myös `kasvisliemikuutio` ja `maissi` joukkoon
 
 ## 🐟 seiti
-#fisk
 +10
 
 1. paista pannulla `seiti`
 1. samalla keitä `riisi`
-1. enne kuin riisin kaikki nesteet haihtuisi, lisää kyytiin `200g maissi`
-1. vaihtoehtoisesti tee muussi `500g peruna` -sta
+1. enne kuin riisin kaikki nesteet haihtuisi, lisää kyytiin `200 g maissi`
+1. vaihtoehtoisesti tee muussi `500 g peruna` -sta
 
 ## 🍔 hampparit
-#jättebra #hamburgare
 +5
 
 1. leikkaa `halloumi` 12 samankokoiseen kappaleeseen
@@ -116,17 +106,15 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. lisää `hampparikastike`, `cheddar` ja `salaatti`
 
 ## 🐷 kinkkukiusaus
-#kinkku
 -5
 
-1. pilko `300g keittokinkku`
+1. pilko `300 g keittokinkku`
 1. voitele uunivuoka öljyllä ja lisää siihen `1 kg peruna-sipulisekoitus` ja keittokinkku
 1. lisää kulhoon [`2 kpl ruokakerma`](https://www.s-kaupat.fi/tuote/kotimaista-2-dl-laktoositon-15-uht-ruokakerma/6414893385498) ja lisää joukkoon mausteita esim. `suola`, `pippuri` ja `timjami`, sekoita ja kaada vuokaan ruuan päälle
 1. kypsennä uunissa 1 tunti
 1. voit keittää liedellä lisäksi `pakastevihannekset?`
 
 ## 🥕 vakioruoka
-#since2018
 -10
 
 1. pilko `1 kg porkkanat` höyrytä ne
@@ -144,47 +132,45 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. kun makaronit ja lihaseos ovat kypsiä, sekoita ne ja nauti!
 
 ## [🥞 kuivakakku](https://www.kotikokki.net/reseptit/nayta/242960/Rusina-banaani-kuivakakku/)
-#dessert #nam
+#dessert
 
-1. `2dl rusinoita`
+1. `2 dl rusinoita`
 1. `banaani`
-1. `2dl banaanijogurttia`
-1. `2 munaa`
-1. `3dl sokeria`
+1. `2 dl banaanijogurttia`
+1. `2 kpl munaa`
+1. `3 dl sokeria`
 
 ## [🫓 lángos](https://www.nosalty.hu/recept/igazi-strandos-langos?adag=2#ingredients)
-#easy #greasy #hungarian #delicious
+#greasy
 +10
 
-1. laita isoon kulhoon `3dl vehnäjauhoa` + `0,5tl suolaa`
-1. lämmitä mukissa `0,5dl maito` 36 asteiseksi
-1. revi (maitoon) pieniksi paloiksi `12,5g tuorehiivaa`
-1. lisää `0,5tl sokeria`
+1. laita isoon kulhoon `3 dl vehnäjauhoa` + `0,5 tl suolaa`
+1. lämmitä mukissa `0,5 dl maito` 36 asteiseksi
+1. revi (maitoon) pieniksi paloiksi `12,5 g tuorehiivaa`
+1. lisää `0,5 tl sokeria`
 1. anna hiivat tehostumaan 5 minuuttia jossain lämpimässä paikassa
 1. kaada mukin sisällöt kulhoon ja sekoitat (alussa 1 sormella)
 1. kun taikina ei enää jää kiinni kulhoon, laita ~tunniksi takaisin
 #TAUKO
 1. aloita venyttämään taikinaa leveäksi lautaseksi
-1. 180 asteiseen `3dl öljy` -yn heitä 1 kerralla (litrasessa kattilassa)
-1. laita paistetut taikinat lautaselle, jossa 1kpl servetti (imee öljyn)
-1. murskaa `1-2kpl valkosipulia` ja löystä se vedellä ja pari tipalla öljyllä
+1. 180 asteiseen `3 dl öljy` -yn heitä 1 kerralla (litrasessa kattilassa)
+1. laita paistetut taikinat lautaselle, jossa `1 kpl servetti` (imee öljyn)
+1. murskaa `1-2 kpl valkosipulia` ja löystä se vedellä ja pari tipalla öljyllä
 1. levitä eka sipulinesteen paistetun taikinan päälle
 1. sitten tulee `villikerma`
 1. ja lopuksi `juustoraaste`
 
 ## 🍗 paprikás csirke
-#paprikakana
 +5
 
 1. pilko `1 kpl sipuli`, `2 kpl valkosipuli`, `1 kpl tomaatti` ja `1 kpl paprika` ja paista hetki
 1. lisää `400 g kanafileet`, `3 rkl paprikamauste`, `1 tl suola`, `1/2 tl pippuri` ja noin 2 dl vettä niin että lihat juuri ja juuri peittyvät. lisää `2 kpl laakerinlehti` ja sekoita hyvin. 
 1. jätä hautumaan kannen alle 30-45 minuutiksi kunnes lihat ovat kypsiä
-1. laita `400g makaroni` kiehumaan
-1. sekoita kulhossa `150g creme fraiche` ja `1 rkl vehnäjauho` keskenään tasaiseksi ja kaada lihojen joukkoon, kuumenna hetki.
+1. laita `400 g makaroni` kiehumaan
+1. sekoita kulhossa `150 g creme fraiche` ja `1 rkl vehnäjauho` keskenään tasaiseksi ja kaada lihojen joukkoon, kuumenna hetki.
 1. syö `leipä?` ja `pikkukurkut?` kanssa
 
 ## 🥩 pippuri-timjamipossu
-#possu
 +3
 
 1. pilko `1 kpl sipuli` ja `2 kpl valkosipuli` ja laita ne kasariin
