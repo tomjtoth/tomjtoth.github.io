@@ -18,7 +18,8 @@ button {
 button:hover,
 div#controls button:nth-child(even):hover,
 div#items button:nth-child(even):hover,
-div#dishes button:nth-child(4n-1):hover {
+div#dishes button:nth-child(4n-1):hover,
+.modal-content button:nth-child(even):hover {
     background-color: #555;
 }
 
