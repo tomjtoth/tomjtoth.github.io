@@ -1,6 +1,6 @@
 # Ruokaohjeet
 
-Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslista/index.html) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
+Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../ostoslista/index.html) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
 
 ## 🌯 tortilla
 -5
@@ -8,16 +8,19 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. pilkkoo ja paista `1 kpl sipuli`
 1. lisää `~ 200 g sienisäilyke` kyytiin
 1. lisää `700 g kanasuikale` -et, ja `tortillamauste` ennen kuin sen neste haihtuisi
-1. annostele `tortillawraps` -iin, laita päälle `villikerma` + `salsakastike` ja `salaatti`
+1. annostele `tortillawraps` -iin, laita päälle [`villikerma`](https://www.s-kaupat.fi/tuote/kotimaista-kermaviili-6-200-g-laktoositon/6415712506568) + `salsakastike` ja `salaatti`
 
 ## 🍕 pitsa
 +5
 
 1. rullaa `pitsataikina` auki ja levitä tomaattikastike
 1. ripottele vähän `pizzamauste` ja `juustoraaste`
-1. pilkkoo `kalkkuna` ja laita päälle
-1. avaa `ananassäilyke` ja levitä nekin
+1. pilkkoo tai revi käsin `kalkkuna` pieneks paloiksi, sitten levitä
+1. avaa `ananassäilyke`, levitä nekin
 1. laita `oliivit` myös
+1. ripottele lisää juustoa ja myös sen päälle pitsamaustetta
+1. lämmitä uuni 200 asteiseksi, ja laita sisään 20-30 minuutiksi
+    - kun juusto on ruskistunut, ota pitsa uunista
 
 ## 🍲 kanapasta
 -10
@@ -32,15 +35,15 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 ## 🍗 kana ja riisi
 +10
 
-1. paista `500 g kanafileet`
-1. keitä `riisi`
+1. paista `500 g kanafileet` pannulla
+1. keitä `3 dl riisi` -ä
 1. laita riisin kyytiin `pakastevihannekset`
 
 ## 🍜 wokki
 +10
 
-1. ruskista `mifu?` tai `500–700 g marinoitu kana?` pannulla
-1. samaan aikaan keitä `2 kpl nuudelipussi` 5 desilitrassa vedessä
+1. ruskista `mifu?` tai `500..700 g marinoitu kana?` pannulla
+1. samaan aikaan keitä `2 kpl nuudelipussi` 5 dl vedessä
 1. lisää `wokkivihannekset` mifun joukkoon ja paista kypsäksi
 1. kun vesi on imeytynyt nuudeleihin, sekoita kaikki ainekset keskenään
 
@@ -48,77 +51,79 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 +10
 
 1. pilko `1 kpl sipuli`, `2 kpl valkosipuli` ja lisää pannulle
-1. kun sipulit alkavat paistua, lisää `2 dl soijarouhe` joukkoon
-1. lisää noin 2 rkl `soijakastike` ja sekoita
+1. kun sipulit alkavat paistua, lisää `3 dl soijarouhe` joukkoon
+1. kaada `soijakastike` rouhelle ja sekoita
 1. lisää `400 g tomaattimurska`, lisää vettä purkkiin ja kaada pannulle
-1. lisää `kasvisliemikuutio`, `ketsuppi`, `pizzamauste` ja `pippuri` ja jätä kastike hautumaan
+1. lisää `1 kpl kasvisliemikuutio`, `ketsuppi`, `pizzamauste` ja `pippuri` ja jätä kastike hautumaan
 1. laita `makaroni` kiehumaan, lisää hieman `suola`
 1. kun makaronit ovat kypsiä, niin jó étvágyat!
 
 ## 🍲 broilerijauhelihapata
 
 1. pilko `1 kpl sipuli`, `2 kpl valkosipuli` ja lisää ne pannulle
-1. kun sipulit alkaa paistua, lisää `400 g kanajauheliha` mukaan ja paista niin ettei näy enää pinkkiä väriä
+1. kun sipulit alkaa paistua, lisää `400 g kanajauheliha` mukaan ja paista niin, ettei näy enää pinkkiä väriä
 1. pilko ja kuori samalla `300 g peruna` ja `300 g bataatti`
 1. mausta kanaa `suola` -lla, `pippuri` -lla, `curry` -lla ja `kaneli` -lla
 1. lisää 5 dl vettä ja `1 kpl kasvisliemikuutio` joukkoon ja sekoita
-1. lisää perunat, bataatit ja `200 g maissi` ja sekoita
+1. lisää perunat, bataatit, `~200 g maissi` -a ja sekoita
 1. anna hautua liedellä kunnes juurekset ovat pehmeitä
 
 ## 🐓 kanakastike
 -3
 
-1. ruskista `300-500 g kanasuikaleet` pannulla
-1. kun suikaleet ovat ruskistuneet lisää `uncle ben's -kastike` ja anna hautua vähän aikaa
-1. keitä samalla 3 dl `riisi`
+1. ruskista `~500 g kanasuikaleet` pannulla
+1. kun suikaleet ovat ruskistuneet lisää [`uncle ben's -kastike`](https://www.s-kaupat.fi/tuote/bens-original-sweetandsour-original-ateriakastike-450g/4002359015830) ja anna hautua vähän aikaa
+1. keitä samalla `3 dl riisi`
 1. lisää sekaan `200 g maissi`
 
 ## 🐔 uunikana
 +5
 
-1. kuori ja pilko `500 g peruna`, `2 kpl porkkana` ja `parsakaali` sekä laita ne kulhoon
+1. kuori ja pilko `500 g peruna`, `2 kpl porkkana` ja `1 kpl parsakaali` sekä laita ne kulhoon
 1. mausta kasvikset `suola`, `pippuri`, `rosmariini` ja jos haluat niin myös `paprikamauste`
 1. voitele uunivuoka öljyllä ja asettele siihen `marinoidut kanafileet` ja heitä päälle maustetut kasvikset
-1. anna kypsentyä uunissa 1 h
+1. anna kypsentyä 200 asteisessa uunissa 1 tunti
 
 ## 🐟 lohi
 -10
 
 1. ota uunipelti ja laita siihen `leivinpaperi` sekä `alumiinifolio`
-1. laita `lohi` pellille ja mausta `suola` -lla ja `pippuri` -lla sekä kääri folioon
-1. laita uuniin 30..40 minuutiksi
-1. laita vesi riisille kiehumaan, lisää myös `kasvisliemikuutio` ja `maissi` joukkoon
+1. laita `yli 700 g lohta` pellille ja mausta `suola` -lla ja `pippuri` -lla sekä kääri `alumiinifolio` -on
+1. laita 200 asteiseen uuniin ~40 minuutiksi
+1. laita 6 dl vettä `3 dl riisi` -lle kiehumaan, lisää myös `1 kpl kasvisliemikuutio` ja `~200 g maissi` joukkoon
 
 ## 🐟 seiti
 +10
 
-1. paista pannulla `seiti`
-1. samalla keitä `riisi`
-1. enne kuin riisin kaikki nesteet haihtuisi, lisää kyytiin `200 g maissi`
+1. paista pannulla `400 g seiti`
+1. samalla keitä `2 dl riisi`
+1. ennen kuin riisin kaikki vedet haihtuisi, lisää kyytiin `~200 g maissi`
 1. vaihtoehtoisesti tee muussi `500 g peruna` -sta
 
 ## 🍔 hampparit
 +5
 
-1. leikkaa `halloumi` 12 samankokoiseen kappaleeseen
+1. leikkaa `200 g halloumi` 12 samankokoiseen kappaleeseen
 1. paista ne pannulla
-1. paahda `hampparisämpylät` leivänpaahtimessa
-1. lisää `hampparikastike`, `cheddar` ja `salaatti`
+1. paahda `6 kpl hampparisämpylät` leivänpaahtimessa
+1. lisää `hampparikastike`, laita 1-1 kpl halloumi molemmalle puolelle, myös `cheddar` ja `salaatti`
 
 ## 🐷 kinkkukiusaus
 -5
 
 1. pilko `300 g keittokinkku`
-1. voitele uunivuoka öljyllä ja lisää siihen `1 kg peruna-sipulisekoitus` ja keittokinkku
-1. lisää kulhoon [`2 kpl ruokakerma`](https://www.s-kaupat.fi/tuote/kotimaista-2-dl-laktoositon-15-uht-ruokakerma/6414893385498) ja lisää joukkoon mausteita esim. `suola`, `pippuri` ja `timjami`, sekoita ja kaada vuokaan ruuan päälle
-1. kypsennä uunissa 1 tunti
+1. voitele uunivuoka öljyllä ja lisää siihen ensin puolet `1 kg peruna-sipulisekoitus` pakkauksesta, ja kaikki keittokinkku
+1. sekoita, lisää perunan loputkin vuokaan
+1. kaada [`2 kpl ruokakerma`](https://www.s-kaupat.fi/tuote/kotimaista-2-dl-laktoositon-15-uht-ruokakerma/6414893385498) vuokaan
+1. lisää joukkoon `pippuri` ja `timjami`
+1. kypsennä 200 asteisessa uunissa 1 tunti
 1. voit keittää liedellä lisäksi `pakastevihannekset?`
 
 ## 🥕 vakioruoka
 -10
 
-1. pilko `1 kg porkkanat` höyrytä ne
-1. paista `700 g kanasuikaleet`
+1. pilko `1 kg porkkanat`, höyrytä ne
+1. paista `700 g kanasuikaleet` pannulla
 1. mausta pippurilla
 
 ## 🥘 makaronimuhennos
@@ -157,7 +162,7 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 1. laita paistetut taikinat lautaselle, jossa `1 kpl servetti` (imee öljyn)
 1. murskaa `1-2 kpl valkosipulia` ja löystä se vedellä ja pari tipalla öljyllä
 1. levitä eka sipulinesteen paistetun taikinan päälle
-1. sitten tulee `villikerma`
+1. sitten tulee [`villikerma`](https://www.s-kaupat.fi/tuote/kotimaista-kermaviili-6-200-g-laktoositon/6415712506568)
 1. ja lopuksi `juustoraaste`
 
 ## 🍗 paprikás csirke
@@ -173,10 +178,11 @@ Näitä alla jossain vaiheessa ainakin osasin tehdä. [Ostoslistaa](../ostoslist
 ## 🥩 pippuri-timjamipossu
 +3
 
-1. pilko `1 kpl sipuli` ja `2 kpl valkosipuli` ja laita ne kasariin
+1. pilko `1 kpl sipuli` ja `2 kpl valkosipuli` -a ja laita ne kasariin
 1. kun sipulit alkavat paistua, lisää joukkoon `300 g possun fileesuikaleet` ja ruskista
-1. ripottele pinnalle `1 rkl vehnäjauho`, sekoita hyvin ja lisää `ruokakerma` ja 1 dl vettä, sekoita taas hyvin
+1. ripottele pinnalle `1 rkl vehnäjauho`, sekoita hyvin ja lisää [`ruokakerma`](https://www.s-kaupat.fi/tuote/kotimaista-2-dl-laktoositon-15-uht-ruokakerma/6414893385498) ja 1 dl vettä, sekoita taas hyvin
 1. lisää sekaan `125 g mustapippurituorejuusto` ja mausta 1 tl `timjami`
     - timjamia voi myös laittaa enemmän, jos tykkäät
 1. sekoita tasaiseksi ja anna hautua kannen alla vähintään 15 minsaa
 1. voit syödä kastikkeen esimerkiksi `perunat?` tai `makaroni?` -n kanssa ja keittää lisäksi `vihannekset?`
+y
