@@ -217,21 +217,29 @@ function main([recipies_md]) {
 }
 
 function build_modal_dishes() {
+    const modal_content = document.createElement("div");
+    modal_content.setAttribute("class", "modal-content");
+
     for (const [i, recipie] of recipies.entries()) {
-        div_modal_dishes_content.appendChild(create_btn(
+        modal_content.appendChild(create_btn(
             `${i}: ${recipie.name}`,
             function() {
                 dish_indices.push(i);
                 store("dishes", dish_indices);
-                div_modal_dishes.style.display = "none";
+                document.body.removeChild(div_modal_dishes);
                 add_dish(i);
             }
         ));
     }
+    div_modal_dishes.setAttribute("class", "modal");
+    div_modal_dishes.appendChild(modal_content);
+    div_modal_dishes.addEventListener("click", function() {
+        document.body.removeChild(div_modal_dishes);
+    })
 }
 
 function new_dish() {
-    div_modal_dishes.style.display = "block";
+    document.body.appendChild(div_modal_dishes);
 }
 
 function new_item() {
@@ -247,12 +255,7 @@ const urlParams = new URLSearchParams(window.location.search);
 
 const div_items = document.getElementById("items");
 const div_dishes = document.getElementById("dishes");
-const div_modal_dishes = document.getElementById("modal-dishes");
-const div_modal_dishes_content = document.getElementById("modal-dishes-content");
-
-div_modal_dishes.addEventListener("click", function() {
-    this.style.display = "none";
-})
+const div_modal_dishes = document.createElement("div");
 
 var reset_qs = false;
 const dish_indices = parse("dishes");
