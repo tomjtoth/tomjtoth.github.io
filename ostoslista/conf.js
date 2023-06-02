@@ -12,9 +12,9 @@ const the_order = [
     /tokman+i/,
 
     // PRISMA:sta
-    /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|timjami|kaneli|(musta.*)?pip+uri|suola+|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
+    /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|timjami|kaneli|(musta.*)?pip+uri(?!.*juusto)|suola+|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
     /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/,
-    /leivinpaperi|alumiinifolio/,
+    /leivinpaperi|alumiinifolio|servetti/,
     /kokis|kalja|olut|pepsi|mehu/,
     /banaani|omena|mandariini|sien(i|et)|vi+nirypä+le+|hedelmä|sitru+na|ru+suka+l/,
     /perun(a|oi).*(?!lastu|sipuli)|(?!peruna-)sipuli(?!.*seko)|parsa.*ka+li|pork+ana|sala+t+i|^(?!^wok.*)vihan+ek?s|bata+t+i|tomaatti|paprika/,
