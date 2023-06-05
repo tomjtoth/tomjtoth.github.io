@@ -8,8 +8,8 @@ const re_tags = /(?<=#)\S+/g;
 // arranges ingredients the way I go through my local shop
 const the_order = [
     // ennen PRISMA:a
-    /(cit+ari|K-supermarket|K-cit[iy]market):?(sta)?/,
-    /tokman+i/,
+    /(cit+ari|K-supermarket|K-cit[iy]market)(?::sta)?/i,
+    /tokman+i/i,
     /\bLIDL\b/i,
 
     // PRISMA:sta
@@ -22,6 +22,7 @@ const the_order = [
     /(?!^ko+kos.*)(?:mai[dt]o|kerma)|voi|jogh?urt|hi+va|creme fraiche/,
     /(?!^veke)juusto|(koskenlask)?.+dip+i?|hallou?m|cheddar/,
     /liha|kana(?!.*muna)|mifu|possu.*suikale/,
+    /\b(?:kirjo)?loh(?:i|en|ta)\b/,
     /karjalanpa/,
     /kalk+una|kink+u/,
     /pi(?:zz|ts)a|ri+sipi+rak+a/,
@@ -36,6 +37,6 @@ const the_order = [
     /suklaa|kark+i/,
     /pakaste|jätski|jäätelö|wok+ivihan+e|peruna.*sipuli|sei[dt]i|mais+i|ben.*jer+y/,
 
-    // PRISMA:n jälkeen
-    /vekeju+sto|loh[ei]/,
+    // HESBURGER
+    /vekeju+sto/
 ];
