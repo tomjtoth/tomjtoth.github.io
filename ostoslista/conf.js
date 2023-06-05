@@ -10,6 +10,7 @@ const the_order = [
     // ennen PRISMA:a
     /(cit+ari|K-supermarket|K-cit[iy]market):?(sta)?/,
     /tokman+i/,
+    /\bLIDL\b/i,
 
     // PRISMA:sta
     /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|timjami|kaneli|(musta.*)?pip+uri(?!.*juusto)|suola+|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
