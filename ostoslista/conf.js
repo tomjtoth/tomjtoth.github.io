@@ -13,6 +13,7 @@ const the_order = [
     /\bLIDL\b/i,
 
     // PRISMA:sta
+    /hammas(?:lan(?:ka|gai)|tahn|tikk)/,
     /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|timjami|kaneli|(musta.*)?pip+uri(?!.*juusto)|suola+|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/,
     /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/,
     /leivinpaperi|alumiinifolio|servetti/,
