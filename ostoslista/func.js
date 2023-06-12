@@ -251,6 +251,12 @@ function new_item() {
     }
 }
 
+addEventListener("beforeunload", (ev) => {
+    if (confirm("reloading/leaving the page clears checked states of items") == false) {
+        ev.preventDefault()
+    }
+})
+
 const urlParams = new URLSearchParams(window.location.search);
 
 const div_items = document.getElementById("items");
