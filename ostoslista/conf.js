@@ -9,17 +9,17 @@ const re_tags = /(?<=#)\S+/g;
 const the_order = [
     // ennen PRISMA:a
     /(cit+ari|K-supermarket|K-cit[iy]market)(?::sta)?/i,
-    /tokman+i/i,
-    /\bLIDL\b/i,
+    /[Tt]okmann?i/,
+    /\bLIDL\b/,
 
     // PRISMA:sta
     /hammas(?:lan(?:ka|gai)|tahn|tikk)/i,
     /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|timjami|kaneli|(musta.*)?pip+uri(?!.*juusto)|suola+|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/i,
     /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/i,
     /leivinpaperi|alumiinifolio|servetti/i,
-    /kokis|kalja|olut|pepsi|mehu/i,
+    /kokis|kalja|olu[et]|pepsi|mehu/i,
     /banaani|omena|mandariini|sien(i|et)|vi+nirypä+le+|hedelmä|sitru+na|ru+suka+l/i,
-    /perun(a|oi)(?!.*(?:lastu|sipuli))|parsa.*ka+li|pork+ana|sala+t+i|^(?!^wok.*)vihan+ek?s|bata+t+i|tomaatti(?:.*murska)|paprika/i,
+    /(?<!peruna-)sipuli|perun(a|oi)(?!.*(?:lastu|sipuli))|parsa.*ka+li|pork+ana|sala+t+i|^(?!^wok.*)vihan+ek?s|bata+t+i|tomaatti(?!.*murska)|paprika/i,
     /(?!^ko+kos.*)(?:mai[dt]o|kerma)|voi|jogh?urt|hi+va|creme fraiche/i,
     /(?!^veke)juusto|(koskenlask)?.+dip+i?|hallou?m|cheddar/i,
     /liha|kana(?!.*muna)|mifu|possu.*suikale/i,
