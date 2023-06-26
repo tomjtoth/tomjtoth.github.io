@@ -29,7 +29,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. lisää hetken päästä joukkoon `100 g herkkusieni`
 1. laita `400 g makaroni` kiehumaan
     - haluattessasi myös `parsakaali?` omaan erilliseen kattilaan
-1. lisää kanan joukkoon `kolme pippuria tuorejuusto` ja 1 dl vettä, sekoita ja anna hautua
+1. lisää kanan joukkoon [`kolme pippuria tuorejuusto`](https://www.s-kaupat.fi/tuote/valio-violar-kevyt-e200-g-kolme-pippuria-tuorejuusto-laktoositon/6408430032037) ja 1 dl vettä, sekoita ja anna hautua
 1. ruoka on valmis, kun makaronit (ja parsakaali) ovat kypsiä
 
 ## 🍗 kana ja riisi
