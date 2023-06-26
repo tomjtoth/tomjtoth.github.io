@@ -18,7 +18,7 @@ const the_order = [
     /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/i,
     /leivinpaperi|alumiinifolio|servetti/i,
     /kokis|kalja|olu[et]|pepsi|mehu/i,
-    /(?:talous|vessa|p\*+ska)paperi/i,
+    /(?:talous|vessa|p(?:\*+|a)ska)paperi/i,
     /banaani|omena|mandariini|sien(i|et)|vi+nirypä+le+|hedelmä|sitru+na|ru+suka+l/i,
     /(?<!peruna-)sipuli|perun(a|oi)(?!.*(?:lastu|sipuli))|parsa.*ka+li|pork+ana|sala+t+i|^(?!^wok.*)vihan+ek?s|bata+t+i|tomaatti(?!.*murska)|paprika/i,
     /(?!^ko+kos.*)(?:mai[dt]o|kerma)|voi|jogh?urt|hi+va|creme fraiche/i,
