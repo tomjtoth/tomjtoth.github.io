@@ -58,22 +58,28 @@ document.getElementById('stop')
     running = false;
 });
 
-const minimum = document.getElementById('min');
-const min_val = localStorage.getItem('min');
+const minimum = document.getElementById('minimum');
+const min_hud = document.getElementById('min-hud');
+const min_val = localStorage.getItem('minimum');
 if (min_val) {
     minimum.value = min_val;
+    min_hud.innerText = `(${ev.target.value}%)`;
 }
 minimum.addEventListener('change', ev => {
-    localStorage.setItem('min', ev.target.value);
+    localStorage.setItem('minimum', ev.target.value);
+    min_hud.innerText = `(${ev.target.value}%)`;
 });
 
-const maximum = document.getElementById('max');
-const max_val = localStorage.getItem('max');
+const maximum = document.getElementById('maximum');
+const max_hud = document.getElementById('max-hud');
+const max_val = localStorage.getItem('maximum');
 if (max_val) {
     maximum.value = max_val;
+    max_hud.innerText = `(${ev.target.value}%)`;
 }
 maximum.addEventListener('change', ev => {
-    localStorage.setItem('max', ev.target.value);
+    localStorage.setItem('maximum', ev.target.value);
+    max_hud.innerText = `(${ev.target.value}%)`;
 });
 
 let running = false;
