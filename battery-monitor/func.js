@@ -36,10 +36,14 @@ document.getElementById('start')
             if (bat.charging && bat.level >= upper.value/100
             || !bat.charging && bat.level <= lower.value/100) {
                 notify(bat.level);
+                // sleep twice
                 await sleep();
             }
-        } finally {
             await sleep();
+        } finally {
+            // unsupported browser or battery removed (?)
+            running = false;
+            alert('getBattery() failed, stopped script');
         }
     }
 });
