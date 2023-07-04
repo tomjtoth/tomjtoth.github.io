@@ -1,9 +1,10 @@
 div, button {
     padding: 5px;
     background-color: lightgray;
+    border: 1px solid black;
 }
 
-div::nth-child(even), 
-button::nth-child(even) {
-    background-color: gray;
+div:nth-child(even), 
+button:nth-child(even) {
+    background-color: lightblue;
 }
