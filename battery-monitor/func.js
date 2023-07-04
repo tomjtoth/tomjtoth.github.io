@@ -1,4 +1,4 @@
-const sleep = (ms = 1000*3) => new Promise(r => setTimeout(r, ms));
+const sleep = (ms = 1000*30) => new Promise(r => setTimeout(r, ms));
 
 function notify(level) {
 
@@ -23,29 +23,33 @@ function notify(level) {
     }
 }
 
-document.getElementById('start')
-.addEventListener('click', async _ => {
-    if (running) return;
-
-    running = true;
-
+async function start_monitoring() {
     while (running) {
         try {
-            const bat = await navigator.getBattery();
+            let {charging, level, dischargingTime} = await navigator.getBattery();
+            level *= 100;
 
-            if (bat.charging && bat.level >= upper.value/100
-            || !bat.charging && bat.level <= lower.value/100) {
-                notify(bat.level);
+            if (charging && level >= upper.value && dischargingTime != Infinity
+            || !charging && level <= lower.value) {
+                notify(level);
                 // sleep twice
                 await sleep();
             }
             await sleep();
-        } finally {
+        } catch {
             // unsupported browser or battery removed (?)
             running = false;
             alert('getBattery() failed, stopped script');
         }
     }
+}
+
+document.getElementById('start')
+.addEventListener('click', _ => {
+    if (running) return;
+
+    running = true;
+    start_monitoring();
 });
 
 document.getElementById('stop')
@@ -77,6 +81,7 @@ let autostart = localStorage.getItem('autostart');
 if (autostart === 'true') {
     running = true;
     autostart = true;
+    start_monitoring();
 } else {
     autostart = false;
 }
