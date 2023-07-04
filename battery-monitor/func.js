@@ -7,7 +7,7 @@ function notify(level) {
     }
 
     if (!window.Notification) {
-        alert('your browser does not support desktop notifications');
+        alert('notifications are not supported');
     } else {
         if (Notification.permission === 'granted') {
             __show_notification(`Current level: ${level}%`);
@@ -16,7 +16,7 @@ function notify(level) {
                 if (p === 'granted') {
                     __show_notification(`Current level: ${level}%`);
                 } else {
-                    alert('you blocked notifications')
+                    alert('notifications are blocked')
                 }
             });
         }
@@ -50,11 +50,19 @@ document.getElementById('stop')
 });
 
 const lower = document.getElementById('lower');
+const lower_val = localStorage.getItem('lower');
+if (lower_val) {
+    lower.value = lower_val;
+}
 lower.addEventListener('change', ev => {
     localStorage.setItem('lower', ev.target.value);
 })
 
 const upper = document.getElementById('upper');
+const upper_val = localStorage.getItem('upper');
+if (upper_val) {
+    upper.value = upper_val;
+}
 upper.addEventListener('change', ev => {
     localStorage.setItem('upper', ev.target.value);
 })
