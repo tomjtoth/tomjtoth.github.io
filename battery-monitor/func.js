@@ -1,26 +1,25 @@
 const sleep = (ms = 1000*30) => new Promise(r => setTimeout(r, ms));
 
-function notify(level) {
+function show_notification(body) {
+    new Notification('Battery monitor', { body });
+}
 
-    function __show_notification(body) {
-        new Notification('Battery monitor', { body });
-    }
-
+function check_permission() {
     if (!window.Notification) {
         alert('notifications are not supported');
+        return false;
     } else {
-        if (Notification.permission === 'granted') {
-            __show_notification(`Current level: ${level}%`);
-        } else {
+        if (Notification.permission !== 'granted') {
             Notification.requestPermission().then(function (p) {
                 if (p === 'granted') {
-                    __show_notification(`Current level: ${level}%`);
+                    show_notification("sample notification");
                 } else {
                     alert('notifications are blocked')
                 }
             });
         }
     }
+    return true;
 }
 
 async function start_monitoring() {
@@ -29,15 +28,17 @@ async function start_monitoring() {
             let {charging, level, dischargingTime} = await navigator.getBattery();
             level *= 100;
 
-            if (charging && level >= upper.value && dischargingTime != Infinity
-            || !charging && level <= lower.value) {
-                notify(level);
+            if (charging && level >= maximum.value 
+            // battery removed
+            && dischargingTime != Infinity
+            || !charging && level <= minimum.value) {
+                show_notification(`Current level: ${level}%`);
                 // sleep twice
                 await sleep();
             }
             await sleep();
         } catch {
-            // unsupported browser or battery removed (?)
+            // unsupported browser
             running = false;
             alert('getBattery() failed, stopped script');
         }
@@ -49,7 +50,7 @@ document.getElementById('start')
     if (running) return;
 
     running = true;
-    start_monitoring();
+    if (check_permission()) start_monitoring();
 });
 
 document.getElementById('stop')
@@ -57,22 +58,22 @@ document.getElementById('stop')
     running = false;
 });
 
-const lower = document.getElementById('lower');
-const lower_val = localStorage.getItem('lower');
-if (lower_val) {
-    lower.value = lower_val;
+const minimum = document.getElementById('min');
+const min_val = localStorage.getItem('min');
+if (min_val) {
+    minimum.value = min_val;
 }
-lower.addEventListener('change', ev => {
-    localStorage.setItem('lower', ev.target.value);
+minimum.addEventListener('change', ev => {
+    localStorage.setItem('min', ev.target.value);
 });
 
-const upper = document.getElementById('upper');
-const upper_val = localStorage.getItem('upper');
-if (upper_val) {
-    upper.value = upper_val;
+const maximum = document.getElementById('max');
+const max_val = localStorage.getItem('max');
+if (max_val) {
+    maximum.value = max_val;
 }
-upper.addEventListener('change', ev => {
-    localStorage.setItem('upper', ev.target.value);
+maximum.addEventListener('change', ev => {
+    localStorage.setItem('max', ev.target.value);
 });
 
 let running = false;
