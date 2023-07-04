@@ -6,12 +6,26 @@
         <title>battery monitor</title>
     </head>
     <body>
-        <label for="lower">lower:</label>
-        <input name="lower" id="lower" pattern="^(?:100|[1-9][0-9]?)$" value="20">
-
-        <label for="upper">upper:</label>
-        <input name="upper" id="upper" pattern="^(?:100|[1-9][0-9]?)$" value="80">
-        
+        <p>
+            This is a simple utility that can be autostarted and will alert when
+            <ul>
+                <li>either above the maximum threshold and still charging</li>
+                <li>or below the minimum threshold and not charging</li>
+            </ul>
+            Back to <a href="..">landing page</a>.
+        </p>
+        <div>
+            <label>lower threshold:</label>
+            <label>0</label>
+            <input id="lower" type="range" min="0" max="50" value="20">
+            <label>50</label>
+        </div>
+        <div>
+            <label>upper threshold:</label>
+            <label>50</label>
+            <input id="upper" type="range" min="50" max="100" value="80">
+            <label>100</label>
+        </div>
         <div>
             <button id="start">start</button>
             <button id="stop">stop</button>
