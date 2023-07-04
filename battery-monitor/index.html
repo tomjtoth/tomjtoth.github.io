@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fi">
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>battery monitor</title>
+    </head>
+    <body>
+        <label for="lower">lower:</label>
+        <input name="lower" id="lower" pattern="^(?:100|[1-9][0-9]?)$">
+
+        <label for="upper">upper:</label>
+        <input name="upper" id="upper" pattern="^(?:100|[1-9][0-9]?)$">
+        
+        <div>
+            <button id="start">start</button>
+            <button id="stop">stop</button>
+        </div>
+    </body>
+    <script type="text/javascript" src="func.js"></script>
+</html>
