@@ -14,7 +14,8 @@ function check_permission() {
                 if (p === 'granted') {
                     show_notification("sample notification");
                 } else {
-                    alert('notifications are blocked')
+                    alert('notifications are blocked');
+                    return false;
                 }
             });
         }
