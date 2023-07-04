@@ -60,7 +60,7 @@ if (lower_val) {
 }
 lower.addEventListener('change', ev => {
     localStorage.setItem('lower', ev.target.value);
-})
+});
 
 const upper = document.getElementById('upper');
 const upper_val = localStorage.getItem('upper');
@@ -69,6 +69,20 @@ if (upper_val) {
 }
 upper.addEventListener('change', ev => {
     localStorage.setItem('upper', ev.target.value);
-})
+});
 
 let running = false;
+
+let autostart = localStorage.getItem('autostart');
+if (autostart === 'true') {
+    running = true;
+    autostart = true;
+} else {
+    autostart = false;
+}
+
+document.getElementById('autostart')
+.addEventListener('click', _ => {
+    autostart = !autostart;
+    localStorage.setItem('autostart', autostart);
+});
