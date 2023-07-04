@@ -85,4 +85,5 @@ document.getElementById('autostart')
 .addEventListener('click', _ => {
     autostart = !autostart;
     localStorage.setItem('autostart', autostart);
+    alert(`Autostart is now set to: ${autostart}`);
 });
