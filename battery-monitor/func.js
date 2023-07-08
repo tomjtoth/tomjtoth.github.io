@@ -1,4 +1,4 @@
-const sleep = (ms = 1000*30) => new Promise(r => setTimeout(r, ms));
+const sleep = (ms = 1000*3) => new Promise(r => setTimeout(r, ms));
 
 function show_notification(body) {
     new Notification('Battery monitor', { body });
@@ -60,39 +60,25 @@ document.getElementById('stop')
 });
 
 const minimum = document.getElementById('minimum');
-const min_hud = document.getElementById('min-hud');
 const min_val = localStorage.getItem('minimum');
 if (min_val) {
     minimum.value = min_val;
-    min_hud.innerText = `(${ev.target.value}%)`;
 }
 minimum.addEventListener('change', ev => {
     localStorage.setItem('minimum', ev.target.value);
-    min_hud.innerText = `(${ev.target.value}%)`;
 });
 
 const maximum = document.getElementById('maximum');
-const max_hud = document.getElementById('max-hud');
 const max_val = localStorage.getItem('maximum');
 if (max_val) {
     maximum.value = max_val;
-    max_hud.innerText = `(${ev.target.value}%)`;
 }
 maximum.addEventListener('change', ev => {
     localStorage.setItem('maximum', ev.target.value);
-    max_hud.innerText = `(${ev.target.value}%)`;
 });
 
 let running = false;
-
 let autostart = localStorage.getItem('autostart');
-if (autostart === 'true') {
-    running = true;
-    autostart = true;
-    start_monitoring();
-} else {
-    autostart = false;
-}
 
 document.getElementById('autostart')
 .addEventListener('click', _ => {
@@ -100,3 +86,11 @@ document.getElementById('autostart')
     localStorage.setItem('autostart', autostart);
     alert(`Autostart is now set to: ${autostart}`);
 });
+
+if (autostart === 'true') {
+    running = true;
+    autostart = true;
+    start_monitoring();
+} else {
+    autostart = false;
+}
