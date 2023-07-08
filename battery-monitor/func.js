@@ -26,13 +26,11 @@ function check_permission() {
 async function start_monitoring() {
     while (running) {
         try {
-            let {charging, level, dischargingTime} = await navigator.getBattery();
+            let {charging, level, chargingTime, dischargingTime} = await navigator.getBattery();
             level *= 100;
 
-            if (charging && level >= maximum.value 
-            // battery removed
-            && dischargingTime != Infinity
-            || !charging && level <= minimum.value) {
+            if (charging && level >= maximum.value && chargingTime != Infinity
+            || !charging && level <= minimum.value && dischargingTime != Infinity) {
                 show_notification(`Current level: ${level}%`);
                 // sleep twice
                 await sleep();
