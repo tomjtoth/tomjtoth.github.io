@@ -1,4 +1,4 @@
-const sleep = (ms = 1000*3) => new Promise(r => setTimeout(r, ms));
+const sleep = (ms = 1000*30) => new Promise(r => setTimeout(r, ms));
 
 function show_notification(body) {
     new Notification('Battery monitor', { body });
