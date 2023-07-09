@@ -24,7 +24,7 @@ function check_permission() {
 }
 
 async function start_monitoring() {
-    while (running && async_stopper == 0) {
+    while (running && stop_requests == 0) {
         try {
             let {charging, level, chargingTime, dischargingTime} = await navigator.getBattery();
             level *= 100;
@@ -42,7 +42,7 @@ async function start_monitoring() {
             alert('getBattery() failed, stopped script');
         }
     }
-    async_stopper--;
+    stop_requests--;
 }
 
 const start_stop = document.getElementById('start-stop');
@@ -51,8 +51,7 @@ start_stop.addEventListener('click', ev => {
     ev.target.innerText = !running ? 'start' : 'stop'
     
     if (!running) {
-        async_stopper++;
-
+        stop_requests++;
     } else {
         if (check_permission())  {
             start_monitoring();
@@ -79,7 +78,7 @@ maximum.addEventListener('change', ev => {
 });
 
 let running = false,
-    async_stopper = 0,
+    stop_requests = 0,
     autostart = localStorage.getItem('autostart');
 
 document.getElementById('autostart')
@@ -90,7 +89,6 @@ document.getElementById('autostart')
 });
 
 if (autostart === 'true') {
-    running = true;
     autostart = true;
     start_stop.click();
 } else {
