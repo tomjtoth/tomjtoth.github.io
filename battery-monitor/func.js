@@ -24,7 +24,7 @@ function check_permission() {
 }
 
 async function start_monitoring() {
-    while (running) {
+    while (running && async_stopper == 0) {
         try {
             let {charging, level, chargingTime, dischargingTime} = await navigator.getBattery();
             level *= 100;
@@ -42,19 +42,22 @@ async function start_monitoring() {
             alert('getBattery() failed, stopped script');
         }
     }
+    async_stopper--;
 }
 
-document.getElementById('start')
-.addEventListener('click', _ => {
-    if (running) return;
+const start_stop = document.getElementById('start-stop');
+start_stop.addEventListener('click', ev => {
+    running = !running;
+    ev.target.innerText = !running ? 'start' : 'stop'
+    
+    if (!running) {
+        async_stopper++;
 
-    running = true;
-    if (check_permission()) start_monitoring();
-});
-
-document.getElementById('stop')
-.addEventListener('click', _ => {
-    running = false;
+    } else {
+        if (check_permission())  {
+            start_monitoring();
+        }
+    }
 });
 
 const minimum = document.getElementById('minimum');
@@ -75,8 +78,9 @@ maximum.addEventListener('change', ev => {
     localStorage.setItem('maximum', ev.target.value);
 });
 
-let running = false;
-let autostart = localStorage.getItem('autostart');
+let running = false,
+    async_stopper = 0,
+    autostart = localStorage.getItem('autostart');
 
 document.getElementById('autostart')
 .addEventListener('click', _ => {
@@ -88,7 +92,7 @@ document.getElementById('autostart')
 if (autostart === 'true') {
     running = true;
     autostart = true;
-    start_monitoring();
+    start_stop.click();
 } else {
     autostart = false;
 }
