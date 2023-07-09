@@ -15,7 +15,7 @@ const the_order = [
     // PRISMA:sta
     /hammas(?:lan(?:ka|gai)|tahn|tikk)/i,
     /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|timjami|kaneli|(musta.*)?pip+uri(?!.*juusto)|suola+|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/i,
-    /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i/i,
+    /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i|rusin(?:oi|a)/i,
     /leivinpaperi|alumiinifolio|servetti/i,
     /kokis|kalja|olu[et]|pepsi|mehu/i,
     /(?:talous|vessa|p(?:\*+|a)ska)paperi/i,
