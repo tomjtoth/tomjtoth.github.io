@@ -90,7 +90,6 @@ document.getElementById('autostart')
 });
 
 if (autostart === 'true') {
-    running = true;
     autostart = true;
     start_stop.click();
 } else {
