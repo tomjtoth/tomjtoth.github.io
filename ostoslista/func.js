@@ -182,7 +182,7 @@ function rm_item(item_name, dish_idx = -1) {
     }
 }
 
-function main([recipies_md]) {
+function main(recipies_md) {
     recipies = Array.from(recipies_md
     .matchAll(re_dishes))
     .map(mo_dish => {
