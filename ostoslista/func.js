@@ -84,7 +84,7 @@ function add_dish(dish_idx) {
 
     // paragraph containing instructions
     const p_dish_instr = document.createElement('p');
-    p_dish_instr.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
+    p_dish_instr.innerHTML = md_html_conv.makeHtml(dish.instructions);
 
     // div responsible for hiding/showing its child paragraph
     const div_dish_instr = document.createElement("div");
@@ -265,6 +265,7 @@ if (reset_qs) window.location.search = "";
 const checked_items = parse("checked_items", false);
 
 var recipies;
+const md_html_conv = new showdown.Converter();
 
 // when properly deployed to a server fetch works
 fetch('../ruokaohjeet/README.md').then(res => 
