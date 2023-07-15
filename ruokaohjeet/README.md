@@ -2,6 +2,8 @@
 
 Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../ostoslista/index.html) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
 
+[Aloitussivuun](..).
+
 ## 🌯 tortilla
 -5
 
