@@ -6,14 +6,6 @@
         <title>ostoslista</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
         <script type="text/javascript" src="conf.js"></script>
-        <script type="text/javascript">
-            // possibly more promises later (?)
-            const all_promises = Promise.all([
-                fetch("../ruokaohjeet/README.md")
-                    .then((res) => res.text())
-                    .catch((reason) => alert(`Failed to fetch recipies: ${reason}`)),
-            ]);
-        </script>
     </head>
     <body>
         <p>
@@ -33,6 +25,18 @@
     </body>
     <script type="text/javascript" src="func.js"></script>
     <script>
-        all_promises.then((values) => main(values));
+        // when properly deployed to a server fetch works
+        fetch('../ruokaohjeet/README.md').then(res => 
+            res.text().then(recipies => main(recipies))
+        )
+
+        // fetch will fail when index.html is launched locally as a file during development
+        // pulling from the deployed GitHub Page
+        // this is better than having to manually update the test data with escaped \`code blocks\` in README.md
+        .catch(_err => {
+            fetch('https://tomjtoth.github.io/ruokaohjeet/README.md').then(res => 
+            res.text().then(recipies => main(recipies))
+        )
+        });
     </script>
 </html>
