@@ -265,3 +265,17 @@ if (reset_qs) window.location.search = "";
 const checked_items = parse("checked_items", false);
 
 var recipies;
+
+// when properly deployed to a server fetch works
+fetch('../ruokaohjeet/README.md').then(res => 
+    res.text().then(recipies => main(recipies))
+)
+
+// fetch will fail when index.html is launched locally as a file during development
+// pulling from the deployed GitHub Page
+// this is better than having to manually update the test data with escaped \`code blocks\` in README.md
+.catch(_err => {
+    fetch('https://tomjtoth.github.io/ruokaohjeet/README.md').then(res => 
+    res.text().then(recipies => main(recipies))
+)
+});
