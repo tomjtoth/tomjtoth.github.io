@@ -22,7 +22,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. laita `oliivit` myös
 1. ripottele lisää juustoa ja myös sen päälle pitsamaustetta
 1. lämmitä uuni 200 asteiseksi, ja laita sisään 20-30 minuutiksi
-    - kun juusto on ruskistunut, ota pitsa uunista
+    1. kun juusto on ruskistunut, ota pitsa uunista
 
 ## 🍲 kanapasta
 -10
@@ -158,9 +158,9 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. anna hiivat tehostumaan 5 minuuttia jossain lämpimässä paikassa
 1. kaada mukin sisällöt kulhoon ja sekoitat (alussa 1 sormella)
 1. kun taikina ei enää jää kiinni kulhoon, laita ~tunniksi takaisin
-#TAUKO
+    1. pidä __TAUKO__
 1. aloita venyttämään taikinaa leveäksi lautaseksi
-1. 180 asteiseen `3 dl öljy` -yn heitä 1 kerralla (litrasessa kattilassa)
+1. 180 astetta kuumaan `noin 3 dl öljy` -yn heitä 1 kerralla (litrasessa kattilassa)
 1. laita paistetut taikinat lautaselle, jossa `1 kpl servetti` (imee öljyn)
 1. murskaa `1-2 kpl valkosipulia` ja löystä se vedellä ja pari tipalla öljyllä
 1. levitä eka sipulinesteen paistetun taikinan päälle
@@ -187,4 +187,3 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
     - timjamia voi myös laittaa enemmän, jos tykkäät
 1. sekoita tasaiseksi ja anna hautua kannen alla vähintään 15 minsaa
 1. voit syödä kastikkeen esimerkiksi `perunat?` tai `makaroni?` -n kanssa ja keittää lisäksi `vihannekset?`
-y
