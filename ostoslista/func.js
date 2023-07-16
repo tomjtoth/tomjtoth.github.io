@@ -142,7 +142,7 @@ function add_item(item, order, dish_idx = -1) {
 
         function() {
             this.classList.toggle("active");
-            item_states();
+            store_item_states();
         },
 
         dish ? null : function(ev) {
@@ -183,28 +183,28 @@ function rm_item(item_name, dish_idx = -1) {
 
 function main(recipies_md) {
     recipies = Array.from(recipies_md
-    .matchAll(re_dishes))
-    .map(mo_dish => {
-        const name = mo_dish.groups.name;
-        const tags = Array.from((mo_dish.groups.tags
-            ? mo_dish.groups.tags
-            : ''
-        ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
-        const preference = parseInt(mo_dish.groups.pref);
+        .matchAll(re_dishes))
+        .map(mo_dish => {
+            const name = mo_dish.groups.name;
+            const tags = Array.from((mo_dish.groups.tags
+                ? mo_dish.groups.tags
+                : ''
+            ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
+            const preference = parseInt(mo_dish.groups.pref);
 
-        // removing only the code blocks and possibly merge conjugated  suffix
-        const instructions = mo_dish.groups.descr.replaceAll(re_ingredients, "$1$2$3");
-        const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
-        return {name, tags, preference, instructions, ingredients}
-    })
-    .sort((a, b) => {
-        const left = a.name.substring(3);
-        const right = b.name.substring(3);
+            // removing only the code blocks and possibly merge conjugated  suffix
+            const instructions = mo_dish.groups.descr.replaceAll(re_ingredients, "$1$2$3");
+            const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
+            return {name, tags, preference, instructions, ingredients}
+        })
+        .sort((a, b) => {
+            const left = a.name.substring(3);
+            const right = b.name.substring(3);
 
-        if (left < right) return -1;
-        if (left > right) return 1;
-        return 0;
-    });
+            if (left < right) return -1;
+            if (left > right) return 1;
+            return 0;
+        });
 
     build_modal_dishes();
 
@@ -216,7 +216,12 @@ function main(recipies_md) {
         add_item(extra, get_item_order(extra));
     }
 
-    item_states(false);
+    activate_items();
+
+    div_items_observer.observe(div_items, {
+        childList: true,
+        subtree: true
+    });
 }
 
 function build_modal_dishes() {
@@ -238,7 +243,7 @@ function build_modal_dishes() {
     div_modal_dishes.appendChild(modal_content);
     div_modal_dishes.addEventListener("click", function() {
         document.body.removeChild(div_modal_dishes);
-    })
+    });
 }
 
 function new_dish() {
@@ -254,33 +259,42 @@ function new_item() {
     }
 }
 
-function item_states(store = true) {
+function activate_items() {
     const item_btns = Array.from(document.querySelectorAll('#items>button'));
-
-    if (store) {
-        localStorage.setItem('item_states', 
-            JSON.stringify(item_btns.map(btn => 
-                btn.classList.contains('active') ? true : false
-            ))
-        )
-    } else {
-        const states = JSON.parse(localStorage.getItem('item_states'));
-
-        if (states && states.length === item_btns.length) {
-            item_btns.forEach((btn, idx) => {
-                if (btn.classList.contains('active') !== states[idx]){
-                    btn.classList.toggle('active');
-                }
-            })
-        }
+    for (const i of JSON.parse(localStorage.getItem('item_states'))) {
+        item_btns[i].classList.add('active');
     }
+}
+
+function deactivate_items() {
+    for (const btn of document.querySelectorAll('#items>button.active')) {
+        btn.classList.remove('active');
+    }
+    store_item_states(true);
+}
+
+function store_item_states(reset = false) {
+    localStorage.setItem('item_states',
+        JSON.stringify(reset
+            ? '[]'
+            : Array.from(
+                document.querySelectorAll('#items>button.active')
+            ).map(btn => Array.prototype.indexOf.call(div_items.childNodes, btn))
+        )
+    );
 }
 
 const url_params = new URLSearchParams(window.location.search);
 
-const div_items = document.getElementById("items");
-const div_dishes = document.getElementById("dishes");
 const div_modal_dishes = document.createElement("div");
+const div_dishes = document.getElementById("dishes");
+const div_items = document.getElementById("items");
+const div_items_observer = new MutationObserver((mutations, _obs) => {
+    // rm_dish() removes `n` children from div_items, they appear here in a batch
+    if (mutations.some(m => m.type === 'childList')) {
+        store_item_states();
+    }
+});
 
 var reset_qs = false;
 const dish_indices = parse("dishes");
