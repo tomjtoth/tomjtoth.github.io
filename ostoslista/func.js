@@ -144,6 +144,7 @@ function add_item(item, order, dish_idx = -1) {
 
         function() {
             this.classList.toggle("active");
+            item_states();
         },
 
         dish ? null : function(ev) {
@@ -151,6 +152,7 @@ function add_item(item, order, dish_idx = -1) {
                 extra_items.splice(extra_items.indexOf(item), 1);
                 store("items", extra_items);
                 rm_item(item);
+                item_states();
             }
             ev.stopPropagation();
         }
@@ -216,6 +218,8 @@ function main(recipies_md) {
     for (const extra of extra_items) {
         add_item(extra, get_item_order(extra));
     }
+
+    item_states(false);
 }
 
 function build_modal_dishes() {
@@ -253,6 +257,28 @@ function new_item() {
     }
 }
 
+function item_states(store = true) {
+    const item_btns = Array.from(document.querySelectorAll('#items>button'));
+
+    if (store) {
+        localStorage.setItem('item_states', 
+            JSON.stringify(item_btns.map(btn => 
+                btn.classList.contains('active') ? true : false
+            ))
+        )
+    } else {
+        const states = JSON.parse(localStorage.getItem('item_states'));
+
+        if (states && states.length === item_btns.length) {
+            item_btns.forEach((btn, idx) => {
+                if (btn.classList.contains('active') !== states[idx]){
+                    btn.classList.toggle('active');
+                }
+            })
+        }
+    }
+}
+
 const urlParams = new URLSearchParams(window.location.search);
 
 const div_items = document.getElementById("items");
@@ -264,11 +290,9 @@ const dish_indices = parse("dishes");
 const extra_items = parse("items");
 if (reset_qs) window.location.search = "";
 
-const checked_items = parse("checked_items", false);
-
 var recipies;
 const md_html_conv = new showdown.Converter();
 
-fetch('/ruokaohjeet/README.md').then(res => 
+fetch('../ruokaohjeet/README.md').then(res => 
     res.text().then(recipies => main(recipies))
 );
