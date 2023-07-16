@@ -125,14 +125,12 @@ function rm_dish(dish_idx, splicing = true) {
 }
 
 function get_item_order(name) {
-    let i = 0;
-    for (const [j, regex] of the_order.entries()) {
+    for (const [i, regex] of the_order.entries()) {
         if (name.match(regex)) {
-            i = j+1;
-            break;
+            return i+1;
         }
     }
-    return i
+    return 0
 }
 
 function add_item(item, order, dish_idx = -1) {
