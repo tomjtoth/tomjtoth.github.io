@@ -192,7 +192,7 @@ function main(recipies_md) {
             ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
             const preference = parseInt(mo_dish.groups.pref);
 
-            // removing only the code blocks and possibly merge conjugated  suffix
+            // removing only the code blocks and possibly merge conjugated suffix
             const instructions = mo_dish.groups.descr.replaceAll(re_ingredients, "$1$2$3");
             const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
             return {name, tags, preference, instructions, ingredients}
@@ -304,6 +304,6 @@ if (reset_qs) window.location.search = "";
 var recipies;
 const md_html_conv = new showdown.Converter();
 
-fetch('../ruokaohjeet/README.md').then(res => 
+fetch('../ruokaohjeet/README.md').then(res =>
     res.text().then(recipies => main(recipies))
 );

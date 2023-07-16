@@ -171,7 +171,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 +5
 
 1. pilko `1 kpl sipuli`, `2 kpl valkosipuli`, `1 kpl tomaatti` ja `1 kpl paprika` ja paista hetki
-1. lisää `400 g kanafileet`, `3 rkl paprikamauste`, `1 tl suola`, `1/2 tl pippuri` ja noin 2 dl vettä niin että lihat juuri ja juuri peittyvät. lisää `2 kpl laakerinlehti` ja sekoita hyvin. 
+1. lisää `400 g kanafileet`, `3 rkl paprikamauste`, `1 tl suola`, `1/2 tl pippuri` ja noin 2 dl vettä niin että lihat juuri ja juuri peittyvät. lisää `2 kpl laakerinlehti` ja sekoita hyvin.
 1. jätä hautumaan kannen alle 30-45 minuutiksi kunnes lihat ovat kypsiä
 1. laita `400 g makaroni` kiehumaan
 1. sekoita kulhossa `150 g creme fraiche` ja `1 rkl vehnäjauho` keskenään tasaiseksi ja kaada lihojen joukkoon, kuumenna hetki.
