@@ -192,7 +192,9 @@ function main(recipies_md) {
             : ''
         ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
         const preference = parseInt(mo_dish.groups.pref);
-        const instructions = mo_dish.groups.descr.replace(re_ingredients, "$1");
+
+        // removing only the code blocks and possibly merge conjugated  suffix
+        const instructions = mo_dish.groups.descr.replaceAll(re_ingredients, "$1$2$3");
         const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
         return {name, tags, preference, instructions, ingredients}
     })
