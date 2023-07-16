@@ -30,7 +30,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. laita `300-500 g maustamattomat kanasuikaleet` pannulle ruskistumaan, mausta suolalla
 1. lisää hetken päästä joukkoon `100 g herkkusieni`
 1. laita `400 g makaroni` kiehumaan
-    - haluattessasi myös `parsakaali?` omaan erilliseen kattilaan
+    1. haluattessasi myös `parsakaali?` omaan erilliseen kattilaan
 1. lisää kanan joukkoon [`kolme pippuria tuorejuusto`](https://www.s-kaupat.fi/tuote/valio-violar-kevyt-e200-g-kolme-pippuria-tuorejuusto-laktoositon/6408430032037) ja 1 dl vettä, sekoita ja anna hautua
 1. ruoka on valmis, kun makaronit (ja parsakaali) ovat kypsiä
 
@@ -184,6 +184,6 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. kun sipulit alkavat paistua, lisää joukkoon `300 g possun fileesuikaleet` ja ruskista
 1. ripottele pinnalle `1 rkl vehnäjauho`, sekoita hyvin ja lisää [`ruokakerma`](https://www.s-kaupat.fi/tuote/kotimaista-2-dl-laktoositon-15-uht-ruokakerma/6414893385498) ja 1 dl vettä, sekoita taas hyvin
 1. lisää sekaan `125 g mustapippurituorejuusto` ja mausta 1 tl `timjami`
-    - timjamia voi myös laittaa enemmän, jos tykkäät
+    1. timjamia voi myös laittaa enemmän, jos tykkäät
 1. sekoita tasaiseksi ja anna hautua kannen alla vähintään 15 minsaa
 1. voit syödä kastikkeen esimerkiksi `perunat?` tai `makaroni?` -n kanssa ja keittää lisäksi `vihannekset?`
