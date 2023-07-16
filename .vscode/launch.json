@@ -7,8 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "open in Chrome",
-            "file": "${file}",
+            "name": "open ./index.html in Chrome",
+            "file": "${fileDirname}/index.html",
             "runtimeArgs": ["--disable-web-security"]
         }
     ]
