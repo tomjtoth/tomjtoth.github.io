@@ -22,7 +22,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. laita `oliivit` myös
 1. ripottele lisää juustoa ja myös sen päälle pitsamaustetta
 1. lämmitä uuni 200 asteiseksi, ja laita sisään 20-30 minuutiksi
-    - kun juusto on ruskistunut, ota pitsa uunista
+    1. kun juusto on ruskistunut, ota pitsa uunista
 
 ## 🍲 kanapasta
 -10
@@ -30,7 +30,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. laita `300-500 g maustamattomat kanasuikaleet` pannulle ruskistumaan, mausta suolalla
 1. lisää hetken päästä joukkoon `100 g herkkusieni`
 1. laita `400 g makaroni` kiehumaan
-    - haluattessasi myös `parsakaali?` omaan erilliseen kattilaan
+    1. haluattessasi myös `parsakaali?` omaan erilliseen kattilaan
 1. lisää kanan joukkoon [`kolme pippuria tuorejuusto`](https://www.s-kaupat.fi/tuote/valio-violar-kevyt-e200-g-kolme-pippuria-tuorejuusto-laktoositon/6408430032037) ja 1 dl vettä, sekoita ja anna hautua
 1. ruoka on valmis, kun makaronit (ja parsakaali) ovat kypsiä
 
@@ -158,9 +158,9 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. anna hiivat tehostumaan 5 minuuttia jossain lämpimässä paikassa
 1. kaada mukin sisällöt kulhoon ja sekoitat (alussa 1 sormella)
 1. kun taikina ei enää jää kiinni kulhoon, laita ~tunniksi takaisin
-#TAUKO
+    1. pidä __TAUKO__
 1. aloita venyttämään taikinaa leveäksi lautaseksi
-1. 180 asteiseen `3 dl öljy` -yn heitä 1 kerralla (litrasessa kattilassa)
+1. 180 astetta kuumaan `noin 3 dl öljy` -yn heitä 1 kerralla (litrasessa kattilassa)
 1. laita paistetut taikinat lautaselle, jossa `1 kpl servetti` (imee öljyn)
 1. murskaa `1-2 kpl valkosipulia` ja löystä se vedellä ja pari tipalla öljyllä
 1. levitä eka sipulinesteen paistetun taikinan päälle
@@ -184,7 +184,6 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. kun sipulit alkavat paistua, lisää joukkoon `300 g possun fileesuikaleet` ja ruskista
 1. ripottele pinnalle `1 rkl vehnäjauho`, sekoita hyvin ja lisää [`ruokakerma`](https://www.s-kaupat.fi/tuote/kotimaista-2-dl-laktoositon-15-uht-ruokakerma/6414893385498) ja 1 dl vettä, sekoita taas hyvin
 1. lisää sekaan `125 g mustapippurituorejuusto` ja mausta 1 tl `timjami`
-    - timjamia voi myös laittaa enemmän, jos tykkäät
+    1. timjamia voi myös laittaa enemmän, jos tykkäät
 1. sekoita tasaiseksi ja anna hautua kannen alla vähintään 15 minsaa
 1. voit syödä kastikkeen esimerkiksi `perunat?` tai `makaroni?` -n kanssa ja keittää lisäksi `vihannekset?`
-y

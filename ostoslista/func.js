@@ -84,7 +84,7 @@ function add_dish(dish_idx) {
 
     // paragraph containing instructions
     const p_dish_instr = document.createElement('p');
-    p_dish_instr.innerText = dish.instructions.replace(/^( *)1\. /mg, "$1- ");
+    p_dish_instr.innerHTML = md_html_conv.makeHtml(dish.instructions);
 
     // div responsible for hiding/showing its child paragraph
     const div_dish_instr = document.createElement("div");
@@ -192,7 +192,9 @@ function main(recipies_md) {
             : ''
         ).matchAll(re_tags)).map(mo_tag => mo_tag[0]);
         const preference = parseInt(mo_dish.groups.pref);
-        const instructions = mo_dish.groups.descr.replace(re_ingredients, "$1");
+
+        // removing only the code blocks and possibly merge conjugated  suffix
+        const instructions = mo_dish.groups.descr.replaceAll(re_ingredients, "$1$2$3");
         const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
         return {name, tags, preference, instructions, ingredients}
     })
@@ -265,6 +267,7 @@ if (reset_qs) window.location.search = "";
 const checked_items = parse("checked_items", false);
 
 var recipies;
+const md_html_conv = new showdown.Converter();
 
 fetch('/ruokaohjeet/README.md').then(res => 
     res.text().then(recipies => main(recipies))

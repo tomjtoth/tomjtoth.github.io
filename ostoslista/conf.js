@@ -2,7 +2,7 @@
 const re_dishes = /## \[?(?<name>.+?)(?:\]\((?<url>[^\)]+)\))?\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>(?:.|\n)+?(?=\n## |\n$))/g;
 
 // https://regex101.com/r/kmOAfs
-const re_ingredients = /\[?`(?<name>[^`]+)`(?:\]\((?<url>[^\)]+)\))?(?: *-)?/g;
+const re_ingredients = /(\[)?`(?<name>[^`]+)`(\]\((?<url>.+)\))?(?: *[-:])?/g;
 const re_tags = /(?<=#)\S+/g;
 
 // arranges ingredients the way I go through my local shop
