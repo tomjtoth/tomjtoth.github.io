@@ -4,10 +4,10 @@ function store(name, obj) {
 
 // gets the previous conf, overrides by querystring
 function parse(name, check_qs = true) {
-    if (check_qs && urlParams.has(name)) {
+    if (check_qs && url_params.has(name)) {
         reset_qs = true;
 
-        const res = urlParams.get(name).split(",");
+        const res = url_params.get(name).split(",");
         store(name, res);
         return res;
     }
@@ -277,7 +277,7 @@ function item_states(store = true) {
     }
 }
 
-const urlParams = new URLSearchParams(window.location.search);
+const url_params = new URLSearchParams(window.location.search);
 
 const div_items = document.getElementById("items");
 const div_dishes = document.getElementById("dishes");
