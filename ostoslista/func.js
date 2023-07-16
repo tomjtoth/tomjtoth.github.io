@@ -177,7 +177,6 @@ function rm_item(item_name, dish_idx = -1) {
     for (const itemNode of div_items.childNodes) {
         if (itemNode.item_name == item_name && itemNode.dish_idx == dish_idx) {
             div_items.removeChild(itemNode);
-            return;
         }
     }
 }
