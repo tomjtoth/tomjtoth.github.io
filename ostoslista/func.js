@@ -159,15 +159,12 @@ function add_item(item, order, dish_idx = -1) {
     new_btn.item_name = item;
     new_btn.dish_idx = dish_idx;
 
-    let inserted = false;
     for (const existing_btn of div_items.childNodes) {
         if (order <= existing_btn.order) {
             div_items.insertBefore(new_btn, existing_btn);
-            inserted = true;
-            break;
+            return;
         }
     }
-    if (inserted) return;
 
     // on 1st run and on new largest `order` nro
     div_items.appendChild(new_btn);
