@@ -88,7 +88,7 @@ function add_dish(dish_idx) {
 
     // div responsible for hiding/showing its child paragraph
     const div_dish_instr = document.createElement("div");
-    div_dish_instr.setAttribute("class", "div-dish-instr");
+    div_dish_instr.setAttribute("class", "dish-instr");
     div_dish_instr.appendChild(p_dish_instr);
     div_dishes.appendChild(div_dish_instr);
 
