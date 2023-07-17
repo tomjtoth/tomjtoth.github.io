@@ -37,19 +37,17 @@ function shuffle() {
     store("dishes", dish_indices);
 }
 
-function create_btn(name, onactivate, ondel = null) {
+function create_btn(name, deletable = false) {
 
     const btn = document.createElement("button");
-    btn.addEventListener("click", onactivate);
-
-    if (ondel) {
+    
+    if (deletable) {
         const span1 = document.createElement("span");
         span1.innerText = name;
         btn.appendChild(span1);
 
         const span2 = document.createElement("span");
         span2.innerText = "DEL";
-        span2.addEventListener("click", ondel);
         btn.appendChild(span2);
 
     } else {
@@ -62,23 +60,7 @@ function create_btn(name, onactivate, ondel = null) {
 function add_dish(dish_idx) {
 
     const dish = recipies[dish_idx];
-    const btn = create_btn(
-        dish.name,
-        function() {
-            const content = this.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        },
-        function(ev) {
-            if (confirm(`Really DELETE ${dish.name}?`)) {
-                rm_dish(dish_idx);
-            }
-            ev.stopPropagation();
-        }
-    );
+    const btn = create_btn(dish.name, true);
     btn.dish_idx = dish_idx;
     div_dishes.appendChild(btn);
 
@@ -93,12 +75,7 @@ function add_dish(dish_idx) {
     div_dishes.appendChild(div_dish_instr);
 
     for (const mo_ingr of dish.ingredients) {
-        add_item(
-            mo_ingr.groups.name,
-            get_item_order(mo_ingr.groups.name),
-            dish_idx
-        );
-
+        add_item(mo_ingr.groups.name, dish_idx);
     }
 }
 
@@ -133,30 +110,19 @@ function get_item_order(name) {
     return 0
 }
 
-function add_item(item, order, dish_idx = -1) {
+function add_item(item, dish_idx = -1) {
+    const order = get_item_order(item);
     const dish = dish_idx > -1 ? recipies[dish_idx] : null;
     const new_btn = create_btn(
         (order == 0 ? "TUNTEMATON: " : "")
         + item
         + (dish ? ` (${dish.name})` : ''),
-
-        function() {
-            this.classList.toggle("active");
-            store_item_states();
-        },
-
-        dish ? null : function(ev) {
-            if (confirm(`Really DELETE ${item}?`)) {
-                extra_items.splice(extra_items.indexOf(item), 1);
-                store("items", extra_items);
-                rm_item(item);
-                item_states();
-            }
-            ev.stopPropagation();
-        }
+        dish_idx == -1
     );
     new_btn.order = order;
     new_btn.item_name = item;
+    // deletion happens based on this, possible bug:
+    // when multiple identical dishes are present, removing 1 would delete ALL ingredients
     new_btn.dish_idx = dish_idx;
 
     for (const existing_btn of div_items.childNodes) {
@@ -210,41 +176,78 @@ function main(recipies_md) {
     }
 
     for (const extra of extra_items) {
-        add_item(extra, get_item_order(extra));
+        add_item(extra);
     }
 
     activate_items();
+
+    div_items.addEventListener('click', ev => {
+        
+        if (ev.target.innerText == 'DEL') {
+            const item = ev.target.parentNode.item_name;
+            if (confirm(`Poistetaanko tavaraa "${item}"?`)) {
+                extra_items.splice(extra_items.indexOf(item), 1);
+                store("items", extra_items);
+                rm_item(item);
+            }
+        } else {
+            ev.target.classList.toggle('active');
+            store_item_states();
+        }
+    });
 
     div_items_observer.observe(div_items, {
         childList: true,
         subtree: true
     });
+
+    div_dishes.addEventListener('click', ev => {
+        
+        if (ev.target.innerText == 'DEL') {
+            if (confirm(`Poistetaanko ateriaa "${
+                recipies[ev.target.parentNode.dish_idx].name
+            }"?`)) {
+                rm_dish(ev.target.parentNode.dish_idx);
+            }
+        }
+
+        // collapsible under this button getting opened
+        else {
+            const node = ev.target.tagName == 'SPAN'
+                ? ev.target.parentNode
+                : ev.target;
+            with (node.nextElementSibling) {
+                if (style.maxHeight) {
+                    style.maxHeight = null;
+                } else {
+                    style.maxHeight = scrollHeight + "px";
+                }
+            }
+        }
+    });
 }
 
 function build_modal_dishes() {
-    const modal_content = document.createElement("div");
-    modal_content.setAttribute("class", "modal-content");
-
-    for (const [i, recipie] of recipies.entries()) {
-        modal_content.appendChild(create_btn(
-            `${i}: ${recipie.name}`,
-            function() {
-                dish_indices.push(i);
-                store("dishes", dish_indices);
-                document.body.removeChild(div_modal_dishes);
-                add_dish(i);
-            }
-        ));
+    
+    for (const [dish_idx, recipie] of recipies.entries()) {
+        const btn = create_btn(`${dish_idx}: ${recipie.name}`, false);
+        btn.dish_idx = dish_idx;
+        div_selection.firstChild.appendChild(btn);
     }
-    div_modal_dishes.setAttribute("class", "modal");
-    div_modal_dishes.appendChild(modal_content);
-    div_modal_dishes.addEventListener("click", function() {
-        document.body.removeChild(div_modal_dishes);
+
+    div_selection.addEventListener("click", ev => {
+        if (ev.target.tagName == 'BUTTON') {
+            dish_indices.push(ev.target.dish_idx);
+            store("dishes", dish_indices);
+            add_dish(ev.target.dish_idx);
+        }
+        // hiding the modal
+        div_selection.style.visibility = 'hidden';
     });
 }
 
 function new_dish() {
-    document.body.appendChild(div_modal_dishes);
+    div_selection.style.visibility = 'visible';
 }
 
 function new_item() {
@@ -252,7 +255,7 @@ function new_item() {
     if (item != '' && item != null) {
         extra_items.push(item);
         store("items", extra_items);
-        add_item(item, get_item_order(item));
+        add_item(item);
     }
 }
 
@@ -271,19 +274,16 @@ function deactivate_items() {
 }
 
 function store_item_states(reset = false) {
-    localStorage.setItem('item_states',
-        JSON.stringify(reset
-            ? '[]'
-            : Array.from(
-                document.querySelectorAll('#items>button.active')
-            ).map(btn => Array.prototype.indexOf.call(div_items.childNodes, btn))
+    localStorage.setItem('item_states', reset ? '[]'
+        : JSON.stringify(Array.from(document.querySelectorAll('#items>button.active'))
+            .map(btn => Array.prototype.indexOf.call(div_items.childNodes, btn))
         )
     );
 }
 
 const url_params = new URLSearchParams(window.location.search);
 
-const div_modal_dishes = document.createElement("div");
+const div_selection = document.getElementById("selection");
 const div_dishes = document.getElementById("dishes");
 const div_items = document.getElementById("items");
 const div_items_observer = new MutationObserver((mutations, _obs) => {
