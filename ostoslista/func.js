@@ -191,7 +191,10 @@ function main(recipies_md) {
                 rm_item(item);
             }
         } else {
-            ev.target.classList.toggle('active');
+            (ev.target.tagName == 'BUTTON'
+                ? ev.target
+                : ev.target.parentNode
+            ).classList.toggle('active');
             store_item_states();
         }
     });
