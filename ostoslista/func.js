@@ -261,8 +261,11 @@ function new_item() {
 
 function activate_items() {
     const item_btns = Array.from(document.querySelectorAll('#items>button'));
-    for (const i of JSON.parse(localStorage.getItem('item_states'))) {
-        item_btns[i].classList.add('active');
+    const checked_indices = localStorage.getItem('item_states');
+    if (checked_indices) {
+        for (const i of JSON.parse(checked_indices)) {
+            item_btns[i].classList.add('active');
+        }
     }
 }
 
