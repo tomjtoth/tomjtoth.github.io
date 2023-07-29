@@ -187,3 +187,15 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
     1. timjamia voi myös laittaa enemmän, jos tykkäät
 1. sekoita tasaiseksi ja anna hautua kannen alla vähintään 15 minsaa
 1. voit syödä kastikkeen esimerkiksi `perunat?` tai `makaroni?` -n kanssa ja keittää lisäksi `vihannekset?`
+
+## 🥞 Lettuja
+#dessert
+
+1. riko `muna` (muovi)kulhoon
+1. laita `2 dl vehnäjauho` 
+1. kaada ensin **vain puolet** `4 dl maido` -sta
+1. sekoita kunnes tulee tasaiseksi
+1. kaada loput 2 dl maitoa skoitukseen
+1. kaada emt `pari cl öljy` -ä kyytiin, sekoita
+1. lämmitä ainakin jonnekin 180 asteiseksi pannusi
+1. avaa tölkki `kalja` jotta paistaminen tulisi siedättävämmäksi
