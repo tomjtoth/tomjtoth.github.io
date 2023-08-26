@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title lang="en">"Landing site"</title>
+    <link rel="icon" href="data:,">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
+        integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <nav lang="en">
+        <a href="#/about">About</a>
+        <a href="#/battery-monitor"
+            title="can be autostarted and will alert based on battery level and charging state">Battery monitor</a>
+        <a href="#/shopping-list">Shopping list</a>
+        <a href="recipies">Recipies</a>
+        <a href="products" title="reminder what to avoid and what&apos;s OK to purchase">Products</a>
+        <a href="lyrics">Lyrics</a>
+        <!-- WiP
+            <a href="https://github.com/tomjtoth/saldo-rs"
+            title="client-server based accounting solution built from scratch using:&#010;- HTML / CSS / vanilla JS&#010;- REST&#010;- Rust&#010;- SQLite">Saldo</a>
+        -->
+
+        <a href="#/qr-code">Share</a>
+    </nav>
+
+    <div id="about" lang="en" hidden>
+        <p>
+            This site is mostly in Finnish. Here's the link to the
+            <a href="https://github.com/tomjtoth/tomjtoth.github.io">repo</a>
+            in case you're interested.
+        </p>
+    </div>
+
+    <div id="qr-code" hidden>
+        <img alt="qr code" src="https://api.qrserver.com/v1/create-qr-code/?data=https://tomjtoth.github.io">
+        <!--
+            <button>🔗</button>
+        -->
+    </div>
+
+    <div id="battery-monitor" hidden>
+        <p>
+            This is a simple utility that will alert if the battery level is
+        <ul>
+            <li>either above the maximum threshold and still charging</li>
+            <li>or below the minimum threshold and not charging</li>
+        </ul>
+        The related <code>navigator.getBattery()</code> method is not supported on all browsers, see the full
+        compatibility
+        table <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery#browser_compatibility">on
+            MDN</a>.
+        </p>
+        <div>
+            <label>maximum threshold:</label>
+            <input id="maximum" type="number" min="50" max="100" value="80">
+        </div>
+        <div>
+            <label>minimum threshold:</label>
+            <input id="minimum" type="number" min="0" max="50" value="20">
+        </div>
+        <div>
+            <button id="start-stop">start</button>
+            <button id="autostart">toggle autostart</button>
+        </div>
+    </div>
+
+    <div id="shopping-list" hidden>
+        <div id="controls">
+            <button onclick="deactivate_items()" title="ostettaviin kamoihin vaikuttaa">Pyyhki vihreät</button>
+            <button onclick="shuffle()" title="niin monta, kuin nyt on, tai 3 kpl">Arvo ateriat</button>
+            <button onclick="new_dish()" title="valitse ateria listasta">+ ateriaa</button>
+            <button onclick="new_item()" title="lisää mitä tahansa asiaa listalle">+ kamaa</button>
+        </div>
+        <div id="dish-picker" class="modal"></div>
+        <div id="item-adder" class="modal"></div>
+        <h2>Ateriat</h2>
+        <div id="dishes"></div>
+        <h2>Ostettavat kamat</h2>
+        <div id="items"></div>
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="battery-monitor.js"></script>
+<script type="text/javascript" src="shopping-list.js"></script>
+
+</html>

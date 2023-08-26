@@ -2,16 +2,19 @@
 
 Tässä lähinnä itselleni staattiset sivustot, jotkut auttavat minua kaupassa. Selain riittää, ei tarvitse tunnistautua minnekään!
 
-- [akunvalvonta](battery-monitor/index.html)
+- [akunvalvonta](/index.html#/battery-monitor)
     - yksinkertainen työkalu joka näyttää ilmoituksia jos akun taso ois liian ylhäinen tai alhainen
-- [ostoslista](ostoslista/index.html)
+- [ostoslista](/index.html#shopping-list)
     - kasaa ostettavia kamoja minimipanostuksella puoleltani
-    - tutustu myös itse [ruokaohjeisiin](ruokaohjeet/README.md)
-- [tuotteet](tuotteet/README.md)
+    - tutustu myös itse [ruokaohjeisiin](recipies/README.md)
+- [tuotteet](products/README.md)
     - muistuttaa vältettävistä tuotteista
-## Testing
+- [låttext](lyrics/README.md)
+    - jag pluggar svenska på min fritid och lyssnar på där låtar
 
-Add the below to `.vscode/launch.json`:
+## Kehitys
+
+Lisää alla kohta tiedostoon: `.vscode/launch.json`:
 
 ```json
 {

@@ -1,8 +1,8 @@
 # About
 
-This is where I gather missing lyrics contributed by active Swedish speakers.
+This is where I gather lyrics for songs I listen to via my [freemium playlist](https://www.youtube.com/playlist?list=PLgssVMmy7hPazMCO2onw-A_2EF3p90yUt)
 
-## Contact 
+## Contact
 
 ### Hon kom över mon - 1971
 
@@ -29,13 +29,13 @@ och djuren som lunkade aningslöst fram
 
 Nu ser jag ett sågverk som ej längre finns
 Nu ser jag min boning förfallen
-Alla vänner har flyttat bort 
+Alla vänner har flyttat bort
 Till storstaden för att få leva
 
 En gång i tiden så länge sen
 så fanns här ett hem i Ådalens land
 Solen den lyste på ängen så grön
-och djuren som lunkade aningslöst fram
+och djuren som lunkade aningslöst fram,
 ```
 
 #### Smultes Vals
@@ -60,9 +60,192 @@ Försöker att lyssna, försöker för stå
 Det är inte lätt att veta vad som är rätt
 ```
 
+## Vånna Inget
 
-## Possible SEO 
+### Utopi - 2017
 
-Not sure if this has any effect..
+#### 80-talsbarn
 
-#lyrics #låttext #contact #hon-kom-över-mon-1971 #minnen #smultes-vals
+```lyrics
+Hej vi är 80-talets lata barn
+Ge mig ett jobb med max 6 timmars arbetsdag
+Ge mig en vardag ge mig en vardag
+För sånna som jag
+
+Tunga gråa moln över AMS
+Pissgula lokaler fulla av tristess
+Ett till ångestpaket i leende fasad
+Faller en så står det ändå tusen kvar som jag
+
+Precis som jag
+Tänker du samma sak
+Allt har man hört förut
+Allt har en bitter smak
+
+Men jag lovar o svär jag är ganska bra
+Hur fan ska jag klara det här
+Jag lovar o svär jag är ganska bra
+Hur fan ska jag klara det här
+I en sjuk sjuk värld
+
+Hej vi är 80-talets glada barn
+Ge mig nått ge mig det ingen annan vill ha
+Ge mig en vardag ge mig en vardag
+För sånna som jag
+
+För jag lovar o svär jag är jävligt bra
+Hur fan ska jag klara det här
+Jag lovar o svär jag är jävligt bra
+Hur fan ska jag klara det här
+I en sjuk sjuk värld,
+```
+
+#### Mörkrets barn
+
+```lyrics
+Vi är mörkrets barn
+Vi är mörkrets barn
+
+Jag hör tjuten över staden
+I alla brustna hjärtans värld
+Har slösat kärlek på så många
+Men ändå står du ensam här
+
+Du tror du vet vad du behöver
+Men jag tror inte du förstår
+För vi är helveten o änglar
+O halva himlen den är vår
+
+Vi ska leva för alltid
+Vi ska dö en enda dag
+Vi tror på ödet o natten
+Vi är mörkrets barn
+
+Vi är som skadeskjutna fåglar
+Livet slår o slår o vi tar emot
+Du går o väntar på nån bättre
+Du går o drömmer om nått stort
+Men du är fiende med tiden
+I dina ögon svider en tår
+Så ska du vänta hela livet
+När halva himlen är vår
+
+Vi ska leva för alltid
+Vi ska dö en enda dag
+Vi har en djävul på axeln
+Vi är mörkrets barn
+
+Vi ska leva för alltid
+Vi ska dö en enda dag
+
+Vi dansar hemåt i natten
+Vi är mörkrets barn
+Vi är mörkrets barn,
+```
+
+#### Spöken
+
+```lyrics
+Tystnad säger allt o inget alls
+Det är som att döden står o väntar i min hall
+Dagarna blir självbedrägeri
+Vi bär båda på hjärtan med knivar i
+
+Är det här det tar slut
+Är det här det tar slut
+Är det här det tar slut
+Är det slut nu
+
+Jag är så jävla less nu på alla tomma ord betyder ingenting
+Vi har blivit spöken där tiden står still
+Vi svara inte längre allting låter falsk kan inte vara sant
+Livet kom emellan o du försvann
+
+Är det här det tar slut
+Är det här det tar slut
+Är det här det tar slut nu
+
+Vi pratar inte längre vi bryr oss inte mer vi går förbi varann
+Har tagit oss för givet o tappat allt
+Vi kanske ska ge upp nu kasta allt vi har snälla stanna kvar
+Jag står ju här o väntar men mitt hjärta slår svagt
+
+Är det här det tar slut
+Är det här det tar slut
+Är det här det tar slut
+
+Snälla stanna kvar
+Mitt hjärta slår så svagt
+Snälla stanna kvar
+Våra hjärtan kanske har några slag kvar
+
+Är det här det tar slut
+Är det här det tar slut
+Är det här det tar slut nu
+```
+
+#### Skuggor
+
+```lyrics
+Vi gick hemåt i natten igen
+Hela vägen hem ifrån stan
+Morgondagen va så längesen
+O du visade mig stigarna genom Fyllerydskogen
+
+Jag ser skuggor av dig överallt
+Jag blir osäker nu på om du ens fanns
+Jag ser skuggor av dig överallt
+Jag blir osäker nu på om du ens fanns
+
+Vi va unga för så längesen
+På min första Hultsfredsfestival
+Skål för internet skål för kärleken
+Bländade av ljuset sprang vi rakt in i elden
+
+Jag ser skuggor av dig överallt
+Jag blir osäker nu på om du ens fanns
+Jag ser skuggor av dig överallt
+Jag blir osäker nu på om du ens fanns
+
+Jag går runt i ruinerna av mig
+Jag ser skuggor av dig överallt
+Jag går runt i ruinerna av mig jag
+Blir osäker nu på om du ens fanns
+Jag går runt i ruinerna
+Jag ser skuggor av dig överallt
+```
+
+### Ingen botten - 2013
+
+#### Ingen botten
+
+```lyrics
+Jag kände ingen botten
+Men nu har jag fan trillat dit igen
+Allt tog slut allt
+Allt jag skulle ha kvar till sen
+Men ta det inte personligt
+för jag är kär i hela världen
+Och du kan aldrig stilla min hunger
+Du kan inte fatta förrän du bär den
+Jag har bara mig själv att skylla
+För allting som jag inte har gjort
+Och vi blir fast i ett dårhus utav
+allt snack att livet är för kort
+Men klart det gör ont när du brister
+När du krossar ditt eget hjärta
+Du är så jävla dum när du läker
+när tiden ändå river upp dina sår
+Livet är den längsta vägen till det kortaste stråt
+Livet är den längsta vägen till tusen sätt att säga förlåt
+Livet är den längsta vägen till det kortaste stråt
+Livet är den längsta vägen så vi tar alla genvägar vi kommer åt
+Livet är den längsta vägen
+Livet är den längsta vägen
+Livet är den längsta vägen
+Livet är den längsta vägen jag bär på mitt eget nederlag
+Livet är den sämsta vägen och jag har bara en jävligt dålig dag
+Livet är den längsta vägen
+Livet är den längsta vägen
+Livet är den längsta vägen
+```

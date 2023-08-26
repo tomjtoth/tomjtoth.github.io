@@ -1,8 +1,6 @@
 # Ruokaohjeet
 
-Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../ostoslista/index.html) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
-
-[Aloitussivuun](..).
+Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](/#/shopping-list) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, vaihtoehdolliset ainekset kysymysmerkillä perällä `näin?`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
 
 ## 🌯 tortilla
 -5
@@ -27,7 +25,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 ## 🍲 kanapasta
 -10
 
-1. laita `300-500 g maustamattomat kanasuikaleet` pannulle ruskistumaan, mausta suolalla
+1. laita `300-500 g maustamattomat kanasuikaleet` pannulle ruskistumaan, mausta `suola` -lla
 1. lisää hetken päästä joukkoon `100 g herkkusieni`
 1. laita `400 g makaroni` kiehumaan
     1. haluattessasi myös `parsakaali?` omaan erilliseen kattilaan
@@ -82,7 +80,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 +5
 
 1. kuori ja pilko `500 g peruna`, `2 kpl porkkana` ja `1 kpl parsakaali` sekä laita ne kulhoon
-1. mausta kasvikset `suola`, `pippuri`, `rosmariini` ja jos haluat niin myös `paprikamauste`
+1. mausta kasvikset `suola` -lla, `pippuri` -lla, `rosmariini` -lla ja jos haluat niin myös `paprikamauste` -ella
 1. voitele uunivuoka öljyllä ja asettele siihen `marinoidut kanafileet` ja heitä päälle maustetut kasvikset
 1. anna kypsentyä 200 asteisessa uunissa 1 tunti
 
@@ -108,12 +106,12 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. leikkaa `200 g halloumi` 12 samankokoiseen kappaleeseen
 1. paista ne pannulla
 1. paahda `6 kpl hampparisämpylät` leivänpaahtimessa
-1. lisää `hampparikastike`, laita 1-1 kpl halloumi molemmalle puolelle, myös `cheddar` ja `salaatti`
+1. lisää `hampparikastike`, laita 1-1 kpl halloumi molemmalle puolelle, myös 1kpl `cheddar` toiselle ja `salaatti` toiselle puolelle
 
 ## 🐷 kinkkukiusaus
 -5
 
-1. pilko `300 g keittokinkku`
+1. pilkkoo `300 g keittokinkku`
 1. voitele uunivuoka öljyllä ja lisää siihen ensin puolet `1 kg peruna-sipulisekoitus` pakkauksesta, ja kaikki keittokinkku
 1. sekoita, lisää perunan loputkin vuokaan
 1. kaada [`2 kpl ruokakerma`](https://www.s-kaupat.fi/tuote/kotimaista-2-dl-laktoositon-15-uht-ruokakerma/6414893385498) vuokaan
@@ -126,7 +124,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 
 1. pilko `1 kg porkkanat`, höyrytä ne
 1. paista `700 g kanasuikaleet` pannulla
-1. mausta pippurilla
+1. mausta `pippuri` -lla
 
 ## 🥘 makaronimuhennos
 #pääkallopata
@@ -136,7 +134,7 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 1. kun sipuli alkaa paistua, lisää joukkoon `400 g kanajauheliha` ja paista kunnes pinkki väri hävinnyt
 1. mausta seos `suola` -lla, `pippuri` -lla, `curry` -lla, `kaneli` -lla ja `paprikamauste` -ella. älä paista liian kauan, ettei mausteet pala ja seos kuivu!
 1. laita samalla `400 g makaroni` kiehumaan, lisää veteen `kasvisliemikuutio`
-1. kun makaronit ja lihaseos ovat kypsiä, sekoita ne ja nauti!
+1. kun makaronit ja lihaseos ovat kypsiä, sekoita
 
 ## [🥞 kuivakakku](https://www.kotikokki.net/reseptit/nayta/242960/Rusina-banaani-kuivakakku/)
 #dessert
@@ -170,11 +168,12 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../os
 ## 🍗 paprikás csirke
 +5
 
-1. pilko `1 kpl sipuli`, `2 kpl valkosipuli`, `1 kpl tomaatti` ja `1 kpl paprika` ja paista hetki
-1. lisää `400 g kanafileet`, `3 rkl paprikamauste`, `1 tl suola`, `1/2 tl pippuri` ja noin 2 dl vettä niin että lihat juuri ja juuri peittyvät. lisää `2 kpl laakerinlehti` ja sekoita hyvin.
+1. pilko `1 kpl sipuli?`, `2 kpl valkosipuli`, `1 kpl tomaatti` ja `1 kpl paprika` ja paista hetki
+1. leikkaa `400 g kanafileet` pieneksi paloiksi, sitten laita kyytiin
+1. mausta `3 rkl paprikamauste` -ella, `1 tl suola` -lla, `1/2 tl pippuri` -lla ja noin 2 dl vettä niin että lihat juuri ja juuri peittyvät. Lisää `2 kpl laakerinlehti` ja sekoita hyvin.
 1. jätä hautumaan kannen alle 30-45 minuutiksi kunnes lihat ovat kypsiä
 1. laita `400 g makaroni` kiehumaan
-1. sekoita kulhossa `150 g creme fraiche` ja `1 rkl vehnäjauho` keskenään tasaiseksi ja kaada lihojen joukkoon, kuumenna hetki.
+1. sekoita haarukan avulla omassa purkissaan `150 g creme fraiche?` (tai `villikerma?`) ja `1 rkl vehnäjauho` keskenään tasaiseksi ja kaada lihojen joukkoon, kuumenna hetki
 1. syö `leipä?` ja `pikkukurkut?` kanssa
 
 ## 🥩 pippuri-timjamipossu

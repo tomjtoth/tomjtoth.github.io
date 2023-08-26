@@ -1,3 +1,48 @@
+// https://regex101.com/r/UuPPL1
+const re_dishes = /## \[?(?<name>.+?)(?:\]\((?<url>[^\)]+)\))?\n+(?:(?<tags>(?:#\S+ )*#\S+)\n+)?(?:(?<pref>[+-]?\d+)\n+)?(?<descr>(?:.|\n)+?(?=\n## |\n$))/g;
+
+// https://regex101.com/r/kmOAfs
+const re_ingredients = /(\[)?`(?<name>[^`]+)`(\]\((?<url>.+)\))?(?: *[-:])?/g;
+const re_tags = /(?<=#)\S+/g;
+
+// arranges ingredients the way I go through my local shop
+const the_order = [
+    // ennen PRISMA:a
+    /(cit+ari|K-supermarket|K-cit[iy]market)(?::sta)?/i,
+    /[Tt]okmann?i/,
+    /\bLIDL\b/,
+
+    // PRISMA:sta
+    /hammas(?:lan(?:ka|gai)|tahn|tikk)/i,
+    /rosmari+ni|pi(ts|zz)amaus|la+kerinleh|timjami|kaneli|(musta.*)?pip+uri(?!.*juusto)|suola+|cur+y|(kasvis)?liemi.*ku+t|(?!^(torti|gril+i).*)mauste/i,
+    /wraps|sinap+i|soijakast|salsa|tortil+.*maust|ketsup+i|rusin(?:oi|a)/i,
+    /leivinpaperi|alumiinifolio|servetti/i,
+    /kokis|kalja|olu[et]|pepsi|mehu/i,
+    /(?:talous|vessa|p(?:\*+|a)ska)paperi/i,
+    /banaani|omena|mandariini|sien(i|et)|vi+nirypä+le+|hedelmä|sitru+na|ru+suka+l/i,
+    /(?<!peruna-)sipuli|perun(a|oi)(?!.*(?:lastu|sipuli))|parsa.*ka+li|pork+ana|sala+t+i|^(?!^wok.*)vihan+ek?s|bata+t+i|tomaatti(?!.*murska)|paprika/i,
+    /(?!^ko+kos.*)(?:mai[dt]o|kerma)|voi|jogh?urt|hi+va|creme fraiche/i,
+    /(?!^veke)juusto|(koskenlask)?.+dip+i?|hallou?m|cheddar/i,
+    /liha|kana(?!.*muna)|mifu|possu.*suikale/i,
+    /\b(?:kirjo)?loh(?:i|en|ta)\b/i,
+    /karjalanpa/i,
+    /kalk+una|kink+u/i,
+    /pi(?:zz|ts)a|ri+sipi+rak+a/i,
+    /muna|oliivi|tomaattimurska|ananas|kookosmai[dt]o|pikkukurkut/i,
+    /perunalastu|pähkinä|sipsi|hampparikastike/i,
+    /lei[pv]ä|sämpylä/i,
+    /nu+deli|makaroni|soija.*r.*h|ri+si|öljy/i,
+    /vehnäja|muro|mysli/i,
+    /uncle ben/i,
+    /sokeri/i,
+    /hernek/i,
+    /suklaa|kark+i/i,
+    /pakaste|jätski|jäätelö|wok+ivihan+e|peruna.*sipuli|sei[dt]i|mais+i|ben.*jer+y/i,
+
+    // HESBURGER
+    /vekeju+sto/i
+];
+
 function store(name, obj) {
     localStorage.setItem(name, JSON.stringify(obj))
 }
@@ -40,7 +85,7 @@ function shuffle() {
 function create_btn(name, deletable = false) {
 
     const btn = document.createElement("button");
-    
+
     if (deletable) {
         const span1 = document.createElement("span");
         span1.innerText = name;
@@ -104,7 +149,7 @@ function rm_dish(dish_idx, splicing = true) {
 function get_item_order(name) {
     for (const [i, regex] of the_order.entries()) {
         if (name.match(regex)) {
-            return i+1;
+            return i + 1;
         }
     }
     return 0
@@ -158,7 +203,7 @@ function main(recipies_md) {
             // removing only the code blocks and possibly merge conjugated suffix
             const instructions = mo_dish.groups.descr.replaceAll(re_ingredients, "$1$2$3");
             const ingredients = Array.from(mo_dish.groups.descr.matchAll(re_ingredients));
-            return {name, tags, preference, instructions, ingredients}
+            return { name, tags, preference, instructions, ingredients }
         })
         .sort((a, b) => {
             const left = a.name.substring(3);
@@ -182,7 +227,7 @@ function main(recipies_md) {
     activate_items();
 
     div_items.addEventListener('click', ev => {
-        
+
         if (ev.target.innerText == 'DEL') {
             const item = ev.target.parentNode.item_name;
             if (confirm(`Poistetaanko tavaraa "${item}"?`)) {
@@ -205,11 +250,10 @@ function main(recipies_md) {
     });
 
     div_dishes.addEventListener('click', ev => {
-        
+
         if (ev.target.innerText == 'DEL') {
-            if (confirm(`Poistetaanko ateriaa "${
-                recipies[ev.target.parentNode.dish_idx].name
-            }"?`)) {
+            if (confirm(`Poistetaanko ateriaa "${recipies[ev.target.parentNode.dish_idx].name
+                }"?`)) {
                 rm_dish(ev.target.parentNode.dish_idx);
             }
         }
@@ -231,26 +275,30 @@ function main(recipies_md) {
 }
 
 function build_modal_dishes() {
-    
+
+    const div = document.createElement('div');
+
     for (const [dish_idx, recipie] of recipies.entries()) {
         const btn = create_btn(`${dish_idx}: ${recipie.name}`, false);
         btn.dish_idx = dish_idx;
-        div_selection.firstChild.appendChild(btn);
+        div.appendChild(btn);
     }
 
-    div_selection.addEventListener("click", ev => {
+    div_dish_picker.appendChild(div);
+
+    div_dish_picker.addEventListener("click", ev => {
         if (ev.target.tagName == 'BUTTON') {
             dish_indices.push(ev.target.dish_idx);
             store("dishes", dish_indices);
             add_dish(ev.target.dish_idx);
         }
         // hiding the modal
-        div_selection.style.visibility = 'hidden';
+        div_dish_picker.style.visibility = 'hidden';
     });
 }
 
 function new_dish() {
-    div_selection.style.visibility = 'visible';
+    div_dish_picker.style.visibility = 'visible';
 }
 
 function new_item() {
@@ -273,10 +321,12 @@ function activate_items() {
 }
 
 function deactivate_items() {
-    for (const btn of document.querySelectorAll('#items>button.active')) {
-        btn.classList.remove('active');
+    if (confirm('are you sure you?')) {
+        for (const btn of document.querySelectorAll('#items>button.active')) {
+            btn.classList.remove('active');
+        }
+        store_item_states(true);
     }
-    store_item_states(true);
 }
 
 function store_item_states(reset = false) {
@@ -287,9 +337,40 @@ function store_item_states(reset = false) {
     );
 }
 
+const modal_conf = (prompt) => {
+
+    const div_modal = document.createElement('div');
+    div_modal.classList.add('modal');
+    div_modal.style.visibility = 'visible';
+
+    const div_modal_content = document.createElement('div');
+    div_modal_content.classList.add('modal-content');
+
+
+    // use 2 global buttons by ID, use onclick to always override the called fn from within the Promise
+
+    return new Promise((resolve, reject) => {
+        div_modal.addEventListener('click', ev => {
+            if (ev.target.tagName != 'BUTTON') {
+                reject('clicked on modal');
+            } else {
+                if (ev.target.innerText == 'OK') {
+                    resolve('clicked OK');
+                } else {
+                    reject('clicked Cancel');
+                }
+            }
+        });
+        setTimeout(() => {
+            div_modal.style.visibility = 'hidden';
+            reject('timed out');
+        }, 1000);
+    });
+}
+
 const url_params = new URLSearchParams(window.location.search);
 
-const div_selection = document.getElementById("selection");
+const div_dish_picker = document.getElementById("dish-picker");
 const div_dishes = document.getElementById("dishes");
 const div_items = document.getElementById("items");
 const div_items_observer = new MutationObserver((mutations, _obs) => {
@@ -307,6 +388,6 @@ if (reset_qs) window.location.search = "";
 var recipies;
 const md_html_conv = new showdown.Converter();
 
-fetch('../ruokaohjeet/README.md').then(res =>
+fetch('recipies/README.md').then(res =>
     res.text().then(recipies => main(recipies))
 );
