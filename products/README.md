@@ -2,8 +2,6 @@
 
 Pelkkä muistutus itselleni, mitkä tuotteet kantsii ostaa ja välttää...
 
-[Aloitussivuun](./index.html).
-
 ## Ostettavat
 
 - NIVEA MEN DRY IMPACT
