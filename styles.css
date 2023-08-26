@@ -61,7 +61,9 @@ div#shopping-list #controls {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    z-index: 3;
+    position: sticky;
+    top: 0px;
+    z-index: 0;
 }
 
 div#shopping-list #controls button,
