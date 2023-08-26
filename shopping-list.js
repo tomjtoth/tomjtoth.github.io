@@ -388,6 +388,6 @@ if (reset_qs) window.location.search = "";
 var recipies;
 const md_html_conv = new showdown.Converter();
 
-fetch('recipies.md').then(res =>
+fetch('recipies/README.md').then(res =>
     res.text().then(recipies => main(recipies))
 );
