@@ -33,21 +33,22 @@ Solen lyste på ängen så grön, och djuren som lunkade aningslöst fram
 #### Smultes Vals
 
 ```lyrics
-på somman, när jag var liten,
-så lekte jag i skogen var dag
+På somman, när jag var liten,
+Så lekte jag i skogen var dag
 
 Jag var sitting bull, jag var en soldat
 jag byggde hyddor, och klättra i trän
 
-Med dofter och ljuden från skogen finns kvar inom mig en ny dag
+Med dofter och ljuden från skogen
+Finns kvar inom mig en ny dag
 
-ny bor jag i stand, där finns inte gräs
-men bara här finns jobb för mig
+Ny bor jag i stand, där finns inte gräs
+Men bara här finns jobb för mig
 
-jag träffar många Olika människor
-med olika sysslor och mål
+Jag träffar många olika människor
+Med olika sysslor och mål
 
-försöker att lyssna, försöker för stå
+Försöker att lyssna, försöker för stå
 Det är inte lätt att veta vad som är rätt
 ```
 
