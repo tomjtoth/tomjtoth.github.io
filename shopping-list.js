@@ -321,10 +321,12 @@ function activate_items() {
 }
 
 function deactivate_items() {
-    for (const btn of document.querySelectorAll('#items>button.active')) {
-        btn.classList.remove('active');
+    if (confirm('are you sure you?')) {
+        for (const btn of document.querySelectorAll('#items>button.active')) {
+            btn.classList.remove('active');
+        }
+        store_item_states(true);
     }
-    store_item_states(true);
 }
 
 function store_item_states(reset = false) {
