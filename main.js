@@ -29,33 +29,10 @@ function toggle_divs_navs(view, navs_too = true) {
  */
 function chg_view(view) {
     toggle_divs_navs(view);
+    document.title = view;
+    document.querySelector('link[rel=icon]').outerHTML =
+        `<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${FAVICONS[view] || '❓'}</text></svg>">`
 }
-
-function create_qr_code(parent_divs) {
-
-    const img = document.createElement('img');
-    img.src = `https://api.qrserver.com/v1/create-qr-code/?data=${jotain}`;
-    img.alt = 'QR code';
-
-    const btn = document.createElement('button');
-    btn.value = '🔗';
-
-    const div = document.createElement('div');
-    div.setAttribute('class', 'qr-code');
-
-    div.addEventListener('click', ev => {
-        if (ev.target.tagName == 'BUTTON') {
-            ev.target.nextSiblingElement.style.visibility = 'visible';
-        }
-    });
-
-
-
-    for (const parent_div of parent_divs) {
-
-    }
-}
-
 
 // upon clicking the nav buttons
 document.querySelector('nav').addEventListener('click', ev => {
@@ -68,12 +45,8 @@ document.addEventListener("DOMContentLoaded", _ => {
     if (route !== '') chg_view(route);
 });
 
-
-
-/* example
-
-<div class="share">
-    <button title="share via QR code or clipboard">🔗</button>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?data=HelloWorld&amp;size=100x100" alt="QR code"/>
-</div>
-*/
+const FAVICONS = {
+    'shopping-list': '🛒',
+    'battery-monitor': '🔋',
+    'qr-code': '🔗',
+}

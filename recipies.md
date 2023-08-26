@@ -1,6 +1,6 @@
 # Ruokaohjeet
 
-Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](../ostoslista/index.html) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, vaihtoehdolliset ainekset kysymysmerkillä perällä `näin?`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
+Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](/#/shopping-list) arvotaan ja hankittavia aineksia kasataan näistä. Yksittäiset ruokaaineet tunnistetaan `näin`, vaihtoehdolliset ainekset kysymysmerkillä perällä `näin?`, ja järjestetään kasan regex:in avulla siten, miten minä yleisesti käyn kauppaa läpi.
 
 [Aloitussivuun](./index.html).
 

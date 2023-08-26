@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title lang="en">"Landing site"</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <link rel="icon" href="data:,">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
         integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
@@ -15,11 +14,20 @@
 </head>
 
 <body>
-    <nav>
-        <a href="#/home">home</a>
-        <a href="#/battery-monitor">battery monitor</a>
-        <a href="#/ostoslista">ostoslista</a>
-        <a href="">WiP - saldo</a>
+    <nav lang="en">
+        <a href="#/home">Home</a>
+        <a href="#/battery-monitor"
+            title="can be autostarted and will alert based on battery level and charging state">Battery monitor</a>
+        <a href="#/shopping-list">Shopping list</a>
+        <a href="products.md" title="reminder what to avoid and what&apos;s OK to purchase">Products</a>
+        <a href="recipies.md">Recipies</a>
+        <a href="https://github.com/tomjtoth/saldo-rs"
+            title="client-server based accounting solution built from scratch using:&#010;- HTML / CSS / vanilla JS&#010;- REST&#010;- Rust&#010;- SQLite">WiP
+            -
+            saldo</a>
+        <a href="lyrics.md">Lyrics</a>
+        <a href="#/qr-code">Share</a>
+
     </nav>
 
     <div id="home" hidden>
@@ -30,36 +38,16 @@
             <a href="https://github.com/tomjtoth/tomjtoth.github.io">repoon</a>
             .
         </p>
-        <div lang="en">
-            <h2>battery monitor</h2>
-            <p>
-                A
-                <a href="#/battery-monitor">simple tool</a>
-                , that checks battery level and charging state and notifies in undesired conditions.
-            </p>
-        </div>
-        <div>
-            <h2>ostoslista</h2>
-            <p>
-                <a href="#/ostoslista">Tämä</a>
-                arpoo koko viikon ateriat ja kasaa ostettavia aineksia hyllyvälien järjestykseen.
-                Tutustu myös itse
-                <a href="recipies.md">ruokaohjeisiin</a>
-                .
-            </p>
-        </div>
-        <div>
-            <h2>tuotteet</h2>
-            <p>
-                <a href="products.md">Tässä</a>
-                muistutus vältettävista tai jopa uudelleen ostettavista kamoista.
-            </p>
-        </div>
+    </div>
+
+    <div id="qr-code" hidden>
+        <img alt="qr code" src="https://api.qrserver.com/v1/create-qr-code/?data=${jotain}">
+        <button>🔗</button>
     </div>
 
     <div id="battery-monitor" hidden>
         <p>
-            This is a simple utility that can be autostarted and will alert when the battery level is
+            This is a simple utility that will alert if the battery level is
         <ul>
             <li>either above the maximum threshold and still charging</li>
             <li>or below the minimum threshold and not charging</li>
@@ -83,7 +71,7 @@
         </div>
     </div>
 
-    <div id="ostoslista" hidden>
+    <div id="shopping-list" hidden>
         <div id="controls">
             <button onclick="deactivate_items()" title="ostettaviin kamoihin vaikuttaa">Pyyhki vihreät</button>
             <button onclick="shuffle()" title="niin monta, kuin nyt on, tai 3 kpl">Arvo ateriat</button>
@@ -100,9 +88,9 @@
     </div>
 
 </body>
+
 <script type="text/javascript" src="main.js"></script>
 <script type="text/javascript" src="battery-monitor.js"></script>
 <script type="text/javascript" src="shopping-list.js"></script>
-
 
 </html>
