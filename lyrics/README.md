@@ -1,6 +1,6 @@
 # About
 
-This is where I gather lyrics for songs I listen to via my [freemium playlist]()
+This is where I gather lyrics for songs I listen to via my [freemium playlist](https://www.youtube.com/playlist?list=PLgssVMmy7hPazMCO2onw-A_2EF3p90yUt)
 
 ## Contact
 
