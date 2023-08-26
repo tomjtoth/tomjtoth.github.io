@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="fi">
-    <head>
-        <link rel="stylesheet" href="styles.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-        <title lang="en">"Landing site"</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
-    </head>
-    <body>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title lang="en">"Landing site"</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
+        integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <nav>
+        <a href="#/home">home</a>
+        <a href="#/battery-monitor">battery monitor</a>
+        <a href="#/ostoslista">ostoslista</a>
+        <a href="">WiP - saldo</a>
+    </nav>
+
+    <div id="home" hidden>
         <h1>Kuvaus</h1>
         <p>
             Tässä lähinnä itselleni staattiset sivustot.
@@ -18,29 +34,75 @@
             <h2>battery monitor</h2>
             <p>
                 A
-                <a href="battery-monitor/index.html">simple tool</a>
+                <a href="#/battery-monitor">simple tool</a>
                 , that checks battery level and charging state and notifies in undesired conditions.
             </p>
         </div>
         <div>
             <h2>ostoslista</h2>
             <p>
-                <a href="ostoslista/index.html">Tämä</a>
+                <a href="#/ostoslista">Tämä</a>
                 arpoo koko viikon ateriat ja kasaa ostettavia aineksia hyllyvälien järjestykseen.
                 Tutustu myös itse
-                <a href="ruokaohjeet/README.md">ruokaohjeisiin</a>
+                <a href="recipies.md">ruokaohjeisiin</a>
                 .
             </p>
         </div>
         <div>
             <h2>tuotteet</h2>
             <p>
-                <a href="tuotteet/README.md">Tässä</a>
+                <a href="products.md">Tässä</a>
                 muistutus vältettävista tai jopa uudelleen ostettavista kamoista.
             </p>
         </div>
-    </body>
-    <script type="text/javascript">
-        const x = 5;
-    </script>
+    </div>
+
+    <div id="battery-monitor" hidden>
+        <p>
+            This is a simple utility that can be autostarted and will alert when the battery level is
+        <ul>
+            <li>either above the maximum threshold and still charging</li>
+            <li>or below the minimum threshold and not charging</li>
+        </ul>
+        The related <code>navigator.getBattery()</code> method is not supported on all browsers, see the full
+        compatibility
+        table <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery#browser_compatibility">on
+            MDN</a>.
+        </p>
+        <div>
+            <label>maximum threshold:</label>
+            <input id="maximum" type="number" min="50" max="100" value="80">
+        </div>
+        <div>
+            <label>minimum threshold:</label>
+            <input id="minimum" type="number" min="0" max="50" value="20">
+        </div>
+        <div>
+            <button id="start-stop">start</button>
+            <button id="autostart">toggle autostart</button>
+        </div>
+    </div>
+
+    <div id="ostoslista" hidden>
+        <div id="controls">
+            <button onclick="deactivate_items()" title="ostettaviin kamoihin vaikuttaa">Pyyhki vihreät</button>
+            <button onclick="shuffle()" title="niin monta, kuin nyt on, tai 3 kpl">Arvo ateriat</button>
+            <button onclick="new_dish()" title="valitse ateria listasta">+ ateriaa</button>
+            <button onclick="new_item()" title="lisää mitä tahansa asiaa listalle">+ kamaa</button>
+        </div>
+        <div id="dish-picker" class="modal"></div>
+        <div id="item-adder" class="modal"></div>
+        <h2>Ateriat</h2>
+        <div id="dishes"></div>
+        <h2>Ostettavat kamat</h2>
+        <div id="items"></div>
+
+    </div>
+
+</body>
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="battery-monitor.js"></script>
+<script type="text/javascript" src="shopping-list.js"></script>
+
+
 </html>
