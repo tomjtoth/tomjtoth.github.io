@@ -9,25 +9,33 @@ This is where I gather missing lyrics contributed by active Swedish speakers.
 #### Minnen
 
 ```lyrics
-Här lekte jag i min barndom. Här sov jag och kände ro
-Här bygde vi kojor i skogen. Här hoppade vi hage och red
+Här lekte jag i min barndom
+Här sov jag och kände ro
+Här bygde vi kojor i skogen
+Här hoppade vi hage och red
 
-En gång i tiden så länge sen, så fanns här ett hem i Ådalens land 
-Solen lyste på ängen så grön, och djuren som lunkade aningslöst fram
+En gång i tiden så länge sen
+så fanns här ett hem i Ådalens land
+Solen den lyste på ängen så grön
+och djuren som lunkade aningslöst fram
 
-Jag vandrade här i min ungdom, i skymning vid älvens strand
-Och på en gård en bit härifrån, där bodde min första kärlek
+Jag vandrade här i min ungdom i skymning vid älvens strand
+Och på en gård en bit härifrån där bodde min första kärlek
 
-En gång i tiden så länge sen, så fanns här ett hem i Ådalens land 
-Solen lyste på ängen så grön, och djuren som lunkade aningslöst fram
+En gång i tiden så länge sen
+så fanns här ett hem i Ådalens land
+Solen den lyste på ängen så grön
+och djuren som lunkade aningslöst fram
 
 Nu ser jag ett sågverk som ej längre finns
 Nu ser jag min boning förfallen
 Alla vänner har flyttat bort 
 Till storstaden för att få leva
 
-En gång i tiden så länge sen, så fanns här ett hem i Ådalens land 
-Solen lyste på ängen så grön, och djuren som lunkade aningslöst fram
+En gång i tiden så länge sen
+så fanns här ett hem i Ådalens land
+Solen den lyste på ängen så grön
+och djuren som lunkade aningslöst fram
 ```
 
 #### Smultes Vals
