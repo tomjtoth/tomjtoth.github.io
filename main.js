@@ -35,14 +35,16 @@ function chg_view(view) {
 }
 
 // upon clicking the nav buttons
-document.querySelector('nav').addEventListener('click', ev => {
-    chg_view(ev.target.hash.substring(2))
+document.querySelector('nav').addEventListener('click', ({ target: { hash } }) => {
+    if (hash.length) {
+        chg_view(hash.substring(2));
+    }
 });
 
 // upon refreshing the page or opening the page from a link
 document.addEventListener("DOMContentLoaded", _ => {
     const route = window.location.hash.substring(2);
-    if (route !== '') chg_view(route);
+    chg_view(route !== '' ? route : 'about');
 });
 
 const FAVICONS = {
