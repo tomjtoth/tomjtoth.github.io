@@ -9,3 +9,16 @@ Tässä lähinnä itselleni staattiset sivustot, jotkut auttavat minua kaupassa.
     - tutustu myös itse [ruokaohjeisiin](ruokaohjeet/README.md)
 - [tuotteet](tuotteet/README.md)
     - muistuttaa vältettävistä tuotteista
+## Testing
+
+Add the below to `.vscode/launch.json`:
+
+```json
+{
+    "type": "chrome",
+    "request": "launch",
+    "name": "open ./index.html in Chrome",
+    "file": "${fileDirname}/index.html",
+    "runtimeArgs": ["--disable-web-security"]
+}
+```
