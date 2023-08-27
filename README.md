@@ -20,8 +20,10 @@ Lisää alla kohta tiedostoon: `.vscode/launch.json`:
 {
     "type": "chrome",
     "request": "launch",
-    "name": "open ./index.html in Chrome",
-    "file": "${fileDirname}/index.html",
-    "runtimeArgs": ["--disable-web-security"]
+    "name": "open /index.html in Chrome",
+    "file": "${workspaceFolder}/index.html",
+    "runtimeArgs": [
+        "--disable-web-security"
+    ]
 }
 ```
