@@ -24,7 +24,7 @@ The below songs are linked to Google Translate in mostly alphabetical, and chron
 
         - [Hon kom över mon](https://translate.google.com/?sl=sv&tl=en&text=Jag%20kan%20hantera%20en%20s%C3%A5g%0AJag%20kan%20yxa%20en%20b%C3%A5t%0AJag%20kan%20ro%0A%0AJag%20kan%20klara%20mig%20sj%C3%A4lv%0AJag%20kan%20kuka%20min%20mat%0AJag%20kan%20sy%0A%0AD%C3%A5%20kom%20d%C3%A4r%20en%20kvinna%20tv%C3%A4rs%20%C3%B6ver%20mon%0AN%C3%A5nstans%20i%20mitt%20inre%20hon%20slog%20an%20en%20ton%0AJag%20f%C3%B6ll%20som%20en%20fura%20rakt%20p%C3%A5%20hennes%20kroppp%0AL%C3%A4ppar%20som%20eld%20och%20en%20sammetsmjuk%20kropp%0ASom%20jag%20plocka%20o%20spara%20djupt%20i%20mitt%20sinn%0A%0AJag%20%C3%A4r%20man%20du%20%C3%A4r%20kvinna%20du%20tar%20jag%20din%20oskuld%20och%20v%C3%A5rd%0ADu%20ska%20f%C3%B6da%20mig%20barn%20som%20en%20g%C3%A5ng%20ska%20ta%20%C3%B6ver%20v%C3%A5r%20g%C3%A5rd%0ADet%20var%20hon%20som%20kom%20en%20dag%20tv%C3%A4rs%20%C3%B6ver%20mon%0ADet%20var%20hon%20som%20en%20g%C3%A5ng%20i%20mig%20slog%20an%20en%20ton%0AHon%20gav%20mig%20sin%20v%C3%A4nskap%20liksom%20hennes%20kropp%0AHennes%20l%C3%A4ppar%20var%20heta%20hon%20sk%C3%A4nkte%20mig%20hopp%0ASom%20mig%20styrkte%20n%C3%A4r%20tungsinnet%20%C3%B6ver%20mig%20kom%0A%0AVill%20du%20stanna%20hos%20mig%2C%20vill%20du%20dela%20mitt%20br%C3%B6d%20och%20mitt%20hus%0AVill%20du%20dela%20min%20tid%20fram%20till%20dess%20vi%20skall%20multna%20i%20jord%0ADet%20var%20hon%20som%20kom%20en%20dag%20tv%C3%A4rs%20%C3%B6ver%20mon%0ADet%20var%20hon%20som%20en%20g%C3%A5ng%20i%20mig%20slog%20an%20en%20ton%0AHon%20gav%20mig%20sin%20v%C3%A4nskap%20liksom%20hennes%20kropp%0AHennes%20l%C3%A4ppar%20var%20heta%20hon%20sk%C3%A4nkte%20mig%20hopp%0ASom%20mig%20styrkte%20n%C3%A4r%20tungsinnet%20%C3%B6ver%20mig%20kom%0A%0AVill%20du%20stanna%20hos%20mig%2C%20vill%20du%20dela%20mitt%20br%C3%B6d%20och%20mitt%20hus%0AVill%20du%20dela%20min%20tid%20fram%20till%20dess%20vi%20skall%20multna%20i%20jord%0ADet%20var%20hon%20som%20kom%20en%20dag%20tv%C3%A4rs%20%C3%B6ver%20mon%0ADet%20var%20hon%20som%20en%20g%C3%A5ng%20i%20mig%20slog%20an%20en%20ton%0AHon%20gav%20mig%20sin%20v%C3%A4nskap%20liksom%20hennes%20kropp%0AHennes%20l%C3%A4ppar%20var%20heta%20hon%20sk%C3%A4nkte%20mig%20hopp%0ASom%20mig%20styrkte%20n%C3%A4r%20tungsinnet%20%C3%B6ver%20mig%20kom&op=translate)
 
-        - [Vargarnas natt](https://www.youtube.com/watch?v=Lu5Quz3M8SM&pp=ygUOdmFyZ2FybmFzIG5hdHQ%3D)
+        - [Vargarnas natt](https://www.youtube.com/watch?v=Lu5Quz3M8SM)
 
             - HELP WANTED
 
@@ -45,11 +45,34 @@ The below songs are linked to Google Translate in mostly alphabetical, and chron
 
     - [Samma vindar samma dofter - 2004](https://www.youtube.com/playlist?list=OLAK5uy_lQByMWy0CRYnzDjSv0mDbR92gVDCJ09Dg)
 
-        - [Fly mig en sommar](https://www.youtube.com/watch?v=DkmDKNN5jAw&pp=ygURZmx5IG1pZyBlbiBzb21tYXI%3D)
+        - [Fly mig en sommar](https://www.youtube.com/watch?v=DkmDKNN5jAw)
 
             - HELP WANTED
 
 - Vånna Inget
+
+    - [Allvar - 2011](https://www.youtube.com/playlist?list=OLAK5uy_njnT4q0D_W1Mm5-0E6Xx4zP-IOx3Y9A9g)
+        
+        - [Alla andra dagar](https://www.youtube.com/watch?v=7OB3vZj7uNU)
+        
+            - HELP WANTED
+
+        - [Hemvägen](https://www.youtube.com/watch?v=zMAVMZKXg7c)
+            - HELP WANTED
+
+        - [Småstadssyndrom](https://www.youtube.com/watch?v=s7XPG36uWYM)
+            - HELP WANTED
+
+        - [Allvar](https://translate.google.com/?sl=sv&tl=en&text=Vi%20var%20kungar%20och%20vi%20d%C3%B6dade%20tid%20hela%20dagarna%0ADet%20fanns%20inte%20ett%20m%C3%A5ste%2C%20inte%20ett%20enda%20krav%0AVi%20var%20skitungar%20och%20vi%20lekte%20igenom%20var%20dagarna%0AInga%20sp%C3%A5r%20av%20bekymmer%20i%20v%C3%A5ra%20andetag%0A%0AJag%20ser%20hela%20livet%0AHur%20det%20trillar%20f%C3%B6rbi%20mig%0AHur%20det%20trillar%20f%C3%B6rbi%20dig%0AHur%20det%20hinner%20ifatt%20mig%0AMen%20jag%20tar%20livet%20p%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0A%0AOch%20nu%20st%C3%A5r%20alla%20med%20vatten%20%C3%B6ver%20sina%20huvuden%0AG%C3%A5r%20och%20v%C3%A4ntar%20p%C3%A5%20livet%20och%20k%C3%A4rleken%20g%C3%A5r%20i%20kras%0AF%C3%B6rlora%20kungar%20och%20nu%20dammar%20vi%20sm%C3%A5lands%20barerna%0AS%C3%A4tter%20allting%20i%20halsen%20och%20t%C3%B6mmer%20varandra%20glas%0A%0AJag%20ser%20hela%20livet%0AHur%20det%20trillar%20f%C3%B6rbi%20mig%0AHur%20det%20trillar%20f%C3%B6rbi%20dig%0AHur%20det%20hinner%20ifatt%20mig%0AMen%20jag%20tar%20livet%20p%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0A%0AJa%20jag%20tar%20livet%20p%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AJa%20jag%20tar%20livet%20p%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar&op=translate)
+
+        - [Med stänk av chanser](https://www.youtube.com/watch?v=2gKyLBz9ss0)
+            - HELP WANTED
+
+        - [Som man lever](https://www.youtube.com/watch?v=-qbnznnUKoo)
+            - HELP WANTED
+
+        - [Vi skakar liv i en trasig välrd](https://www.youtube.com/watch?v=JAkyELtHAG4)
+            - HELP WANTED
 
     - [Ingen botten - 2013](https://www.youtube.com/playlist?list=OLAK5uy_nHoGzhHGfzXeQIhEFr3QqBT6248Dw4N4g)
 
