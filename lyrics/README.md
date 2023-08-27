@@ -4,7 +4,7 @@ This is where I gather lyrics for songs I listen to via my [freemium playlist](h
 
 ## Contribution
 
-Songs marked with "`HELP WANTED`" are ones I do not have the lyrics for. [Mail them to me](tomjtoth@gmail.com?subject=Artist%20-%20Album%20-%20Song&body=Lyrics%20goes%20here), please.
+Songs marked with "`HELP WANTED`" are ones I do not have the lyrics for. [Mail them to me](mailto:tomjtoth@gmail.com?subject=Artist%20-%20Album%20-%20Låt&body=skriva%20här%20vad%20du%20hörar), please.
 
 ## Lyrics
 
