@@ -1,6 +1,10 @@
 # About
 
-This is where I gather lyrics for songs I listen to via my [freemium playlist](https://www.youtube.com/playlist?list=PLgssVMmy7hPazMCO2onw-A_2EF3p90yUt). Give [Vivaldi](https://play.google.com/store/apps/details?id=com.vivaldi.browser&pcampaignid=web_share) a try as it can block annoying ads play youtube videos in the background (without the screen on). Now your only concern should be whether you have a stable enough internet connection for streaming content.
+This is where I gather lyrics for songs I listen to via my [freemium playlist](https://www.youtube.com/playlist?list=PLgssVMmy7hPazMCO2onw-A_2EF3p90yUt). Give [Vivaldi](https://play.google.com/store/apps/details?id=com.vivaldi.browser&pcampaignid=web_share) a try as it can block annoying ads and play youtube videos in the background (without the screen on).
+
+## Contribution
+
+Songs marked with "`HELP WANTED`" are ones I do not have the lyrics for. [Mail them to me](mailto:tomjtoth@gmail.com?subject=ARTIST%20-%20ALBUM%20-%20SONG&body=lalala), please.
 
 ## Lyrics
 
