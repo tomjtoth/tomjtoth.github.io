@@ -1,251 +1,39 @@
 # About
 
-This is where I gather lyrics for songs I listen to via my [freemium playlist](https://www.youtube.com/playlist?list=PLgssVMmy7hPazMCO2onw-A_2EF3p90yUt)
+This is where I gather lyrics for songs I listen to via my [freemium playlist](https://www.youtube.com/playlist?list=PLgssVMmy7hPazMCO2onw-A_2EF3p90yUt).
 
-## Contact
+## Lyrics
 
-### Hon kom över mon - 1971
+In no particular (but mostly alphabetical, and chronological) order.
 
-#### Minnen
+- Contact
 
-```lyrics
-Här lekte jag i min barndom
-Här sov jag och kände ro
-Här bygde vi kojor i skogen
-Här hoppade vi hage och red
+    - [Hon kom över mon - 1971](https://www.youtube.com/playlist?list=OLAK5uy_kjVQifvBwPbiaYV-20bqpS6jIuVqmgpX8)
 
-En gång i tiden så länge sen
-så fanns här ett hem i Ådalens land
-Solen den lyste på ängen så grön
-och djuren som lunkade aningslöst fram
+        - [Minnen](https://translate.google.com/?sl=sv&tl=en&text=H%C3%A4r%20lekte%20jag%20i%20min%20barndom%0AH%C3%A4r%20sov%20jag%20och%20k%C3%A4nde%20ro%0AH%C3%A4r%20bygde%20vi%20kojor%20i%20skogen%0AH%C3%A4r%20hoppade%20vi%20hage%20och%20red%0A%0AEn%20g%C3%A5ng%20i%20tiden%20s%C3%A5%20l%C3%A4nge%20sen%0As%C3%A5%20fanns%20h%C3%A4r%20ett%20hem%20i%20%C3%85dalens%20land%0ASolen%20den%20lyste%20p%C3%A5%20%C3%A4ngen%20s%C3%A5%20gr%C3%B6n%0Aoch%20djuren%20som%20lunkade%20aningsl%C3%B6st%20fram%0A%0AJag%20vandrade%20h%C3%A4r%20i%20min%20ungdom%20i%20skymning%20vid%20%C3%A4lvens%20strand%0AOch%20p%C3%A5%20en%20g%C3%A5rd%20en%20bit%20h%C3%A4rifr%C3%A5n%20d%C3%A4r%20bodde%20min%20f%C3%B6rsta%20k%C3%A4rlek%0A%0AEn%20g%C3%A5ng%20i%20tiden%20s%C3%A5%20l%C3%A4nge%20sen%0As%C3%A5%20fanns%20h%C3%A4r%20ett%20hem%20i%20%C3%85dalens%20land%0ASolen%20den%20lyste%20p%C3%A5%20%C3%A4ngen%20s%C3%A5%20gr%C3%B6n%0Aoch%20djuren%20som%20lunkade%20aningsl%C3%B6st%20fram%0A%0ANu%20ser%20jag%20ett%20s%C3%A5gverk%20som%20ej%20l%C3%A4ngre%20finns%0ANu%20ser%20jag%20min%20boning%20f%C3%B6rfallen%0AAlla%20v%C3%A4nner%20har%20flyttat%20bort%0ATill%20storstaden%20f%C3%B6r%20att%20f%C3%A5%20leva%0A%0AEn%20g%C3%A5ng%20i%20tiden%20s%C3%A5%20l%C3%A4nge%20sen%0As%C3%A5%20fanns%20h%C3%A4r%20ett%20hem%20i%20%C3%85dalens%20land%0ASolen%20den%20lyste%20p%C3%A5%20%C3%A4ngen%20s%C3%A5%20gr%C3%B6n%0Aoch%20djuren%20som%20lunkade%20aningsl%C3%B6st%20fram%2C&op=translate)
 
-Jag vandrade här i min ungdom i skymning vid älvens strand
-Och på en gård en bit härifrån där bodde min första kärlek
 
-En gång i tiden så länge sen
-så fanns här ett hem i Ådalens land
-Solen den lyste på ängen så grön
-och djuren som lunkade aningslöst fram
+        - [Smultes Vals](https://translate.google.com/?sl=sv&tl=en&text=P%C3%A5%20somman%2C%20n%C3%A4r%20jag%20var%20liten%2C%0AS%C3%A5%20lekte%20jag%20i%20skogen%20var%20dag%0A%0AJag%20var%20sitting%20bull%2C%20jag%20var%20en%20soldat%0Ajag%20byggde%20hyddor%2C%20och%20kl%C3%A4ttra%20i%20tr%C3%A4n%0A%0AMed%20dofter%20och%20ljuden%20fr%C3%A5n%20skogen%0AFinns%20kvar%20inom%20mig%20en%20ny%20dag%0A%0ANy%20bor%20jag%20i%20stand%2C%20d%C3%A4r%20finns%20inte%20gr%C3%A4s%0AMen%20bara%20h%C3%A4r%20finns%20jobb%20f%C3%B6r%20mig%0A%0AJag%20tr%C3%A4ffar%20m%C3%A5nga%20olika%20m%C3%A4nniskor%0AMed%20olika%20sysslor%20och%20m%C3%A5l%0A%0AF%C3%B6rs%C3%B6ker%20att%20lyssna%2C%20f%C3%B6rs%C3%B6ker%20f%C3%B6r%20st%C3%A5%0ADet%20%C3%A4r%20inte%20l%C3%A4tt%20att%20veta%20vad%20som%20%C3%A4r%20r%C3%A4tt&op=translate)
 
-Nu ser jag ett sågverk som ej längre finns
-Nu ser jag min boning förfallen
-Alla vänner har flyttat bort
-Till storstaden för att få leva
 
-En gång i tiden så länge sen
-så fanns här ett hem i Ådalens land
-Solen den lyste på ängen så grön
-och djuren som lunkade aningslöst fram,
-```
+- Vånna Inget
 
-#### Smultes Vals
+    - [Utopi - 2017]()
 
-```lyrics
-På somman, när jag var liten,
-Så lekte jag i skogen var dag
+        - [80-talsbarn](https://translate.google.com/?sl=sv&tl=en&text=Hej%20vi%20%C3%A4r%2080-talets%20lata%20barn%0AGe%20mig%20ett%20jobb%20med%20max%206%20timmars%20arbetsdag%0AGe%20mig%20en%20vardag%20ge%20mig%20en%20vardag%0AF%C3%B6r%20s%C3%A5nna%20som%20jag%0A%0ATunga%20gr%C3%A5a%20moln%20%C3%B6ver%20AMS%0APissgula%20lokaler%20fulla%20av%20tristess%0AEtt%20till%20%C3%A5ngestpaket%20i%20leende%20fasad%0AFaller%20en%20s%C3%A5%20st%C3%A5r%20det%20%C3%A4nd%C3%A5%20tusen%20kvar%20som%20jag%0A%0APrecis%20som%20jag%0AT%C3%A4nker%20du%20samma%20sak%0AAllt%20har%20man%20h%C3%B6rt%20f%C3%B6rut%0AAllt%20har%20en%20bitter%20smak%0A%0AMen%20jag%20lovar%20o%20sv%C3%A4r%20jag%20%C3%A4r%20ganska%20bra%0AHur%20fan%20ska%20jag%20klara%20det%20h%C3%A4r%0AJag%20lovar%20o%20sv%C3%A4r%20jag%20%C3%A4r%20ganska%20bra%0AHur%20fan%20ska%20jag%20klara%20det%20h%C3%A4r%0AI%20en%20sjuk%20sjuk%20v%C3%A4rld%0A%0AHej%20vi%20%C3%A4r%2080-talets%20glada%20barn%0AGe%20mig%20n%C3%A5tt%20ge%20mig%20det%20ingen%20annan%20vill%20ha%0AGe%20mig%20en%20vardag%20ge%20mig%20en%20vardag%0AF%C3%B6r%20s%C3%A5nna%20som%20jag%0A%0AF%C3%B6r%20jag%20lovar%20o%20sv%C3%A4r%20jag%20%C3%A4r%20j%C3%A4vligt%20bra%0AHur%20fan%20ska%20jag%20klara%20det%20h%C3%A4r%0AJag%20lovar%20o%20sv%C3%A4r%20jag%20%C3%A4r%20j%C3%A4vligt%20bra%0AHur%20fan%20ska%20jag%20klara%20det%20h%C3%A4r%0AI%20en%20sjuk%20sjuk%20v%C3%A4rld%2C&op=translate)
 
-Jag var sitting bull, jag var en soldat
-jag byggde hyddor, och klättra i trän
 
-Med dofter och ljuden från skogen
-Finns kvar inom mig en ny dag
+        - [Mörkrets barn](https://translate.google.com/?sl=sv&tl=en&text=Vi%20%C3%A4r%20m%C3%B6rkrets%20barn%0AVi%20%C3%A4r%20m%C3%B6rkrets%20barn%0A%0AJag%20h%C3%B6r%20tjuten%20%C3%B6ver%20staden%0AI%20alla%20brustna%20hj%C3%A4rtans%20v%C3%A4rld%0AHar%20sl%C3%B6sat%20k%C3%A4rlek%20p%C3%A5%20s%C3%A5%20m%C3%A5nga%0AMen%20%C3%A4nd%C3%A5%20st%C3%A5r%20du%20ensam%20h%C3%A4r%0A%0ADu%20tror%20du%20vet%20vad%20du%20beh%C3%B6ver%0AMen%20jag%20tror%20inte%20du%20f%C3%B6rst%C3%A5r%0AF%C3%B6r%20vi%20%C3%A4r%20helveten%20o%20%C3%A4nglar%0AO%20halva%20himlen%20den%20%C3%A4r%20v%C3%A5r%0A%0AVi%20ska%20leva%20f%C3%B6r%20alltid%0AVi%20ska%20d%C3%B6%20en%20enda%20dag%0AVi%20tror%20p%C3%A5%20%C3%B6det%20o%20natten%0AVi%20%C3%A4r%20m%C3%B6rkrets%20barn%0A%0AVi%20%C3%A4r%20som%20skadeskjutna%20f%C3%A5glar%0ALivet%20sl%C3%A5r%20o%20sl%C3%A5r%20o%20vi%20tar%20emot%0ADu%20g%C3%A5r%20o%20v%C3%A4ntar%20p%C3%A5%20n%C3%A5n%20b%C3%A4ttre%0ADu%20g%C3%A5r%20o%20dr%C3%B6mmer%20om%20n%C3%A5tt%20stort%0AMen%20du%20%C3%A4r%20fiende%20med%20tiden%0AI%20dina%20%C3%B6gon%20svider%20en%20t%C3%A5r%0AS%C3%A5%20ska%20du%20v%C3%A4nta%20hela%20livet%0AN%C3%A4r%20halva%20himlen%20%C3%A4r%20v%C3%A5r%0A%0AVi%20ska%20leva%20f%C3%B6r%20alltid%0AVi%20ska%20d%C3%B6%20en%20enda%20dag%0AVi%20har%20en%20dj%C3%A4vul%20p%C3%A5%20axeln%0AVi%20%C3%A4r%20m%C3%B6rkrets%20barn%0A%0AVi%20ska%20leva%20f%C3%B6r%20alltid%0AVi%20ska%20d%C3%B6%20en%20enda%20dag%0A%0AVi%20dansar%20hem%C3%A5t%20i%20natten%0AVi%20%C3%A4r%20m%C3%B6rkrets%20barn%0AVi%20%C3%A4r%20m%C3%B6rkrets%20barn%2C&op=translate)
 
-Ny bor jag i stand, där finns inte gräs
-Men bara här finns jobb för mig
 
-Jag träffar många olika människor
-Med olika sysslor och mål
+        - [Spöken](https://translate.google.com/?sl=sv&tl=en&text=Tystnad%20s%C3%A4ger%20allt%20o%20inget%20alls%0ADet%20%C3%A4r%20som%20att%20d%C3%B6den%20st%C3%A5r%20o%20v%C3%A4ntar%20i%20min%20hall%0ADagarna%20blir%20sj%C3%A4lvbedr%C3%A4geri%0AVi%20b%C3%A4r%20b%C3%A5da%20p%C3%A5%20hj%C3%A4rtan%20med%20knivar%20i%0A%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20slut%20nu%0A%0AJag%20%C3%A4r%20s%C3%A5%20j%C3%A4vla%20less%20nu%20p%C3%A5%20alla%20tomma%20ord%20betyder%20ingenting%0AVi%20har%20blivit%20sp%C3%B6ken%20d%C3%A4r%20tiden%20st%C3%A5r%20still%0AVi%20svara%20inte%20l%C3%A4ngre%20allting%20l%C3%A5ter%20falsk%20kan%20inte%20vara%20sant%0ALivet%20kom%20emellan%20o%20du%20f%C3%B6rsvann%0A%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%20nu%0A%0AVi%20pratar%20inte%20l%C3%A4ngre%20vi%20bryr%20oss%20inte%20mer%20vi%20g%C3%A5r%20f%C3%B6rbi%20varann%0AHar%20tagit%20oss%20f%C3%B6r%20givet%20o%20tappat%20allt%0AVi%20kanske%20ska%20ge%20upp%20nu%20kasta%20allt%20vi%20har%20sn%C3%A4lla%20stanna%20kvar%0AJag%20st%C3%A5r%20ju%20h%C3%A4r%20o%20v%C3%A4ntar%20men%20mitt%20hj%C3%A4rta%20sl%C3%A5r%20svagt%0A%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%0ASn%C3%A4lla%20stanna%20kvar%0AMitt%20hj%C3%A4rta%20sl%C3%A5r%20s%C3%A5%20svagt%0ASn%C3%A4lla%20stanna%20kvar%0AV%C3%A5ra%20hj%C3%A4rtan%20kanske%20har%20n%C3%A5gra%20slag%20kvar%0A%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%20nu&op=translate)
 
-Försöker att lyssna, försöker för stå
-Det är inte lätt att veta vad som är rätt
-```
 
-## Vånna Inget
+        - [Skuggor](https://translate.google.com/?sl=sv&tl=en&text=%0AVi%20gick%20hem%C3%A5t%20i%20natten%20igen%0AHela%20v%C3%A4gen%20hem%20ifr%C3%A5n%20stan%0AMorgondagen%20va%20s%C3%A5%20l%C3%A4ngesen%0AO%20du%20visade%20mig%20stigarna%20genom%20Fyllerydskogen%0A%0AJag%20ser%20skuggor%20av%20dig%20%C3%B6verallt%0AJag%20blir%20os%C3%A4ker%20nu%20p%C3%A5%20om%20du%20ens%20fanns%0AJag%20ser%20skuggor%20av%20dig%20%C3%B6verallt%0AJag%20blir%20os%C3%A4ker%20nu%20p%C3%A5%20om%20du%20ens%20fanns%0A%0AVi%20va%20unga%20f%C3%B6r%20s%C3%A5%20l%C3%A4ngesen%0AP%C3%A5%20min%20f%C3%B6rsta%20Hultsfredsfestival%0ASk%C3%A5l%20f%C3%B6r%20internet%20sk%C3%A5l%20f%C3%B6r%20k%C3%A4rleken%0ABl%C3%A4ndade%20av%20ljuset%20sprang%20vi%20rakt%20in%20i%20elden%0A%0AJag%20ser%20skuggor%20av%20dig%20%C3%B6verallt%0AJag%20blir%20os%C3%A4ker%20nu%20p%C3%A5%20om%20du%20ens%20fanns%0AJag%20ser%20skuggor%20av%20dig%20%C3%B6verallt%0AJag%20blir%20os%C3%A4ker%20nu%20p%C3%A5%20om%20du%20ens%20fanns%0A%0AJag%20g%C3%A5r%20runt%20i%20ruinerna%20av%20mig%0AJag%20ser%20skuggor%20av%20dig%20%C3%B6verallt%0AJag%20g%C3%A5r%20runt%20i%20ruinerna%20av%20mig%20jag%0ABlir%20os%C3%A4ker%20nu%20p%C3%A5%20om%20du%20ens%20fanns%0AJag%20g%C3%A5r%20runt%20i%20ruinerna%0AJag%20ser%20skuggor%20av%20dig%20%C3%B6verallt&op=translate)
 
-### Utopi - 2017
 
-#### 80-talsbarn
+    - [Ingen botten - 2013](https://www.youtube.com/playlist?list=OLAK5uy_nHoGzhHGfzXeQIhEFr3QqBT6248Dw4N4g)
 
-```lyrics
-Hej vi är 80-talets lata barn
-Ge mig ett jobb med max 6 timmars arbetsdag
-Ge mig en vardag ge mig en vardag
-För sånna som jag
+        - [Ingen botten](https://translate.google.com/?sl=sv&tl=en&text=Jag%20k%C3%A4nde%20ingen%20botten%0AMen%20nu%20har%20jag%20fan%20trillat%20dit%20igen%0AAllt%20tog%20slut%20allt%0AAllt%20jag%20skulle%20ha%20kvar%20till%20sen%0A%0AMen%20ta%20det%20inte%20personligt%0AF%C3%B6r%20jag%20%C3%A4r%20k%C3%A4r%20i%20hela%20v%C3%A4rlden%0AOch%20du%20kan%20aldrig%20stilla%20min%20hunger%0ADu%20kan%20inte%20fatta%20f%C3%B6rr%C3%A4n%20du%20b%C3%A4r%20den%0A%0AJag%20har%20bara%20mig%20sj%C3%A4lv%20att%20skylla%0AF%C3%B6r%20allting%20som%20jag%20inte%20har%20gjort%0AOch%20vi%20blir%20fast%20i%20ett%20d%C3%A5rhus%20utav%0AAllt%20snack%20att%20livet%20%C3%A4r%20f%C3%B6r%20kort%0A%0AMen%20klart%20det%20g%C3%B6r%20ont%20n%C3%A4r%20du%20brister%0AN%C3%A4r%20du%20krossar%20ditt%20eget%20hj%C3%A4rta%0ADu%20%C3%A4r%20s%C3%A5%20j%C3%A4vla%20dum%20n%C3%A4r%20du%20l%C3%A4ker%0AN%C3%A4r%20tiden%20%C3%A4nd%C3%A5%20river%20upp%20dina%20s%C3%A5r%0A%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%20till%20det%20kortaste%20str%C3%A5t%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%20till%20tusen%20s%C3%A4tt%20att%20s%C3%A4ga%20f%C3%B6rl%C3%A5t%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%20till%20det%20kortaste%20str%C3%A5t%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%20s%C3%A5%20vi%20tar%20alla%20genv%C3%A4gar%20vi%20kommer%20%C3%A5t%0A%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%20jag%20b%C3%A4r%20p%C3%A5%20mitt%20eget%20nederlag%0A%0ALivet%20%C3%A4r%20den%20s%C3%A4msta%20v%C3%A4gen%20och%20jag%20har%20bara%20en%20j%C3%A4vligt%20d%C3%A5lig%20dag%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen%0ALivet%20%C3%A4r%20den%20l%C3%A4ngsta%20v%C3%A4gen&op=translate)
 
-Tunga gråa moln över AMS
-Pissgula lokaler fulla av tristess
-Ett till ångestpaket i leende fasad
-Faller en så står det ändå tusen kvar som jag
-
-Precis som jag
-Tänker du samma sak
-Allt har man hört förut
-Allt har en bitter smak
-
-Men jag lovar o svär jag är ganska bra
-Hur fan ska jag klara det här
-Jag lovar o svär jag är ganska bra
-Hur fan ska jag klara det här
-I en sjuk sjuk värld
-
-Hej vi är 80-talets glada barn
-Ge mig nått ge mig det ingen annan vill ha
-Ge mig en vardag ge mig en vardag
-För sånna som jag
-
-För jag lovar o svär jag är jävligt bra
-Hur fan ska jag klara det här
-Jag lovar o svär jag är jävligt bra
-Hur fan ska jag klara det här
-I en sjuk sjuk värld,
-```
-
-#### Mörkrets barn
-
-```lyrics
-Vi är mörkrets barn
-Vi är mörkrets barn
-
-Jag hör tjuten över staden
-I alla brustna hjärtans värld
-Har slösat kärlek på så många
-Men ändå står du ensam här
-
-Du tror du vet vad du behöver
-Men jag tror inte du förstår
-För vi är helveten o änglar
-O halva himlen den är vår
-
-Vi ska leva för alltid
-Vi ska dö en enda dag
-Vi tror på ödet o natten
-Vi är mörkrets barn
-
-Vi är som skadeskjutna fåglar
-Livet slår o slår o vi tar emot
-Du går o väntar på nån bättre
-Du går o drömmer om nått stort
-Men du är fiende med tiden
-I dina ögon svider en tår
-Så ska du vänta hela livet
-När halva himlen är vår
-
-Vi ska leva för alltid
-Vi ska dö en enda dag
-Vi har en djävul på axeln
-Vi är mörkrets barn
-
-Vi ska leva för alltid
-Vi ska dö en enda dag
-
-Vi dansar hemåt i natten
-Vi är mörkrets barn
-Vi är mörkrets barn,
-```
-
-#### Spöken
-
-```lyrics
-Tystnad säger allt o inget alls
-Det är som att döden står o väntar i min hall
-Dagarna blir självbedrägeri
-Vi bär båda på hjärtan med knivar i
-
-Är det här det tar slut
-Är det här det tar slut
-Är det här det tar slut
-Är det slut nu
-
-Jag är så jävla less nu på alla tomma ord betyder ingenting
-Vi har blivit spöken där tiden står still
-Vi svara inte längre allting låter falsk kan inte vara sant
-Livet kom emellan o du försvann
-
-Är det här det tar slut
-Är det här det tar slut
-Är det här det tar slut nu
-
-Vi pratar inte längre vi bryr oss inte mer vi går förbi varann
-Har tagit oss för givet o tappat allt
-Vi kanske ska ge upp nu kasta allt vi har snälla stanna kvar
-Jag står ju här o väntar men mitt hjärta slår svagt
-
-Är det här det tar slut
-Är det här det tar slut
-Är det här det tar slut
-
-Snälla stanna kvar
-Mitt hjärta slår så svagt
-Snälla stanna kvar
-Våra hjärtan kanske har några slag kvar
-
-Är det här det tar slut
-Är det här det tar slut
-Är det här det tar slut nu
-```
-
-#### Skuggor
-
-```lyrics
-Vi gick hemåt i natten igen
-Hela vägen hem ifrån stan
-Morgondagen va så längesen
-O du visade mig stigarna genom Fyllerydskogen
-
-Jag ser skuggor av dig överallt
-Jag blir osäker nu på om du ens fanns
-Jag ser skuggor av dig överallt
-Jag blir osäker nu på om du ens fanns
-
-Vi va unga för så längesen
-På min första Hultsfredsfestival
-Skål för internet skål för kärleken
-Bländade av ljuset sprang vi rakt in i elden
-
-Jag ser skuggor av dig överallt
-Jag blir osäker nu på om du ens fanns
-Jag ser skuggor av dig överallt
-Jag blir osäker nu på om du ens fanns
-
-Jag går runt i ruinerna av mig
-Jag ser skuggor av dig överallt
-Jag går runt i ruinerna av mig jag
-Blir osäker nu på om du ens fanns
-Jag går runt i ruinerna
-Jag ser skuggor av dig överallt
-```
-
-### Ingen botten - 2013
-
-#### Ingen botten
-
-```lyrics
-Jag kände ingen botten
-Men nu har jag fan trillat dit igen
-Allt tog slut allt
-Allt jag skulle ha kvar till sen
-Men ta det inte personligt
-för jag är kär i hela världen
-Och du kan aldrig stilla min hunger
-Du kan inte fatta förrän du bär den
-Jag har bara mig själv att skylla
-För allting som jag inte har gjort
-Och vi blir fast i ett dårhus utav
-allt snack att livet är för kort
-Men klart det gör ont när du brister
-När du krossar ditt eget hjärta
-Du är så jävla dum när du läker
-när tiden ändå river upp dina sår
-Livet är den längsta vägen till det kortaste stråt
-Livet är den längsta vägen till tusen sätt att säga förlåt
-Livet är den längsta vägen till det kortaste stråt
-Livet är den längsta vägen så vi tar alla genvägar vi kommer åt
-Livet är den längsta vägen
-Livet är den längsta vägen
-Livet är den längsta vägen
-Livet är den längsta vägen jag bär på mitt eget nederlag
-Livet är den sämsta vägen och jag har bara en jävligt dålig dag
-Livet är den längsta vägen
-Livet är den längsta vägen
-Livet är den längsta vägen
-```
+        - [Hemlighet](https://translate.google.com/?sl=sv&tl=en&text=Men%20vem%20fan%20har%20sagt%20att%20livet%20ska%20va%20l%C3%A4tt%0ADet%20%C3%A4r%20j%C3%A4vligt%20sv%C3%A5rt%20%C3%A5%20va%20lycklig%0AHur%20fan%20vet%20man%20vad%20som%20%C3%A4r%20fel%20och%20r%C3%A4tt%0AI%20ett%20splittrat%20v%C3%A4gsk%C3%A4l%0A%0AMan%20tvingas%20v%C3%A4lja%20hur%20det%20ska%20g%C3%A5%20f%C3%B6r%20tidigt%20utan%20att%20man%20f%C3%B6rst%C3%A5r%0AMan%20tvingas%20h%C3%A5lla%20sitt%20framtidstal%20%0Aoch%20tar%20i%20tills%20man%20drabbas%20av%20samvetskval%0A%0ADom%20sa%0AL%C3%A5t%20inte%20ditt%20liv%20bli%20en%20hemlighet%0ADom%20sa%0ADu%20lever%20inte%20en%20evighet%0A%0AMen%20vem%20fan%20har%20sagt%20att%20livet%20ska%20va%20r%C3%A4tt%0ADet%20%C3%A4r%20j%C3%A4vligt%20l%C3%A4tt%20att%20g%C3%A5%20vilse%0AI%20en%20vuxenv%C3%A4rld%20av%20krav%20och%20stress%20och%20totalt%20vansinne%0AMan%20tvingas%20jaga%20upp%20sig%20sj%C3%A4lv%20varenda%20g%C3%A5ng%20man%20tror%20man%20hittat%20hem%0AIngen%20vet%20hur%20n%C3%A5t%20ska%20g%C3%A5%20mer%20%C3%A4n%20att%20nu%20%C3%A4r%20det%20h%C3%A4r%20vi%20st%C3%A5r%0A%0ADom%20sa%0AL%C3%A5t%20inte%20ditt%20bli%20en%20hemlighet%0ADom%20sa%0ADu%20lever%20inte%20en%20evighet%0A%0AMen%20vad%20h%C3%A4nder%20om%20vi%20slutar%20dr%C3%B6mma%3F%0AMen%20vad%20h%C3%A4nder%20om%20vi%20slutar%20dr%C3%B6mma%3F%0A%0ADom%20sa%0AL%C3%A5t%20inte%20ditt%20liv%20bli%20en%20hemlighet%0ADom%20sa%0ADu%20lever%20inte%20en%20evighet%0A%0AMen%20vad%20h%C3%A4nder%20om%20vi%20slutar%20dr%C3%B6mma%3F%0AMen%20vad%20h%C3%A4nder%20om%20vi%20slutar%20dr%C3%B6mma%3F%0ADom%20sa%0ADom%20sa&op=translate)
