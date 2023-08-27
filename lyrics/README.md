@@ -58,25 +58,32 @@ The below songs are linked to Google Translate in mostly alphabetical, and chron
             - HELP WANTED
 
         - [Hemvägen](https://www.youtube.com/watch?v=zMAVMZKXg7c)
+            
             - HELP WANTED
 
         - [Småstadssyndrom](https://www.youtube.com/watch?v=s7XPG36uWYM)
+            
             - HELP WANTED
 
         - [Allvar](https://translate.google.com/?sl=sv&tl=en&text=Vi%20var%20kungar%20och%20vi%20d%C3%B6dade%20tid%20hela%20dagarna%0ADet%20fanns%20inte%20ett%20m%C3%A5ste%2C%20inte%20ett%20enda%20krav%0AVi%20var%20skitungar%20och%20vi%20lekte%20igenom%20var%20dagarna%0AInga%20sp%C3%A5r%20av%20bekymmer%20i%20v%C3%A5ra%20andetag%0A%0AJag%20ser%20hela%20livet%0AHur%20det%20trillar%20f%C3%B6rbi%20mig%0AHur%20det%20trillar%20f%C3%B6rbi%20dig%0AHur%20det%20hinner%20ifatt%20mig%0AMen%20jag%20tar%20livet%20p%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0A%0AOch%20nu%20st%C3%A5r%20alla%20med%20vatten%20%C3%B6ver%20sina%20huvuden%0AG%C3%A5r%20och%20v%C3%A4ntar%20p%C3%A5%20livet%20och%20k%C3%A4rleken%20g%C3%A5r%20i%20kras%0AF%C3%B6rlora%20kungar%20och%20nu%20dammar%20vi%20sm%C3%A5lands%20barerna%0AS%C3%A4tter%20allting%20i%20halsen%20och%20t%C3%B6mmer%20varandra%20glas%0A%0AJag%20ser%20hela%20livet%0AHur%20det%20trillar%20f%C3%B6rbi%20mig%0AHur%20det%20trillar%20f%C3%B6rbi%20dig%0AHur%20det%20hinner%20ifatt%20mig%0AMen%20jag%20tar%20livet%20p%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0A%0AJa%20jag%20tar%20livet%20p%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AJa%20jag%20tar%20livet%20p%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar%0AP%C3%A5%20f%C3%B6r%20stort%20j%C3%A4vla%20allvar&op=translate)
 
         - [Med stänk av chanser](https://www.youtube.com/watch?v=2gKyLBz9ss0)
+            
             - HELP WANTED
 
         - [Som man lever](https://www.youtube.com/watch?v=-qbnznnUKoo)
+            
             - HELP WANTED
 
         - [Vi skakar liv i en trasig välrd](https://www.youtube.com/watch?v=JAkyELtHAG4)
+            
             - HELP WANTED
 
     - [Ingen botten - 2013](https://www.youtube.com/playlist?list=OLAK5uy_nHoGzhHGfzXeQIhEFr3QqBT6248Dw4N4g)
 
-        - [Vart tar du vägen]()
+        - [Vart tar du vägen](https://www.youtube.com/watch?v=9Gf_U3kKmgI)
+
+            - HELP WANTED
         
         - [Hemlighet](https://translate.google.com/?sl=sv&tl=en&text=Men%20vem%20fan%20har%20sagt%20att%20livet%20ska%20va%20l%C3%A4tt%0ADet%20%C3%A4r%20j%C3%A4vligt%20sv%C3%A5rt%20%C3%A5%20va%20lycklig%0AHur%20fan%20vet%20man%20vad%20som%20%C3%A4r%20fel%20och%20r%C3%A4tt%0AI%20ett%20splittrat%20v%C3%A4gsk%C3%A4l%0A%0AMan%20tvingas%20v%C3%A4lja%20hur%20det%20ska%20g%C3%A5%20f%C3%B6r%20tidigt%20utan%20att%20man%20f%C3%B6rst%C3%A5r%0AMan%20tvingas%20h%C3%A5lla%20sitt%20framtidstal%20%0Aoch%20tar%20i%20tills%20man%20drabbas%20av%20samvetskval%0A%0ADom%20sa%0AL%C3%A5t%20inte%20ditt%20liv%20bli%20en%20hemlighet%0ADom%20sa%0ADu%20lever%20inte%20en%20evighet%0A%0AMen%20vem%20fan%20har%20sagt%20att%20livet%20ska%20va%20r%C3%A4tt%0ADet%20%C3%A4r%20j%C3%A4vligt%20l%C3%A4tt%20att%20g%C3%A5%20vilse%0AI%20en%20vuxenv%C3%A4rld%20av%20krav%20och%20stress%20och%20totalt%20vansinne%0AMan%20tvingas%20jaga%20upp%20sig%20sj%C3%A4lv%20varenda%20g%C3%A5ng%20man%20tror%20man%20hittat%20hem%0AIngen%20vet%20hur%20n%C3%A5t%20ska%20g%C3%A5%20mer%20%C3%A4n%20att%20nu%20%C3%A4r%20det%20h%C3%A4r%20vi%20st%C3%A5r%0A%0ADom%20sa%0AL%C3%A5t%20inte%20ditt%20bli%20en%20hemlighet%0ADom%20sa%0ADu%20lever%20inte%20en%20evighet%0A%0AMen%20vad%20h%C3%A4nder%20om%20vi%20slutar%20dr%C3%B6mma%3F%0AMen%20vad%20h%C3%A4nder%20om%20vi%20slutar%20dr%C3%B6mma%3F%0A%0ADom%20sa%0AL%C3%A5t%20inte%20ditt%20liv%20bli%20en%20hemlighet%0ADom%20sa%0ADu%20lever%20inte%20en%20evighet%0A%0AMen%20vad%20h%C3%A4nder%20om%20vi%20slutar%20dr%C3%B6mma%3F%0AMen%20vad%20h%C3%A4nder%20om%20vi%20slutar%20dr%C3%B6mma%3F%0ADom%20sa%0ADom%20sa&op=translate)
 
@@ -91,6 +98,7 @@ The below songs are linked to Google Translate in mostly alphabetical, and chron
 
 
         - [Kungar](https://www.youtube.com/watch?v=LKGV9v6CAxM)
+            
             - HELP WANTED
 
     - [Utopi - 2017](https://www.youtube.com/playlist?list=OLAK5uy_lAFPlwSJbNSkQ87SqsQ9GFao5zeJ3n1Uk)
@@ -102,5 +110,72 @@ The below songs are linked to Google Translate in mostly alphabetical, and chron
         - [Spöken](https://translate.google.com/?sl=sv&tl=en&text=Tystnad%20s%C3%A4ger%20allt%20o%20inget%20alls%0ADet%20%C3%A4r%20som%20att%20d%C3%B6den%20st%C3%A5r%20o%20v%C3%A4ntar%20i%20min%20hall%0ADagarna%20blir%20sj%C3%A4lvbedr%C3%A4geri%0AVi%20b%C3%A4r%20b%C3%A5da%20p%C3%A5%20hj%C3%A4rtan%20med%20knivar%20i%0A%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20slut%20nu%0A%0AJag%20%C3%A4r%20s%C3%A5%20j%C3%A4vla%20less%20nu%20p%C3%A5%20alla%20tomma%20ord%20betyder%20ingenting%0AVi%20har%20blivit%20sp%C3%B6ken%20d%C3%A4r%20tiden%20st%C3%A5r%20still%0AVi%20svara%20inte%20l%C3%A4ngre%20allting%20l%C3%A5ter%20falsk%20kan%20inte%20vara%20sant%0ALivet%20kom%20emellan%20o%20du%20f%C3%B6rsvann%0A%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%20nu%0A%0AVi%20pratar%20inte%20l%C3%A4ngre%20vi%20bryr%20oss%20inte%20mer%20vi%20g%C3%A5r%20f%C3%B6rbi%20varann%0AHar%20tagit%20oss%20f%C3%B6r%20givet%20o%20tappat%20allt%0AVi%20kanske%20ska%20ge%20upp%20nu%20kasta%20allt%20vi%20har%20sn%C3%A4lla%20stanna%20kvar%0AJag%20st%C3%A5r%20ju%20h%C3%A4r%20o%20v%C3%A4ntar%20men%20mitt%20hj%C3%A4rta%20sl%C3%A5r%20svagt%0A%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%0ASn%C3%A4lla%20stanna%20kvar%0AMitt%20hj%C3%A4rta%20sl%C3%A5r%20s%C3%A5%20svagt%0ASn%C3%A4lla%20stanna%20kvar%0AV%C3%A5ra%20hj%C3%A4rtan%20kanske%20har%20n%C3%A5gra%20slag%20kvar%0A%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%0A%C3%84r%20det%20h%C3%A4r%20det%20tar%20slut%20nu&op=translate)
 
         - [80-talsbarn](https://translate.google.com/?sl=sv&tl=en&text=Hej%20vi%20%C3%A4r%2080-talets%20lata%20barn%0AGe%20mig%20ett%20jobb%20med%20max%206%20timmars%20arbetsdag%0AGe%20mig%20en%20vardag%20ge%20mig%20en%20vardag%0AF%C3%B6r%20s%C3%A5nna%20som%20jag%0A%0ATunga%20gr%C3%A5a%20moln%20%C3%B6ver%20AMS%0APissgula%20lokaler%20fulla%20av%20tristess%0AEtt%20till%20%C3%A5ngestpaket%20i%20leende%20fasad%0AFaller%20en%20s%C3%A5%20st%C3%A5r%20det%20%C3%A4nd%C3%A5%20tusen%20kvar%20som%20jag%0A%0APrecis%20som%20jag%0AT%C3%A4nker%20du%20samma%20sak%0AAllt%20har%20man%20h%C3%B6rt%20f%C3%B6rut%0AAllt%20har%20en%20bitter%20smak%0A%0AMen%20jag%20lovar%20o%20sv%C3%A4r%20jag%20%C3%A4r%20ganska%20bra%0AHur%20fan%20ska%20jag%20klara%20det%20h%C3%A4r%0AJag%20lovar%20o%20sv%C3%A4r%20jag%20%C3%A4r%20ganska%20bra%0AHur%20fan%20ska%20jag%20klara%20det%20h%C3%A4r%0AI%20en%20sjuk%20sjuk%20v%C3%A4rld%0A%0AHej%20vi%20%C3%A4r%2080-talets%20glada%20barn%0AGe%20mig%20n%C3%A5tt%20ge%20mig%20det%20ingen%20annan%20vill%20ha%0AGe%20mig%20en%20vardag%20ge%20mig%20en%20vardag%0AF%C3%B6r%20s%C3%A5nna%20som%20jag%0A%0AF%C3%B6r%20jag%20lovar%20o%20sv%C3%A4r%20jag%20%C3%A4r%20j%C3%A4vligt%20bra%0AHur%20fan%20ska%20jag%20klara%20det%20h%C3%A4r%0AJag%20lovar%20o%20sv%C3%A4r%20jag%20%C3%A4r%20j%C3%A4vligt%20bra%0AHur%20fan%20ska%20jag%20klara%20det%20h%C3%A4r%0AI%20en%20sjuk%20sjuk%20v%C3%A4rld%2C&op=translate)
+
+
+- Allvaret
+    
+    - [Tänk på döden - 2013](https://www.youtube.com/playlist?list=OLAK5uy_luufZAmrwyiAZd_R62szWlthzLAhdxap4)
+        
+        - [Bittert/Ljuvt](https://www.youtube.com/watch?v=WsmQZq8quCI)
+        
+            - HELP WANTED
+
+        - [Populär](https://www.youtube.com/watch?v=FJZlssV-Ukk)
+
+            - HELP WANTED
+
+        - [Drivved](https://www.youtube.com/watch?v=1VJ1WFoTk7c)
+        
+            - HELP WANTED
+
+        - [Gatflicka](https://www.youtube.com/watch?v=yuIL_3doT58)
+        
+            - HELP WANTED
+
+        - [Hålla andana](https://www.youtube.com/watch?v=N9ucImyrSiI)
+        
+            - HELP WANTED
+
+    - [Skam och skuld - 2017](https://www.youtube.com/watch?v=nXP7kMPS-3A)
+
+        - [Som dimma]()
+
+            - HELP WANTED
+
+        - [En kväll som alla andra](https://youtu.be/nXP7kMPS-3A?si=Kh-cg3_dnnHGunSe&t=198)
+
+            - HELP WANTED
+
+        - [Smuts och sorg](https://youtu.be/nXP7kMPS-3A?si=z1GLSFtGf9QoE788&t=354)
+
+            - HELP WANTED
+
+        - [Trasiga barn](https://youtu.be/nXP7kMPS-3A?si=oNIrnUPPxDJkC2cU&t=496)
+
+            - HELP WANTED
+
+        - [02:53](https://youtu.be/nXP7kMPS-3A?si=zRD8Y83XFWuwZXT4&t=658)
+
+            - HELP WANTED
+
+        - [Ihålig](https://youtu.be/nXP7kMPS-3A?si=skEzGpQFeDIuJync&t=804)
+
+            - HELP WANTED
+
+        - [Om det är blod du vill ha ska du få det](https://youtu.be/nXP7kMPS-3A?si=MKNCqDANamBQWHXk&t=976)
+
+            - HELP WANTED
+
+        - [En Särskild Plats](https://youtu.be/nXP7kMPS-3A?si=SK0G-V7qk7vc1Ty-&t=1062)
+
+            - HELP WANTED
+
+        - [Rik och ung och kåt](https://youtu.be/nXP7kMPS-3A?si=EQMQkw-WK6MJ_P2Y&t=1231)
+
+            - HELP WANTED
+
+        - [Minss mig](https://youtu.be/nXP7kMPS-3A?si=4or0dMfLL8f8bLg7&t=1383)
+
+            - HELP WANTED
 
 
