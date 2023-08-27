@@ -1,10 +1,10 @@
 # About
 
-This is where I gather lyrics for songs I listen to via my [freemium playlist](https://www.youtube.com/playlist?list=PLgssVMmy7hPazMCO2onw-A_2EF3p90yUt).
+This is where I gather lyrics for songs I listen to via my [freemium playlist](https://www.youtube.com/playlist?list=PLgssVMmy7hPazMCO2onw-A_2EF3p90yUt). Give [Vivaldi](https://play.google.com/store/apps/details?id=com.vivaldi.browser&pcampaignid=web_share) a try as it can block annoying ads play youtube videos in the background (without the screen on). Now your only concern should be whether you have a stable enough internet connection for streaming content.
 
 ## Lyrics
 
-In no particular (but mostly alphabetical, and chronological) order.
+The below songs are linked to Google Translate in mostly alphabetical, and chronological order. I also put them up on musicxmatch, but they all wait for approvals for a period(?) of time.
 
 - Contact
 
