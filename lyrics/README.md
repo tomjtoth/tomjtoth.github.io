@@ -4,7 +4,7 @@ This is where I gather lyrics for songs I listen to via my [freemium playlist](h
 
 ## Contribution
 
-Songs marked with "`HELP WANTED`" are ones I do not have the lyrics for. [Mail them to me](mailto:tomjtoth@gmail.com?subject=ARTIST%20-%20ALBUM%20-%20SONG&body=lalala), please.
+Songs marked with "`HELP WANTED`" are ones I do not have the lyrics for. Mail them to me at <tomjtoth@gmail.com>, please.
 
 ## Lyrics
 
