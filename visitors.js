@@ -10,7 +10,7 @@ function visitor_countdown() {
             m = Math.floor((diff % HOURS) / MIN),
             s = diff % 60;
 
-        spn_vstr.textContent = `${d} nap ${h}:${m}:${s} múlva`;
+        spn_vstr.textContent = ` ${d} nap ${h}:${m}:${s} múlva`;
         if (view() == 'about') {
             visitor_countdown();
         }
