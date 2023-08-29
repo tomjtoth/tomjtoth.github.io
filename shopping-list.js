@@ -368,7 +368,7 @@ const modal_conf = (prompt) => {
     });
 }
 
-const url_params = new URLSearchParams(window.location.search);
+const url_params = new URLSearchParams((x = window.location.hash.match(/\?.+/)) ? x[0] : '');
 
 const div_dish_picker = document.getElementById("dish-picker");
 const div_dishes = document.getElementById("dishes");
