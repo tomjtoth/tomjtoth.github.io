@@ -15,10 +15,10 @@
 
 <body>
     <nav lang="en">
-        <a href="#/about">About</a>
-        <a href="#/battery-monitor"
+        <a href="#about">About</a>
+        <a href="#battery-monitor"
             title="can be autostarted and will alert based on battery level and charging state">Battery monitor</a>
-        <a href="#/shopping-list">Shopping list</a>
+        <a href="#shopping-list">Shopping list</a>
         <a href="recipies">Recipies</a>
         <a href="products" title="reminder what to avoid and what&apos;s OK to purchase">Products</a>
         <a href="lyrics">Lyrics</a>
@@ -27,7 +27,7 @@
             title="client-server based accounting solution built from scratch using:&#010;- HTML / CSS / vanilla JS&#010;- REST&#010;- Rust&#010;- SQLite">Saldo</a>
         -->
 
-        <a href="#/qr-code">Share</a>
+        <a>Share</a>
     </nav>
 
     <div id="about" lang="en" hidden>
@@ -38,11 +38,12 @@
         </p>
     </div>
 
-    <div id="qr-code" hidden>
-        <img alt="qr code" src="https://api.qrserver.com/v1/create-qr-code/?data=https://tomjtoth.github.io">
-        <!--
-            <button>🔗</button>
-        -->
+    <div id="qr-code" class="modal" hidden>
+        <div>
+            <button>Copy 🔗</button>
+            <p></p>
+            <img alt="qr code">
+        </div>
     </div>
 
     <div id="battery-monitor" hidden>
