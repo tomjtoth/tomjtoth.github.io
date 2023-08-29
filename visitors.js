@@ -11,7 +11,7 @@ function visitor_countdown() {
             s = diff % 60;
 
         spn_vstr.textContent = `${d} nap ${h}:${m}:${s}`;
-        if (window.location.hash == '#about') {
+        if (view() == 'about') {
             visitor_countdown();
         }
     }, 1000);
