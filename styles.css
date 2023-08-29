@@ -148,3 +148,7 @@ div#battery-monitor div:nth-child(even),
 div#battery-monitor button:nth-child(even) {
     background-color: lightblue;
 }
+
+p.biiig {
+    font-size: xx-large;
+}
