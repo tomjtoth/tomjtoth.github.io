@@ -38,64 +38,30 @@ function chg_view(view) {
     }
 }
 
+const view = (hash = null) => (x = (hash ? hash : window.location.hash).match(/(?<=#)[\w-]+/))
+    ? x[0]
+    : 'about';
+
 // upon clicking the nav buttons
 document.querySelector('nav')
     .addEventListener('click', ({ target: { hash, tagName, textContent } }) => {
 
-        if (tagName != 'A') {
-            return;
-        }
+        if (tagName != 'A') return;
 
         // share button is clicked, set QR, show modal
-        if (textContent == 'Share') {
-            const curr_path = window.location.hash.substring(1);
-
-            fetch(`https://api.qrserver.com/v1/create-qr-code/?data=https://tomjtoth.github.io%23${curr_path + (
-                curr_path == 'shopping-list'
-                    ? '%3Fdishes='
-                    + JSON.stringify(dish_indices).replaceAll(/[\[\]"]/g, '')
-                    + '%26items='
-                    + JSON.stringify(extra_items).replaceAll(/[\[\]"]/g, '')
-                    : ''
-            )}`)
-                .then(res => res.blob())
-                .then(img => {
-                    img_qr.src = URL.createObjectURL(img);
-
-                    // show the QR modal
-                    div_qr.removeAttribute('hidden');
-                    div_qr.style.visibility = 'visible';
-
-                })
-                .catch(err => alert(`failed to fetch QR code: "${err}"`))
-        }
+        if (textContent == 'Share') qr_code();
 
         // simply change view
-        else {
-            chg_view(hash.substring(1))
-        }
+        else chg_view(view(hash));
 
     });
 
 // upon refreshing the page or opening the page from a link
 document.addEventListener("DOMContentLoaded", _ => {
-    const route = window.location.hash.substring(1);
-    chg_view(route || 'about');
+    chg_view(view());
 });
 
 const FAVICONS = {
     'shopping-list': '🛒',
     'battery-monitor': '🔋',
 }
-
-const div_qr = document.querySelector('div#qr-code');
-const img_qr = document.querySelector('div#qr-code>div>img');
-
-div_qr.addEventListener('click', ({ target: { tagName } }) => {
-    if (tagName == 'DIV') {
-        div_qr.setAttribute('hidden', 'hidden');
-        div_qr.style.visibility = 'hidden';
-    } else if (tagName == 'BUTTON') {
-        // copy to clipboard
-    }
-})
