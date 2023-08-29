@@ -40,14 +40,14 @@ function chg_view(view) {
 
 // upon clicking the nav buttons
 document.querySelector('nav')
-    .addEventListener('click', ({ target: { hash, tagName } }) => {
+    .addEventListener('click', ({ target: { hash, tagName, textContent } }) => {
 
         if (tagName != 'A') {
             return;
         }
 
         // share button is clicked, set QR, show modal
-        if (!hash) {
+        if (textContent == 'Share') {
             const curr_path = window.location.hash.substring(1);
 
             fetch(`https://api.qrserver.com/v1/create-qr-code/?data=https://tomjtoth.github.io%23${curr_path + (
