@@ -49,7 +49,7 @@ document.querySelector('nav')
         if (tagName != 'A') return;
 
         // share button is clicked, set QR, show modal
-        if (textContent == 'Share') qr_code();
+        if (textContent == 'Share') new QRCode();
 
         // simply change view
         else chg_view(view(hash));
