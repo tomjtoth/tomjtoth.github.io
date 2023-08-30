@@ -8,24 +8,37 @@ class QRCode {
                 this.div_qr.setAttribute('hidden', 'hidden');
                 this.div_qr.style.visibility = 'hidden';
             } else if (tagName == 'BUTTON') {
-                // copy to clipboard
+                navigator.clipboard.writeText(
+                    this.url()
+                        .replace('%23', '#')
+                        .replace('%3F', '?')
+                        .replace('%26', '&')
+                );
             }
         })
     }
 
-    constructor() {
+    static url() {
         const path = view();
 
-        fetch(`https://api.qrserver.com/v1/create-qr-code/?data=https://tomjtoth.github.io${path
-            ? '%23' + path + (
+        return `https://tomjtoth.github.io${path
+            ? '#' + path + (
                 path == 'shopping-list'
-                    ? '%3Fdishes='
+                    ? '?dishes='
                     + JSON.stringify(dish_indices).replaceAll(/[\[\]"]/g, '')
-                    + '%26items='
+                    + '&items='
                     + JSON.stringify(extra_items).replaceAll(/[\[\]"]/g, '')
                     : ''
             )
-            : ''}`)
+            : ''}`
+            .replace('#', '%23')
+            .replace('?', '%3F')
+            .replace('&', '%26');
+    }
+
+    constructor() {
+
+        fetch('https://api.qrserver.com/v1/create-qr-code/?data=' + QRCode.url())
             .then(res => res.blob())
             .then(img => {
                 QRCode.img_qr.src = URL.createObjectURL(img);
