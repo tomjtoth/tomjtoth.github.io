@@ -1,96 +1,101 @@
-const sleep = (ms = 1000*30) => new Promise(r => setTimeout(r, ms));
+class BatteryMonitor {
 
-function show_notification(body) {
-    new Notification('Battery monitor', { body });
-}
+    static sleep = (ms = 1000 * 30) => new Promise(r => setTimeout(r, ms));
 
-function check_permission() {
-    if (!window.Notification) {
-        alert('notifications are not supported');
-        return false;
-    } else {
-        if (Notification.permission !== 'granted') {
-            Notification.requestPermission().then(function (p) {
-                if (p === 'granted') {
-                    show_notification("sample notification");
-                } else {
-                    alert('notifications are blocked');
-                    return false;
-                }
-            });
-        }
+    static show_notification(body) {
+        new Notification('Battery monitor', { body });
     }
-    return true;
-}
 
-async function start_monitoring() {
-    while (running && stop_requests == 0) {
-        try {
-            let {charging, level, chargingTime, dischargingTime} = await navigator.getBattery();
-            level *= 100;
-
-            if (charging && level >= maximum.value && chargingTime != Infinity
-            || !charging && level <= minimum.value && dischargingTime != Infinity) {
-                show_notification(`Current level: ${level}%`);
-                // sleep twice
-                await sleep();
+    static check_permission() {
+        if (!window.Notification) {
+            alert('notifications are not supported');
+            return false;
+        } else {
+            if (Notification.permission !== 'granted') {
+                Notification.requestPermission().then(function (p) {
+                    if (p === 'granted') {
+                        this.show_notification("sample notification");
+                    } else {
+                        alert('notifications are blocked');
+                        return false;
+                    }
+                });
             }
-            await sleep();
-        } catch {
-            // unsupported browser
-            running = false;
-            alert('getBattery() failed, stopped script');
         }
+        return true;
     }
-    stop_requests--;
-}
 
-const start_stop = document.getElementById('start-stop');
-start_stop.addEventListener('click', ev => {
-    running = !running;
-    ev.target.innerText = !running ? 'start' : 'stop'
-    
-    if (!running) {
-        stop_requests++;
-    } else {
-        if (check_permission())  {
-            start_monitoring();
+    static async start_monitoring() {
+        while (this.running && this.stop_requests == 0) {
+            try {
+                let { charging, level, chargingTime, dischargingTime } = await navigator.getBattery();
+                level *= 100;
+
+                if (charging && level >= this.max.value && chargingTime != Infinity
+                    || !charging && level <= this.min.value && dischargingTime != Infinity) {
+                    this.show_notification(`Current level: ${level}%`);
+                    // sleep twice
+                    await sleep();
+                }
+                await sleep();
+            } catch {
+                // unsupported browser
+                this.running = false;
+                alert('getBattery() failed, stopped script');
+            }
         }
+        this.stop_requests--;
     }
-});
 
-const minimum = document.getElementById('minimum');
-const min_val = localStorage.getItem('minimum');
-if (min_val) {
-    minimum.value = min_val;
-}
-minimum.addEventListener('change', ev => {
-    localStorage.setItem('minimum', ev.target.value);
-});
+    static toggle({ target }) {
+        this.running = !this.running;
+        target.innerText = !this.running ? 'start' : 'stop'
 
-const maximum = document.getElementById('maximum');
-const max_val = localStorage.getItem('maximum');
-if (max_val) {
-    maximum.value = max_val;
-}
-maximum.addEventListener('change', ev => {
-    localStorage.setItem('maximum', ev.target.value);
-});
+        if (!this.running) {
+            this.stop_requests++;
+        } else {
+            if (this.check_permission()) {
+                this.start_monitoring();
+            }
+        }
 
-let running = false,
-    stop_requests = 0,
-    autostart = localStorage.getItem('autostart');
+    }
 
-document.getElementById('autostart')
-.addEventListener('click', _ => {
-    autostart = !autostart;
-    localStorage.setItem('autostart', autostart);
-    alert(`Autostart is now set to: ${autostart}`);
-});
+    static running = false;
+    static stop_requests = 0;
+    static autostart = (localStorage.getItem('autostart') === 'true');
 
-if (autostart === 'true') {
-    autostart = true;
-    start_stop.click();
-} else {
-    autostart = false;
+    static min = document.querySelector('div#battery-monitor input[name=minimum]');
+    static max = document.querySelector('div#battery-monitor input[name=maximum]');
+
+    static {
+        // restore previously used values
+        this.min.value = localStorage.getItem('minimum') || 20;
+        this.max.value = localStorage.getItem('maximum') || 80;
+
+
+        const div = document.querySelector('div#battery-monitor');
+
+        div.addEventListener('click', ({ target }) => {
+
+            if (target.tagName !== 'BUTTON') return;
+
+            if (target.innerText == 'start') {
+                this.toggle(target);
+            }
+
+            else {
+                this.autostart = !this.autostart;
+                localStorage.setItem('autostart', this.autostart);
+                alert(`Autostart is now set to: ${this.autostart}`);
+            }
+        });
+
+        div.addEventListener('change', ({ target: { name, value, tagName } }) => {
+            if (tagName == 'SELECT') localStorage.setItem(name, value);
+        });
+
+        if (this.autostart) this.toggle();
+
+    }
 }
