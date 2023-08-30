@@ -150,5 +150,32 @@ div#battery-monitor button:nth-child(even) {
 }
 
 p.biiig {
+    font-size: larger;
+}
+
+p.biiig.hu {
+    animation: hu 1.5s infinite;
     font-size: xx-large;
+}
+
+@keyframes hu {
+    0% {
+        background-color: red;
+        color: white;
+    }
+
+    33% {
+        background-color: white;
+        color: green;
+    }
+
+    66% {
+        background-color: green;
+        color: red;
+    }
+
+    100% {
+        background-color: red;
+        color: white;
+    }
 }

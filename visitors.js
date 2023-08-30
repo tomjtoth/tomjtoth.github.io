@@ -10,12 +10,17 @@ function visitor_countdown() {
             m = Math.floor((diff % HOURS) / MIN),
             s = diff % 60;
 
-        spn_vstr.textContent = ` ${d} nap ${h}:${m}:${s} múlva`;
         if (view() == 'about') {
-            visitor_countdown();
+            if (diff > 0) {
+                spn_vstr.textContent = ` ${d} nap ${h}:${m}:${s} múlva`;
+                visitor_countdown();
+            } else {
+                spn_vstr.parentNode.classList.add('hu');
+                spn_vstr.parentNode.innerHTML = `${visitors[0][0]} IN DA HOUSE!!!!`;
+            }
         }
     }, 1000);
 }
 
 const spn_vstr = document.querySelector('span#visitor-text');
-const visitors = [['Bálint + dr. NŐ', '2023-09-01T06:00:00Z', 'hu']]
+const visitors = [['Bálint + dr. NŐ', '2023-09-01T06:30:00Z', 'hu']]
