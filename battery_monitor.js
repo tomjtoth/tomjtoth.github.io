@@ -12,7 +12,7 @@ class BatteryMonitor {
             return false;
         } else {
             if (Notification.permission !== 'granted') {
-                Notification.requestPermission().then(function (p) {
+                Notification.requestPermission().then((p) => {
                     if (p === 'granted') {
                         this.show_notification("sample notification");
                     } else {
@@ -25,46 +25,39 @@ class BatteryMonitor {
         return true;
     }
 
-    static async start_monitoring() {
-        while (this.running && this.stop_requests == 0) {
-            try {
-                let { charging, level, chargingTime, dischargingTime } = await navigator.getBattery();
-                level *= 100;
 
-                if (charging && level >= this.max.value && chargingTime != Infinity
-                    || !charging && level <= this.min.value && dischargingTime != Infinity) {
-                    this.show_notification(`Current level: ${level}%`);
+    // TODO: restore and improve the stop_request counter as this might result in multiple while loops in parallel
+    static async start_monitoring() {
+        while (this.running) {
+            try {
+                const { charging, level, chargingTime, dischargingTime } = await navigator.getBattery();
+                const lv100 = Math.round(100 * level);
+
+                if (charging && lv100 >= this.max.value && chargingTime != Infinity
+                    || !charging && lv100 <= this.min.value && dischargingTime != Infinity) {
+                    this.show_notification(`Current level: ${lv100}%`);
                     // sleep twice
-                    await sleep();
+                    await this.sleep();
                 }
-                await sleep();
+                await this.sleep();
             } catch {
                 // unsupported browser
                 this.running = false;
                 alert('getBattery() failed, stopped script');
             }
         }
-        this.stop_requests--;
     }
 
-    static toggle({ target }) {
+    static toggle(target) {
         this.running = !this.running;
         target.innerText = !this.running ? 'start' : 'stop'
 
-        if (!this.running) {
-            this.stop_requests++;
-        } else {
-            if (this.check_permission()) {
-                this.start_monitoring();
-            }
+        if (this.running && this.check_permission()) {
+            this.start_monitoring();
         }
-
     }
 
-    static running = false;
-    static stop_requests = 0;
-    static autostart = (localStorage.getItem('autostart') === 'true');
-
+    static running = (localStorage.getItem('running') === 'true');
     static min = document.querySelector('div#battery-monitor input[name=minimum]');
     static max = document.querySelector('div#battery-monitor input[name=maximum]');
 
@@ -73,29 +66,33 @@ class BatteryMonitor {
         this.min.value = localStorage.getItem('minimum') || 20;
         this.max.value = localStorage.getItem('maximum') || 80;
 
-
         const div = document.querySelector('div#battery-monitor');
 
         div.addEventListener('click', ({ target }) => {
 
             if (target.tagName !== 'BUTTON') return;
 
-            if (target.innerText == 'start') {
-                this.toggle(target);
+            if (target.innerText.endsWith('autostart')) {
+                const autostart = localStorage.getItem('running') === 'true';
+                localStorage.setItem('running', !autostart);
+                target.innerText = (!autostart ? 'disable' : 'enable') + ' autostart';
             }
 
             else {
-                this.autostart = !this.autostart;
-                localStorage.setItem('autostart', this.autostart);
-                alert(`Autostart is now set to: ${this.autostart}`);
+                this.toggle(target);
             }
         });
 
         div.addEventListener('change', ({ target: { name, value, tagName } }) => {
-            if (tagName == 'SELECT') localStorage.setItem(name, value);
+            if (tagName == 'INPUT') localStorage.setItem(name, value);
         });
 
-        if (this.autostart) this.toggle();
+        if (this.running) {
+
+            // triggering ideal condition for autostart
+            this.running = false;
+            this.toggle(document.querySelector('div#battery-monitor button'));
+        }
 
     }
 }
