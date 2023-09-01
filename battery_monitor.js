@@ -28,7 +28,7 @@ class BatteryMonitor {
 
     // TODO: restore and improve the stop_request counter as this might result in multiple while loops in parallel
     static async start_monitoring() {
-        while (this.running) {
+        while (this.state == 1) {
             try {
                 const { charging, level, chargingTime, dischargingTime } = await navigator.getBattery();
                 const lv100 = Math.round(100 * level);
@@ -42,22 +42,26 @@ class BatteryMonitor {
                 await this.sleep();
             } catch {
                 // unsupported browser
-                this.running = false;
+                this.state = 0;
                 alert('getBattery() failed, stopped script');
             }
         }
+        this.state = 0;
     }
 
     static toggle(target) {
-        this.running = !this.running;
-        target.innerText = !this.running ? 'start' : 'stop'
+        this.state++;
+        target.innerText = this.state != 1 ? 'start' : 'stop'
 
-        if (this.running && this.check_permission()) {
+        if (this.state == 0 && this.check_permission()) {
             this.start_monitoring();
         }
     }
 
-    static running = (localStorage.getItem('running') === 'true');
+    /// 0 -> NOT running
+    /// 1 -> running
+    /// 1+ -> wanna stop
+    static state = parseInt(localStorage.getItem('state') || 0);
     static min = document.querySelector('div#battery-monitor input[name=minimum]');
     static max = document.querySelector('div#battery-monitor input[name=maximum]');
 
@@ -73,9 +77,9 @@ class BatteryMonitor {
             if (target.tagName !== 'BUTTON') return;
 
             if (target.innerText.endsWith('autostart')) {
-                const autostart = localStorage.getItem('running') === 'true';
-                localStorage.setItem('running', !autostart);
-                target.innerText = (!autostart ? 'disable' : 'enable') + ' autostart';
+                const autostart = 1 - parseInt(localStorage.getItem('state') || 0);
+                localStorage.setItem('state', autostart);
+                target.innerText = (autostart == 1 ? 'disable' : 'enable') + ' autostart';
             }
 
             else {
@@ -87,12 +91,8 @@ class BatteryMonitor {
             if (tagName == 'INPUT') localStorage.setItem(name, value);
         });
 
-        if (this.running) {
-
-            // triggering ideal condition for autostart
-            this.running = false;
+        if (this.state == 1)
             this.toggle(document.querySelector('div#battery-monitor button'));
-        }
 
     }
 }
