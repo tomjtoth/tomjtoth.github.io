@@ -50,10 +50,9 @@ class BatteryMonitor {
     }
 
     static toggle(target) {
-        this.state++;
-        target.innerText = this.state != 1 ? 'start' : 'stop'
+        target.innerText = ++this.state != 1 ? 'start' : 'stop';
 
-        if (this.state == 0 && this.check_permission()) {
+        if (this.state == 1 && this.check_permission()) {
             this.start_monitoring();
         }
     }

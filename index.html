@@ -68,7 +68,8 @@
         The related <code>navigator.getBattery()</code> method is not supported on all browsers, see the full
         compatibility
         table <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery#browser_compatibility">on
-            MDN</a>.
+            MDN</a>. The codebase should be converted to a <code>setTimeout</code> vs <code>clearTimeout</code> basis,
+        as currently stopping the timer is buggy. Will continue when personally interested in this functionality.
         </p>
         <div>
             <label for="maximum">maximum threshold:</label>
