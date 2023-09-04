@@ -22,7 +22,7 @@ class QRCode {
         const path = view();
 
         return `https://tomjtoth.github.io${path
-            ? '#' + path + (
+            ? '/#' + path + (
                 path == 'shopping-list'
                     ? '?dishes='
                     + JSON.stringify(dish_indices).replaceAll(/[\[\]"]/g, '')
