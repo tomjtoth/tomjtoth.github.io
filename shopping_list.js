@@ -197,8 +197,7 @@ class ShoppingList {
     }
 
     static main(recipies_md) {
-        this.recipies = Array.from(recipies_md
-            .matchAll(this.re.dishes))
+        this.recipies = Array.from(recipies_md.matchAll(this.re.dishes))
             .map(mo_dish => {
                 const name = mo_dish.groups.name;
                 const tags = Array.from((mo_dish.groups.tags
@@ -221,7 +220,25 @@ class ShoppingList {
                 return 0;
             });
 
-        this.build_modal_dishes();
+        const div = document.createElement('div');
+
+        for (const [dish_idx, recipie] of this.recipies.entries()) {
+            const btn = this.create_btn(`${dish_idx}: ${recipie.name}`, false);
+            btn.dish_idx = dish_idx;
+            div.appendChild(btn);
+        }
+
+        this.div_dish_picker.appendChild(div);
+
+        this.div_dish_picker.addEventListener("click", ev => {
+            if (ev.target.tagName == 'BUTTON') {
+                this.dish_indices.push(ev.target.dish_idx);
+                this.store("dishes", this.dish_indices);
+                this.add_dish(ev.target.dish_idx);
+            }
+            // hiding the modal
+            this.div_dish_picker.style.visibility = 'hidden';
+        });
 
         for (const i of this.dish_indices) {
             this.add_dish(i);
@@ -278,29 +295,6 @@ class ShoppingList {
                     nes.style.maxHeight = nes.scrollHeight + "px";
                 }
             }
-        });
-    }
-
-    static build_modal_dishes() {
-
-        const div = document.createElement('div');
-
-        for (const [dish_idx, recipie] of this.recipies.entries()) {
-            const btn = this.create_btn(`${dish_idx}: ${recipie.name}`, false);
-            btn.dish_idx = dish_idx;
-            div.appendChild(btn);
-        }
-
-        this.div_dish_picker.appendChild(div);
-
-        this.div_dish_picker.addEventListener("click", ev => {
-            if (ev.target.tagName == 'BUTTON') {
-                this.dish_indices.push(ev.target.dish_idx);
-                this.store("dishes", this.dish_indices);
-                this.add_dish(ev.target.dish_idx);
-            }
-            // hiding the modal
-            this.div_dish_picker.style.visibility = 'hidden';
         });
     }
 
