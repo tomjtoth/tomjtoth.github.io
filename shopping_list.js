@@ -421,7 +421,10 @@ class ShoppingList {
         this.reset_qs = false;
         this.dish_indices = this.parse("dishes");
         this.extra_items = this.parse("items");
-        if (this.reset_qs) window.location.hash = "#shopping-list";
+        if (this.reset_qs) {
+            window.location.hash = "#shopping-list";
+            this.deactivate_items();
+        }
 
         this.recipies;
         this.md_html_conv = new showdown.Converter();
