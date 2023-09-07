@@ -25,9 +25,9 @@ class QRCode {
             ? '/#' + path + (
                 path == 'shopping-list'
                     ? '?dishes='
-                    + JSON.stringify(dish_indices).replaceAll(/[\[\]"]/g, '')
+                    + JSON.stringify(ShoppingList.dish_indices).replaceAll(/[\[\]"]/g, '')
                     + '&items='
-                    + JSON.stringify(extra_items).replaceAll(/[\[\]"]/g, '')
+                    + JSON.stringify(ShoppingList.extra_items).replaceAll(/[\[\]"]/g, '')
                     : ''
             )
             : ''}`
