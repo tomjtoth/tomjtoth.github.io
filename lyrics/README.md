@@ -20,7 +20,7 @@ The below songs are linked to Google Translate in no particular order. I gave up
 
     - [Livsgaranti - 2022](https://www.youtube.com/playlist?list=OLAK5uy_ky9TRB8SQ2Yu9TFXp78tr9Mu1JbrF_S7w)
 
-        - [Urskog](https://www.youtube.com/watch?v=2m_YWyRpOOU){:target="_blank"}
+        - [Urskog](https://www.youtube.com/watch?v=2m_YWyRpOOU)
     
             - `HELP WANTED`
 
