@@ -480,7 +480,7 @@ class Lyrics {
                     + ' &#010; Please, pick another one';
                 li_sng.classList.add('wip');
             } else {
-                a_sng.title = (search ? 'search' : 'open') + ' in YouTube';
+                a_sng.title = (search ? 'search on' : 'open in') + ' YouTube';
                 li_sng.classList.add('help-wanted');
             }
         };
