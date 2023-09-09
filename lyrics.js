@@ -472,11 +472,23 @@ class Lyrics {
     static {
 
         const ul_songs = document.querySelector('div#lyrics > ul#songs');
-        /*
-        div_songs.addEventListener('click', ({ target }) => {
-            // react to clickin on songs
+
+        const wip_or_help = (assigned_on, a_sng, li_sng, search = false) => {
+            if (assigned_on) {
+                a_sng.title = 'WiP since '
+                    + new Date(assigned_on).toLocaleString()
+                    + ' &#010; Please, pick another one';
+                li_sng.classList.add('wip');
+            } else {
+                a_sng.title = (search ? 'search' : 'open') + ' in YouTube';
+                li_sng.classList.add('help-wanted');
+            }
+        };
+
+        ul_songs.addEventListener('click', ({ target: { id, tagName } }) => {
+            if (tagName !== 'A') return;
+            history.pushState({}, '', '#' + id);
         });
-        */
 
         for (const [art_name, albums] of Object.entries(this.data)) {
             const li_art = this.li(art_name, ul_songs.parentNode);
@@ -484,7 +496,7 @@ class Lyrics {
             for (const [alb_name, alb_year, songs] of albums) {
                 const li_alb = this.li(alb_name
                     ? alb_name + ' - ' + alb_year
-                    : 'mix / unsorted / singles',
+                    : 'unsorted',
                     li_art);
 
                 for (const [sng_name, lyrics = null, assigned_on = null] of songs) {
@@ -495,26 +507,14 @@ class Lyrics {
                     if (lyrics) {
                         a_sng.href = lyrics;
                         if (lyrics.match(/^https:\/\/(?:youtu\.be|www\.youtube\.com)/)) {
-                            if (assigned_on) {
-                                a_sng.title = 'WiP since ' + new Date(assigned_on).toLocaleString() + '&#10;Please, pick another one';
-                                li_sng.classList.add('wip');
-                            } else {
-                                a_sng.title = 'open in YouTube';
-                                li_sng.classList.add('help-wanted');
-                            }
+                            wip_or_help(assigned_on, a_sng, li_sng);
                         } else {
                             a_sng.title = 'open in Google Translate';
                         }
                     } else {
                         a_sng.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(art_name + ' - Topic ' + sng_name)}`;
 
-                        if (assigned_on) {
-                            a_sng.title = 'WiP since ' + new Date(assigned_on).toLocaleString() + '&#010;PICK ANOTHER ONE';
-                            li_sng.classList.add('wip');
-                        } else {
-                            a_sng.title = 'search on YouTube';
-                            li_sng.classList.add('help-wanted');
-                        }
+                        wip_or_help(assigned_on, a_sng, li_sng, true)
                     }
                     li_alb.lastChild.appendChild(li_sng);
                 }
