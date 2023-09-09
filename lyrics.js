@@ -254,7 +254,7 @@ class Lyrics {
                     'https://youtu.be/nXP7kMPS-3A?si=skEzGpQFeDIuJync&t=804'],
 
                 ['Om det är blod du vill ha ska du få det',
-                    'https://youtu.be/nXP7kMPS-3A?si=MKNCqDANamBQWHXk&t=976'],
+                    'https://youtu.be/nXP7kMPS-3A?si=MKNCqDANamBQWHXk&t=976', '2023-09-06T23:23:00+03:00'],
 
                 ['En Särskild Plats',
                     'https://youtu.be/nXP7kMPS-3A?si=SK0G-V7qk7vc1Ty-&t=1062'],
@@ -263,7 +263,7 @@ class Lyrics {
                     'https://youtu.be/nXP7kMPS-3A?si=EQMQkw-WK6MJ_P2Y&t=1231'],
 
                 ['Minss mig',
-                    'https://youtu.be/nXP7kMPS-3A?si=4or0dMfLL8f8bLg7&t=1383'],
+                    'https://youtu.be/nXP7kMPS-3A?si=4or0dMfLL8f8bLg7&t=1383', '2023-09-06T23:26:00+03:00'],
 
             ]],
         ],
@@ -487,7 +487,7 @@ class Lyrics {
                     : 'mix / unsorted / singles',
                     li_art);
 
-                for (const [sng_name, lyrics = null] of songs) {
+                for (const [sng_name, lyrics = null, assigned_on = null] of songs) {
                     const li_sng = this.li(sng_name, li_alb, true)
                     const a_sng = li_sng.lastChild;
                     a_sng.target = '_blank';
@@ -495,15 +495,26 @@ class Lyrics {
                     if (lyrics) {
                         a_sng.href = lyrics;
                         if (lyrics.match(/^https:\/\/(?:youtu\.be|www\.youtube\.com)/)) {
-                            a_sng.title = 'open in YouTube';
-                            li_sng.classList.add('help-wanted');
+                            if (assigned_on) {
+                                a_sng.title = 'WiP since ' + new Date(assigned_on).toLocaleString() + '&#013;PICK ANOTHER ONE';
+                                li_sng.classList.add('wip');
+                            } else {
+                                a_sng.title = 'open in YouTube';
+                                li_sng.classList.add('help-wanted');
+                            }
                         } else {
                             a_sng.title = 'open in Google Translate';
                         }
                     } else {
                         a_sng.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(art_name + ' - Topic ' + sng_name)}`;
-                        a_sng.title = 'search on YouTube';
-                        li_sng.classList.add('help-wanted');
+
+                        if (assigned_on) {
+                            a_sng.title = 'WiP since ' + new Date(assigned_on).toLocaleString() + '&#010;PICK ANOTHER ONE';
+                            li_sng.classList.add('wip');
+                        } else {
+                            a_sng.title = 'search on YouTube';
+                            li_sng.classList.add('help-wanted');
+                        }
                     }
                     li_alb.lastChild.appendChild(li_sng);
                 }
