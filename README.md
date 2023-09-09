@@ -1,6 +1,6 @@
 # Kuvaus
 
-Tässä lähinnä itselleni staattiset sivustot, jotkut auttavat minua kaupassa. Selain riittää, ei tarvitse tunnistautua minnekään!
+Tässä lähinnä itselleni staattiset sivustot, jotkut auttavat minua kaupassa.
 
 - [akunvalvonta](/index.html#/battery-monitor)
     - yksinkertainen työkalu joka näyttää ilmoituksia jos akun taso ois liian ylhäinen tai alhainen
@@ -9,7 +9,7 @@ Tässä lähinnä itselleni staattiset sivustot, jotkut auttavat minua kaupassa.
     - tutustu myös itse [ruokaohjeisiin](recipies/README.md)
 - [tuotteet](products/README.md)
     - muistuttaa vältettävistä tuotteista
-- [låttext](lyrics/README.md)
+- [låttext](index.html#/lyrics)
     - jag pluggar svenska på min fritid och lyssnar på där låtar
 
 ## Kehitys
