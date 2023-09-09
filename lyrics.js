@@ -496,7 +496,7 @@ class Lyrics {
                         a_sng.href = lyrics;
                         if (lyrics.match(/^https:\/\/(?:youtu\.be|www\.youtube\.com)/)) {
                             if (assigned_on) {
-                                a_sng.title = 'WiP since ' + new Date(assigned_on).toLocaleString() + '&#013;PICK ANOTHER ONE';
+                                a_sng.title = 'WiP since ' + new Date(assigned_on).toLocaleString() + '&#10;Please, pick another one';
                                 li_sng.classList.add('wip');
                             } else {
                                 a_sng.title = 'open in YouTube';
