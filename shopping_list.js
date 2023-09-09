@@ -321,13 +321,14 @@ class ShoppingList {
         }
     }
 
-    static deactivate_items() {
-        if (confirm('are you sure you?')) {
-            for (const btn of document.querySelectorAll('#items>button.active')) {
-                btn.classList.remove('active');
-            }
-            this.store_item_states(true);
+    static deactivate_items(silent = false) {
+        if (!silent && !confirm('are you sure you?')) {
+            return
         }
+        for (const btn of document.querySelectorAll('#items>button.active')) {
+            btn.classList.remove('active');
+        }
+        this.store_item_states(true);
     }
 
     static store_item_states(reset = false) {
@@ -417,7 +418,7 @@ class ShoppingList {
         this.extra_items = this.parse("items");
         if (this.reset_qs) {
             window.location.hash = "#shopping-list";
-            this.deactivate_items();
+            this.deactivate_items(true);
         }
 
         this.recipies;

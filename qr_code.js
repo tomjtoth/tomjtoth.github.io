@@ -8,29 +8,44 @@ class QRCode {
                 this.div_qr.setAttribute('hidden', 'hidden');
                 this.div_qr.style.visibility = 'hidden';
             } else if (tagName == 'BUTTON') {
-                navigator.clipboard.writeText(
-                    this.url()
-                        .replace('%23', '#')
-                        .replace('%3F', '?')
-                        .replace('%26', '&')
-                );
+                navigator.clipboard.writeText(this.url(false));
             }
         })
     }
 
-    static url() {
+    /**
+     * escape3 as in '&', '#', '?'
+     * 
+     * @param {boolean} escape3 
+     * @returns 
+     */
+    static url(escape3 = true) {
         const path = view();
 
-        return `https://tomjtoth.github.io${path
-            ? '/#' + path + (
-                path == 'shopping-list'
-                    ? '?dishes='
-                    + JSON.stringify(dish_indices).replaceAll(/[\[\]"]/g, '')
-                    + '&items='
-                    + JSON.stringify(extra_items).replaceAll(/[\[\]"]/g, '')
-                    : ''
-            )
-            : ''}`
+        let res = 'https://tomjtoth.github.io';
+
+        if (path.length > 0)
+            res += '/#' + path;
+
+        if (path == 'shopping-list') {
+            const x = [];
+            if (ShoppingList.dish_indices.length > 0) {
+                x.push('dishes='
+                    + JSON.stringify(ShoppingList.dish_indices).replaceAll(/[\[\]"]/g, ''))
+            }
+
+            if (ShoppingList.extra_items.length > 0) {
+                x.push('items='
+                    + JSON.stringify(ShoppingList.extra_items).replaceAll(/[\[\]"]/g, ''))
+            }
+
+            if (x.length > 0)
+                res += '?' + x.join('&');
+        }
+
+        if (!escape3) return res;
+
+        return res
             .replace('#', '%23')
             .replace('?', '%3F')
             .replace('&', '%26');
@@ -46,9 +61,8 @@ class QRCode {
                 // show the QR modal
                 QRCode.div_qr.removeAttribute('hidden');
                 QRCode.div_qr.style.visibility = 'visible';
-
             })
-            .catch(err => alert(`failed to fetch QR code: "${err}"`))
+            .catch(err => alert(`failed to fetch QR code: "${err}"`));
     }
 
 }
