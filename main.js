@@ -64,4 +64,5 @@ document.addEventListener("DOMContentLoaded", _ => {
 const FAVICONS = {
     'shopping-list': '🛒',
     'battery-monitor': '🔋',
+    'lyrics': '🎶',
 }
