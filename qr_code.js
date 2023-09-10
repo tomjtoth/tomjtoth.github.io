@@ -20,27 +20,23 @@ class QRCode {
      * @returns 
      */
     static url(escape3 = true) {
-        const path = view();
 
-        let res = 'https://tomjtoth.github.io';
+        let res = window.location.href;
 
-        if (path.length > 0)
-            res += '/#' + path;
-
-        if (path == 'shopping-list') {
-            const x = [];
+        if (view() == 'shopping-list') {
+            const temp = [];
             if (ShoppingList.dish_indices.length > 0) {
-                x.push('dishes='
+                temp.push('dishes='
                     + JSON.stringify(ShoppingList.dish_indices).replaceAll(/[\[\]"]/g, ''))
             }
 
             if (ShoppingList.extra_items.length > 0) {
-                x.push('items='
+                temp.push('items='
                     + JSON.stringify(ShoppingList.extra_items).replaceAll(/[\[\]"]/g, ''))
             }
 
-            if (x.length > 0)
-                res += '?' + x.join('&');
+            if (temp.length > 0)
+                res += '?' + temp.join('&');
         }
 
         if (!escape3) return res;
