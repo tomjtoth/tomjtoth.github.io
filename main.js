@@ -62,7 +62,8 @@ document.addEventListener("DOMContentLoaded", _ => {
 });
 
 const FAVICONS = {
-    'shopping-list': '🛒',
+    'about': 'ℹ️',
     'battery-monitor': '🔋',
+    'shopping-list': '🛒',
     'lyrics': '🎶',
 }
