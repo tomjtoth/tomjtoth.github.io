@@ -206,22 +206,22 @@ Trant Strul:
 SARDO NUMSPA:
   ~:
     Ruta ett:
-      Url: https://www.youtube.com/watch?v=TfHd0dR8jJc
+      url: https://www.youtube.com/watch?v=TfHd0dR8jJc
 
     Vi som alrdig säger nej: ~
 
 Orkan:
   Livsgaranti:
-    Year: 2022
+    year: 2022
     Urskog:
-      Wip: 2023-09-11T09:37:00+03:00
+      wip: 2023-09-11T09:37:00+03:00
     Livsgaranti: ~
     Vägrar vara tyst - första delen: ~
     Vägrar vara tyst - andra delen: ~
 
 Contact:
   Hon kom över mon:
-    Year: 1971
+    year: 1971
     Grannlåt: |
       Sommarkväll, fiolers klang som lock’ till dans
       Kände flickans söta arm omkring min hals
@@ -537,7 +537,7 @@ Contact:
       Min nattsång
 
   Utmarker:
-    Year: 1971
+    year: 1971
     Fyrvaktarns dotter: |
       Hon föddes i kostern på väg in mot land
       Liten och tunn i bränningens kittel
@@ -683,12 +683,12 @@ Contact:
       Han påstod att han var den ende sanne
 
   Samma vindar samma dofter:
-    Year: 2004
+    year: 2004
     Fly mig en sommar: ~
 
 Lilla Lovis:
   Som en oskuld:
-    Year: 2012
+    year: 2012
     Spottar alrdig ut: |
       Går på fest med kassen min, sjutvåor är alltid gott
       Bärs och RedBull, är världens bästa drink, nytta med nöje heter den
@@ -820,7 +820,7 @@ Lilla Lovis:
 
 Vånna Inget:
   Jag ska fly tills jag hittar hem:
-    Year: 2012
+    year: 2012
     Jag ska fly tills jag hittar hem: |
       Som att jag står kvar nere på Allégatan
       Jag står här handfallen och trött som satan
@@ -915,7 +915,7 @@ Vånna Inget:
       Dom kan riva varenda mur men dom kan inte lura mig
 
   Allvar:
-    Year: 2011
+    year: 2011
     Alla andra dagar: |
       Dela mig i flera, för jag orkar inte mer
       Jag är så jävla less på, se bara skylten under mattan åt er
@@ -992,7 +992,7 @@ Vånna Inget:
     Som man lever: ~
     Vi skakar liv i en trasig värld: ~
   Ingen botten:
-    Year: 2013
+    year: 2013
     Vart tar du vägen: ~
     Hemlighet: |
       Men vem fan har sagt att livet ska va lätt
@@ -1149,7 +1149,7 @@ Vånna Inget:
 
     Kungar: ~
   Utopi:
-    Year: 2017
+    year: 2017
     Mörkrets barn: |
       Vi är mörkrets barn
       Vi är mörkrets barn
@@ -1291,7 +1291,7 @@ Vånna Inget:
 
 Allvaret:
   Tänk på döden:
-    Year: 2013
+    year: 2013
     Bittert / Ljuvt: |
       Https://www.youtube.com/watch?v=WsmQZq8quCI
 
@@ -1308,7 +1308,7 @@ Allvaret:
       Https://www.youtube.com/watch?v=N9ucImyrSiI
 
   Skam och skuld:
-    Year: 2017
+    year: 2017
     Som dimma: |
       Https://www.youtube.com/watch?v=nXP7kMPS-3A
 
@@ -1328,8 +1328,8 @@ Allvaret:
       Https://youtu.be/nXP7kMPS-3A?si=skEzGpQFeDIuJync&t=804
 
     Om det är blod du vill ha ska du få det:
-      Url: https://youtu.be/nXP7kMPS-3A?si=MKNCqDANamBQWHXk&t=976
-      Wip: 2023-09-06T23:23:00+03:00
+      url: https://youtu.be/nXP7kMPS-3A?si=MKNCqDANamBQWHXk&t=976
+      wip: 2023-09-06T23:23:00+03:00
 
     En Särskild Plats: |
       Https://youtu.be/nXP7kMPS-3A?si=SK0G-V7qk7vc1Ty-&t=1062
@@ -1338,12 +1338,12 @@ Allvaret:
       Https://youtu.be/nXP7kMPS-3A?si=EQMQkw-WK6MJ_P2Y&t=1231
 
     Minss mig:
-      Url: https://youtu.be/nXP7kMPS-3A?si=4or0dMfLL8f8bLg7&t=1383
-      Wip: 2023-09-06T23:26:00+03:00
+      url: https://youtu.be/nXP7kMPS-3A?si=4or0dMfLL8f8bLg7&t=1383
+      wip: 2023-09-06T23:26:00+03:00
 
 Charta 77:
   VERDAN - DI:
-    Year: 2020
+    year: 2020
     Vi faller: |
       Om vi faller, ja vi faller
       Om vi faller, ja vi faller
@@ -1526,12 +1526,12 @@ Charta 77:
       (17+ x)
 
   SKULD:
-    Year: 2020
+    year: 2020
     Stannar kvar: ~
     Inget varar för evigt - så har det alltid varit: ~
     I en annan värld: ~
   I drömmarnas land:
-    Year: 2003
+    year: 2003
     Mitt kors: |
       Och min kropp blev er oblat
       Medans mitt hopp blev en soldat
@@ -1653,7 +1653,7 @@ Charta 77:
       Frihet, vad menar ni egentligen
 
   G8:
-    Year: 2002
+    year: 2002
     Sandra: |
       Lilla Sandra, lilla Sandra
       Världen kan vara så naiv
@@ -1763,7 +1763,7 @@ Charta 77:
       Https://www.youtube.com/watch?v=toAOxVNcuN0
 
   Svart på vitt:
-    Year: 1998
+    year: 1998
     Helgen då nån skulle: |
       Och så kom då den kvällen de skulle gå ut
       De hade peppat med stereo och öl
@@ -1811,7 +1811,7 @@ Charta 77:
       Uti staden, den helgen då nån skulle...
 
   N Annorlunda:
-    Year: 1996
+    year: 1996
     Moral X2: |
       Ut och demonstrera kalla alla dem för skurkar
       Ut och parodera för en turk som gillar turkar
@@ -1937,7 +1937,7 @@ Charta 77:
       I fallet å fånga upp dej
 
   Lilla bjönr & Lilla tiger:
-    Year: 1995
+    year: 1995
     Drömmar: |
       Eh, dom skulle
       Eh, dom skulle
@@ -2064,7 +2064,7 @@ Charta 77:
       Det är 150 mil till Banja Luka
 
   Tecken i tiden:
-    Year: 1995
+    year: 1995
     Hymn till fullmåne: |
       Jag vandrade genom staden en lördag i oktober
       Huvudet kändes disigt av all ölen ifrån krogen
@@ -2217,7 +2217,7 @@ Charta 77:
       För Jante är prat, och Jante är främlingens hat
 
   Grisfesten:
-    Year: 1993
+    year: 1993
     Kungarna af stan I: |
       Enligt ryktena som gick så skulle vi inte varit där
       För döda talar inte, men vi var där jag svär
@@ -2460,7 +2460,7 @@ Charta 77:
       Men torka dina ögon, det kanske blir i alla fall
 
   Hobbydiktatorn:
-    Year: 1991
+    year: 1991
     Vykort från rio: |
       Ett kort ifrån Rio, ett kort från Brasilien
       Ett telefonsamtal, en knastrig linje
@@ -2669,7 +2669,7 @@ Charta 77:
       Ja de han som dör varje dag
 
   Skrek ännu högre:
-    Year: 1985
+    year: 1985
     Ensam kvar: |
       Fascisterna marcherar igen
       Gamla tider kan komma tillbaks min vän
@@ -2785,7 +2785,7 @@ Charta 77:
       Https://www.youtube.com/watch?v=uzyv2_sUP9U
 
   Kröp gick & skrek:
-    Year: 1984
+    year: 1984
     Nisse: |
       Ja Nisse var en märklig man
       När han rensa i sitt land
