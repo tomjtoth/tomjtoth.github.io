@@ -34,7 +34,7 @@ class Lyrics {
             if (wip) {
                 a.title = 'WiP since '
                     + new Date(wip).toLocaleString()
-                    + '. Please, pick another one';
+                    + '.\nPlease, pick another one!';
                 li.classList.add('wip');
             } else {
                 a.title = (linked_to_yt ? 'open in' : 'search on') + ' YouTube';
