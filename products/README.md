@@ -8,8 +8,8 @@ Pelkkä muistutus itselleni, mitkä tuotteet kantsii ostaa ja välttää...
 
 ## Vielä kerran kokeilettavat
 
-- NIVEA MEN FRESH ACTIVE
+- placeholder
 
 ## Vältettävät
 
-- placeholder
+- NIVEA MEN FRESH ACTIVE
