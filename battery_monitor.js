@@ -61,8 +61,8 @@ class BatteryMonitor {
     /// 1 -> running
     /// 1+ -> wanna stop
     static state = parseInt(localStorage.getItem('state') || 0);
-    static min = document.querySelector('div#battery-monitor input[name=minimum]');
-    static max = document.querySelector('div#battery-monitor input[name=maximum]');
+    static min = document.getElementById('bat-mon-min');
+    static max = document.getElementById('bat-mon-max');
 
     static {
         // restore previously used values
@@ -86,8 +86,8 @@ class BatteryMonitor {
             }
         });
 
-        div.addEventListener('change', ({ target: { name, value, tagName } }) => {
-            if (tagName == 'INPUT') localStorage.setItem(name, value);
+        div.addEventListener('change', ({ target: { name: id, value, tagName } }) => {
+            if (tagName == 'INPUT') localStorage.setItem(id.endsWith('max') ? 'maximum' : 'minimum', value);
         });
 
         if (this.state == 1)
