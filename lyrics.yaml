@@ -1,4 +1,9 @@
 Svart Katt:
+  embed:
+    youtube:
+      - cWBlqH5sTGN9DIEy
+      - PLgssVMmy7hPbNS1Oe5UO3WeleaUAfv4-y
+
   Svart Katt:
     year: 2022
 
@@ -102,6 +107,11 @@ En svensk tiger:
       Mitt namn är Tom
 
 Räserbajs:
+  embed:
+    youtube:
+      - JJ6v3jEbub8-VfkL
+      - PLgssVMmy7hPbENospNsgh3EKawM3FSQGq
+
   Noppriga tights och Moonboots:
     year: 1995
 
@@ -623,6 +633,11 @@ Freestyle:
       (5x)
 
 KSMB:
+  embed:
+    youtube:
+      - puIU4TRcnTNku48B
+      - PLgssVMmy7hPalAY_cg6eqti0yEDTQ7OXq
+
   ~:
     Delirium: ~
 
@@ -1112,6 +1127,10 @@ SARDO NUMSPA:
 Orkan:
   Några spår till:
     year: 2023
+    embed:
+      youtube:
+        - kqwepVJInQnjX77i
+        - OLAK5uy_n1M8k73B3tC3WiTD5WbEebAJgSCyWYeM0
 
     Framtidstro: ~
     Bo i stan: ~
@@ -1119,6 +1138,8 @@ Orkan:
 
   Solen är på väg:
     year: 2016
+    embed:
+      bandcamp: 3210264858
 
     Solen är på väg: |
       Dom berättar om sina drömmar, långsamt kväver som sig själva
@@ -1171,9 +1192,8 @@ Orkan:
 
   Orkan:
     year: 2017
-
-    link to songs in this album (N/A on YouTube):
-      url: https://bandetorkan.bandcamp.com/album/orkan-2
+    embed:
+      bandcamp: 1344543341
 
     Levande död polis: |
       Vem vågar ställa frågor, till någon med vapen i hand
@@ -1334,7 +1354,7 @@ Orkan:
       Även dom som orsakat det här
 
     Flykten: |
-      Jag var ett barn i ett land, 
+      Jag var ett barn i ett brinnande land, 
       En by full av hunger och av sand
       Jag trivdes ju då min mor var av guld,
       Min far var i tjänst för att ej stå i skuld
@@ -1436,6 +1456,10 @@ Orkan:
 
   Livsgaranti:
     year: 2022
+    embed:
+      youtube:
+        - WW5XbmS9yxVoTRMO
+        - OLAK5uy_ky9TRB8SQ2Yu9TFXp78tr9Mu1JbrF_S7w
 
     Urskog:
       wip: 2023-09-11T09:37:00+03:00
@@ -1458,6 +1482,11 @@ Orkan:
 Contact:
   Hon kom över mon:
     year: 1971
+    embed:
+      youtube:
+        - gqbETa2_KtREe3Bw
+        - OLAK5uy_kjVQifvBwPbiaYV-20bqpS6jIuVqmgpX8
+
     Grannlåt: |
       Sommarkväll, fiolers klang som lock’ till dans
       Kände flickans söta arm omkring min hals
@@ -1772,8 +1801,12 @@ Contact:
       Min ensamma sång
       Min nattsång
 
-  Utmarker:
-    year: 1971
+  ~:
+    embed:
+      youtube:
+        - kMR2jttz3CsW0Jxy
+        - PLgssVMmy7hPZWyHhO03IB6rMMEnxaQfNn
+
     Fyrvaktarns dotter: |
       Hon föddes i kostern på väg in mot land
       Liten och tunn i bränningens kittel
@@ -1918,11 +1951,14 @@ Contact:
       Han tvekade om värdet av att jaga efter guld
       Han påstod att han var den ende sanne
 
-  Samma vindar samma dofter:
-    year: 2004
     Fly mig en sommar: ~
 
 Lilla Lovis:
+  embed:
+    youtube:
+      - Ednt5nQgs8OAq4MV
+      - PLgssVMmy7hPbjsK1sw7r9cJRDwTSIz--U
+
   Som en oskuld:
     year: 2012
     Spottar alrdig ut: |
@@ -2055,6 +2091,11 @@ Lilla Lovis:
       Står en liten tårta
 
 Vånna Inget:
+  embed:
+    youtube:
+      - VtEB5sOoWabaK-re
+      - PLgssVMmy7hPaJHcHttM4Wa4Ouy-zCnnpn
+
   Jag ska fly tills jag hittar hem:
     year: 2012
     Jag ska fly tills jag hittar hem: |
@@ -2152,6 +2193,11 @@ Vånna Inget:
 
   Allvar:
     year: 2011
+    embed:
+      youtube:
+        - 9aadHztsiXHESdSv
+        - OLAK5uy_njnT4q0D_W1Mm5-0E6Xx4zP-IOx3Y9A9g
+
     Alla andra dagar: |
       Dela mig i flera, för jag orkar inte mer
       Jag är så jävla less på, se bara skylten under mattan åt er
@@ -2229,6 +2275,11 @@ Vånna Inget:
     Vi skakar liv i en trasig värld: ~
   Ingen botten:
     year: 2013
+    embed:
+      youtube:
+        - rr1Q63HzSLZ-8Vr5
+        - OLAK5uy_nHoGzhHGfzXeQIhEFr3QqBT6248Dw4N4g
+
     Vart tar du vägen: ~
     Hemlighet: |
       Men vem fan har sagt att livet ska va lätt
@@ -2526,6 +2577,11 @@ Vånna Inget:
       I en sjuk sjuk värld
 
 Allvaret:
+  embed:
+    youtube:
+      - tmHEG2hQPSlIOowD
+      - PLgssVMmy7hPYgPXZfXrJTWPSrbVKE7pXx
+
   Tänk på döden:
     year: 2013
     Bittert / Ljuvt: |
@@ -2545,6 +2601,7 @@ Allvaret:
 
   Skam och skuld:
     year: 2017
+
     Som dimma: |
       https://www.youtube.com/watch?v=nXP7kMPS-3A
 
@@ -2580,6 +2637,11 @@ Allvaret:
 Charta 77:
   VERDAN - DI:
     year: 2020
+    embed:
+      youtube:
+        - HbMYmk8TEjxT8HDC
+        - PLgssVMmy7hPa0XWt0nDLtAPbJQmtNRfzV
+
     Vi faller: |
       Om vi faller, ja vi faller
       Om vi faller, ja vi faller
