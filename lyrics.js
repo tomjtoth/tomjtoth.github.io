@@ -66,6 +66,7 @@ class Lyrics {
                             if (lyrics.startsWith('http')) {
                                 sng_url = lyrics;
                                 sng_title = 'open track in YouTube';
+                                sng_needs_help = true;
                             } else {
                                 sng_url = `https://translate.google.com/?sl=sv&tl=en&text=${encodeURIComponent(lyrics)}&op=translate`;
                                 sng_title = 'open lyrics in Google Translate';
