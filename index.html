@@ -31,26 +31,45 @@
         <a>Share</a>
     </nav>
 
-    <div id="about" lang="en" hidden>
-        <p>
-            This site is mostly in Finnish. Here's the link to the
-            <a href="https://github.com/tomjtoth/tomjtoth.github.io">repo</a>
-            in case you're interested.
-        </p>
-        <h2>Disclaimer</h2>
-        <p>
+    <div id="about" hidden>
+        <div lang="en">
+            <p>
+                This site is mostly in Finnish. Here's the link to the
+                <a href="https://github.com/tomjtoth/tomjtoth.github.io">repo</a>
+                in case you're interested.
+            </p>
+            <h2>Disclaimer</h2>
+            <p>
 
-            Recently migrated to single-page-app form, haven't had the time to double check and also optimize
-            everything, yet.
-        </p>
-        <!--
-            <h2>Visitors</h2>
-            <p lang="hu" class="biiig">
-                Várom, hogy <span title="reptéri mosdó, 1-es fülke...">Bálint</span> + a <span title="fényképezz!">dr.
-                    NŐ</span>
-                meglátogassanak<span id="visitor-text"></span>.
-        </p>
-        -->
+                Recently migrated to single-page-app form, haven't had the time to double check and also optimize
+                everything, yet.
+            </p>
+            <!--
+                <h2>Visitors</h2>
+                <p lang="hu" class="biiig">
+                    Várom, hogy <span title="reptéri mosdó, 1-es fülke...">Bálint</span> + a <span title="fényképezz!">dr.
+                        NŐ</span>
+                    meglátogassanak<span id="visitor-text"></span>.
+                </p>
+            -->
+        </div>
+        <div>
+            <h2>Helsingin Yliopistoon liittyvät projektit</h2>
+            <ul>
+                <li><a href="https://oracle.ttj.hu:55599">Verenluovutus-sovellus</a>
+                    <ul>
+                        <li>repo <a href="https://github.com/tomjtoth/tsoha-harjoitustyo">tässä</a></li>
+                        <li>pyörii Oraclen ilmaisessa palvelimessa Ruotsissa</li>
+                        <li lang="en">multithreaded population of fake data</li>
+                        <li>ensimmäinen yhteys Postgre:n ja Flask:n kanssa</li>
+                        <li>
+                            tavoitteena on siirtää se Docker:iin,
+                            nyt sitä pyörittä ja päivittelee systemd:n service -et ja timer
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div id="qr-code" class="modal" hidden>
@@ -138,6 +157,7 @@
 </body>
 
 <script type="text/javascript" src="main.js"></script>
+<script src="https://oracle.ttj.hu:55589/remoteStorage.js"></script>
 <script type="text/javascript" src="battery_monitor.js"></script>
 <script type="text/javascript" src="shopping_list.js"></script>
 <!--<script type="text/javascript" src="visitors.js"></script>-->
