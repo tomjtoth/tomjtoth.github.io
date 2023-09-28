@@ -4,28 +4,26 @@ class Lyrics {
 
         const new_li = (
             txt,
-            parent_id,
+            parent_node,
             url = null,
             needs_ul = true,
             title = 'open playlist in YouTube | bandcamp',
             needs_help = false
         ) => {
-            const repl = (txt) => txt.replaceAll(/[^\p{L}\d]+/gu, '-');
+            const repl = (txt) => txt.replaceAll(/[^\p{L}\d\/]+/gu, '-');
             const li = document.createElement('li');
 
-            const id = repl(parent_id + '/' + txt);
+            li.id = repl(parent_node.id + '/' + txt);
 
             if (url) {
                 const a = document.createElement('a');
                 a.textContent = txt;
-                a.id = id;
                 a.href = url;
                 a.target = '_blank';
                 a.title = title;
                 li.appendChild(a);
             } else {
                 li.textContent = txt;
-                li.id = id;
             }
 
             if (needs_ul)
@@ -41,20 +39,20 @@ class Lyrics {
 
         const ul_songs = document.querySelector('div#lyrics > ul#songs');
 
-        ul_songs.addEventListener('click', ({ target: { id, tagName } }) => {
+        ul_songs.addEventListener('click', ({ target: { parentNode: { id }, tagName } }) => {
             if (tagName !== 'A') return;
             history.pushState({}, '', '#' + id);
         });
 
         fetch('lyrics.yaml').then(res => res.text()).then(data => {
             for (const [art_name, { url, ...albums }] of Object.entries(jsyaml.load(data))) {
-                const li_art = new_li(art_name, ul_songs.parentNode.id, url)
+                const li_art = new_li(art_name, ul_songs.parentNode, url)
 
                 for (const [alb_name, { year, url, ...songs }] of Object.entries(albums)) {
                     const li_alb = new_li(alb_name == 'null'
                         ? 'mix'
                         : alb_name + ' - ' + year,
-                        li_art.id,
+                        li_art,
                         url);
 
                     for (const [sng_name, lyrics] of Object.entries(songs)) {
@@ -80,7 +78,7 @@ class Lyrics {
 
                         const li_sng = new_li(
                             sng_name,
-                            li_alb.id,
+                            li_alb,
                             sng_url,
                             false,
                             sng_title,
@@ -93,6 +91,7 @@ class Lyrics {
                 }
                 ul_songs.appendChild(li_art);
             }
+            chg_view(view());
         })
     }
 }

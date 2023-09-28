@@ -20,6 +20,9 @@ function toggle_divs_navs(view, navs_too = true) {
             }
         }
     }
+    const link = document.getElementById(decodeURIComponent(window.location.hash.substring(1)));
+    if (link)
+        link.scrollIntoView();
 }
 
 /**
@@ -38,7 +41,7 @@ function chg_view(view) {
     }*/
 }
 
-const view = (hash = null) => (x = (hash ? hash : window.location.hash).match(/(?<=#)[\w-]+/))
+const view = (hash = null) => (x = (hash ? hash : window.location.hash).match(/(?<=#)[^\/]+/))
     ? x[0]
     : 'about';
 
