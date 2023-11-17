@@ -4,7 +4,7 @@
  * @param {string} view 
  */
 function toggle_divs_navs(view, navs_too = true) {
-    for (const elem of document.querySelectorAll('body>div')) {
+    for (const elem of document.querySelectorAll('body>div>div')) {
         if (elem.id == view) {
             elem.removeAttribute('hidden');
         } else {

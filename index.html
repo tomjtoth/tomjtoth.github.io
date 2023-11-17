@@ -35,129 +35,134 @@
 
         <a>Share</a>
     </nav>
+    <div>
 
-    <div id="about" hidden>
-        <div lang="en">
-            <p>
-                This site is mostly in Finnish. Here's the link to the
-                <a href="https://github.com/tomjtoth/tomjtoth.github.io">repo</a>
-                in case you're interested.
-            </p>
-            <h2>Disclaimer</h2>
-            <p>
 
-                Recently migrated to single-page-app form, haven't had the time to double check and also optimize
-                everything, yet.
-            </p>
-            <!--
-                <h2>Visitors</h2>
-                <p lang="hu" class="biiig">
-                    Várom, hogy <span title="reptéri mosdó, 1-es fülke...">Bálint</span> + a <span title="fényképezz!">dr.
-                        NŐ</span>
-                    meglátogassanak<span id="visitor-text"></span>.
+        <div id="about" hidden>
+            <div lang="en">
+                <p>
+                    This site is mostly in Finnish. Here's the link to the
+                    <a href="https://github.com/tomjtoth/tomjtoth.github.io">repo</a>
+                    in case you're interested.
                 </p>
-            -->
+                <h2>Disclaimer</h2>
+                <p>
+
+                    Recently migrated to single-page-app form, haven't had the time to double check and also optimize
+                    everything, yet.
+                </p>
+                <!--
+                    <h2>Visitors</h2>
+                    <p lang="hu" class="biiig">
+                        Várom, hogy <span title="reptéri mosdó, 1-es fülke...">Bálint</span> + a <span title="fényképezz!">dr.
+                            NŐ</span>
+                            meglátogassanak<span id="visitor-text"></span>.
+                        </p>
+                    -->
+            </div>
+            <div>
+                <h2>Helsingin Yliopistoon liittyvät projektit</h2>
+                <ul>
+                    <li><a href="https://oracle.ttj.hu:55599">Verenluovutus-sovellus</a>
+                        <ul>
+                            <li>repo <a href="https://github.com/tomjtoth/tsoha-harjoitustyo">tässä</a></li>
+                            <li>pyörii Oraclen ilmaisessa palvelimessa Ruotsissa</li>
+                            <li lang="en">multithreaded population of fake data</li>
+                            <li>ensimmäinen yhteys Postgre:n ja Flask:n kanssa</li>
+                            <li>
+                                tavoitteena on siirtää se Docker:iin,
+                                nyt sitä pyörittä ja päivittelee systemd:n service -et ja timer
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div>
-            <h2>Helsingin Yliopistoon liittyvät projektit</h2>
+
+        <div id="qr-code" class="modal" hidden>
+            <div>
+                <button>Copy 🔗</button>
+                <img alt="qr code">
+            </div>
+        </div>
+
+        <div id="battery-monitor" hidden>
+            <p>
+                This is a simple utility that will alert if the battery level is
             <ul>
-                <li><a href="https://oracle.ttj.hu:55599">Verenluovutus-sovellus</a>
-                    <ul>
-                        <li>repo <a href="https://github.com/tomjtoth/tsoha-harjoitustyo">tässä</a></li>
-                        <li>pyörii Oraclen ilmaisessa palvelimessa Ruotsissa</li>
-                        <li lang="en">multithreaded population of fake data</li>
-                        <li>ensimmäinen yhteys Postgre:n ja Flask:n kanssa</li>
-                        <li>
-                            tavoitteena on siirtää se Docker:iin,
-                            nyt sitä pyörittä ja päivittelee systemd:n service -et ja timer
-                        </li>
-                    </ul>
-                </li>
+                <li>either above the maximum threshold and still charging</li>
+                <li>or below the minimum threshold and not charging</li>
             </ul>
+            The related <code>navigator.getBattery()</code> method is not supported on all browsers, see the full
+            compatibility
+            table <a
+                href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery#browser_compatibility">on
+                MDN</a>. The codebase should be converted to a <code>setTimeout</code> vs <code>clearTimeout</code>
+            basis,
+            as currently stopping the timer is buggy. Will continue when personally interested in this functionality.
+            </p>
+            <div>
+                <label for="bat-mon-max">maximum threshold:</label>
+                <input id="bat-mon-max" type="number" min="50" max="100">
+            </div>
+            <div>
+                <label for="bat-mon-min">minimum threshold:</label>
+                <input id="bat-mon-min" type="number" min="0" max="50">
+            </div>
+            <div>
+                <button>start</button>
+                <button>toggle autostart</button>
+            </div>
         </div>
-    </div>
 
-    <div id="qr-code" class="modal" hidden>
-        <div>
-            <button>Copy 🔗</button>
-            <img alt="qr code">
+        <div id="shopping-list" hidden>
+            <div id="controls">
+                <button title="ostettaviin kamoihin vaikuttaa">Pyyhki vihreät</button>
+                <button title="niin monta, kuin nyt on, tai 3 kpl">Arvo ateriat</button>
+                <button title="valitse ateria listasta">+ ateriaa</button>
+                <button title="lisää mitä tahansa asiaa listalle">+ kamaa</button>
+            </div>
+            <div id="dish-picker" class="modal"></div>
+            <div id="item-adder" class="modal"></div>
+            <h2>Ateriat</h2>
+            <div id="dishes"></div>
+            <h2>Ostettavat kamat</h2>
+            <div id="items"></div>
+
         </div>
-    </div>
 
-    <div id="battery-monitor" hidden>
-        <p>
-            This is a simple utility that will alert if the battery level is
-        <ul>
-            <li>either above the maximum threshold and still charging</li>
-            <li>or below the minimum threshold and not charging</li>
-        </ul>
-        The related <code>navigator.getBattery()</code> method is not supported on all browsers, see the full
-        compatibility
-        table <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery#browser_compatibility">on
-            MDN</a>. The codebase should be converted to a <code>setTimeout</code> vs <code>clearTimeout</code> basis,
-        as currently stopping the timer is buggy. Will continue when personally interested in this functionality.
-        </p>
-        <div>
-            <label for="bat-mon-max">maximum threshold:</label>
-            <input id="bat-mon-max" type="number" min="50" max="100">
-        </div>
-        <div>
-            <label for="bat-mon-min">minimum threshold:</label>
-            <input id="bat-mon-min" type="number" min="0" max="50">
-        </div>
-        <div>
-            <button>start</button>
-            <button>toggle autostart</button>
-        </div>
-    </div>
+        <div id="lyrics" lang="en">
+            <p>
+                Give <a target="_blank"
+                    href="https://play.google.com/store/apps/details?id=com.vivaldi.browser&pcampaignid=web_share">
+                    Vivaldi</a>
+                a try as it can block annoying ads and play youtube videos in the background (without the screen on).
+            </p>
 
-    <div id="shopping-list" hidden>
-        <div id="controls">
-            <button title="ostettaviin kamoihin vaikuttaa">Pyyhki vihreät</button>
-            <button title="niin monta, kuin nyt on, tai 3 kpl">Arvo ateriat</button>
-            <button title="valitse ateria listasta">+ ateriaa</button>
-            <button title="lisää mitä tahansa asiaa listalle">+ kamaa</button>
-        </div>
-        <div id="dish-picker" class="modal"></div>
-        <div id="item-adder" class="modal"></div>
-        <h2>Ateriat</h2>
-        <div id="dishes"></div>
-        <h2>Ostettavat kamat</h2>
-        <div id="items"></div>
-
-    </div>
-
-    <div id="lyrics" lang="en">
-        <p>
-            Give <a target="_blank"
-                href="https://play.google.com/store/apps/details?id=com.vivaldi.browser&pcampaignid=web_share">
-                Vivaldi</a>
-            a try as it can block annoying ads and play youtube videos in the background (without the screen on).
-        </p>
-
-        <h2>Contribution</h2>
-        <p>
-            Songs marked with ⁉️ are ones I do not have the lyrics for.
-            <!--
-            🚧 marked songs are already requested from someone, better skip it.
+            <h2>Contribution</h2>
+            <p>
+                Songs marked with ⁉️ are ones I do not have the lyrics for.
+                <!--
+                🚧 marked songs are already requested from someone, better skip it.
             -->
-            <a target="_blank"
-                href="mailto:tomjtoth@gmail.com?subject=Artist%20-%20Album%20-%20Låt&body=skriva%20här%20vad%20du%20hörar">
-                Mail them to me</a>,
-            please. Use a fake email, if you will, such as:
-        <ul>
-            <li><a target="_blank" href="https://tempmail.ninja/">ninja tempmail</a></li>
-            <li><a target="_blank" href="https://temp-mail.org/en/">Temp-mail</a></li>
-            <li><a target="_blank" href="https://10minemail.com/en/">10 minute mail</a></li>
-        </ul>
-        to assure your privacy.
-        </p>
+                <a target="_blank"
+                    href="mailto:tomjtoth@gmail.com?subject=Artist%20-%20Album%20-%20Låt&body=skriva%20här%20vad%20du%20hörar">
+                    Mail them to me</a>,
+                please. Use a fake email, if you will, such as:
+            <ul>
+                <li><a target="_blank" href="https://tempmail.ninja/">ninja tempmail</a></li>
+                <li><a target="_blank" href="https://temp-mail.org/en/">Temp-mail</a></li>
+                <li><a target="_blank" href="https://10minemail.com/en/">10 minute mail</a></li>
+            </ul>
+            to assure your privacy.
+            </p>
 
-        <h2>Lyrics</h2>
-        <p>
-            The below songs are linked to Google Translate (or YouTube, when the lyrics are still missing).
-        </p>
-        <ul id="songs" lang="sv"></ul>
+            <h2>Lyrics</h2>
+            <p>
+                The below songs are linked to Google Translate (or YouTube, when the lyrics are still missing).
+            </p>
+            <ul id="songs" lang="sv"></ul>
+        </div>
     </div>
 </body>
 
