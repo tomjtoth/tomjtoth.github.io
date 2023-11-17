@@ -1,4 +1,4 @@
-ul#songs li.help-wanted>a {
+ul#songs li.help-wanted>text {
     color: red;
     background-color: yellow;
 }
@@ -11,6 +11,33 @@ ul#songs li.wip::marker {
     content: "🚧";
 }
 
+ul#songs {
+    transition: max-height 0.2s ease-out;
+
+}
+
 ul#songs li {
-    padding: 5px;
+    padding: 5px 0;
+    /* border: 1px solid black; */
+}
+
+
+ul#songs li>a {
+    padding-left: 10px;
+    /* border: 1px solid black; */
+}
+
+ul#songs li>button {
+    margin-left: 10px;
+}
+
+ul#songs ul {
+    /* padding-left: 0px; */
+    /* list-style-type: none; */
+    overflow: hidden;
+}
+
+
+ul#songs ul.active {
+    overflow: auto;
 }
