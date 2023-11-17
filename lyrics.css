@@ -1,0 +1,16 @@
+ul#songs li.help-wanted>a {
+    color: red;
+    background-color: yellow;
+}
+
+ul#songs li.help-wanted::marker {
+    content: "⁉️";
+}
+
+ul#songs li.wip::marker {
+    content: "🚧";
+}
+
+ul#songs li {
+    padding: 5px;
+}

@@ -1,0 +1,11 @@
+div#battery-monitor div,
+div#battery-monitor button {
+    padding: 5px;
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+div#battery-monitor div:nth-child(even),
+div#battery-monitor button:nth-child(even) {
+    background-color: lightblue;
+}
