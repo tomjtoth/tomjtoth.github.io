@@ -47,29 +47,14 @@ class Lyrics {
                 a.title = 'open lyrics in Google Translate';
                 li.appendChild(a);
 
-
-                const toggle_btn = document.createElement('button');
-                toggle_btn.textContent = '↕';
-                li.appendChild(toggle_btn);
-
                 const original_lyrics = document.createElement('ul');
                 original_lyrics.textContent = lyrics;
                 original_lyrics.style.whiteSpace = 'pre-line'
-                original_lyrics.style.height = 0;
                 li.appendChild(original_lyrics);
             }
 
-
-
-            if (needs_ul) {
-
-                const toggle_btn = document.createElement('button');
-                toggle_btn.textContent = '↕';
-                li.appendChild(toggle_btn);
-                const ul = document.createElement('ul')
-                ul.style.height = 0;
-                li.appendChild(ul);
-            }
+            if (needs_ul)
+                li.appendChild(document.createElement('ul'));
 
             if (needs_help)
                 li.classList.add('help-wanted');
@@ -82,16 +67,9 @@ class Lyrics {
 
         const ul_songs = document.querySelector('div#lyrics > ul#songs');
 
-        ul_songs.addEventListener('click', ({ target }) => {
-            if (target.tagName !== 'BUTTON') return;
-            const content = target.nextElementSibling;
-            content.classList.toggle('active');
-            if (content.style.height) {
-                content.style.height = null;
-            } else {
-                content.style.height = '0px';
-            }
-
+        ul_songs.addEventListener('click', ({ target: { tagName, classList } }) => {
+            if (tagName !== 'LI') return;
+            classList.toggle('active');
         });
 
         // TODO: <a href="link to google translate or no href at all">song name</a><a href="link to youtube">'🎶'</a> 🎤👨‍🎤▶️
@@ -148,6 +126,8 @@ class Lyrics {
                 }
                 ul_songs.appendChild(li_artist);
             }
+
+            document.querySelectorAll('ul#songs li:only-child').forEach(li => li.lastChild.classList.add('active'));
             chg_view(view());
         })
     }
