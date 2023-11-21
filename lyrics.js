@@ -133,7 +133,7 @@ class Lyrics {
                 ul_songs.appendChild(li_artist);
             }
 
-            document.querySelectorAll('ul#songs li:only-child').forEach(li => li.lastChild.classList.add('active'));
+            document.querySelectorAll('ul#songs>li>ul>li:only-child').forEach(li => li.classList.add('active'));
             chg_view(view());
         })
     }
