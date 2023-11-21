@@ -76,6 +76,8 @@ class Lyrics {
 
         fetch('lyrics.yaml').then(res => res.text()).then(data => {
             for (const [artist_name, { url, ...albums }] of Object.entries(jsyaml.load(data)).sort((a, b) => {
+
+                // sorting in alphabethical order
                 if (a[0] < b[0]) return -1;
                 if (a[0] > b[0]) return 1;
                 return 0;
@@ -83,8 +85,12 @@ class Lyrics {
                 const li_artist = new_li(artist_name, url)
 
                 for (const [album_name, { year, url, ...songs }] of Object.entries(albums).sort((a, b) => {
-                    if (typeof a.year === 'undefined' || a.year < b.year) return -1;
-                    if (a.year > b.year) return 1;
+
+                    // sortings from latest to oldest albums
+                    if (typeof a[1].year === 'undefined' || a[1].year > b[1].year)
+                        return -1;
+                    if (typeof b[1].year === 'undefined' || a[1].year < b[1].year)
+                        return 1;
                     return 0;
                 })) {
                     const li_album = new_li(album_name === 'null'
