@@ -1,6 +1,7 @@
 ul#songs ul {
     transition: max-height 0.2s ease-out;
     overflow: hidden;
+    padding-left: 1em;
 }
 
 ul#songs li {
