@@ -39,6 +39,10 @@ ul#songs li.help-wanted::marker {
     content: "⁉️";
 }
 
+ul#songs li.help-wanted>p:hover {
+    cursor: not-allowed;
+}
+
 /* ul#songs li.help-wanted {
     color: red;
     background-color: yellow;
