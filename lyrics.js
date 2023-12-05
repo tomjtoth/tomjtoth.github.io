@@ -28,7 +28,9 @@ class Lyrics {
             const li = document.createElement('li');
 
             // li.id = repl(parent_node.id + '/' + txt);
-            li.textContent = txt;
+            const p = document.createElement('p');
+            p.textContent = txt;
+            li.appendChild(p);
 
             if (url) {
                 const a = document.createElement('a');
@@ -36,7 +38,7 @@ class Lyrics {
                 a.href = url;
                 a.target = '_blank';
                 a.title = title;
-                li.appendChild(a);
+                p.appendChild(a);
             }
 
             if (lyrics) {
@@ -45,7 +47,7 @@ class Lyrics {
                 a.href = `https://translate.google.com/?sl=sv&tl=en&text=${encodeURIComponent(lyrics)}&op=translate`;
                 a.target = '_blank';
                 a.title = 'open lyrics in Google Translate';
-                li.appendChild(a);
+                p.appendChild(a);
 
                 const original_lyrics = document.createElement('ul');
                 original_lyrics.textContent = lyrics;
@@ -67,9 +69,9 @@ class Lyrics {
 
         const ul_songs = document.querySelector('div#lyrics > ul#songs');
 
-        ul_songs.addEventListener('click', ({ target: { tagName, classList } }) => {
-            if (tagName !== 'LI') return;
-            classList.toggle('active');
+        ul_songs.addEventListener('click', ({ target }) => {
+            if (target.tagName !== 'P') return;
+            target.parentNode.classList.toggle('active');
         });
 
         // TODO: <a href="link to google translate or no href at all">song name</a><a href="link to youtube">'🎶'</a> 🎤👨‍🎤▶️
