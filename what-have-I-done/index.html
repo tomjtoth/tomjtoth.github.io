@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>logger</title>
+</head>
+
+<body>
+    <datalist id="activities"></datalist>
+
+    <p>you have done:</p>
+    <ul id="events"></ul>
+
+    <div>
+
+        <label for="dt">when:</label>
+        <input type="datetime-local" name="dt" id="dt" title="defaults to current datetime">
+    </div>
+    <div>
+
+        <label for="activity">what:</label>
+        <input list="activities" name="activity" id="activity" required>
+    </div>
+    <div>
+
+        <label for="duration">how long:</label>
+        <input type="number" name="duration" id="duration">
+    </div>
+
+    <button id="adder">add</button>
+    <button id="export">export</button>
+    <button id="import">import</button>
+</body>
+
+<script src="main.js"></script>
+
+</html>
