@@ -1,8 +1,12 @@
-const events_ul = document.querySelector('ul#events');
-const datalist_activities = document.querySelector('datalist#activities');
+const ul_events = document.querySelector('ul#events');
+const dl_activities = document.querySelector('datalist#activities');
+
+const ls_name = 'logger';
+const ls_save = (data) => localStorage.setItem(ls_name, data);
+const ls_load = () => localStorage.getItem(ls_name) || '{}';
 
 // load DB
-const db = JSON.parse(localStorage.getItem('db') || '{}');
+const db = JSON.parse(ls_load());
 
 // initialize DB
 if (!db.events) {
@@ -13,7 +17,7 @@ if (!db.events) {
 for (let act of db.activities) {
     const opt = document.createElement('option');
     opt.value = act;
-    datalist_activities.appendChild(opt);
+    dl_activities.appendChild(opt);
 }
 
 // populate ul#events existing events
@@ -24,7 +28,7 @@ for (let event of db.events) {
 function add_event_to_ul([timestamp, activity_id, duration]) {
     const li = document.createElement('li');
     li.textContent = `${timestamp}: ${db.activities[activity_id] + (duration ? ` (${duration}min)` : '')}`
-    events_ul.appendChild(li);
+    ul_events.appendChild(li);
 }
 
 function add_event() {
@@ -45,7 +49,7 @@ function add_event() {
         activity_id = db.activities.push(activity) - 1;
         const new_activity = document.createElement('option');
         new_activity.value = activity;
-        datalist_activities.appendChild(new_activity);
+        dl_activities.appendChild(new_activity);
     }
 
     const new_event = [
@@ -61,7 +65,7 @@ function add_event() {
     db.events.push(new_event);
     add_event_to_ul(new_event);
 
-    localStorage.setItem('db', JSON.stringify(db));
+    ls_save(JSON.stringify(db));
 }
 
 document.body.addEventListener('click', ({ target: { tagName, id } }) => {
