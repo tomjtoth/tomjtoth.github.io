@@ -72,8 +72,20 @@ document.body.addEventListener('click', ({ target: { tagName, id } }) => {
     if (tagName !== 'BUTTON') return;
 
     if (id == 'export')
-        log_export();
+        log_exporter();
     else if (id == 'import')
         log_import();
     else add_event()
 });
+
+function log_exporter() {
+    const data = "data:text/json;charset=utf-8," + encodeURIComponent(ls_load());
+    const a = document.createElement('a');
+
+    a.setAttribute("href", data);
+    a.setAttribute("download", "log.json");
+    document.body.appendChild(a); // required for firefox
+    a.click();
+    a.remove();
+}
+
