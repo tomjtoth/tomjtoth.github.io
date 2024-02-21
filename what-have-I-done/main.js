@@ -35,7 +35,8 @@ function add_event() {
     const [
         { value: datetime },
         { value: activity },
-        { value: duration }
+        { value: duration },
+        ..._other_inputs
     ] = document.querySelectorAll('input');
 
     if (activity == '') {
@@ -74,7 +75,7 @@ document.body.addEventListener('click', ({ target: { tagName, id } }) => {
     if (id == 'export')
         log_exporter();
     else if (id == 'import')
-        log_import();
+        log_importer();
     else add_event()
 });
 
@@ -84,8 +85,36 @@ function log_exporter() {
 
     a.setAttribute("href", data);
     a.setAttribute("download", "log.json");
+
     document.body.appendChild(a); // required for firefox
     a.click();
     a.remove();
 }
 
+function log_importer() {
+
+    const files = document.createElement('input');
+    files.setAttribute('type', 'file');
+    files.setAttribute('accept', '.json');
+
+    files.addEventListener("change", () => {
+
+        if (files.files.length != 1) {
+            alert('1 file must be selected');
+            return;
+        }
+
+        const fr = new FileReader();
+        fr.onload = ({ target: { result: data } }) => {
+            ls_save(data);
+            window.location.reload();
+        };
+        fr.readAsText(files.files.item(0));
+
+    }, false);
+
+    document.body.appendChild(files); // required for firefox
+    files.click();
+    files.remove();
+
+}
