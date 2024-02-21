@@ -2,9 +2,9 @@
   "name": "Runes",
   "icons": [
     {
-      "src": "/arx-fatalis/runes/morte.png",
+      "src": "favicon.png",
       "type": "image/png",
-      "sizes": "53x66"
+      "sizes": "16x16"
     }
   ],
   "start_url": "/arx-fatalis",
