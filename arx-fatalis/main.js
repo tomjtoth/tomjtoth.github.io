@@ -94,7 +94,7 @@ div_runes.addEventListener('click', ({ target: { tagName, title: rune, classList
     if (!casting_spell
         && (
             tagName !== 'IMG'
-            || classList.contains('active')
+            // || classList.contains('active')
         )
     ) return;
 
