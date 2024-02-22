@@ -82,6 +82,17 @@ const spells = new Map((
         return [spell, runes.split(',')];
     }))
 
+const negative_feedback = (
+    'Interesting!'
+    + ';Whoops!'
+    + ';hmm...'
+    + ';That didn\'t work out!'
+    + ';Your pants caught on fire...'
+    + ';Your nose started itching like hell!'
+    + ';Put your thinking cap on!'
+    + ';...was it Aam Taar Vitae?'
+).split(';');
+
 const queue = [];
 let counter = 0;
 
@@ -134,6 +145,10 @@ function check_spellbook() {
         }
 
     }
-    if (!valid) p_feedback.textContent = `Interesting!`;
+
+    if (!valid) p_feedback.textContent = negative_feedback[
+        Math.floor(Math.random() * negative_feedback.length)
+    ];
+
     queue.length = 0;
 }
