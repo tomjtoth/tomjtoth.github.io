@@ -19,10 +19,6 @@ const runes = new Map((
 
         // create the audio
         const sound = new Audio(`runes/${lower_case}.mp3`);
-        sound.addEventListener('ended', () => {
-            img.classList.remove('active');
-            play_next_sound();
-        });
 
         return [rune, sound]
     })
@@ -87,29 +83,32 @@ const spells = new Map((
     }))
 
 const queue = [];
-let casting_spell = false;
-let counter_for_casting_start = 0;
+let counter = 0;
 
-div_runes.addEventListener('click', ({ target: { tagName, title: rune, classList } }) => {
-    if (!casting_spell
-        && (
-            tagName !== 'IMG'
-            // || classList.contains('active')
-        )
-    ) return;
+div_runes.addEventListener('click', ({ target }) => {
+    if (target.tagName !== 'IMG') return;
 
-    classList.add('active');
-    queue.push(rune);
+    // Pause the animation
+    target.style.animationPlayState = 'paused';
 
-    counter_for_casting_start++;
+    // Set the currentTime property to 0
+    target.style.animation = 'none';
+    target.offsetHeight; /* trigger reflow */
+    target.style.animation = null;
+
+    queue.push(target.title);
+
+    const audio = runes.get(target.title);
+    // skip first 150ms (?)
+    audio.currentTime = 0.15;
+    audio.play();
+
+    ++counter;
     setTimeout(() => {
-        if (--counter_for_casting_start === 0) {
-            casting_spell = true;
-            check_spellbook();
-            play_next_sound();
-        };
-    }, 750)
+        if (--counter == 0) check_spellbook();
+    }, 750);
 })
+
 
 function check_spellbook() {
     let valid = true;
@@ -118,7 +117,7 @@ function check_spellbook() {
         const
             rl = runes.length,
             ql = queue.length;
-        if (ql < rl) continue;
+        if (ql != rl) continue;
 
         valid = true;
 
@@ -130,18 +129,13 @@ function check_spellbook() {
         }
 
         if (valid) {
-            p_feedback.textContent = `And that's how you cast ${spell}...`;
+            p_feedback.textContent = `You just cast ${spell}...`;
             break;
         }
+
+        if (!valid) p_feedback.textContent = `Interesting!`;
+
+        queue.length = 0;
     }
 
-    if (!valid) p_feedback.textContent = `Interesting!`;
-}
-
-function play_next_sound() {
-    if (queue.length > 0) {
-        runes.get(queue.splice(0, 1)[0]).play();
-    } else {
-        casting_spell = false;
-    }
 }
