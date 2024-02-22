@@ -133,9 +133,7 @@ function check_spellbook() {
             break;
         }
 
-        if (!valid) p_feedback.textContent = `Interesting!`;
-
-        queue.length = 0;
     }
-
+    if (!valid) p_feedback.textContent = `Interesting!`;
+    queue.length = 0;
 }
