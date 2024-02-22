@@ -1,29 +1,22 @@
-body {
+div#runes {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 5vw;
+    position: absolute;
+    bottom: 8px;
 }
 
-/* Media query for laptop-sized screens */
-@media screen and (min-width: 1366px) {
-    body {
-        grid-template-columns: repeat(5, 1fr);
-        /* 5 columns on laptop */
-        grid-template-rows: repeat(4, 1fr);
-        /* 4 rows on laptop */
-    }
-}
-
-body>img {
-    width: auto;
-    height: 200px;
+div#runes>img {
+    width: calc((100vw - 5 * 5vw + 2 * 8px) / 5);
+    max-width: 100px;
+    height: auto;
     user-select: none;
     cursor: pointer;
 }
 
-body>img.active {
-    filter: drop-shadow(0 0 1rem purple);
+div#runes>img.active {
+    filter: drop-shadow(0 0 2rem purple);
     /* drop-shadow(0 0 0.5rem yellow), */
     /* drop-shadow(0 0 1.5rem black); */
 }
