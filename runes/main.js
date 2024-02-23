@@ -2,13 +2,15 @@ const div_runes = document.querySelector('div#runes');
 const p_feedback = document.querySelector('p#feedback');
 
 const runes = new Map((
-    'Aam,Nhi,Mega,Yok,Taar,'
-    + 'Kaom,Vitae,Vista,Stregum,Morte,'
-    + 'Cosum,Comunicatum,Movis,Tempus,Folgora,'
-    + 'Spacium,Tera,Cetrius,Rhaa,Fridd'
+    'Aam,0.2,0.7;Nhi,0.15,0.7;Mega,0.15,1.0;Yok,0.2,0.7;Taar,0.25,0.9;'
+    + 'Kaom,0.2,1.05;Vitae,0.2,1.0;Vista,0.3,1.1;Stregum,0.1,1.25;Morte,0.25,1.2;'
+    + 'Cosum,0.15,1.2;Comunicatum,0.15,1.65;Movis,0.3,1.2;Tempus,0.3,1.3;Folgora,0.15,1.2;'
+    + 'Spacium,0.3,1.4;Tera,0.2,1.0;Cetrius,0.15,1.3;Rhaa,0.3,0.9;Fridd,0.15,1.5'
 )
-    .split(',')
-    .map((rune) => {
+    .split(';')
+    .map((conf) => {
+        const [rune, beginning, ending] = conf.split(',')
+
         // create the <img>
         const lower_case = rune.toLowerCase();
         const img = document.createElement('img');
@@ -20,7 +22,7 @@ const runes = new Map((
         // create the audio
         const sound = new Audio(`runes/${lower_case}.mp3`);
 
-        return [rune, sound]
+        return [rune, [sound, parseFloat(beginning), parseFloat(ending)]]
     })
 );
 
@@ -94,7 +96,9 @@ const negative_feedback = (
 ).split(';');
 
 const queue = [];
-let counter = 0;
+let
+    currently_playing_idx = 0,
+    first_sound_counter = 0;
 
 div_runes.addEventListener('click', ({ target }) => {
     if (target.tagName !== 'IMG') return;
@@ -109,16 +113,31 @@ div_runes.addEventListener('click', ({ target }) => {
 
     queue.push(target.title);
 
-    const audio = runes.get(target.title);
-    // skip first 150ms (?)
-    audio.currentTime = 0.15;
+    if (first_sound_counter++ == 0)
+        play_next_sound();
+})
+
+function play_next_sound() {
+
+    if (currently_playing_idx >= queue.length) {
+        check_spellbook();
+        queue.length = 0;
+        currently_playing_idx = 0;
+        first_sound_counter = 0;
+        return;
+    }
+
+    const [audio, beginning, ending] = runes.get(queue[currently_playing_idx++]);
+
+    // skip to the relevant part
+    audio.currentTime = beginning;
     audio.play();
 
-    ++counter;
+    // start playing the next sound
     setTimeout(() => {
-        if (--counter == 0) check_spellbook();
-    }, 750);
-})
+        play_next_sound();
+    }, (ending - beginning) * 1000)
+}
 
 
 function check_spellbook() {
@@ -149,6 +168,4 @@ function check_spellbook() {
     if (!valid) p_feedback.textContent = negative_feedback[
         Math.floor(Math.random() * negative_feedback.length)
     ];
-
-    queue.length = 0;
 }
