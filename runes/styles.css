@@ -2,20 +2,22 @@ div#runes {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    gap: 5vw;
+    gap: 5vmin;
     position: absolute;
     bottom: 8px;
-    max-height: 90vh;
+    max-height: 90vmin;
 }
 
 div#runes>img {
     animation: glow 0.25s linear;
-    width: calc((100vw - 5 * 5vw + 2 * 8px) / 5);
-    height: auto;
-    max-height: calc((90vh - 3 * 5vh) / 3);
     user-select: none;
     cursor: pointer;
+
+    width: calc((100vw - 5 * 5vmin + 2 * 8px) / 5);
+    max-width: calc((90vmin - 5 * 5vmin + 2 * 8px) / 5);
+    height: auto;
 }
+
 
 @keyframes glow {
     from {
