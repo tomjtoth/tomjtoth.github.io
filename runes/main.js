@@ -140,7 +140,7 @@ function check_spellbook() {
         }
 
         if (valid) {
-            p_feedback.textContent = `You just cast ${spell}...`;
+            p_feedback.textContent = `You succeeded casting ${spell}...`;
             break;
         }
 
