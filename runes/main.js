@@ -122,7 +122,7 @@ div_runes.addEventListener('click', ({ target }) => {
 
 
 function check_spellbook() {
-    let valid = true;
+    let valid = false;
 
     for (const [spell, runes] of spells.entries()) {
         const
