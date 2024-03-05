@@ -134,4 +134,17 @@ Luentojen linkitettynä, luentojen kohokohdat:
         - file reading/writing examples
         - caching, buffering
 
-    
+- [vk7-1: security](https://moodle.helsinki.fi/pluginfile.php/5525217/course/section/759549/Computing-platforms%20-%20security.pdf)
+    - GDPR?
+    - laws, regulations, ethics
+    - malware
+    - vulnerabilities
+    - buffer overflow
+    - firewalls
+    - intrusion detection
+    - authentication
+        - biometric, MFA
+        - access control
+        - access control list
+        - capability list
+        - backup, archive
