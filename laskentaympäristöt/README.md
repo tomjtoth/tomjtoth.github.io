@@ -1,4 +1,4 @@
-Luentojen sisältö linkitettynä:
+Luentojen linkitettynä, luentojen kohokohdat:
 
 - [vk1-1](https://moodle.helsinki.fi/pluginfile.php/5525217/course/section/759549/Computing-platforms%20-%20intro.pdf)
     - single- / multiprocess{es,ors}
@@ -87,3 +87,51 @@ Luentojen sisältö linkitettynä:
     - cloud pricing models
     - cloud security
 
+- [vk5-1: Inter-Process Communication](https://moodle.helsinki.fi/pluginfile.php/5525217/course/section/759549/Lecture7_InterprocessCommunication_IPC.pdf)
+    - types of communication
+        - shared memory
+        - message passing
+        - Remote Procedure Call / Remote Method Invocation
+        - signals
+        - (named) pipes
+            - FIFO
+        - files
+            - memory mapped files
+        - sockets
+        - message queues
+    - sync vs async
+    - blocking vs non-blocking
+
+- [vk5-2: concurrency](https://moodle.helsinki.fi/pluginfile.php/5525217/course/section/759549/Computing-platforms%20-%20concurrency1.pdf)
+    - race condition
+    - concurrency
+    - deadlock
+    - starvation
+    - MUTual EXclusion
+    - critical section
+    - locks and conditions
+    - (in)finitie buffer
+
+- [vk6-1: more concurrency](https://moodle.helsinki.fi/pluginfile.php/5525217/course/section/759549/Computing-platforms%20-%20concurrency2.pdf)
+    - atomicity
+    - readers/writers examples
+    - deadlock conditions, example, prevention, detection, avoidance
+
+- [vk6-2: I/O and file systems](https://moodle.helsinki.fi/pluginfile.php/5525217/course/section/759549/Computing-platforms%20-%20file%20systems.pdf)
+    - differences in I/O devices
+    - programmed I/O, interrupt-driven I/O, Direct Memory Access
+    - HDD example
+    - SSD example
+        - Flash Transition Layer
+        - wear leveling
+        - write amplification
+    - directories
+    - operations on files and dirs
+    - filesystem implementation
+        - inodes, inode table
+        - free list, bitmap, superblock
+        - multilevel indeces
+        - file reading/writing examples
+        - caching, buffering
+
+    
