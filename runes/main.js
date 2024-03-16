@@ -21,6 +21,7 @@ const runes = new Map((
 
         // create the audio
         const sound = new Audio(`runes/${lower_case}.mp3`);
+        sound.preload = 'auto';
 
         return [rune, [sound, parseFloat(beginning), parseFloat(ending)]]
     })
