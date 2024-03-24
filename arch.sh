@@ -1,8 +1,6 @@
 #!/bin/bash
 
 # This is to be launched from a fresh install
-# 
-# use curl -L ttj.hu/arch.sh | bash
 
 
 function add_to_fstab() {

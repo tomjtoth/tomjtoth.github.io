@@ -27,3 +27,9 @@ Lisää alla kohta tiedostoon: `.vscode/launch.json`:
     ]
 }
 ```
+
+## Arch Linux Clonefig
+
+```sh
+bash <(curl -L ttj.hu/arch.sh)
+```
