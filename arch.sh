@@ -15,68 +15,16 @@ function add_to_fstab() {
 function log() {
     if [ "$1" == "err" ]; then
         shift
-        printf '\033[1;31mERROR\033[0m: %s' "$@"
+        printf '\033[1;31mERROR\033[0m: %s' "$*"
     else
-        printf '\033[1m==> \033[0m\033[90m%s\033[0m%\n' "$@"
+        printf '\033[1m==> \033[0m\033[90m%s\033[0m\n' "$*"
     fi
 }
 
 
-pkgs=(
-
-    # cli utils
-    mc htop ncdu networkmanager ntp pacman-contrib
-
-    # Desktop Environment
-    gdm gnome-shell gnome-keyring eog
-    gnome-shell-extension-appindicator
-    xdg-desktop-portal-gnome
-
-    # gui utlis
-    evince vlc geany
-
-    # video editing
-    obs-studio avidemux-qt
-
-    # Web
-    firefox chromium qbittorrent
-
-    # coding
-    code docker docker-compose
-
-)
-log installing packages
-pacman --noconfirm -Syyu "${pkgs[@]}"
-
-
-log adding primary user
-mapfile -t EXISTING_USERS< <(cut -d':' -f 1 < /etc/passwd)
-printf '\n=>set primary username:\n'
-while true; do
-    read -er USERNAME
-    [[ " ${EXISTING_USERS[*]} " != *" $USERNAME "* ]] && break
-    log err "${USERNAME} is already taken, try another one: "
-done
-useradd -m -G wheel "$USERNAME"
-
-
-log configuring sudoers
-SUDO_CONF=/etc/sudoers.d/01_wheel
-printf '%s\n' \
-    "# users in group wheel" \
-    "%wheel ALL=(ALL:ALL) ALL" \
-    > $SUDO_CONF
-chmod 0440 $SUDO_CONF
-
-
-log enabling autologin in GNOME
-sed -i '/\[daemon\]/aAutomaticLogin='"$USERNAME"'\nAutomaticLoginEnable=True' \
-    /etc/gdm/custom.conf
-
-
 log setting makepkg flags
 sed -i 's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j'"$(nproc)"'"/' /etc/makepkg.conf
-[ -n "$(which rustup)" ] && rustup default stable
+# [ -n "$(which rustup)" ] && rustup default stable
 
 
 log configuring SSH
@@ -140,6 +88,67 @@ printf '%s\n' [Journal] SystemMaxUse=50M \
     > /etc/systemd/journald.conf.d/00-journal-size.conf
 
 
+log configuring sudoers
+SUDO_CONF=/etc/sudoers.d/01_wheel
+printf '%s\n' \
+    "# users in group wheel" \
+    "%wheel ALL=(ALL:ALL) ALL" \
+    > $SUDO_CONF
+chmod 0440 $SUDO_CONF
+
+
+log adding primary user
+mapfile -t EXISTING_USERS < <(cut -d':' -f 1 < /etc/passwd)
+while true; do
+    read -er USERNAME
+    [[ " ${EXISTING_USERS[*]} " != *" $USERNAME "* ]] && break
+    log err "${USERNAME} is already taken, try another one: "
+done
+useradd -m -G wheel "$USERNAME"
+
+
+log installing paru
+curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/paru.tar.gz
+tar -xvzf paru.tar.gz
+cd paru || exit 1
+chown -R "$USERNAME:$USERNAME" .
+sudo -u  "$USERNAME"  makepkg -sic --noconfirm
+
+
+pkgs=(
+
+    # cli utils
+    mc htop ncdu networkmanager ntp pacman-contrib bluez-utils
+
+    # Desktop Environment
+    gdm gnome-shell gnome-keyring eog nautilus file-roller
+    gnome-shell-extension-appindicator
+    xdg-desktop-portal-gnome
+    gnome-browser-connector
+    gnome-calculator
+
+    # gui utlis
+    evince vlc geany keepassxc
+
+    # video editing
+    obs-studio avidemux-qt
+
+    # Web
+    firefox chromium qbittorrent
+
+    # coding
+    code docker docker-compose
+
+)
+log installing packages
+paru --noconfirm -Syyu "${pkgs[@]}"
+
+
+log enabling autologin in GNOME
+sed -i '/\[daemon\]/aAutomaticLogin='"$USERNAME"'\nAutomaticLoginEnable=True' \
+    /etc/gdm/custom.conf
+
+
 if [ -d /var/lib/docker ]; then
     log relocating docker to /home
     mv /var/lib/docker /home
@@ -151,7 +160,6 @@ log enabling services
 for svc in docker gdm ntpd bluetooth NetworkManager; do
     systemctl enable $svc
 done
-
 
 
 # shellcheck disable=SC2188
@@ -184,16 +192,7 @@ conf_ntfs(){
 TODO_NTFS
 
 
-# shellcheck disable=SC2188
-<<RUN_AS_1000
-log installing paru
+# sudo -u "$USERNAME" dconf load - < curl -L ttj.hu/dconf-dump
 
-curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/paru.tar.gz
-tar -xvzf paru.tar.gz
-cd paru || exit 1
-makepkg -sic --noconfirm
-
-dconf load - < curl -L ttj.hu/dconf-dump
-RUN_AS_1000
 
 log DONE
