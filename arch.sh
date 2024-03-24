@@ -155,7 +155,7 @@ if [ ${#missing_pkgs[@]} -ne 0 ]; then
         -e 's/^#CheckSpace$/CheckSpace/m' \
         -re 's/^(ParallelDownloads *=) *[0-9]+$/\1 20/m' \
         /etc/pacman.conf
-    [ ! -R TEST ] && pacman --noconfirm -Syyu "${missing_pkgs[@]}"
+    pacman --noconfirm -Syyu "${missing_pkgs[@]}"
 fi
 
 
@@ -170,7 +170,7 @@ if [ -z "$(which paru 2>/dev/null)" ]; then
     tar -xvzf paru.tar.gz
     cd paru || exit 1
     chown -R 1000 .
-    [ ! -R TEST2 ] && yolo makepkg -si --noconfirm
+    yolo makepkg -si --noconfirm
     cd ..
     rm -rf paru{,.tar.gz}
 fi
