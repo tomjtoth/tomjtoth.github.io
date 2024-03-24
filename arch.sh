@@ -22,7 +22,7 @@ function log() {
 
 function yolo() {
     sed -i 's/ALL$/NOPASSWD: ALL/m' $SUDO_CONF
-    sudo -u \#1000 $@
+    sudo -u \#1000 "$@"
     sed -i 's/NOPASSWD: ALL$/ALL/m' $SUDO_CONF
 }
 
