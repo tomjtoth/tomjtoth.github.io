@@ -19,6 +19,14 @@ function log() {
     fi
 }
 
+
+function yolo() {
+    sed -i 's/ALL$/NOPASSWD: ALL/m' $SUDO_CONF
+    sudo -u \#1000 $@
+    sed -i 's/NOPASSWD: ALL$/ALL/m' $SUDO_CONF
+}
+
+
 JOURNAL_CONF=/etc/systemd/journald.conf.d/00-journal-size.conf
 if [ ! -f $JOURNAL_CONF ]; then
     log configuring systemd journals
@@ -147,7 +155,7 @@ if [ ${#missing_pkgs[@]} -ne 0 ]; then
         -e 's/^#CheckSpace$/CheckSpace/m' \
         -re 's/^(ParallelDownloads *=) *[0-9]+$/\1 20/m' \
         /etc/pacman.conf
-    pacman --noconfirm -Syyu "${missing_pkgs[@]}"
+    [ ! -R TEST ] && pacman --noconfirm -Syyu "${missing_pkgs[@]}"
 fi
 
 
@@ -155,20 +163,16 @@ if [ -z "$(which paru 2>/dev/null)" ]; then
     log installing paru
 
     sed -i \
-        's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j'"$(nproc)"'"/' \
+        's/^#MAKEFLAGS="-j2"$/MAKEFLAGS="-j'"$(nproc)"'"/m' \
         /etc/makepkg.conf
 
     curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/paru.tar.gz
     tar -xvzf paru.tar.gz
     cd paru || exit 1
     chown -R 1000 .
-
-    # disable passwd auth temporarily
-    sed -i 's/ALL$/NOPASSWD: ALL/m' $SUDO_CONF
-    sudo -u \#1000 makepkg -si --noconfirm
+    [ ! -R TEST2 ] && yolo makepkg -si --noconfirm
     cd ..
-    rm -rf paru*
-    sed -i 's/NOPASSWD: ALL$/ALL/m' $SUDO_CONF
+    rm -rf paru{,.tar.gz}
 fi
 
 
