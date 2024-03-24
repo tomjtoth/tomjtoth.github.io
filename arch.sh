@@ -19,12 +19,14 @@ function log() {
     fi
 }
 
+JOURNAL_CONF=/etc/systemd/journald.conf.d/00-journal-size.conf
+if [ ! -f $JOURNAL_CONF ]; then
+    log configuring systemd journals
 
-
-log configuring systemd journals
-mkdir /etc/systemd/journald.conf.d 2>/dev/null
-printf '%s\n' [Journal] SystemMaxUse=50M \
-    > /etc/systemd/journald.conf.d/00-journal-size.conf
+    mkdir ${JOURNAL_CONF%/*} 2>/dev/null
+    printf '%s\n' [Journal] SystemMaxUse=50M \
+        > $JOURNAL_CONF
+fi
 
 
 if ! grep -q LC_TIME /etc/locale.conf; then
@@ -66,7 +68,7 @@ fi
 
 if ! grep -q /dev/zram0 /etc/fstab; then
     log enabling swap on zram
-    
+
     printf "zram" > /etc/modules-load.d/zram.conf
     printf '%s, %s, %s, %s, %s, %s\n' \
         'ACTION=="add"' \
@@ -80,13 +82,6 @@ if ! grep -q /dev/zram0 /etc/fstab; then
 fi
 
 
-log setting makepkg flags
-sed -i \
-    's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j'"$(nproc)"'"/' \
-    /etc/makepkg.conf
-# [ -n "$(which rustup)" ] && rustup default stable
-
-
 SUDO_CONF=/etc/sudoers.d/99_wheel
 if [ ! -f $SUDO_CONF ]; then
     log configuring sudoers
@@ -97,6 +92,7 @@ if [ ! -f $SUDO_CONF ]; then
         > $SUDO_CONF
     chmod 0440 $SUDO_CONF
 fi
+
 
 if ! grep -q :1000: /etc/passwd; then
     log "adding primary user"
@@ -112,15 +108,6 @@ if ! grep -q :1000: /etc/passwd; then
 fi
 
 
-log installing packages
-sed -i \
-    -e 's/^#Color$/Color/m' \
-    -e 's/^NoProgressBar$/#NoProgressBar/m' \
-    -e 's/^#CheckSpace$/CheckSpace/m' \
-    -re 's/^(ParallelDownloads *=) *[0-9]+$/\1 20/m' \
-    /etc/pacman.conf
-
-
 pkgs=(
 
     # cli utils
@@ -134,7 +121,7 @@ pkgs=(
     gnome-calculator
 
     # gui utlis
-    evince vlc geany keepassxc
+    evince vlc geany keepassxc ttf-dejavu
 
     # video editing
     obs-studio avidemux-qt
@@ -146,49 +133,87 @@ pkgs=(
     code docker docker-compose
 
 )
-pacman --noconfirm -Syyu "${pkgs[@]}"
+mapfile -t missing_pkgs < <(diff -B --changed-group-format='%<'\
+    --unchanged-group-format='' \
+    <(printf "%s\n" "${pkgs[@]}" | sort) \
+    <(printf "%s\n" "$(pacman -Qenq)" | sort) 
+)
+if [ ${#missing_pkgs[@]} -ne 0 ]; then
+    log installing packages
+
+    sed -i \
+        -e 's/^#Color$/Color/m' \
+        -e 's/^NoProgressBar$/#NoProgressBar/m' \
+        -e 's/^#CheckSpace$/CheckSpace/m' \
+        -re 's/^(ParallelDownloads *=) *[0-9]+$/\1 20/m' \
+        /etc/pacman.conf
+    pacman --noconfirm -Syyu "${missing_pkgs[@]}"
+fi
 
 
 if [ -z "$(which paru 2>/dev/null)" ]; then
     log installing paru
 
+    sed -i \
+        's/#MAKEFLAGS="-j2"/MAKEFLAGS="-j'"$(nproc)"'"/' \
+        /etc/makepkg.conf
+
     curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/paru.tar.gz
     tar -xvzf paru.tar.gz
     cd paru || exit 1
-    chown -R "${USERNAME:=$()}:$USERNAME" .
+    chown -R 1000 .
+
     # disable passwd auth temporarily
     sed -i 's/ALL$/NOPASSWD: ALL/m' $SUDO_CONF
-    sudo -u  "$USERNAME"  makepkg -si --noconfirm
+    sudo -u \#1000 makepkg -si --noconfirm
     cd ..
     rm -rf paru*
     sed -i 's/NOPASSWD: ALL$/ALL/m' $SUDO_CONF
 fi
 
 
-log configuring SSH
-printf '%-20s %s\n' \
-    Port "${SSH_PORT:-55522}" \
-    AllowGroups wheel \
-    PermitRootLogin no \
-    > /etc/ssh/sshd_config.d/01_wheel.conf
+SSH_WHEEL_CONF=/etc/ssh/sshd_config.d/01_wheel.conf
+if [ ! -f $SSH_WHEEL_CONF ]; then
+    log configuring SSH
+
+    printf '%-20s %s\n' \
+        Port "${SSH_PORT:-55522}" \
+        AllowGroups wheel \
+        PermitRootLogin no \
+        > $SSH_WHEEL_CONF
+fi
 
 
-log enabling autologin in GNOME
-sed -i '/\[daemon\]/aAutomaticLogin='"$USERNAME"'\nAutomaticLoginEnable=True' \
-    /etc/gdm/custom.conf
+if ! grep -q '^AutomaticLoginEnable=True$' /etc/gdm/custom.conf; then
+    log enabling autologin in GNOME
+
+    sed -i '/^\[daemon\]$/aAutomaticLogin='"$USERNAME"'\nAutomaticLoginEnable=True' \
+        /etc/gdm/custom.conf
+fi
 
 
 if [ -d /var/lib/docker ]; then
     log relocating docker to /home
+
     mv /var/lib/docker /home
     ln -s /home/docker /var/lib/docker
 fi
 
 
-log enabling services
-for svc in docker gdm ntpd bluetooth NetworkManager; do
-    systemctl enable $svc
-done
+if [ "$(systemctl is-enabled gdm)" != "enabled" ]; then
+    log enabling services
+
+    for svc in docker gdm ntpd bluetooth NetworkManager; do
+        systemctl enable $svc
+    done
+fi
+
+
+# TODO: .bash_aliases
+# sudo -u "$USERNAME" dconf load - < curl -L ttj.hu/dconf-dump
+
+
+log DONE
 
 
 # shellcheck disable=SC2188
@@ -219,9 +244,3 @@ conf_ntfs(){
         "\nGRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 }
 TODO_NTFS
-
-# TODO: .bash_aliases
-# sudo -u "$USERNAME" dconf load - < curl -L ttj.hu/dconf-dump
-
-
-log DONE
