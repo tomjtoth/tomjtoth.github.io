@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This is to be launched from a fresh install
+# This is to be run as root from a fresh install
 
 
 function add_to_fstab() {
