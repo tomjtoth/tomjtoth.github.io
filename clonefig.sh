@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# This is to be run as root from a fresh install
-
 
 function add_to_fstab() {
     # shellcheck disable=SC2068
@@ -25,6 +23,13 @@ function yolo() {
     sudo -u \#1000 "$@"
     sed -i 's/NOPASSWD: ALL$/ALL/m' $SUDO_CONF
 }
+
+
+# shellcheck disable=SC2046
+if [ $(id -u) -ne 0 ]; then
+	err this script is to be run as root
+	exit 1
+fi
 
 
 JOURNAL_CONF=/etc/systemd/journald.conf.d/00-journal-size.conf
