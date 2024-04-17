@@ -1,43 +1,116 @@
+/**
+ * Shorthand for `document.getElementById`
+ * 
+ * @param {String} id id
+ * @returns HTMLElement
+ */
 export const byId = (id) => document.getElementById(id)
-export const qs = (sel) => document.querySelector(sel)
-export const qsa = (sel) => document.querySelectorAll(sel)
 
-export const sortBy = (a, b, key) => b[key] - a[key];
-export const hello = () => 'hello';
-export const hello2 = () => 'hello2';
+/**
+ * Shorthand for `document.querySelector`
+ * 
+ * @param {String} sel CSS selector
+ * @returns HTMLElement
+ */
+export const qs = (sel) => document.querySelector(sel)
+
+/**
+ * Shorthand for `document.querySelectorAll`
+ * 
+ * @param {String} sel CSS selector
+ * @returns HTMLElement
+ */
+export const qsa = (sel) => document.querySelectorAll(sel)
 
 /**
  * mimicking something like what React does under the hood,
  * built from scratch, expanding functionality as needed
  * 
- * @param {String|[String, Object]} element either the type of element or type & options
- * @param  {HTMLElement[]} children 
+ * It is actually slower, than manipulating innerHTML, hmm...
+ * 
+ * @param {String|Object} tag 
+ * `tagName` as string or `{ _:tagName, rest_of_props }` as obj literal
+ * @param  {HTMLElement[]} children any number of child elements
+ * 
+ * @example
+ * 
+ * ```js
+ * const x = node('button', 'click me')
+ * ```
+ * @returns
+ * 
+ * ```html
+ * <button>click me</button>
+ * ```
+ * 
+ * @example
+ * 
+ * ```js
+ * 
+ * const x = node({ _: 'ul', style: { color: 'red' } },
+ * 
+ *   node({
+ *     _: 'li',
+ *     style: { fontSize: 30 },
+ *     id: 'my-id',
+ *     className: 'special-li'
+ *   }, 'text of 1st li'),
+ * 
+ *   node({
+ *     _: 'li',
+ *     className: 'other-li',
+ *     // inline-style as object
+ *     style: {
+ *       color: 'yellow'
+ *     }
+ *   }, 'text of 2nd li')
+ * );
+ * ```
+ * 
+ * @returns
+ * 
+ * ```html
+ * <ul style="color: red;">
+ *   <li id="my-id" class="special-li">text of 1st li</li>
+ *   <li class="other-li" style="color: yellow;">text of 2nd li</li>
+ * </ul>
+ * ```
+ * 
  */
-export const node = (element, ...children) => {
+export const node = (tag, ...children) => {
   let elem;
 
-  if (typeof element === 'string') {
-    elem = document.createElement(element);
+  if (typeof tag === 'string') {
+    elem = document.createElement(tag);
   }
 
   else {
-    elem = document.createElement(element[0]);
-
     const {
-      style = null,
+      _: tagName,
+      exceptions = null,
+      // toHandle = null,
+      // differently = null,
       ...rest
-    } = element[1];
+    } = tag;
 
-    if (style) {
-      for (const [key, val] of Object.entries(style)) {
-        elem.style[key] = val;
+    elem = document.createElement(tagName);
+
+    if (exceptions)
+      alert('handle these as you like');
+
+    for (const [key, value] of Object.entries(rest)) {
+
+      if (typeof value === 'string') {
+        elem[key] = value;
       }
-    }
 
-    for (const [key, val] of Object.entries(rest)) {
-      elem[key] = val;
-    }
+      else {
+        for (const [iterKey, iterVal] of Object.entries(value)) {
+          elem[key][iterKey] = iterVal;
+        }
+      }
 
+    }
   }
 
   children.forEach(child => elem.appendChild(
