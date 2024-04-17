@@ -1,6 +1,9 @@
-import { qs, changeView } from "./src/utils.js"
+import hashRouter from "./src/components/router.js"
+import loginView from "./src/views/login.js";
 
-qs('body>nav').addEventListener('click', e => {
-  e.preventDefault()
-  changeView(e.target.hash.replace('#/', ''))
+hashRouter('body>nav', 'div#view', {
+  some: loginView,
+  login: loginView,
+  logout: loginView
 });
+
