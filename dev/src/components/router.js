@@ -11,35 +11,40 @@ const hashRouter = (
     viewContainer = qs(viewContainerQuerySelector),
     links = Array
       .from(Object.keys(routes))
-      .map(route =>
-        node({ _: 'a', href: `#/${route}` }, route)
-      );
+      .map(route => {
 
-  naviContainer.replaceChildren(...links);
+        const link = node({ _: 'a', href: `#/${route}` }, route);
 
-  const activateView = ({ hash, classList }) => {
-    classList.add('active');
+        naviContainer.appendChild(link);
+
+        return link;
+      });
+
+  const loadView = () => {
+
+    // remove .active from any link
+    links.forEach(({ classList }) =>
+      classList.remove('active'));
+
+    const { hash, classList } =
+      // try matching hash from address bar
+      qs(`body>nav>a[href="${window.location.hash}"]`)
+      // fallback to the about view
+      || links[0];
 
     const
       route = hash.substring(2),
       handler = routes[route];
 
+    classList.add('active');
     handler(viewContainer);
   }
 
-  // this routes on pageload,
-  // e.g. the user goes directly to `/#/about` instead of `/` first
-  const preset = qs(`body>nav>a[href="${window.location.hash}"]`)
-  activateView(preset ? preset : links[0]);
+  // routing on pageload
+  loadView();
 
-  naviContainer.addEventListener('click', ({ target: t }) => {
-    if (t.nodeName !== 'A') return;
-
-    // deactivate the other links
-    links.forEach(({ classList }) => classList.remove('active'));
-
-    activateView(t);
-  })
+  // reacting to back/forward button in browser
+  window.addEventListener('hashchange', loadView);
 }
 
 export default hashRouter
