@@ -30,10 +30,7 @@ const hashRouter = (
   // this routes on pageload,
   // e.g. the user goes directly to `/#/about` instead of `/` first
   const preset = qs(`body>nav>a[href="${window.location.hash}"]`)
-
-  if (preset) {
-    activateView(preset);
-  }
+  activateView(preset ? preset : links[0]);
 
   naviContainer.addEventListener('click', ({ target: t }) => {
     if (t.nodeName !== 'A') return;
