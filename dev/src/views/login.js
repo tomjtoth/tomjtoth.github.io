@@ -1,6 +1,6 @@
 import { node as n } from "../utils.js";
 
-const view = (container) => {
+const view = () => {
   const form = n('form',
 
     n({ _: 'label', htmlFor: 'username' }, 'username:'),
@@ -34,7 +34,7 @@ const view = (container) => {
       }"`);
   })
 
-  container.replaceChildren(form);
+  return form;
 }
 
 export default view;

@@ -37,7 +37,7 @@ const hashRouter = (
       handler = routes[route];
 
     classList.add('active');
-    handler(viewContainer);
+    viewContainer.replaceChildren(handler());
   }
 
   // routing on pageload
