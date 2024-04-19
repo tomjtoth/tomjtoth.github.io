@@ -4,18 +4,16 @@ const x = n('div');
 document.body.appendChild(x);
 
 
-const timer = (func, { toConsole = true }) => {
+const timer = (func) => {
   x.innerHTML = '';
   const start = new Date();
   func();
-  const result = `took: ${new Date() - start} ms to finish`;
+  const result = new Date() - start;
+
+  // cleanup
   x.innerHTML = '';
 
-  if (toConsole) {
-    console.log(result);
-  } else {
-    alert(result)
-  }
+  return result;
 }
 
 const innerHTML = ({ reps }) => () => {
@@ -52,7 +50,7 @@ const testBoth = () => {
       [
         innerHTML({ reps: Number(reps) }),
         node({ reps: Number(reps) })
-      ].forEach(func => timer(func, { toConsole: false }))
+      ].forEach(func => alert(`${func.name} took ${timer(func)} ms to run`))
 
     } else {
       alert('invalid number')
