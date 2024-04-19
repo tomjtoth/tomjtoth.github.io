@@ -1,4 +1,4 @@
-import { node, qs } from "../utils.js";
+import { qs } from "../utils.js";
 
 const hashRouter = (
   naviContainerQuerySelector,
@@ -8,17 +8,13 @@ const hashRouter = (
 
   const
     naviContainer = qs(naviContainerQuerySelector),
-    viewContainer = qs(viewContainerQuerySelector),
-    links = Array
-      .from(Object.keys(routes))
-      .map(route => {
+    viewContainer = qs(viewContainerQuerySelector);
 
-        const link = node({ _: 'a', href: `#/${route}` }, route);
+  naviContainer.innerHTML = Array
+    .from(Object.keys(routes))
+    .mapAndJoin(route => `<a href="#/${route}">${route}</a>`);
 
-        naviContainer.appendChild(link);
-
-        return link;
-      });
+  const links = Array.from(naviContainer.childNodes);
 
   const loadView = () => {
 
@@ -26,18 +22,19 @@ const hashRouter = (
     links.forEach(({ classList }) =>
       classList.remove('active'));
 
+    const { groups: route } = window.location.hash
+      .match(/(#\/?)(?<view>[^\/\s\?]+)(?<resource>\/[^\?\s]+)?(?<search>\?.+)?/)
+      || { groups: {} };
+
     const { hash, classList } =
-      // try matching hash from address bar
-      qs(`body>nav>a[href="${window.location.hash}"]`)
-      // fallback to the about view
+      links.find(a => a.hash === `#/${route.view}`)
+      // fallback to the 1st view
       || links[0];
 
-    const
-      route = hash.substring(2),
-      handler = routes[route];
-
     classList.add('active');
-    viewContainer.replaceChildren(handler());
+    const handler = routes[hash.substring(2)];
+
+    viewContainer.replaceChildren(handler(route));
   }
 
   // routing on pageload
