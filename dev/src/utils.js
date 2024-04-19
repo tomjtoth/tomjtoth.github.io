@@ -100,14 +100,14 @@ export const node = (tag, ...children) => {
 
     for (const [key, value] of Object.entries(rest)) {
 
-      if (typeof value === 'string') {
-        elem[key] = value;
-      }
-
-      else {
+      if (typeof value === 'object') {
         for (const [iterKey, iterVal] of Object.entries(value)) {
           elem[key][iterKey] = iterVal;
         }
+      }
+
+      else {
+        elem[key] = value;
       }
 
     }
