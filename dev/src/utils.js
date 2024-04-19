@@ -162,3 +162,5 @@ String.prototype.toTag = function (tagName = 'div') {
   tag.innerHTML = this;
   return tag;
 };
+
+export default {}
