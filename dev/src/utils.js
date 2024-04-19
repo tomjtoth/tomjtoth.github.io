@@ -4,7 +4,7 @@
  * @param {String} id id
  * @returns HTMLElement
  */
-export const byId = (id) => document.getElementById(id)
+export const id = (id) => document.getElementById(id)
 
 /**
  * Shorthand for `document.querySelector`
