@@ -131,3 +131,34 @@ export const node = (tag, ...children) => {
 Array.prototype.mapAndJoin = function (func, joinedBy = '') {
   return this.map(func).join(joinedBy)
 };
+
+/**
+ * create an HTML Element and assign `this` string to its innerHTML
+ * 
+ * @param {string} tagName HTMLElement's tag
+ * @returns string
+ */
+String.prototype.toTag = function (tagName = 'div') {
+  let tag;
+
+  if (typeof tagName === 'string') {
+    tag = document.createElement(tagName);
+  }
+
+  else {
+    const {
+      _,
+      listeners
+    } = tagName
+
+    tag = document.createElement(_);
+    if (listeners) {
+      for (const [event, func] of Object.entries(listeners)) {
+        tag.addEventListener(event, func);
+      }
+    }
+  }
+
+  tag.innerHTML = this;
+  return tag;
+};
