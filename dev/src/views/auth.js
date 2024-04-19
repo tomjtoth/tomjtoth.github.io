@@ -29,9 +29,9 @@ export const view = ({ view }) => {
     target.setCustomValidity('')
   );
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', (event) => {
 
-    e.preventDefault();
+    event.preventDefault();
 
     if (!login) {
 
@@ -40,7 +40,7 @@ export const view = ({ view }) => {
         verify,
         username,
         name,
-      } } = e;
+      } } = event;
 
       if (! /[A-Z](?:-?[a-z])* +[A-Z](?:-?[a-z])*/.test(name.value))
         name.setCustomValidity('format it as "Firstname Surname"');
@@ -54,10 +54,10 @@ export const view = ({ view }) => {
         verify.setCustomValidity('passwords don\'t match');
     }
 
-    if (!e.target.reportValidity()) return;
+    if (!event.target.reportValidity()) return;
 
-    alert(`TODO: login as "${e.target.username.value
-      }:${e.target.password.value
+    alert(`TODO: login as "${event.target.username.value
+      }:${event.target.password.value
       }"`);
   });
 
