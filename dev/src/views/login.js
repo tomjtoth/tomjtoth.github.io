@@ -25,6 +25,10 @@ export const view = ({ view }) => {
         <button>${login ? 'login' : 'register'}</button>
   `.toTag('form')
 
+  form.addEventListener('change', ({ target }) =>
+    target.setCustomValidity('')
+  );
+
   form.addEventListener('submit', (e) => {
 
     e.preventDefault();
@@ -38,24 +42,16 @@ export const view = ({ view }) => {
         name,
       } } = e;
 
-      name.setCustomValidity(
-        (! /[A-Z](?:-?[a-z])* [A-Z](?:-?[a-z])*/.test(name.value))
-          ? 'format it as "Firstname Surname"'
-          : ''
-      );
+      if (! /[A-Z](?:-?[a-z])* +[A-Z](?:-?[a-z])*/.test(name.value))
+        name.setCustomValidity('format it as "Firstname Surname"');
 
-      username.setCustomValidity(
-        (! /^\w+$/.test(username.value))
-          ? 'must use only numbers, letters and underscores'
-          : ''
-      );
+      if (! /^\w+$/.test(username.value))
+        username.setCustomValidity(
+          'must use only numbers, letters and underscores'
+        );
 
-      verify.setCustomValidity(
-        (password.value !== verify.value)
-          ? 'passwords don\'t match'
-          : ''
-      );
-
+      if (password.value !== verify.value)
+        verify.setCustomValidity('passwords don\'t match');
     }
 
     if (!e.target.reportValidity()) return;
