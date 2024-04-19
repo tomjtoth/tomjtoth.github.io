@@ -136,7 +136,7 @@ Array.prototype.mapAndJoin = function (func, joinedBy = '') {
  * create an HTML Element and assign `this` string to its innerHTML
  * 
  * @param {string} tagName HTMLElement's tag
- * @returns string
+ * @returns HTMLElement
  */
 String.prototype.toTag = function (tagName = 'div') {
   let tag;

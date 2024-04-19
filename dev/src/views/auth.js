@@ -6,7 +6,7 @@ export const view = ({ view }) => {
         ${login ? '' : String.raw`
           <label for="name">name:</label>
           <input id="name" name="name" required />
-          <br />  
+          <br />
         `}
         <label for="username">username:</label>
         <input id="username" name="username" required 
