@@ -120,3 +120,14 @@ export const node = (tag, ...children) => {
 
   return elem;
 }
+
+/**
+ * Maps a function to the array, then joins elements by a str
+ * 
+ * @param {CallableFunction} func function to map to each element
+ * @param {string} joinedBy string to join elements with
+ * @returns string
+ */
+Array.prototype.mapAndJoin = function (func, joinedBy = '') {
+  return this.map(func).join(joinedBy)
+};
