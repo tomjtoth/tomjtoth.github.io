@@ -3,26 +3,33 @@ const view = (viewContainer, { view }) => {
   const login = view === 'login';
 
   const form = String.raw`
-        ${login ? '' : String.raw`
-          <label for="name">name:</label>
-          <input id="name" name="name" required />
-          <br />
-        `}
-        <label for="username">username:</label>
-        <input id="username" name="username" required 
-          minlength="3" maxlength="8" />
-        <br />
-        <label for="password">password:</label>
-        <input id="password" name="password" type="password" required
-          minlength="8" />
-        <br />
-        ${login ? '' : String.raw`
-          <label for="verify">verify pw:</label>
-          <input id="verify" name="verify" type="password" required 
-            minlength="8" />
-          <br />  
-        `}
-        <button>${login ? 'login' : 'register'}</button>
+    ${login ? '' : String.raw`
+    <div>
+      <label for="name">name:</label>
+      <input id="name" name="name" required />
+    </div>
+    `}
+
+    <div>
+      <label for="username">username:</label>
+      <input id="username" name="username" required 
+      minlength="3" maxlength="8" />
+    </div>
+
+    <div>
+      <label for="password">password:</label>
+      <input id="password" name="password" type="password" required
+      minlength="8" />
+    </div>
+
+    ${login ? '' : String.raw`
+    <div>
+      <label for="verify">verify pw:</label>
+      <input id="verify" name="verify" type="password" required 
+      minlength="8" />
+    </div>
+    `}
+    <button>${login ? 'login' : 'register'}</button>
   `.toTag('form')
 
   form.addEventListener('change', ({ target }) =>

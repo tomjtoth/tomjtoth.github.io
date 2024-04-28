@@ -46,3 +46,11 @@ nav>a:hover:not(.active) {
 nav>a.active {
   background-color: purple;
 }
+
+form.auth {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex-direction: column;
+  min-width: 320px;
+}
