@@ -60,7 +60,7 @@ const testBoth = () => {
   }
 }
 
-const testView = () => {
+const testView = (viewContainer) => {
 
   const btn = n({
     _: 'button',
@@ -68,7 +68,7 @@ const testView = () => {
 
   btn.addEventListener('click', testBoth);
 
-  return btn
+  viewContainer.replaceChildren(btn);
 }
 
 export { timer, innerHTML, node, testBoth, testView }

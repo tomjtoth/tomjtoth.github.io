@@ -1,4 +1,4 @@
-export const view = ({ view }) => {
+const view = (viewContainer, { view }) => {
 
   const login = view === 'login';
 
@@ -61,7 +61,8 @@ export const view = ({ view }) => {
       }"`);
   });
 
-  return form;
+  form.classList.add('auth');
+  viewContainer.replaceChildren(form);
 }
 
 export default view;

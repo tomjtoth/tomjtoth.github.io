@@ -34,7 +34,9 @@ const hashRouter = (
     classList.add('active');
     const handler = routes[hash.substring(2)];
 
-    viewContainer.replaceChildren(handler(route));
+    // letting each view deal with the necessary updates 
+    // in case only a small change happens in the hash
+    handler(viewContainer, route);
   }
 
   // routing on pageload
