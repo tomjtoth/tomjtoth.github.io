@@ -6,16 +6,12 @@
     <link rel="stylesheet" href="modal.css">
     <link rel="stylesheet" href="battery-monitor.css">
     <link rel="stylesheet" href="lyrics.css">
-    <link rel="stylesheet" href="shopping-list.css">
     <link rel="stylesheet" href="visitors.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title lang="en">tomjtoth</title>
     <link rel="icon" href="data:,">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"
-        integrity="sha512-LhccdVNGe2QMEfI3x4DVV3ckMRe36TfydKss6mJpdHjNFiV07dFpS2xzeZedptKZrwxfICJpez09iNioiSZ3hA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/js-yaml/dist/js-yaml.min.js"></script>
 </head>
 
@@ -24,7 +20,7 @@
         <a href="#about">About</a>
         <a href="#battery-monitor"
             title="can be autostarted and will alert based on battery level and charging state">Battery monitor</a>
-        <a href="#shopping-list">Shopping list</a>
+        <a href="ostoslista">Shopping list</a>
         <a href="runes" title="Arx Fatalis spellcasting">Runes</a>
         <a href="#lyrics">Lyrics</a>
         <a href="recipies">Recipies</a>
@@ -114,22 +110,6 @@
             </div>
         </div>
 
-        <div id="shopping-list" hidden>
-            <div id="controls">
-                <button title="ostettaviin kamoihin vaikuttaa">Pyyhki vihreät</button>
-                <button title="niin monta, kuin nyt on, tai 3 kpl">Arvo ateriat</button>
-                <button title="valitse ateria listasta">+ ateriaa</button>
-                <button title="lisää mitä tahansa asiaa listalle">+ kamaa</button>
-            </div>
-            <div id="dish-picker" class="modal"></div>
-            <div id="item-adder" class="modal"></div>
-            <h2>Ateriat</h2>
-            <div id="dishes"></div>
-            <h2>Ostettavat kamat</h2>
-            <div id="items"></div>
-
-        </div>
-
         <div id="lyrics" lang="en">
             <p>
                 Give <a target="_blank"
@@ -168,7 +148,6 @@
 <script type="text/javascript" src="main.js"></script>
 <!-- <script src="https://oracle.ttj.hu:55589/remoteStorage.js"></script> -->
 <script type="text/javascript" src="battery-monitor.js"></script>
-<script type="text/javascript" src="shopping-list.js"></script>
 <!--<script type="text/javascript" src="visitors.js"></script>-->
 <script type="text/javascript" src="qr-code.js"></script>
 <script type="text/javascript" src="lyrics.js"></script>
