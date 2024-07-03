@@ -1,0 +1,12 @@
+{
+  "name": "Ostoslista",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/ostoslista",
+  "display": "standalone"
+}
