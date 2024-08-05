@@ -198,3 +198,17 @@ Näitä alla jossain vaiheessa ainakin osasin/yritin tehdä. [Ostoslistaa](/#/sh
 1. kaada emt `pari cl öljy` -ä kyytiin, sekoita
 1. lämmitä ainakin jonnekin 180 asteiseksi pannusi
 1. avaa tölkki `kalja` jotta paistaminen tulisi siedättävämmäksi
+
+## 🍝 makaronilaatikko
+
+1. laita uuni lämpenemään 200 asteeseen
+1. käytä vuoan voiteluun `1 rkl rypsiöljyä` tai `vegaanista margariinia?`
+1. lisää `400 g (tummia) makaroneja` (näitä ei siis tarvii erikseen keittää)
+1. lisää `2 dl soijarouhetta`
+1. lisää `4 dl kaura- tai soijakermaa`
+1. lisää 8 dl vettä
+1. lisää `1 kasvisliemikuutio` murennettuna
+1. lisää `1 rkl paprikajauhetta`
+1. lisää `1 rkl kuivattua persiljaa` tai oreganoa
+1. lisää `1 rkl soijakastiketta`
+1. paista laatikkoa uunin alatasolla noin 40 minuuttia.
