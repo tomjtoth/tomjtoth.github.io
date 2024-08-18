@@ -229,7 +229,7 @@ fi
 echo '
 
 # getting the latest aliases online
-source <(curl -sSL https://ttj.hu/linux/.bash_aliases)
+source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases)
 
 ' >> ~/.bashrc
 
