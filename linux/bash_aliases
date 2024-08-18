@@ -1,3 +1,7 @@
+#!/bin/bash
+# shellcheck disable=SC2142
+# shellcheck disable=SC2139
+
 alias {é,ö}s="sudo -E -s"
 alias {é,ö}p='ping 1.1.1.1'
 
@@ -39,9 +43,7 @@ alias {é,ö}ssdr="sudo systemctl daemon-reload"
 alias {é,ö}su="systemctl --user"
 alias {é,ö}sudr="systemctl --user daemon-reload"
 
-
-
-# if we are on Arch Linux
+# on Arch Linux
 if [ -f /usr/bin/pacman ]; then
 	if [ -f /usr/bin/pacaur ]; then
 		AUR="pacaur"
@@ -50,6 +52,7 @@ if [ -f /usr/bin/pacman ]; then
 	else
 		AUR="pacman"
 	fi
+	# shellcheck disable=SC2016
 	INSTALL='f() {
 		[ $(( ($(date +%s) - \
 			$(stat -c %Y /var/lib/pacman/sync/*.db \
@@ -68,7 +71,7 @@ if [ -f /usr/bin/pacman ]; then
 	alias éáű="$AUR -Ss"
 	alias {é,ö}fix="sudo pacman-key --refresh-keys"
 	
-# if we are on a debian derivative
+# on a debian derivative
 elif [ -f /usr/bin/apt ]; then
 	INSTALL="sudo apt update && sudo apt install"
 	REMOVE="sudo apt-get purge"
@@ -79,7 +82,7 @@ elif [ -f /usr/bin/apt ]; then
 	
 	alias {é,ö}u='sudo apt install'
 	
-# if we are on Android/Termux
+# on Android/Termux
 elif [ -f /data/data/com.termux/files/usr/bin/pkg ]; then
 	INSTALL="pkg install"
 	REMOVE="pkg uninstall"
@@ -98,4 +101,6 @@ alias {ééé,ööö}="$UPDATE"
 
 alias {ééé,ööö}r="$UPDATE && systemctl -i reboot"
 alias {ééé,ööö}p="$UPDATE && systemctl -i poweroff"
-alias {ééé,ööö}z="$UPDATE && systemctl -i suspend"
+
+# this is prolly not a good idea as sleep might fail after kernel updates
+# alias {ééé,ööö}z="$UPDATE && systemctl -i suspend"
