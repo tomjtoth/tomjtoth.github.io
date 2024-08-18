@@ -236,6 +236,14 @@ source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
 
 # sudo -u "$USERNAME" dconf load - < curl -L ttj.hu/dconf-dump
 
+if ! $(grep -qP 'Shutdown|Restart' /etc/grub.d/40_custom); then
+
+    log adding GRUB menu entries
+    printf '%s\n' \
+        'menuentry "Restart" { reboot }' \
+        'menuentry "Shutdown" { halt }' \
+        >> /etc/grub.d/40_custom
+fi
 
 log DONE
 
