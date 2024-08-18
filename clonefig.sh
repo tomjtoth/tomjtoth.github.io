@@ -218,7 +218,19 @@ if [ "$(systemctl is-enabled gdm)" != "enabled" ]; then
 fi
 
 
-# TODO: .bash_aliases
+# shellcheck disable=SC2016
+echo '
+
+# force-update public aliases without setting up git
+TTJ_ALIASES=~/.bash_aliases_ttj.hu
+# get latest version if not on main host
+[ ! -s $TTJ_ALIASES ] && \
+	curl -L -o $TTJ_ALIASES https://ttj.hu/bash_aliases
+    
+source $TTJ_ALIASES
+
+' >> ~/.bashrc
+
 # sudo -u "$USERNAME" dconf load - < curl -L ttj.hu/dconf-dump
 
 
