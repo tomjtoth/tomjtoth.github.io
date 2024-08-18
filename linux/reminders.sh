@@ -14,6 +14,8 @@ if [ "${LAST_REMINDER:-0}" -lt $((NOW - 7*24*60*60)) ]; then
 		'' \
 		'typing "ööö" updates the whole system' \
 		'typing "öä xyz" searches for an application by the name "xyz"' \
-		'typing "éé xyz" installs the application "xyz"' \
+		'typing "öäå xyz" searches for an unofficial application by the name "xyz"' \
+		'typing "öö xyz" installs the application "xyz"' \
+		'typing "ör xyz" removes the application "xyz"' \
 		''
 fi

@@ -68,7 +68,7 @@ if [ -f /usr/bin/pacman ]; then
 	UPDATE="$AUR -Syyu --noconfirm && sudo paccache -k 0 -r"
 	
 	alias {é,ö}u="sudo pacman -U --asdeps"
-	alias éáű="$AUR -Ss"
+	alias {éáű,öäå}="$AUR -Ss"
 	alias {é,ö}fix="sudo pacman-key --refresh-keys"
 	
 # on a debian derivative
