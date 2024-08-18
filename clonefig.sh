@@ -124,17 +124,19 @@ fi
 pkgs=(
 
     # cli utils
-    mc htop ncdu networkmanager ntp pacman-contrib bluez-utils
+    nano mc htop ncdu networkmanager ntp pacman-contrib bluez-utils man-db
 
     # Desktop Environment
     gdm gnome-shell gnome-keyring eog nautilus file-roller
     gnome-shell-extension-appindicator
+    gnome-shell-extension-caffeine
     xdg-desktop-portal-gnome
     gnome-browser-connector
-    gnome-calculator
+    gnome-calculator gnome-tweaks
+    ttf-dejavu
 
-    # gui utlis
-    evince vlc geany keepassxc ttf-dejavu
+    # gui utils
+    evince vlc geany keepassxc
 
     # video editing
     obs-studio avidemux-qt
@@ -144,6 +146,11 @@ pkgs=(
 
     # coding
     code docker docker-compose
+
+    # openCL
+    intel-compute-runtime clinfo clpeak 
+    
+    boinc-nox boinctui
 
 )
 mapfile -t missing_pkgs < <(diff -B --changed-group-format='%<'\
@@ -160,7 +167,7 @@ if [ ${#missing_pkgs[@]} -ne 0 ]; then
         -e 's/^#CheckSpace$/CheckSpace/m' \
         -re 's/^(ParallelDownloads *=) *[0-9]+$/\1 20/m' \
         /etc/pacman.conf
-    pacman --noconfirm -Syyu "${missing_pkgs[@]}"
+    pacman -Syyu "${missing_pkgs[@]}"
 fi
 
 
