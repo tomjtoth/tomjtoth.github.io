@@ -230,6 +230,7 @@ echo '
 
 # getting the latest aliases online
 source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases)
+source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
 
 ' >> ~/.bashrc
 
