@@ -1,10 +1,7 @@
-# do not edit this, as it gets periodically overwritten forcefully
-
 alias {é,ö}s="sudo -E -s"
 alias {é,ö}p='ping 1.1.1.1'
 
 alias ncdu='ncdu --color dark'
-
 
 alias zzz='z() {
 	[ -n "$1" ] && \
@@ -102,4 +99,3 @@ alias {ééé,ööö}="$UPDATE"
 alias {ééé,ööö}r="$UPDATE && systemctl -i reboot"
 alias {ééé,ööö}p="$UPDATE && systemctl -i poweroff"
 alias {ééé,ööö}z="$UPDATE && systemctl -i suspend"
-
