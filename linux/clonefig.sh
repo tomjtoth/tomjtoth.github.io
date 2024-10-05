@@ -178,10 +178,12 @@ if [ -z "$(which paru 2>/dev/null)" ]; then
         's/^#MAKEFLAGS="-j2"$/MAKEFLAGS="-j'"$(nproc)"'"/m' \
         /etc/makepkg.conf
 
+    mkdir /tmp/clonefig
+    cd /tmp/clonefig
     curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/paru.tar.gz
     tar -xvzf paru.tar.gz
-    cd paru || exit 1
     chown -R 1000 .
+    cd paru
     yolo makepkg -si --noconfirm
     cd ..
     rm -rf paru{,.tar.gz}
@@ -208,20 +210,22 @@ if ! grep -q '^AutomaticLoginEnable=True$' /etc/gdm/custom.conf; then
 fi
 
 
-if [ -d /var/lib/docker ]; then
-    log relocating docker to /home
-
-    mv /var/lib/docker /home
-    ln -s /home/docker /var/lib/docker
-fi
-
-
 if [ "$(systemctl is-enabled gdm)" != "enabled" ]; then
     log enabling services
 
     for svc in docker gdm ntpd bluetooth NetworkManager; do
         systemctl enable $svc
     done
+fi
+
+
+if [ -d /var/lib/docker ]; then
+    log relocating docker to /home
+
+    systemctl stop docker
+    mv /var/lib/docker /home
+    ln -s /home/docker /var/lib/docker
+    systemctl start docker
 fi
 
 
@@ -234,7 +238,8 @@ source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
 
 ' >> ~/.bashrc
 
-# sudo -u "$USERNAME" dconf load - < curl -L ttj.hu/dconf-dump
+# this must be revised as selective keybindings should be passed on only
+sudo -u \#1000 dconf load - < curl -L ttj.hu/linux/dconf-dump
 
 if ! $(grep -qP 'Shutdown|Restart' /etc/grub.d/40_custom); then
 
@@ -243,6 +248,7 @@ if ! $(grep -qP 'Shutdown|Restart' /etc/grub.d/40_custom); then
         'menuentry "Restart" { reboot }' \
         'menuentry "Shutdown" { halt }' \
         >> /etc/grub.d/40_custom
+    grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 log DONE
