@@ -239,7 +239,7 @@ source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
 ' >> ~/.bashrc
 
 # this must be revised as selective keybindings should be passed on only
-sudo -u \#1000 dconf load - < curl -L ttj.hu/linux/dconf-dump
+sudo -u \#1000 curl -L ttj.hu/linux/dconf-dump | dconf load /
 
 if ! $(grep -qP 'Shutdown|Restart' /etc/grub.d/40_custom); then
 
