@@ -128,6 +128,7 @@ pkgs=(
 
     # Desktop Environment
     gdm gnome-shell gnome-keyring eog nautilus file-roller
+    gnome-control-center
     gnome-shell-extension-appindicator
     gnome-shell-extension-caffeine
     xdg-desktop-portal-gnome
@@ -136,7 +137,7 @@ pkgs=(
     ttf-dejavu
 
     # gui utils
-    evince vlc geany keepassxc
+    evince vlc geany geany-plugins keepassxc
 
     # video editing
     obs-studio avidemux-qt
@@ -241,6 +242,13 @@ source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
 # this must be revised as selective keybindings should be passed on only
 sudo -u \#1000 curl -L ttj.hu/linux/dconf-dump | dconf load /
 
+# /etc/lvm/lvm.conf
+# issue_discards = 0
+
+
+# /etc/fstab
+# ... rw,relatime,discard
+
 if ! $(grep -qP 'Shutdown|Restart' /etc/grub.d/40_custom); then
 
     log adding GRUB menu entries
@@ -266,19 +274,18 @@ SKIP_SWAPFILE
 
 
 # shellcheck disable=SC2188
-<<TODO_NTFS
-conf_ntfs(){
-    fdisk -l
-    echo -ne "\nwhich partition (/dev/____)? "
-    local UUID sdXY
-    read sdXY
-    UUID=$(blkid | grep -Po '^\/dev\/'${sdXY}'.+UUID="\K[\w-]+(?=")')
-    [ -z $TEST_RUN ] && mkdir /home/$sdXY
-    [ -z $TEST_RUN ] && \
-        echo -e "\n# NTFS data partition" \
-            "\nUUID=$UUID	/home/$sdXY	ntfs	rw,user,auto,umask=0022,uid=1000,gid=1000,exec	0	2" >> /etc/fstab
-    nano /etc/fstab
-    [ -n "$UUID" ] && [ -z $TEST_RUN ] && echo -e "\n# for dual booting" \
-        "\nGRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
-}
-TODO_NTFS
+# conf_ntfs(){
+#     fdisk -l
+#     echo -ne "\nwhich partition (/dev/____)? "
+#     local UUID sdXY
+#     read sdXY
+#     UUID=$(blkid | grep -Po '^\/dev\/'${sdXY}'.+UUID="\K[\w-]+(?=")')
+#     [ -z $TEST_RUN ] && mkdir /home/$sdXY
+#     [ -z $TEST_RUN ] && \
+#         echo -e "\n# NTFS data partition" \
+#             "\nUUID=$UUID	/home/$sdXY	ntfs	rw,user,auto,umask=0022,uid=1000,gid=1000,exec	0	2" >> /etc/fstab
+#     nano /etc/fstab
+#     [ -n "$UUID" ] && [ -z $TEST_RUN ] && echo -e "\n# for dual booting" \
+#         "\nGRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
+# }
+

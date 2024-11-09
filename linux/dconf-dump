@@ -106,3 +106,7 @@ menu-accelerator-enabled=false
 
 [system/locale]
 region='hu_HU.UTF-8'
+
+[org/gnome/desktop/input-sources]
+mru-sources=[('xkb', 'us')]
+sources=[('xkb', 'hu'), ('xkb', 'fi')]
