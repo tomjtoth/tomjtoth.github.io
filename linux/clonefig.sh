@@ -128,7 +128,7 @@ pkgs=(
 
     # Desktop Environment
     gdm gnome-shell gnome-keyring eog nautilus file-roller
-    gnome-temrinal
+    gnome-terminal
     gnome-control-center
     gnome-shell-extension-appindicator
     gnome-shell-extension-caffeine
@@ -241,7 +241,7 @@ source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
 ' >> ~/.bashrc
 
 # this must be revised as selective keybindings should be passed on only
-sudo -u \#1000 curl -L ttj.hu/linux/dconf-dump | dconf load /
+# sudo -u \#1000 curl -L ttj.hu/linux/dconf-dump | dconf load /
 
 # /etc/lvm/lvm.conf
 # issue_discards = 0
