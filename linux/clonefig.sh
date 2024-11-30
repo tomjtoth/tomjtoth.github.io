@@ -124,10 +124,11 @@ fi
 pkgs=(
 
     # cli utils
-    nano mc htop ncdu networkmanager ntp pacman-contrib bluez-utils man-db
+    nano mc htop ncdu networkmanager ntp pacman-contrib bluez-utils man-db ntfs-3g os-prober
 
     # Desktop Environment
     gdm gnome-shell gnome-keyring eog nautilus file-roller
+    gnome-temrinal
     gnome-control-center
     gnome-shell-extension-appindicator
     gnome-shell-extension-caffeine
@@ -146,7 +147,7 @@ pkgs=(
     firefox chromium qbittorrent
 
     # coding
-    code docker docker-compose
+    code docker docker-buildx docker-compose
 
     # openCL
     intel-compute-runtime clinfo clpeak 
