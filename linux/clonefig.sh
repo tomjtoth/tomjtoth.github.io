@@ -246,15 +246,10 @@ source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
 # this must be revised as selective keybindings should be passed on only
 # sudo -u \#1000 curl -L ttj.hu/linux/dconf-dump | dconf load /
 
-# /etc/lvm/lvm.conf
-# issue_discards = 0
-
-
-# /etc/fstab
-# ... rw,relatime,discard
-
-if ! $(grep -qP 'Shutdown|Restart' /etc/grub.d/40_custom); then
-
+LVM_CONF=/etc/lvm/lvm.conf
+if [ -f $LVM_CONF ]; then
+    sed -i -E "s/^(\s*)#(\s*issue_discards)\s*=\s*0$/\1 \2 = 1/" $LVM_CONF
+fi
     log adding GRUB menu entries
     printf '%s\n' \
         'menuentry "Restart" { reboot }' \
