@@ -82,12 +82,15 @@ fi
 if ! grep -q /dev/zram0 /etc/fstab; then
     log enabling swap on zram
 
+    RAM_100=$(free --mega | awk '/Mem:/ {print $2}')
+    RAM_020=$(( RAM_100 * 2 / 10))M
+
     printf "zram" > /etc/modules-load.d/zram.conf
     printf '%s, %s, %s, %s, %s, %s\n' \
         'ACTION=="add"' \
         'KERNEL=="zram0"' \
         'ATTR{comp_algorithm}="zstd"' \
-        'ATTR{disksize}="1G"' \
+        'ATTR{disksize}="'$RAM_020'"' \
         'RUN="/usr/bin/mkswap -U clear /dev/%k"' \
         'TAG+="systemd"' \
         > /etc/udev/rules.d/99-zram.rules
