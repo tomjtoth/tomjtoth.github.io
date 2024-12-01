@@ -12,7 +12,7 @@ if [ "${LAST_REMINDER:-0}" -lt $((NOW - 7*24*60*60)) ]; then
 		'this is a weekly reminder' \
 		'run the below command to disable it:' \
 		'' \
-		'  sed -E "s/^(source .+\/reminders.sh\))$/# \1/g" ~/.bashrc' \
+		'  sed -i -E "s/^(source .+\/reminders.sh\))$/# \1/g" ~/.bashrc' \
 		'' \
 		'typing "ööö" updates the whole system' \
 		'typing "öä xyz" searches for an application by the name "xyz"' \
