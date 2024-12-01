@@ -1,10 +1,13 @@
 #!/bin/bash
 
 
+FSTAB=/etc/fstab
+
+
 function add_to_fstab() {
     # shellcheck disable=SC2068
     printf '%-20s\t%-10s\t%-10s\t%s\t%s %s\n' $@ \
-        >> /etc/fstab
+        >> $FSTAB
 }
 
 
@@ -22,6 +25,13 @@ function yolo() {
     sed -i 's/ALL$/NOPASSWD: ALL/m' $SUDO_CONF
     sudo -u \#1000 "$@"
     sed -i 's/NOPASSWD: ALL$/ALL/m' $SUDO_CONF
+}
+
+
+function join_by_char() {
+    local IFS="$1"
+    shift
+    echo "$*"
 }
 
 
@@ -79,7 +89,7 @@ if ! grep -q LC_TIME /etc/locale.conf; then
 fi
 
 
-if ! grep -q /dev/zram0 /etc/fstab; then
+if ! grep -q /dev/zram0 $FSTAB; then
     log enabling swap on zram
 
     RAM_100=$(free --mega | awk '/Mem:/ {print $2}')
@@ -239,6 +249,8 @@ echo '
 
 # getting the latest aliases online
 source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases)
+
+# and weekly reminders
 source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
 
 ' >> ~/.bashrc
@@ -250,11 +262,23 @@ LVM_CONF=/etc/lvm/lvm.conf
 if [ -f $LVM_CONF ]; then
     sed -i -E "s/^(\s*)#(\s*issue_discards)\s*=\s*0$/\1 \2 = 1/" $LVM_CONF
 fi
+
+log adding option discard to $FSTAB
+
+UUIDs=($(lsblk -o uuid --filter 'ROTA != 1'))
+UUIDs=$(join_by_char "|" ${UUIDs[@]:1})
+
+sed -i -E "s/^(UUID=($UUIDs)\s+.+)(\s+[0-9]+\s+[0-9]+\s*)$/\1,discard \3/mg" $FSTAB
+
+
+GRUB_CUSTOM=/etc/grub.d/40_custom
+if ! $(grep -qP 'Shutdown|Restart' $GRUB_CUSTOM); then
     log adding GRUB menu entries
+    
     printf '%s\n' \
         'menuentry "Restart" { reboot }' \
         'menuentry "Shutdown" { halt }' \
-        >> /etc/grub.d/40_custom
+        >> $GRUB_CUSTOM
     grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
@@ -267,7 +291,7 @@ log DONE
 dd if=/dev/zero of=/swapfile bs=1M count=1k status=progress
 chmod 0600 /swapfile
 mkswap -U clear /swapfile
-echo "/swapfile none swap defaults 0 0" >> /etc/fstab
+echo "/swapfile none swap defaults 0 0" >> $FSTAB
 echo "vm.swappiness=10" > /etc/sysctl.d/99-swappiness.conf
 SKIP_SWAPFILE
 
@@ -282,8 +306,7 @@ SKIP_SWAPFILE
 #     [ -z $TEST_RUN ] && mkdir /home/$sdXY
 #     [ -z $TEST_RUN ] && \
 #         echo -e "\n# NTFS data partition" \
-#             "\nUUID=$UUID	/home/$sdXY	ntfs	rw,user,auto,umask=0022,uid=1000,gid=1000,exec	0	2" >> /etc/fstab
-#     nano /etc/fstab
+#             "\nUUID=$UUID	/home/$sdXY	ntfs	rw,user,auto,umask=0022,uid=1000,gid=1000,exec	0	2" >> $FSTAB
 #     [ -n "$UUID" ] && [ -z $TEST_RUN ] && echo -e "\n# for dual booting" \
 #         "\nGRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 # }
