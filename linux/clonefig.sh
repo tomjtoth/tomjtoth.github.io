@@ -173,10 +173,10 @@ if [ ${#missing_pkgs[@]} -ne 0 ]; then
     log installing packages
 
     sed -i \
-        -e 's/^#Color$/Color/m' \
-        -e 's/^NoProgressBar$/#NoProgressBar/m' \
-        -e 's/^#CheckSpace$/CheckSpace/m' \
-        -re 's/^(ParallelDownloads *=) *[0-9]+$/\1 20/m' \
+        -E 's/^#(Color)$/\1/m' \
+        -E 's/^(NoProgressBar)$/#\1/m' \
+        -E 's/^#(CheckSpace)$/\1/m' \
+        -re 's/^(ParallelDownloads) *= *[0-9]+$/\1 = 20/m' \
         /etc/pacman.conf
     pacman -Syyu "${missing_pkgs[@]}"
 fi
