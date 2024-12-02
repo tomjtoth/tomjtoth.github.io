@@ -117,7 +117,7 @@ fi
 
 
 if ! grep -q :1000: /etc/passwd; then
-    log "adding primary user"
+    log adding primary user
 
     mapfile -t EXISTING_USERS < <(cut -d':' -f 1 < /etc/passwd)
     while true; do
@@ -125,7 +125,7 @@ if ! grep -q :1000: /etc/passwd; then
         [[ " ${EXISTING_USERS[*]} " != *" $USERNAME "* ]] && break
         log err "${USERNAME} is already taken, try another one!"
     done
-    useradd -m -G wheel "$USERNAME"
+    useradd -m -G wheel,docker,boinc "$USERNAME"
     passwd "$USERNAME"
 fi
 
