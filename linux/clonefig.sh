@@ -17,7 +17,7 @@ function add_to_fstab() {
 
 
 function log() {
-        printf '\033[1m==> \033[93m%s\033[0m\n' "$*"
+    printf '\033[1m==> \033[93m%s\033[0m\n' "$*"
 }
 
 function err() {
@@ -164,15 +164,15 @@ pkgs=(
     code docker docker-buildx docker-compose
 
     # openCL
-    intel-compute-runtime clinfo clpeak 
-    
+    intel-compute-runtime clinfo clpeak
+
     boinc-nox boinctui
 
 )
 mapfile -t missing_pkgs < <(diff -B --changed-group-format='%<'\
     --unchanged-group-format='' \
     <(printf "%s\n" "${pkgs[@]}" | sort) \
-    <(printf "%s\n" "$(pacman -Qenq)" | sort) 
+    <(printf "%s\n" "$(pacman -Qenq)" | sort)
 )
 if [ ${#missing_pkgs[@]} -ne 0 ]; then
     log installing packages
@@ -270,7 +270,7 @@ sed -i -E "s/^(UUID=($UUIDs)\s+.+)(\s+[0-9]+\s+[0-9]+\s*)$/\1,discard \3/mg" $FS
 
 if ! $(grep -qP 'Shutdown|Restart' $GRUB_CUSTOM); then
     log adding GRUB menu entries
-    
+
     printf '%s\n' \
         'menuentry "Restart" { reboot }' \
         'menuentry "Shutdown" { halt }' \
