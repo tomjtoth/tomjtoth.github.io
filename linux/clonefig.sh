@@ -248,10 +248,10 @@ fi
 echo '
 
 # getting the latest aliases online
-source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases)
+source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases) 2>/dev/null
 
 # and weekly reminders
-source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh)
+source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh) 2>/dev/null
 
 ' >> ~/.bashrc
 
