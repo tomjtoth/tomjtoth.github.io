@@ -195,7 +195,7 @@ if [ -z "$(which paru 2>/dev/null)" ]; then
     tar -xvzf paru.tar.gz
     chown -R 1000 .
     cd paru
-    yolo makepkg -si --noconfirm
+    run_as_1000 makepkg -si --noconfirm
     cd ..
     rm -rf paru{,.tar.gz}
 fi
