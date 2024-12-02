@@ -2,6 +2,11 @@
 
 
 FSTAB=/etc/fstab
+SUDO_CONF=/etc/sudoers.d/99_wheel
+JOURNAL_CONF=/etc/systemd/journald.conf.d/00-journal-size.conf
+SSH_WHEEL_CONF=/etc/ssh/sshd_config.d/01_wheel.conf
+LVM_CONF=/etc/lvm/lvm.conf
+GRUB_CUSTOM=/etc/grub.d/40_custom
 
 
 function add_to_fstab() {
