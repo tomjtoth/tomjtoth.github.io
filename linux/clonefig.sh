@@ -40,7 +40,6 @@ if [ $(id -u) -ne 0 ]; then
 fi
 
 
-JOURNAL_CONF=/etc/systemd/journald.conf.d/00-journal-size.conf
 if [ ! -f $JOURNAL_CONF ]; then
     log configuring systemd journals
 
@@ -106,7 +105,6 @@ if ! grep -q /dev/zram0 $FSTAB; then
 fi
 
 
-SUDO_CONF=/etc/sudoers.d/99_wheel
 if [ ! -f $SUDO_CONF ]; then
     log configuring sudoers
 
@@ -203,7 +201,6 @@ if [ -z "$(which paru 2>/dev/null)" ]; then
 fi
 
 
-SSH_WHEEL_CONF=/etc/ssh/sshd_config.d/01_wheel.conf
 if [ ! -f $SSH_WHEEL_CONF ]; then
     log configuring SSH
 
@@ -254,7 +251,6 @@ source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh) 2>/dev/null
 # this must be revised as selective keybindings should be passed on only
 # sudo -u \#1000 curl -L ttj.hu/linux/dconf-dump | dconf load /
 
-LVM_CONF=/etc/lvm/lvm.conf
 if [ -f $LVM_CONF ]; then
     sed -i -E "s/^(\s*)#(\s*issue_discards)\s*=\s*0$/\1 \2 = 1/" $LVM_CONF
 fi
@@ -267,7 +263,6 @@ UUIDs=$(join_by_char "|" ${UUIDs[@]:1})
 sed -i -E "s/^(UUID=($UUIDs)\s+.+)(\s+[0-9]+\s+[0-9]+\s*)$/\1,discard \3/mg" $FSTAB
 
 
-GRUB_CUSTOM=/etc/grub.d/40_custom
 if ! $(grep -qP 'Shutdown|Restart' $GRUB_CUSTOM); then
     log adding GRUB menu entries
     
