@@ -12,14 +12,12 @@ function add_to_fstab() {
 
 
 function log() {
-    if [ "$1" == "err" ]; then
-        shift
-        printf '\n\t\033[1;31mERROR\033[0m: \033[1m%s\033[0m\n\n' "$*"
-    else
         printf '\033[1m==> \033[93m%s\033[0m\n' "$*"
-    fi
 }
 
+function err() {
+    printf '\n\t\033[1;31mERROR\033[0m: \033[1m%s\033[0m\n\n' "$*"
+}
 
 function yolo() {
     sed -i 's/ALL$/NOPASSWD: ALL/m' $SUDO_CONF
