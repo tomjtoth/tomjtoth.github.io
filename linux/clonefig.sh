@@ -19,7 +19,7 @@ function err() {
     printf '\n\t\033[1;31mERROR\033[0m: \033[1m%s\033[0m\n\n' "$*"
 }
 
-function yolo() {
+function run_as_1000() {
     sed -i 's/ALL$/NOPASSWD: ALL/m' $SUDO_CONF
     sudo -u \#1000 "$@"
     sed -i 's/NOPASSWD: ALL$/ALL/m' $SUDO_CONF
