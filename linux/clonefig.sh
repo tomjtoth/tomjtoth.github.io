@@ -223,22 +223,20 @@ if ! grep -q '^AutomaticLoginEnable=True$' /etc/gdm/custom.conf; then
 fi
 
 
+if [ ! -d /home/docker ]; then
+    log relocating docker to /home
+
+    mkdir /home/docker
+    ln -s /home/docker /var/lib/docker
+fi
+
+
 if [ "$(systemctl is-enabled gdm)" != "enabled" ]; then
     log enabling services
 
     for svc in docker gdm ntpd bluetooth NetworkManager; do
         systemctl enable $svc
     done
-fi
-
-
-if [ -d /var/lib/docker ]; then
-    log relocating docker to /home
-
-    systemctl stop docker
-    mv /var/lib/docker /home
-    ln -s /home/docker /var/lib/docker
-    systemctl start docker
 fi
 
 
