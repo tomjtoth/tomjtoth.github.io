@@ -332,21 +332,19 @@ function enabling_systemd_services() {
 
 
 function configuring_bashrc() {
-    if ! grep -q 'https:\/\/tomjtoth\.github\.io\/linux\/(bash_aliases|reminders\.sh)' ~/.bashrc; then
+    if ! grep -qP 'https:\/\/tomjtoth\.github\.io\/linux\/(bash_aliases|reminders\.sh)' ~/.bashrc; then
         log
 
         # shellcheck disable=SC2016
-        echo '
+        printf "%s\n" \
+            "        # getting the latest aliases online" \
+            "        source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases) 2>/dev/null" \
+            "" \
+            "        # and weekly reminders" \
+            "        source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh) 2>/dev/null" \
+>> ~/.bashrc
 
-        # getting the latest aliases online
-        source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases) 2>/dev/null
-
-        # and weekly reminders
-        source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh) 2>/dev/null
-
-        ' >> ~/.bashrc
-
-        log DONE
+        success
     else
         skip
     fi
