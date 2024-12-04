@@ -7,6 +7,12 @@ JOURNAL_CONF=/etc/systemd/journald.conf.d/00-journal-size.conf
 SSH_WHEEL_CONF=/etc/ssh/sshd_config.d/01_wheel.conf
 LVM_CONF=/etc/lvm/lvm.conf
 GRUB_CUSTOM=/etc/grub.d/40_custom
+TEXT_YELLOW='\033[93m'
+TEXT_RESET='\033[0m'
+TEXT_BOLD='\033[1m'
+TEXT_WHITE='\033[0;37m'
+TEXT_BLACK='\033[90m'
+TEXT_RED='\033[0;31m'
 
 
 function add_to_fstab() {
@@ -19,19 +25,19 @@ function add_to_fstab() {
 function log() {
     local args="$*"
     [ -z "$args" ] && args="${FUNCNAME[1]//_/ }"
-    printf '\033[1m==> \033[93m%s\033[0m\n' "$args"
+    printf "${TEXT_BOLD}==> ${TEXT_YELLOW}%s${TEXT_RESET}\n" "$args"
 }
 
 
 function skip() {
     local args="$*"
     [ -z "$args" ] && args="${FUNCNAME[1]//_/ }"
-    printf '\033[0;37m==> \033[90m%s\033[0m\n' "skipped $args"
+    printf "${TEXT_WHITE}==> ${TEXT_BLACK}%s${TEXT_RESET}\n" "skipped $args"
 }
 
 
 function err() {
-    printf '\n\t\033[1;31mFAILED '"${FUNCNAME[1]//_/ }"'\033[0m: \033[1m%s\033[0m\n\n' "$*"
+    printf "\n\t${TEXT_RED}FAILED ${FUNCNAME[1]//_/ }${TEXT_RESET}: ${TEXT_BOLD}%s${TEXT_RESET}\n\n" "$*"
 }
 
 
