@@ -391,7 +391,7 @@ function adding_discard_options_in_fstab() {
 
 
 function adding_menu_entries_to_GRUB() {
-    if ! $(grep -qP 'Shutdown|Restart' $GRUB_CUSTOM); then
+    if ! grep -qP 'Shutdown|Restart' $GRUB_CUSTOM; then
         log
 
         printf '%s\n' \
