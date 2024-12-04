@@ -375,14 +375,18 @@ function enabling_discards_in_LVM() {
 
 
 function adding_discard_options_in_fstab() {
-    log
-
-    local uuids=($(lsblk -o uuid --filter 'ROTA != 1'))
+        local uuids=($(lsblk -o uuid --filter 'ROTA != 1'))
     uuids=$(join_by_char "|" ${uuids[@]:1})
+
+    if ! grep -qP '^UUID=('"$uuids"').+discard\s+\d+\s+\d+\s*$' $FSTAB; then
+        log
 
     sed -i -E "s/^(UUID=($uuids)\s+.+)(\s+[0-9]+\s+[0-9]+\s*)$/\1,discard \3/mg" $FSTAB
 
-    log DONE
+    success
+    else
+        skip
+    fi
 }
 
 
