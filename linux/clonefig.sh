@@ -328,8 +328,7 @@ function enabling_systemd_services() {
         log
 
         for svc in docker gdm ntpd bluetooth NetworkManager; do
-            systemctl enable $svc && \
-                log enabled $svc
+            systemctl enable $svc && log $svc ✓
         done
     else
         skip
