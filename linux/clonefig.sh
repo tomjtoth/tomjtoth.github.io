@@ -337,11 +337,11 @@ function configuring_bashrc() {
 
         # shellcheck disable=SC2016
         printf "%s\n" \
-            "        # getting the latest aliases online" \
-            "        source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases) 2>/dev/null" \
+            "# getting the latest aliases online" \
+            "source <(curl -sSL https://tomjtoth.github.io/linux/bash_aliases) 2>/dev/null" \
             "" \
-            "        # and weekly reminders" \
-            "        source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh) 2>/dev/null" \
+            "# and weekly reminders" \
+            "source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh) 2>/dev/null" \
 >> ~/.bashrc
 
         success
