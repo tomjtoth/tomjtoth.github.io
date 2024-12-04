@@ -16,6 +16,7 @@ TEXT_BOLD='\033[1m'
 TEXT_WHITE='\033[0;37m'
 TEXT_BLACK='\033[90m'
 TEXT_RED='\033[0;31m'
+TEXT_GREEN='\033[0;32m'
 
 
 function add_to_fstab() {
@@ -41,6 +42,11 @@ function skip() {
 
 function err() {
     printf "\n\t${TEXT_RED}FAILED ${FUNCNAME[1]//_/ }${TEXT_RESET}: ${TEXT_BOLD}%s${TEXT_RESET}\n\n" "$*"
+}
+
+
+function success() {
+    printf "\n\t${TEXT_GREEN}DONE${TEXT_RESET}\n\n"
 }
 
 
@@ -73,7 +79,7 @@ function limiting_systemd_journals_size() {
         printf '%s\n' [Journal] SystemMaxUse=50M \
             > $JOURNAL_CONF
 
-        log DONE
+        success
     else
         skip
     fi
@@ -116,7 +122,7 @@ function configuring_locales() {
             TIME \
             >> /etc/locale.conf
         
-        log DONE
+        success
     else
         skip
     fi
@@ -142,7 +148,7 @@ function enabling_zram() {
 
         add_to_fstab /dev/zram0 none swap defaults,pri=100,discard 0 0
         
-        log DONE
+        success
     else
         skip
     fi
@@ -159,7 +165,7 @@ function enabling_sudo_for_group_wheel() {
             > $SUDO_CONF
         chmod 0440 $SUDO_CONF
 
-        log DONE
+        success
     else
         skip
     fi
@@ -181,7 +187,7 @@ function adding_primary_user() {
         useradd -m -G wheel,docker,boinc "$user"
         passwd "$user"
         
-        log DONE
+        success
     else
         skip
     fi
@@ -240,7 +246,7 @@ function installing_missing_packages() {
 
         pacman -Syyu "${missing_pkgs[@]}" || return
 
-        log DONE
+        success
     else
         skip
     fi
@@ -265,7 +271,7 @@ function installing_paru() {
         cd ..
         rm -rf paru{,.tar.gz}
 
-        log DONE
+        success
     else
         skip
     fi
@@ -282,7 +288,7 @@ function configuring_ssh() {
             PermitRootLogin no \
             > $SSH_WHEEL_CONF
         
-        log DONE
+        success
     else
         skip
     fi
@@ -296,7 +302,7 @@ function enabling_autologin_in_GDM() {
         sed -i '/^\[daemon\]$/aAutomaticLogin='"$user"'\nAutomaticLoginEnable=True' \
             /etc/gdm/custom.conf
 
-        log DONE
+        success
     else
         skip
     fi
@@ -310,7 +316,7 @@ function relocating_docker(){
         mkdir /home/docker
         ln -s /home/docker /var/lib/docker
 
-        log DONE
+        success
     else
         skip
     fi
@@ -342,7 +348,7 @@ function configuring_bashrc() {
             "" \
             "# and weekly reminders" \
             "source <(curl -sSL https://tomjtoth.github.io/linux/reminders.sh) 2>/dev/null" \
->> ~/.bashrc
+             >> ~/.bashrc
 
         success
     else
@@ -357,7 +363,7 @@ function importing_dconf_settings() {
 
     sudo -u \#1000 curl -L ttj.hu/linux/dconf-dump | dconf load /
 
-    log DONE
+    success
 }
 
 
@@ -367,7 +373,7 @@ function enabling_discards_in_LVM() {
 
         sed -i -E "s/^(\s*)#(\s*issue_discards)\s*=\s*0$/\1 \2 = 1/" $LVM_CONF
 
-        log DONE
+        success
     else
         skip
     fi
@@ -375,15 +381,15 @@ function enabling_discards_in_LVM() {
 
 
 function adding_discard_options_in_fstab() {
-        local uuids=($(lsblk -o uuid --filter 'ROTA != 1'))
+    local uuids=($(lsblk -o uuid --filter 'ROTA != 1'))
     uuids=$(join_by_char "|" ${uuids[@]:1})
-
+    
     if ! grep -qP '^UUID=('"$uuids"').+discard\s+\d+\s+\d+\s*$' $FSTAB; then
         log
 
-    sed -i -E "s/^(UUID=($uuids)\s+.+)(\s+[0-9]+\s+[0-9]+\s*)$/\1,discard \3/mg" $FSTAB
+        sed -i -E "s/^(UUID=($uuids)\s+.+)(\s+[0-9]+\s+[0-9]+\s*)$/\1,discard \3/mg" $FSTAB
 
-    success
+        success
     else
         skip
     fi
@@ -400,7 +406,7 @@ function adding_menu_entries_to_GRUB() {
             >> $GRUB_CUSTOM
         grub-mkconfig -o /boot/grub/grub.cfg
 
-        log DONE
+        success
     else
         skip
     fi
