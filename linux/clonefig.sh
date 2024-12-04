@@ -232,12 +232,13 @@ function installing_missing_packages() {
         log
 
         sed -i \
-            -E 's/^#(Color)$/\1/m' \
-            -E 's/^(NoProgressBar)$/#\1/m' \
-            -E 's/^#(CheckSpace)$/\1/m' \
+            -re 's/^#(Color)$/\1/m' \
+            -re 's/^(NoProgressBar)$/#\1/m' \
+            -re 's/^#(CheckSpace)$/\1/m' \
             -re 's/^(ParallelDownloads) *= *[0-9]+$/\1 = 20/m' \
             /etc/pacman.conf
-        pacman -Syyu "${missing_pkgs[@]}"
+
+        pacman -Syyu "${missing_pkgs[@]}" || return
 
         log DONE
     else
