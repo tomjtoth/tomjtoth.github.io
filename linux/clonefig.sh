@@ -7,6 +7,9 @@ JOURNAL_CONF=/etc/systemd/journald.conf.d/00-journal-size.conf
 SSH_WHEEL_CONF=/etc/ssh/sshd_config.d/01_wheel.conf
 LVM_CONF=/etc/lvm/lvm.conf
 GRUB_CUSTOM=/etc/grub.d/40_custom
+
+
+LOCALES=(en_US fi_FI hu_HU sv_FI)
 TEXT_YELLOW='\033[93m'
 TEXT_RESET='\033[0m'
 TEXT_BOLD='\033[1m'
@@ -81,7 +84,7 @@ function configuring_locales() {
     if ! grep -q LC_TIME /etc/locale.conf; then
         log
 
-        local lcl lcl_idx LOCALES=(en_US fi_FI hu_HU sv_FI)
+        local lcl lcl_idx
         for lcl in "${!LOCALES[@]}"; do
             printf '%i - %s\n' "$lcl" "${LOCALES[$lcl]}"
         done
