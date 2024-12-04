@@ -362,7 +362,7 @@ function importing_dconf_settings() {
 
 
 function enabling_discards_in_LVM() {
-    if [ -f $LVM_CONF ]; then
+    if ! grep -qP '^\s+issue_discards\s*=\s*1' $LVM_CONF; then
         log
 
         sed -i -E "s/^(\s*)#(\s*issue_discards)\s*=\s*0$/\1 \2 = 1/" $LVM_CONF
