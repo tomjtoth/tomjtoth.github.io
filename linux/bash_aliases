@@ -4,6 +4,7 @@
 
 alias {é,ö}s="sudo -E -s"
 alias {é,ö}p='ping 1.1.1.1'
+alias {é,ö}reminders='sed -i -E "s/^(source .+\/reminders.sh\)( 2>\/dev\/null)?)$/# \1/g" ~/.bashrc'
 
 alias ncdu='ncdu --color dark'
 

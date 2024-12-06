@@ -1,23 +1,20 @@
 #!/bin/bash
 
 
-FILE=~/.reminders_last_run
-LAST_REMINDER=$(cat $FILE 2>/dev/null)
+LAST_ACTIVITY=$(stat -c %Y ~/.bash_history)
 NOW=$(date +%s)
+DAYS=2
 
-if [ "${LAST_REMINDER:-0}" -lt $((NOW - 7*24*60*60)) ]; then
-	echo "$NOW" > $FILE
+if [ "${LAST_ACTIVITY:-0}" -lt $((NOW - DAYS*24*60*60)) ]; then
 	printf '\t%s\n' \
 		'' \
-		'this is a weekly reminder' \
-		'run the below command to disable it:' \
-		'' \
-		'  sed -i -E "s/^(source .+\/reminders.sh\) 2>\/dev\/null)$/# \1/g" ~/.bashrc' \
+		"this reminder is shown, when not issuing any commands for ${DAYS} days" \
+		'and can be disabled via running: "öreminders"' \
 		'' \
 		'typing "ööö" updates the whole system' \
-		'typing "öä xyz" searches for an application by the name "xyz"' \
-		'typing "öäå xyz" searches for an unofficial application by the name "xyz"' \
-		'typing "öö xyz" installs the application "xyz"' \
+		'typing "öä xyz" searches for an officially supported app by the name "xyz"' \
+		'typing "öäå xyz" searches for any (also unofficially supported) app by the name "xyz"' \
+		'typing "öö x1 x2 x3" installs the apps "x1", "x2", "x3"' \
 		'typing "ör xyz" removes the application "xyz"' \
 		''
 fi
