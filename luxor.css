@@ -1,0 +1,9 @@
+td#luxor-num-0,
+td[id^="luxor-num-"].selected {
+  background-color: red;
+  color: white;
+}
+
+td#luxor-num-0 {
+  content: "🪲";
+}
