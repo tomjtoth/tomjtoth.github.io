@@ -1,15 +1,15 @@
 ul#songs ul {
-    /* transition: max-height 0.2s ease-out; */
-    overflow: hidden;
-    padding-left: 1em;
+  /* transition: max-height 0.2s ease-out; */
+  overflow: hidden;
+  padding-left: 1em;
 }
 
 ul#songs p {
-    /* list-style-type: none; */
-    cursor: pointer;
-    user-select: none;
-    margin: 0.25em;
-    /* border: 1px solid black; */
+  /* list-style-type: none; */
+  cursor: pointer;
+  user-select: none;
+  margin: 0.25em;
+  /* border: 1px solid black; */
 }
 
 /* ul#songs p:hover {
@@ -17,42 +17,41 @@ ul#songs p {
 } */
 
 ul#songs li::marker {
-    content: '⇩';
-    vertical-align: text-top;
+  content: "⇩";
+  vertical-align: text-top;
 }
 
 ul#songs li.active::marker {
-    content: '⇧';
-    /* transform: rotate(180deg); */
+  content: "⇧";
+  /* transform: rotate(180deg); */
 }
 
-ul#songs li>ul {
-    max-height: 0;
+ul#songs li > ul {
+  max-height: 0;
 }
 
-
-ul#songs li.active>ul {
-    max-height: 100%;
+ul#songs li.active > ul {
+  max-height: 100%;
 }
 
-ul#songs li.help-wanted::marker {
-    content: "⁉️";
+ul#songs li.missing::marker {
+  content: "🚧";
 }
 
-ul#songs li.help-wanted>p:hover {
-    cursor: not-allowed;
+ul#songs li.missing > p:hover {
+  cursor: not-allowed;
 }
 
-/* ul#songs li.help-wanted {
+/* ul#songs li.missing {
     color: red;
     background-color: yellow;
 } */
 
-ul#songs li.wip::marker {
-    content: "🚧";
+ul#songs li a {
+  margin-left: 10px;
+  /* border: 1px solid black; */
 }
 
-ul#songs li a {
-    margin-left: 10px;
-    /* border: 1px solid black; */
+ul.lyrics {
+  white-space: pre-line;
 }

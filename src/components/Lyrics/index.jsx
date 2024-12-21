@@ -7,11 +7,12 @@ import Artists from "./Artists";
 export default function () {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(initLyrics());
-  }, []);
-
   const lyrics = useSelector(({ lyrics }) => lyrics);
+  const uninitialized = Object.keys(lyrics).length === 0;
+
+  useEffect(() => {
+    if (uninitialized) dispatch(initLyrics());
+  }, []);
 
   return (
     <>
@@ -20,7 +21,8 @@ export default function () {
         The below songs are linked to Google Translate (or YouTube, when the
         lyrics are still missing).
       </p>
-      <Artists data={lyrics} />
+
+      {uninitialized ? <p>Loading</p> : <Artists data={lyrics} />}
     </>
   );
 }
