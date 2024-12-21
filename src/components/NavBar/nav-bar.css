@@ -1,36 +1,28 @@
-body {
-    margin: 0;
-}
-
-body>div {
-    margin: 10px;
-}
-
 nav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-    background-color: gray;
-    position: sticky;
-    top: 0px;
-    z-index: 0;
+  /* list-style-type: none; */
+  /* margin: 0;
+  padding: 0; */
+  overflow: auto;
+  background-color: gray;
+  /* position: sticky; */
+  /* top: 0px;
+  z-index: 0; */
 }
 
-nav>a {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    cursor: pointer;
+li.nav-li {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  /* padding: 14px 16px; */
+  text-decoration: none;
+  cursor: pointer;
 }
 
-nav>a:hover:not(.active) {
-    background-color: black;
+li.nav-li:hover:not(.active) {
+  background-color: black;
 }
 
-nav>a.active {
-    background-color: purple;
+li.nav-li.active {
+  background-color: purple;
 }
