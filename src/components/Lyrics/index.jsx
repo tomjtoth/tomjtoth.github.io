@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { initLyrics } from "../../reducers/lyrics";
 import "./lyrics.css";
 import Artists from "./Artists";
+import { header } from "../NavBar";
 
 export default function () {
   const dispatch = useDispatch();
@@ -16,13 +17,12 @@ export default function () {
 
   return (
     <>
-      <h2>Lyrics</h2>
+      {header("låttext")}
       <p>
         The below songs are linked to Google Translate (or YouTube, when the
         lyrics are still missing).
       </p>
-
-      {uninitialized ? <p>Loading</p> : <Artists data={lyrics} />}
+      {uninitialized ? <p>Loading...</p> : <Artists data={lyrics} />}
     </>
   );
 }

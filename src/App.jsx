@@ -1,16 +1,18 @@
 import { Routes, Route, useMatch, useNavigate } from "react-router";
 import NavBar from "./components/NavBar";
-import About from "./components/About";
+import Home from "./components/Home";
+import BatteryMonitor from "./components/BatteryMonitor";
 import Lyrics from "./components/Lyrics";
+import ShoppingList from "./components/ShoppingList";
 
 export default function () {
   return (
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<About />} />
-        <Route path="/about" element={<About />} />
-        {/* <Route path="/battery-monitor" element={<About />} /> */}
+        <Route path="/" element={<Home />} />
+        <Route path="/shopping-list" element={<ShoppingList />} />
+        <Route path="/battery-monitor" element={<BatteryMonitor />} />
         <Route path="/lyrics" element={<Lyrics />} />
       </Routes>
     </>

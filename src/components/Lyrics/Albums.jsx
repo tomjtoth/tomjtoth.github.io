@@ -7,8 +7,8 @@ export default function ({ keyA, albums, artist }) {
       {Object.entries(albums)
         .toSorted(([title_a, a], [title_b, b]) => {
           // move the mix album to the beginning
-          if (title_a === null) return -1;
-          if (title_b === null) return 1;
+          if (title_a === "null") return -1;
+          if (title_b === "null") return 1;
 
           // order by year DESC
           if (a.year === undefined) return 1;
@@ -19,6 +19,7 @@ export default function ({ keyA, albums, artist }) {
             const lower_a = title_a.toLowerCase();
             const lower_b = title_b.toLowerCase();
 
+            // order alphabetically within the same year
             if (lower_a < lower_b) return -1;
             if (lower_a > lower_b) return 1;
           }

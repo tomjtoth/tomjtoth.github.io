@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { HashRouter } from "react-router";
 import { Provider } from "react-redux";
 import "./main.css";
-import "./utils/built-ins.js";
 
 import store from "./store.js";
 import App from "./App.jsx";
