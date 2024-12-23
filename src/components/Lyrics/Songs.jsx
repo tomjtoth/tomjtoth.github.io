@@ -11,28 +11,33 @@ const translate = (lyrics) =>
   )}&op=translate`;
 
 export default function ({ keyAA, songs, artist }) {
+  const songs_arr = Object.entries(songs);
+
   return (
     <ul>
-      {Object.entries(songs).map(([title, lyrics], i) => {
+      {songs_arr.map(([title, lyrics], i) => {
         const key = `${keyAA}-song-${i}`;
 
-        let link, className;
+        let link;
+        let className = songs_arr.length === 1 ? "active" : "";
 
         if (lyrics) {
           if (lyrics.startsWith("http")) {
             link = <Logo url={lyrics} />;
-            className = "missing";
+            className += " missing";
           } else {
             link = <Logo url={translate(lyrics)} />;
           }
         } else {
           link = <Logo url={search_on_yt(artist, title)} />;
-          className = "missing";
+          className += " missing";
           lyrics = "http";
         }
 
+        if (className === "") className = undefined;
+
         return (
-          <li key={key} className={className}>
+          <li key={key} {...{ className }}>
             <p>
               {title}
               {link}
