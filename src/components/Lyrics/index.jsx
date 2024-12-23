@@ -8,8 +8,8 @@ import { header } from "../NavBar";
 export default function () {
   const dispatch = useDispatch();
 
-  const lyrics = useSelector(({ lyrics }) => lyrics);
-  const uninitialized = Object.keys(lyrics).length === 0;
+  const { artists, active } = useSelector((s) => s.lyrics);
+  const uninitialized = Object.keys(artists).length === 0;
 
   useEffect(() => {
     if (uninitialized) dispatch(initLyrics());
@@ -22,7 +22,7 @@ export default function () {
         The below songs are linked to Google Translate (or YouTube, when the
         lyrics are still missing).
       </p>
-      {uninitialized ? <p>Loading...</p> : <Artists data={lyrics} />}
+      {uninitialized ? <p>Loading...</p> : <Artists {...{ artists, active }} />}
     </>
   );
 }

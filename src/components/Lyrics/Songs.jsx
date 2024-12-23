@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux";
 import Logo from "./logos";
+import factory from "./factory";
 
 const search_on_yt = (artist, song) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent(
@@ -10,16 +12,19 @@ const translate = (lyrics) =>
     lyrics
   )}&op=translate`;
 
-export default function ({ keyAA, songs, artist }) {
+export default function ({ keyAA, songs, artist, active }) {
+  const dispatch = useDispatch();
+
   const songs_arr = Object.entries(songs);
 
   return (
     <ul>
       {songs_arr.map(([title, lyrics], i) => {
-        const key = `${keyAA}-song-${i}`;
+        const keyAAS = `${keyAA}-song-${i}`;
 
         let link;
-        let className = songs_arr.length === 1 ? "active" : "";
+        let className =
+          songs_arr.length === 1 || active.includes(keyAAS) ? "active" : "";
 
         if (lyrics) {
           if (lyrics.startsWith("http")) {
@@ -37,7 +42,10 @@ export default function ({ keyAA, songs, artist }) {
         if (className === "") className = undefined;
 
         return (
-          <li key={key} {...{ className }}>
+          <li
+            key={keyAAS}
+            {...{ className, onClick: factory(dispatch, keyAAS) }}
+          >
             <p>
               {title}
               {link}
