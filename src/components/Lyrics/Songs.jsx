@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 import Logo from "./logos";
-import factory from "./factory";
 
 const search_on_yt = (artist, song) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent(
@@ -42,10 +41,7 @@ export default function ({ keyAA, songs, artist, active }) {
         if (className === "") className = undefined;
 
         return (
-          <li
-            key={keyAAS}
-            {...{ className, onClick: factory(dispatch, keyAAS) }}
-          >
+          <li key={keyAAS} {...{ className, keyAAS }}>
             <p>
               {title}
               {link}

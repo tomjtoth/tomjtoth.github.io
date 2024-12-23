@@ -1,21 +1,9 @@
-import { useDispatch } from "react-redux";
 import Albums from "./Albums";
 import Logo from "./logos";
-import factory from "./factory";
 
 export default function ({ artists, active }) {
-  const dispatch = useDispatch();
-
   return (
-    <ul
-      lang="sv"
-      id="songs"
-      // onClick={({ target }) => {
-      //   if (target.tagName !== "P") return;
-      //   target.parentNode.classList.toggle("active");
-      //   // dispatch();
-      // }}
-    >
+    <ul lang="sv" id="songs">
       {Object.entries(artists)
         .toSorted(([artist_a], [artist_b]) => {
           const lower_a = artist_a.toLowerCase();
@@ -30,7 +18,7 @@ export default function ({ artists, active }) {
           const className = active.includes(keyA) ? "active" : undefined;
 
           return (
-            <li key={keyA} {...{ className }} onClick={factory(dispatch, keyA)}>
+            <li key={keyA} {...{ className, keyAAS: keyA }}>
               <p>
                 {artist}
                 <Logo {...{ url }} />

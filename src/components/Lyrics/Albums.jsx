@@ -1,11 +1,7 @@
-import { useDispatch } from "react-redux";
 import Songs from "./Songs";
 import Logo from "./logos";
-import factory from "./factory";
 
 export default function ({ keyA, albums, artist, active }) {
-  const dispatch = useDispatch();
-
   const albums_arr = Object.entries(albums).toSorted(
     ([title_a, a], [title_b, b]) => {
       // move the mix album to the beginning
@@ -38,12 +34,13 @@ export default function ({ keyA, albums, artist, active }) {
         return (
           <li
             key={keyAA}
-            className={
-              albums_arr.length === 1 || active.includes(keyAA)
-                ? "active"
-                : undefined
-            }
-            onClick={factory(dispatch, keyAA)}
+            {...{
+              className:
+                albums_arr.length === 1 || active.includes(keyAA)
+                  ? "active"
+                  : undefined,
+              keyAAS: keyAA,
+            }}
           >
             <p>
               {year && `${year} - `}
