@@ -21,8 +21,8 @@ Cache.prototype.deleteAll = function (these, except) {
 const runesMP3 = /\/runes\/[a-z]+\.mp3$/;
 const runesPNG = /\/runes\/[a-z]+\.png$/;
 
-const indexCSS = /\/assets\/index-\w+\.css$/;
-const indexJS = /\/assets\/index-\w+\.js$/;
+const indexCSS = /\/assets\/index-[\w-]+\.css$/;
+const indexJS = /\/assets\/index-[\w-]+\.js$/;
 
 // Install event: Cache resources
 self.addEventListener("install", (event) => {
