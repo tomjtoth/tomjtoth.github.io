@@ -1,0 +1,9 @@
+div#battery-monitor div {
+  padding: 5px;
+  background-color: lightgray;
+  border: 1px solid black;
+}
+
+div#battery-monitor div:nth-child(even) {
+  background-color: lightblue;
+}

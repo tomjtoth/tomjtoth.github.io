@@ -1,0 +1,42 @@
+svg.google-translate > path {
+  fill: var(--col-fg-0);
+}
+
+#songs ul {
+  /* transition: max-height 200ms ease-in-out; */
+  list-style: none;
+  overflow: hidden;
+  padding-left: 0px;
+  max-height: 0px;
+}
+
+#songs {
+  padding-left: 0px;
+}
+
+#songs li.active > ul,
+#songs li.active > p {
+  max-height: max-content;
+}
+
+#songs li.missing-lyrics:hover {
+  cursor: not-allowed;
+}
+
+p.lyrics {
+  white-space: pre-line;
+  user-select: all;
+  cursor: text;
+  max-height: 0;
+  overflow: hidden;
+  margin: 0px;
+}
+
+#songs a {
+  padding-left: 16px;
+}
+
+.active > p.lyrics {
+  margin: 16px 0px;
+  padding: 0px 16px;
+}
