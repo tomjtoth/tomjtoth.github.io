@@ -1,0 +1,18 @@
+td.luxor-num.active {
+  background-color: red;
+  color: white;
+}
+
+input.luxor-num {
+  width: 40px;
+}
+
+ul.luxor {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+ul.luxor li {
+  margin: 16px;
+}
