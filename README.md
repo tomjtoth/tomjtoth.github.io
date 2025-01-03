@@ -9,7 +9,8 @@ These are mostly static websites and other tools I use from different machines w
 [SW](./public/service-worker.js) intercepts requests:
 
 - the app's core resources are cached during the install event (1st page visit)
-- runes' assets are cached once, and served always from cache later
+- the Arx minigame's assets are cached once, and served always from cache later
+  - upon 2nd visit to the website, as importing App is faster than registering the service-worker
 - webpack generated .js and .css files are also refreshed along with the cached index.html when necessary
 - the client gets responses from local cache if exists, and should be able to access new resources upon next request
 
@@ -21,4 +22,4 @@ I used to hop distros, then tried installing Arch on anything that hums ever sin
 bash <(curl -L ttj.hu/linux/clonefig.sh)
 ```
 
-[aliases](/public/linux/bash_aliases) are also sourced from a few friends' machines.
+[Aliases](/public/linux/bash_aliases) are also sourced from a few friends' machines.
