@@ -9,9 +9,9 @@ import QRCode from "../QRCode";
 
 export default function () {
   const dispatch = useDispatch();
-  const className = useSelector((s) => s.sidepanel.active)
-    ? "active"
-    : undefined;
+  const className = `border1-e ${
+    useSelector((s) => s.sidepanel.active) ? " active" : ""
+  }`;
 
   const links = [
     { children: "alkuun", to: "/" },
