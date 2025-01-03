@@ -67,6 +67,7 @@ export const runes = Object.fromEntries(
 export const spells = Object.fromEntries(
   [
     ["mega cheat", [0, [mega, mega, mega, aam, vitae, tera], false]],
+    ["fizzle", [0, [undefined]]],
     ["activate portal", [1, [mega, spacium], false]],
     ["magic missile", [1, [aam, taar]]],
     ["night vision", [1, [mega, vista]]],
