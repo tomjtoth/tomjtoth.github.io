@@ -7,27 +7,28 @@ export default function ({ fieldId, rows, importedAt, deletable }) {
   const { locked } = useSelector((s) => s.luxor);
 
   return (
-    <li id={fieldId} className="luxor">
+    <li id={fieldId} className={`luxor ${locked ? "" : " bordered"}`}>
       {!locked && (
-        <div>
-          <span className="luxor-fld-add clickable padded">új mező ➕</span>
+        <>
           {importedAt && (
             <>
               <span className="luxor-fld-imported padded">
                 {Math.round(
                   (Date.now() - new Date(importedAt).valueOf()) / 1000
                 )}
-                sec ezelőttről
+                mp-cel korábbról
               </span>
-              <br />
             </>
           )}
-          {deletable && (
-            <span className="luxor-fld-del clickable padded">
-              🚫 mező törlése
-            </span>
-          )}
-        </div>
+          <div>
+            <span className="luxor-fld-add clickable padded">új mező ➕</span>
+            {deletable && (
+              <span className="luxor-fld-del clickable padded">
+                🚫 mező törlése
+              </span>
+            )}
+          </div>
+        </>
       )}
       <table className="luxor">
         <TableHead />
