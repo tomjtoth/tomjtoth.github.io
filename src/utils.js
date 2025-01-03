@@ -53,3 +53,29 @@ export function setDocTitleIcon(title, icon = "🤓") {
         <text y=".9em" font-size="90">${icon}</text>
     </svg>`;
 }
+
+export function toToggled(arr, key) {
+  const res = [...arr];
+  toggle(res, key);
+  return res;
+}
+
+export function toggle(arr, key) {
+  const idx = arr.indexOf(key);
+  if (idx === -1) {
+    arr.push(key);
+  } else {
+    arr.splice(idx, 1);
+  }
+}
+
+export function last(arr) {
+  return arr[arr.length - 1];
+}
+
+export function between(n, a, b) {
+  if (typeof a !== "number" || typeof b !== "number")
+    throw new Error("between needs numbers for comparison");
+
+  return a <= n && n <= b;
+}

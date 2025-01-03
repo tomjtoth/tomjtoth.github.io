@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
-import { loadObject, storeObject } from "../utils";
+import { loadObject, storeObject, last } from "../utils";
 
 function save({ fields, pickedNums, ...state }) {
   storeObject(name, { fields, pickedNums });
@@ -139,9 +139,9 @@ export const fieldsFromPreset = (preset) => {
           if (idx % 25 === 0) {
             fields.push({ id: uuid(), rows: [], importedAt });
           }
-          const { rows } = fields.last();
+          const { rows } = last(fields);
           if (idx % 5 === 0) rows.push([]);
-          const row = rows.last();
+          const row = last(rows);
 
           row.push(Number(numStr));
 

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { storeObject, loadObject, fetchYaml } from "../utils";
+import { storeObject, loadObject, fetchYaml, toToggled } from "../utils";
 
 const name = "lyrics";
 
@@ -56,7 +56,7 @@ const slice = createSlice({
       };
     },
     toggle: ({ active, ...state }, { payload }) => {
-      return save({ ...state, active: active.toToggled(payload) });
+      return save({ ...state, active: toToggled(active, payload) });
     },
     reset: ({ artists }) => {
       return save({ artists, active: [], scrollTop: 0 });
