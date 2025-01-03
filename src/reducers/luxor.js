@@ -59,7 +59,7 @@ const slice = createSlice({
       save({ ...state, fields: fields.concat(...payload) }),
 
     addEmptyField: ({ fields, ...state }, { payload }) => {
-      const idx = fields.indexOf(payload);
+      const idx = fields.findIndex(({ id }) => id === payload);
       const arr = [...fields];
 
       arr.splice(idx + 1, 0, { id: uuid(), rows: emptyField });
