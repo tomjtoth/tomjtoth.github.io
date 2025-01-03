@@ -18,7 +18,7 @@ Cache.prototype.deleteAll = function (these, except) {
   });
 };
 
-const arxMP3 = /\/arx\/(?:runes|spells)\/[a-z]+\.mp3$/;
+const arxMP3 = /\/arx\/(?:runes|spells)\/[a-z-]+\.mp3$/;
 const arxPNG = /\/arx\/runes\/[a-z]+\.png$/;
 
 const indexCSS = /\/assets\/index-[\w-]+\.css$/;

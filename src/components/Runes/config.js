@@ -63,57 +63,68 @@ export const runes = Object.fromEntries(
   })
 );
 
+// based on https://wiki.arx-libertatis.org/Spells
 export const spells = Object.fromEntries(
   [
-    ["megaCheat", [0, [mega, mega, mega, aam, vitae, tera]]],
-    ["activatePortal", [1, [mega, spacium]]],
-    ["magicMissile", [1, [aam, taar]]],
-    ["nightVision", [1, [mega, vista]]],
+    ["mega cheat", [0, [mega, mega, mega, aam, vitae, tera], false]],
+    ["activate portal", [1, [mega, spacium], false]],
+    ["magic missile", [1, [aam, taar]]],
+    ["night vision", [1, [mega, vista]]],
     ["douse", [1, [nhi, yok]]],
     ["ignite", [1, [aam, yok]]],
     ["armor", [2, [mega, kaom]]],
     ["harm", [2, [rhaa, vitae]]],
-    ["lowerArmor", [2, [rhaa, kaom]]],
+    ["lower armor", [2, [rhaa, kaom]]],
     ["heal", [2, [mega, vitae]]],
-    ["detectTrap", [2, [morte, cosum, vista]]],
-    ["fireball", [3, [aam, yok, taar]]],
-    ["reveal", [3, [nhi, stregum, vista]]],
-    ["iceProjection", [3, [aam, fridd, taar]]],
+    ["detect trap", [2, [morte, cosum, vista]]],
+    ["fireball", [3, [aam, yok, taar], false]],
+    ["reveal", [3, [nhi, stregum, vista], false]],
+    ["ice projection", [3, [aam, fridd, taar]]],
     ["speed", [3, [mega, movis]]],
     ["feed", [3, [aam, vitae, cosum]]],
     ["telekinesis", [4, [spacium, comunicatum]]],
-    ["protectionFromCold", [4, [fridd, kaom]]],
+    ["protection from cold", [4, [fridd, kaom]]],
     ["bless", [4, [mega, stregum, vitae]]],
-    ["dispelField", [4, [nhi, spacium]]],
-    ["protectionFromFire", [4, [yok, kaom]]],
+    ["dispel field", [4, [nhi, spacium]]],
+    ["protection from fire", [4, [yok, kaom]]],
     ["curse", [4, [rhaa, stregum, vitae]]],
-    ["trap", [5, [aam, morte, cosum]]],
-    ["cureEffectsOfPoison", [5, [nhi, cetrius]]],
-    ["repealUndead", [5, [morte, kaom]]],
+    ["trap", [5, [aam, morte, cosum], false]],
+    ["cure effects of poison", [5, [nhi, cetrius]]],
+    ["repel undead", [5, [morte, kaom]]],
     ["levitate", [5, [mega, spacium, movis]]],
-    ["poisonProjection", [5, [aam, cetrius, taar]]],
-    ["slowDown", [5, [rhaa, movis]]],
-    ["disableTrap", [6, [nhi, morte, cosum]]],
-    ["createField", [6, [aam, kaom, spacium]]],
-    ["raiseDead", [6, [aam, morte, vitae]]],
+    ["poison projection", [5, [aam, cetrius, taar]]],
+    ["slow down", [5, [rhaa, movis]]],
+    ["disable trap", [6, [nhi, morte, cosum]]],
+    ["create field", [6, [aam, kaom, spacium]]],
+    ["raise dead", [6, [aam, morte, vitae]]],
     ["paralyze", [6, [nhi, movis]]],
-    ["fireField", [7, [aam, yok, spacium]]],
-    ["iceField", [7, [aam, fridd, spacium]]],
+    ["fire field", [7, [aam, yok, spacium]]],
+    ["ice field", [7, [aam, fridd, spacium]]],
     ["confuse", [7, [nhi, vista]]],
-    ["lightningProjection", [7, [aam, folgora, taar]]],
-    ["flyingEye", [7, [vista, movis]]],
-    ["manaDrain", [8, [stregum, movis]]],
-    ["enchantObject", [8, [mega, stregum, cosum]]],
-    ["chaos", [8, [aam, mega, morte]]],
+    ["lightning projection", [7, [aam, folgora, taar]]],
+    ["flying eye", [7, [vista, movis]]],
+    ["mana drain", [8, [stregum, movis], false]],
+    ["enchant object", [8, [mega, stregum, cosum]]],
+    ["chaos", [8, [aam, mega, morte], false]],
     ["invisibility", [8, [nhi, vista]]],
-    ["lifeDrain", [8, [vitae, movis]]],
+    ["life drain", [8, [vitae, movis], false]],
     ["summon", [9, [aam, vitae, tera]]],
-    ["massParalyze", [9, [mega, nhi, movis]]],
+    ["mass paralyze", [9, [mega, nhi, movis]]],
     ["incinerate", [9, [aam, mega, yok]]],
-    ["negateMagic", [9, [nhi, stregum, spacium]]],
-    ["massLightningProjection", [10, [aam, folgora, spacium]]],
-    ["massIncinerate", [10, [mega, aam, mega, yok]]],
-    ["slowTime", [10, [rhaa, tempus]]],
-    ["controlDemon", [10, [movis, comunicatum]]],
-  ].map(([spell, [page, sequence]]) => [spell, { page, sequence }])
+    ["negate magic", [9, [nhi, stregum, spacium]]],
+    ["mass lightning projection", [10, [aam, folgora, spacium], false]],
+    ["mass incinerate", [10, [mega, aam, mega, yok]]],
+    ["slow time", [10, [rhaa, tempus], false]],
+    ["control demon", [10, [movis, comunicatum]]],
+  ].map(([spell, [page, sequence, hasSound = true]]) => {
+    const value = { page, sequence };
+
+    // needs digging, most of the spells are OK for now
+    if (hasSound === true) {
+      value.mp3 = new Audio(`/arx/spells/${spell.replaceAll(" ", "-")}.mp3`);
+      value.mp3.preload = "auto";
+    }
+
+    return [spell, value];
+  })
 );
