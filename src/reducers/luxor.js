@@ -79,7 +79,7 @@ const slice = createSlice({
         fields: fields.filter(({ id }) => id !== payload),
       }),
 
-    resetPickedNumbers: (state) => ({ ...state, pickedNums: [] }),
+    resetPickedNumbers: (state) => save({ ...state, pickedNums: [] }),
   },
 });
 
