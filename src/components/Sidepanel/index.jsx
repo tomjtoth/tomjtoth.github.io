@@ -67,7 +67,7 @@ export default function () {
           <Link key={`nav-link-${i}`} className="nav-link" {...lnk} />
         ))}
       </ul>
-      <QRCode value={`https://ttj.hu/#${pathname}`} />
+      <QRCode value={`${window.location.pathname}/#${pathname}`} />
     </nav>
   );
 }
