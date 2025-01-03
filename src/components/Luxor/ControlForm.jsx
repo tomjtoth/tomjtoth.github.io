@@ -45,12 +45,7 @@ export default function () {
       >
         {locked ? "🔒" : "🔓"}
       </span>
-      <label htmlFor="luxor-adder">A következő nyerőszám:</label>
-      <input
-        {...num}
-        className="padded bordered"
-        style={{ margin: 16, flexGrow: 1 }}
-      />
+      <input {...num} className="bordered padded" />
       <span
         className="padded clickable"
         onClick={() => dispatch(resetSelected())}

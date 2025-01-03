@@ -7,13 +7,17 @@ export default function ({ fieldId, rows, importedAt, deletable }) {
   const { locked } = useSelector((s) => s.luxor);
 
   return (
-    <li id={fieldId} className="bordered luxor">
+    <li id={fieldId} className="luxor">
       {!locked && (
-        <>
+        <div>
+          <span className="luxor-fld-add clickable padded">új mező ➕</span>
           {importedAt && (
             <>
               <span className="luxor-fld-imported padded">
-                importáltad: {new Date(importedAt).toLocaleString()}
+                {Math.round(
+                  (Date.now() - new Date(importedAt).valueOf()) / 1000
+                )}
+                sec ezelőttről
               </span>
               <br />
             </>
@@ -23,8 +27,7 @@ export default function ({ fieldId, rows, importedAt, deletable }) {
               🚫 mező törlése
             </span>
           )}
-          <span className="luxor-fld-add clickable padded">új mező ➕</span>
-        </>
+        </div>
       )}
       <table className="luxor">
         <TableHead />
