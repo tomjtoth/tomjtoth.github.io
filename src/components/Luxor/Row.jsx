@@ -1,22 +1,12 @@
-export default function ({ rowId, cells }) {
+import Cell from "./Cell";
+
+export default function ({ rowId, cells, rowIdx }) {
   return (
     <tr>
       {cells.map((cell, cellIdx) => {
         const cellId = `${rowId}-${cellIdx}`;
 
-        return (
-          <td key={cellId} id={cellId}>
-            {locked ? (
-              cell === 0 ? (
-                "🪲"
-              ) : (
-                cell
-              )
-            ) : (
-              <input type="number" className="luxor-num" value={cell} />
-            )}
-          </td>
-        );
+        return <Cell key={cellId} {...{ cell, cellId, rowIdx, cellIdx }} />;
       })}
     </tr>
   );
