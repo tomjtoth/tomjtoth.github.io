@@ -46,7 +46,7 @@ export const runes = Object.fromEntries(
     [fridd, [0.15, 1.5]],
   ].map(([rune, [start, stop]]) => {
     const runeLower = rune.toLowerCase();
-    const mp3 = new Audio(`/runes/${runeLower}.mp3`);
+    const mp3 = new Audio(`/arx/runes/${runeLower}.mp3`);
     mp3.preload = "auto";
 
     return [
