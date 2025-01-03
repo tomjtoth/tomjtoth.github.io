@@ -41,7 +41,7 @@ export default function () {
         },
 
         onClick: ({ target }) => {
-          if (target.classList.contains("sidepanel-toggler")) {
+          if (target.classList.contains("toggler")) {
             dispatch(setSidepanel(false));
           } else if (target.closest("#qr-code")) {
             navigator.clipboard.writeText(window.location);
@@ -49,10 +49,15 @@ export default function () {
         },
       }}
     >
-      <ul>
+      <ul
+        style={{
+          listStyle: "none",
+          paddingLeft: 8,
+        }}
+      >
         <li>
           <span
-            className="sidepanel-toggler nav-link clickable"
+            className="toggler nav-link clickable"
             style={{ float: "right" }}
           >
             &times;
