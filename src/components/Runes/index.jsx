@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import Header from "../Header";
-import MainView from "../MainView";
-import "./runes.css";
 import { runes, spells } from "./config";
 import { castSpell } from "../../reducers/runes";
+
+import "./runes.css";
+
+import Header from "../Header";
+import MainView from "../MainView";
 
 const SEC = 1000;
 
@@ -39,7 +41,7 @@ export default function () {
     } else if (idx > 0) {
       let validSpell = false;
 
-      for (const [spell, { page, sequence }] of Object.entries(spells)) {
+      for (const [spell, { page, sequence, mp3 }] of Object.entries(spells)) {
         if (sequence.length !== idx) continue;
 
         validSpell = true;
@@ -54,6 +56,10 @@ export default function () {
         if (validSpell) {
           setNoti({ spell, page, sequence });
           dispatch(castSpell(spell));
+          if (mp3) {
+            mp3.currentTime = 0;
+            mp3.play();
+          }
           break;
         }
       }
@@ -108,7 +114,7 @@ export default function () {
                 className: "clickable",
                 alt: rune,
                 title: rune,
-                src: `/runes/${rune.toLowerCase()}.png`,
+                src: `/arx/runes/${rune.toLowerCase()}.png`,
               }}
             />
           ))}
