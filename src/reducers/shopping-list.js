@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
-import { storeObject, loadObject, fetchYaml } from "../utils";
+import { storeObject, loadObject, fetchYaml, toToggled } from "../utils";
 
 const name = "shopping-list";
 const re = {
@@ -64,7 +64,7 @@ const slice = createSlice({
     toggle: ({ active, ...state }, { payload }) => {
       const next = {
         ...state,
-        active: active.toToggled(payload),
+        active: toToggled(active, payload),
       };
       return save(next);
     },

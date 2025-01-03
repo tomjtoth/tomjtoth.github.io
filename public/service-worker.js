@@ -8,15 +8,15 @@ const urlsToCache = [
   "/lyrics.yaml",
 ];
 
-Cache.prototype.deleteAll = function (these, except) {
-  this.keys().then((keys) => {
+function deleteAll(cache, these, except) {
+  cache.keys().then((keys) => {
     keys.forEach((req) => {
       if (req.url !== except && these.test(req.url)) {
-        this.delete(req);
+        cache.delete(req);
       }
     });
   });
-};
+}
 
 const arxMP3 = /\/arx\/(?:runes|spells)\/[a-z-]+\.mp3$/;
 const arxPNG = /\/arx\/runes\/[a-z]+\.png$/;
@@ -68,8 +68,8 @@ self.addEventListener("fetch", (event) => {
       const fromNet = fetch(reqExtra || event.request)
         .then((res) => {
           if (res && res.ok) {
-            if (isIndexCSS) cache.deleteAll(indexCSS, url);
-            if (isIndexJS) cache.deleteAll(indexJS, url);
+            if (isIndexCSS) deleteAll(cache, indexCSS, url);
+            if (isIndexJS) deleteAll(cache, indexJS, url);
 
             if (
               (isArxMP3 && res.status === 200) ||

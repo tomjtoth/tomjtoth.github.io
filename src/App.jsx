@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router";
-import "./utils/built-ins";
 
 import Sidepanel from "./components/Sidepanel";
 import Home from "./components/Home";
