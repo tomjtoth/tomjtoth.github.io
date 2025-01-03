@@ -10,12 +10,13 @@ import {
   createNewField,
   deleteField,
   fieldsFromPreset,
+  newNumber,
 } from "../../reducers/luxor";
 import { useEffect } from "react";
 
 export default function () {
   const dispatch = useDispatch();
-  const { fields } = useSelector((s) => s.luxor);
+  const { fields, locked } = useSelector((s) => s.luxor);
 
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
@@ -36,11 +37,16 @@ export default function () {
       </Header>
       <MainView
         className="luxor"
-        onClick={({ target: { classList, parentNode } }) => {
+        onClick={({
+          target: { tagName, textContent, classList, parentNode },
+        }) => {
           if (classList.contains("luxor-fld-add")) {
             dispatch(createNewField(parentNode.parentNode.id));
           } else if (classList.contains("luxor-fld-del")) {
             dispatch(deleteField(parentNode.parentNode.id));
+          } else if (locked && tagName === "TD") {
+            const asNumber = Number(textContent);
+            dispatch(newNumber(isNaN(asNumber) ? 0 : asNumber));
           }
         }}
       >
