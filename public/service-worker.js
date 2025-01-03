@@ -1,4 +1,4 @@
-const CACHE_NAME = "dev-v0";
+const CACHE_NAME = "dev-v1";
 const urlsToCache = [
   "/",
   "/index.html",
@@ -18,8 +18,8 @@ Cache.prototype.deleteAll = function (these, except) {
   });
 };
 
-const runesMP3 = /\/runes\/[a-z]+\.mp3$/;
-const runesPNG = /\/runes\/[a-z]+\.png$/;
+const arxMP3 = /\/arx\/(?:runes|spells)\/[a-z]+\.mp3$/;
+const arxPNG = /\/arx\/runes\/[a-z]+\.png$/;
 
 const indexCSS = /\/assets\/index-[\w-]+\.css$/;
 const indexJS = /\/assets\/index-[\w-]+\.js$/;
@@ -40,10 +40,10 @@ self.addEventListener("fetch", (event) => {
       const fromCache = await cache.match(event.request);
       const url = event.request.url;
 
-      const isRunesMP3 = runesMP3.test(url);
-      const isRunesPNG = runesPNG.test(url);
+      const isArxMP3 = arxMP3.test(url);
+      const isArxPNG = arxPNG.test(url);
 
-      if (fromCache && (isRunesMP3 || isRunesPNG)) {
+      if (fromCache && (isArxMP3 || isArxPNG)) {
         // these 2 never change
         return fromCache;
       }
@@ -53,7 +53,9 @@ self.addEventListener("fetch", (event) => {
 
       let reqExtra;
 
-      if (isRunesMP3) {
+      if (isArxMP3) {
+        // 206 OK responses could not be cached
+        // requesting without "range" header results in 200 OK
         reqExtra = new Request(url, {
           headers: new Headers(
             [...event.request.headers.entries()].filter(
@@ -70,8 +72,8 @@ self.addEventListener("fetch", (event) => {
             if (isIndexJS) cache.deleteAll(indexJS, url);
 
             if (
-              (isRunesMP3 && res.status === 200) ||
-              isRunesPNG ||
+              (isArxMP3 && res.status === 200) ||
+              isArxPNG ||
               isIndexCSS ||
               isIndexJS ||
               urlsToCache.includes(url)
