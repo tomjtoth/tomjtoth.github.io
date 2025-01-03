@@ -92,3 +92,19 @@ li.alternating:nth-child(even).active {
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(15px);
 }
+
+.border1-n {
+  border-top: 1px solid var(--col-fg-0);
+}
+
+.border1-w {
+  border-left: 1px solid var(--col-fg-0);
+}
+
+.border1-e {
+  border-right: 1px solid var(--col-fg-0);
+}
+
+.border1-s {
+  border-bottom: 1px solid var(--col-fg-0);
+}
