@@ -6,7 +6,11 @@
 }
 
 #luxor-adder {
-  min-width: 20px;
+  flex-grow: 1; /* Allow the input to take up the remaining space */
+  max-width: 100%; /* Ensure it doesn't overflow the viewport */
+  min-width: 0; /* Prevent width issues in flex containers */
+  width: 25px;
+  padding: 8px;
 }
 
 ul.luxor td.picked {
@@ -20,7 +24,7 @@ td.luxor-num {
 
 input.luxor-num {
   width: 40px;
-  padding: 8px;
+  padding: 4px;
 }
 
 ul.luxor {
@@ -47,6 +51,7 @@ li.luxor > div {
 table.luxor {
   border-collapse: collapse;
   font-size: 25px;
+  border-width: 2px;
 }
 
 table.luxor > tbody {
@@ -54,9 +59,5 @@ table.luxor > tbody {
 }
 
 table.luxor td {
-  padding: 8px;
-}
-
-.luxor-fld-imported {
-  text-align: center;
+  padding: 4px;
 }

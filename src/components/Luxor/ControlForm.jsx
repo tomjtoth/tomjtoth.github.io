@@ -45,7 +45,7 @@ export default function () {
       >
         {locked ? "🔒" : "🔓"}
       </span>
-      <input {...num} className="bordered padded" />
+      <input {...num} className="bordered" />
       <span
         className="padded clickable"
         onClick={() => dispatch(resetSelected())}
