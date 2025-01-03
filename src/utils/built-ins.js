@@ -16,3 +16,16 @@ if (Array.prototype.toggle === undefined) {
     }
   };
 }
+
+if (Array.prototype.last === undefined)
+  Array.prototype.last = function () {
+    return this[this.length - 1];
+  };
+
+if (Number.prototype.between === undefined)
+  Number.prototype.between = function (a, b) {
+    if (typeof a !== "number" || typeof b !== "number")
+      throw new Error("Number.between needs numbers for comparison");
+
+    return a <= this && this <= b;
+  };
