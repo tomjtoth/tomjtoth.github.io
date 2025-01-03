@@ -2,9 +2,9 @@ import { v4 as uuid } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
 import { loadObject, storeObject } from "../utils";
 
-function save({ fields, ...state }) {
-  storeObject(name, { fields });
-  return { fields, ...state };
+function save({ fields, pickedNums, ...state }) {
+  storeObject(name, { fields, pickedNums });
+  return { fields, pickedNums, ...state };
 }
 
 const name = "luxor";
@@ -20,15 +20,18 @@ const emptyField = [
 const slice = createSlice({
   name,
   initialState: {
-    ...loadObject(name, { fields: [{ id: uuid(), rows: emptyField }] }),
+    ...loadObject(name, {
+      fields: [{ id: uuid(), rows: emptyField }],
+      pickedNums: [],
+    }),
     locked: true,
-    pickedNums: [],
   },
   reducers: {
-    pickNumber: ({ pickedNums, ...state }, { payload }) => ({
-      ...state,
-      pickedNums: pickedNums.concat(payload),
-    }),
+    pickNumber: ({ pickedNums, ...state }, { payload }) =>
+      save({
+        ...state,
+        pickedNums: pickedNums.concat(payload),
+      }),
 
     setLock: ({ locked, ...state }, { payload }) => ({
       locked: payload === undefined ? !locked : payload,
@@ -65,8 +68,8 @@ const slice = createSlice({
       arr.splice(idx + 1, 0, { id: uuid(), rows: emptyField });
 
       return save({
-        fields: arr,
         ...state,
+        fields: arr,
       });
     },
 
