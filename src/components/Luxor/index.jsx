@@ -38,9 +38,9 @@ export default function () {
         className="luxor"
         onClick={({ target: { classList, parentNode } }) => {
           if (classList.contains("luxor-fld-add")) {
-            dispatch(createNewField(parentNode.id));
+            dispatch(createNewField(parentNode.parentNode.id));
           } else if (classList.contains("luxor-fld-del")) {
-            dispatch(deleteField(parentNode.id));
+            dispatch(deleteField(parentNode.parentNode.id));
           }
         }}
       >

@@ -6,7 +6,7 @@
 }
 
 #luxor-adder {
-  min-width: 40px;
+  min-width: 20px;
 }
 
 ul.luxor td.picked {
@@ -27,28 +27,34 @@ ul.luxor {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+  padding-left: 0;
+  justify-content: space-evenly;
 }
 
 li.luxor {
-  margin: 16px;
-  padding: 16px;
+  margin: 8px;
+  padding: 8px;
   text-align: center;
+}
+
+li.luxor > div {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 table.luxor {
   border-collapse: collapse;
-  font-size: 32px;
+  font-size: 25px;
 }
 
 table.luxor > tbody {
   border: 2px solid var(--col-fg-0);
 }
+
 table.luxor td {
   padding: 8px;
-}
-.luxor-fld-add {
-  float: right;
-  vertical-align: top;
 }
 
 .luxor-fld-imported {
