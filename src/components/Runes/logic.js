@@ -56,6 +56,11 @@ export default function (queue, setQueue, noti, setNoti) {
         }
       }
 
+      if (!validSpell) {
+        spells.fizzle.mp3.currentTime = 0;
+        spells.fizzle.mp3.play();
+      }
+
       setQueue(queue.slice(idx));
       setIdx(0);
     }
