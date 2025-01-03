@@ -17,7 +17,7 @@ export default function ({ title, icon, children, ...props }) {
         id: "header",
 
         onClick: ({ target }) => {
-          if (target.classList.contains("spt")) {
+          if (target.classList.contains("toggler")) {
             dispatch(setSidepanel(true));
           } else if (target.closest("#qr-code")) {
             navigator.clipboard.writeText(window.location).then((_) => {
@@ -27,7 +27,7 @@ export default function ({ title, icon, children, ...props }) {
         },
       }}
     >
-      <span id="menu-button" className="spt clickable padded">
+      <span id="menu-button" className="toggler clickable padded">
         &#x2630;
       </span>
       {children}

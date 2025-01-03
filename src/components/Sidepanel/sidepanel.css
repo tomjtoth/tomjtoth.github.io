@@ -9,16 +9,10 @@
   padding-right: 25px;
   background-color: var(--col-bg-0);
   transition: 0.5s;
-  border-right: 1px solid var(--col-fg-0);
 }
 
 #qr-code {
   margin: 0px 25px;
-}
-
-#sidepanel > ul {
-  list-style: none;
-  padding-left: 8px;
 }
 
 #sidepanel.active {
