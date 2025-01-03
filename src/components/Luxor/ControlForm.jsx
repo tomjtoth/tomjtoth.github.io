@@ -1,12 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useField } from "../../hooks";
-import { resetSelected, toggleEditMode } from "../../reducers/luxor";
+import {
+  resetSelected,
+  saveFields,
+  toggleEditMode,
+  newNumber,
+} from "../../reducers/luxor";
+
+const numOnly = /^\d+$/;
 
 export default function () {
   const dispatch = useDispatch();
-  const { locked } = useSelector((s) => s.luxor);
-  const { reset: resetInput, ...num } = useField("text", {
-    placeholder: "a következő nyerőszám",
+  const { locked, fields } = useSelector((s) => s.luxor);
+  const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
   });
 
@@ -16,7 +22,7 @@ export default function () {
     <form
       id="luxor-control"
       onSubmit={(e) => {
-        if (!re.emptyString.test(num.value)) dispatch(addItem(num.value));
+        if (numOnly.test(num.value)) dispatch(newNumber(num.value));
         resetInput();
         e.preventDefault();
       }}
@@ -31,10 +37,15 @@ export default function () {
     >
       <span
         className="padded clickable"
-        onClick={() => dispatch(toggleEditMode())}
+        onClick={() => {
+          if (!locked) dispatch(saveFields());
+
+          dispatch(toggleEditMode());
+        }}
       >
-        {locked ? "🔓" : "🔒"}
+        {locked ? "🔒" : "🔓"}
       </span>
+      <label htmlFor="luxor-adder">A következő nyerőszám:</label>
       <input
         {...num}
         className="padded bordered"

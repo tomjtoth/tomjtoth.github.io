@@ -1,10 +1,26 @@
-td.luxor-num.active {
+#luxor-control {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#luxor-adder {
+  min-width: 40px;
+}
+
+ul.luxor td.picked {
   background-color: red;
   color: white;
 }
 
+td.luxor-num {
+  padding: 16px;
+}
+
 input.luxor-num {
   width: 40px;
+  padding: 8px;
 }
 
 ul.luxor {
@@ -13,6 +29,28 @@ ul.luxor {
   flex-wrap: wrap;
 }
 
-ul.luxor li {
+li.luxor {
   margin: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+table.luxor {
+  border-collapse: collapse;
+  font-size: 32px;
+}
+
+table.luxor > tbody {
+  border: 2px solid var(--col-fg-0);
+}
+table.luxor td {
+  padding: 8px;
+}
+.luxor-fld-add {
+  float: right;
+  vertical-align: top;
+}
+
+.luxor-fld-imported {
+  text-align: center;
 }

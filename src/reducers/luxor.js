@@ -35,8 +35,28 @@ const slice = createSlice({
       ...state,
     }),
 
-    storeFields: ({ fields, ...state }, { payload }) =>
-      save({ ...state, fields: payload }),
+    updateFields: ({ fields, ...state }) => {
+      const updatedFields = fields.map(({ id, rows }) => {
+        return { id, rows: rows.map((row) => [...row]) };
+      });
+
+      document
+        .querySelectorAll("input.luxor-num")
+        .forEach(({ parentNode, value }) => {
+          const [_, fieldId, rowIdx, cellIdx] = parentNode.id.match(
+            /(.+)-([0-4])-([0-4])$/
+          );
+
+          updatedFields.find(({ id }) => id === fieldId).rows[Number(rowIdx)][
+            Number(cellIdx)
+          ] = Number(value);
+        });
+
+      return save({ ...state, fields: updatedFields });
+    },
+
+    importFields: ({ fields, ...state }, { payload }) =>
+      save({ ...state, fields: fields.concat(...payload) }),
 
     addEmptyField: ({ fields, ...state }, { payload }) => {
       const idx = fields.indexOf(payload);
@@ -63,10 +83,11 @@ const slice = createSlice({
 const {
   pickNumber,
   setLock,
-  storeFields,
+  updateFields,
   resetPickedNumbers,
   addEmptyField,
   removeField,
+  importFields,
 } = slice.actions;
 
 export const newNumber = (num) => {
@@ -81,9 +102,9 @@ export const toggleEditMode = (to) => {
   };
 };
 
-export const saveFields = (fields) => {
+export const saveFields = () => {
   return (dispatch) => {
-    dispatch(storeFields(fields));
+    dispatch(updateFields());
   };
 };
 
@@ -102,6 +123,29 @@ export const createNewField = (afterId) => {
 export const deleteField = (id) => {
   return (dispatch) => {
     dispatch(removeField(id));
+  };
+};
+
+export const fieldsFromPreset = (preset) => {
+  return (dispatch) => {
+    const importedAt = Date.now();
+
+    dispatch(
+      importFields(
+        preset.split(",").reduce((fields, numStr, idx) => {
+          if (idx % 25 === 0) {
+            fields.push({ id: uuid(), rows: [], importedAt });
+          }
+          const { rows } = fields.last();
+          if (idx % 5 === 0) rows.push([]);
+          const row = rows.last();
+
+          row.push(Number(numStr));
+
+          return fields;
+        }, [])
+      )
+    );
   };
 };
 
