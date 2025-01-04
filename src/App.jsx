@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from "react-router";
 
+import useBatteryMonitor from "./hooks/battery-monitor";
+
 import Sidepanel from "./components/Sidepanel";
 import Home from "./components/Home";
 import BatteryMonitor from "./components/BatteryMonitor";
@@ -10,6 +12,8 @@ import Visitors from "./components/Visitors";
 import Luxor from "./components/Luxor";
 
 export default function () {
+  useBatteryMonitor();
+
   return (
     <>
       <Sidepanel />

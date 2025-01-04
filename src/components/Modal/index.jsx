@@ -24,7 +24,7 @@ export default function ({ modal, setModal, timeOut = 3000 }) {
         {...{
           id: "modal-blur",
           onClick: (e) => {
-            if (success.test(e.target.id)) onSuccess();
+            if (success.test(e.target.id) && onSuccess) onSuccess();
 
             if (!keepModal.test(e.target.id)) setModal({});
           },
