@@ -49,9 +49,9 @@ export function genericToggle(reducer_name, key, state, { payload }) {
 export function setDocTitleIcon(title, icon = "🤓") {
   document.title = title;
   document.querySelector("link[rel=icon]").href = `data:image/svg+xml,
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-        <text y=".9em" font-size="90">${icon}</text>
-    </svg>`;
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+      <text x="50%" y="50%" font-size="90" dominant-baseline="middle" text-anchor="middle">${icon}</text>
+  </svg>`;
 }
 
 export function toToggled(arr, key) {
