@@ -20,10 +20,6 @@ export default function ({ title, icon, children, ...props }) {
         onClick: ({ target }) => {
           if (target.classList.contains("toggler")) {
             dispatch(setSidepanel(true));
-          } else if (target.closest("#qr-code")) {
-            navigator.clipboard.writeText(window.location).then((_) => {
-              console.log("text copied");
-            });
           }
         },
       }}
