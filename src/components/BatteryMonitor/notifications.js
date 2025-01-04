@@ -2,16 +2,22 @@ export function notify(body) {
   new Notification("Akunvalvonta", { body });
 }
 
-export async function checkPermission() {
+export async function checkPermission(setModal) {
   if (!window.Notification) {
-    alert("notifications are not supported");
+    setModal({
+      prompt: "ilmoituksia ei tueta",
+      buttons: "o",
+    });
     return false;
   } else {
     if (Notification.permission !== "granted") {
       if ((await Notification.requestPermission()) === "granted") {
-        notify("sample notification");
+        notify("näyteilmoitus");
       } else {
-        alert("notifications are blocked");
+        setModal({
+          prompt: "ilmotiukset on estettyjä",
+          buttons: "o",
+        });
         return false;
       }
     }

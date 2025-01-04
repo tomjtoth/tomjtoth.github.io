@@ -4,28 +4,29 @@ export function useField(type, { initially = "", ...rest } = {}) {
   const [value, setValue] = useState(initially);
 
   const onChange = (event) => {
-    setValue(event.target.value);
+    setValue(type === "checkbox" ? !value : event.target.value);
   };
 
   const reset = () => {
     setValue(initially);
   };
 
-  return new Proxy(
-    {
-      ...rest,
-      type,
-      value,
-      onChange,
-      reset,
+  const res = {
+    ...rest,
+    type,
+    onChange,
+    reset,
+  };
+
+  if (type === "checkbox") res.checked = value;
+  else res.value = value;
+
+  return new Proxy(res, {
+    get: (target, prop) => {
+      if (prop === "value" && type === "number") {
+        return Number(target.value);
+      }
+      return target[prop];
     },
-    {
-      get: (target, prop) => {
-        if (prop === "value" && type === "number") {
-          return Number(target.value);
-        }
-        return target[prop];
-      },
-    }
-  );
+  });
 }
