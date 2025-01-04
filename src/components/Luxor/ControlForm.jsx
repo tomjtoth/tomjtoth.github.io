@@ -9,7 +9,7 @@ import {
 
 const numOnly = /^\d+$/;
 
-export default function () {
+export default function ({ setModal }) {
   const dispatch = useDispatch();
   const { locked } = useSelector((s) => s.luxor);
   const { reset: resetInput, ...num } = useField("number", {
@@ -26,14 +26,6 @@ export default function () {
         resetInput();
         e.preventDefault();
       }}
-      onClick={({ target: { id } }) => {
-        if (id === "recipes-toggler") {
-          dispatch(toggleActive("recipes"));
-        } else if (id === "reset-items") {
-          // TODO: implement modal confirm
-          dispatch(resetSelected());
-        }
-      }}
     >
       <span
         className="padded clickable"
@@ -48,7 +40,13 @@ export default function () {
       <input {...num} className="bordered" />
       <span
         className="padded clickable"
-        onClick={() => dispatch(resetSelected())}
+        onClick={() =>
+          setModal({
+            prompt: <>ez leszedi az összes kipirosí-TT-ást</>,
+            lang: "hu",
+            onSuccess: () => dispatch(resetSelected()),
+          })
+        }
         title="jelölések törlése"
       >
         ♻️
