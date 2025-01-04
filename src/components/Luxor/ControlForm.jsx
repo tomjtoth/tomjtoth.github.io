@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useField } from "../../hooks";
 import {
   resetSelected,
+  undo,
   saveFields,
   toggleEditMode,
   newNumber,
@@ -38,6 +39,18 @@ export default function ({ setModal }) {
         {locked ? "🔒" : "🔓"}
       </span>
       <input {...num} className="bordered" />
+      <span
+        className="padded clickable"
+        onClick={() =>
+          setModal({
+            prompt: <>utolsó húzott szám tŰrlésse</>,
+            lang: "hu",
+            onSuccess: () => dispatch(undo()),
+          })
+        }
+      >
+        ⎌
+      </span>
       <span
         className="padded clickable"
         onClick={() =>
