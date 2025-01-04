@@ -12,7 +12,7 @@ const numOnly = /^\d+$/;
 
 export default function ({ setModal }) {
   const dispatch = useDispatch();
-  const { locked } = useSelector((s) => s.luxor);
+  const { locked, pickedNums } = useSelector((s) => s.luxor);
   const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
   });
@@ -39,23 +39,33 @@ export default function ({ setModal }) {
         {locked ? "🔒" : "🔓"}
       </span>
       <input {...num} className="bordered" />
+      {pickedNums.length > 0 && (
+        <span
+          className="padded clickable"
+          onClick={() =>
+            setModal({
+              prompt: (
+                <>
+                  Törlöm az <strong>utolsó</strong> húzott számot
+                </>
+              ),
+              lang: "hu",
+              onSuccess: () => dispatch(undo()),
+            })
+          }
+        >
+          ⎌
+        </span>
+      )}
       <span
         className="padded clickable"
         onClick={() =>
           setModal({
-            prompt: <>utolsó húzott szám tŰrlésse</>,
-            lang: "hu",
-            onSuccess: () => dispatch(undo()),
-          })
-        }
-      >
-        ⎌
-      </span>
-      <span
-        className="padded clickable"
-        onClick={() =>
-          setModal({
-            prompt: <>ez leszedi az összes kipirosí-TT-ást</>,
+            prompt: (
+              <>
+                Törlöm az <strong>összes</strong> húzott számot
+              </>
+            ),
             lang: "hu",
             onSuccess: () => dispatch(resetSelected()),
           })
