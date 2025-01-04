@@ -1,10 +1,14 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import { initLyrics, toggle_active } from "../../reducers/lyrics";
+
 import "./lyrics.css";
+
 import Artists from "./Artists";
 import Header from "../Header";
 import MainView from "../MainView";
+import Loader from "../Loader";
 
 export default function () {
   const dispatch = useDispatch();
@@ -35,11 +39,7 @@ export default function () {
           The below songs are linked to Google Translate (or YouTube, when the
           lyrics are still missing).
         </p>
-        {initialized ? (
-          <Artists {...{ artists, active }} />
-        ) : (
-          <p>hetki pieni...</p>
-        )}
+        {initialized ? <Artists {...{ artists, active }} /> : <Loader />}
       </MainView>
     </>
   );
