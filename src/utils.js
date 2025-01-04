@@ -70,9 +70,10 @@ export function toggle(arr, key) {
 }
 
 export function last(arr, n = 1) {
-  if (n > 1) return arr.slice(arr.length - n);
+  const idx = arr.length - n;
 
-  return arr[arr.length - 1];
+  if (n > 1) return arr.slice(idx < 0 ? 0 : idx);
+  return arr[idx];
 }
 
 export function between(n, a, b) {
