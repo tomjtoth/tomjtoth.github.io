@@ -1,20 +1,25 @@
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 
-import "./luxor.css";
-import Header from "../Header";
-import MainView from "../MainView";
-import ControlForm from "./ControlForm";
-import Field from "./Field";
 import {
   createNewField,
   deleteField,
   fieldsFromPreset,
   newNumber,
 } from "../../reducers/luxor";
-import { useEffect } from "react";
+
+import "./luxor.css";
+
+import Modal from "../Modal";
+import Header from "../Header";
+import MainView from "../MainView";
+import ControlForm from "./ControlForm";
+import Field from "./Field";
 
 export default function () {
+  const [modal, setModal] = useState({});
+
   const dispatch = useDispatch();
   const { fields, locked } = useSelector((s) => s.luxor);
 
@@ -32,8 +37,9 @@ export default function () {
 
   return (
     <>
+      <Modal {...{ modal, setModal }} />
       <Header title="Luxor" icon="🪲">
-        <ControlForm />
+        <ControlForm {...{ setModal }} />
       </Header>
       <MainView
         className="luxor"
@@ -43,7 +49,11 @@ export default function () {
           if (classList.contains("luxor-fld-add")) {
             dispatch(createNewField(parentNode.parentNode.id));
           } else if (classList.contains("luxor-fld-del")) {
-            dispatch(deleteField(parentNode.parentNode.id));
+            setModal({
+              prompt: <>Azt a mezőt most törlöm...</>,
+              lang: "hu",
+              onSuccess: () => dispatch(deleteField(parentNode.parentNode.id)),
+            });
           } else if (locked && tagName === "TD") {
             const asNumber = Number(textContent);
             dispatch(newNumber(isNaN(asNumber) ? 0 : asNumber));

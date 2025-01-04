@@ -1,0 +1,27 @@
+#modal-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+}
+
+#modal {
+  position: fixed;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--col-bg-0);
+  text-align: center;
+}
+
+#modal-buttons {
+  margin: 16px 16px 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
