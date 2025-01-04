@@ -1,3 +1,9 @@
+import "./loader.css";
+
 export default function () {
-  return <p>hetki pieni...</p>;
+  return (
+    <div id="modal-blur">
+      <div id="loader" />
+    </div>
+  );
 }

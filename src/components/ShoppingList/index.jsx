@@ -14,6 +14,7 @@ import MainView from "../MainView";
 import Recipes from "./Recipes";
 import Items from "./Items";
 import ControlForm from "./ControlForm";
+import Loader from "../Loader";
 
 export default function () {
   const [modal, setModal] = useState({});
@@ -51,7 +52,7 @@ export default function () {
         }}
       >
         {uninitialized ? (
-          <p>hetki pieni...</p>
+          <Loader />
         ) : (
           <>
             <Recipes {...{ active, recipes }} />
