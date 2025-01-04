@@ -15,6 +15,7 @@ export default function ({ title, icon, children, ...props }) {
       {...{
         ...props,
         id: "header",
+        className: "border1-s",
 
         onClick: ({ target }) => {
           if (target.classList.contains("toggler")) {
