@@ -6,6 +6,7 @@ import {
   createNewField,
   deleteField,
   fieldsFromPreset,
+  undo,
   newNumber,
 } from "../../reducers/luxor";
 
@@ -61,16 +62,29 @@ export default function () {
           }
         }}
       >
-        <div id="luxor-picked-nums-line">
-          {pickedNums.length > 0 && (
-            <>
-              {pickedNums.length > 10
-                ? `...${last(pickedNums, 10).join(", ")}`
-                : pickedNums.join(", ")}{" "}
-              <div id="luxor-num-bug">🪲</div>
-            </>
-          )}
-        </div>
+        {pickedNums.length > 0 && (
+          <div id="luxor-picked-nums-line">
+            {pickedNums.length > 10 && "..."}
+            {last(pickedNums, 10).join(", ")}
+            <div id="luxor-num-bug">🪲</div>
+            <span
+              className="clickable"
+              onClick={() =>
+                setModal({
+                  prompt: (
+                    <>
+                      Törlöm az <strong>utolsó</strong> húzott számot
+                    </>
+                  ),
+                  lang: "hu",
+                  onSuccess: () => dispatch(undo()),
+                })
+              }
+            >
+              ⬅️
+            </span>
+          </div>
+        )}
         <ul className="luxor">
           {fields.map(({ id: fieldId, rows, importedAt }) => (
             <Field
