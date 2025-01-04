@@ -24,7 +24,7 @@ export function useField(type, { initially = "", ...rest } = {}) {
   return new Proxy(res, {
     get: (target, prop) => {
       if (prop === "value" && type === "number") {
-        return Number(target.value);
+        return target.value === "" ? target.value : Number(target.value);
       }
       return target[prop];
     },
