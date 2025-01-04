@@ -23,7 +23,9 @@ export default function () {
         </p>
         <ul>
           <li>
-            <a href="https://apps.ttj.hu/veripalvelu/">Veripalvelu</a>
+            <a target="_blank" href="https://apps.ttj.hu/veripalvelu">
+              Veripalvelu
+            </a>
             <ul>
               <li>HY kurssille palautettava</li>
               <li>
