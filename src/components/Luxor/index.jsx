@@ -16,12 +16,13 @@ import Header from "../Header";
 import MainView from "../MainView";
 import ControlForm from "./ControlForm";
 import Field from "./Field";
+import { last } from "../../utils";
 
 export default function () {
   const [modal, setModal] = useState({});
 
   const dispatch = useDispatch();
-  const { fields, locked } = useSelector((s) => s.luxor);
+  const { fields, locked, pickedNums } = useSelector((s) => s.luxor);
 
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
@@ -60,6 +61,16 @@ export default function () {
           }
         }}
       >
+        <div id="luxor-picked-nums-line">
+          {pickedNums.length > 0 && (
+            <>
+              {pickedNums.length > 10
+                ? `...${last(pickedNums, 10).join(", ")}`
+                : pickedNums.join(", ")}{" "}
+              <div id="luxor-num-bug">🪲</div>
+            </>
+          )}
+        </div>
         <ul className="luxor">
           {fields.map(({ id: fieldId, rows, importedAt }) => (
             <Field
