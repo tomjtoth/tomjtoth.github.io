@@ -14,6 +14,7 @@ export default function ({ setModal }) {
   const { locked, pickedNums } = useSelector((s) => s.luxor);
   const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
+    placeholder: "a következő nyerőszám",
   });
 
   // TODO: refactor styles in shopping-list and this
