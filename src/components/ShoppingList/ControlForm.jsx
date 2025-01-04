@@ -7,7 +7,7 @@ import {
 } from "../../reducers/shopping-list";
 import { re } from "./config";
 
-export default function ({ active }) {
+export default function ({ active, setModal }) {
   const dispatch = useDispatch();
   const { reset: resetItem, ...item } = useField("text", {
     placeholder: "lisää tavara tänne",
@@ -30,8 +30,10 @@ export default function ({ active }) {
         if (id === "recipes-toggler") {
           dispatch(toggleActive("recipes"));
         } else if (id === "reset-items") {
-          // TODO: implement modal confirm
-          dispatch(resetSelected());
+          setModal({
+            prompt: "pyyhitäänkö kaikki vihreät?",
+            onSuccess: () => dispatch(resetSelected()),
+          });
         }
       }}
     >
