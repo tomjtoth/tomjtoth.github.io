@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   initRecipes,
@@ -6,14 +6,17 @@ import {
   rmItem,
 } from "../../reducers/shopping-list";
 
-import MainView from "../MainView";
+import "./shopping-list.css";
+
+import Modal from "../Modal";
 import Header from "../Header";
+import MainView from "../MainView";
 import Recipes from "./Recipes";
 import Items from "./Items";
 import ControlForm from "./ControlForm";
-import "./shopping-list.css";
 
 export default function () {
+  const [modal, setModal] = useState({});
   const dispatch = useDispatch();
   const { recipes, active, items } = useSelector((s) => s.shoppingList);
   const uninitialized = recipes === undefined;
@@ -24,16 +27,19 @@ export default function () {
 
   return (
     <>
+      <Modal {...{ modal, setModal }} />
       <Header title="ostoslista" icon="🛒">
-        <ControlForm {...{ active }} />
+        <ControlForm {...{ active, setModal }} />
       </Header>
 
       <MainView
         {...{
           onClick: ({ target: { parentNode, id, tagName, classList } }) => {
             if (tagName === "SPAN" && classList.contains("recipe-item-del")) {
-              // TODO: implement modal confirm
-              dispatch(rmItem(parentNode.id));
+              setModal({
+                prompt: "poistetaanko varmasti?",
+                onSuccess: () => dispatch(rmItem(parentNode.id)),
+              });
             } else if (
               tagName === "LI" &&
               (classList.contains("recipe") ||
