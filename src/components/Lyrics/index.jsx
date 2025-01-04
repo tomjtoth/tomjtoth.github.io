@@ -35,7 +35,11 @@ export default function () {
           },
         }}
       >
-        <p>
+        <p
+          style={{
+            margin: 16,
+          }}
+        >
           The below songs are linked to Google Translate (or YouTube, when the
           lyrics are still missing).
         </p>
