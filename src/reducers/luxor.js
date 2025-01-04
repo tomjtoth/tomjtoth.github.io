@@ -80,6 +80,14 @@ const slice = createSlice({
       }),
 
     resetPickedNumbers: (state) => save({ ...state, pickedNums: [] }),
+
+    removeLastNum: ({ pickedNums, ...state }) => {
+      const len = pickedNums.length;
+
+      const arr = len > 0 ? pickedNums.slice(0, len - 1) : pickedNums;
+
+      return save({ ...state, pickedNums: arr });
+    },
   },
 });
 
@@ -91,6 +99,7 @@ const {
   addEmptyField,
   removeField,
   importFields,
+  removeLastNum,
 } = slice.actions;
 
 export const newNumber = (num) => {
@@ -149,6 +158,12 @@ export const fieldsFromPreset = (preset) => {
         }, [])
       )
     );
+  };
+};
+
+export const undo = () => {
+  return (dispatch) => {
+    dispatch(removeLastNum());
   };
 };
 
