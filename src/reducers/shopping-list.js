@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuid } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
 import { storeObject, loadObject, fetchYaml, toToggled } from "../utils";
 
@@ -78,8 +78,7 @@ const slice = createSlice({
     add_item: ({ items, ...state }, { payload }) => {
       const next = {
         ...state,
-        //TODO: is v4 the best?
-        items: items.concat({ key: `item-${uuidv4()}`, item: payload }),
+        items: items.concat({ key: `item-${uuid()}`, item: payload }),
       };
       return save(next);
     },
