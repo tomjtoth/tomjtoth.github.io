@@ -69,7 +69,9 @@ export function toggle(arr, key) {
   }
 }
 
-export function last(arr) {
+export function last(arr, n = 1) {
+  if (n > 1) return arr.slice(arr.length - n);
+
   return arr[arr.length - 1];
 }
 
