@@ -15,6 +15,8 @@ export default function ControlForm({ setModal }) {
   const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
     placeholder: "a következő nyerőszám",
+    max: 75,
+    min: 0,
   });
 
   // TODO: refactor styles in shopping-list and this
