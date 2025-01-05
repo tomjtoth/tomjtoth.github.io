@@ -61,7 +61,8 @@ export default function Luxor() {
             });
           } else if (locked && tagName === "TD") {
             const asNumber = Number(textContent);
-            dispatch(newNumber(isNaN(asNumber) ? 0 : asNumber));
+            const num = isNaN(asNumber) ? 0 : asNumber;
+            if (!pickedNums.includes(num)) dispatch(newNumber(num));
           }
         }}
       >
