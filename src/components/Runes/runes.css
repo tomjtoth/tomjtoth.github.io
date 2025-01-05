@@ -20,9 +20,12 @@
 }
 
 #runes > img {
-  animation: glow 0.25s linear;
   width: 100%;
   height: 100%;
+}
+
+#runes > img:active {
+  animation: glow 0.5s linear;
 }
 
 @keyframes glow {
