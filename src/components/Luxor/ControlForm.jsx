@@ -11,7 +11,7 @@ const numOnly = /^\d+$/;
 
 export default function ControlForm({ setModal }) {
   const dispatch = useDispatch();
-  const { locked, pickedNums } = useSelector((s) => s.luxor);
+  const { locked } = useSelector((s) => s.luxor);
   const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
     placeholder: "a következő nyerőszám",

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-export default function ({ noti }) {
+export default function ControlForm({ noti }) {
   const { score } = useSelector((s) => s.arxFatalis);
 
   return (
