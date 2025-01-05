@@ -97,6 +97,7 @@ const slice = createSlice({
       return { ...state, bug: { ...bug, privacy: payload } };
     },
 
+    // eslint-disable-next-line no-unused-vars
     resetBugState: ({ bug, ...state }) => state,
   },
 });
