@@ -66,7 +66,7 @@ export default function () {
           <div id="luxor-picked-nums-line">
             {pickedNums.length > 10 && "..."}
             {last(pickedNums, 10).join(", ")}
-            <div id="luxor-num-bug">🪲</div>
+            {/* <div id="luxor-num-bug">🪲</div> */}
             <span
               className="clickable"
               onClick={() =>
