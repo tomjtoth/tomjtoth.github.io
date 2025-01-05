@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 
-export default function ({ rowId, cells, rowIdx }) {
+export default function Row({ rowId, cells, rowIdx }) {
   return (
     <tr>
       {cells.map((cell, cellIdx) => {

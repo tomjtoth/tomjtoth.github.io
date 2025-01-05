@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { between } from "../../utils";
 
-export default function ({ cellId, cell, rowIdx, cellIdx }) {
+export default function Cell({ cellId, cell, rowIdx, cellIdx }) {
   const { locked, pickedNums } = useSelector((s) => s.luxor);
 
   const classes = [];

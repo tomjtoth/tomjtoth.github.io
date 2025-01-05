@@ -55,7 +55,7 @@ function calc(next) {
   );
 }
 
-export default function () {
+export default function Visitors() {
   const next = visits.find((v) => Date.now() < new Date(v.arrival));
   const [child, setChild] = useState(calc(next));
 

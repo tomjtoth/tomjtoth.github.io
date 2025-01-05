@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import TableHead from "./TableHead";
 import Row from "./Row";
 
-export default function ({ fieldId, rows, importedAt, deletable }) {
+export default function Field({ fieldId, rows, importedAt, deletable }) {
   const { locked } = useSelector((s) => s.luxor);
 
   return (

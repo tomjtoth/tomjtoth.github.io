@@ -7,7 +7,7 @@ import { setSidepanel } from "../../reducers/sidepanel";
 
 import QRCode from "../QRCode";
 
-export default function () {
+export default function Sidepanel() {
   const dispatch = useDispatch();
   const className = `border1-e ${
     useSelector((s) => s.sidepanel.active) ? " active" : ""
@@ -22,7 +22,7 @@ export default function () {
     { children: "låttext", to: "/lyrics", lang: "sv" },
     {
       children: "Arx Fatails minipeli",
-      to: "/runes",
+      to: "/arx-fatalis",
     },
   ];
 

@@ -19,7 +19,7 @@ import ControlForm from "./ControlForm";
 import Field from "./Field";
 import { last } from "../../utils";
 
-export default function () {
+export default function Luxor() {
   const [modal, setModal] = useState({});
 
   const dispatch = useDispatch();

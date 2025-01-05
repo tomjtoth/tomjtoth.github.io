@@ -1,7 +1,7 @@
 import Songs from "./Songs";
-import Logo from "./logos";
+import Logo from "./Logos";
 
-export default function ({ keyA, albums, artist, active }) {
+export default function Albums({ keyA, albums, artist, active }) {
   return (
     <ul>
       {albums.map(([title, { year, url, ...songs }], i) => {

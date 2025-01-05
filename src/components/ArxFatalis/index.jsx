@@ -2,14 +2,14 @@ import { useState } from "react";
 
 import useLogic from "./logic";
 
-import "./runes.css";
+import "./arx-fatalis.css";
 
 import Header from "../Header";
 import ControlForm from "./ControlForm";
 import MainView from "../MainView";
 import Runes from "./Runes";
 
-export default function () {
+export default function ArxFatalis() {
   const [queue, setQueue] = useState([]);
   const [noti, setNoti] = useState();
 
@@ -21,7 +21,7 @@ export default function () {
         <ControlForm noti={noti} />
       </Header>
       <MainView
-        className="runes"
+        className="arx-fatalis"
         onClick={(e) => {
           if (e.target.tagName == "IMG") setQueue(queue.concat(e.target.title));
         }}

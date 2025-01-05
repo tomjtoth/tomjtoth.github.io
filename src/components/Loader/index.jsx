@@ -1,6 +1,6 @@
 import "./loader.css";
 
-export default function () {
+export default function Loader() {
   return (
     <div id="modal-blur">
       <div id="loader" />

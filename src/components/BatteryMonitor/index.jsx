@@ -9,7 +9,7 @@ import ControlForm from "./ControlForm";
 import MainView from "../MainView";
 import { useState } from "react";
 
-export default function () {
+export default function BatteryMonitor() {
   const [modal, setModal] = useState({});
   const { isSupported, loading, charging, level } = useBattery();
   const lvl100 = Math.round(level * 100);

@@ -1,7 +1,7 @@
 import MainView from "./MainView";
 import Header from "./Header";
 
-export default function () {
+export default function Home() {
   return (
     <>
       <Header title="tervehdys"></Header>

@@ -7,7 +7,7 @@ import {
 } from "../../reducers/shopping-list";
 import { re } from "./config";
 
-export default function ({ active, setModal }) {
+export default function ControlForm({ active, setModal }) {
   const dispatch = useDispatch();
   const { reset: resetItem, ...item } = useField("text", {
     placeholder: "lisää tavara tänne",

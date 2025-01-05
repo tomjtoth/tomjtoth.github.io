@@ -5,7 +5,7 @@ import "./header.css";
 import { setDocTitleIcon } from "../../utils";
 import { setSidepanel } from "../../reducers/sidepanel";
 
-export default function ({ title, icon, children, ...props }) {
+export default function Header({ title, icon, children, ...props }) {
   setDocTitleIcon(title, icon);
 
   const dispatch = useDispatch();

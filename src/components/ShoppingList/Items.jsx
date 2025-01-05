@@ -1,6 +1,6 @@
 import { re } from "./config";
 
-export default function ({ active, recipes, items }) {
+export default function Items({ active, recipes, items }) {
   const ul_items = [...items];
 
   active.forEach((key) => {

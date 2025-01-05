@@ -7,7 +7,7 @@ import Buttons from "./Buttons";
 const success = /-(?:ok|yes)$/;
 const keepModal = /^modal(?:-buttons)?$/;
 
-export default function ({ modal, setModal, timeOut = 3000 }) {
+export default function Modal({ modal, setModal, timeOut = 3000 }) {
   const { prompt, onSuccess, lang = "fi", buttons = "oc" } = modal;
 
   useEffect(() => {
