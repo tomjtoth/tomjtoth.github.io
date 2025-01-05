@@ -117,15 +117,16 @@
     - laita samalla `400 g makaroni` kiehumaan, lisää veteen `kasvisliemikuutio`
     - kun makaronit ja lihaseos ovat kypsiä, sekoita
 
-# TODO: steps
-# 🥞 kuivakakku:
-#   url: https://www.kotikokki.net/reseptit/nayta/242960/Rusina-banaani-kuivakakku/
-#   steps:
-#     - xx `2 dl rusinoita`
-#     - xx `banaani`
-#     - xx `2 dl banaanijogurttia`
-#     - xx `2 kpl munaa`
-#     - xx `3 dl sokeria` asdf
+🥞 kuivakakku:
+  url: https://www.kotikokki.net/reseptit/nayta/242960/Rusina-banaani-kuivakakku/
+  steps:
+    - laita `2 kpl munaa` kulhoon ja sekoita
+    - murskaa `banaani` mössöksi, laita nekin kyytiin
+    - samoin `2 dl rusinoita` kyytiin
+    - kaada myös `2 dl banaanijogurttia`
+    - lopuksi `3 dl sokeria` ja sekoitetaan
+    - voitele vuoka, lämmitä uuni 175˚C-ksi
+    - paista noin 50-60 minuutiksi
 
 🫓 lángos:
   url: https://www.nosalty.hu/recept/igazi-strandos-langos?adag=2#ingredients
