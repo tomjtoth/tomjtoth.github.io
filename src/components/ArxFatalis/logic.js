@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { runes, spells } from "./config";
-import { castSpell } from "../../reducers/runes";
+import { castSpell } from "../../reducers/arx-fatalis";
 
 const SEC = 1000;
 

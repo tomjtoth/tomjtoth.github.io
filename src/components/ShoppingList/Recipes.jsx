@@ -3,7 +3,7 @@ import Steps from "./Steps";
 
 const id = "recipes";
 
-export default function ({ active, recipes }) {
+export default function Recipes({ active, recipes }) {
   return (
     <ul
       {...{

@@ -1,4 +1,4 @@
-import Logo from "./logos";
+import Logo from "./Logos";
 
 const search_on_yt = (artist, song) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent(
@@ -10,7 +10,7 @@ const translate = (lyrics) =>
     lyrics
   )}&op=translate`;
 
-export default function ({ keyAA, songs, artist, active }) {
+export default function Songs({ keyAA, songs, artist, active }) {
   const songs_arr = Object.entries(songs);
 
   return (

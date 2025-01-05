@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 export default function ({ noti }) {
-  const { score } = useSelector((s) => s.runes);
+  const { score } = useSelector((s) => s.arxFatalis);
 
   return (
     <>

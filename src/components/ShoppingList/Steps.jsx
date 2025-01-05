@@ -1,4 +1,4 @@
-export default function ({ rKey, steps }) {
+export default function Steps({ rKey, steps }) {
   return (
     <ol className="recipe-steps">
       {steps.map((__html, i) => {

@@ -7,7 +7,7 @@ const translations = Object.fromEntries(
   }).map(([en, xx]) => [en[0].toLowerCase(), { ...xx, en }])
 );
 
-export default function ({ lang, buttons }) {
+export default function Buttons({ lang, buttons }) {
   const res = [];
 
   for (let i = 0; i < buttons.length; i++) {

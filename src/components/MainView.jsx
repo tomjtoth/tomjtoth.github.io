@@ -1,4 +1,4 @@
-export default function ({ children, ...props }) {
+export default function MainView({ children, ...props }) {
   return (
     <div
       {...{

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loadObject, storeObject } from "../utils";
-import { spells } from "../components/Runes/config";
+import { spells } from "../components/ArxFatalis/config";
 
 function save({ points, ...state }) {
   storeObject(name, state);

@@ -16,7 +16,7 @@ import Items from "./Items";
 import ControlForm from "./ControlForm";
 import Loader from "../Loader";
 
-export default function () {
+export default function ShoppingList() {
   const [modal, setModal] = useState({});
   const dispatch = useDispatch();
   const { recipes, active, items } = useSelector((s) => s.shoppingList);

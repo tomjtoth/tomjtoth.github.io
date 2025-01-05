@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import lyrics from "./reducers/lyrics";
 import shoppingList from "./reducers/shopping-list";
 import sidepanel from "./reducers/sidepanel";
-import runes from "./reducers/runes";
+import arxFatalis from "./reducers/arx-fatalis";
 import luxor from "./reducers/luxor";
 import batteryMonitor from "./reducers/battery-monitor";
 
@@ -11,7 +11,7 @@ export default configureStore({
     lyrics,
     shoppingList,
     sidepanel,
-    runes,
+    arxFatalis,
     luxor,
     batteryMonitor,
   },

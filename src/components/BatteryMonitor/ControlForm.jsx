@@ -6,7 +6,7 @@ import { checkPermission } from "./notifications";
 import { useField } from "../../hooks";
 import { saveLevels, toggleActive } from "../../reducers/battery-monitor";
 
-export default function ({ setModal }) {
+export default function ControlForm({ setModal }) {
   const dispatch = useDispatch();
   const { min_val, max_val, allowed } = useSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } = useBattery();

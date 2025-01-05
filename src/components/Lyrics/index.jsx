@@ -10,7 +10,7 @@ import Header from "../Header";
 import MainView from "../MainView";
 import Loader from "../Loader";
 
-export default function () {
+export default function Lyrics() {
   const dispatch = useDispatch();
 
   const { artists, active } = useSelector((s) => s.lyrics);
