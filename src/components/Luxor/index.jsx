@@ -7,6 +7,9 @@ import {
   deleteField,
   fieldsFromPreset,
   undo,
+  bugCrawlsTo,
+  bugRemovePrivacy,
+  bugResets,
   newNumber,
 } from "../../reducers/luxor";
 
@@ -23,7 +26,7 @@ export default function Luxor() {
   const [modal, setModal] = useState({});
 
   const dispatch = useDispatch();
-  const { fields, locked, pickedNums } = useSelector((s) => s.luxor);
+  const { fields, locked, pickedNums, bug = {} } = useSelector((s) => s.luxor);
 
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
@@ -63,13 +66,30 @@ export default function Luxor() {
         }}
       >
         {pickedNums.length > 0 && (
-          <div id="luxor-picked-nums-line">
-            {pickedNums.length > 10 && "..."}
-            {last(pickedNums, 10).join(", ")}
-            {/* <div id="luxor-num-bug">🪲</div> */}
+          <div
+            id="luxor-picked-nums-line"
+            onAnimationEnd={(ev) => {
+              if (ev.animationName === "luxor-bug-privacy-filter") {
+                dispatch(bugCrawlsTo("-10vw"));
+                dispatch(bugRemovePrivacy());
+              }
+
+              setTimeout(() => {
+                dispatch(bugResets());
+              }, 710);
+            }}
+          >
+            <span>
+              {pickedNums.length > 10 && "..."}
+              {last(pickedNums, 10).join(", ")}
+            </span>
+            {bug.privacy && (
+              <div id="luxor-num-bug-priv-filter" style={{ left: bug.x }} />
+            )}
+
             <span
               className="clickable"
-              onClick={() =>
+              onClick={(e) =>
                 setModal({
                   prompt: (
                     <>
@@ -77,12 +97,30 @@ export default function Luxor() {
                     </>
                   ),
                   lang: "hu",
-                  onSuccess: () => dispatch(undo()),
+                  onSuccess: () => {
+                    dispatch(
+                      bugCrawlsTo(
+                        e.target.previousSibling.getBoundingClientRect().right -
+                          8
+                      )
+                    );
+
+                    setTimeout(() => {
+                      dispatch(undo());
+                    }, 710);
+                  },
                 })
               }
             >
               ⬅️
             </span>
+            <div
+              id="luxor-num-bug"
+              className={bug.className}
+              style={bug.x ? { left: bug.x } : undefined}
+            >
+              🪲
+            </div>
           </div>
         )}
         <ul className="luxor">
