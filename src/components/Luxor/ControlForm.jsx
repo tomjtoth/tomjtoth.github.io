@@ -11,7 +11,7 @@ const numOnly = /^\d+$/;
 
 export default function ControlForm({ setModal }) {
   const dispatch = useDispatch();
-  const { locked } = useSelector((s) => s.luxor);
+  const { locked, pickedNums } = useSelector((s) => s.luxor);
   const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
     placeholder: "a következő nyerőszám",
@@ -25,7 +25,9 @@ export default function ControlForm({ setModal }) {
     <form
       id="luxor-control"
       onSubmit={(e) => {
-        if (numOnly.test(num.value)) dispatch(newNumber(num.value));
+        if (numOnly.test(num.value) && !pickedNums.includes(num.value))
+          dispatch(newNumber(num.value));
+
         resetInput();
         e.preventDefault();
       }}
