@@ -46,7 +46,7 @@ const slice = createSlice({
       document
         .querySelectorAll("input.luxor-num")
         .forEach(({ parentNode, value }) => {
-          const [_, fieldId, rowIdx, cellIdx] = parentNode.id.match(
+          const [, fieldId, rowIdx, cellIdx] = parentNode.id.match(
             /(.+)-([0-4])-([0-4])$/
           );
 

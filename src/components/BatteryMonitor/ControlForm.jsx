@@ -15,11 +15,13 @@ export default function ControlForm({ setModal }) {
   let className;
   if (min_val > max_val) className = "invalid";
 
+  // eslint-disable-next-line no-unused-vars
   const { reset: _resetBg, ...allow } = useField("checkbox", {
     id: "bat-mon-allowed",
     initially: allowed,
   });
 
+  // eslint-disable-next-line no-unused-vars
   const { reset: _resetMin, ...min } = useField("number", {
     id: "bat-mon-min",
     className,
@@ -28,6 +30,7 @@ export default function ControlForm({ setModal }) {
     min: 10,
   });
 
+  // eslint-disable-next-line no-unused-vars
   const { reset: _resetMax, ...max } = useField("number", {
     id: "bat-mon-max",
     className,

@@ -7,15 +7,15 @@ export default function Home() {
       <Header title="tervehdys"></Header>
       <MainView style={{ padding: 16 }}>
         <p lang="en">
-          This site is mostly in Finnish. Here's the link to the{" "}
+          This site is mostly in Finnish. Here&apos;s the link to the{" "}
           <a
             target="_blank"
             href="https://github.com/tomjtoth/tomjtoth.github.io"
           >
             repo
           </a>{" "}
-          in case you're interested. Excuse my CSS, I like a color when it's
-          hexa looks nice. 🤷‍♂️
+          in case you&apos;re interested. Excuse my CSS, I like a color when
+          it&apos;s hexa looks nice. 🤷‍♂️
         </p>
         <h2>Sovellukset joissa backend</h2>
         <p>
