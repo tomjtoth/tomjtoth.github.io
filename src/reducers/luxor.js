@@ -88,6 +88,16 @@ const slice = createSlice({
 
       return save({ ...state, pickedNums: arr });
     },
+
+    moveBugTo: ({ bug, ...state }, { payload }) => {
+      return { ...state, bug: { ...bug, x: payload, className: "crawling" } };
+    },
+
+    setPrivacyFilter: ({ bug, ...state }, { payload }) => {
+      return { ...state, bug: { ...bug, privacy: payload } };
+    },
+
+    resetBugState: ({ bug, ...state }) => state,
   },
 });
 
@@ -100,6 +110,9 @@ const {
   removeField,
   importFields,
   removeLastNum,
+  moveBugTo,
+  setPrivacyFilter,
+  resetBugState,
 } = slice.actions;
 
 export const newNumber = (num) => {
@@ -163,8 +176,19 @@ export const fieldsFromPreset = (preset) => {
 
 export const undo = () => {
   return (dispatch) => {
+    dispatch(setPrivacyFilter(true));
     dispatch(removeLastNum());
   };
+};
+
+export const bugCrawlsTo = (x) => {
+  return (dispatch) => dispatch(moveBugTo(x));
+};
+export const bugRemovePrivacy = () => {
+  return (dispatch) => dispatch(setPrivacyFilter(false));
+};
+export const bugResets = () => {
+  return (dispatch) => dispatch(resetBugState());
 };
 
 export default slice.reducer;
