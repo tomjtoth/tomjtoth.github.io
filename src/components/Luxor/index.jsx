@@ -65,28 +65,29 @@ export default function Luxor() {
           }
         }}
       >
-        {pickedNums.length > 0 && (
-          <div
-            id="luxor-picked-nums-line"
-            onAnimationEnd={(ev) => {
-              if (ev.animationName === "luxor-bug-privacy-filter") {
-                dispatch(bugCrawlsTo("-10vw"));
-                dispatch(bugRemovePrivacy());
-              }
+        <div
+          id="luxor-picked-nums-line"
+          onAnimationEnd={(ev) => {
+            if (ev.animationName === "luxor-bug-privacy-filter") {
+              dispatch(bugCrawlsTo("-10vw"));
+              dispatch(bugRemovePrivacy());
+            }
 
-              setTimeout(() => {
-                dispatch(bugResets());
-              }, 710);
-            }}
-          >
-            <span>
-              {pickedNums.length > 10 && "..."}
-              {last(pickedNums, 10).join(", ")}
-            </span>
-            {bug.privacy && (
-              <div id="luxor-num-bug-priv-filter" style={{ left: bug.x }} />
-            )}
+            setTimeout(() => {
+              dispatch(bugResets());
+            }, 710);
+          }}
+        >
+          <span>
+            {pickedNums.length === 0 && <>&nbsp;</>}
+            {pickedNums.length > 10 && "..."}
+            {last(pickedNums, 10).join(", ")}
+          </span>
+          {bug.privacy && (
+            <div id="luxor-num-bug-priv-filter" style={{ left: bug.x }} />
+          )}
 
+          {pickedNums.length > 0 && (
             <span
               className="clickable"
               onClick={(e) =>
@@ -114,15 +115,15 @@ export default function Luxor() {
             >
               ⬅️
             </span>
-            <div
-              id="luxor-num-bug"
-              className={bug.className}
-              style={bug.x ? { left: bug.x } : undefined}
-            >
-              🪲
-            </div>
+          )}
+          <div
+            id="luxor-num-bug"
+            className={bug.className}
+            style={bug.x ? { left: bug.x } : undefined}
+          >
+            🪲
           </div>
-        )}
+        </div>
         <ul className="luxor">
           {fields.map(({ id: fieldId, rows, importedAt }) => (
             <Field
