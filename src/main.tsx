@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import "./main.css";
 
 import store from "./store";
-import App from "./App.jsx";
+import App from "./App";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -23,7 +23,7 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-createRoot(document.getElementById("root")).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <HashRouter>
