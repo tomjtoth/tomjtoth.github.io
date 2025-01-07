@@ -1,18 +1,26 @@
 import yaml from "js-yaml";
 
-export function storeObject(key, val) {
+export function storeObject<T>(key: string, val: T): T {
   localStorage.setItem(key, JSON.stringify(val));
 
   return val;
 }
 
-export function loadObject(key, fallback) {
+export function loadObject<T>(key: string, fallback: T): T {
   const stored = localStorage.getItem(key);
 
   return stored ? JSON.parse(stored) : fallback;
 }
 
-async function reqFile(file, { asYaml = false, asJson = false } = {}) {
+type ReqFileOptions = {
+  asYaml?: boolean;
+  asJson?: boolean;
+};
+
+async function reqFile(
+  file: string,
+  { asYaml = false, asJson = false }: ReqFileOptions = {}
+): Promise<any> {
   const req = fetch(file);
 
   if (asYaml) return yaml.load(await req.then((res) => res.text()));
@@ -21,46 +29,31 @@ async function reqFile(file, { asYaml = false, asJson = false } = {}) {
   return req;
 }
 
-export function fetchYaml(file) {
+export function fetchYaml(file: string): Promise<any> {
   return reqFile(file, { asYaml: true });
 }
 
-export function fetchJson(file) {
+export function fetchJson(file: string): Promise<any> {
   return reqFile(file, { asJson: true });
 }
 
-export function genericToggle(reducer_name, key, state, { payload }) {
-  // maintaining state immutability?
-  const arr = [...state[key]];
-
-  const idx = arr.indexOf(payload);
-  if (idx === -1) {
-    arr.push(payload);
-  } else {
-    arr.splice(idx, 1);
-  }
-
-  const next = { ...state };
-  next[key] = arr;
-  if (reducer_name) storeObject(reducer_name, next);
-  return next;
-}
-
-export function setDocTitleIcon(title, icon = "🤓") {
+export function setDocTitleIcon(title: string, icon = "🤓") {
   document.title = title;
-  document.querySelector("link[rel=icon]").href = `data:image/svg+xml,
+  (
+    document.querySelector("link[rel=icon]") as HTMLLinkElement
+  ).href = `data:image/svg+xml,
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
       <text x="50%" y="50%" font-size="90" dominant-baseline="middle" text-anchor="middle">${icon}</text>
   </svg>`;
 }
 
-export function toToggled(arr, key) {
+export function toToggled<T>(arr: T[], key: T): T[] {
   const res = [...arr];
   toggle(res, key);
   return res;
 }
 
-export function toggle(arr, key) {
+export function toggle<T>(arr: T[], key: T): void {
   const idx = arr.indexOf(key);
   if (idx === -1) {
     arr.push(key);
@@ -69,14 +62,14 @@ export function toggle(arr, key) {
   }
 }
 
-export function last(arr, n = 1) {
+export function last<T>(arr: T[], n = 1): T | T[] {
   const idx = arr.length - n;
 
   if (n > 1) return arr.slice(idx < 0 ? 0 : idx);
   return arr[idx];
 }
 
-export function between(n, a, b) {
+export function between(n: number, a: number, b: number): boolean {
   if (typeof a !== "number" || typeof b !== "number")
     throw new Error("between needs numbers for comparison");
 
