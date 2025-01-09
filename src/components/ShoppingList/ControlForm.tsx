@@ -1,14 +1,14 @@
-import { useDispatch } from "react-redux";
-import { useField } from "../../hooks";
+import { useField, useAppDispatch } from "../../hooks";
 import {
   addItem,
   resetSelected,
-  toggleActive,
+  toggleActiveId,
 } from "../../reducers/shopping-list";
 import { re } from "./config";
+import { ControlFormProps } from "./types";
 
-export default function ControlForm({ active, setModal }) {
-  const dispatch = useDispatch();
+export default function ControlForm({ active, setModal }: ControlFormProps) {
+  const dispatch = useAppDispatch();
   const { reset: resetItem, ...item } = useField("text", {
     placeholder: "lisää tavara tänne",
     id: "recipe-item-adder",
@@ -26,9 +26,10 @@ export default function ControlForm({ active, setModal }) {
         resetItem();
         e.preventDefault();
       }}
-      onClick={({ target: { id } }) => {
+      onClick={({ target }) => {
+        const { id } = target as HTMLElement;
         if (id === "recipes-toggler") {
-          dispatch(toggleActive("recipes"));
+          dispatch(toggleActiveId("recipes"));
         } else if (id === "reset-items") {
           setModal({
             prompt: "pyyhitäänkö kaikki vihreät?",

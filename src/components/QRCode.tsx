@@ -10,6 +10,10 @@ const QR_OPTS = {
   size: 200,
 };
 
-export default function QRCode({ value }) {
+type QRCodeProps = {
+  value: string;
+};
+
+export default function QRCode({ value }: QRCodeProps) {
   return <QRCodeSVG {...{ ...QR_OPTS, value }} />;
 }

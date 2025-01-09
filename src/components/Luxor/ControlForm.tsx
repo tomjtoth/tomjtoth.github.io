@@ -1,17 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useField } from "../../hooks";
+import { useAppDispatch, useAppSelector, useField } from "../../hooks";
 import {
   resetSelected,
   saveFields,
   toggleEditMode,
   newNumber,
 } from "../../reducers/luxor";
+import { ControlFormProps } from "./types";
 
 const numOnly = /^\d+$/;
 
-export default function ControlForm({ setModal }) {
-  const dispatch = useDispatch();
-  const { locked, pickedNums } = useSelector((s) => s.luxor);
+export default function ControlForm({ setModal }: ControlFormProps) {
+  const dispatch = useAppDispatch();
+  const { locked, pickedNums } = useAppSelector((s) => s.luxor);
   const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
     placeholder: "a következő nyerőszám",

@@ -1,9 +1,13 @@
 import { Link } from "react-router";
+import { useAppSelector } from "../../hooks";
 import Steps from "./Steps";
+import { Recipe } from "./types";
 
 const id = "recipes";
 
-export default function Recipes({ active, recipes }) {
+export default function Recipes() {
+  const { recipes, active } = useAppSelector((s) => s.shoppingList);
+
   return (
     <ul
       {...{
@@ -11,12 +15,9 @@ export default function Recipes({ active, recipes }) {
         className: active.includes(id) ? "active" : undefined,
       }}
     >
-      {recipes.map(
+      {(recipes as Recipe[]).map(
         (
-          [
-            title,
-            { steps, url, opts: { lang: { title: dish_lang } = {} } = {} },
-          ],
+          { title, steps, url, opts: { lang: { title: dish_lang } = {} } = {} },
           i
         ) => {
           const rKey = `recipe-${i}`;

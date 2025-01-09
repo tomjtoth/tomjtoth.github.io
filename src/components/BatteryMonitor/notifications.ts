@@ -1,8 +1,10 @@
-export function notify(body) {
+import { Dispatch } from "@reduxjs/toolkit";
+
+export function notify(body: string) {
   new Notification("Akunvalvonta", { body });
 }
 
-export async function checkPermission(setModal) {
+export async function checkPermission(setModal: Dispatch) {
   if (!window.Notification) {
     setModal({
       prompt: "ilmoituksia ei tueta",

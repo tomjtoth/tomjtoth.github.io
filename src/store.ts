@@ -6,7 +6,7 @@ import arxFatalis from "./reducers/arx-fatalis";
 import luxor from "./reducers/luxor";
 import batteryMonitor from "./reducers/battery-monitor";
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     lyrics,
     shoppingList,
@@ -16,3 +16,10 @@ export default configureStore({
     batteryMonitor,
   },
 });
+
+// Get the type of our store variable
+export type AppStore = typeof store;
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<AppStore["getState"]>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = AppStore["dispatch"];

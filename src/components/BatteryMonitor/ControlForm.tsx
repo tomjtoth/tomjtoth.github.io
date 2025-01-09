@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useBattery } from "react-use";
 
 import { checkPermission } from "./notifications";
@@ -7,8 +7,8 @@ import { useField } from "../../hooks";
 import { saveLevels, toggleActive } from "../../reducers/battery-monitor";
 
 export default function ControlForm({ setModal }) {
-  const dispatch = useDispatch();
-  const { min_val, max_val, allowed } = useSelector((s) => s.batteryMonitor);
+  const dispatch = useAppDispatch();
+  const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } = useBattery();
   const lvl100 = Math.round(level * 100);
 

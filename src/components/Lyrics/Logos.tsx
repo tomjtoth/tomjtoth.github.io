@@ -1,4 +1,8 @@
-export default function Logos({ url }) {
+type Props = {
+  url?: string;
+};
+
+export default function Logos({ url }: Props) {
   return (
     <>
       {url && (

@@ -1,18 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadObject, storeObject } from "../utils";
 import { spells } from "../components/ArxFatalis/config";
+import { AppDispatch } from "../store";
 
-function save({ points, ...state }) {
+type State = {
+  score: number;
+  castSpells: string[];
+};
+
+function save({ score, ...state }: State) {
   storeObject(name, state);
-  return { points, ...state };
 }
 
-function spellValue(spell) {
-  const { page, sequence } = spells[spell];
+function spellValue(spell: string) {
+  const { page, sequence } = spells.find((s) => s.spell === spell)!;
   return page * sequence.length;
 }
 
-const name = "runes";
+const name = "arx-fatalis";
 
 const { castSpells } = loadObject(name, { castSpells: [] });
 
@@ -20,23 +25,24 @@ const slice = createSlice({
   name,
   initialState: {
     castSpells,
-    score: castSpells.reduce((sum, spell) => sum + spellValue(spell), 0),
+    score: castSpells.reduce(
+      (sum: number, spell: string) => sum + spellValue(spell),
+      0
+    ),
   },
   reducers: {
-    addSpell: ({ castSpells, score }, { payload }) => {
-      const next = {
-        castSpells: castSpells.concat(payload),
-        score: score + spellValue(payload),
-      };
-      return save(next);
+    addSpell: (state: State, { payload }: PayloadAction<string>) => {
+      state.castSpells.push(payload);
+      state.score += spellValue(payload);
+      save(state);
     },
   },
 });
 
 const { addSpell } = slice.actions;
 
-export const castSpell = (spell) => {
-  return (dispatch) => {
+export const castSpell = (spell: string) => {
+  return (dispatch: AppDispatch) => {
     dispatch(addSpell(spell));
   };
 };

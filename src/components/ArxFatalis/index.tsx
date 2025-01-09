@@ -1,6 +1,8 @@
 import { useState } from "react";
 
+import { Noti } from "./types";
 import useLogic from "./logic";
+import { runes, RE } from "./config";
 
 import "./arx-fatalis.css";
 
@@ -10,8 +12,8 @@ import MainView from "../MainView";
 import Runes from "./Runes";
 
 export default function ArxFatalis() {
-  const [queue, setQueue] = useState([]);
-  const [noti, setNoti] = useState();
+  const [queue, setQueue] = useState<RE[]>([]);
+  const [noti, setNoti] = useState<Noti>();
 
   useLogic(queue, setQueue, noti, setNoti);
 
@@ -23,7 +25,14 @@ export default function ArxFatalis() {
       <MainView
         className="arx-fatalis"
         onClick={(e) => {
-          if (e.target.tagName == "IMG") setQueue(queue.concat(e.target.title));
+          if ((e.target as HTMLElement).tagName == "IMG")
+            setQueue(
+              queue.concat(
+                runes.findIndex(
+                  ({ rune }) => rune === (e.target as HTMLImageElement).title
+                )!
+              )
+            );
         }}
       >
         <div id="runes-drawing">{/* TODO: implement drawing by finger */}</div>

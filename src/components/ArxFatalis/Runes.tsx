@@ -3,7 +3,7 @@ import { runes } from "./config";
 export default function Runes() {
   return (
     <div id="runes">
-      {Object.keys(runes).map((rune) => (
+      {runes.map(({ rune }) => (
         <img
           key={rune}
           {...{

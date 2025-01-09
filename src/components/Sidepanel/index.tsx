@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Link, useLocation } from "react-router";
 
 import "./sidepanel.css";
@@ -8,9 +8,9 @@ import { setSidepanel } from "../../reducers/sidepanel";
 import QRCode from "../QRCode";
 
 export default function Sidepanel() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const className = `border1-e ${
-    useSelector((s) => s.sidepanel.active) ? " active" : ""
+    useAppSelector((s) => s.sidepanel.active) ? " active" : ""
   }`;
 
   const links = [
@@ -35,16 +35,17 @@ export default function Sidepanel() {
         className,
 
         onMouseLeave: (e) => {
-          if (e.target.tagName === "NAV") {
+          if ((e.target as HTMLElement).tagName === "NAV") {
             dispatch(setSidepanel(false));
           }
         },
 
         onClick: ({ target }) => {
-          if (target.classList.contains("toggler")) {
+          const t = target as HTMLElement;
+          if (t.classList.contains("toggler")) {
             dispatch(setSidepanel(false));
-          } else if (target.closest("#qr-code")) {
-            navigator.clipboard.writeText(window.location);
+          } else if (t.closest("#qr-code")) {
+            navigator.clipboard.writeText(window.location.toString());
           }
         },
       }}

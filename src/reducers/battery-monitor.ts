@@ -1,26 +1,42 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppDispatch } from "../store";
 import { loadObject, storeObject } from "../utils";
 
 const name = "battery-monitor";
+
+type State = {
+  allowed: boolean;
+  min_val: number;
+  max_val: number;
+};
+
+function save(state: State) {
+  storeObject(name, state);
+}
 
 const slice = createSlice({
   name,
   initialState: loadObject(name, { min_val: 20, max_val: 80, allowed: false }),
   reducers: {
-    setLevels: ({ allowed }, { payload }) =>
-      storeObject(name, { allowed, ...payload }),
+    setLevels: (state: State, { payload }: PayloadAction<Partial<State>>) => {
+      state.min_val = payload.min_val!;
+      state.max_val = payload.max_val!;
+      save(state);
+    },
 
-    setAllowed: ({ allowed, ...state }, { payload }) =>
-      storeObject(name, {
-        ...state,
-        allowed: payload === undefined ? !allowed : payload,
-      }),
+    setAllowed: (state, { payload }: PayloadAction<boolean | undefined>) => {
+      state.allowed = payload === undefined ? !state.allowed : payload;
+      save(state);
+    },
   },
 });
 
 const { setLevels, setAllowed } = slice.actions;
 
-export const saveLevels = (levels) => (dispatch) => dispatch(setLevels(levels));
-export const toggleActive = (bool) => (dispatch) => dispatch(setAllowed(bool));
+export const saveLevels = (levels: Partial<State>) => (dispatch: AppDispatch) =>
+  dispatch(setLevels(levels));
+
+export const toggleActive = (to?: boolean) => (dispatch: AppDispatch) =>
+  dispatch(setAllowed(to));
 
 export default slice.reducer;

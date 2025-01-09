@@ -1,25 +1,30 @@
+import { useAppSelector } from "../../hooks";
 import Albums from "./Albums";
 import Logo from "./Logos";
 
-export default function Artists({ artists, active }) {
+import { Artist } from "./types";
+
+export default function Artists() {
+  const { artists, active } = useAppSelector((s) => s.lyrics);
+
   return (
     <ul lang="sv" id="songs">
-      {artists.map(([artist, { url, albums }], i) => {
-        const keyA = `artist-${i}`;
+      {(artists as Artist[]).map(({ name, url, albums }, i) => {
+        const id = `artist-${i}`;
 
         return (
           <li
-            key={keyA}
+            key={id}
             {...{
               className: `clickable padded bordered${
-                active.includes(keyA) ? " active" : ""
+                (active as string[]).includes(id) ? " active" : ""
               }`,
-              id: keyA,
+              id,
             }}
           >
-            {artist}
+            {name}
             <Logo {...{ url }} />
-            <Albums {...{ keyA, albums, artist, active }} />
+            <Albums {...{ id, albums, artist: name, active }} />
           </li>
         );
       })}

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 
-import { initLyrics, toggle_active } from "../../reducers/lyrics";
+import { initLyrics, toggleSelection } from "../../reducers/lyrics";
 
 import "./lyrics.css";
 
@@ -11,13 +11,13 @@ import MainView from "../MainView";
 import Loader from "../Loader";
 
 export default function Lyrics() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { artists, active } = useSelector((s) => s.lyrics);
-  const initialized = artists !== undefined;
+  const { artists } = useAppSelector((s) => s.lyrics);
+  const uninitialized = artists.length === 0;
 
   useEffect(() => {
-    if (!initialized) {
+    if (uninitialized) {
       dispatch(initLyrics());
     }
   }, []);
@@ -25,12 +25,12 @@ export default function Lyrics() {
   return (
     <>
       <Header title="låttext" icon="🎶" />
-
       <MainView
         {...{
-          onClick: ({ target: { id, classList } }) => {
+          onClick: ({ target }) => {
+            const { id, classList } = target as HTMLElement;
             if (!classList.contains("missing-lyrics")) {
-              dispatch(toggle_active(id));
+              dispatch(toggleSelection(id));
             }
           },
         }}
@@ -43,7 +43,7 @@ export default function Lyrics() {
           The below songs are linked to Google Translate (or YouTube, when the
           lyrics are still missing).
         </p>
-        {initialized ? <Artists {...{ artists, active }} /> : <Loader />}
+        {uninitialized ? <Loader /> : <Artists />}
       </MainView>
     </>
   );
