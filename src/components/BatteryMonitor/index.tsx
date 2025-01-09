@@ -8,9 +8,10 @@ import Modal from "../Modal";
 import ControlForm from "./ControlForm";
 import MainView from "../MainView";
 import { useState } from "react";
+import { ModalType } from "../Modal/types";
 
 export default function BatteryMonitor() {
-  const [modal, setModal] = useState({});
+  const [modal, setModal] = useState<ModalType>();
   const { isSupported, loading, charging, level } = useBattery();
   const lvl100 = Math.round(level * 100);
 

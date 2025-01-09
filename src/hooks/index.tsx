@@ -1,9 +1,18 @@
 import { useState } from "react";
+import { useDispatch, useSelector, useStore } from "react-redux";
+import type { AppDispatch, AppStore, RootState } from "../store";
 
-export function useField(type, { initially = "", ...rest } = {}) {
+type Props = {
+  initially?: string | number | boolean;
+};
+
+export function useField<T>(
+  type: string,
+  { initially = "", ...rest }: Props = {}
+) {
   const [value, setValue] = useState(initially);
 
-  const onChange = (event) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(type === "checkbox" ? !value : event.target.value);
   };
 
@@ -30,3 +39,7 @@ export function useField(type, { initially = "", ...rest } = {}) {
     },
   });
 }
+
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
+export const useAppStore = useStore.withTypes<AppStore>();

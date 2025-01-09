@@ -1,16 +1,21 @@
+import { useAppSelector } from "../../hooks";
 import { re } from "./config";
+import { Item, Recipe } from "./types";
 
-export default function Items({ active, recipes, items }) {
-  const ul_items = [...items];
+export default function Items() {
+  const { recipes, active, items } = useAppSelector((s) => s.shoppingList);
+
+  const ul_items = [...(items as Item[])];
 
   active.forEach((key) => {
     const match = key.match(re.recipeId);
     if (match) {
-      const { recId } = match.groups;
+      const recId = Number(match.groups!.recId);
+      const recipe = recipes[recId] as Recipe;
       ul_items.push(
-        ...recipes[recId][1].items.map((item, i) => ({
+        ...recipe.items.map((item, i) => ({
           key: `${key}-item-${i}`,
-          item: `${item} (${recipes[recId][0]})`,
+          item: `${item} (${recipe.title})`,
         }))
       );
     }

@@ -1,80 +1,118 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { storeObject, loadObject, fetchYaml, toToggled } from "../utils";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AppDispatch } from "../store";
+import {
+  storeObject,
+  loadObject,
+  fetchYaml,
+  toggle as toggleArr,
+} from "../utils";
+import type { Artist, Album, Song } from "../components/Lyrics/types";
+
+type State = {
+  artists: Artist[];
+  active: string[];
+};
 
 const name = "lyrics";
 
-function save({ artists, ...state }) {
+function save({ artists, ...state }: State) {
   storeObject(name, state);
-  return { artists, ...state };
 }
 
 const slice = createSlice({
   name,
-  initialState: loadObject(name, {
-    active: [],
-  }),
+  initialState: {
+    ...loadObject(name, {
+      active: [],
+    }),
+    artists: [],
+  },
   reducers: {
-    load: (state, { payload }) => {
-      return {
-        ...state,
-        artists: Object.entries(payload)
-          .toSorted(([artist_a], [artist_b]) => {
-            const lower_a = artist_a.toLowerCase();
-            const lower_b = artist_b.toLowerCase();
+    load: (state: State, { payload }) => {
+      state.artists = Object.entries(payload)
+        .toSorted(([artist_a], [artist_b]) => {
+          const lower_a = artist_a.toLowerCase();
+          const lower_b = artist_b.toLowerCase();
 
-            if (lower_a < lower_b) return -1;
-            if (lower_a > lower_b) return 1;
-            return 0;
-          })
-          .map(([artist, { url, ...albums }]) => {
-            const sorted = Object.entries(albums).toSorted(
-              ([title_a, a], [title_b, b]) => {
-                // move the mix album to the beginning
-                if (title_a === "null") return -1;
-                if (title_b === "null") return 1;
+          if (lower_a < lower_b) return -1;
+          if (lower_a > lower_b) return 1;
+          return 0;
+        })
 
-                // order by year DESC
-                if (a.year === undefined) return 1;
-                if (b.year === undefined) return -1;
-                const year_diff = b.year - a.year;
+        .map(([artistName, artist]) => {
+          const { url, ...albums } = artist as any;
+          const sorted = Object.entries(albums)
+            .toSorted(([title_a, a], [title_b, b]) => {
+              // move the mix album to the beginning
+              if (title_a === "null") return -1;
+              if (title_b === "null") return 1;
 
-                if (year_diff === 0) {
-                  const lower_a = title_a.toLowerCase();
-                  const lower_b = title_b.toLowerCase();
+              const yearA = (a as Album).year;
+              const yearB = (b as Album).year;
 
-                  // order alphabetically within the same year
-                  if (lower_a < lower_b) return -1;
-                  if (lower_a > lower_b) return 1;
-                }
+              // order by year DESC
+              if (yearA === undefined) return 1;
+              if (yearB === undefined) return -1;
+              const year_diff = yearB - yearA;
 
-                return year_diff;
+              if (year_diff === 0) {
+                const lower_a = title_a.toLowerCase();
+                const lower_b = title_b.toLowerCase();
+
+                // order alphabetically within the same year
+                if (lower_a < lower_b) return -1;
+                if (lower_a > lower_b) return 1;
               }
-            );
 
-            return [artist, { url, albums: sorted }];
-          }),
-      };
+              return year_diff;
+            })
+            .map(([title, album]) => {
+              const { url, year, ...songs } = album as any;
+
+              return {
+                title,
+                year,
+                url,
+                songs: Object.entries(songs).map(
+                  ([title, lyrics]) =>
+                    ({
+                      title,
+                      lyrics,
+                    } as Song)
+                ),
+              } as Album;
+            });
+
+          return { name: artistName, url, albums: sorted } as Artist;
+        });
     },
-    toggle: ({ active, ...state }, { payload }) => {
-      return save({ ...state, active: toToggled(active, payload) });
+
+    toggleActive: (
+      { active, ...state }: State,
+      { payload }: PayloadAction<string>
+    ) => {
+      toggleArr(active, payload);
+      save({ ...state, active });
     },
-    reset: ({ artists }) => {
-      return save({ artists, active: [], scrollTop: 0 });
+
+    reset: (state: State) => {
+      state.active = [];
+      save(state);
     },
   },
 });
 
-export const { load, toggle } = slice.actions;
+export const { load, toggleActive } = slice.actions;
 
 export const initLyrics = () => {
-  return async (dispatch) => {
+  return async (dispatch: AppDispatch) => {
     dispatch(load(await fetchYaml("/lyrics.yaml")));
   };
 };
 
-export function toggle_active(key) {
-  return (dispatch) => {
-    dispatch(toggle(key));
+export function toggleSelection(key: string) {
+  return (dispatch: AppDispatch) => {
+    dispatch(toggleActive(key));
   };
 }
 

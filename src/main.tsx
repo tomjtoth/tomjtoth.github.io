@@ -4,7 +4,7 @@ import { HashRouter } from "react-router";
 import { Provider } from "react-redux";
 import "./main.css";
 
-import store from "./store";
+import { store } from "./store";
 import App from "./App";
 
 if ("serviceWorker" in navigator) {

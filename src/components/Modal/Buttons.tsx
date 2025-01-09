@@ -1,3 +1,5 @@
+import { ModalButtonsProps } from "./types";
+
 const translations = Object.fromEntries(
   Object.entries({
     OK: { hu: "Oké", fi: "Okei" },
@@ -7,7 +9,7 @@ const translations = Object.fromEntries(
   }).map(([en, xx]) => [en[0].toLowerCase(), { ...xx, en }])
 );
 
-export default function Buttons({ lang, buttons }) {
+export default function Buttons({ lang, buttons }: ModalButtonsProps) {
   const res = [];
 
   for (let i = 0; i < buttons.length; i++) {

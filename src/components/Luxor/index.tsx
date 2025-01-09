@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import { useLocation, useNavigate } from "react-router";
 
 import {
@@ -12,6 +12,9 @@ import {
   bugResets,
   newNumber,
 } from "../../reducers/luxor";
+import { ModalType } from "../Modal/types";
+import { last } from "../../utils";
+import { bugState } from "./types";
 
 import "./luxor.css";
 
@@ -19,14 +22,13 @@ import Modal from "../Modal";
 import Header from "../Header";
 import MainView from "../MainView";
 import ControlForm from "./ControlForm";
-import Field from "./Field";
-import { last } from "../../utils";
+import Fields from "./Fields";
 
 export default function Luxor() {
-  const [modal, setModal] = useState({});
+  const [modal, setModal] = useState<ModalType>();
 
-  const dispatch = useDispatch();
-  const { fields, locked, pickedNums, bug = {} } = useSelector((s) => s.luxor);
+  const dispatch = useAppDispatch();
+  const { locked, pickedNums, bug } = useAppSelector((s) => s.luxor);
 
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
@@ -48,21 +50,27 @@ export default function Luxor() {
       </Header>
       <MainView
         className="luxor"
-        onClick={({
-          target: { tagName, textContent, classList, parentNode },
-        }) => {
+        onClick={({ target }) => {
+          const { tagName, textContent, classList, parentNode } =
+            target as HTMLElement;
           if (classList.contains("luxor-fld-add")) {
-            dispatch(createNewField(parentNode.parentNode.id));
+            dispatch(
+              createNewField((parentNode!.parentNode! as HTMLElement).id)
+            );
           } else if (classList.contains("luxor-fld-del")) {
             setModal({
               prompt: <>Azt a mezőt most törlöm...</>,
               lang: "hu",
-              onSuccess: () => dispatch(deleteField(parentNode.parentNode.id)),
+              onSuccess: () =>
+                dispatch(
+                  deleteField((parentNode!.parentNode! as HTMLElement).id)
+                ),
             });
           } else if (locked && tagName === "TD") {
             const asNumber = Number(textContent);
             const num = isNaN(asNumber) ? 0 : asNumber;
-            if (!pickedNums.includes(num)) dispatch(newNumber(num));
+            if (!(pickedNums as number[]).includes(num))
+              dispatch(newNumber(num));
           }
         }}
       >
@@ -102,8 +110,10 @@ export default function Luxor() {
                   onSuccess: () => {
                     dispatch(
                       bugCrawlsTo(
-                        e.target.previousSibling.getBoundingClientRect().right -
-                          8
+                        (
+                          (e.target as HTMLElement)
+                            .previousSibling as HTMLElement
+                        ).getBoundingClientRect().right - 8
                       )
                     );
 
@@ -119,20 +129,13 @@ export default function Luxor() {
           )}
           <div
             id="luxor-num-bug"
-            className={bug.className}
+            className={(bug as bugState).className}
             style={bug.x ? { left: bug.x } : undefined}
           >
             🪲
           </div>
         </div>
-        <ul className="luxor">
-          {fields.map(({ id: fieldId, rows, importedAt }) => (
-            <Field
-              key={fieldId}
-              {...{ fieldId, rows, deletable: fields.length > 1, importedAt }}
-            />
-          ))}
-        </ul>
+        <Fields />
       </MainView>
     </>
   );

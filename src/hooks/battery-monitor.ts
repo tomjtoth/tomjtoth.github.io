@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from ".";
 import { useBattery } from "react-use";
 
 import { notify } from "../components/BatteryMonitor/notifications";
@@ -7,7 +7,7 @@ import { notify } from "../components/BatteryMonitor/notifications";
 const SEC = 1000;
 
 export default function () {
-  const { min_val, max_val, allowed } = useSelector((s) => s.batteryMonitor);
+  const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
 
   const { isSupported, level, charging, chargingTime, dischargingTime } =
     useBattery();

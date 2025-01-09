@@ -3,20 +3,23 @@ import { useEffect } from "react";
 import "./modal.css";
 
 import Buttons from "./Buttons";
+import { ModalProps } from "./types";
 
 const success = /-(?:ok|yes)$/;
 const keepModal = /^modal(?:-buttons)?$/;
 
-export default function Modal({ modal, setModal, timeOut = 3000 }) {
-  const { prompt, onSuccess, lang = "fi", buttons = "oc" } = modal;
-
+export default function Modal({ modal, setModal, timeOut = 3000 }: ModalProps) {
   useEffect(() => {
     const id = setTimeout(() => {
-      setModal({});
+      setModal(undefined);
     }, timeOut);
 
     return () => clearTimeout(id);
   }, [modal]);
+
+  if (!modal) return;
+
+  const { prompt, onSuccess, lang = "fi", buttons = "oc" } = modal;
 
   return (
     prompt && (
@@ -24,9 +27,11 @@ export default function Modal({ modal, setModal, timeOut = 3000 }) {
         {...{
           id: "modal-blur",
           onClick: (e) => {
-            if (success.test(e.target.id) && onSuccess) onSuccess();
+            const t = e.target as HTMLElement;
 
-            if (!keepModal.test(e.target.id)) setModal({});
+            if (success.test(t.id) && onSuccess) onSuccess();
+
+            if (!keepModal.test(t.id)) setModal(undefined);
           },
         }}
       >

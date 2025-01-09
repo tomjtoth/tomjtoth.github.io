@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import {
   initRecipes,
-  toggleActive,
+  toggleActiveId,
   rmItem,
 } from "../../reducers/shopping-list";
+import { ModalType as ModalType } from "../Modal/types";
 
 import "./shopping-list.css";
 
@@ -17,10 +18,10 @@ import ControlForm from "./ControlForm";
 import Loader from "../Loader";
 
 export default function ShoppingList() {
-  const [modal, setModal] = useState({});
-  const dispatch = useDispatch();
-  const { recipes, active, items } = useSelector((s) => s.shoppingList);
-  const uninitialized = recipes === undefined;
+  const [modal, setModal] = useState<ModalType>();
+  const dispatch = useAppDispatch();
+  const { recipes, active } = useAppSelector((s) => s.shoppingList);
+  const uninitialized = recipes.length === 0;
 
   useEffect(() => {
     if (uninitialized) dispatch(initRecipes());
@@ -35,18 +36,22 @@ export default function ShoppingList() {
 
       <MainView
         {...{
-          onClick: ({ target: { parentNode, id, tagName, classList } }) => {
+          onClick: ({ target }) => {
+            const { parentNode, id, tagName, classList } =
+              target as HTMLElement;
+
             if (tagName === "SPAN" && classList.contains("recipe-item-del")) {
               setModal({
                 prompt: "poistetaanko varmasti?",
-                onSuccess: () => dispatch(rmItem(parentNode.id)),
+                onSuccess: () =>
+                  dispatch(rmItem((parentNode as HTMLElement)!.id)),
               });
             } else if (
               tagName === "LI" &&
               (classList.contains("recipe") ||
                 classList.contains("recipe-item"))
             ) {
-              dispatch(toggleActive(id));
+              dispatch(toggleActiveId(id));
             }
           },
         }}
@@ -55,8 +60,8 @@ export default function ShoppingList() {
           <Loader />
         ) : (
           <>
-            <Recipes {...{ active, recipes }} />
-            <Items {...{ active, recipes, items }} />
+            <Recipes />
+            <Items />
           </>
         )}
       </MainView>

@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../hooks";
 
-import { runes, spells } from "./config";
+import { runes, spells, fizzle, RE } from "./config";
+import { Noti, setQueueType, setNotiType } from "./types";
 import { castSpell } from "../../reducers/arx-fatalis";
 
 const SEC = 1000;
 
-export default function (queue, setQueue, noti, setNoti) {
-  const dispatch = useDispatch();
+export default function (
+  queue: RE[],
+  setQueue: setQueueType,
+  noti: Noti,
+  setNoti: setNotiType
+) {
+  const dispatch = useAppDispatch();
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    const toId = setTimeout(() => setNoti(null), 5 * SEC);
+    const toId = setTimeout(() => setNoti(undefined), 5 * SEC);
 
     return () => clearTimeout(toId);
   }, [noti]);
@@ -21,7 +27,7 @@ export default function (queue, setQueue, noti, setNoti) {
 
     // TODO: not working when caching many of the same rune after one another
     if (idx < queue.length) {
-      const curr = runes[queue[idx]];
+      const curr = runes[queue[idx]]!;
       if (curr.mp3.paused) {
         curr.mp3.currentTime = curr.start;
         curr.mp3.play();
@@ -33,7 +39,7 @@ export default function (queue, setQueue, noti, setNoti) {
     } else if (idx > 0) {
       let validSpell = false;
 
-      for (const [spell, { page, sequence, mp3 }] of Object.entries(spells)) {
+      for (const { spell, page, sequence, mp3 } of spells) {
         if (sequence.length !== idx) continue;
 
         validSpell = true;
@@ -57,8 +63,8 @@ export default function (queue, setQueue, noti, setNoti) {
       }
 
       if (!validSpell) {
-        spells.fizzle.mp3.currentTime = 0;
-        spells.fizzle.mp3.play();
+        fizzle.currentTime = 0;
+        fizzle.play();
       }
 
       setQueue(queue.slice(idx));

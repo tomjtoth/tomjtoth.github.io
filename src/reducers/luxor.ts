@@ -1,10 +1,11 @@
-import { v4 as uuid } from "uuid";
-import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuid, UUIDTypes } from "uuid";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadObject, storeObject, last } from "../utils";
+import { AppDispatch } from "../store";
+import type { Field, State } from "../components/Luxor/types";
 
-function save({ fields, pickedNums, ...state }) {
+function save({ fields, pickedNums }: State) {
   storeObject(name, { fields, pickedNums });
-  return { fields, pickedNums, ...state };
 }
 
 const name = "luxor";
@@ -25,80 +26,81 @@ const slice = createSlice({
       pickedNums: [],
     }),
     locked: true,
+    bug: {
+      x: "110vw",
+      privacy: false,
+    },
   },
   reducers: {
-    pickNumber: ({ pickedNums, ...state }, { payload }) =>
-      save({
-        ...state,
-        pickedNums: pickedNums.concat(payload),
-      }),
+    pickNumber: (state: State, { payload }: PayloadAction<number>) => {
+      state.pickedNums.push(payload);
+      save(state);
+    },
 
-    setLock: ({ locked, ...state }, { payload }) => ({
-      locked: payload === undefined ? !locked : payload,
-      ...state,
-    }),
+    setLock: (state: State, { payload }) => {
+      state.locked = payload === undefined ? !state.locked : payload;
+    },
 
-    updateFields: ({ fields, ...state }) => {
-      const updatedFields = fields.map(({ id, rows }) => {
-        return { id, rows: rows.map((row) => [...row]) };
-      });
-
+    updateFields: (state: State) => {
       document
-        .querySelectorAll("input.luxor-num")
+        .querySelectorAll<HTMLInputElement>("input.luxor-num")
         .forEach(({ parentNode, value }) => {
-          const [, fieldId, rowIdx, cellIdx] = parentNode.id.match(
-            /(.+)-([0-4])-([0-4])$/
-          );
+          const [, fieldId, rowIdx, cellIdx] = (
+            parentNode! as HTMLElement
+          ).id.match(/(.+)-([0-4])-([0-4])$/)!;
 
-          updatedFields.find(({ id }) => id === fieldId).rows[Number(rowIdx)][
+          state.fields.find(({ id }) => id === fieldId)!.rows[Number(rowIdx)][
             Number(cellIdx)
           ] = Number(value);
         });
 
-      return save({ ...state, fields: updatedFields });
+      save(state);
     },
 
-    importFields: ({ fields, ...state }, { payload }) =>
-      save({ ...state, fields: fields.concat(...payload) }),
-
-    addEmptyField: ({ fields, ...state }, { payload }) => {
-      const idx = fields.findIndex(({ id }) => id === payload);
-      const arr = [...fields];
-
-      arr.splice(idx + 1, 0, { id: uuid(), rows: emptyField });
-
-      return save({
-        ...state,
-        fields: arr,
-      });
+    importFields: (state: State, { payload }) => {
+      state.fields.push(...payload);
+      save(state);
     },
 
-    removeField: ({ fields, ...state }, { payload }) =>
+    addEmptyField: (state: State, { payload }) => {
+      const idx = state.fields.findIndex(({ id }) => id === payload);
+
+      state.fields.splice(idx + 1, 0, { id: uuid(), rows: emptyField });
+
+      save(state);
+    },
+
+    removeField: ({ fields, ...state }: State, { payload }) => {
       save({
         ...state,
         fields: fields.filter(({ id }) => id !== payload),
-      }),
-
-    resetPickedNumbers: (state) => save({ ...state, pickedNums: [] }),
-
-    removeLastNum: ({ pickedNums, ...state }) => {
-      const len = pickedNums.length;
-
-      const arr = len > 0 ? pickedNums.slice(0, len - 1) : pickedNums;
-
-      return save({ ...state, pickedNums: arr });
+      });
     },
 
-    moveBugTo: ({ bug, ...state }, { payload }) => {
-      return { ...state, bug: { ...bug, x: payload, className: "crawling" } };
+    resetPickedNumbers: (state: State) => {
+      state.pickedNums = [];
+      save(state);
     },
 
-    setPrivacyFilter: ({ bug, ...state }, { payload }) => {
-      return { ...state, bug: { ...bug, privacy: payload } };
+    removeLastNum: (state: State) => {
+      const len = state.pickedNums.length;
+
+      if (len > 0) state.pickedNums.splice(len - 1, 1);
+
+      save(state);
     },
 
-    // eslint-disable-next-line no-unused-vars
-    resetBugState: ({ bug, ...state }) => state,
+    moveBugTo: (state: State, { payload }) => {
+      state.bug = { x: payload, privacy: false, className: "crawling" };
+    },
+
+    setPrivacyFilter: (state: State, { payload }: PayloadAction<boolean>) => {
+      state.bug!.privacy = payload;
+    },
+
+    resetBugState: (state: State) => {
+      state.bug = { x: "110vw", privacy: false };
+    },
   },
 });
 
@@ -116,44 +118,44 @@ const {
   resetBugState,
 } = slice.actions;
 
-export const newNumber = (num) => {
-  return (dispatch) => {
+export const newNumber = (num: number) => {
+  return (dispatch: AppDispatch) => {
     dispatch(pickNumber(num));
   };
 };
 
-export const toggleEditMode = (to) => {
-  return (dispatch) => {
+export const toggleEditMode = (to?: boolean) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setLock(to));
   };
 };
 
 export const saveFields = () => {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     dispatch(updateFields());
   };
 };
 
 export const resetSelected = () => {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     dispatch(resetPickedNumbers());
   };
 };
 
-export const createNewField = (afterId) => {
-  return (dispatch) => {
+export const createNewField = (afterId: UUIDTypes) => {
+  return (dispatch: AppDispatch) => {
     dispatch(addEmptyField(afterId));
   };
 };
 
-export const deleteField = (id) => {
-  return (dispatch) => {
+export const deleteField = (id: UUIDTypes) => {
+  return (dispatch: AppDispatch) => {
     dispatch(removeField(id));
   };
 };
 
-export const fieldsFromPreset = (preset) => {
-  return (dispatch) => {
+export const fieldsFromPreset = (preset: string) => {
+  return (dispatch: AppDispatch) => {
     const importedAt = Date.now();
 
     dispatch(
@@ -162,34 +164,36 @@ export const fieldsFromPreset = (preset) => {
           if (idx % 25 === 0) {
             fields.push({ id: uuid(), rows: [], importedAt });
           }
-          const { rows } = last(fields);
+          const { rows } = last(fields) as Field;
           if (idx % 5 === 0) rows.push([]);
-          const row = last(rows);
+          const row = last(rows) as number[];
 
           row.push(Number(numStr));
 
           return fields;
-        }, [])
+        }, [] as Field[])
       )
     );
   };
 };
 
 export const undo = () => {
-  return (dispatch) => {
+  return (dispatch: AppDispatch) => {
     dispatch(setPrivacyFilter(true));
     dispatch(removeLastNum());
   };
 };
 
-export const bugCrawlsTo = (x) => {
-  return (dispatch) => dispatch(moveBugTo(x));
+export const bugCrawlsTo = (x: number | string) => {
+  return (dispatch: AppDispatch) => dispatch(moveBugTo(x));
 };
+
 export const bugRemovePrivacy = () => {
-  return (dispatch) => dispatch(setPrivacyFilter(false));
+  return (dispatch: AppDispatch) => dispatch(setPrivacyFilter(false));
 };
+
 export const bugResets = () => {
-  return (dispatch) => dispatch(resetBugState());
+  return (dispatch: AppDispatch) => dispatch(resetBugState());
 };
 
 export default slice.reducer;

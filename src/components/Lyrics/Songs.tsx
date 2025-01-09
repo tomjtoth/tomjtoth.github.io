@@ -1,26 +1,25 @@
+import type { SongsProps } from "./types";
 import Logo from "./Logos";
 
-const search_on_yt = (artist, song) =>
+const search_on_yt = (artist: string, song: string) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent(
     `${artist} - Topic ${song}`
   )}`;
 
-const translate = (lyrics) =>
+const translate = (lyrics: string) =>
   `https://translate.google.com/?sl=sv&tl=en&text=${encodeURIComponent(
     lyrics
   )}&op=translate`;
 
-export default function Songs({ keyAA, songs, artist, active }) {
-  const songs_arr = Object.entries(songs);
-
+export default function Songs({ albumId, songs, artist, active }: SongsProps) {
   return (
     <ul>
-      {songs_arr.map(([title, lyrics], i) => {
-        const keyAAS = `${keyAA}-song-${i}`;
+      {songs.map(({ title, lyrics }, i) => {
+        const id = `${albumId}-song-${i}`;
 
         let link;
         let className = `padded bordered${
-          songs_arr.length === 1 || active.includes(keyAAS) ? " active" : ""
+          songs.length === 1 || active.includes(id) ? " active" : ""
         }`;
 
         if (lyrics) {
@@ -37,7 +36,7 @@ export default function Songs({ keyAA, songs, artist, active }) {
         }
 
         return (
-          <li key={keyAAS} {...{ className, id: keyAAS }}>
+          <li key={id} {...{ className, id }}>
             {title}
             {link}
             {!lyrics.startsWith("http") && <p className="lyrics">{lyrics}</p>}
