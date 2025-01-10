@@ -1,4 +1,5 @@
 import { useField, useAppDispatch } from "../../hooks";
+import { NumberInputProps } from "../../hooks/types";
 import {
   addItem,
   resetSelected,
@@ -22,7 +23,9 @@ export default function ControlForm({ active, setModal }: ControlFormProps) {
     <form
       id="recipe-control"
       onSubmit={(e) => {
-        if (!re.emptyString.test(item.value)) dispatch(addItem(item.value));
+        const { value } = item as NumberInputProps;
+        if (!re.emptyString.test(value.toString()))
+          dispatch(addItem(value.toString()));
         resetItem();
         e.preventDefault();
       }}

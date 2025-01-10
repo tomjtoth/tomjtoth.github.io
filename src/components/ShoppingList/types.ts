@@ -5,6 +5,8 @@ export type ControlFormProps = {
   setModal: setModalType;
 };
 
+type Step = string;
+
 export type Item = {
   key: string;
   item: string;
@@ -19,5 +21,11 @@ export type Recipe = {
     };
   };
   items: string[];
-  steps: string[];
+  steps: Step[];
+};
+
+export type StepsProps = {
+  recId: string;
+  steps: Step[];
+  lang: "hu" | "fi" | undefined;
 };

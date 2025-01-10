@@ -5,11 +5,13 @@ import { useBattery } from "react-use";
 import { checkPermission } from "./notifications";
 import { useField } from "../../hooks";
 import { saveLevels, toggleActive } from "../../reducers/battery-monitor";
+import { BatteryState, ControlFormProps } from "./types";
 
-export default function ControlForm({ setModal }) {
+export default function ControlForm({ setModal }: ControlFormProps) {
   const dispatch = useAppDispatch();
   const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
-  const { isSupported, loading, charging, level } = useBattery();
+  const { isSupported, loading, charging, level } =
+    useBattery() as BatteryState;
   const lvl100 = Math.round(level * 100);
 
   let className;
@@ -43,8 +45,8 @@ export default function ControlForm({ setModal }) {
     const id = setTimeout(() => {
       dispatch(
         saveLevels({
-          min_val: min.value,
-          max_val: max.value,
+          min_val: min.value as number,
+          max_val: max.value as number,
         })
       );
     }, 300);
