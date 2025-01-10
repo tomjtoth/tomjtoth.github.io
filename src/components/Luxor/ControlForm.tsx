@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector, useField } from "../../hooks";
+import { NumberInputProps } from "../../hooks/types";
 import {
   resetSelected,
   saveFields,
@@ -25,8 +26,12 @@ export default function ControlForm({ setModal }: ControlFormProps) {
     <form
       id="luxor-control"
       onSubmit={(e) => {
-        if (numOnly.test(num.value) && !pickedNums.includes(num.value))
-          dispatch(newNumber(num.value));
+        const { value } = num as NumberInputProps;
+        if (
+          numOnly.test(value.toString()) &&
+          !(pickedNums as number[]).includes(value as number)
+        )
+          dispatch(newNumber(value as number));
 
         resetInput();
         e.preventDefault();

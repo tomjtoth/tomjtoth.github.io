@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import type { AppDispatch, AppStore, RootState } from "../store";
+import {
+  CheckboxInputProps,
+  FieldType,
+  NumberInputProps,
+  Props,
+  TextInputProps,
+} from "./types";
 
-type Props = {
-  initially?: string | number | boolean;
-};
-
-export function useField<T>(
-  type: string,
+export function useField(
+  type: FieldType,
   { initially = "", ...rest }: Props = {}
 ) {
-  const [value, setValue] = useState(initially);
+  const [value, setValue] = useState<string | number | boolean>(initially);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(type === "checkbox" ? !value : event.target.value);
@@ -25,13 +28,11 @@ export function useField<T>(
     type,
     onChange,
     reset,
-  };
-
-  if (type === "checkbox") res.checked = value;
-  else res.value = value;
+    ...(type === "checkbox" ? { checked: value as boolean } : { value }),
+  } as TextInputProps | NumberInputProps | CheckboxInputProps;
 
   return new Proxy(res, {
-    get: (target, prop) => {
+    get: (target, prop: keyof React.InputHTMLAttributes<HTMLInputElement>) => {
       if (prop === "value" && type === "number") {
         return target.value === "" ? target.value : Number(target.value);
       }

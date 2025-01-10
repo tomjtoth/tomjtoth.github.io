@@ -3,6 +3,7 @@ import { useAppSelector } from ".";
 import { useBattery } from "react-use";
 
 import { notify } from "../components/BatteryMonitor/notifications";
+import { BatteryState } from "../components/BatteryMonitor/types";
 
 const SEC = 1000;
 
@@ -10,7 +11,8 @@ export default function () {
   const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
 
   const { isSupported, level, charging, chargingTime, dischargingTime } =
-    useBattery();
+    useBattery() as BatteryState;
+
   const lvl100 = Math.round(level * 100);
 
   useEffect(() => {

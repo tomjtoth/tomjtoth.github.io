@@ -20,13 +20,13 @@ export default function Recipes() {
           { title, steps, url, opts: { lang: { title: dish_lang } = {} } = {} },
           i
         ) => {
-          const rKey = `recipe-${i}`;
-          const isActive = active.includes(rKey);
+          const recId = `recipe-${i}`;
+          const isActive = active.includes(recId);
 
           return (
             <li
-              key={rKey}
-              id={rKey}
+              key={recId}
+              id={recId}
               lang={dish_lang}
               className={`clickable padded alternating recipe${
                 isActive ? " active" : ""
@@ -39,7 +39,9 @@ export default function Recipes() {
                   🔗
                 </Link>
               )}
-              <Steps {...{ lang: dish_lang ? "fi" : undefined, rKey, steps }} />
+              <Steps
+                {...{ lang: dish_lang ? "fi" : undefined, recId, steps }}
+              />
             </li>
           );
         }

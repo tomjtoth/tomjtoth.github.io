@@ -30,7 +30,7 @@ export default function Header({
         className: "border1-s",
 
         onClick: ({ target }) => {
-          if (target.classList.contains("toggler")) {
+          if ((target as HTMLElement).classList.contains("toggler")) {
             dispatch(setSidepanel(true));
           }
         },

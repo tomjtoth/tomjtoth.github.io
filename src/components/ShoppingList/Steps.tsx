@@ -1,8 +1,10 @@
-export default function Steps({ rKey, steps }) {
+import { StepsProps } from "./types";
+
+export default function Steps({ recId, steps, lang }: StepsProps) {
   return (
-    <ol className="recipe-steps">
-      {steps.map((__html, i) => {
-        const key = `${rKey}-step-${i}`;
+    <ol {...{ className: "recipe-steps", lang }}>
+      {steps.map((__html: string, i) => {
+        const key = `${recId}-step-${i}`;
 
         return <li key={key} dangerouslySetInnerHTML={{ __html }} />;
       })}
