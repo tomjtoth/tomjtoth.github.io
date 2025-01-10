@@ -4,8 +4,8 @@ import { loadObject, storeObject, last } from "../utils";
 import { AppDispatch } from "../store";
 import type { Field, State } from "../components/Luxor/types";
 
-function save({ fields, pickedNums }: State) {
-  storeObject(name, { fields, pickedNums });
+function save({ locked, bug, ...state }: State) {
+  storeObject(name, state);
 }
 
 const name = "luxor";
@@ -70,11 +70,9 @@ const slice = createSlice({
       save(state);
     },
 
-    removeField: ({ fields, ...state }: State, { payload }) => {
-      save({
-        ...state,
-        fields: fields.filter(({ id }) => id !== payload),
-      });
+    removeField: (state: State, { payload }) => {
+      state.fields = state.fields.filter(({ id }) => id !== payload);
+      save(state);
     },
 
     resetPickedNumbers: (state: State) => {
