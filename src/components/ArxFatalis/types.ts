@@ -3,7 +3,7 @@ import { RE } from "./config";
 export type Noti =
   | {
       spell: string;
-      sequence: RE[];
+      sequence: string[];
       page: number;
     }
   | undefined;

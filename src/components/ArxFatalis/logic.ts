@@ -52,7 +52,7 @@ export default function (
         }
 
         if (validSpell) {
-          setNoti({ spell, page, sequence });
+          setNoti({ spell, page, sequence: sequence.map((re) => RE[re]) });
           dispatch(castSpell(spell));
           if (mp3) {
             mp3.currentTime = 0;
