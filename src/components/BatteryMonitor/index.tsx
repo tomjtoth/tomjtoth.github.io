@@ -34,6 +34,9 @@ export default function BatteryMonitor() {
             <Loader />
           ) : (
             <p>
+              Jotta työkalu voisi hälyttää, laita täpä päälle vasen yläkulmasta
+              ja salli ilmoituksia. Sillä, et sivuston mikä näkymä on
+              aktiivinen, ei oo väliä, jos vaan pidät tämän välilehden auki.
               Akun taso on{" "}
               <strong>
                 nyt {lvl100}%{" "}
