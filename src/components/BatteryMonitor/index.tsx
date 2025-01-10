@@ -43,7 +43,11 @@ export default function BatteryMonitor() {
           )
         ) : (
           <p>
-            Valitettavasti tämä selain <strong>ei tue tätä toimintaa.</strong>
+            Valitettavasti tämä selain <strong>ei tue tätä toimintaa.</strong>{" "}
+            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery#browser_compatibility">
+              Tästä taulukosta
+            </a>{" "}
+            näkyy, mitkä selaimet tuetaan nykyään.
           </p>
         )}
       </MainView>
