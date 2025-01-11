@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppSelector } from ".";
 import { useBattery } from "react-use";
 
-import { notify } from "../components/BatteryMonitor/notifications";
+import { notify, notiText } from "../components/BatteryMonitor/notifications";
 import { BatteryState } from "../components/BatteryMonitor/types";
 
 const SEC = 1000;
@@ -27,13 +27,9 @@ export default function () {
           (charging && lvl100 >= max_val) ||
           (!charging && lvl100 <= min_val)
         ) {
-          notify(
-            `Akun taso on nyt ${lvl100}% ${
-              charging ? "ja laturi on kiinni" : "eikä laturi oo kytkettynä"
-            }`
-          );
+          notify(notiText(charging, lvl100));
         }
-      }, 30 * SEC);
+      }, 60 * SEC);
 
       return () => clearInterval(id);
     }
