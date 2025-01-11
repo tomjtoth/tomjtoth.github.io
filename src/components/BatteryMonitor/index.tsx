@@ -1,4 +1,6 @@
 import { useBattery } from "react-use";
+import { useAppSelector } from "../../hooks";
+import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
 
 import "./battery-monitor.css";
 
@@ -13,6 +15,7 @@ import { BatteryState } from "./types";
 
 export default function BatteryMonitor() {
   const [modal, setModal] = useState<ModalType>();
+  const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } =
     useBattery() as BatteryState;
   const lvl100 = Math.round(level * 100);
@@ -24,25 +27,45 @@ export default function BatteryMonitor() {
         <ControlForm {...{ setModal }} />
       </Header>
       <MainView className="padded">
-        <p>Tää työkalu hälyttää kun akun taso on</p>
+        <p>
+          Tää työkalu {isSupported && allowed ? "hälyttää" : "hälyttäisisi"} kun
+          akun taso on
+        </p>
         <ul>
-          <li>joko yli maksimirajaa ja laturi on kiinni</li>
-          <li>tai alle minimirajaa eikä laturi oo kytkettynä</li>
+          <li>
+            joko yli {isSupported ? `${max_val}%` : "maksimirajaa"}{" "}
+            {pluggedInStr}
+          </li>
+          <li>
+            tai alle {isSupported ? `${min_val}%` : "minimirajaa"}{" "}
+            {unpluggedStr}
+          </li>
         </ul>
         {isSupported ? (
           loading ? (
             <Loader />
           ) : (
-            <p>
-              Jotta työkalu voisi hälyttää, laita täpä päälle vasen yläkulmasta
-              ja salli ilmoituksia. Sillä, et sivuston mikä näkymä on
-              aktiivinen, ei oo väliä, jos vaan pidät tämän välilehden auki.
-              Akun taso on{" "}
-              <strong>
-                nyt {lvl100}%{" "}
-                {charging ? "ja laturi on kiinni" : "eikä laturi oo kytkettynä"}
-              </strong>
-            </p>
+            <>
+              <p>
+                {allowed ? (
+                  <>
+                    Kerran minuutissa (ala- ja ylärajojen säätö nollaa
+                    ajastimen) katsotaan mikä akun tilanne on ja hälytetään
+                    tarvittaessa.
+                  </>
+                ) : (
+                  <>
+                    Jotta hälytykset tulisi, siun pitää sallia työkalun
+                    pyörimistä taustalla.
+                  </>
+                )}{" "}
+                Sillä, et sivuston mikä näkymä on aktiivinen, ei oo väliä, jos
+                vaan pidät tämän välilehden auki.
+              </p>
+              <p>
+                <strong>{notiText(charging, lvl100)}</strong>
+              </p>
+            </>
           )
         ) : (
           <p>
