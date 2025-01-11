@@ -18,7 +18,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
   if (min_val > max_val) className = "invalid";
 
   // eslint-disable-next-line no-unused-vars
-  const { reset: _resetBg, ...allow } = useField("checkbox", {
+  const { reset: resetAllow, ...allow } = useField("checkbox", {
     id: "bat-mon-allowed",
     initially: allowed,
     className: "clickable",
@@ -63,6 +63,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
     if (allow.checked) {
       checkPermission(setModal).then((notiAllowed) => {
         if (notiAllowed) dp();
+        else resetAllow();
       });
     } else dp();
   }, [allow.checked]);
