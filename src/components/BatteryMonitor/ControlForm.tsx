@@ -21,6 +21,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
   const { reset: _resetBg, ...allow } = useField("checkbox", {
     id: "bat-mon-allowed",
     initially: allowed,
+    className: "clickable",
   });
 
   // eslint-disable-next-line no-unused-vars
@@ -30,6 +31,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
     initially: min_val,
     max: 50,
     min: 10,
+    title: "minimitaso",
   });
 
   // eslint-disable-next-line no-unused-vars
@@ -39,6 +41,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
     initially: max_val,
     max: 90,
     min: 50,
+    title: "maksimitaso",
   });
 
   useEffect(() => {
@@ -67,9 +70,11 @@ export default function ControlForm({ setModal }: ControlFormProps) {
   return (
     isSupported && (
       <>
-        <label htmlFor="bat-mon-allowed">sallittu:</label>
+        <label htmlFor="bat-mon-allowed" className="clickable">
+          sallittu:
+        </label>
         <input {...allow} />
-        <label htmlFor="bat-mon-min">min 👉</label>
+        {/* <label htmlFor="bat-mon-min">🪫</label> */}
         <input {...min} />
         {!loading && (
           <>
@@ -85,7 +90,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
           </>
         )}
         <input {...max} />
-        <label htmlFor="bat-mon-max">👈 max</label>
+        {/* <label htmlFor="bat-mon-max">🔋</label> */}
       </>
     )
   );

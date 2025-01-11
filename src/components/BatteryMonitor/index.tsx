@@ -23,7 +23,7 @@ export default function BatteryMonitor() {
       <Header title="akunvalvonta" icon="🔋">
         <ControlForm {...{ setModal }} />
       </Header>
-      <MainView className="battery-monitor">
+      <MainView className="padded">
         <p>Tää työkalu hälyttää kun akun taso on</p>
         <ul>
           <li>joko yli maksimirajaa ja laturi on kiinni</li>
