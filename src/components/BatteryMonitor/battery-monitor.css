@@ -1,8 +1,8 @@
-#main.battery-monitor {
-  padding: 16px;
-}
-
 #bat-mon-hud {
   padding: 8px;
-  margin: 0px 16px;
+}
+
+#bat-mon-min,
+#bat-mon-max {
+  width: 30px;
 }
