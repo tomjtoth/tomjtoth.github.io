@@ -31,7 +31,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
     initially: min_val,
     max: 50,
     min: 10,
-    title: "minimitaso",
+    title: "alaraja",
   });
 
   // eslint-disable-next-line no-unused-vars
@@ -41,7 +41,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
     initially: max_val,
     max: 90,
     min: 50,
-    title: "maksimitaso",
+    title: "yläraja",
   });
 
   useEffect(() => {
