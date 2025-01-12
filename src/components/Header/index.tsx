@@ -3,7 +3,6 @@ import { useAppDispatch } from "../../hooks";
 
 import "./header.css";
 
-import { setDocTitleIcon } from "../../utils";
 import { setSidepanel } from "../../reducers/sidepanel";
 
 interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
@@ -18,7 +17,7 @@ export default function Header({
   children,
   ...props
 }: HeaderProps): JSX.Element {
-  setDocTitleIcon(title, icon);
+  document.title = title;
 
   const dispatch = useAppDispatch();
 
