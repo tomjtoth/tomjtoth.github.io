@@ -11,14 +11,15 @@ export default function Artists() {
   return (
     <ul lang="sv" id="songs">
       {(artists as Artist[]).map(({ name, url, albums }, artistIdx) => {
-        const id = `lyrics-${artistIdx}`;
+        const idArr = [artistIdx];
+        const id = idArr.join();
 
         return (
           <li
             key={id}
             {...{
               className: `clickable padded bordered${
-                idxOf(active, [artistIdx]) > -1 ? " active" : ""
+                idxOf(active, idArr) > -1 ? " active" : ""
               }`,
               id,
             }}

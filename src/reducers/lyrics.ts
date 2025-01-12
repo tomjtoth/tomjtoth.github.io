@@ -106,9 +106,9 @@ export const initLyrics = () => {
 };
 
 export function toggleSelection(key: string) {
-  const [_lyrics, ...rest] = key.split("-").map(Number);
+  const ids = key.split("-").map(Number);
   return (dispatch: AppDispatch) => {
-    dispatch(toggleActive(rest));
+    dispatch(toggleActive(ids));
   };
 }
 
