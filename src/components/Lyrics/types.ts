@@ -27,7 +27,7 @@ export type SongsProps = {
   songs: Song[];
 };
 
-export type Active = number[][];
+export type Active = string[];
 
 export type State = {
   artists: Artist[];

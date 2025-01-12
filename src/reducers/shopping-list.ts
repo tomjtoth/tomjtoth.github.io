@@ -94,7 +94,7 @@ const slice = createSlice({
     },
 
     add_item: (state: State, { payload }) => {
-      state.items.push({ key: `item-${uuid()}`, item: payload });
+      state.items.push({ key: uuid(), item: payload });
       save(state);
     },
 

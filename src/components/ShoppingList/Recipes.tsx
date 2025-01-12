@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { useAppSelector } from "../../hooks";
+
 import Steps from "./Steps";
 import { Recipe } from "./types";
 
@@ -18,10 +19,9 @@ export default function Recipes() {
       {(recipes as Recipe[]).map(
         (
           { title, steps, url, opts: { lang: { title: dish_lang } = {} } = {} },
-          i
+          recipeId
         ) => {
-          const recId = `recipe-${i}`;
-          const isActive = active.includes(recId);
+          const recId = `rec${recipeId}`;
 
           return (
             <li
@@ -29,7 +29,7 @@ export default function Recipes() {
               id={recId}
               lang={dish_lang}
               className={`clickable padded alternating recipe${
-                isActive ? " active" : ""
+                active.includes(recId) ? " active" : ""
               }`}
             >
               {title}

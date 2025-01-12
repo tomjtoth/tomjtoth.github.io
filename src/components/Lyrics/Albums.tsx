@@ -1,6 +1,5 @@
 import { useAppSelector } from "../../hooks";
-import type { AlbumsProps } from "./types";
-import { idxOf } from "../../utils";
+import type { Active, AlbumsProps } from "./types";
 
 import Songs from "./Songs";
 import Logo from "./Logos";
@@ -11,8 +10,7 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
   return (
     <ul>
       {albums.map(({ title, year, url, songs }, albumIdx) => {
-        const idArr = [artistIdx, albumIdx];
-        const id = idArr.join("-");
+        const id = [artistIdx, albumIdx].join("-");
 
         return (
           <li
@@ -21,7 +19,7 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
               className: `${
                 albums.length > 1 ? "clickable " : "non-clickable "
               }padded bordered${
-                albums.length === 1 || idxOf(active, idArr) > -1
+                albums.length === 1 || (active as Active).includes(id)
                   ? " active"
                   : ""
               }`,
