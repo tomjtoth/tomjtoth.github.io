@@ -16,18 +16,16 @@ const translate = (lyrics: string) =>
 
 export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
   const { artists, active } = useAppSelector((s) => s.lyrics);
-
   return (
     <ul>
       {songs.map(({ title, lyrics }, songIdx) => {
-        const id = `lyrics-${artistIdx}-${albumIdx}-${songIdx}`;
+        const idArr = [artistIdx, albumIdx, songIdx];
+
+        const id = idArr.join("-");
 
         let link;
         let className = `padded bordered${
-          songs.length === 1 ||
-          idxOf(active, [artistIdx, albumIdx, songIdx]) > -1
-            ? " active"
-            : ""
+          songs.length === 1 || idxOf(active, idArr) > -1 ? " active" : ""
         }`;
 
         if (lyrics) {

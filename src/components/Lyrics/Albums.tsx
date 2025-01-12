@@ -11,7 +11,8 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
   return (
     <ul>
       {albums.map(({ title, year, url, songs }, albumIdx) => {
-        const id = `lyrics-${artistIdx}-${albumIdx}`;
+        const idArr = [artistIdx, albumIdx];
+        const id = idArr.join("-");
 
         return (
           <li
@@ -20,7 +21,7 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
               className: `${
                 albums.length > 1 ? "clickable " : "non-clickable "
               }padded bordered${
-                albums.length === 1 || idxOf(active, [artistIdx, albumIdx]) > -1
+                albums.length === 1 || idxOf(active, idArr) > -1
                   ? " active"
                   : ""
               }`,
