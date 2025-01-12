@@ -84,7 +84,7 @@ const slice = createSlice({
 
     toggleActive: (
       { active, ...state }: State,
-      { payload }: PayloadAction<number[]>
+      { payload }: PayloadAction<string>
     ) => {
       toggleArr(active, payload);
       save({ ...state, active });
@@ -106,9 +106,8 @@ export const initLyrics = () => {
 };
 
 export function toggleSelection(key: string) {
-  const ids = key.split("-").map(Number);
   return (dispatch: AppDispatch) => {
-    dispatch(toggleActive(ids));
+    dispatch(toggleActive(key));
   };
 }
 

@@ -1,6 +1,5 @@
 import { useAppSelector } from "../../hooks";
-import type { SongsProps, Artist } from "./types";
-import { idxOf } from "../../utils";
+import type { SongsProps, Artist, Active } from "./types";
 
 import Logo from "./Logos";
 
@@ -16,16 +15,15 @@ const translate = (lyrics: string) =>
 
 export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
   const { artists, active } = useAppSelector((s) => s.lyrics);
+
   return (
     <ul>
       {songs.map(({ title, lyrics }, songIdx) => {
-        const idArr = [artistIdx, albumIdx, songIdx];
-
-        const id = idArr.join("-");
+        const id = [artistIdx, albumIdx, songIdx].join("-");
 
         let link;
         let className = `padded bordered${
-          songs.length === 1 || idxOf(active, idArr) > -1 ? " active" : ""
+          songs.length === 1 || (active as Active).includes(id) ? " active" : ""
         }`;
 
         if (lyrics) {

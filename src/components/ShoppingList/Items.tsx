@@ -12,9 +12,10 @@ export default function Items() {
     if (match) {
       const recId = Number(match.groups!.recId);
       const recipe = recipes[recId] as Recipe;
+
       ul_items.push(
         ...recipe.items.map((item, i) => ({
-          key: `${key}-item-${i}`,
+          key: `${key}-${i}`,
           item: `${item} (${recipe.title})`,
         }))
       );
@@ -50,7 +51,7 @@ export default function Items() {
                     ❓
                   </span>
                 )}
-                {!key.startsWith("recipe-") && (
+                {!key.startsWith("rec") && (
                   <span className="recipe-item-del clickable">(🚫 poista)</span>
                 )}
               </li>

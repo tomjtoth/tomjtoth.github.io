@@ -1,5 +1,5 @@
 export const re = {
-  recipeId: /^recipe-(?<recId>\d+)$/,
+  recipeId: /^rec(?<recId>\d+)$/,
   emptyString: /^\s*$/,
   order: [
     // ennen PRISMA:a
