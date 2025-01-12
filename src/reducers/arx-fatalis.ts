@@ -5,15 +5,15 @@ import { AppDispatch } from "../store";
 
 type State = {
   score: number;
-  castSpells: string[];
+  castSpells: number[];
 };
 
 function save({ score, ...state }: State) {
   storeObject(name, state);
 }
 
-function spellValue(spell: string) {
-  const { page, sequence } = spells.find((s) => s.spell === spell)!;
+function spellValue(idx: number) {
+  const { page, sequence } = spells[idx];
   return page * sequence.length;
 }
 
@@ -25,13 +25,10 @@ const slice = createSlice({
   name,
   initialState: {
     castSpells,
-    score: castSpells.reduce(
-      (sum: number, spell: string) => sum + spellValue(spell),
-      0
-    ),
+    score: castSpells.reduce((sum: number, _, idx) => sum + spellValue(idx), 0),
   },
   reducers: {
-    addSpell: (state: State, { payload }: PayloadAction<string>) => {
+    addSpell: (state: State, { payload }: PayloadAction<number>) => {
       state.castSpells.push(payload);
       state.score += spellValue(payload);
       save(state);
@@ -41,7 +38,7 @@ const slice = createSlice({
 
 const { addSpell } = slice.actions;
 
-export const castSpell = (spell: string) => {
+export const castSpell = (spell: number) => {
   return (dispatch: AppDispatch) => {
     dispatch(addSpell(spell));
   };
