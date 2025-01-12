@@ -17,15 +17,19 @@ export type Artist = {
 };
 
 export type AlbumsProps = {
-  id: string;
+  artistIdx: number;
   albums: Album[];
-  artist: string;
-  active: string[];
 };
 
 export type SongsProps = {
-  albumId: string;
+  artistIdx: number;
+  albumIdx: number;
   songs: Song[];
-  artist: string;
-  active: string[];
+};
+
+export type Active = number[][];
+
+export type State = {
+  artists: Artist[];
+  active: Active;
 };

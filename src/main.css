@@ -49,6 +49,11 @@ body {
   cursor: pointer;
 }
 
+.non-clickable {
+  user-select: initial;
+  cursor: initial;
+}
+
 .padded {
   padding: 16px;
 }

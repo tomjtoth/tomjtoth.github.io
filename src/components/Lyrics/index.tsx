@@ -29,7 +29,10 @@ export default function Lyrics() {
         {...{
           onClick: ({ target }) => {
             const { id, classList } = target as HTMLElement;
-            if (!classList.contains("missing-lyrics")) {
+            if (
+              !classList.contains("missing-lyrics") &&
+              classList.contains("clickable")
+            ) {
               dispatch(toggleSelection(id));
             }
           },

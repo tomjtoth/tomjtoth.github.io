@@ -1,4 +1,7 @@
-import type { SongsProps } from "./types";
+import { useAppSelector } from "../../hooks";
+import type { SongsProps, Artist } from "./types";
+import { idxOf } from "../../utils";
+
 import Logo from "./Logos";
 
 const search_on_yt = (artist: string, song: string) =>
@@ -11,15 +14,20 @@ const translate = (lyrics: string) =>
     lyrics
   )}&op=translate`;
 
-export default function Songs({ albumId, songs, artist, active }: SongsProps) {
+export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
+  const { artists, active } = useAppSelector((s) => s.lyrics);
+
   return (
     <ul>
-      {songs.map(({ title, lyrics }, i) => {
-        const id = `${albumId}-song-${i}`;
+      {songs.map(({ title, lyrics }, songIdx) => {
+        const id = `lyrics-${artistIdx}-${albumIdx}-${songIdx}`;
 
         let link;
         let className = `padded bordered${
-          songs.length === 1 || active.includes(id) ? " active" : ""
+          songs.length === 1 ||
+          idxOf(active, [artistIdx, albumIdx, songIdx]) > -1
+            ? " active"
+            : ""
         }`;
 
         if (lyrics) {
@@ -27,10 +35,15 @@ export default function Songs({ albumId, songs, artist, active }: SongsProps) {
             link = <Logo url={lyrics} />;
             className += " missing-lyrics";
           } else {
+            className += " clickable";
             link = <Logo url={translate(lyrics)} />;
           }
         } else {
-          link = <Logo url={search_on_yt(artist, title)} />;
+          link = (
+            <Logo
+              url={search_on_yt((artists[artistIdx] as Artist).name, title)}
+            />
+          );
           className += " missing-lyrics";
           lyrics = "http";
         }

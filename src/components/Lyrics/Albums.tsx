@@ -1,25 +1,28 @@
+import { useAppSelector } from "../../hooks";
 import type { AlbumsProps } from "./types";
+import { idxOf } from "../../utils";
 
 import Songs from "./Songs";
 import Logo from "./Logos";
 
-export default function Albums({
-  id: idArtist,
-  albums,
-  artist,
-  active,
-}: AlbumsProps) {
+export default function Albums({ artistIdx, albums }: AlbumsProps) {
+  const { active } = useAppSelector((s) => s.lyrics);
+
   return (
     <ul>
-      {albums.map(({ title, year, url, songs }, i) => {
-        const id = `${idArtist}-album-${i}`;
+      {albums.map(({ title, year, url, songs }, albumIdx) => {
+        const id = `lyrics-${artistIdx}-${albumIdx}`;
 
         return (
           <li
             key={id}
             {...{
-              className: `clickable padded bordered${
-                albums.length === 1 || active.includes(id) ? " active" : ""
+              className: `${
+                albums.length > 1 ? "clickable " : "non-clickable "
+              }padded bordered${
+                albums.length === 1 || idxOf(active, [artistIdx, albumIdx]) > -1
+                  ? " active"
+                  : ""
               }`,
               id,
             }}
@@ -27,7 +30,7 @@ export default function Albums({
             {year && `${year} - `}
             {title === "null" ? "mix" : title}
             <Logo {...{ url }} />
-            <Songs {...{ albumId: id, songs, artist, active }} />
+            <Songs {...{ artistIdx, albumIdx, songs }} />
           </li>
         );
       })}
