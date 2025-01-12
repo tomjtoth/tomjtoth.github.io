@@ -21,7 +21,7 @@ export default function Recipes() {
           { title, steps, url, opts: { lang: { title: dish_lang } = {} } = {} },
           recipeId
         ) => {
-          const recId = `rec${recipeId}`;
+          const recId = `recipe-${recipeId}`;
 
           return (
             <li
