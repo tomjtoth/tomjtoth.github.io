@@ -6,12 +6,7 @@ import {
   fetchYaml,
   toggle as toggleArr,
 } from "../utils";
-import type { Artist, Album, Song } from "../components/Lyrics/types";
-
-type State = {
-  artists: Artist[];
-  active: string[];
-};
+import type { Artist, Album, Song, State } from "../components/Lyrics/types";
 
 const name = "lyrics";
 
@@ -89,7 +84,7 @@ const slice = createSlice({
 
     toggleActive: (
       { active, ...state }: State,
-      { payload }: PayloadAction<string>
+      { payload }: PayloadAction<number[]>
     ) => {
       toggleArr(active, payload);
       save({ ...state, active });
@@ -111,8 +106,9 @@ export const initLyrics = () => {
 };
 
 export function toggleSelection(key: string) {
+  const [_lyrics, ...rest] = key.split("-").map(Number);
   return (dispatch: AppDispatch) => {
-    dispatch(toggleActive(key));
+    dispatch(toggleActive(rest));
   };
 }
 

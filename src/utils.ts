@@ -47,6 +47,17 @@ export function setDocTitleIcon(title: string, icon = "🤓") {
   </svg>`;
 }
 
+export function idxOf<T>(arr: T[], key: T): number {
+  let idx = arr.indexOf(key);
+
+  if (Array.isArray(key)) {
+    const jsonKey = JSON.stringify(key);
+    idx = arr.findIndex((val) => JSON.stringify(val) === jsonKey);
+  }
+
+  return idx;
+}
+
 export function toToggled<T>(arr: T[], key: T): T[] {
   const res = [...arr];
   toggle(res, key);
@@ -54,7 +65,8 @@ export function toToggled<T>(arr: T[], key: T): T[] {
 }
 
 export function toggle<T>(arr: T[], key: T): void {
-  const idx = arr.indexOf(key);
+  const idx = idxOf(arr, key);
+
   if (idx === -1) {
     arr.push(key);
   } else {
