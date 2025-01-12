@@ -39,7 +39,10 @@ export default function (
     } else if (idx > 0) {
       let validSpell = false;
 
-      for (const { spell, page, sequence, mp3 } of spells) {
+      for (const [
+        spellIdx,
+        { spell, page, sequence, mp3 },
+      ] of spells.entries()) {
         if (sequence.length !== idx) continue;
 
         validSpell = true;
@@ -53,7 +56,7 @@ export default function (
 
         if (validSpell) {
           setNoti({ spell, page, sequence: sequence.map((re) => RE[re]) });
-          dispatch(castSpell(spell));
+          dispatch(castSpell(spellIdx));
           if (mp3) {
             mp3.currentTime = 0;
             mp3.play();
