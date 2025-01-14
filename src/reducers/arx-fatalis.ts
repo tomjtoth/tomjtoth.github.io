@@ -3,16 +3,18 @@ import { AppDispatch } from "../store";
 import { save, load, spellValue } from "../services/arx-fatalis";
 import { State } from "../types/arx-fatalis";
 
+type RState = State | null;
+
 const slice = createSlice({
   name: "arx-fatalis",
-  initialState: null as State,
+  initialState: null as RState,
   reducers: {
     init: (_, { payload }) => payload,
 
     addSpell: (state, { payload }: PayloadAction<number>) => {
       state!.castSpells.push(payload);
       state!.score += spellValue(payload);
-      save(state);
+      save(state!);
     },
   },
 });

@@ -1,17 +1,17 @@
 import { db } from "../db";
-import { Arx } from "../types/db";
+import { ArxFatalis } from "../types/db";
 import { State } from "../types/arx-fatalis";
 import { spells } from "../components/ArxFatalis/config";
 
 const id = "arx-fatalis";
 
 export function save(s: State) {
-  db.misc.put({ id, castSpells: [...s!.castSpells] } as Arx);
+  db.misc.put({ id, castSpells: [...s.castSpells] } as ArxFatalis);
 }
 
 export async function load() {
   const stored = await db.misc.get(id);
-  return stored ? (stored as Arx).castSpells : [];
+  return stored ? (stored as ArxFatalis).castSpells : [];
 }
 
 export function spellValue(idx: number) {
