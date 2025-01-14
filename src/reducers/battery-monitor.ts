@@ -5,9 +5,6 @@ import { State } from "../types/battery-monitor";
 
 const name = "battery-monitor";
 
-function save(state: State) {
-  storeObject(name, state);
-}
 const slice = createSlice({
   name,
   initialState: loadObject(name, { min_val: 20, max_val: 80, allowed: false }),
@@ -15,12 +12,12 @@ const slice = createSlice({
     setLevels: (state: State, { payload }: PayloadAction<Partial<State>>) => {
       state.min_val = payload.min_val!;
       state.max_val = payload.max_val!;
-      save(state);
+      storeObject(name, state);
     },
 
     setAllowed: (state, { payload }: PayloadAction<boolean | undefined>) => {
       state.allowed = payload === undefined ? !state.allowed : payload;
-      save(state);
+      storeObject(name, state);
     },
   },
 });
