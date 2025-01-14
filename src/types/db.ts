@@ -1,4 +1,4 @@
-import { Active } from "../types/lyrics";
+import { Active } from "./lyrics";
 
 // type NumId = {
 //   id: number;
