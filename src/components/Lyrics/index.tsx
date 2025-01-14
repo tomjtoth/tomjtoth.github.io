@@ -17,9 +17,7 @@ export default function Lyrics() {
   const uninitialized = artists.length === 0;
 
   useEffect(() => {
-    if (uninitialized) {
-      dispatch(initLyrics());
-    }
+    if (uninitialized) dispatch(initLyrics());
   }, []);
 
   return (
