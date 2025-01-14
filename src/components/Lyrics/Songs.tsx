@@ -31,7 +31,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
             link = <Logo url={lyrics} />;
             className += " missing-lyrics";
           } else {
-            className += " clickable";
+            if (songs.length > 1) className += " clickable";
             link = <Logo url={translate(lyrics)} />;
           }
         } else {
