@@ -15,7 +15,7 @@ export default function ArxFatalis() {
   const [queue, setQueue] = useState<RE[]>([]);
   const [noti, setNoti] = useState<Noti>();
 
-  useLogic(queue, setQueue, noti, setNoti);
+  useLogic({ queue, setQueue, noti, setNoti });
 
   return (
     <>
