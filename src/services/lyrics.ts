@@ -1,14 +1,16 @@
 import { db } from "../db";
-import { Lyrics } from "../db/types";
+import { Lyrics } from "../types/db";
 import { Artist, Album, Song, State } from "../types/lyrics";
 
+const id = "lyrics";
+
 export function save({ active }: State) {
-  db.misc.put({ id: "lyrics", active: [...active] });
+  db.misc.put({ id, active: [...active] });
 }
 
 export async function load() {
-  const stored = (await db.misc.get("lyrics")) as Lyrics;
-  return stored ? stored.active : [];
+  const stored = await db.misc.get(id);
+  return stored ? (stored as Lyrics).active : [];
 }
 
 export function parseYaml(yaml: any) {
