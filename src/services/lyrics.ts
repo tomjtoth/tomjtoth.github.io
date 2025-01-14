@@ -1,6 +1,6 @@
 import { db } from "../db";
 import { Lyrics } from "../db/types";
-import { Artist, Album, Song, State } from "../components/Lyrics/types";
+import { Artist, Album, Song, State } from "../types/lyrics";
 
 export function save({ active }: State) {
   db.misc.put({ id: "lyrics", active: [...active] });

@@ -5,7 +5,7 @@ import { useBattery } from "react-use";
 import { checkPermission } from "./notifications";
 import { useField } from "../../hooks";
 import { saveLevels, toggleActive } from "../../reducers/battery-monitor";
-import { BatteryState, ControlFormProps } from "./types";
+import { BatteryState, ControlFormProps } from "../../types/battery-monitor";
 
 export default function ControlForm({ setModal }: ControlFormProps) {
   const dispatch = useAppDispatch();

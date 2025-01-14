@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks";
-import { Active, Artist } from "./types";
+import { Active, Artist } from "../../types/lyrics";
 
 import Albums from "./Albums";
 import Logo from "./Logos";

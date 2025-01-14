@@ -2,7 +2,7 @@ import { v4 as uuid, UUIDTypes } from "uuid";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadObject, storeObject, last } from "../utils";
 import { AppDispatch } from "../store";
-import type { Field, State } from "../components/Luxor/types";
+import type { Field, State } from "../types/luxor";
 
 function save({ locked, bug, ...state }: State) {
   storeObject(name, state);

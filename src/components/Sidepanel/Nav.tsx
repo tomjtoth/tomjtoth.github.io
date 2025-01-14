@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setSidepanel } from "../../reducers/sidepanel";
-import { NavProps } from "./types";
+import { NavProps } from "../../types/sidepanel";
 
 export default function Nav({ children }: NavProps) {
   const dispatch = useAppDispatch();

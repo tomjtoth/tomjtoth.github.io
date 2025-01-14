@@ -10,8 +10,8 @@ import Modal from "../Modal";
 import ControlForm from "./ControlForm";
 import MainView from "../MainView";
 import { useState } from "react";
-import { ModalType } from "../Modal/types";
-import { BatteryState } from "./types";
+import { ModalType } from "../../types/modal";
+import { BatteryState } from "../../types/battery-monitor";
 
 export default function BatteryMonitor() {
   const [modal, setModal] = useState<ModalType>();

@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../hooks";
 import { re } from "./config";
-import { Item, Recipe } from "./types";
+import { Item, Recipe } from "../../types/shopping-list";
 
 export default function Items() {
   const { recipes, active, items } = useAppSelector((s) => s.shoppingList);

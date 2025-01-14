@@ -1,4 +1,4 @@
-import { ModalButtonsProps } from "./types";
+import { ModalButtonsProps } from "../../types/modal";
 
 const translations = Object.fromEntries(
   Object.entries({

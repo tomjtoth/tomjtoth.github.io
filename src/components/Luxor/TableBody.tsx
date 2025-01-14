@@ -1,4 +1,4 @@
-import { TableBodyProps } from "./types";
+import { TableBodyProps } from "../../types/luxor";
 import { useAppSelector } from "../../hooks";
 import { between } from "../../utils";
 

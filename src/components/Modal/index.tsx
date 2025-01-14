@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "./modal.css";
 
 import Buttons from "./Buttons";
-import { ModalProps } from "./types";
+import { ModalProps } from "../../types/modal";
 
 const success = /-(?:ok|yes)$/;
 const keepModal = /^modal(?:-buttons)?$/;

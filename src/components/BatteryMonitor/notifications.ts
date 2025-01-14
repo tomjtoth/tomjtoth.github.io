@@ -1,4 +1,4 @@
-import { setModalType } from "../Modal/types";
+import { setModalType } from "../../types/modal";
 
 export function notify(body: string) {
   new Notification("Akunvalvonta", { body });

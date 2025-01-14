@@ -1,4 +1,4 @@
-import { StepsProps } from "./types";
+import { StepsProps } from "../../types/shopping-list";
 
 export default function Steps({ recId, steps, lang }: StepsProps) {
   return (

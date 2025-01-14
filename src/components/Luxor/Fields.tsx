@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks";
-import { Field } from "./types";
+import { Field } from "../../types/luxor";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";

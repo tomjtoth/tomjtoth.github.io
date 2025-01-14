@@ -1,4 +1,4 @@
-import { RE } from "./config";
+import { RE } from "../components/ArxFatalis/config";
 
 export type Noti =
   | {

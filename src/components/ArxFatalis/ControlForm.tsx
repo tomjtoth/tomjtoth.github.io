@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks";
-import { ControlFormProps } from "./types";
+import { ControlFormProps } from "../../types/arx-fatalis";
 
 export default function ControlForm({ noti }: ControlFormProps) {
   const { score } = useAppSelector((s) => s.arxFatalis);

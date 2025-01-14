@@ -6,7 +6,7 @@ import {
   toggleEditMode,
   newNumber,
 } from "../../reducers/luxor";
-import { ControlFormProps } from "./types";
+import { ControlFormProps } from "../../types/luxor";
 
 const numOnly = /^\d+$/;
 

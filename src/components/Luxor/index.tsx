@@ -12,9 +12,9 @@ import {
   bugResets,
   newNumber,
 } from "../../reducers/luxor";
-import { ModalType } from "../Modal/types";
+import { ModalType } from "../../types/modal";
 import { last } from "../../utils";
-import { bugState } from "./types";
+import { bugState } from "../../types/luxor";
 
 import "./luxor.css";
 

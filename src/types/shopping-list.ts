@@ -1,4 +1,4 @@
-import { setModalType } from "../Modal/types";
+import { setModalType } from "./modal";
 
 export type ControlFormProps = {
   active: string[];
