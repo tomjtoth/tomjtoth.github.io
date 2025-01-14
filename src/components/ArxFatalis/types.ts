@@ -14,3 +14,10 @@ export type ControlFormProps = {
 
 export type setQueueType = React.Dispatch<React.SetStateAction<RE[]>>;
 export type setNotiType = React.Dispatch<React.SetStateAction<Noti>>;
+
+export type useLogicProps = {
+  queue: RE[];
+  setQueue: setQueueType;
+  noti: Noti;
+  setNoti: setNotiType;
+};
