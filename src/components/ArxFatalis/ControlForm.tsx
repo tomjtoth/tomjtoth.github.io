@@ -1,12 +1,19 @@
-import { useAppSelector } from "../../hooks";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { ControlFormProps } from "../../types/arx-fatalis";
+import { initArxFatalis } from "../../reducers/arx-fatalis";
 
 export default function ControlForm({ noti }: ControlFormProps) {
-  const { score } = useAppSelector((s) => s.arxFatalis);
+  const { arxFatalis } = useAppSelector((s) => s);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!arxFatalis) dispatch(initArxFatalis());
+  }, []);
 
   return (
     <>
-      💎 {score}
+      💎 {arxFatalis && arxFatalis.score}
       <a
         className="runes"
         href="https://wiki.arx-libertatis.org/Spells"

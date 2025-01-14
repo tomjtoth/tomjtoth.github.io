@@ -12,8 +12,12 @@ export type Lyrics = {
   active: Active;
 };
 
+export type Arx = {
+  castSpells: number[];
+};
+
 export type LuxorPickedNums = {
   pickedNums: number[];
 };
 
-export type MiscData = StrId & Lyrics;
+export type MiscData = StrId & (Lyrics | Arx);

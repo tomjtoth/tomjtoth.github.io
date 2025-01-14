@@ -5,7 +5,7 @@ import { Artist, Album, Song, State } from "../types/lyrics";
 const id = "lyrics";
 
 export function save({ active }: State) {
-  db.misc.put({ id, active: [...active] });
+  db.misc.put({ id, active: [...active] } as Lyrics);
 }
 
 export async function load() {
