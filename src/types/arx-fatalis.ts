@@ -3,7 +3,7 @@ import { RE } from "../components/ArxFatalis/config";
 export type State = {
   score: number;
   castSpells: number[];
-} | null;
+};
 
 export type Noti =
   | {
