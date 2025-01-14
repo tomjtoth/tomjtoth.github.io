@@ -4,16 +4,16 @@ import { ControlFormProps } from "../../types/arx-fatalis";
 import { initArxFatalis } from "../../reducers/arx-fatalis";
 
 export default function ControlForm({ noti }: ControlFormProps) {
-  const { arxFatalis } = useAppSelector((s) => s);
+  const arx = useAppSelector((s) => s.arxFatalis);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!arxFatalis) dispatch(initArxFatalis());
+    if (!arx) dispatch(initArxFatalis());
   }, []);
 
   return (
     <>
-      💎 {arxFatalis && arxFatalis.score}
+      💎 {arx && arx.score}
       <a
         className="runes"
         href="https://wiki.arx-libertatis.org/Spells"
