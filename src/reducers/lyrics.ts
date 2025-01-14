@@ -8,9 +8,7 @@ const slice = createSlice({
   name: "lyrics",
   initialState: { artists: [], active: [] },
   reducers: {
-    init: (_, { payload }) => {
-      return payload;
-    },
+    init: (_, { payload }) => payload,
 
     setActive: (state: State, { payload }: PayloadAction<string>) => {
       toggle(state!.active, payload);
