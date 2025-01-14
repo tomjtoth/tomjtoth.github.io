@@ -2,17 +2,12 @@ import { useState, useEffect } from "react";
 import { useAppDispatch } from "../../hooks";
 
 import { runes, spells, fizzle, RE } from "./config";
-import { Noti, setQueueType, setNotiType } from "./types";
+import { useLogicProps } from "./types";
 import { castSpell } from "../../reducers/arx-fatalis";
 
 const SEC = 1000;
 
-export default function (
-  queue: RE[],
-  setQueue: setQueueType,
-  noti: Noti,
-  setNoti: setNotiType
-) {
+export default function ({ queue, setQueue, noti, setNoti }: useLogicProps) {
   const dispatch = useAppDispatch();
   const [idx, setIdx] = useState(0);
 
