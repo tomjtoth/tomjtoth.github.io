@@ -1,4 +1,4 @@
-import { setModalType } from "../Modal/types";
+import { setModalType } from "./modal";
 import { BatteryState as RUBS } from "react-use/lib/useBattery";
 
 export type ControlFormProps = {

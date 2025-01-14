@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppDispatch } from "../../hooks";
 
 import { runes, spells, fizzle, RE } from "./config";
-import { useLogicProps } from "./types";
+import { useLogicProps } from "../../types/arx-fatalis";
 import { castSpell } from "../../reducers/arx-fatalis";
 
 const SEC = 1000;

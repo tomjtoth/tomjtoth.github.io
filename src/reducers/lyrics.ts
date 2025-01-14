@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import { fetchYaml, toggle } from "../utils";
-import type { State } from "../components/Lyrics/types";
+import type { State } from "../types/lyrics";
 import { save, load, parseYaml } from "../services/lyrics";
 
 const slice = createSlice({

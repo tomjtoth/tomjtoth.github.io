@@ -1,4 +1,4 @@
-import { Active } from "../components/Lyrics/types";
+import { Active } from "../types/lyrics";
 
 // type NumId = {
 //   id: number;

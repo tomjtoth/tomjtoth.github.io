@@ -5,7 +5,7 @@ import {
   toggleActiveId,
   rmItem,
 } from "../../reducers/shopping-list";
-import { ModalType as ModalType } from "../Modal/types";
+import { ModalType as ModalType } from "../../types/modal";
 
 import "./shopping-list.css";
 

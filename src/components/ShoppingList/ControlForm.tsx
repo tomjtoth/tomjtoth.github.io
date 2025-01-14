@@ -6,7 +6,7 @@ import {
   toggleActiveId,
 } from "../../reducers/shopping-list";
 import { re } from "./config";
-import { ControlFormProps } from "./types";
+import { ControlFormProps } from "../../types/shopping-list";
 
 export default function ControlForm({ active, setModal }: ControlFormProps) {
   const dispatch = useAppDispatch();

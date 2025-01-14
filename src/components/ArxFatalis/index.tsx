@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Noti } from "./types";
+import { Noti } from "../../types/arx-fatalis";
 import useLogic from "./logic";
 import { runes, RE } from "./config";
 

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Header from "../Header";
 import { visits } from "./config";
 import "./visitors.css";
-import { Visit } from "./types";
+import { Visit } from "../../types/visitors";
 
 const MIN = 60;
 const HOUR = 60 * MIN;

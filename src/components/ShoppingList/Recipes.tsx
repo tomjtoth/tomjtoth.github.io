@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { useAppSelector } from "../../hooks";
 
 import Steps from "./Steps";
-import { Recipe } from "./types";
+import { Recipe } from "../../types/shopping-list";
 
 const id = "recipes";
 

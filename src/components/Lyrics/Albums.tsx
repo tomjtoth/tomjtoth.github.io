@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks";
-import type { Active, AlbumsProps } from "./types";
+import type { Active, AlbumsProps } from "../../types/lyrics";
 
 import Songs from "./Songs";
 import Logo from "./Logos";

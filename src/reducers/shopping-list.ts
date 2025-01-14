@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
-import { Item, Recipe } from "../components/ShoppingList/types";
+import { Item, Recipe } from "../types/shopping-list";
 import { storeObject, loadObject, fetchYaml, toggle } from "../utils";
 
 const name = "shopping-list";

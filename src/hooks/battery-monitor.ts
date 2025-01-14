@@ -3,7 +3,7 @@ import { useAppSelector } from ".";
 import { useBattery } from "react-use";
 
 import { notify, notiText } from "../components/BatteryMonitor/notifications";
-import { BatteryState } from "../components/BatteryMonitor/types";
+import { BatteryState } from "../types/battery-monitor";
 
 const SEC = 1000;
 
