@@ -34,7 +34,7 @@ export function initArxFatalis() {
         init({
           castSpells,
           score: castSpells.reduce(
-            (sum: number, _, idx) => sum + spellValue(idx),
+            (sum: number, spellIdx) => sum + spellValue(spellIdx),
             0
           ),
         })
