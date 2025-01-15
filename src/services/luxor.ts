@@ -6,12 +6,15 @@ const id = "luxor";
 
 export default {
   saveNums: ({ pickedNums }: LuxorNumbers) => {
-    db.misc.put({ id, pickedNums: current(pickedNums) } as LuxorNumbers);
+    db.misc.put({
+      id,
+      pickedNums: isDraft(pickedNums) ? current(pickedNums) : pickedNums,
+    } as LuxorNumbers);
   },
 
   saveFields: ({ fields }: LuxorFields) => {
     db.luxorFields.bulkPut(
-      fields.map((fld) => (isDraft(fld) ? current(fld) : fld))
+      fields.map((field) => (isDraft(field) ? current(field) : field))
     );
   },
 
