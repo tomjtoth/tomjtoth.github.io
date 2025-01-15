@@ -1,4 +1,4 @@
-import { current } from "@reduxjs/toolkit";
+import { current, isDraft } from "@reduxjs/toolkit";
 import { db } from "../db";
 import { LyricsActive } from "../types/db";
 import { Artist, Album, Song } from "../types/lyrics";
@@ -7,7 +7,10 @@ const id = "lyrics";
 
 export default {
   save: ({ active }: LyricsActive) => {
-    db.misc.put({ id, active: current(active) } as LyricsActive);
+    db.misc.put({
+      id,
+      active: isDraft(active) ? current(active) : active,
+    } as LyricsActive);
   },
 
   load: async () => {
