@@ -1,28 +1,28 @@
+import { current, isDraft } from "@reduxjs/toolkit";
 import { db } from "../db";
 import { LuxorNumbers } from "../types/db";
-import { Field, State } from "../types/luxor";
-import { current, isDraft } from "@reduxjs/toolkit";
+import { State } from "../types/luxor";
 
 const id = "luxor";
 
-export function save({ pickedNums, fields }: State) {
+export function save({
+  pickedNums,
+  fields,
+}: Pick<State, "fields" | "pickedNums">) {
   db.misc.put({ id, pickedNums: [...pickedNums] } as LuxorNumbers);
 
-  const arr = fields!.map((fld) => (isDraft(fld) ? current(fld)! : fld));
-
-  db.luxorFields.bulkPut(arr);
+  db.luxorFields.bulkPut(
+    fields!.map((fld) => (isDraft(fld) ? current(fld)! : fld))
+  );
 }
 
-export async function load(fallback: Field[]) {
-  return await Promise.all([
+export function load() {
+  return Promise.all([
     db.misc
       .get(id)
       .then((nums) => (nums ? (nums as LuxorNumbers).pickedNums : [])),
 
-    db.luxorFields
-      .orderBy("order")
-      .toArray()
-      .then((res) => (res.length > 0 ? res : fallback)),
+    db.luxorFields.orderBy("order").toArray(),
   ]);
 }
 
