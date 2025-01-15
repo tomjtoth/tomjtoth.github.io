@@ -12,6 +12,32 @@ export default function Fields() {
       {(fields as Field[]).map(({ id: fieldId, rows, importedAt }) => {
         const deletable = fields!.length > 1;
 
+        let importedSpan = null;
+
+        if (importedAt) {
+          const SS = (Date.now() - new Date(importedAt).valueOf()) / 1000;
+          const MM = SS / 60;
+          const HH = MM / 60;
+          const DDD = HH / 24;
+
+          const [dtNum, dtStr] = (
+            [
+              [DDD, "nappal"],
+              [HH, "órával"],
+              [MM, "perccel"],
+              [SS, "másodperccel"],
+            ] as [number, string][]
+          ).find(([val]) => Math.round(val) > 0)!;
+
+          importedSpan = (
+            <>
+              <span className="luxor-fld-imported padded">
+                {Math.round(dtNum)} {dtStr} korábbról
+              </span>
+            </>
+          );
+        }
+
         return (
           <li
             key={fieldId}
@@ -20,16 +46,7 @@ export default function Fields() {
           >
             {!locked && (
               <>
-                {importedAt && (
-                  <>
-                    <span className="luxor-fld-imported padded">
-                      {Math.round(
-                        (Date.now() - new Date(importedAt).valueOf()) / 1000
-                      )}
-                      mp-cel korábbról
-                    </span>
-                  </>
-                )}
+                {importedSpan}
                 <div>
                   <span className="luxor-fld-add clickable padded">
                     új mező ➕
