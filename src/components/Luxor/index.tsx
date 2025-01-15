@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router";
 import {
   createNewField,
   removeField,
-  fieldsFromPreset,
   newNumber,
   initLuxor,
 } from "../../reducers/luxor";
@@ -30,13 +29,10 @@ export default function Luxor() {
   const { search, pathname } = useLocation();
 
   useEffect(() => {
-    const sp = new URLSearchParams(search);
-    const preset = sp.get("preset");
-    if (!fields) dispatch(initLuxor());
-    else if (preset) {
-      dispatch(fieldsFromPreset(preset));
-      navigate(pathname);
-    }
+    const preset = new URLSearchParams(search).get("preset");
+    if (!fields) dispatch(initLuxor(preset));
+
+    if (preset) navigate(pathname);
   }, []);
 
   return (

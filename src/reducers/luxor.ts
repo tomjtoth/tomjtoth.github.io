@@ -50,21 +50,6 @@ const slice = createSlice({
       save(state);
     },
 
-    importFields: (state, { payload }: PayloadAction<Field[]>) => {
-      const nextId = Math.max(...state.fields!.map((field) => field.id)) + 1;
-      const fieldsLength = state.fields!.length + 1;
-
-      state.fields!.push(
-        ...payload.map((field) => ({
-          ...field,
-          order: field.order + fieldsLength,
-          id: field.id + nextId,
-        }))
-      );
-
-      save(state);
-    },
-
     addEmptyField: (state, { payload }) => {
       const { order } = state.fields!.find((x) => x.id === payload)!;
 
@@ -131,18 +116,44 @@ const {
   resetPickedNumbers,
   addEmptyField,
   rmField,
-  importFields,
   removeLastNum,
   moveBugTo,
   setPrivacyFilter,
   resetBugState,
 } = slice.actions;
 
-export function initLuxor() {
-  return (dp: AppDispatch) =>
-    load([{ id: 1, order: 1, rows: emptyField }]).then(([pickedNums, fields]) =>
-      dp(init({ pickedNums, fields }))
-    );
+export function initLuxor(preset: string | null) {
+  return async (dp: AppDispatch) => {
+    const [pickedNums, fields] = await load();
+
+    if (preset) {
+      const importedAt = Date.now();
+      const nextId = Math.max(0, ...fields.map((field) => field.id)) + 1;
+      const fieldsLength = fields.length;
+
+      fields.push(
+        ...preset.split(",").reduce((fields, numStr, idx) => {
+          if (idx % 25 === 0) {
+            const id = nextId + Math.floor(idx / 25);
+            fields.push({ id, order: fieldsLength + id, rows: [], importedAt });
+          }
+          const { rows } = last(fields) as Field;
+          if (idx % 5 === 0) rows.push([]);
+          const row = last(rows) as number[];
+
+          row.push(Number(numStr));
+
+          return fields;
+        }, [] as Field[])
+      );
+
+      save({ pickedNums, fields });
+    }
+
+    if (fields.length === 0) fields.push({ id: 1, order: 1, rows: emptyField });
+
+    dp(init({ pickedNums, fields }));
+  };
 }
 
 export function newNumber(num: number) {
@@ -167,30 +178,6 @@ export function createNewField(afterId: number) {
 
 export function removeField(id: number) {
   return (dispatch: AppDispatch) => dispatch(rmField(id));
-}
-
-export function fieldsFromPreset(preset: string) {
-  return (dispatch: AppDispatch) => {
-    const importedAt = Date.now();
-
-    dispatch(
-      importFields(
-        preset.split(",").reduce((fields, numStr, idx) => {
-          if (idx % 25 === 0) {
-            const id = Math.floor(idx / 25);
-            fields.push({ id, order: id, rows: [], importedAt });
-          }
-          const { rows } = last(fields) as Field;
-          if (idx % 5 === 0) rows.push([]);
-          const row = last(rows) as number[];
-
-          row.push(Number(numStr));
-
-          return fields;
-        }, [] as Field[])
-      )
-    );
-  };
 }
 
 export const undo = () => {
