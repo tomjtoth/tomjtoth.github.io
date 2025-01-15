@@ -6,6 +6,7 @@ import Buttons from "./Buttons";
 import { ModalProps } from "../../types/modal";
 
 const success = /-(?:ok|yes)$/;
+const failure = /-(?:cancel|no)$/;
 const keepModal = /^modal(?:-buttons)?$/;
 
 export default function Modal({ modal, setModal, timeOut = 3000 }: ModalProps) {
@@ -19,7 +20,7 @@ export default function Modal({ modal, setModal, timeOut = 3000 }: ModalProps) {
 
   if (!modal) return;
 
-  const { prompt, onSuccess, lang = "fi", buttons = "oc" } = modal;
+  const { prompt, onSuccess, onFailure, lang = "fi", buttons = "oc" } = modal;
 
   return (
     prompt && (
@@ -30,6 +31,7 @@ export default function Modal({ modal, setModal, timeOut = 3000 }: ModalProps) {
             const t = e.target as HTMLElement;
 
             if (success.test(t.id) && onSuccess) onSuccess();
+            else if (failure.test(t.id) && onFailure) onFailure();
 
             if (!keepModal.test(t.id)) setModal(undefined);
           },

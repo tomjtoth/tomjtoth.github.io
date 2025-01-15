@@ -7,6 +7,7 @@ export type ModalType =
   | {
       prompt: ReactNode;
       onSuccess?: CallableFunction;
+      onFailure?: CallableFunction;
       lang?: LanguageSelection;
       buttons?: string;
     };

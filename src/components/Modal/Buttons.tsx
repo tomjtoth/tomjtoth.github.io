@@ -12,8 +12,17 @@ const translations = Object.fromEntries(
 export default function Buttons({ lang, buttons }: ModalButtonsProps) {
   const res = [];
 
+  let autoFocusUnset = true;
+
   for (let i = 0; i < buttons.length; i++) {
-    const xx = translations[buttons.charAt(i)];
+    const ch = buttons.charAt(i);
+    const xx = translations[ch];
+
+    let autoFocus;
+    if (autoFocusUnset && (ch === "o" || ch === "y")) {
+      autoFocus = true;
+      autoFocusUnset = false;
+    }
 
     const id = `modal-${xx.en.toLowerCase()}`;
 
@@ -23,6 +32,7 @@ export default function Buttons({ lang, buttons }: ModalButtonsProps) {
         {...{
           id,
           className: "clickable",
+          autoFocus,
         }}
       >
         {xx[lang]}
