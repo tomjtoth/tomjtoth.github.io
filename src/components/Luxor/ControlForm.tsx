@@ -18,6 +18,8 @@ export default function ControlForm({ setModal }: ControlFormProps) {
     placeholder: "a következő nyerőszám",
     max: 75,
     min: 0,
+    className: "bordered",
+    autoComplete: "off",
   });
 
   // TODO: refactor styles in shopping-list and this
@@ -47,7 +49,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
       >
         {locked ? "🔒" : "🔓"}
       </span>
-      <input {...num} className="bordered" />
+      <input {...num} />
       <span
         className="padded clickable"
         onClick={() =>

@@ -10,12 +10,12 @@ export default function Fields() {
   return (
     <ul className="luxor">
       {(fields as Field[]).map(({ id: fieldId, rows, importedAt }) => {
-        const deletable = fields.length > 1;
+        const deletable = fields!.length > 1;
 
         return (
           <li
             key={fieldId}
-            id={fieldId}
+            id={fieldId.toString()}
             className={`luxor ${locked ? "" : " bordered"}`}
           >
             {!locked && (

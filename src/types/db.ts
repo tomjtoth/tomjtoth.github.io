@@ -1,4 +1,4 @@
-import { State } from "./arx-fatalis";
+import { State as ArxFatalisState } from "./arx-fatalis";
 import { Active } from "./lyrics";
 
 // type NumId = {
@@ -13,10 +13,10 @@ export type Lyrics = {
   active: Active;
 };
 
-export type ArxFatalis = Omit<State, "score">;
+export type ArxFatalis = Omit<ArxFatalisState, "score">;
 
-export type LuxorPickedNums = {
+export type LuxorNumbers = {
   pickedNums: number[];
 };
 
-export type MiscData = StrId & (Lyrics | ArxFatalis);
+export type MiscData = StrId & (Lyrics | ArxFatalis | LuxorNumbers);
