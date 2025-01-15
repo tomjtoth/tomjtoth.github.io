@@ -47,12 +47,6 @@ export function fetchJson(file: string): Promise<any> {
   return reqFile(file, { asJson: true });
 }
 
-export function toToggled<T>(arr: T[], key: T): T[] {
-  const res = [...arr];
-  toggle(res, key);
-  return res;
-}
-
 export function toggle<T>(arr: T[], key: T): void {
   const idx = arr.indexOf(key);
 
@@ -75,4 +69,8 @@ export function between(n: number, a: number, b: number): boolean {
     throw new Error("between needs numbers for comparison");
 
   return a <= n && n <= b;
+}
+
+export function maxId<T extends { id: number }>(arr: T[]): number {
+  return Math.max(0, ...arr.map((entity) => entity.id));
 }

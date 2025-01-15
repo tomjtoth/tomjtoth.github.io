@@ -2,8 +2,8 @@ import { useField, useAppDispatch } from "../../hooks";
 import { NumberInputProps } from "../../hooks/types";
 import {
   addItem,
-  resetSelected,
-  toggleActiveId,
+  resetActiveItems,
+  toggleActive,
 } from "../../reducers/shopping-list";
 import { re } from "./config";
 import { ControlFormProps } from "../../types/shopping-list";
@@ -32,11 +32,11 @@ export default function ControlForm({ active, setModal }: ControlFormProps) {
       onClick={({ target }) => {
         const { id } = target as HTMLElement;
         if (id === "recipes-toggler") {
-          dispatch(toggleActiveId("recipes"));
+          dispatch(toggleActive("recipes"));
         } else if (id === "reset-items") {
           setModal({
             prompt: "pyyhitäänkö kaikki vihreät?",
-            onSuccess: () => dispatch(resetSelected()),
+            onSuccess: () => dispatch(resetActiveItems()),
           });
         }
       }}

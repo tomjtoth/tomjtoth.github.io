@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
-import {
-  initRecipes,
-  toggleActiveId,
-  rmItem,
-} from "../../reducers/shopping-list";
+import { init, toggleActive, rmItem } from "../../reducers/shopping-list";
 import { ModalType as ModalType } from "../../types/modal";
 
 import "./shopping-list.css";
@@ -24,7 +20,7 @@ export default function ShoppingList() {
   const uninitialized = recipes.length === 0;
 
   useEffect(() => {
-    if (uninitialized) dispatch(initRecipes());
+    if (uninitialized) dispatch(init());
   }, []);
 
   return (
@@ -51,7 +47,7 @@ export default function ShoppingList() {
               (classList.contains("recipe") ||
                 classList.contains("recipe-item"))
             ) {
-              dispatch(toggleActiveId(id));
+              dispatch(toggleActive(id));
             }
           },
         }}

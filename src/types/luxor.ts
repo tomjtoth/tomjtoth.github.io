@@ -14,7 +14,7 @@ export type Field = {
 };
 
 export type State = {
-  fields?: Field[];
+  fields: Field[];
   pickedNums: number[];
   locked: boolean;
   bug: bugState;

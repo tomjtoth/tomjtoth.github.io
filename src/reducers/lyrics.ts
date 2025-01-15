@@ -2,41 +2,41 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import { fetchYaml, toggle } from "../utils";
 import type { State } from "../types/lyrics";
-import { save, load, parseYaml } from "../services/lyrics";
+import db, { parseYaml } from "../services/lyrics";
 
 const slice = createSlice({
   name: "lyrics",
-  initialState: { artists: [], active: [] },
+  initialState: { artists: [], active: [] } as State,
   reducers: {
     init: (_, { payload }) => payload,
 
-    setActive: (state: State, { payload }: PayloadAction<string>) => {
-      toggle(state!.active, payload);
-      save(state);
+    toggleActive: (state, { payload }: PayloadAction<string>) => {
+      toggle(state.active, payload);
+      db.save(state);
     },
 
-    reset: (state: State) => {
+    resetActive: (state) => {
       state.active = [];
-      save(state);
+      db.save(state);
     },
   },
 });
 
-export const { init, setActive, reset } = slice.actions;
+export const act = slice.actions;
 
-export function initLyrics() {
-  return (dp: AppDispatch) =>
-    Promise.all([fetchYaml("/lyrics.yaml").then(parseYaml), load()]).then(
-      ([artists, active]) => dp(init({ artists, active }))
+export function init() {
+  return (dispatch: AppDispatch) =>
+    Promise.all([fetchYaml("/lyrics.yaml").then(parseYaml), db.load()]).then(
+      ([artists, active]) => dispatch(act.init({ artists, active }))
     );
 }
 
-export function toggleSelection(key: string) {
-  return (dp: AppDispatch) => dp(setActive(key));
+export function toggleSelection(id: string) {
+  return (dispatch: AppDispatch) => dispatch(act.toggleActive(id));
 }
 
 export function restSelection() {
-  return (dp: AppDispatch) => dp(reset());
+  return (dispatch: AppDispatch) => dispatch(act.resetActive());
 }
 
 export default slice.reducer;

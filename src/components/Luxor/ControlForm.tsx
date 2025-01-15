@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector, useField } from "../../hooks";
 import { NumberInputProps } from "../../hooks/types";
 import {
-  resetSelected,
+  clearNums,
   saveFields,
-  toggleEditMode,
-  newNumber,
+  toggleLock,
+  addNum,
 } from "../../reducers/luxor";
 import { ControlFormProps } from "../../types/luxor";
 
@@ -33,7 +33,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
           numOnly.test(value.toString()) &&
           !(pickedNums as number[]).includes(value as number)
         )
-          dispatch(newNumber(value as number));
+          dispatch(addNum(value as number));
 
         resetInput();
         e.preventDefault();
@@ -44,7 +44,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
         onClick={() => {
           if (!locked) dispatch(saveFields());
 
-          dispatch(toggleEditMode());
+          dispatch(toggleLock());
         }}
       >
         {locked ? "🔒" : "🔓"}
@@ -60,7 +60,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
               </>
             ),
             lang: "hu",
-            onSuccess: () => dispatch(resetSelected()),
+            onSuccess: () => dispatch(clearNums()),
           })
         }
         title="jelölések törlése"

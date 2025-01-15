@@ -1,6 +1,12 @@
 export const re = {
+  item: /(?:(?:\[`(?<nameUrl>[^`]+)`\]\((?<url>.+)\))|`(?<name>[^`]+)`)(?: *[-:])?/g,
+  isRecipe: /^recipe(?:-\d+|s)$/,
+
+  // both versions must be fool-proofed
+  strong: /(?:\*\*(?<vAsterisk>[^*]+)\*\*|\b__(?<vUnderscore>[^_]+)__\b)/g,
   recipeId: /^recipe-(?<recId>\d+)$/,
   emptyString: /^\s*$/,
+
   order: [
     // ennen PRISMA:a
     /(cit+ari|K-supermarket|K-cit[iy]market)(?::sta)?/i,
