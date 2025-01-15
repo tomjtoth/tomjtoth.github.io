@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { last } from "../../utils";
 import {
-  undo,
+  rmLastNum,
   bugCrawlsTo,
-  bugRemovePrivacy,
-  bugResets,
+  unblurBug,
+  resetBug,
 } from "../../reducers/luxor";
 import { PickedNumsLineProps } from "../../types/luxor";
 
@@ -18,11 +18,11 @@ export default function PickedNumsLine({ setModal }: PickedNumsLineProps) {
       onAnimationEnd={(ev) => {
         if (ev.animationName === "luxor-bug-privacy-filter") {
           dispatch(bugCrawlsTo("-10vw"));
-          dispatch(bugRemovePrivacy());
+          dispatch(unblurBug());
         }
 
         setTimeout(() => {
-          dispatch(bugResets());
+          dispatch(resetBug());
         }, 710);
       }}
     >
@@ -57,7 +57,7 @@ export default function PickedNumsLine({ setModal }: PickedNumsLineProps) {
                 );
 
                 setTimeout(() => {
-                  dispatch(undo());
+                  dispatch(rmLastNum());
                 }, 710);
               },
             })

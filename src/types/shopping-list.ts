@@ -8,7 +8,7 @@ export type ControlFormProps = {
 type Step = string;
 
 export type Item = {
-  key: string;
+  id: number;
   item: string;
 };
 
@@ -22,6 +22,12 @@ export type Recipe = {
   };
   items: string[];
   steps: Step[];
+};
+
+export type State = {
+  recipes: Recipe[];
+  items: Item[];
+  active: string[];
 };
 
 export type StepsProps = {

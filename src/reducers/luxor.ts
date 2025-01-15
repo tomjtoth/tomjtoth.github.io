@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import type { Field, State } from "../types/luxor";
-import { load, remove, save } from "../services/luxor";
-import { last } from "../utils";
+import db from "../services/luxor";
+import { last, maxId } from "../utils";
 
 const emptyField = [
   [0, 0, 0, 0, 0],
@@ -11,30 +11,36 @@ const emptyField = [
   [0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0],
 ];
+const bug = {
+  x: "110vw",
+  privacy: false,
+};
 
 const slice = createSlice({
   name: "luxor",
   initialState: {
+    fields: [],
     pickedNums: [],
     locked: true,
-    bug: {
-      x: "110vw",
-      privacy: false,
-    },
+    bug,
   } as State,
+
   reducers: {
-    init: (state, { payload }) => ({ ...state, ...payload }),
+    init: (state, { payload }) => ({
+      ...state,
+      ...payload,
+    }),
 
-    pickNumber: (state, { payload }: PayloadAction<number>) => {
+    addNum: (state, { payload }: PayloadAction<number>) => {
       state.pickedNums.push(payload);
-      save(state);
+      db.saveNums(state);
     },
 
-    setLock: (state, { payload }) => {
-      state.locked = payload === undefined ? !state.locked : payload;
+    toggleLock: (state) => {
+      state.locked = !state.locked;
     },
 
-    updateFields: (state) => {
+    saveFields: (state) => {
       document
         .querySelectorAll<HTMLInputElement>("input.luxor-num")
         .forEach(({ id, value }) => {
@@ -42,55 +48,55 @@ const slice = createSlice({
             /(\d+)-([0-4])-([0-4])$/
           )!;
 
-          state.fields!.find(({ id }) => id === Number(fieldIdStr))!.rows[
+          state.fields.find(({ id }) => id === Number(fieldIdStr))!.rows[
             Number(rowIdxStr)
           ][Number(cellIdxStr)] = Number(value);
         });
 
-      save(state);
+      db.saveFields(state);
     },
 
-    addEmptyField: (state, { payload }) => {
-      const { order } = state.fields!.find((x) => x.id === payload)!;
+    addField: (state, { payload }) => {
+      const { order } = state.fields.find((x) => x.id === payload)!;
 
-      state.fields = state.fields!.map((field) =>
+      state.fields = state.fields.map((field) =>
         field.order > order ? { ...field, order: field.order + 1 } : field
       );
 
       state.fields.splice(order, 0, {
-        id: Math.max(0, ...state.fields!.map((field) => field.id)) + 1,
+        id: maxId(state.fields) + 1,
         order: order + 1,
         rows: emptyField,
       });
 
-      save(state);
+      db.saveFields(state);
     },
 
     rmField: (state, { payload }) => {
-      const { order } = state.fields!.find((fld) => fld.id === payload)!;
+      const { order } = state.fields.find((fld) => fld.id === payload)!;
 
-      state.fields = state
+      state.fields = state.fields
         // remove the field
-        .fields!.filter(({ id }) => id !== payload)
+        .filter(({ id }) => id !== payload)
         // move the rest of the queue closer
         .map((field) =>
           field.order > order ? { ...field, order: field.order - 1 } : field
         );
 
-      remove(payload);
+      db.rmField(payload);
     },
 
-    resetPickedNumbers: (state) => {
+    clearNums: (state) => {
       state.pickedNums = [];
-      save(state);
+      db.saveNums(state);
     },
 
-    removeLastNum: (state) => {
+    rmLastNum: (state) => {
       const len = state.pickedNums.length;
 
       if (len > 0) {
         state.pickedNums.splice(len - 1, 1);
-        save(state);
+        db.saveNums(state);
       }
     },
 
@@ -98,37 +104,25 @@ const slice = createSlice({
       state.bug = { x: payload, privacy: false, className: "crawling" };
     },
 
-    setPrivacyFilter: (state, { payload }: PayloadAction<boolean>) => {
-      state.bug!.privacy = payload;
+    setBugBlur: (state, { payload }: PayloadAction<boolean>) => {
+      state.bug.privacy = payload;
     },
 
-    resetBugState: (state) => {
-      state.bug = { x: "110vw", privacy: false };
+    resetBug: (state) => {
+      state.bug = bug;
     },
   },
 });
 
-const {
-  init,
-  pickNumber,
-  setLock,
-  updateFields,
-  resetPickedNumbers,
-  addEmptyField,
-  rmField,
-  removeLastNum,
-  moveBugTo,
-  setPrivacyFilter,
-  resetBugState,
-} = slice.actions;
+const act = slice.actions;
 
-export function initLuxor(preset: string | null) {
-  return async (dp: AppDispatch) => {
-    const [pickedNums, fields] = await load();
+export function init(preset: string | null) {
+  return async (dispatch: AppDispatch) => {
+    const [pickedNums, fields] = await db.load();
 
     if (preset) {
       const importedAt = Date.now();
-      const nextId = Math.max(0, ...fields.map((field) => field.id)) + 1;
+      const nextId = maxId(fields) + 1;
       const fieldsLength = fields.length;
 
       fields.push(
@@ -147,56 +141,56 @@ export function initLuxor(preset: string | null) {
         }, [] as Field[])
       );
 
-      save({ pickedNums, fields });
+      db.saveFields({ fields });
     }
 
     if (fields.length === 0) fields.push({ id: 1, order: 1, rows: emptyField });
 
-    dp(init({ pickedNums, fields }));
+    dispatch(act.init({ pickedNums, fields }));
   };
 }
 
-export function newNumber(num: number) {
-  return (dispatch: AppDispatch) => dispatch(pickNumber(num));
+export function addNum(num: number) {
+  return (dispatch: AppDispatch) => dispatch(act.addNum(num));
 }
 
-export function toggleEditMode(to?: boolean) {
-  return (dispatch: AppDispatch) => dispatch(setLock(to));
+export function toggleLock() {
+  return (dispatch: AppDispatch) => dispatch(act.toggleLock());
 }
 
-export const saveFields = () => {
-  return (dispatch: AppDispatch) => dispatch(updateFields());
-};
-
-export const resetSelected = () => {
-  return (dispatch: AppDispatch) => dispatch(resetPickedNumbers());
-};
-
-export function createNewField(afterId: number) {
-  return (dispatch: AppDispatch) => dispatch(addEmptyField(afterId));
+export function saveFields() {
+  return (dispatch: AppDispatch) => dispatch(act.saveFields());
 }
 
-export function removeField(id: number) {
-  return (dispatch: AppDispatch) => dispatch(rmField(id));
+export function clearNums() {
+  return (dispatch: AppDispatch) => dispatch(act.clearNums());
 }
 
-export const undo = () => {
+export function addField(id: number) {
+  return (dispatch: AppDispatch) => dispatch(act.addField(id));
+}
+
+export function rmField(id: number) {
+  return (dispatch: AppDispatch) => dispatch(act.rmField(id));
+}
+
+export function rmLastNum() {
   return (dispatch: AppDispatch) => {
-    dispatch(setPrivacyFilter(true));
-    dispatch(removeLastNum());
+    dispatch(act.setBugBlur(true));
+    dispatch(act.rmLastNum());
   };
-};
+}
 
 export function bugCrawlsTo(x: number | string) {
-  return (dispatch: AppDispatch) => dispatch(moveBugTo(x));
+  return (dispatch: AppDispatch) => dispatch(act.moveBugTo(x));
 }
 
-export const bugRemovePrivacy = () => {
-  return (dispatch: AppDispatch) => dispatch(setPrivacyFilter(false));
-};
+export function unblurBug() {
+  return (dispatch: AppDispatch) => dispatch(act.setBugBlur(false));
+}
 
-export const bugResets = () => {
-  return (dispatch: AppDispatch) => dispatch(resetBugState());
-};
+export function resetBug() {
+  return (dispatch: AppDispatch) => dispatch(act.resetBug());
+}
 
 export default slice.reducer;

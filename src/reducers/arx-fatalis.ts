@@ -1,37 +1,33 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
-import { save, load, spellValue } from "../services/arx-fatalis";
+import db, { spellValue } from "../services/arx-fatalis";
 import { State } from "../types/arx-fatalis";
-
-type RState = State | null;
 
 const slice = createSlice({
   name: "arx-fatalis",
-  initialState: null as RState,
+  initialState: null as State | null,
   reducers: {
     init: (_, { payload }) => payload,
 
     addSpell: (state, { payload }: PayloadAction<number>) => {
       state!.castSpells.push(payload);
       state!.score += spellValue(payload);
-      save(state!);
+      db.save(state!);
     },
   },
 });
 
-const { init, addSpell } = slice.actions;
+const act = slice.actions;
 
-export const castSpell = (spell: number) => {
-  return (dispatch: AppDispatch) => {
-    dispatch(addSpell(spell));
-  };
-};
+export function castSpell(spell: number) {
+  return (dispatch: AppDispatch) => dispatch(act.addSpell(spell));
+}
 
-export function initArxFatalis() {
-  return (dispatch: AppDispatch) => {
-    load().then((castSpells) =>
+export function init() {
+  return (dispatch: AppDispatch) =>
+    db.load().then((castSpells) =>
       dispatch(
-        init({
+        act.init({
           castSpells,
           score: castSpells.reduce(
             (sum: number, spellIdx) => sum + spellValue(spellIdx),
@@ -40,7 +36,6 @@ export function initArxFatalis() {
         })
       )
     );
-  };
 }
 
 export default slice.reducer;

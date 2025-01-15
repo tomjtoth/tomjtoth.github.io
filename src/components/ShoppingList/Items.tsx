@@ -1,11 +1,11 @@
 import { useAppSelector } from "../../hooks";
 import { re } from "./config";
-import { Item, Recipe } from "../../types/shopping-list";
+import { Recipe } from "../../types/shopping-list";
 
 export default function Items() {
   const { recipes, active, items } = useAppSelector((s) => s.shoppingList);
 
-  const ul_items = [...(items as Item[])];
+  const ul_items = items.map(({ id, item }) => ({ id: id.toString(), item }));
 
   active.forEach((key) => {
     const match = key.match(re.recipeId);
@@ -15,7 +15,7 @@ export default function Items() {
 
       ul_items.push(
         ...recipe.items.map((item, i) => ({
-          key: `${key}-${i}`,
+          id: `${key}-${i}`,
           item: `${item} (${recipe.title})`,
         }))
       );
@@ -28,19 +28,19 @@ export default function Items() {
       <ul id="recipe-items">
         {ul_items
           // find out which regex matches the item, store it's index, too
-          .map(({ item, key }) => ({
+          .map(({ item, id }) => ({
             idx: re.order.findIndex((regex) => regex.test(item)),
-            key,
+            id,
             item,
           }))
           .toSorted((a, b) => a.idx - b.idx)
-          .map(({ idx, key, item }) => {
-            const isActive = active.includes(key);
+          .map(({ idx, id, item }) => {
+            const isActive = active.includes(id.toString());
 
             return (
               <li
-                key={key}
-                id={key}
+                key={id}
+                id={id.toString()}
                 className={`clickable padded alternating recipe-item${
                   isActive ? " active" : ""
                 }`}
@@ -51,7 +51,7 @@ export default function Items() {
                     ❓
                   </span>
                 )}
-                {!key.startsWith("rec") && (
+                {!id.toString().startsWith("rec") && (
                   <span className="recipe-item-del clickable">(🚫 poista)</span>
                 )}
               </li>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 
-import { initLyrics, toggleSelection } from "../../reducers/lyrics";
+import { init, toggleSelection } from "../../reducers/lyrics";
 
 import "./lyrics.css";
 
@@ -17,7 +17,7 @@ export default function Lyrics() {
   const uninitialized = artists.length === 0;
 
   useEffect(() => {
-    if (uninitialized) dispatch(initLyrics());
+    if (uninitialized) dispatch(init());
   }, []);
 
   return (

@@ -2,12 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { useLocation, useNavigate } from "react-router";
 
-import {
-  createNewField,
-  removeField,
-  newNumber,
-  initLuxor,
-} from "../../reducers/luxor";
+import { addField, rmField, addNum, init } from "../../reducers/luxor";
 import { ModalType } from "../../types/modal";
 
 import "./luxor.css";
@@ -30,7 +25,7 @@ export default function Luxor() {
 
   useEffect(() => {
     const preset = new URLSearchParams(search).get("preset");
-    if (!fields) dispatch(initLuxor(preset));
+    if (fields.length == 0) dispatch(init(preset));
 
     if (preset) navigate(pathname);
   }, []);
@@ -48,9 +43,7 @@ export default function Luxor() {
             target as HTMLElement;
           if (classList.contains("luxor-fld-add")) {
             dispatch(
-              createNewField(
-                Number((parentNode!.parentNode! as HTMLElement).id)
-              )
+              addField(Number((parentNode!.parentNode! as HTMLElement).id))
             );
           } else if (classList.contains("luxor-fld-del")) {
             setModal({
@@ -58,16 +51,13 @@ export default function Luxor() {
               lang: "hu",
               onSuccess: () =>
                 dispatch(
-                  removeField(
-                    Number((parentNode!.parentNode! as HTMLElement).id)
-                  )
+                  rmField(Number((parentNode!.parentNode! as HTMLElement).id))
                 ),
             });
           } else if (locked && tagName === "TD") {
             const asNumber = Number(textContent);
             const num = isNaN(asNumber) ? 0 : asNumber;
-            if (!(pickedNums as number[]).includes(num))
-              dispatch(newNumber(num));
+            if (!(pickedNums as number[]).includes(num)) dispatch(addNum(num));
           }
         }}
       >

@@ -1,17 +1,20 @@
+import { current } from "@reduxjs/toolkit";
 import { db } from "../db";
 import { LyricsActive } from "../types/db";
-import { Artist, Album, Song, State } from "../types/lyrics";
+import { Artist, Album, Song } from "../types/lyrics";
 
 const id = "lyrics";
 
-export function save({ active }: State) {
-  db.misc.put({ id, active: [...active] } as LyricsActive);
-}
+export default {
+  save: ({ active }: LyricsActive) => {
+    db.misc.put({ id, active: current(active) } as LyricsActive);
+  },
 
-export async function load() {
-  const stored = await db.misc.get(id);
-  return stored ? (stored as LyricsActive).active : [];
-}
+  load: async () => {
+    const stored = await db.misc.get(id);
+    return stored ? (stored as LyricsActive).active : [];
+  },
+};
 
 export function parseYaml(yaml: any) {
   return Object.entries(yaml)

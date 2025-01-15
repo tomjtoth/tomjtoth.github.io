@@ -4,7 +4,7 @@ import { useBattery } from "react-use";
 
 import { checkPermission } from "./notifications";
 import { useField } from "../../hooks";
-import { saveLevels, toggleActive } from "../../reducers/battery-monitor";
+import { setLevels, setAllowed } from "../../reducers/battery-monitor";
 import { BatteryState, ControlFormProps } from "../../types/battery-monitor";
 
 export default function ControlForm({ setModal }: ControlFormProps) {
@@ -47,7 +47,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
   useEffect(() => {
     const id = setTimeout(() => {
       dispatch(
-        saveLevels({
+        setLevels({
           min_val: min.value as number,
           max_val: max.value as number,
         })
@@ -58,7 +58,7 @@ export default function ControlForm({ setModal }: ControlFormProps) {
   }, [min.value, max.value]);
 
   useEffect(() => {
-    const dp = () => dispatch(toggleActive(allow.checked));
+    const dp = () => dispatch(setAllowed(allow.checked));
 
     if (allow.checked) {
       checkPermission(setModal).then((notiAllowed) => {

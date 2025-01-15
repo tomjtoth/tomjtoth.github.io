@@ -1,141 +1,77 @@
-import { v4 as uuid } from "uuid";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
-import { Item, Recipe } from "../types/shopping-list";
-import { storeObject, loadObject, fetchYaml, toggle } from "../utils";
-
-const name = "shopping-list";
-const re = {
-  item: /(?:(?:\[`(?<nameUrl>[^`]+)`\]\((?<url>.+)\))|`(?<name>[^`]+)`)(?: *[-:])?/g,
-  filter: /^recipe(?:-\d+|s)$/,
-  // both versions must be fool-proofed
-  strong: /(?:\*\*(?<vAsterisk>[^*]+)\*\*|\b__(?<vUnderscore>[^_]+)__\b)/g,
-};
-
-type State = {
-  recipes: Recipe[];
-  items: Item[];
-  active: string[];
-};
-
-function save({ recipes, ...state }: State) {
-  storeObject(name, state);
-}
+import { State } from "../types/shopping-list";
+import { fetchYaml, maxId } from "../utils";
+import db, { parseYaml } from "../services/shopping-list";
+import { re } from "../components/ShoppingList/config";
 
 const slice = createSlice({
-  name,
-  initialState: {
-    ...loadObject(name, {
-      items: [],
-      active: ["recipes"],
-    }),
-    recipes: [],
-  },
+  name: "shopping-list",
+  initialState: { recipes: [], items: [], active: [] } as State,
   reducers: {
-    fetchRecipes: (state: State, { payload }) => {
-      state.recipes = Object.entries(payload)
-        .toSorted(([a], [b]) => {
-          const a3 = a.slice(3).toLowerCase();
-          const b3 = b.slice(3).toLowerCase();
-
-          if (a3 < b3) return -1;
-          if (a3 > b3) return 1;
-          return 0;
-        })
-        .map(([title, x]) => {
-          const { steps, ...recipe } = x as Recipe;
-
-          const items: string[] = [];
-
-          const htmlSteps = steps.map((step) =>
-            step
-              .replaceAll(
-                re.item,
-                (
-                  _: string,
-                  nameUrl: string | undefined,
-                  url: string | undefined,
-                  name: string | undefined
-                ) => {
-                  items.push(name ?? nameUrl!);
-                  return url
-                    ? `<code class="recipe-item">${nameUrl}</code>
-                    <a class="recipe-item" href="${url}" target="_blank">🔗</a>`
-                    : `<code class="recipe-item">${name}</code>`;
-                }
-              )
-              .replaceAll(
-                re.strong,
-                (
-                  _: string,
-                  vAsterisk: string | undefined,
-                  vUnderscore: string | undefined
-                ) => ` <strong>${vAsterisk ?? vUnderscore!}</strong> `
-              )
-          );
-
-          return {
-            ...recipe,
-            title,
-            items,
-            steps: htmlSteps,
-          };
-        });
-    },
+    init: (_, { payload }: PayloadAction<State>) => payload,
 
     toggleActive: (state, { payload }) => {
-      toggle(state.active, payload);
-      save(state);
+      if (state.active.includes(payload)) {
+        state.active = state.active.filter((id) => !id.startsWith(payload));
+      } else {
+        state.active.push(payload);
+      }
+
+      db.saveActive(state);
     },
 
-    reset: (state) => {
-      state.active = state.active.filter((key) => re.filter.test(key));
-      save(state);
+    resetActiveItems: (state) => {
+      state.active = state.active.filter((key) => re.isRecipe.test(key));
+      db.saveActive(state);
     },
 
-    add_item: (state: State, { payload }) => {
-      state.items.push({ key: uuid(), item: payload });
-      save(state);
+    addItem: (state, { payload }) => {
+      const id = maxId(state.items) + 1;
+      state.items.push({ id, item: payload });
+      db.saveItems(state);
     },
 
-    rm_item: (state, { payload }) => {
-      state.items = state.items.filter(({ key }) => key !== payload);
-      state.active = state.active.filter((key) => key !== payload);
-      save(state);
+    rmItem: (state, { payload }) => {
+      state.items = state.items.filter(({ id }) => id !== payload);
+      db.rmItem(payload);
+
+      state.active = state.active.filter((id) => id !== payload);
+      db.saveActive(state);
     },
   },
 });
 
-const { fetchRecipes, toggleActive, reset, add_item, rm_item } = slice.actions;
+const act = slice.actions;
 
-export const initRecipes = () => {
+export function init() {
   return async (dispatch: AppDispatch) => {
-    dispatch(fetchRecipes(await fetchYaml("/recipes.yaml")));
-  };
-};
+    const [active, items] = await db.load();
 
-export const toggleActiveId = (key: string) => {
-  return (dispatch: AppDispatch) => {
-    dispatch(toggleActive(key));
+    dispatch(
+      act.init({
+        recipes: parseYaml(await fetchYaml("/recipes.yaml")),
+        active,
+        items,
+      })
+    );
   };
-};
+}
 
-export const addItem = (item: string) => {
-  return (dispatch: AppDispatch) => {
-    dispatch(add_item(item));
-  };
-};
+export function toggleActive(id: string) {
+  return (dispatch: AppDispatch) => dispatch(act.toggleActive(id));
+}
 
-export const rmItem = (key: string) => {
-  return (dispatch: AppDispatch) => {
-    dispatch(rm_item(key));
-  };
-};
+export function addItem(item: string) {
+  return (dispatch: AppDispatch) => dispatch(act.addItem(item));
+}
 
-export function resetSelected() {
-  return function (dispatch: AppDispatch) {
-    dispatch(reset());
-  };
+export function rmItem(key: string) {
+  return (dispatch: AppDispatch) => dispatch(act.rmItem(key));
+}
+
+export function resetActiveItems() {
+  return (dispatch: AppDispatch) => dispatch(act.resetActiveItems());
 }
 
 export default slice.reducer;
