@@ -24,8 +24,7 @@ export function parseYaml(yaml: any) {
       return 0;
     })
 
-    .map(([artistName, artist]) => {
-      const { url, ...albums } = artist as any;
+    .map(([name, { url, ...albums }]: [string, any]) => {
       const sorted = Object.entries(albums)
         .toSorted(([title_a, a], [title_b, b]) => {
           // move the mix album to the beginning
@@ -68,6 +67,6 @@ export function parseYaml(yaml: any) {
           } as Album;
         });
 
-      return { name: artistName, url, albums: sorted } as Artist;
+      return { name, url, albums: sorted } as Artist;
     });
 }
