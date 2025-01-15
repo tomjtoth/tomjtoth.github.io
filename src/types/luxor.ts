@@ -7,13 +7,14 @@ export type bugState = {
 };
 
 export type Field = {
-  id: string;
+  id: number;
+  order: number;
   rows: number[][];
   importedAt?: number;
 };
 
 export type State = {
-  fields: Field[];
+  fields?: Field[];
   pickedNums: number[];
   locked: boolean;
   bug: bugState;
@@ -21,9 +22,13 @@ export type State = {
 
 export type TableBodyProps = {
   rows: number[][];
-  fieldId: string;
+  fieldId: number;
 };
 
 export type ControlFormProps = {
+  setModal: setModalType;
+};
+
+export type PickedNumsLineProps = {
   setModal: setModalType;
 };

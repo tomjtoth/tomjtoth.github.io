@@ -36,7 +36,10 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
               return (
                 <td
                   key={cellId}
-                  {...{ id: cellId, className: classes.join(" ") }}
+                  {...{
+                    id: locked ? cellId : undefined,
+                    className: classes.join(" "),
+                  }}
                 >
                   {locked ? (
                     cell === 0 ? (
@@ -51,6 +54,7 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                       min="0"
                       max={max}
                       defaultValue={cell}
+                      id={cellId}
                     />
                   )}
                 </td>
