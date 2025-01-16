@@ -13,6 +13,8 @@ import Items from "./Items";
 import ControlForm from "./ControlForm";
 import Loader from "../Loader";
 
+const RE_SLRI = /^sl[ri]/;
+
 export default function ShoppingList() {
   const [modal, setModal] = useState<ModalType>();
   const dispatch = useAppDispatch();
@@ -36,17 +38,13 @@ export default function ShoppingList() {
             const { parentNode, id, tagName, classList } =
               target as HTMLElement;
 
-            if (tagName === "SPAN" && classList.contains("recipe-item-del")) {
+            if (tagName === "SPAN" && classList.contains("sli-del")) {
               setModal({
                 prompt: "poistetaanko varmasti?",
                 onSuccess: () =>
                   dispatch(rmItem((parentNode as HTMLElement)!.id)),
               });
-            } else if (
-              tagName === "LI" &&
-              (classList.contains("recipe") ||
-                classList.contains("recipe-item"))
-            ) {
+            } else if (tagName === "LI" && RE_SLRI.test(id)) {
               dispatch(toggleActive(id));
             }
           },

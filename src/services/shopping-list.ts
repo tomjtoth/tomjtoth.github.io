@@ -2,9 +2,13 @@ import { current, isDraft } from "@reduxjs/toolkit";
 import { db } from "../db";
 import { ShoppingListActive } from "../types/db";
 import { Recipe, State } from "../types/shopping-list";
-import { re } from "../components/ShoppingList/config";
 
 const id = "shopping-list";
+
+const RE_ITEM =
+  /(?:(?:\[`(?<nameUrl>[^`]+)`\]\((?<url>.+)\))|`(?<name>[^`]+)`)(?: *[-:])?/g;
+const RE_STRONG =
+  /(?:\*\*(?<vAsterisk>[^*]+)\*\*|\b__(?<vUnderscore>[^_]+)__\b)/g;
 
 export default {
   saveActive: ({ active }: ShoppingListActive) => {
@@ -50,7 +54,7 @@ export function parseYaml(yaml: any) {
       const htmlSteps = steps.map((step) =>
         step
           .replaceAll(
-            re.item,
+            RE_ITEM,
             (
               _: string,
               nameUrl: string | undefined,
@@ -59,13 +63,13 @@ export function parseYaml(yaml: any) {
             ) => {
               items.push(name ?? nameUrl!);
               return url
-                ? `<code class="recipe-item">${nameUrl}</code>
-                <a class="recipe-item" href="${url}" target="_blank">🔗</a>`
-                : `<code class="recipe-item">${name}</code>`;
+                ? `<code class="sli">${nameUrl}</code>
+                <a class="sli" href="${url}" target="_blank">🔗</a>`
+                : `<code class="sli">${name}</code>`;
             }
           )
           .replaceAll(
-            re.strong,
+            RE_STRONG,
             (
               _: string,
               vAsterisk: string | undefined,

@@ -4,7 +4,7 @@ import { useAppSelector } from "../../hooks";
 import Steps from "./Steps";
 import { Recipe } from "../../types/shopping-list";
 
-const id = "recipes";
+const id = "slr";
 
 export default function Recipes() {
   const { recipes, active } = useAppSelector((s) => s.shoppingList);
@@ -19,13 +19,13 @@ export default function Recipes() {
       {(recipes as Recipe[]).map(
         (
           { title, steps, url, opts: { lang: { title: dish_lang } = {} } = {} },
-          recipeId
+          recipeIdx
         ) => {
-          const recId = `recipe-${recipeId}`;
+          const recId = `slr-${recipeIdx}`;
 
           return (
             <li
-              key={recId}
+              key={recipeIdx}
               id={recId}
               lang={dish_lang}
               className={`clickable padded alternating recipe${
@@ -35,12 +35,16 @@ export default function Recipes() {
               {title}
 
               {url && (
-                <Link to={url} target="_blank" className="recipe-item">
+                <Link to={url} target="_blank" className="sli">
                   🔗
                 </Link>
               )}
               <Steps
-                {...{ lang: dish_lang ? "fi" : undefined, recId, steps }}
+                {...{
+                  lang: dish_lang ? "fi" : undefined,
+                  recId,
+                  steps,
+                }}
               />
             </li>
           );

@@ -3,9 +3,9 @@ import { AppDispatch } from "../store";
 import { State } from "../types/shopping-list";
 import { fetchYaml, maxId } from "../utils";
 import db, { parseYaml } from "../services/shopping-list";
-import { re } from "../components/ShoppingList/config";
 
-const reItemId = /\d+$/;
+const RE_NUMS = /\d+/;
+const RE_RECIPE_ID = /^slr(?:-\d+)?$/;
 
 const slice = createSlice({
   name: "shopping-list",
@@ -15,8 +15,10 @@ const slice = createSlice({
 
     toggleActive: (state, { payload }) => {
       if (state.active.includes(payload)) {
-        state.active = state.active.filter(
-          (id) => id !== payload && !id.startsWith(`${payload}-`)
+        state.active = state.active.filter((id) =>
+          payload === "slr"
+            ? id !== payload
+            : id !== payload && !id.startsWith(`${payload}-`)
         );
       } else {
         state.active.push(payload);
@@ -26,7 +28,7 @@ const slice = createSlice({
     },
 
     resetActiveItems: (state) => {
-      state.active = state.active.filter((key) => re.isRecipe.test(key));
+      state.active = state.active.filter((key) => RE_RECIPE_ID.test(key));
       db.saveActive(state);
     },
 
@@ -37,7 +39,7 @@ const slice = createSlice({
     },
 
     rmItem: (state, { payload }: PayloadAction<string>) => {
-      const id = Number(payload.match(reItemId)![0]);
+      const id = Number(payload.match(RE_NUMS)![0]);
       state.items = state.items.filter((i) => i.id !== id);
       db.rmItem(id);
 

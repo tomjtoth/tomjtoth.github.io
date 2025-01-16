@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector, useField } from "../../hooks";
-import { NumberInputProps } from "../../hooks/types";
+import { NumberInputProps } from "../../types/hooks";
 import {
   clearNums,
   saveFields,

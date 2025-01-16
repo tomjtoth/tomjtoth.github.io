@@ -7,7 +7,7 @@ import {
   NumberInputProps,
   Props,
   TextInputProps,
-} from "./types";
+} from "../types/hooks";
 
 export function useField(
   type: FieldType,
