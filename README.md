@@ -4,6 +4,10 @@ These are mostly static websites and other tools I use from different machines w
 
 ## Custom solutions
 
+### IndexedDB
+
+All, but 2 reducers have been migrated to Dexie.js from localStorage. Sidepanel and battery-monitor both store simple enough data to be quickly (de-)serialized.
+
 ### Cache
 
 [SW](./public/service-worker.js) intercepts requests:
