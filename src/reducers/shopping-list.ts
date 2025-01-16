@@ -5,6 +5,8 @@ import { fetchYaml, maxId } from "../utils";
 import db, { parseYaml } from "../services/shopping-list";
 import { re } from "../components/ShoppingList/config";
 
+const reItemId = /\d+$/;
+
 const slice = createSlice({
   name: "shopping-list",
   initialState: { recipes: [], items: [], active: [] } as State,
@@ -32,9 +34,10 @@ const slice = createSlice({
       db.saveItems(state);
     },
 
-    rmItem: (state, { payload }) => {
-      state.items = state.items.filter(({ id }) => id !== payload);
-      db.rmItem(payload);
+    rmItem: (state, { payload }: PayloadAction<string>) => {
+      const id = Number(payload.match(reItemId)![0]);
+      state.items = state.items.filter((i) => i.id !== id);
+      db.rmItem(id);
 
       state.active = state.active.filter((id) => id !== payload);
       db.saveActive(state);
@@ -42,14 +45,14 @@ const slice = createSlice({
   },
 });
 
-const act = slice.actions;
+const sa = slice.actions;
 
 export function init() {
   return async (dispatch: AppDispatch) => {
     const [active, items] = await db.load();
 
     dispatch(
-      act.init({
+      sa.init({
         recipes: parseYaml(await fetchYaml("/recipes.yaml")),
         active,
         items,
@@ -59,19 +62,19 @@ export function init() {
 }
 
 export function toggleActive(id: string) {
-  return (dispatch: AppDispatch) => dispatch(act.toggleActive(id));
+  return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
 }
 
 export function addItem(item: string) {
-  return (dispatch: AppDispatch) => dispatch(act.addItem(item));
+  return (dispatch: AppDispatch) => dispatch(sa.addItem(item));
 }
 
-export function rmItem(key: string) {
-  return (dispatch: AppDispatch) => dispatch(act.rmItem(key));
+export function rmItem(id: string) {
+  return (dispatch: AppDispatch) => dispatch(sa.rmItem(id));
 }
 
 export function resetActiveItems() {
-  return (dispatch: AppDispatch) => dispatch(act.resetActiveItems());
+  return (dispatch: AppDispatch) => dispatch(sa.resetActiveItems());
 }
 
 export default slice.reducer;

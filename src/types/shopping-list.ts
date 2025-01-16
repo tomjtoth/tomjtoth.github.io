@@ -1,7 +1,8 @@
+import { Active } from "./common";
 import { setModalType } from "./modal";
 
 export type ControlFormProps = {
-  active: string[];
+  active: Active;
   setModal: setModalType;
 };
 
@@ -27,7 +28,7 @@ export type Recipe = {
 export type State = {
   recipes: Recipe[];
   items: Item[];
-  active: string[];
+  active: Active;
 };
 
 export type StepsProps = {

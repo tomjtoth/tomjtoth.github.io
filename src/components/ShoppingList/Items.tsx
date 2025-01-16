@@ -5,17 +5,17 @@ import { Recipe } from "../../types/shopping-list";
 export default function Items() {
   const { recipes, active, items } = useAppSelector((s) => s.shoppingList);
 
-  const ul_items = items.map(({ id, item }) => ({ id: id.toString(), item }));
+  const ul_items = items.map(({ id, item }) => ({ id: `sl-item-${id}`, item }));
 
-  active.forEach((key) => {
-    const match = key.match(re.recipeId);
+  active.forEach((rec) => {
+    const match = rec.match(re.recipeId);
     if (match) {
       const recId = Number(match.groups!.recId);
       const recipe = recipes[recId] as Recipe;
 
       ul_items.push(
         ...recipe.items.map((item, i) => ({
-          id: `${key}-${i}`,
+          id: `${rec}-${i}`,
           item: `${item} (${recipe.title})`,
         }))
       );
@@ -24,7 +24,11 @@ export default function Items() {
 
   return (
     <>
-      <h2 className="recipe-items">tavarat korissasi</h2>
+      <h2 className="recipe-items">
+        {ul_items.length > 0
+          ? "tavarat listallasi"
+          : "listasi on tyhjä, lisää kamaa!"}
+      </h2>
       <ul id="recipe-items">
         {ul_items
           // find out which regex matches the item, store it's index, too
@@ -51,7 +55,7 @@ export default function Items() {
                     ❓
                   </span>
                 )}
-                {!id.toString().startsWith("rec") && (
+                {!id.toString().startsWith("recipe") && (
                   <span className="recipe-item-del clickable">(🚫 poista)</span>
                 )}
               </li>
