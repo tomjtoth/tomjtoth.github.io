@@ -15,7 +15,9 @@ const slice = createSlice({
 
     toggleActive: (state, { payload }) => {
       if (state.active.includes(payload)) {
-        state.active = state.active.filter((id) => !id.startsWith(payload));
+        state.active = state.active.filter(
+          (id) => id !== payload && !id.startsWith(`${payload}-`)
+        );
       } else {
         state.active.push(payload);
       }
