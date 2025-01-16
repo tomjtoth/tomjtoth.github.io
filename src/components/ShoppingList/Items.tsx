@@ -1,21 +1,23 @@
 import { useAppSelector } from "../../hooks";
-import { re } from "./config";
+import { order } from "./config";
 import { Recipe } from "../../types/shopping-list";
+
+const RE_RECIPE_ID = /^slr-(?<recId>\d+)$/;
 
 export default function Items() {
   const { recipes, active, items } = useAppSelector((s) => s.shoppingList);
 
-  const ul_items = items.map(({ id, item }) => ({ id: `sl-item-${id}`, item }));
+  const ul_items = items.map(({ id, item }) => ({ id: `sli-${id}`, item }));
 
-  active.forEach((rec) => {
-    const match = rec.match(re.recipeId);
+  active.forEach((id) => {
+    const match = id.match(RE_RECIPE_ID);
     if (match) {
       const recId = Number(match.groups!.recId);
       const recipe = recipes[recId] as Recipe;
 
       ul_items.push(
         ...recipe.items.map((item, i) => ({
-          id: `${rec}-${i}`,
+          id: `${id}-${i}`,
           item: `${item} (${recipe.title})`,
         }))
       );
@@ -24,16 +26,16 @@ export default function Items() {
 
   return (
     <>
-      <h2 className="recipe-items">
+      <h2 className="sli">
         {ul_items.length > 0
           ? "tavarat listallasi"
           : "listasi on tyhjä, lisää kamaa!"}
       </h2>
-      <ul id="recipe-items">
+      <ul id="sli">
         {ul_items
           // find out which regex matches the item, store it's index, too
           .map(({ item, id }) => ({
-            idx: re.order.findIndex((regex) => regex.test(item)),
+            idx: order.findIndex((regex) => regex.test(item)),
             id,
             item,
           }))
@@ -45,7 +47,7 @@ export default function Items() {
               <li
                 key={id}
                 id={id.toString()}
-                className={`clickable padded alternating recipe-item${
+                className={`clickable padded alternating sli${
                   isActive ? " active" : ""
                 }`}
               >
@@ -55,8 +57,8 @@ export default function Items() {
                     ❓
                   </span>
                 )}
-                {!id.toString().startsWith("recipe") && (
-                  <span className="recipe-item-del clickable">(🚫 poista)</span>
+                {!id.toString().startsWith("slr") && (
+                  <span className="sli-del clickable">(🚫 poista)</span>
                 )}
               </li>
             );
