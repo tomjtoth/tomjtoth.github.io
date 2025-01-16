@@ -42,17 +42,13 @@ export default function Luxor() {
           const { tagName, textContent, classList, parentNode } =
             target as HTMLElement;
           if (classList.contains("luxor-fld-add")) {
-            dispatch(
-              addField(Number((parentNode!.parentNode! as HTMLElement).id))
-            );
+            dispatch(addField((parentNode!.parentNode! as HTMLElement).id));
           } else if (classList.contains("luxor-fld-del")) {
             setModal({
               prompt: <>Azt a mezőt most törlöm...</>,
               lang: "hu",
               onSuccess: () =>
-                dispatch(
-                  rmField(Number((parentNode!.parentNode! as HTMLElement).id))
-                ),
+                dispatch(rmField((parentNode!.parentNode! as HTMLElement).id)),
             });
           } else if (locked && tagName === "TD") {
             const asNumber = Number(textContent);

@@ -8,12 +8,10 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
   return (
     <tbody>
       {rows.map((cells, rowIdx) => {
-        const rowId = `${fieldId}-${rowIdx}`;
-
         return (
-          <tr key={rowId}>
+          <tr key={rowIdx}>
             {cells.map((cell, cellIdx) => {
-              const cellId = `${rowId}-${cellIdx}`;
+              const cellId = `luxor-${fieldId}-${rowIdx}-${cellIdx}`;
 
               const classes = [];
               if (locked) classes.push("clickable");
@@ -35,7 +33,7 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
               const max = min + 14;
               return (
                 <td
-                  key={cellId}
+                  key={cellIdx}
                   {...{
                     id: locked ? cellId : undefined,
                     className: classes.join(" "),

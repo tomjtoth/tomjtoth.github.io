@@ -28,7 +28,7 @@ export default function Buttons({ lang, buttons }: ModalButtonsProps) {
 
     res.push(
       <button
-        key={id}
+        key={i}
         {...{
           id,
           className: "clickable",

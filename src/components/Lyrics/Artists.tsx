@@ -1,5 +1,6 @@
 import { useAppSelector } from "../../hooks";
-import { Active, Artist } from "../../types/lyrics";
+import { Active } from "../../types/common";
+import { Artist } from "../../types/lyrics";
 
 import Albums from "./Albums";
 import Logo from "./Logos";
@@ -14,12 +15,12 @@ export default function Artists() {
 
         return (
           <li
-            key={id}
+            key={artistIdx}
             {...{
+              id,
               className: `clickable padded bordered${
                 (active as Active).includes(id) ? " active" : ""
               }`,
-              id,
             }}
           >
             {name}
