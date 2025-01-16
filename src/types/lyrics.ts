@@ -1,3 +1,5 @@
+import { Active } from "./common";
+
 export type Song = {
   title: string;
   lyrics: string;
@@ -26,8 +28,6 @@ export type SongsProps = {
   albumIdx: number;
   songs: Song[];
 };
-
-export type Active = string[];
 
 export type State = {
   artists: Artist[];
