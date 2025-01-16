@@ -8,6 +8,7 @@ import { ModalProps } from "../../types/modal";
 const success = /-(?:ok|yes)$/;
 const failure = /-(?:cancel|no)$/;
 const keepModal = /^modal(?:-buttons)?$/;
+const sound = new Audio("/modal.mp3");
 
 export default function Modal({ modal, setModal, timeOut = 3000 }: ModalProps) {
   useEffect(() => {
@@ -21,6 +22,11 @@ export default function Modal({ modal, setModal, timeOut = 3000 }: ModalProps) {
   if (!modal) return;
 
   const { prompt, onSuccess, onFailure, lang = "fi", buttons = "oc" } = modal;
+
+  if (prompt) {
+    sound.currentTime = 0;
+    sound.play();
+  }
 
   return (
     prompt && (

@@ -6,6 +6,7 @@ const urlsToCache = [
   "/icon.png",
   "/recipes.yaml",
   "/lyrics.yaml",
+  "/modal.mp3",
 ];
 
 function deleteAll(cache, these, except) {
