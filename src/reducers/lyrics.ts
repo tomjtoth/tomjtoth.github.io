@@ -22,21 +22,21 @@ const slice = createSlice({
   },
 });
 
-export const act = slice.actions;
+export const sa = slice.actions;
 
 export function init() {
   return (dispatch: AppDispatch) =>
     Promise.all([fetchYaml("/lyrics.yaml").then(parseYaml), db.load()]).then(
-      ([artists, active]) => dispatch(act.init({ artists, active }))
+      ([artists, active]) => dispatch(sa.init({ artists, active }))
     );
 }
 
 export function toggleSelection(id: string) {
-  return (dispatch: AppDispatch) => dispatch(act.toggleActive(id));
+  return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
 }
 
 export function restSelection() {
-  return (dispatch: AppDispatch) => dispatch(act.resetActive());
+  return (dispatch: AppDispatch) => dispatch(sa.resetActive());
 }
 
 export default slice.reducer;

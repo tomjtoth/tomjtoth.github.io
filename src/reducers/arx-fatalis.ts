@@ -17,17 +17,17 @@ const slice = createSlice({
   },
 });
 
-const act = slice.actions;
+const sa = slice.actions;
 
 export function castSpell(spell: number) {
-  return (dispatch: AppDispatch) => dispatch(act.addSpell(spell));
+  return (dispatch: AppDispatch) => dispatch(sa.addSpell(spell));
 }
 
 export function init() {
   return (dispatch: AppDispatch) =>
     db.load().then((castSpells) =>
       dispatch(
-        act.init({
+        sa.init({
           castSpells,
           score: castSpells.reduce(
             (sum: number, spellIdx) => sum + spellValue(spellIdx),

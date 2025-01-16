@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import type { Field, State } from "../types/luxor";
-import db from "../services/luxor";
+import db, { updateFields, numFieldId } from "../services/luxor";
 import { last, maxId } from "../utils";
 
 const emptyField = [
@@ -11,6 +11,7 @@ const emptyField = [
   [0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0],
 ];
+
 const bug = {
   x: "110vw",
   privacy: false,
@@ -41,17 +42,7 @@ const slice = createSlice({
     },
 
     saveFields: (state) => {
-      document
-        .querySelectorAll<HTMLInputElement>("input.luxor-num")
-        .forEach(({ id, value }) => {
-          const [, fieldIdStr, rowIdxStr, cellIdxStr] = id.match(
-            /(\d+)-([0-4])-([0-4])$/
-          )!;
-
-          state.fields.find(({ id }) => id === Number(fieldIdStr))!.rows[
-            Number(rowIdxStr)
-          ][Number(cellIdxStr)] = Number(value);
-        });
+      updateFields(state);
 
       db.saveFields(state);
     },
@@ -114,7 +105,7 @@ const slice = createSlice({
   },
 });
 
-const act = slice.actions;
+const sa = slice.actions;
 
 export function init(preset: string | null) {
   return async (dispatch: AppDispatch) => {
@@ -146,51 +137,51 @@ export function init(preset: string | null) {
 
     if (fields.length === 0) fields.push({ id: 1, order: 1, rows: emptyField });
 
-    dispatch(act.init({ pickedNums, fields }));
+    dispatch(sa.init({ pickedNums, fields }));
   };
 }
 
 export function addNum(num: number) {
-  return (dispatch: AppDispatch) => dispatch(act.addNum(num));
+  return (dispatch: AppDispatch) => dispatch(sa.addNum(num));
 }
 
 export function toggleLock() {
-  return (dispatch: AppDispatch) => dispatch(act.toggleLock());
+  return (dispatch: AppDispatch) => dispatch(sa.toggleLock());
 }
 
 export function saveFields() {
-  return (dispatch: AppDispatch) => dispatch(act.saveFields());
+  return (dispatch: AppDispatch) => dispatch(sa.saveFields());
 }
 
 export function clearNums() {
-  return (dispatch: AppDispatch) => dispatch(act.clearNums());
+  return (dispatch: AppDispatch) => dispatch(sa.clearNums());
 }
 
-export function addField(id: number) {
-  return (dispatch: AppDispatch) => dispatch(act.addField(id));
+export function addField(id: string) {
+  return (dispatch: AppDispatch) => dispatch(sa.addField(numFieldId(id)));
 }
 
-export function rmField(id: number) {
-  return (dispatch: AppDispatch) => dispatch(act.rmField(id));
+export function rmField(id: string) {
+  return (dispatch: AppDispatch) => dispatch(sa.rmField(numFieldId(id)));
 }
 
 export function rmLastNum() {
   return (dispatch: AppDispatch) => {
-    dispatch(act.setBugBlur(true));
-    dispatch(act.rmLastNum());
+    dispatch(sa.setBugBlur(true));
+    dispatch(sa.rmLastNum());
   };
 }
 
 export function bugCrawlsTo(x: number | string) {
-  return (dispatch: AppDispatch) => dispatch(act.moveBugTo(x));
+  return (dispatch: AppDispatch) => dispatch(sa.moveBugTo(x));
 }
 
 export function unblurBug() {
-  return (dispatch: AppDispatch) => dispatch(act.setBugBlur(false));
+  return (dispatch: AppDispatch) => dispatch(sa.setBugBlur(false));
 }
 
 export function resetBug() {
-  return (dispatch: AppDispatch) => dispatch(act.resetBug());
+  return (dispatch: AppDispatch) => dispatch(sa.resetBug());
 }
 
 export default slice.reducer;

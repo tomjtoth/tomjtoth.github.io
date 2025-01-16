@@ -22,14 +22,14 @@ const slice = createSlice({
   },
 });
 
-const act = slice.actions;
+const sa = slice.actions;
 
 export function setLevels(levels: Levels) {
-  return (dispatch: AppDispatch) => dispatch(act.setLevels(levels));
+  return (dispatch: AppDispatch) => dispatch(sa.setLevels(levels));
 }
 
 export function setAllowed(to?: boolean) {
-  return (dispatch: AppDispatch) => dispatch(act.setAllowed(to));
+  return (dispatch: AppDispatch) => dispatch(sa.setAllowed(to));
 }
 
 export default slice.reducer;

@@ -15,9 +15,10 @@ const slice = createSlice({
   },
 });
 
-const { setActive } = slice.actions;
+const sa = slice.actions;
 
-export const setSidepanel = (to?: boolean) => (dispatch: AppDispatch) =>
-  dispatch(setActive(to));
+export function setSidepanel(to?: boolean) {
+  return (dispatch: AppDispatch) => dispatch(sa.setActive(to));
+}
 
 export default slice.reducer;
