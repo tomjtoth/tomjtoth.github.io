@@ -30,18 +30,16 @@ export default function Fields() {
           ).find(([val]) => Math.round(val) > 0)!;
 
           importedSpan = (
-            <>
-              <span className="luxor-fld-imported padded">
-                {Math.round(dtNum)} {dtStr} korábbról
-              </span>
-            </>
+            <span className="luxor-fld-imported padded">
+              {Math.round(dtNum)} {dtStr} korábbról
+            </span>
           );
         }
 
         return (
           <li
             key={fieldId}
-            id={fieldId.toString()}
+            id={`luxor-${fieldId}`}
             className={`luxor ${locked ? "" : " bordered"}`}
           >
             {!locked && (

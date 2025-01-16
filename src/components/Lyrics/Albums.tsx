@@ -1,8 +1,9 @@
 import { useAppSelector } from "../../hooks";
-import type { Active, AlbumsProps } from "../../types/lyrics";
+import type { AlbumsProps } from "../../types/lyrics";
 
 import Songs from "./Songs";
 import Logo from "./Logos";
+import { Active } from "../../types/common";
 
 export default function Albums({ artistIdx, albums }: AlbumsProps) {
   const { active } = useAppSelector((s) => s.lyrics);
@@ -14,8 +15,9 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
 
         return (
           <li
-            key={id}
+            key={albumIdx}
             {...{
+              id,
               className: `${
                 albums.length > 1 ? "clickable " : "non-clickable "
               }padded bordered${
@@ -23,7 +25,6 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
                   ? " active"
                   : ""
               }`,
-              id,
             }}
           >
             {year && `${year} - `}

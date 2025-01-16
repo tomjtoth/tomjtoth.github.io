@@ -1,9 +1,10 @@
 import { useAppSelector } from "../../hooks";
-import type { SongsProps, Artist, Active } from "../../types/lyrics";
+import { Active } from "../../types/common";
+import type { SongsProps, Artist } from "../../types/lyrics";
 
 import Logo from "./Logos";
 
-const search_on_yt = (artist: string, song: string) =>
+const searchYouTube = (artist: string, song: string) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent(
     `${artist} - Topic ${song}`
   )}`;
@@ -37,7 +38,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
         } else {
           link = (
             <Logo
-              url={search_on_yt((artists[artistIdx] as Artist).name, title)}
+              url={searchYouTube((artists[artistIdx] as Artist).name, title)}
             />
           );
           className += " missing-lyrics";
@@ -45,7 +46,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
         }
 
         return (
-          <li key={id} {...{ className, id }}>
+          <li key={songIdx} {...{ className, id }}>
             {title}
             {link}
             {!lyrics.startsWith("http") && <p className="lyrics">{lyrics}</p>}
