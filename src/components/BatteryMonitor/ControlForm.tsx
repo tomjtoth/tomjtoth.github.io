@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useBattery } from "react-use";
 
+import useField from "../../hooks/useField";
 import { checkPermission } from "./notifications";
-import { useField } from "../../hooks";
 import { setLevels, setAllowed } from "../../reducers/battery-monitor";
 import { BatteryState, ControlFormProps } from "../../types/battery-monitor";
 

@@ -1,4 +1,5 @@
-import { useField, useAppDispatch } from "../../hooks";
+import { useAppDispatch } from "../../hooks";
+import useField from "../../hooks/useField";
 import { NumberInputProps } from "../../types/hooks";
 import { ControlFormProps } from "../../types/shopping-list";
 import {
