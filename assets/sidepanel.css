@@ -11,12 +11,17 @@
   transition: 0.5s;
 }
 
-#qr-code {
-  margin: 0px 25px;
-}
-
 #sidepanel.active {
   left: 0px;
+}
+
+#sidepanel > ul {
+  list-style: none;
+  padding-left: 8px;
+}
+
+#qr-code {
+  margin: 0px 25px;
 }
 
 .nav-link {
