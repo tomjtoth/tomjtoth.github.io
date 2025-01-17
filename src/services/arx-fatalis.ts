@@ -1,7 +1,7 @@
 import { current } from "@reduxjs/toolkit";
 import { db } from "../db";
 import { ArxFatalisSpells } from "../types/db";
-import { spells } from "../components/ArxFatalis/config";
+import { spells } from "../components/arx_fatalis/config";
 
 const id = "arx-fatalis";
 

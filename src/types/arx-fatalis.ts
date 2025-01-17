@@ -1,4 +1,4 @@
-import { RE } from "../components/ArxFatalis/config";
+import { RE } from "../components/arx_fatalis/config";
 
 export type State = {
   score: number;
