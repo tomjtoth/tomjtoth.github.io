@@ -1,12 +1,12 @@
 mod config;
 use crate::{
-    utils::{use_persistent, UsePersistent},
+    utils::{get_pathname, use_persistent, UsePersistent},
     Route,
 };
 use config::LINKS;
 use dioxus::prelude::*;
 use qrcode::render::svg;
-use qrcode::{EcLevel, QrCode, Version};
+use qrcode::{EcLevel, QrCode};
 
 #[derive(Clone, Copy)]
 pub struct SpState(pub UsePersistent<bool>);
@@ -49,7 +49,7 @@ pub fn Sidepanel() -> Element {
             }
             {
                 let code = QrCode::with_error_correction_level(
-                    "https://ttj.hu".as_bytes(),
+                    get_pathname().as_bytes(),
                     EcLevel::L
                 ).unwrap();
 
