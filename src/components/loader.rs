@@ -3,6 +3,8 @@ use dioxus::prelude::*;
 #[component]
 pub fn Loader() -> Element {
     rsx! {
-        "WiP"
+        div { id: "modal-blur",
+            div  { id: "loader" }
+        }
     }
 }
