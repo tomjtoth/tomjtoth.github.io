@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
-
 use gloo_storage::{LocalStorage, Storage};
 use serde::{de::DeserializeOwned, Serialize};
+use web_sys::window;
 
 /// A persistent storage hook that can be used to store data across application reloads.
 #[allow(clippy::needless_return)]
@@ -51,7 +51,12 @@ impl<T: Serialize + DeserializeOwned + Clone + 'static> UsePersistent<T> {
     pub fn set(&mut self, value: T) {
         let mut inner = self.inner.write();
         // Write the new value to local storage
-        LocalStorage::set(inner.key.as_str(), &value);
+        LocalStorage::set(inner.key.as_str(), &value).unwrap();
         inner.value = value;
     }
+}
+
+pub fn get_pathname() -> String {
+    let loc = window().unwrap().location();
+    loc.pathname().unwrap_or("https://ttj.hu".to_string())
 }
