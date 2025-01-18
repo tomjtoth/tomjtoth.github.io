@@ -2,6 +2,11 @@
 
 These are mostly static websites and other tools I use from different machines without bothering to log in anywhere.
 
+## Migration in Progress
+
+The TypeScript version still contains a few bugs, giving Rust (+ WASM via Dioxus) another try.
+
+<!--
 ## Custom solutions
 
 ### IndexedDB
@@ -17,6 +22,7 @@ All, but 2 reducers have been migrated to Dexie.js from localStorage. Sidepanel 
   - upon 2nd visit to the website, as importing App is faster than registering the service-worker
 - webpack generated .js and .css files are also refreshed along with the cached index.html when necessary
 - the client gets responses from local cache if exists, and should be able to access new resources upon next request
+ -->
 
 ## Arch Linux
 
