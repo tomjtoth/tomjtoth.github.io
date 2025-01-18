@@ -12,6 +12,7 @@ gloo-storage = "0.3.0"
 pest = "2.7.15"
 qrcode = "0.14.1"
 serde = "1.0.217"
+web-sys = "0.3.77"
 
 [features]
 default = ["web"]
