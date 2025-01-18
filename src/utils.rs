@@ -60,3 +60,22 @@ pub fn get_pathname() -> String {
     let loc = window().unwrap().location();
     loc.pathname().unwrap_or("https://ttj.hu".to_string())
 }
+
+pub async fn fetch_yaml<T>(yaml: &str, fallback: T) -> T
+where
+    T: DeserializeOwned,
+{
+    let base_url = web_sys::window().unwrap().origin();
+
+    // Construct the full URL
+    let url = format!("{}{}", base_url, yaml);
+
+    // Attempt to fetch and deserialize the YAML
+    match reqwest::get(&url).await {
+        Ok(response) => match response.text().await {
+            Ok(text) => serde_yaml::from_str::<T>(&text).unwrap_or(fallback),
+            Err(_) => fallback,
+        },
+        Err(_) => fallback,
+    }
+}
