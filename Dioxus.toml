@@ -2,6 +2,7 @@
 
 # App (Project) Name
 name = "gh_pages"
+asset_dir = "public"
 
 [web.app]
 
