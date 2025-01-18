@@ -9,6 +9,7 @@ const MAIN_CSS: Asset = asset!("/assets/main.css");
 const SIDEPANEL_CSS: Asset = asset!("/assets/sidepanel.css");
 const HEADER_CSS: Asset = asset!("/assets/header.css");
 const LOADER_CSS: Asset = asset!("/assets/loader.css");
+const MODAL_CSS: Asset = asset!("/assets/modal.css");
 
 #[derive(Clone, Copy)]
 struct Title(Signal<String>);
@@ -35,6 +36,7 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: SIDEPANEL_CSS }
         document::Link { rel: "stylesheet", href: HEADER_CSS }
         document::Link { rel: "stylesheet", href: LOADER_CSS }
+        document::Link { rel: "stylesheet", href: MODAL_CSS }
         Router::<Route> {}
     }
 }
