@@ -4,6 +4,7 @@ use dioxus::prelude::*;
 
 #[derive(PartialEq, Clone, Props)]
 pub struct HeaderProps {
+    lang: Option<String>,
     title: String,
     content: Option<Element>,
 }
@@ -21,6 +22,7 @@ pub fn Header(props: HeaderProps) -> Element {
         div {
             id: "header",
             class: "border1-s",
+            lang: props.lang,
 
             span {
                 id:"menu-button",
