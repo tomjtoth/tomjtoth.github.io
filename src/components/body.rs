@@ -4,7 +4,7 @@ use dioxus::prelude::*;
 pub struct BodyProps {
     class: Option<String>,
     style: Option<String>,
-    content: Element,
+    children: Element,
 }
 
 /// Main view
@@ -16,7 +16,7 @@ pub fn Body(props: BodyProps) -> Element {
             class: props.class,
             style: props.style,
 
-            {props.content}
+            {props.children}
         }
     }
 }

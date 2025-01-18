@@ -1,6 +1,6 @@
-use crate::utils::fetch_yaml;
-
 use super::Header;
+use crate::components::Body;
+use crate::utils::fetch_yaml;
 use dioxus;
 use dioxus::prelude::*;
 use serde::{Deserialize, Serialize};
@@ -26,8 +26,12 @@ pub fn Visitors() -> Element {
     rsx! {
         Header {
             lang: "hu".to_string(),
-            title: "látogatók".to_string(),
-            content: rsx! {
+            title: &"látogatók",
+
+        }
+        Body {
+            p {
+                "The following visits are known:"
                 {visits.iter().map( |v| rsx!{ "{v.name} {v.arrival}" })}
             }
         }

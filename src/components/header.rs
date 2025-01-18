@@ -6,7 +6,7 @@ use dioxus::prelude::*;
 pub struct HeaderProps {
     lang: Option<String>,
     title: String,
-    content: Option<Element>,
+    children: Option<Element>,
 }
 
 #[component]
@@ -32,7 +32,7 @@ pub fn Header(props: HeaderProps) -> Element {
                 "☰"
             }
 
-            {props.content}
+            {props.children}
         }
 
     }
