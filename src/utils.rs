@@ -1,5 +1,6 @@
-use dioxus::prelude::*;
+use dioxus::{logger::tracing, prelude::*};
 use gloo_storage::{LocalStorage, Storage};
+use reqwest::Response;
 use serde::{de::DeserializeOwned, Serialize};
 use web_sys::window;
 
@@ -61,21 +62,23 @@ pub fn get_pathname() -> String {
     loc.pathname().unwrap_or("https://ttj.hu".to_string())
 }
 
-pub async fn fetch_yaml<T>(yaml: &str, fallback: T) -> T
+async fn fetch(url: String) -> Response {
+    let base_url = web_sys::window().unwrap().origin();
+    let url = format!("{}{}", base_url, url);
+    reqwest::get(&url).await.expect("failed to fetch {url}")
+}
+
+pub async fn to_yaml<T>(asset: Asset) -> T
 where
     T: DeserializeOwned,
 {
-    let base_url = web_sys::window().unwrap().origin();
+    let text = fetch(asset.to_string())
+        .await
+        .text()
+        .await
+        .expect("failed to turn response to text");
 
-    // Construct the full URL
-    let url = format!("{}{}", base_url, yaml);
+    tracing::debug!(text);
 
-    // Attempt to fetch and deserialize the YAML
-    match reqwest::get(&url).await {
-        Ok(response) => match response.text().await {
-            Ok(text) => serde_yaml::from_str::<T>(&text).unwrap_or(fallback),
-            Err(_) => fallback,
-        },
-        Err(_) => fallback,
-    }
+    serde_yaml::from_str::<T>(&text).expect("YAML parsing error")
 }
