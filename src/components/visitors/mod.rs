@@ -1,15 +1,19 @@
 use super::Header;
 use crate::components::Body;
-use crate::utils::fetch_yaml;
+use crate::utils::to_yaml;
 use dioxus;
 use dioxus::prelude::*;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
-#[derive(Serialize, Deserialize, PartialEq, Debug, Clone)]
+type DTZ = String; //DateTime<Utc>;
+
+static VISITORS_YAML: Asset = asset!("/assets/visitors.yaml");
+
+#[derive(PartialEq, Deserialize, Debug, Clone)]
 struct Visitor {
     name: String,
-    arrival: String,
-    departure: Option<String>,
+    arrival: DTZ,
+    departure: Option<DTZ>,
 }
 
 #[component]
@@ -18,8 +22,7 @@ pub fn Visitors() -> Element {
 
     use_future(move || async move {
         if visits.len() == 0 {
-            let fallback: Vec<Visitor> = vec![];
-            visits.set(fetch_yaml("/visitors.yaml", fallback).await)
+            visits.set(to_yaml(VISITORS_YAML).await);
         }
     });
 
