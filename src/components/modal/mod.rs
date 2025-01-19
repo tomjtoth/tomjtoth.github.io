@@ -51,12 +51,11 @@ pub fn Modal() -> Element {
                         id: "modal-buttons",
 
                         {props.buttons.iter().map(|(btn, ev_handler)| {
-                            let clone = btn.clone();
 
                             rsx! {
                                 Btn {
-                                    key: {clone as usize},
-                                    cfg: (lang, clone, *ev_handler)
+                                    key: {btn.clone() as usize},
+                                    cfg: (lang, btn.clone(), *ev_handler)
                                 }
                             }
                         })}
