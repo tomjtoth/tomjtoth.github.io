@@ -2,8 +2,7 @@ use dioxus::prelude::*;
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
 
-pub type EventHandler = Callback<MouseEvent>;
-pub type OptionalHandler = Option<EventHandler>;
+use super::OptionalHandler;
 
 #[derive(Debug, Hash, Eq, PartialEq, Clone, Copy)]
 pub enum Language {

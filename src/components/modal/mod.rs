@@ -1,70 +1,63 @@
 use crate::routes::Route;
 pub use button::*;
 use dioxus::{logger::tracing, prelude::*};
-
 mod button;
 
-#[derive(Clone, PartialEq)]
-pub struct ModalState {
+pub type EventHandler = Callback<MouseEvent>;
+pub type OptionalHandler = Option<EventHandler>;
+
+#[derive(Props, Clone, PartialEq)]
+pub struct ModalProps {
     pub lang: Option<Language>,
     pub children: Element,
     pub buttons: Vec<(Button, OptionalHandler)>,
+    pub cancel: EventHandler,
 }
 
-pub type ModalType = Option<ModalState>;
+pub type ModalType = Option<ModalProps>;
 
 #[component]
-pub fn Modal() -> Element {
-    let mut state = use_signal::<ModalType>(|| None);
-    use_context_provider(|| state);
+pub fn Modal(props: ModalProps) -> Element {
+    let lang = if let Some(lang) = props.lang {
+        lang
+    } else {
+        Language::Fi
+    };
 
-    if let Some(props) = state.cloned() {
-        let lang = if let Some(lang) = props.lang {
-            lang
-        } else {
-            Language::Fi
-        };
+    rsx! {
+        div {
+            id: "modal-blur",
 
-        rsx! {
+            onclick: move |evt| {
+                tracing::debug!("canceling modal");
+                props.cancel.call(evt);
+            },
+
+            // audio {
+            //     src: "/public/modal.mp3",
+            // }
+
             div {
-                id: "modal-blur",
+                id: "modal",
+                class: "padded bordered",
 
-                onclick: move |_| {
-                    tracing::debug!("hiding modal");
-                    state.replace(None);
-                },
-
-                // audio {
-                //     src: "/public/modal.mp3",
-                // }
+                {props.children}
 
                 div {
-                    id: "modal",
-                    class: "padded bordered",
-                    // onclick: |evt| {
-                    //     evt.stop_propagation();
-                    // },
+                    id: "modal-buttons",
 
-                    {props.children}
+                    {props.buttons.iter().map(|(btn, ev_handler)| {
 
-                    div {
-                        id: "modal-buttons",
-
-                        {props.buttons.iter().map(|(btn, ev_handler)| {
-
-                            rsx! {
-                                Btn {
-                                    key: {btn.clone() as usize},
-                                    cfg: (lang, btn.clone(), *ev_handler)
-                                }
+                        rsx! {
+                            Btn {
+                                key: {btn.clone() as usize},
+                                cfg: (lang, btn.clone(), *ev_handler)
                             }
-                        })}
-                    }
+                        }
+                    })}
                 }
             }
-            Outlet::<Route> {}
         }
-    } else {
-        rsx! { Outlet::<Route> {} }
+        Outlet::<Route> {}
     }
 }

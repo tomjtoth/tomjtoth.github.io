@@ -1,21 +1,36 @@
 use crate::components::{
     luxor::{LuxorState, LuxorType},
-    modal::{Button, Language, ModalState, ModalType},
+    modal::{Button, Language, ModalProps, ModalType},
+    Modal,
 };
 use dioxus::{logger::tracing, prelude::*};
 
 #[component]
 pub fn Controls() -> Element {
     let mut locked = use_signal(|| true);
-    let mut modal_state = use_context::<Signal<ModalType>>();
     let mut luxor_state = use_context::<LuxorType>();
     let mut num = use_signal(|| "".to_string());
+    let mut modal_state = use_signal::<ModalType>(|| None);
 
-    let clear_nums = use_callback(|_| {
-        tracing::debug!("back to controls");
+    let clear_nums = use_callback(move |_| {
+        tracing::debug!("clearing numbers in luxor state");
+        let curr = luxor_state.get();
+
+        luxor_state.set(LuxorState {
+            numbers: vec![],
+            fields: curr.fields,
+        });
+    });
+
+    let cancel_modal = use_callback(move |_| {
+        modal_state.set(None);
     });
 
     rsx! {
+        if let Some(modal) = modal_state() {
+            Modal { ..modal }
+        }
+
         form {
             id: "luxor-control",
             onsubmit: move |_| {
@@ -26,10 +41,6 @@ pub fn Controls() -> Element {
                         return;
                     } else {
                         curr.numbers.push(as_u8);
-                    }
-
-                    for (x, idx) in curr.numbers.iter().enumerate() {
-                        tracing::debug!(x, idx);
                     }
 
                     luxor_state.set(LuxorState{
@@ -71,7 +82,7 @@ pub fn Controls() -> Element {
                 class: "padded clickable",
                 title: "jelölések törlése",
                 onclick: move |_| {
-                    let _y = modal_state.write().insert(ModalState {
+                    modal_state.set(Some(ModalProps {
                         lang: Some(Language::Hu),
                         buttons: vec![
                             (Button::Ok, Some(clear_nums)),
@@ -79,8 +90,9 @@ pub fn Controls() -> Element {
                         ],
                         children: rsx! {
                             "Törlöm az " strong{"összes"} " húzott számot"
-                        }
-                    });
+                        },
+                        cancel: cancel_modal,
+                    }));
                 },
                 "♻️"
             }
