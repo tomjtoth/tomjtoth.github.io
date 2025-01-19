@@ -4,7 +4,7 @@ use crate::components::luxor::LuxorType;
 
 #[component]
 pub fn PickedNumsLine() -> Element {
-    let mut luxor_state = use_context::<LuxorType>();
+    let mut _luxor_state = use_context::<LuxorType>();
 
     rsx! {}
 
