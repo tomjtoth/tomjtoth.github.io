@@ -1,31 +1,24 @@
-use button::{Btn, Button, Language};
-use dioxus::prelude::*;
-
 use crate::routes::Route;
-mod button;
+pub use button::*;
+use dioxus::{logger::tracing, prelude::*};
 
-type OptCb = Option<Callback<MouseEvent>>;
+mod button;
 
 #[derive(Clone, PartialEq)]
 pub struct ModalState {
-    lang: Option<Language>,
-    children: Element,
-    buttons: Vec<Button>,
-    on_success: OptCb,
-    on_failure: OptCb,
+    pub lang: Option<Language>,
+    pub children: Element,
+    pub buttons: Vec<(Button, OptionalHandler)>,
 }
 
-type ModalType = Option<ModalState>;
+pub type ModalType = Option<ModalState>;
 
 #[component]
 pub fn Modal() -> Element {
     let mut state = use_signal::<ModalType>(|| None);
     use_context_provider(|| state);
 
-    if let Some(props) = state.take() {
-        let mut success_unassigned = true;
-        let mut failure_unassigned = true;
-
+    if let Some(props) = state.cloned() {
         let lang = if let Some(lang) = props.lang {
             lang
         } else {
@@ -35,41 +28,41 @@ pub fn Modal() -> Element {
         rsx! {
             div {
                 id: "modal-blur",
+
                 onclick: move |_| {
-                    state.set(None)
+                    tracing::debug!("hiding modal");
+                    state.replace(None);
                 },
+
+                // audio {
+                //     src: "/public/modal.mp3",
+                // }
+
                 div {
                     id: "modal",
                     class: "padded bordered",
+                    // onclick: |evt| {
+                    //     evt.stop_propagation();
+                    // },
 
                     {props.children}
 
-                    {props.buttons.iter().map(|btn| {
-                        let mut onclick = None;
+                    div {
+                        id: "modal-buttons",
 
-                        if success_unassigned && (
-                            btn == &Button::Ok ||
-                            btn == &Button::Yes
-                        ) {
-                            onclick = props.on_success;
-                            success_unassigned = false;
-                        }
+                        {props.buttons.iter().map(|(btn, ev_handler)| {
+                            let clone = btn.clone();
 
-                        if failure_unassigned && (
-                            btn == &Button::Cancel ||
-                            btn == &Button::No
-                        ) {
-                            onclick = props.on_failure;
-                            failure_unassigned = false;
-                        }
-
-                        rsx!{
-                            Btn { cfg: (lang, btn.clone(), onclick) }
-                        }
-                    })}
+                            rsx! {
+                                Btn {
+                                    key: {clone as usize},
+                                    cfg: (lang, clone, *ev_handler)
+                                }
+                            }
+                        })}
+                    }
                 }
             }
-
             Outlet::<Route> {}
         }
     } else {
