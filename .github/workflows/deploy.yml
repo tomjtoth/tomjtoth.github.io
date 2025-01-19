@@ -38,7 +38,9 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - name: Install Dioxus-CLI
         shell: bash
-        run: cargo install dioxus-cli
+        run: |
+          curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+          cargo binstall --no-confirm dioxus-cli
 
       - name: Build Project 🎁
         shell: bash
