@@ -1,9 +1,9 @@
 name: Deploy to GitHub Pages
 
-# on:
-#   push:
-#     branches:
-#       - dioxus
+on:
+  push:
+    branches:
+      - dioxus
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
