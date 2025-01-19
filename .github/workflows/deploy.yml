@@ -44,7 +44,10 @@ jobs:
 
       - name: Build Project 🎁
         shell: bash
-        run: dx build --release && cp ./dist/index.html ./dist/404.html
+        run: |
+          dx build --release
+          mv /home/runner/work/tomjtoth.github.io/tomjtoth.github.io/target/dx/gh_pages/release/web/public ./dist
+          cp ./dist/index.html ./dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
