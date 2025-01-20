@@ -1,10 +1,10 @@
 use dioxus::prelude::*;
 
-use crate::components::luxor::LuxorType;
+use crate::components::luxor::DiskLuxorNumbers;
 
 #[component]
 pub fn PickedNumsLine() -> Element {
-    let mut _luxor_state = use_context::<LuxorType>();
+    let mut numbers = use_context::<DiskLuxorNumbers>();
 
     rsx! {}
 

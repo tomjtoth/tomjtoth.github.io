@@ -1,5 +1,5 @@
 use crate::components::{
-    luxor::{LuxorState, LuxorType},
+    luxor::{DiskLuxorNumbers, LuxorNumbers},
     modal::{Button, Language, ModalProps, ModalType},
     Modal,
 };
@@ -7,19 +7,14 @@ use dioxus::{logger::tracing, prelude::*};
 
 #[component]
 pub fn Controls() -> Element {
-    let mut locked = use_signal(|| true);
-    let mut luxor_state = use_context::<LuxorType>();
-    let mut num = use_signal(|| "".to_string());
     let mut modal_state = use_signal::<ModalType>(|| None);
+    let mut numbers = use_context::<DiskLuxorNumbers>();
+    let mut locked = use_signal(|| true);
+    let mut num = use_signal(|| "".to_string());
 
     let clear_nums = use_callback(move |_| {
         tracing::debug!("clearing numbers in luxor state");
-        let curr = luxor_state.get();
-
-        luxor_state.set(LuxorState {
-            numbers: vec![],
-            fields: curr.fields,
-        });
+        numbers.set(LuxorNumbers::default());
     });
 
     let cancel_modal = use_callback(move |_| {
@@ -27,26 +22,24 @@ pub fn Controls() -> Element {
     });
 
     rsx! {
-        if let Some(modal) = modal_state() {
-            Modal { ..modal }
+        if let Some(props) = modal_state() {
+            Modal { ..props }
         }
 
         form {
             id: "luxor-control",
             onsubmit: move |_| {
                 if let Ok(as_u8) = num().parse::<u8>() {
-                    let mut curr = luxor_state.get();
+                    let mut curr = numbers.get();
 
-                    if let Some(_) = curr.numbers.iter().position(|&n| n == as_u8) {
+                    if let Some(_) = curr.0.iter().position(|&n| n == as_u8) {
                         return;
                     } else {
-                        curr.numbers.push(as_u8);
+                        curr.0.push(as_u8);
+                        tracing::debug!("current numbers: {:?}", curr.0);
+                        numbers.set(curr);
                     }
 
-                    luxor_state.set(LuxorState{
-                        numbers: curr.numbers,
-                        fields: curr.fields,
-                    })
                 }
                 num.set("".to_string());
             },
@@ -73,8 +66,7 @@ pub fn Controls() -> Element {
                 value: "{num}",
                 oninput: move |evt| {
                     evt.prevent_default();
-                    num.set(evt.value())
-
+                    num.set(evt.value());
                 },
             }
 
