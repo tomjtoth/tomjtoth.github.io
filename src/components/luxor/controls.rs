@@ -24,9 +24,7 @@ pub fn Controls() -> Element {
                 if let Ok(as_u8) = num().parse::<u8>() {
                     let mut curr = numbers.get();
 
-                    if let Some(_) = curr.0.iter().position(|&n| n == as_u8) {
-                        return;
-                    } else {
+                    if let None = curr.0.iter().position(|&n| n == as_u8) {
                         curr.0.push(as_u8);
                         tracing::debug!("current numbers: {:?}", curr.0);
                         numbers.set(curr);
