@@ -17,16 +17,6 @@ pub fn Controls() -> Element {
         numbers.set(LuxorNumbers::default());
     });
 
-    let confirm_clearing_numbers = move |_| {
-        modal.set(ModalState {
-            lang: Some(Language::Hu),
-            buttons: vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)],
-            prompt: Some(rsx! {
-                "Törlöm az " strong{"összes"} " húzott számot"
-            }),
-        });
-    };
-
     rsx! {
         form {
             id: "luxor-control",
@@ -75,7 +65,15 @@ pub fn Controls() -> Element {
             span {
                 class: "padded clickable",
                 title: "jelölések törlése",
-                onclick: confirm_clearing_numbers,
+                onclick: move |_| {
+                    modal.set(ModalState {
+                        lang: Some(Language::Hu),
+                        buttons: vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)],
+                        prompt: Some(rsx! {
+                            "Törlöm az " strong{"összes"} " húzott számot"
+                        }),
+                    });
+                },
                 "♻️"
             }
         }
