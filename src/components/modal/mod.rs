@@ -32,7 +32,7 @@ pub fn Modal() -> Element {
     let mut state = use_signal(|| ModalState::default());
     use_context_provider(|| state);
 
-    let reset = use_callback(move |evt| state.set(ModalState::default()));
+    let reset = use_callback(move |_| state.set(ModalState::default()));
 
     rsx! {
         if let ModalState {

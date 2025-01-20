@@ -62,7 +62,7 @@ pub fn PickedNumsLine() -> Element {
                 div {
                     id: "luxor-num-bug-priv-filter",
                     style: "left: {bug.read().left};",
-                    onanimationend: move |evt| {
+                    onanimationend: move |_| {
                         bug.set(Bugstate {
                             class: Some("crawling"),
                             left: "-10vw".to_string(),
@@ -84,7 +84,7 @@ pub fn PickedNumsLine() -> Element {
                             "Törlöm az " strong{"utolsó"} " húzott számot"
                         }),
                         lang: Some(Language::Hu),
-                        buttons: vec![(Button::Ok, Some(use_callback(move |evt| {
+                        buttons: vec![(Button::Ok, Some(use_callback(move |_| {
                                 tracing::debug!("bug comes in");
                                 bug.set(Bugstate {
                                     class: Some("crawling"),
@@ -106,7 +106,7 @@ pub fn PickedNumsLine() -> Element {
                 style: "left: {bug.read().left};",
                 ontransitionend: {
                     let mut curr_nums_handle = curr_nums.clone();
-                    move |evt| {
+                    move |_| {
                     if bug.read().left == "-10vw".to_string() {
                         tracing::debug!("bug returns to right unseen");
                         bug.set(Bugstate {
