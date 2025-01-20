@@ -76,11 +76,10 @@ pub fn Modal() -> Element {
                             };
 
                             buttons.iter().map(move |(btn, ev_handler)| {
-                                let clone = btn.clone();
                                 rsx! {
                                     Btn {
-                                        key: {clone as usize},
-                                        cfg: (lang, clone, *ev_handler)
+                                        key: {btn.clone() as usize},
+                                        cfg: (lang, btn.clone(), *ev_handler)
                                     }
                                 }
                             })
