@@ -16,26 +16,31 @@ struct Field {
 }
 
 #[derive(Serialize, Deserialize, Clone)]
-struct LuxorState {
-    numbers: Vec<u8>,
-    fields: Vec<Field>,
-}
-
-impl Default for LuxorState {
+struct LuxorNumbers(Vec<u8>);
+impl Default for LuxorNumbers {
     fn default() -> Self {
-        LuxorState {
-            numbers: vec![],
-            fields: vec![],
-        }
+        LuxorNumbers(vec![])
     }
 }
 
-type LuxorType = UsePersistent<LuxorState>;
+#[derive(Serialize, Deserialize, Clone)]
+struct LuxorFields(Vec<Field>);
+impl Default for LuxorFields {
+    fn default() -> Self {
+        LuxorFields(vec![])
+    }
+}
+
+type DiskLuxorFields = UsePersistent<LuxorFields>;
+type DiskLuxorNumbers = UsePersistent<LuxorNumbers>;
 
 #[component]
 pub fn Luxor() -> Element {
-    let state = use_persistent("luxor", || LuxorState::default());
-    use_context_provider(|| state);
+    let numbers = use_persistent("luxor-numbers", || LuxorNumbers::default());
+    use_context_provider(|| numbers);
+
+    let fields = use_persistent("luxor-fields", || LuxorFields::default());
+    use_context_provider(|| fields);
 
     rsx! {
         Header { title: &"Luxor", Controls {} }
