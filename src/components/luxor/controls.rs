@@ -1,13 +1,13 @@
 use crate::components::{
     luxor::{LuxorState, LuxorType},
-    modal::{Button, Language, ModalState, ModalType},
+    modal::{Button, Language, ModalState},
 };
 use dioxus::{logger::tracing, prelude::*};
 
 #[component]
 pub fn Controls() -> Element {
     let mut locked = use_signal(|| true);
-    let mut modal_state = use_context::<Signal<ModalType>>();
+    let mut modal_state = use_context::<Signal<ModalState>>();
     let mut luxor_state = use_context::<LuxorType>();
     let mut num = use_signal(|| "".to_string());
 
@@ -71,15 +71,12 @@ pub fn Controls() -> Element {
                 class: "padded clickable",
                 title: "jelölések törlése",
                 onclick: move |_| {
-                    let _y = modal_state.write().insert(ModalState {
+                    modal_state.set(ModalState {
                         lang: Some(Language::Hu),
-                        buttons: vec![
-                            (Button::Ok, Some(clear_nums)),
-                            (Button::Cancel, None)
-                        ],
-                        children: rsx! {
+                        buttons: vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)],
+                        prompt: Some(rsx! {
                             "Törlöm az " strong{"összes"} " húzott számot"
-                        }
+                        }),
                     });
                 },
                 "♻️"

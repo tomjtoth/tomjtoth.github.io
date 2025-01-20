@@ -7,31 +7,41 @@ mod button;
 #[derive(Clone, PartialEq)]
 pub struct ModalState {
     pub lang: Option<Language>,
-    pub children: Element,
-    pub buttons: Vec<(Button, OptionalHandler)>,
+    pub prompt: Option<Element>,
+    pub buttons: Vec<(Button, OptCb)>,
 }
 
-pub type ModalType = Option<ModalState>;
+impl Default for ModalState {
+    fn default() -> Self {
+        ModalState {
+            lang: Some(Language::Fi),
+            prompt: None,
+            buttons: vec![(Button::Ok, None)],
+        }
+    }
+}
 
 #[component]
 pub fn Modal() -> Element {
-    let mut state = use_signal::<ModalType>(|| None);
+    let mut state = use_signal(|| ModalState::default());
     use_context_provider(|| state);
 
-    if let Some(props) = state.cloned() {
-        let lang = if let Some(lang) = props.lang {
-            lang
-        } else {
-            Language::Fi
-        };
-
-        rsx! {
+    rsx! {
+        if let ModalState {
+            lang,
+            prompt: Some(children),
+            buttons
+        } = state() {
             div {
                 id: "modal-blur",
 
                 onclick: move |_| {
                     tracing::debug!("hiding modal");
-                    state.replace(None);
+                    // if let Some(xx_) = buttons.iter().position(|(_btn, cb)| {cb.is_some()}) {
+                        // state.write().prompt = None;
+                    // } else {
+                        state.set(ModalState::default())
+                    // }
                 },
 
                 // audio {
@@ -42,15 +52,24 @@ pub fn Modal() -> Element {
                     id: "modal",
                     class: "padded bordered",
                     // onclick: |evt| {
+                    //     // only stopping clicks within the messagebox,
+                    //     // but not the buttons
                     //     evt.stop_propagation();
                     // },
 
-                    {props.children}
+                    {children}
 
                     div {
                         id: "modal-buttons",
 
-                        {props.buttons.iter().map(|(btn, ev_handler)| {
+                        {
+                            let lang = if let Some(explicitly) = lang {
+                                explicitly
+                            } else {
+                                Language::Fi
+                            };
+
+                            buttons.iter().map(move |(btn, ev_handler)| {
                             let clone = btn.clone();
 
                             rsx! {
@@ -63,9 +82,9 @@ pub fn Modal() -> Element {
                     }
                 }
             }
-            Outlet::<Route> {}
+
         }
-    } else {
-        rsx! { Outlet::<Route> {} }
+
+        Outlet::<Route> {}
     }
 }
