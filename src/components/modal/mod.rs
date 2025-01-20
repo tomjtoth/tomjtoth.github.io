@@ -32,6 +32,8 @@ pub fn Modal() -> Element {
     let mut state = use_signal(|| ModalState::default());
     use_context_provider(|| state);
 
+    let reset = use_callback(move |evt| state.set(ModalState::default()));
+
     rsx! {
         if let ModalState {
             lang,
@@ -41,13 +43,9 @@ pub fn Modal() -> Element {
             div {
                 id: "modal-blur",
 
-                onclick: move |_| {
-                    tracing::debug!("hiding modal");
-                    // if let Some(xx_) = buttons.iter().position(|(_btn, cb)| {cb.is_some()}) {
-                        // state.write().prompt = None;
-                    // } else {
-                        state.set(ModalState::default())
-                    // }
+                onclick: move |evt| {
+                    tracing::debug!("div#modal-blur clicked");
+                    reset.call(evt);
                 },
 
             // audio {
@@ -57,11 +55,10 @@ pub fn Modal() -> Element {
                 div {
                     id: "modal",
                     class: "padded bordered",
-                    // onclick: |evt| {
-                    //     // only stopping clicks within the messagebox,
-                    //     // but not the buttons
-                    //     evt.stop_propagation();
-                    // },
+                    onclick: |evt| {
+                        // the messagebox itself should persist if clicked
+                        evt.stop_propagation();
+                    },
 
                     {children}
 
@@ -75,11 +72,14 @@ pub fn Modal() -> Element {
                                 Language::Fi
                             };
 
-                            buttons.iter().map(move |(btn, ev_handler)| {
+                            buttons.iter().map(move |(btn, onclick)| {
                                 rsx! {
                                     Btn {
-                                        key: {btn.clone() as usize},
-                                        cfg: (lang, btn.clone(), *ev_handler)
+                                        key: "{btn.clone() as usize}",
+                                        lang,
+                                        r#type: btn.clone(),
+                                        onclick: *onclick,
+                                        reset
                                     }
                                 }
                             })
