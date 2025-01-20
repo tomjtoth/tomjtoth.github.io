@@ -1,63 +1,96 @@
-use crate::routes::Route;
-pub use button::*;
-use dioxus::{logger::tracing, prelude::*};
 mod button;
 
-pub type EventHandler = Callback<MouseEvent>;
-pub type OptionalHandler = Option<EventHandler>;
+use crate::routes::Route;
+use button::Btn;
+pub use button::{Button, Language};
+use dioxus::{logger::tracing, prelude::*};
 
-#[derive(Props, Clone, PartialEq)]
-pub struct ModalProps {
+type Cb = Callback<MouseEvent>;
+type OptCb = Option<Cb>;
+
+#[derive(Clone, PartialEq)]
+pub struct ModalState {
     pub lang: Option<Language>,
-    pub children: Element,
-    pub buttons: Vec<(Button, OptionalHandler)>,
-    pub cancel: EventHandler,
+    pub prompt: Option<Element>,
+    pub buttons: Vec<(Button, OptCb)>,
 }
 
-pub type ModalType = Option<ModalProps>;
+pub type SigModalState = Signal<ModalState>;
+
+impl Default for ModalState {
+    fn default() -> Self {
+        ModalState {
+            lang: Some(Language::Fi),
+            prompt: None,
+            buttons: vec![(Button::Ok, None)],
+        }
+    }
+}
 
 #[component]
-pub fn Modal(props: ModalProps) -> Element {
-    let lang = if let Some(lang) = props.lang {
-        lang
-    } else {
-        Language::Fi
-    };
+pub fn Modal() -> Element {
+    let mut state = use_signal(|| ModalState::default());
+    use_context_provider(|| state);
 
     rsx! {
-        div {
-            id: "modal-blur",
+        if let ModalState {
+            lang,
+            prompt: Some(children),
+            buttons
+        } = state() {
+            div {
+                id: "modal-blur",
 
-            onclick: move |evt| {
-                tracing::debug!("canceling modal");
-                props.cancel.call(evt);
-            },
+                onclick: move |_| {
+                    tracing::debug!("hiding modal");
+                    // if let Some(xx_) = buttons.iter().position(|(_btn, cb)| {cb.is_some()}) {
+                        // state.write().prompt = None;
+                    // } else {
+                        state.set(ModalState::default())
+                    // }
+                },
 
             // audio {
             //     src: "/public/modal.mp3",
             // }
 
-            div {
-                id: "modal",
-                class: "padded bordered",
-
-                {props.children}
-
                 div {
-                    id: "modal-buttons",
+                    id: "modal",
+                    class: "padded bordered",
+                    // onclick: |evt| {
+                    //     // only stopping clicks within the messagebox,
+                    //     // but not the buttons
+                    //     evt.stop_propagation();
+                    // },
 
-                    {props.buttons.iter().map(|(btn, ev_handler)| {
+                    {children}
 
-                        rsx! {
-                            Btn {
-                                key: {btn.clone() as usize},
-                                cfg: (lang, btn.clone(), *ev_handler)
-                            }
+                    div {
+                        id: "modal-buttons",
+
+                        {
+                            let lang = if let Some(explicitly) = lang {
+                                explicitly
+                            } else {
+                                Language::Fi
+                            };
+
+                            buttons.iter().map(move |(btn, ev_handler)| {
+                                let clone = btn.clone();
+                                rsx! {
+                                    Btn {
+                                        key: {clone as usize},
+                                        cfg: (lang, clone, *ev_handler)
+                                    }
+                                }
+                            })
                         }
-                    })}
+                    }
                 }
             }
+
         }
+
         Outlet::<Route> {}
     }
 }
