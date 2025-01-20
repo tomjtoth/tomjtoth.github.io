@@ -10,19 +10,22 @@ type DTZ = String; //DateTime<Utc>;
 static VISITORS_YAML: Asset = asset!("/assets/visitors.yaml");
 
 #[derive(PartialEq, Deserialize, Debug, Clone)]
-struct Visitor {
+pub struct Visitor {
     name: String,
     arrival: DTZ,
     departure: Option<DTZ>,
 }
 
+pub type TVisitors = Vec<Visitor>;
+pub type SVisitors = Signal<TVisitors>;
+
 #[component]
 pub fn Visitors() -> Element {
-    let mut visits = use_signal::<Vec<Visitor>>(|| vec![]);
+    let mut visitors = use_context::<SVisitors>();
 
     use_future(move || async move {
-        if visits.len() == 0 {
-            visits.set(to_yaml(VISITORS_YAML).await);
+        if visitors.len() == 0 {
+            visitors.set(to_yaml(VISITORS_YAML).await);
         }
     });
 
@@ -35,7 +38,7 @@ pub fn Visitors() -> Element {
         Body {
             p {
                 "The following visits are known:"
-                {visits.iter().map( |v| rsx!{ "{v.name} {v.arrival}" })}
+                {visitors.iter().map( |v| rsx!{ "{v.name} {v.arrival}" })}
             }
         }
     }
