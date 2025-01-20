@@ -1,6 +1,7 @@
 mod components;
 mod routes;
 mod utils;
+use components::visitors::TVisitors;
 use dioxus::prelude::*;
 use routes::Route;
 
@@ -15,23 +16,20 @@ const LUXOR_CSS: Asset = asset!("/assets/luxor.css");
 #[derive(Clone, Copy)]
 struct Title(Signal<String>);
 
-impl std::fmt::Display for Title {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.0)
-    }
-}
-
 fn main() {
     dioxus::launch(App);
 }
 
 #[component]
 fn App() -> Element {
-    let st_title = Title(use_signal(|| "Rust + wasm".to_string()));
-    use_context_provider(|| st_title);
+    let title = Title(use_signal(|| "Rust + wasm".to_string()));
+    use_context_provider(|| title);
+
+    let visitors = use_signal::<TVisitors>(|| vec![]);
+    use_context_provider(|| visitors);
 
     rsx! {
-        document::Title { "{st_title}" }
+        document::Title { "{title.0}" }
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
         document::Link { rel: "stylesheet", href: SIDEPANEL_CSS }
