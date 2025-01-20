@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
 
-use super::OptCb;
+use super::{Cb, OptCb};
 
 #[derive(Debug, Hash, Eq, PartialEq, Clone, Copy)]
 pub enum Language {
@@ -32,22 +32,26 @@ static BUTTON_TRANSLATIONS: Lazy<HashMap<Language, Vec<&'static str>>> = Lazy::n
 
 #[derive(Props, PartialEq, Clone)]
 pub struct ModalButtonProps {
-    cfg: (Language, Button, OptCb),
+    lang: Language,
+    r#type: Button,
+    onclick: OptCb,
+    reset: Cb,
 }
 
 #[component]
 pub fn Btn(props: ModalButtonProps) -> Element {
-    let translation = BUTTON_TRANSLATIONS.get(&props.cfg.0).unwrap();
-    let btn_type = props.cfg.1 as usize;
+    let translation = BUTTON_TRANSLATIONS.get(&props.lang).unwrap();
+    let btn_type = props.r#type as usize;
     let text = translation[btn_type];
 
-    if let Some(callback) = props.cfg.2 {
-        rsx! {
-            button { class: "clickable",
-                onclick: move |evt| {callback.call(evt)}, "{text}"
-            }
+    rsx! {
+        button { class: "clickable",
+            onclick: move |evt| {
+                if let Some(callback) = props.onclick {
+                    callback.call(evt.clone())
+                }
+                props.reset.call(evt);
+            }, "{text}"
         }
-    } else {
-        rsx! { button { class: "clickable", "{text}" } }
     }
 }
