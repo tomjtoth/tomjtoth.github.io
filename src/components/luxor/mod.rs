@@ -15,6 +15,16 @@ struct Field {
     numbers: Vec<u8>,
 }
 
+impl Default for Field {
+    fn default() -> Self {
+        Field {
+            id: 0,
+            order: 0,
+            numbers: [0u8; 25].to_vec(),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Clone)]
 struct LuxorNumbers(Vec<u8>);
 impl Default for LuxorNumbers {
