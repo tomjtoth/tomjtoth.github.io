@@ -82,3 +82,24 @@ where
 
     serde_yaml::from_str::<T>(&text).expect("YAML parsing error")
 }
+
+pub trait DisplayBytes {
+    fn display_as_hex(&self) -> String;
+    fn display_as_decimal(&self) -> String;
+}
+
+impl DisplayBytes for Vec<u8> {
+    fn display_as_hex(&self) -> String {
+        self.iter()
+            .map(|byte| format!("{:02x}", byte))
+            .collect::<Vec<_>>()
+            .join("")
+    }
+
+    fn display_as_decimal(&self) -> String {
+        self.iter()
+            .map(|byte| byte.to_string())
+            .collect::<Vec<_>>()
+            .join(", ")
+    }
+}
