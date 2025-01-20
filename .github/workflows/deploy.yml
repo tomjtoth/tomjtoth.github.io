@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Dioxus to GitHub Pages
 
 on:
   push:
@@ -38,12 +38,8 @@ jobs:
       - name: Install Dioxus-CLI
         shell: bash
         run: |
-          find ~ -name 'dx'
           curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
           cargo binstall --no-confirm dioxus-cli
-          echo $PATH
-          find ~ -name 'dx'
-          which dx
 
       - uses: Swatinem/rust-cache@v2
       - name: Build Project 🎁
