@@ -34,14 +34,14 @@ pub fn PickedNumsLine() -> Element {
     let curr_nums = numbers.get().0;
     let nums_len = curr_nums.len();
 
-    let last10_nums = curr_nums[{
+    let lower = {
         if nums_len > 10 {
             nums_len - 10
         } else {
             0
         }
-    }..nums_len]
-        .to_vec();
+    };
+    let last10_nums = curr_nums[lower..nums_len].to_vec();
 
     let deleter_style = if nums_len > 0 {
         None
