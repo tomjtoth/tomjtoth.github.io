@@ -1,14 +1,14 @@
 use crate::components::{
     luxor::{DiskLuxorNumbers, LuxorNumbers},
-    modal::{Button, Language, ModalProps, ModalType},
-    Modal,
+    modal::{Button, Language, ModalState, SigModalState},
 };
 use dioxus::{logger::tracing, prelude::*};
 
 #[component]
 pub fn Controls() -> Element {
-    let mut modal_state = use_signal::<ModalType>(|| None);
+    let mut modal = use_context::<SigModalState>();
     let mut numbers = use_context::<DiskLuxorNumbers>();
+
     let mut locked = use_signal(|| true);
     let mut num = use_signal(|| "".to_string());
 
@@ -17,15 +17,17 @@ pub fn Controls() -> Element {
         numbers.set(LuxorNumbers::default());
     });
 
-    let cancel_modal = use_callback(move |_| {
-        modal_state.set(None);
-    });
+    let confirm_clearing_numbers = move |_| {
+        modal.set(ModalState {
+            lang: Some(Language::Hu),
+            buttons: vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)],
+            prompt: Some(rsx! {
+                "Törlöm az " strong{"összes"} " húzott számot"
+            }),
+        });
+    };
 
     rsx! {
-        if let Some(props) = modal_state() {
-            Modal { ..props }
-        }
-
         form {
             id: "luxor-control",
             onsubmit: move |_| {
@@ -73,19 +75,7 @@ pub fn Controls() -> Element {
             span {
                 class: "padded clickable",
                 title: "jelölések törlése",
-                onclick: move |_| {
-                    modal_state.set(Some(ModalProps {
-                        lang: Some(Language::Hu),
-                        buttons: vec![
-                            (Button::Ok, Some(clear_nums)),
-                            (Button::Cancel, None)
-                        ],
-                        children: rsx! {
-                            "Törlöm az " strong{"összes"} " húzott számot"
-                        },
-                        cancel: cancel_modal,
-                    }));
-                },
+                onclick: confirm_clearing_numbers,
                 "♻️"
             }
         }
