@@ -2,8 +2,8 @@ use dioxus::prelude::*;
 use once_cell::sync::Lazy;
 use std::collections::HashMap;
 
-pub type EventHandler = Callback<MouseEvent>;
-pub type OptionalHandler = Option<EventHandler>;
+pub type Cb = Callback<MouseEvent>;
+pub type OptCb = Option<Cb>;
 
 #[derive(Debug, Hash, Eq, PartialEq, Clone, Copy)]
 pub enum Language {
@@ -33,7 +33,7 @@ static BUTTON_TRANSLATIONS: Lazy<HashMap<Language, Vec<&'static str>>> = Lazy::n
 
 #[derive(Props, PartialEq, Clone)]
 pub struct ModalButtonProps {
-    cfg: (Language, Button, OptionalHandler),
+    cfg: (Language, Button, OptCb),
 }
 
 #[component]
@@ -45,7 +45,7 @@ pub fn Btn(props: ModalButtonProps) -> Element {
     if let Some(callback) = props.cfg.2 {
         rsx! {
             button { class: "clickable",
-                onclick: callback, "{text}"
+                onclick: move |evt| {callback.call(evt)}, "{text}"
             }
         }
     } else {
