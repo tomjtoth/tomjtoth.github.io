@@ -1,12 +1,14 @@
+use dioxus::prelude::*;
+use serde::{Deserialize, Serialize};
+
+mod controls;
+mod nums_line;
 use crate::{
     components::{Body, Header},
     utils::{use_persistent, UsePersistent},
 };
 use controls::Controls;
-use dioxus::prelude::*;
-use serde::{Deserialize, Serialize};
-mod controls;
-mod nums_line;
+use nums_line::PickedNumsLine;
 
 #[derive(Serialize, Deserialize, Clone)]
 struct Field {
@@ -14,7 +16,6 @@ struct Field {
     order: usize,
     numbers: Vec<u8>,
 }
-
 impl Default for Field {
     fn default() -> Self {
         Field {
@@ -56,7 +57,7 @@ pub fn Luxor() -> Element {
         Header { title: &"Luxor", Controls {} }
         Body {
             class: "luxor",
-
+            PickedNumsLine {}
         }
     }
 }
