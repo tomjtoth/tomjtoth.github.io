@@ -1,9 +1,11 @@
+use dioxus::{logger::tracing, prelude::*};
+use web_sys::HtmlAudioElement;
+
 mod button;
 
 use crate::routes::Route;
 use button::Btn;
 pub use button::{Button, Language};
-use dioxus::{logger::tracing, prelude::*};
 
 type Cb = Callback<MouseEvent>;
 type OptCb = Option<Cb>;
@@ -32,6 +34,7 @@ pub fn Modal() -> Element {
     let mut state = use_signal(|| ModalState::default());
     use_context_provider(|| state);
 
+    let sound = HtmlAudioElement::new_with_src(&asset!("/assets/modal.mp3").to_string()).unwrap();
     let reset = use_callback(move |_| state.set(ModalState::default()));
 
     rsx! {
@@ -47,10 +50,6 @@ pub fn Modal() -> Element {
                     tracing::debug!("div#modal-blur clicked");
                     reset.call(evt);
                 },
-
-            // audio {
-            //     src: "/public/modal.mp3",
-            // }
 
                 div {
                     id: "modal",
@@ -76,6 +75,12 @@ pub fn Modal() -> Element {
                         id: "modal-buttons",
 
                         {
+                            // playing sound
+                            sound.set_current_time(0.0);
+                            if let Err(_err) = sound.play() {
+                                tracing::error!("playing sound failed in modal");
+                            };
+
                             let lang = if let Some(explicitly) = lang {
                                 explicitly
                             } else {

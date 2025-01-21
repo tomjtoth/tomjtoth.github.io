@@ -15,7 +15,7 @@ qrcode = "0.14.1"
 reqwest = "0.12.12"
 serde = "1.0.217"
 serde_yaml = "0.9.34"
-web-sys = { version = "0.3.77", features = ["UrlSearchParams"] }
+web-sys = { version = "0.3.77", features = ["UrlSearchParams", "HtmlAudioElement"] }
 
 [features]
 default = ["web"]
