@@ -55,6 +55,14 @@ pub fn Modal() -> Element {
                 div {
                     id: "modal",
                     class: "padded bordered",
+                    lang: {
+                        match lang {
+                            Some(Language::En) => Some("en"),
+                            Some(Language::Fi) => Some("fi"),
+                            Some(Language::Hu) => Some("hu"),
+                            _ => None
+                        }
+                    },
                     onclick: |evt| {
                         // the messagebox itself should persist if clicked
                         evt.stop_propagation();

@@ -215,8 +215,13 @@ pub fn Luxor() -> Element {
     });
 
     rsx! {
-        Header { title: &"Luxor", Controls {} }
+        Header {
+            title: &"Luxor",
+            lang: "hu",
+            Controls {}
+        }
         Body {
+            lang: "hu",
             class: "luxor",
             PickedNumsLine {}
             Fields {}
