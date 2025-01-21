@@ -2,7 +2,7 @@ use dioxus::{logger::tracing, prelude::*};
 use gloo_storage::{LocalStorage, Storage};
 use reqwest::Response;
 use serde::{de::DeserializeOwned, Serialize};
-use web_sys::window;
+use web_sys::{window, UrlSearchParams};
 
 /// A persistent storage hook that can be used to store data across application reloads.
 #[allow(clippy::needless_return)]
@@ -60,6 +60,20 @@ impl<T: Serialize + DeserializeOwned + Clone + 'static> UsePersistent<T> {
 pub fn get_pathname() -> String {
     let loc = window().unwrap().location();
     loc.pathname().unwrap_or("https://ttj.hu".to_string())
+}
+
+pub fn url_sp() -> Option<UrlSearchParams> {
+    let loc = window().unwrap().location();
+
+    if let Ok(xx) = loc.search() {
+        if let Ok(asd) = UrlSearchParams::new_with_str(&xx) {
+            Some(asd)
+        } else {
+            None
+        }
+    } else {
+        None
+    }
 }
 
 async fn fetch(url: String) -> Response {
