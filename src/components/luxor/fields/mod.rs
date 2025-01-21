@@ -14,10 +14,10 @@ type LuxorRows = [LuxorRow; 5];
 
 #[derive(Serialize, Deserialize, Clone, Copy)]
 pub struct Field {
-    id: u8,
-    order: u8,
-    rows: LuxorRows,
-    imported_at: Option<i64>,
+    pub id: u8,
+    pub order: u8,
+    pub rows: LuxorRows,
+    pub imported_at: Option<i64>,
 }
 
 impl Default for Field {
@@ -34,29 +34,36 @@ impl Default for Field {
 #[component]
 pub fn Fields() -> Element {
     let mut modal = use_context::<SigModalState>();
-    let mut fields = use_context::<DiskLuxorFields>();
-    let curr_fields = fields.get().0;
-    let fields_len = curr_fields.len() as u8;
-    let deletable = curr_fields.len() > 1;
+    let mut disk_fields = use_context::<DiskLuxorFields>();
+    let mut fields = disk_fields.get();
+    let fields_len = fields.0.len() as u8;
+    let deletable = fields.0.len() > 1;
 
     let sig_locked = use_context::<SigLuxorLocked>();
     let locked = sig_locked.read().0;
 
     let li_class = format!("luxor{}", if locked { "" } else { " bordered" });
 
+    let mut add_cb_outer = move |id| {
+        tracing::debug!("add_cb_outer called with id: {id}");
+        let mut fields = disk_fields.get();
+        fields.add_after(id);
+        disk_fields.set(fields);
+    };
+
     let del_cb_outer = {
-        let curr = curr_fields.clone();
-        move |id, order| {
-            tracing::debug!("del_cb_outer called with {id} and {order}");
-            // TODO: actually remove field
-            fields.set(LuxorFields(curr));
+        let mut fields = fields.clone();
+        move |id| {
+            tracing::debug!("del_cb_outer called with id: {id}");
+            fields.rm(id);
+            disk_fields.set(fields);
         }
     };
 
     rsx! {
         ul {
             class: "luxor",
-            {curr_fields.into_iter().enumerate().map(move |(idx, field)| {
+            {fields.0.into_iter().enumerate().map(move |(idx, field)| {
                 let imported_span = if let Some(epoch) = field.imported_at {
                     let x = Utc.timestamp_opt(epoch, 0).unwrap();
                     let now = Utc::now();
@@ -81,12 +88,17 @@ pub fn Fields() -> Element {
                     None
                 };
 
+                let add_cb_inner =  move |_| {
+                    tracing::debug!("add_cb_inner calling add_cb_outer");
+                    add_cb_outer(field.id)
+                };
+
                 let del_cb_inner = use_callback({
                     let outer_cb = del_cb_outer.clone();
                     move |_| {
                         tracing::debug!("del_cb_inner calling del_cb_outer");
                         let callable = outer_cb.clone();
-                        callable(field.id, field.order);
+                        callable(field.id);
                 }});
 
                 rsx! {
@@ -106,9 +118,7 @@ pub fn Fields() -> Element {
 
                                     span {
                                         class: "clickable padded",
-                                        onclick: move |_| {
-                                            // TODO: add new field;
-                                        },
+                                        onclick: add_cb_inner,
                                         "új mező ➕"
                                     }
                                 } else {
@@ -121,11 +131,11 @@ pub fn Fields() -> Element {
                                             modal.set(ModalState{
                                                 lang: Some(Language::Hu),
                                                 prompt: Some(rsx! {
-                                                    "asdf"
+                                                    "Biztosan törlöd a mezőt?"
                                                 }),
                                                 buttons: vec![
-                                                    (Button::Ok, Some(del_cb_inner)),
-                                                    (Button::Cancel, None)
+                                                    (Button::Yes, Some(del_cb_inner)),
+                                                    (Button::No, None)
                                                 ]
                                             })
                                         },
