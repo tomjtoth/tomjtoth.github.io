@@ -54,7 +54,7 @@ pub fn PickedNumsLine() -> Element {
             id: "luxor-picked-nums-line",
 
             if nums_len > 10 { "..." }
-            "{last10_nums.display_as_decimal()}"
+            "{last10_nums.displ_as_dec()}"
 
             if bug.read().blurred {
                 div {
