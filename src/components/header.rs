@@ -1,5 +1,4 @@
 use super::sidepanel::SpState;
-use crate::Title;
 use dioxus::prelude::*;
 
 #[derive(PartialEq, Clone, Props)]
@@ -12,13 +11,9 @@ pub struct HeaderProps {
 #[component]
 pub fn Header(props: HeaderProps) -> Element {
     let mut sp_state = use_context::<SpState>();
-    let mut title = use_context::<Title>();
-
-    use_effect(move || {
-        title.0.set(props.title.to_string());
-    });
 
     rsx! {
+        document::Title { "{props.title}" }
         div {
             id: "header",
             class: "border1-s",

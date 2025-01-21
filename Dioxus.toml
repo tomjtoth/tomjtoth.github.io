@@ -8,7 +8,7 @@ out_dir = "dist"
 [web.app]
 
 # HTML title tag content
-title = "gh_pages"
+title = "ttj - apps"
 
 # include `assets` in web platform
 [web.resource]
