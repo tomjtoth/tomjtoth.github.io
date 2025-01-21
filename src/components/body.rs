@@ -4,6 +4,7 @@ use dioxus::prelude::*;
 pub struct BodyProps {
     class: Option<String>,
     style: Option<String>,
+    lang: Option<String>,
     children: Element,
 }
 
@@ -13,6 +14,7 @@ pub fn Body(props: BodyProps) -> Element {
     rsx! {
         div {
             id: "body",
+            lang: props.lang,
             class: props.class,
             style: props.style,
 
