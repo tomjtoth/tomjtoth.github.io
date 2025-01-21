@@ -14,23 +14,16 @@ const LOADER_CSS: Asset = asset!("/assets/loader.css");
 const MODAL_CSS: Asset = asset!("/assets/modal.css");
 const LUXOR_CSS: Asset = asset!("/assets/luxor.css");
 
-#[derive(Clone, Copy)]
-struct Title(Signal<String>);
-
 fn main() {
     dioxus::launch(App);
 }
 
 #[component]
 fn App() -> Element {
-    let title = Title(use_signal(|| "Rust + wasm".to_string()));
-    use_context_provider(|| title);
-
     let visitors = use_signal::<TVisitors>(|| vec![]);
     use_context_provider(|| visitors);
 
     rsx! {
-        document::Title { "{title.0}" }
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: MAIN_CSS }
         document::Link { rel: "stylesheet", href: SIDEPANEL_CSS }
