@@ -5,7 +5,8 @@ use components::visitors::TVisitors;
 use dioxus::prelude::*;
 use routes::Route;
 
-const FAVICON: Asset = asset!("/assets/favicon.ico");
+const FAVICON: Asset = asset!("/public/favicon.png");
+const MANIFEST: Asset = asset!("/public/manifest.json");
 const MAIN_CSS: Asset = asset!("/assets/main.css");
 const SIDEPANEL_CSS: Asset = asset!("/assets/sidepanel.css");
 const HEADER_CSS: Asset = asset!("/assets/header.css");
@@ -37,6 +38,7 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: LOADER_CSS }
         document::Link { rel: "stylesheet", href: MODAL_CSS }
         document::Link { rel: "stylesheet", href: LUXOR_CSS }
+        document::Link { rel: "manifest", href: MANIFEST }
         Router::<Route> {}
     }
 }
