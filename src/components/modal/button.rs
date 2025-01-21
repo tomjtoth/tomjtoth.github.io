@@ -45,7 +45,9 @@ pub fn Btn(props: ModalButtonProps) -> Element {
     let text = translation[btn_type];
 
     rsx! {
-        button { class: "clickable",
+        button {
+            class: "clickable",
+            autofocus: btn_type == 0 || btn_type == 2,
             onclick: move |evt| {
                 if let Some(callback) = props.onclick {
                     callback.call(evt.clone())

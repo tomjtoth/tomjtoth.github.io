@@ -60,7 +60,9 @@ pub fn Modal() -> Element {
                         evt.stop_propagation();
                     },
 
-                    {children}
+                    p {
+                        {children}
+                    }
 
                     div {
                         id: "modal-buttons",
