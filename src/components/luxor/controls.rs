@@ -1,5 +1,5 @@
 use crate::components::{
-    luxor::{DiskLuxorNumbers, LuxorNumbers},
+    luxor::{DiskLuxorNumbers, LuxorNumbers, SigLuxorLocked},
     modal::{Button, Language, ModalState, SigModalState},
 };
 use dioxus::{logger::tracing, prelude::*};
@@ -8,9 +8,10 @@ use dioxus::{logger::tracing, prelude::*};
 pub fn Controls() -> Element {
     let mut modal = use_context::<SigModalState>();
     let mut numbers = use_context::<DiskLuxorNumbers>();
-
-    let mut locked = use_signal(|| true);
+    let mut sig_locked = use_context::<SigLuxorLocked>();
     let mut num = use_signal(|| "".to_string());
+
+    let locked = sig_locked.read().0;
 
     let clear_nums = use_callback(move |_| {
         tracing::debug!("clearing numbers in luxor state");
@@ -37,11 +38,10 @@ pub fn Controls() -> Element {
             span {
                 class: "padded clickable",
                 onclick: move |_| {
-                    // save fields
-                    locked.set(!locked())
+                    sig_locked.write().0 = !locked;
                 },
 
-                if locked() {"🔒"} else {"🔓"}
+                if locked {"🔒"} else {"🔓"}
             }
 
             input {
