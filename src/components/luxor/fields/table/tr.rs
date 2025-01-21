@@ -1,17 +1,17 @@
 use dioxus::prelude::*;
 
-use crate::components::luxor::fields::{table::cell::Cell, LuxorRow};
+use crate::components::luxor::fields::{table::td::TableData, LuxorRow};
 
 #[derive(Props, PartialEq, Clone)]
-pub struct RowProps {
+pub struct TRProps {
     field_idx: usize,
     idx: usize,
     row: LuxorRow,
 }
 
 #[component]
-pub fn Row(props: RowProps) -> Element {
-    let RowProps {
+pub fn TableRow(props: TRProps) -> Element {
+    let TRProps {
         field_idx,
         idx: row_idx,
         row,
@@ -21,7 +21,7 @@ pub fn Row(props: RowProps) -> Element {
         tr {
             {row.iter().enumerate().map(move |(idx, num)| {
                 rsx! {
-                    Cell { field_idx, row_idx, idx, num: *num }
+                    TableData { field_idx, row_idx, idx, num: *num }
                 }
             })}
         }

@@ -5,7 +5,7 @@ use crate::components::luxor::{
 };
 
 #[derive(Props, PartialEq, Clone)]
-pub struct CellProps {
+pub struct TDProps {
     field_idx: usize,
     row_idx: usize,
     idx: usize,
@@ -13,14 +13,7 @@ pub struct CellProps {
 }
 
 #[component]
-pub fn Cell(props: CellProps) -> Element {
-    let CellProps {
-        field_idx,
-        row_idx,
-        idx,
-        num,
-    } = props;
-
+pub fn TableData(props: TDProps) -> Element {
     let mut disk_fields = use_context::<DiskLuxorFields>();
     let mut disk_numbers = use_context::<DiskLuxorNumbers>();
     let sig_locked = use_context::<SigLuxorLocked>();
@@ -28,6 +21,13 @@ pub fn Cell(props: CellProps) -> Element {
     let mut numbers = disk_numbers.get().0;
     let locked = sig_locked.read().0;
     let mut classes = vec![];
+
+    let TDProps {
+        field_idx,
+        row_idx,
+        idx,
+        num,
+    } = props;
 
     if locked {
         classes.push("clickable");

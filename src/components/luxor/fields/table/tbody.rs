@@ -1,23 +1,22 @@
 use dioxus::prelude::*;
 
-use crate::components::luxor::{fields::table::row::Row, DiskLuxorFields};
+use crate::components::luxor::{fields::table::tr::TableRow, DiskLuxorFields};
 
 #[derive(Props, PartialEq, Clone)]
-pub struct BodyProps {
+pub struct TBodyProps {
     idx: usize,
 }
 
 #[component]
-pub fn Body(props: BodyProps) -> Element {
+pub fn TableBody(props: TBodyProps) -> Element {
     let disk_fields = use_context::<DiskLuxorFields>();
     let field = disk_fields.get().0[props.idx];
-    let rows = field.rows;
 
     rsx! {
         tbody {
-            {rows.iter().enumerate().map( |(idx, row)| {
+            {field.rows.iter().enumerate().map( |(idx, row)| {
                 rsx!{
-                    Row {
+                    TableRow {
                         key: "{idx}", // order never changes
                         field_idx: props.idx,
                         idx,

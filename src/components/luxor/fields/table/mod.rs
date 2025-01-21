@@ -1,12 +1,10 @@
 use dioxus::prelude::*;
 
-mod body;
-mod cell;
-mod head;
-mod row;
+mod tbody;
+mod td;
+mod tr;
 
-use body::Body;
-use head::Head;
+use tbody::TableBody;
 
 #[derive(Props, PartialEq, Clone)]
 pub struct TableProps {
@@ -18,8 +16,19 @@ pub fn Table(props: TableProps) -> Element {
     rsx! {
         table {
             class: "luxor",
-            Head {}
-            Body { idx: props.idx }
+            thead {
+                tr {
+                    {"LUXOR".chars().map(|char| {
+                        rsx! {
+                            th {
+                                class: "luxor",
+                                "{char}"
+                            }
+                        }
+                    })}
+                }
+            }
+            TableBody { idx: props.idx }
         }
     }
 }
