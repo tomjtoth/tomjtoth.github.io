@@ -5,7 +5,7 @@ use table::Table;
 
 mod table;
 use crate::components::{
-    luxor::{DiskLuxorFields, LuxorFields, SigLuxorLocked},
+    luxor::{DiskLuxorFields, SigLuxorLocked},
     modal::{Button, Language, ModalState, SigModalState},
 };
 
@@ -35,7 +35,7 @@ impl Default for Field {
 pub fn Fields() -> Element {
     let mut modal = use_context::<SigModalState>();
     let mut disk_fields = use_context::<DiskLuxorFields>();
-    let mut fields = disk_fields.get();
+    let fields = disk_fields.get();
     let fields_len = fields.0.len() as u8;
     let deletable = fields.0.len() > 1;
 
