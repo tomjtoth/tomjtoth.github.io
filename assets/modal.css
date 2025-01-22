@@ -23,6 +23,6 @@
 #modal-buttons {
   margin: 16px 16px 8px;
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: space-evenly;
+  gap: 32px;
 }
