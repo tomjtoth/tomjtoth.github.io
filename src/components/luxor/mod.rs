@@ -147,7 +147,8 @@ pub fn Luxor() -> Element {
                 let vec_opt_u8 = comma_sep_vec_u8
                     .split(",")
                     .into_iter()
-                    .map(|num_str| {
+                    .enumerate()
+                    .map(|(idx, num_str)| {
                         iterator_len += 1;
 
                         let res = if let Ok(parsed_u8) = num_str.parse::<u8>() {
@@ -161,7 +162,7 @@ pub fn Luxor() -> Element {
                         };
 
                         if res.is_none() {
-                            invalids.push(format!("\"{num_str}\" nem esett 0 és 75 közé"));
+                            invalids.push((idx + 1, num_str));
                         }
 
                         res
@@ -187,20 +188,37 @@ pub fn Luxor() -> Element {
                         )],
                     });
                 } else if invalids.len() != 0 {
-                    let invalid_str = if invalids.len() > 1 {
-                        format!("Az alábbiak nem jók: {}", invalids.join("; "))
-                    } else {
-                        format!("Ezt elrontottad: {}", invalids[0])
-                    };
-
-                    tracing::debug!(
-                        "warning use with: \"{invalid_str}\", not proceeding with import"
-                    );
-
                     modal.set(ModalState {
                         prompt: Some(rsx! {
+                            if invalids.len() > 1 {
+                                p {
+                                    "Az alábbiak nem 0 és 75 közötti számok:"
+                                }
+
+                                ol {
+                                    style: "user-select: text",
+                                    {invalids.iter().map(|(idx, inv)| {
+                                        rsx! {
+                                            li {
+                                                value: "{idx}",
+                                                "\"{inv}\""
+                                            }
+                                        }
+                                    })}
+                                }
+                            } else {
+                                p {
+                                    "#{invalids[0].0} nem jó: "
+                                    p {
+                                        style: "user-select: text;",
+                                        "\"{invalids[0].1}\"."
+                                    }
+                                }
+                            }
                             p {
-                                "{invalid_str}. Javítsd ki és próbáld újra!"
+                                strong {
+                                    "Javítsd ki és próbáld újra!"
+                                }
                             }
                         }),
                         lang: Some(Language::Hu),
