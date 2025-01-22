@@ -34,6 +34,7 @@ pub fn Modal() -> Element {
     let mut state = use_signal(|| ModalState::default());
     use_context_provider(|| state);
 
+    // TODO: make this sound static
     let sound = HtmlAudioElement::new_with_src(&asset!("/assets/modal.mp3").to_string()).unwrap();
     let reset = use_callback(move |_| state.set(ModalState::default()));
 
@@ -62,12 +63,13 @@ pub fn Modal() -> Element {
                             _ => None
                         }
                     },
+
                     onclick: |evt| {
                         // the messagebox itself should persist if clicked
                         evt.stop_propagation();
                     },
 
-                    p {
+                    div {
                         {children}
                     }
 
@@ -75,7 +77,7 @@ pub fn Modal() -> Element {
                         id: "modal-buttons",
 
                         {
-                            // playing sound
+                            tracing::debug!("plyaing modal sound");
                             sound.set_current_time(0.0);
                             if let Err(_err) = sound.play() {
                                 tracing::error!("playing sound failed in modal");
