@@ -1,7 +1,7 @@
 mod components;
 mod routes;
 mod utils;
-use components::{shopping_list::TRecipes, visitors::TVisitors};
+use components::shopping_list::TRecipes;
 use dioxus::prelude::*;
 use routes::Route;
 
@@ -13,6 +13,7 @@ const HEADER_CSS: Asset = asset!("/assets/header.css");
 const LOADER_CSS: Asset = asset!("/assets/loader.css");
 const MODAL_CSS: Asset = asset!("/assets/modal.css");
 const LUXOR_CSS: Asset = asset!("/assets/luxor.css");
+const VISITORS_CSS: Asset = asset!("/assets/visitors.css");
 const SHOPPING_LIST_CSS: Asset = asset!("/assets/shopping-list.css");
 
 fn main() {
@@ -21,9 +22,6 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    let visitors = use_signal::<TVisitors>(|| vec![]);
-    use_context_provider(|| visitors);
-
     let recipes = use_signal::<TRecipes>(|| TRecipes(vec![]));
     use_context_provider(|| recipes);
 
@@ -37,6 +35,7 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: MODAL_CSS }
         document::Link { rel: "stylesheet", href: LUXOR_CSS }
         document::Link { rel: "stylesheet", href: SHOPPING_LIST_CSS }
+        document::Link { rel: "stylesheet", href: VISITORS_CSS }
         Router::<Route> {}
     }
 }
