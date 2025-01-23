@@ -44,6 +44,9 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - uses: actions/setup-node@v4
+        with:
+        node-version: "latest"
+
       - name: process CSS files
         run: |
           npm install gulp gulp-concat gulp-clean-css gulp-autoprefixer
