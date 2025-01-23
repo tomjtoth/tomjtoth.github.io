@@ -1,12 +1,17 @@
+import gulp from "gulp";
+import gulpif from "gulp-if";
 import concat from "gulp-concat";
 import cleanCSS from "gulp-clean-css";
-import gulp from "gulp";
 import autoprefixer from "gulp-autoprefixer";
 
-export default () =>
+const common = (minify = false) =>
   gulp
     .src("src/**/*.css")
     .pipe(concat("mini.css"))
     .pipe(autoprefixer({ cascade: false }))
-    .pipe(cleanCSS())
+    .pipe(gulpif(minify, cleanCSS()))
     .pipe(gulp.dest("assets"));
+
+gulp.task("dev", () => common());
+gulp.task("prod", () => common(true));
+gulp.task("default", () => gulp.watch("src/**/*.css", gulp.series("dev")));
