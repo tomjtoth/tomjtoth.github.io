@@ -1,6 +1,7 @@
+use dioxus::signals::Signal;
 use serde::{Deserialize, Serialize};
 
-use crate::utils::UsePersistent;
+use crate::utils::LocalStorageCompatible;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Item {
@@ -9,7 +10,7 @@ pub struct Item {
 }
 
 #[derive(Serialize, Deserialize, Clone)]
-pub struct Items(pub Vec<Item>);
+pub struct Items(Vec<Item>);
 
 impl Default for Items {
     fn default() -> Self {
@@ -17,7 +18,15 @@ impl Default for Items {
     }
 }
 
+impl LocalStorageCompatible for Items {
+    const STORAGE_KEY: &'static str = "shopping-list-items";
+}
+
 impl Items {
+    pub fn init() -> Self {
+        Self::load()
+    }
+
     pub fn add(&mut self, item: String) {
         let id = if let Some(id) = self.0.iter().map(|i| i.id).max() {
             id + 1
@@ -25,32 +34,18 @@ impl Items {
             0
         };
         self.0.push(Item { id, name: item });
+        self.save();
     }
 
     pub fn rm(&mut self, str_id: &String) {
         let id = str_id[4..].parse::<u8>().unwrap();
         self.0.retain(|item| item.id != id);
+        self.save();
+    }
+
+    pub fn iter(&self) -> std::slice::Iter<Item> {
+        self.0.iter()
     }
 }
 
-trait DiskItem {
-    fn add(&mut self, item: String) {}
-    fn rm(&mut self, id: u8) {}
-}
-
-pub type DiskItems = UsePersistent<Items>;
-
-// impl DiskItem for DiskItems {
-//     fn add(&mut self, item: String) {
-//         let id = if let Some(id) = self.0.iter().map(|i| i.id).max() {
-//             id + 1
-//         } else {
-//             0
-//         };
-//         self.get().0.push(Item { id, name: item });
-//     }
-
-//     fn rm(&mut self, id: u8) {
-//         self.retain(|item| item.id != id);
-//     }
-// }
+pub type SigItems = Signal<Items>;

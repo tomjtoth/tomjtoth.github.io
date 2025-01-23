@@ -2,8 +2,8 @@ use dioxus::{logger::tracing, prelude::*};
 
 use crate::{
     components::{
-        luxor::{DiskLuxorNumbers, LuxorNumbers},
-        modal::{Button, Language, ModalState, SigModalState},
+        luxor::models::SigNumbers,
+        modal::{Button, Language, ModalState, SigModal},
     },
     utils::DisplayBytes,
 };
@@ -27,12 +27,11 @@ impl Default for Bugstate {
 
 #[component]
 pub fn PickedNumsLine() -> Element {
-    let mut modal = use_context::<SigModalState>();
-    let mut numbers = use_context::<DiskLuxorNumbers>();
+    let mut modal = use_context::<SigModal>();
+    let mut numbers = use_context::<SigNumbers>();
     let mut bug = use_signal(|| Bugstate::default());
 
-    let curr_nums = numbers.get().0;
-    let nums_len = curr_nums.len();
+    let nums_len = numbers().len();
 
     let lower = {
         if nums_len > 10 {
@@ -41,7 +40,7 @@ pub fn PickedNumsLine() -> Element {
             0
         }
     };
-    let last10_nums = curr_nums[lower..nums_len].to_vec();
+    let last10_nums = numbers().get_rg(lower, nums_len).to_vec();
 
     let deleter_style = if nums_len > 0 {
         None
@@ -103,7 +102,6 @@ pub fn PickedNumsLine() -> Element {
                 class: bug.read().class,
                 style: "left: {bug.read().left};",
                 ontransitionend: {
-                    let mut curr_nums_handle = curr_nums.clone();
                     move |_| {
                     if bug.read().left == "-10vw".to_string() {
                         tracing::debug!("bug returns to right unseen");
@@ -123,9 +121,7 @@ pub fn PickedNumsLine() -> Element {
                         });
 
                         tracing::debug!("removing last number");
-                        curr_nums_handle.pop();
-                        let slice = curr_nums_handle.as_slice();
-                        numbers.set(LuxorNumbers(Vec::from(slice)));
+                        numbers.write().rm_last()
                     }
 
                 }},

@@ -1,47 +1,38 @@
 use crate::components::{
-    luxor::{DiskLuxorNumbers, LuxorNumbers, SigLuxorLocked},
-    modal::{Button, Language, ModalState, SigModalState},
+    luxor::models::{SigLocked, SigNumbers},
+    modal::{Button, Language, ModalState, SigModal},
 };
 use dioxus::{logger::tracing, prelude::*};
 
 #[component]
 pub fn Controls() -> Element {
-    let mut modal = use_context::<SigModalState>();
-    let mut numbers = use_context::<DiskLuxorNumbers>();
-    let mut sig_locked = use_context::<SigLuxorLocked>();
-    let mut num = use_signal(|| "".to_string());
-
-    let locked = sig_locked.read().0;
+    let mut modal = use_context::<SigModal>();
+    let mut numbers = use_context::<SigNumbers>();
+    let mut locked = use_context::<SigLocked>();
+    let mut input = use_signal(|| "".to_string());
 
     let clear_nums = use_callback(move |_| {
         tracing::debug!("clearing numbers in luxor state");
-        numbers.set(LuxorNumbers::default());
+        numbers.write().clear();
     });
 
     rsx! {
         form {
             id: "luxor-control",
             onsubmit: move |_| {
-                if let Ok(as_u8) = num().parse::<u8>() {
-                    let mut curr = numbers.get();
-
-                    if let None = curr.0.iter().position(|&n| n == as_u8) {
-                        curr.0.push(as_u8);
-                        tracing::debug!("current numbers: {:?}", curr.0);
-                        numbers.set(curr);
-                    }
-
+                if let Ok(as_u8) = input().parse::<u8>() {
+                    numbers.write().add(as_u8);
                 }
-                num.set("".to_string());
+                input.set("".to_string());
             },
 
             span {
                 class: "padded clickable",
                 onclick: move |_| {
-                    sig_locked.write().0 = !locked;
+                    locked.toggle();
                 },
 
-                if locked {"🔒"} else {"🔓"}
+                if locked() {"🔒"} else {"🔓"}
             }
 
             input {
@@ -53,10 +44,10 @@ pub fn Controls() -> Element {
                 autocomplete: "off",
                 autofocus: "on",
                 placeholder: "a következő nyerőszám",
-                value: "{num}",
+                value: "{input}",
                 oninput: move |evt| {
                     evt.prevent_default();
-                    num.set(evt.value());
+                    input.set(evt.value());
                 },
             }
 

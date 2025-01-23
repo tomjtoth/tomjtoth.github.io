@@ -1,12 +1,9 @@
-use dioxus::{logger::tracing, prelude::*};
+use dioxus::prelude::*;
 
 use crate::components::{
     shopping_list::{
-        init,
-        items::Items,
-        models::{DiskActive, RECIPES_ID},
-        steps::Steps,
-        Lang, Opts, SigRecipes, TRecipes,
+        init, items::Items, models::RECIPES_ID, steps::Steps, Lang, Opts, SigActive, SigRecipes,
+        TRecipes,
     },
     Loader,
 };
@@ -14,11 +11,10 @@ use crate::components::{
 #[component]
 pub fn Recipes() -> Element {
     let mut sig_recipes = use_context::<SigRecipes>();
-    let mut disk_active = use_context::<DiskActive>();
+    let mut active = use_context::<SigActive>();
     let recipes = &sig_recipes.read().0;
-    let active = disk_active.get();
 
-    let class = if active.0.contains(&RECIPES_ID.to_string()) {
+    let class = if active().is(&RECIPES_ID.to_string()) {
         Some("active")
     } else {
         None
@@ -42,7 +38,7 @@ pub fn Recipes() -> Element {
 
                     let class = format!("clickable padded alternating recipe{}",
                         // TODO: is this reading from the disk on each call?
-                        if let Some(_) = active.0.iter().position(|stored| stored == &key.to_string()) {
+                        if let Some(_) = active().iter().position(|stored| stored == &key.to_string()) {
                             " active"
                         } else {
                             ""
@@ -62,9 +58,7 @@ pub fn Recipes() -> Element {
                     let onclick = {
                         let key = key.clone();
                         move |_| {
-                            let mut active = disk_active.get();
-                            active.toggle(&key);
-                            disk_active.set(active);
+                            active.write().toggle(&key);
                         }
                     };
 

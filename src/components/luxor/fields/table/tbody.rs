@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::luxor::{fields::table::tr::TableRow, DiskLuxorFields};
+use crate::components::luxor::{fields::table::tr::TableRow, models::SigFields};
 
 #[derive(Props, PartialEq, Clone)]
 pub struct TBodyProps {
@@ -9,8 +9,8 @@ pub struct TBodyProps {
 
 #[component]
 pub fn TableBody(props: TBodyProps) -> Element {
-    let disk_fields = use_context::<DiskLuxorFields>();
-    let field = disk_fields.get().0[props.idx];
+    let fields = use_context::<SigFields>();
+    let field = fields().get(props.idx).unwrap().to_owned();
 
     rsx! {
         tbody {

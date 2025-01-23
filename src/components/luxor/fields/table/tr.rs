@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::luxor::fields::{table::td::TableData, LuxorRow};
+use crate::components::luxor::{fields::table::td::TableData, models::LuxorRow};
 
 #[derive(Props, PartialEq, Clone)]
 pub struct TRProps {

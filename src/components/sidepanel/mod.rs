@@ -1,24 +1,22 @@
-mod config;
-use crate::{
-    utils::{get_pathname, use_persistent, UsePersistent},
-    Route,
-};
-use config::LINKS;
 use dioxus::prelude::*;
 use qrcode::render::svg;
 use qrcode::{EcLevel, QrCode};
 
-#[derive(Clone, Copy)]
-pub struct SpState(pub UsePersistent<bool>);
+mod config;
+mod model;
+
+use crate::{utils::get_pathname, Route};
+use config::LINKS;
+pub use model::*;
 
 #[component]
 pub fn Sidepanel() -> Element {
-    let mut state = SpState(use_persistent("sidepanel", || false));
-    use_context_provider(|| state);
+    let mut sidepanel = use_signal(|| SidepanelState::init());
+    use_context_provider(|| sidepanel);
 
     let mut classes = vec!["border1-e"];
 
-    if state.0.get() {
+    if sidepanel().is_active() {
         classes.push("active");
     }
 
@@ -26,14 +24,14 @@ pub fn Sidepanel() -> Element {
         div {
             id: "sidepanel",
             class: classes.join(" "),
-            onmouseleave: move |_| state.0.set(false),
+            onmouseleave: move |_| sidepanel.write().set(false),
 
             ul {
                 li {
                     span {
                         class: "toggler nav-link clickable",
                         style: "float: right;",
-                        onclick: move |_| state.0.set(false),
+                        onclick: move |_| sidepanel.write().set(false),
                         "×"
                     }
                 }
