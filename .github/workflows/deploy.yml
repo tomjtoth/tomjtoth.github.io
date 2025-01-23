@@ -42,6 +42,13 @@ jobs:
           cargo binstall --no-confirm dioxus-cli
 
       - uses: Swatinem/rust-cache@v2
+
+      - name: process CSS files
+        uses: actions/setup-node@v4
+        run: |
+          npm install gulp gulp-concat gulp-clean-css gulp-autoprefixer
+          npx gulp
+
       - name: Build Project 🎁
         shell: bash
         run: |

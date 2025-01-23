@@ -30,7 +30,7 @@ body {
   height: 100%;
 }
 
-#root {
+#main {
   margin: 0;
   height: 100%;
   display: flex;
@@ -39,7 +39,7 @@ body {
   color: var(--col-fg-0);
 }
 
-#main {
+#body {
   flex-grow: 1;
   overflow-y: scroll;
 }
