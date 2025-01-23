@@ -1,8 +1,8 @@
 {
-  "name": "ttj.hu",
+  "name": "ttj - apps",
   "icons": [
     {
-      "src": "favicon.png",
+      "src": "/assets/favicon.png",
       "type": "image/png",
       "sizes": "512x512"
     }

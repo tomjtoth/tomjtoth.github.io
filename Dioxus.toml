@@ -2,8 +2,8 @@
 
 # App (Project) Name
 name = "ttj_apps"
-asset_dir = "public"
 out_dir = "dist"
+asset_dir = "public"
 
 [web.app]
 
