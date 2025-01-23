@@ -14,15 +14,14 @@ use super::models::Visitor;
 
 pub static VISITORS: Lazy<Vec<Visitor>> = Lazy::new(|| {
     let conf = [
-        ("öcséém", "2022-06-01T12:00", ""),
-        ("Bálint + dr. Nő", "2023-09-01T06:30", "2023-09-03T18:30"),
-        // ("test user", "2025-01-28T18:30", "2025-01-23T18:30"),
+        ("öcséém", "2022-06-01 12:00", ""),
+        ("Bálint + dr. Nő", "2023-09-01 06:30", ""),
+        ("valaki", "2025-01-24 17:30", ""),
     ];
 
-    let fmt = "%Y-%m-%dT%H:%M";
+    let fmt = "%Y-%m-%d %H:%M";
 
-    let res: Vec<Visitor> = conf
-        .into_iter()
+    conf.into_iter()
         .map(|(name, arrival, departure)| {
             let arrival = NaiveDateTime::parse_from_str(arrival, fmt).unwrap();
             let departure = if let Ok(parsed) = NaiveDateTime::parse_from_str(departure, fmt) {
@@ -37,9 +36,5 @@ pub static VISITORS: Lazy<Vec<Visitor>> = Lazy::new(|| {
                 departure,
             }
         })
-        .collect();
-
-    tracing::debug!("parsed config is {} long", res.len());
-
-    res
+        .collect()
 });

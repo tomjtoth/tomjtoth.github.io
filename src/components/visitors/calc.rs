@@ -1,5 +1,5 @@
 use chrono::NaiveDateTime;
-use dioxus::{logger::tracing, prelude::*};
+use dioxus::prelude::*;
 use fancy_regex::{Regex, RegexBuilder};
 use once_cell::sync::Lazy;
 
@@ -32,11 +32,10 @@ pub fn text(next: Option<&Visitor>, now: NaiveDateTime) -> Element {
 
         let duration = next.arrival - now;
         let ddd = duration.num_days();
-        let hh = duration.num_hours().rem_euclid(24);
+        let hhh = duration.num_hours();
+        let hh = hhh.rem_euclid(24);
         let mm = duration.num_minutes().rem_euclid(60);
         let ss = duration.num_seconds().rem_euclid(60);
-
-        tracing::debug!(ddd, hh, mm, ss);
 
         if ddd < 3 {
             rsx! {
@@ -46,7 +45,7 @@ pub fn text(next: Option<&Visitor>, now: NaiveDateTime) -> Element {
                     {format!(
                         "{} {:02}:{:02}:{:02} múlva",
                         next.name,
-                        duration.num_hours(),
+                        hhh,
                         mm,
                         ss
                     )}
