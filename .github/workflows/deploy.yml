@@ -49,14 +49,14 @@ jobs:
 
       - name: process CSS files
         run: |
-          npm install gulp gulp-concat gulp-clean-css gulp-autoprefixer
-          npx gulp
+          npm install gulp gulp-if gulp-concat gulp-clean-css gulp-autoprefixer
+          npx gulp prod
 
       - name: Build Project 🎁
         shell: bash
         run: |
           dx build --release
-          mv /home/runner/work/tomjtoth.github.io/tomjtoth.github.io/target/dx/gh_pages/release/web/public ./dist
+          mv /home/runner/work/tomjtoth.github.io/tomjtoth.github.io/target/dx/ttj_apps/release/web/public ./dist
           cp ./dist/index.html ./dist/404.html
 
       - name: Setup Pages
