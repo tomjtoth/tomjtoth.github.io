@@ -1,6 +1,6 @@
 use std::{cmp::Ordering, collections::HashMap};
 
-use dioxus::{logger::tracing, prelude::*};
+use dioxus::prelude::*;
 use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};

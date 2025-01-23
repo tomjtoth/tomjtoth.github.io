@@ -5,8 +5,8 @@ use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 
 use crate::components::{
-    modal::{Button, ModalState, SigModalState},
-    shopping_list::{config::RE_ORDER, DiskActive, DiskItems, SigRecipes},
+    modal::{Button, ModalState, SigModal},
+    shopping_list::{config::RE_ORDER, SigActive, SigItems, SigRecipes},
 };
 static RE_RECIPE_ID: Lazy<Regex> = Lazy::new(|| Regex::new(r"^slr-(?<recId>\d+)$").unwrap());
 
@@ -20,21 +20,19 @@ fn find_idx(name: &String) -> u16 {
 }
 
 // TODO: improve ID handling
-enum StringOrU8 {
-    Str(String),
-    U8(u8),
-}
+// enum StringOrU8 {
+//     Str(String),
+//     U8(u8),
+// }
 
 #[component]
 pub fn Items() -> Element {
-    let mut disk_active = use_context::<DiskActive>();
-    let mut disk_items = use_context::<DiskItems>();
+    let mut active = use_context::<SigActive>();
+    let mut items = use_context::<SigItems>();
     let sig_recipe = use_context::<SigRecipes>();
-    let mut modal = use_context::<SigModalState>();
+    let mut modal = use_context::<SigModal>();
 
-    let mut ul_items = disk_items
-        .get()
-        .0
+    let mut ul_items = items()
         .iter()
         .map(|i| {
             (
@@ -45,7 +43,7 @@ pub fn Items() -> Element {
         })
         .collect::<Vec<(u16, String, String)>>();
 
-    for active in disk_active.get().0.iter() {
+    for active in active().iter() {
         if let Ok(Some(mm)) = RE_RECIPE_ID.captures(active) {
             let rec_idx = mm.get(1).unwrap().as_str().parse::<usize>().unwrap();
             let recipe = &sig_recipe.read().0[rec_idx];
@@ -95,7 +93,7 @@ pub fn Items() -> Element {
 
                 let class = format!(
                     "clickable padded alternating sli{}",
-                    if disk_active.get().0.contains(&id) {
+                    if active().is(&id) {
                         " active"
                     } else {
                         ""
@@ -104,22 +102,15 @@ pub fn Items() -> Element {
 
                 let toggle_active_id = id.clone();
                 let toggle_active =  move |_| {
-                    let mut active = disk_active.get();
-                    active.toggle(&toggle_active_id);
-                    disk_active.set(active);
+                    active.write().toggle(&toggle_active_id);
                 };
 
                 let rm_item = use_callback({
                     let id = id.clone();
                     move |evt: Event<MouseData>| {
                         evt.stop_propagation();
-                        let mut items = disk_items.get();
-                        items.rm(&id);
-                        disk_items.set(items);
-
-                        let mut active = disk_active.get();
-                        active.rm(&id);
-                        disk_active.set(active);
+                        items.write().rm(&id);
+                        active.write().rm(&id);
                     }
                 });
 

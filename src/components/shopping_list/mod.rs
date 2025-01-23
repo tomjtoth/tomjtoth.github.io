@@ -1,5 +1,4 @@
 use dioxus::prelude::*;
-use models::{Active, Items};
 
 mod controls;
 mod items;
@@ -10,21 +9,19 @@ mod recipes;
 mod steps;
 
 pub use models::*;
+use models::{Active, Items};
 use recipes::Recipes;
 
-use crate::{
-    components::{Body, Header},
-    utils::use_persistent,
-};
+use crate::components::{Body, Header};
 use controls::Controls;
 
 #[component]
 pub fn ShoppingList() -> Element {
-    let disk_items = use_persistent("sl-items", || Items::default());
-    use_context_provider(|| disk_items);
+    let items = use_signal(|| Items::init());
+    use_context_provider(|| items);
 
-    let disk_active = use_persistent("sl-active", || Active::default());
-    use_context_provider(|| disk_active);
+    let active = use_signal(|| Active::init());
+    use_context_provider(|| active);
 
     rsx! {
         Header {

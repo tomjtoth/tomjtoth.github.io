@@ -1,12 +1,16 @@
 use dioxus::logger::tracing;
+use dioxus::prelude::*;
 use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 
-use crate::{components::shopping_list::models::RECIPES_ID, utils::UsePersistent};
+use crate::{components::shopping_list::models::RECIPES_ID, utils::LocalStorageCompatible};
 
-#[derive(Serialize, Deserialize, Clone)]
-pub struct Active(pub Vec<String>);
+static RE_RECIPE: Lazy<Regex> =
+    Lazy::new(|| Regex::new(&format!("^{}(?:-\\d+)?$", RECIPES_ID.to_string())).unwrap());
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Active(Vec<String>);
 
 impl Default for Active {
     fn default() -> Self {
@@ -14,17 +18,26 @@ impl Default for Active {
     }
 }
 
-static RE_RECIPE: Lazy<Regex> =
-    Lazy::new(|| Regex::new(&format!("^{}(?:-\\d+)?$", RECIPES_ID.to_string())).unwrap());
-
-// TODO: implement a bitwise ops method for storing ids of slr and sli
-// enum Item {
-//     A(usize), //slr == 0
-//     B(usize, usize),
-//     C(usize, usize, usize),
-// }
+impl LocalStorageCompatible for Active {
+    const STORAGE_KEY: &'static str = "shopping-list-active";
+}
 
 impl Active {
+    pub fn init() -> Self {
+        Self::load()
+    }
+
+    pub fn iter(&self) -> std::slice::Iter<String> {
+        self.0.iter()
+    }
+
+    pub fn is_str(&self, id: &str) -> bool {
+        self.is(&id.to_string())
+    }
+    pub fn is(&self, id: &String) -> bool {
+        self.0.contains(id)
+    }
+
     pub fn toggle_str(&mut self, str: &'static str) {
         self.toggle(&str.to_string());
     }
@@ -41,11 +54,13 @@ impl Active {
         } else {
             self.0.push(str.to_string());
         }
+        self.save();
         tracing::debug!("{:?}", self.0);
     }
 
     pub fn rm(&mut self, str: &String) {
         self.0.retain(|id| id != str);
+        self.save();
     }
 
     pub fn reset(&mut self) {
@@ -56,7 +71,8 @@ impl Active {
                 false
             }
         });
+        self.save();
     }
 }
 
-pub type DiskActive = UsePersistent<Active>;
+pub type SigActive = Signal<Active>;

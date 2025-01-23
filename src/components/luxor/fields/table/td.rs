@@ -1,8 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::luxor::{
-    DiskLuxorFields, DiskLuxorNumbers, LuxorFields, LuxorNumbers, SigLuxorLocked,
-};
+use crate::components::luxor::models::{SigFields, SigLocked, SigNumbers};
 
 #[derive(Props, PartialEq, Clone)]
 pub struct TDProps {
@@ -14,12 +12,10 @@ pub struct TDProps {
 
 #[component]
 pub fn TableData(props: TDProps) -> Element {
-    let mut disk_fields = use_context::<DiskLuxorFields>();
-    let mut disk_numbers = use_context::<DiskLuxorNumbers>();
-    let sig_locked = use_context::<SigLuxorLocked>();
+    let mut fields = use_context::<SigFields>();
+    let mut numbers = use_context::<SigNumbers>();
+    let locked = use_context::<SigLocked>();
 
-    let mut numbers = disk_numbers.get().0;
-    let locked = sig_locked.read().0;
     let mut classes = vec![];
 
     let TDProps {
@@ -29,7 +25,7 @@ pub fn TableData(props: TDProps) -> Element {
         num,
     } = props;
 
-    if locked {
+    if locked() {
         classes.push("clickable");
 
         if row_idx == 1 && (1 <= idx && idx <= 3) {
@@ -45,7 +41,7 @@ pub fn TableData(props: TDProps) -> Element {
         }
     }
 
-    if in_vec(&numbers, &num) {
+    if numbers().has(num) {
         classes.push("picked");
     }
 
@@ -55,13 +51,12 @@ pub fn TableData(props: TDProps) -> Element {
             class: classes.join(" "),
             onclick:move |evt: Event<MouseData>| {
                 evt.stop_propagation();
-                if locked && !in_vec(&numbers, &num) {
-                    numbers.push(num);
-                    disk_numbers.set(LuxorNumbers(numbers.clone()));
+                if locked() && !numbers().has(num) {
+                    numbers.write().add(num);
                 }
             },
 
-            if locked {
+            if locked() {
                 if num == 0 { "🪲" } else { "{num}" }
             } else {
                 input {
@@ -74,9 +69,8 @@ pub fn TableData(props: TDProps) -> Element {
                         if evt.value() != "" {
                             if let Ok(as_u8) = evt.value().parse::<u8>() {
                                 if as_u8 <= 75 {
-                                    let mut fields = disk_fields.get().0;
-                                    fields[field_idx].rows[row_idx][idx] = as_u8;
-                                    disk_fields.set(LuxorFields(fields));
+                                    fields.write().update_num(field_idx, row_idx, idx, as_u8);
+
                                 }
                             }
                         }
@@ -85,8 +79,4 @@ pub fn TableData(props: TDProps) -> Element {
             }
         }
     }
-}
-
-fn in_vec(vec: &Vec<u8>, num: &u8) -> bool {
-    vec.iter().position(|n| n == num).is_some()
 }

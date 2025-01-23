@@ -1,69 +1,42 @@
 use chrono::{TimeZone, Utc};
 use dioxus::{logger::tracing, prelude::*};
-use serde::{Deserialize, Serialize};
-use table::Table;
 
 mod table;
+
 use crate::components::{
-    luxor::{DiskLuxorFields, SigLuxorLocked},
-    modal::{Button, Language, ModalState, SigModalState},
+    luxor::models::{SigFields, SigLocked},
+    modal::{Button, Language, ModalState, SigModal},
 };
-
-type LuxorRow = [u8; 5];
-type LuxorRows = [LuxorRow; 5];
-
-#[derive(Serialize, Deserialize, Clone, Copy)]
-pub struct Field {
-    pub id: u8,
-    pub order: u8,
-    pub rows: LuxorRows,
-    pub imported_at: Option<i64>,
-}
-
-impl Default for Field {
-    fn default() -> Self {
-        Field {
-            id: 0,
-            order: 0,
-            rows: [[0; 5]; 5],
-            imported_at: None,
-        }
-    }
-}
+use table::Table;
 
 #[component]
 pub fn Fields() -> Element {
-    let mut modal = use_context::<SigModalState>();
-    let mut disk_fields = use_context::<DiskLuxorFields>();
-    let fields = disk_fields.get();
-    let fields_len = fields.0.len() as u8;
-    let deletable = fields.0.len() > 1;
+    let mut modal = use_context::<SigModal>();
+    let mut fields = use_context::<SigFields>();
+    let fields_len = fields().len() as u8;
+    let deletable = fields().len() > 1;
 
-    let sig_locked = use_context::<SigLuxorLocked>();
-    let locked = sig_locked.read().0;
+    let locked = use_context::<SigLocked>();
 
-    let li_class = format!("luxor{}", if locked { "" } else { " bordered" });
+    let li_class = format!("luxor{}", if locked() { "" } else { " bordered" });
 
     let mut add_cb_outer = move |id| {
         tracing::debug!("add_cb_outer called with id: {id}");
-        let mut fields = disk_fields.get();
-        fields.add_after(id);
-        disk_fields.set(fields);
+        fields.write().add_after(id);
     };
 
     let del_cb_outer = {
         let mut fields = fields.clone();
         move |id| {
             tracing::debug!("del_cb_outer called with id: {id}");
-            fields.rm(id);
-            disk_fields.set(fields);
+            fields.write().rm(id);
         }
     };
 
     rsx! {
         ul {
             class: "luxor",
-            {fields.0.into_iter().enumerate().map(move |(idx, field)| {
+            {fields().into_iter().enumerate().map(move |(idx, field)| {
                 let imported_span = if let Some(epoch) = field.imported_at {
                     let x = Utc.timestamp_opt(epoch, 0).unwrap();
                     let now = Utc::now();
@@ -97,7 +70,7 @@ pub fn Fields() -> Element {
                     let outer_cb = del_cb_outer.clone();
                     move |_| {
                         tracing::debug!("del_cb_inner calling del_cb_outer");
-                        let callable = outer_cb.clone();
+                        let mut callable = outer_cb.clone();
                         callable(field.id);
                 }});
 
@@ -106,7 +79,7 @@ pub fn Fields() -> Element {
                         key: "{field.id}",
                         class: li_class.clone(),
 
-                        if !locked {
+                        if !locked() {
                             if let Some(text) = imported_span {
                                 span {
                                     class: "padded",

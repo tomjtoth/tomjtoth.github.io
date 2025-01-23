@@ -1,5 +1,6 @@
-use super::sidepanel::SpState;
 use dioxus::prelude::*;
+
+use crate::components::sidepanel::SigSidepanel;
 
 #[derive(PartialEq, Clone, Props)]
 pub struct HeaderProps {
@@ -10,7 +11,7 @@ pub struct HeaderProps {
 
 #[component]
 pub fn Header(props: HeaderProps) -> Element {
-    let mut sp_state = use_context::<SpState>();
+    let mut sidepanel = use_context::<SigSidepanel>();
 
     rsx! {
         document::Title { "{props.title}" }
@@ -22,7 +23,7 @@ pub fn Header(props: HeaderProps) -> Element {
             span {
                 id:"menu-button",
                 class:"toggler clickable padded",
-                onclick: move |_| sp_state.0.set(true),
+                onclick: move |_| sidepanel.write().set(true),
 
                 "☰"
             }

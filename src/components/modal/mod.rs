@@ -17,7 +17,7 @@ pub struct ModalState {
     pub buttons: Vec<(Button, OptCb)>,
 }
 
-pub type SigModalState = Signal<ModalState>;
+pub type SigModal = Signal<ModalState>;
 
 impl Default for ModalState {
     fn default() -> Self {
