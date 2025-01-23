@@ -1,7 +1,7 @@
 [application]
 
 # App (Project) Name
-name = "gh_pages"
+name = "ttj_apps"
 asset_dir = "public"
 out_dir = "dist"
 
