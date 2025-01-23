@@ -1,5 +1,5 @@
 [package]
-name = "gh_pages"
+name = "ttj_apps"
 version = "0.1.0"
 authors = ["Tamás Tóth <tomjtoth@gmail.com>"]
 edition = "2021"
