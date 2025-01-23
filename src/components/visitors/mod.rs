@@ -1,31 +1,31 @@
-use super::Header;
-use crate::components::Body;
-use crate::utils::to_yaml;
-use dioxus;
+use std::time::Duration;
+
+use chrono::{TimeDelta, Utc};
+use config::VISITORS;
 use dioxus::prelude::*;
-use serde::Deserialize;
+use tokio::time::sleep;
 
-type DTZ = String; //DateTime<Utc>;
+mod calc;
+mod config;
+mod models;
 
-static VISITORS_YAML: Asset = asset!("/assets/visitors.yaml");
-
-#[derive(PartialEq, Deserialize, Debug, Clone)]
-pub struct Visitor {
-    name: String,
-    arrival: DTZ,
-    departure: Option<DTZ>,
-}
-
-pub type TVisitors = Vec<Visitor>;
-pub type SVisitors = Signal<TVisitors>;
+use super::Header;
 
 #[component]
 pub fn Visitors() -> Element {
-    let mut visitors = use_context::<SVisitors>();
+    let now = Utc::now().naive_local();
+    let next = VISITORS.iter().find(|vis| vis.arrival > now);
+    let mut text = use_signal::<Element>(|| calc::text(next, now));
 
     use_future(move || async move {
-        if visitors.len() == 0 {
-            visitors.set(to_yaml(VISITORS_YAML).await);
+        if next.is_some() {
+            let tokio1sec = Duration::from_secs(1);
+            let chrono1sec = TimeDelta::seconds(1);
+            loop {
+                sleep(tokio1sec).await;
+                now.checked_add_signed(chrono1sec).unwrap();
+                *text.write() = calc::text(next, now);
+            }
         }
     });
 
@@ -33,13 +33,7 @@ pub fn Visitors() -> Element {
         Header {
             lang: "hu".to_string(),
             title: &"látogatók",
-
-        }
-        Body {
-            p {
-                "The following visits are known:"
-                {visitors.iter().map( |v| rsx!{ "{v.name} {v.arrival}" })}
-            }
+            {text()}
         }
     }
 }
