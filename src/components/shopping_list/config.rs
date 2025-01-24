@@ -39,10 +39,8 @@ pub static RE_ORDER: Lazy<Vec<Regex>> = Lazy::new(|| {
         // HESBURGER
         r"vekeju+sto",
     ].into_iter().map(|patt| {
-      Regex::new(patt).unwrap()
+      Regex::new(patt).expect(&format!(r"compiling pattern: /{patt}/ failed"))
     }).collect::<Vec<Regex>>();
-
-    tracing::debug!("compiled ~30 fancy-regexes");
 
     res
 });
