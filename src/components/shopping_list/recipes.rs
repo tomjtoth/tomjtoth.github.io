@@ -76,20 +76,34 @@ pub fn Recipes() -> Element {
                             }
                         }
 
-                        Steps {
-                            steps: r.steps.clone(),
-                            // TODO: get the optional dish_lang thingy
-                            // lang,
+                        if let Some(_) = lang {
+                            Steps {
+                                steps: r.steps.clone(),
+                                lang: "fi",
+                            }
+                        } else {
+                            Steps {
+                                steps: r.steps.clone(),
+                            }
                         }
                     };
 
                     rsx! {
-                        li {
-                            key: key,
-                            class,
-                            // lang,
-                            onclick,
-                            {children}
+                        if let Some(overridden_lang) = lang {
+                            li {
+                                key,
+                                class,
+                                lang: overridden_lang.to_string(),
+                                onclick,
+                                {children}
+                            }
+                        } else {
+                            li {
+                                key,
+                                class,
+                                onclick,
+                                {children}
+                            }
                         }
                     }
                 })}
