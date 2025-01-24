@@ -11,7 +11,7 @@ const common = (minify = false) =>
     .pipe(autoprefixer({ cascade: false }))
     .pipe(gulpif(minify, cleanCSS()))
     // TODO: move under "public" once Dioxus is fixed
-    .pipe(gulp.dest("assets"));
+    .pipe(gulp.dest("public"));
 
 gulp.task("dev", () => common());
 gulp.task("prod", () => common(true));

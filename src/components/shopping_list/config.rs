@@ -2,7 +2,6 @@ use dioxus::logger::tracing;
 use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 
-
 pub static RE_ORDER: Lazy<Vec<Regex>> = Lazy::new(|| {
     let res = [
         // ennen PRISMA:a
