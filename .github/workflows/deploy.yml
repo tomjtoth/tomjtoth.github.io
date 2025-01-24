@@ -35,6 +35,7 @@ jobs:
           profile: minimal
           target: wasm32-unknown-unknown
           override: true
+
       - name: Install Dioxus-CLI
         shell: bash
         run: |
