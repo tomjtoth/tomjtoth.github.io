@@ -12,8 +12,11 @@ use super::Header;
 
 #[component]
 pub fn Visitors() -> Element {
-    let mut now = Utc::now().naive_local();
-    let next = VISITORS.iter().find(|vis| vis.arrival > now);
+    let mut now = Utc::now();
+    let next = VISITORS
+        .iter()
+        .find(|vis| vis.arrival.is_some_and(|dt| dt > now));
+
     let mut text = use_signal::<Element>(|| calc::text(next, now));
 
     use_future(move || async move {
