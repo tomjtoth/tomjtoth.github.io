@@ -2,7 +2,7 @@
   "name": "ttj - apps",
   "icons": [
     {
-      "src": "/assets/favicon.png",
+      "src": "/assets/icon.png",
       "type": "image/png",
       "sizes": "512x512"
     }
