@@ -15,7 +15,6 @@ fn App() -> Element {
     use_context_provider(|| recipes);
 
     rsx! {
-        document::Stylesheet { href: asset!("/assets/mini.css") }
         Router::<Route> {}
     }
 }
