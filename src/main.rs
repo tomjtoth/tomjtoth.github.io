@@ -1,4 +1,4 @@
-use components::{audio::model::Audio, sidepanel::model::Sidepanel};
+use components::{audio::Audio, sidepanel::model::Sidepanel};
 use dioxus::prelude::*;
 
 mod components;
