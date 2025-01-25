@@ -69,19 +69,14 @@ async fn fetch(url: String) -> Response {
     reqwest::get(&url).await.expect("failed to fetch {url}")
 }
 
-pub async fn to_yaml<T>(asset: Asset) -> T
-where
-    T: DeserializeOwned,
-{
+pub async fn to_yaml<T: DeserializeOwned>(asset: Asset) -> T {
     let text = fetch(asset.to_string())
         .await
         .text()
         .await
         .expect("failed to turn response to text");
 
-    tracing::debug!(text);
-
-    serde_yaml::from_str::<T>(&text).expect("YAML parsing error")
+    serde_yaml::from_str::<T>(&text).expect(&format!("parsing the below failed:\n\n{text}"))
 }
 
 pub trait DisplayBytes {

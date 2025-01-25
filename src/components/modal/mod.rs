@@ -83,7 +83,6 @@ pub fn Modal() -> Element {
                         id: "modal-buttons",
 
                         {
-                            tracing::debug!("playing modal sound");
                             audio.read().play(SOUND[0].0);
 
                             let lang = if let Some(explicitly) = lang {

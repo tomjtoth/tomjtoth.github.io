@@ -52,8 +52,6 @@ pub fn Luxor() -> Element {
 
     use_effect(move || {
         if let Some(sp) = url_sp() {
-            tracing::debug!("use_effect triggered");
-
             if let Some(comma_sep_vec_u8) = sp.get("import") {
                 tracing::debug!("importing: {comma_sep_vec_u8}");
 
