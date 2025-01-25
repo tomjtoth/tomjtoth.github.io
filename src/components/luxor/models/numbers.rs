@@ -11,6 +11,8 @@ impl Default for Numbers {
     }
 }
 
+pub type SigNumbers = Signal<Numbers>;
+
 impl LocalStorageCompatible for Numbers {
     const STORAGE_KEY: &'static str = "luxor-numbers";
 }
@@ -49,5 +51,3 @@ impl Numbers {
         self.save();
     }
 }
-
-pub type SigNumbers = Signal<Numbers>;

@@ -1,9 +1,10 @@
-use components::{audio::Audio, sidepanel::model::Sidepanel};
 use dioxus::prelude::*;
 
 mod components;
 mod routes;
 mod utils;
+
+use components as c;
 
 fn main() {
     dioxus::launch(App);
@@ -11,12 +12,13 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    // read from localStorage
-    Sidepanel::init();
-    components::shopping_list::models::init();
-    components::luxor::models::init();
     // init static resources
-    Audio::init();
+    c::audio::init();
+
+    // read from localStorage
+    c::sidepanel::init();
+    c::luxor::init();
+    c::shopping_list::init();
 
     rsx! {
         Router::<routes::Route> {}

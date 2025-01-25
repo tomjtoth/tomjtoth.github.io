@@ -2,11 +2,11 @@ use dioxus::prelude::*;
 use qrcode::{render::svg, EcLevel, QrCode};
 
 mod config;
-pub mod model;
+mod model;
 
 use crate::utils::get_pathname;
 use config::LINKS;
-pub use model::*;
+pub use model::{init, SigSidepanel};
 
 #[component]
 pub fn Sidepanel() -> Element {

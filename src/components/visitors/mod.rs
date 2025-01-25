@@ -1,14 +1,13 @@
-use std::time::Duration;
-
 use chrono::{TimeDelta, Utc};
 use config::VISITORS;
 use dioxus::prelude::*;
+use std::time::Duration;
 
 mod calc;
 mod config;
 mod models;
 
-use super::Header;
+use crate::components::header::Header;
 
 #[component]
 pub fn Visitors() -> Element {

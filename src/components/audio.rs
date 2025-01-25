@@ -28,14 +28,14 @@ impl Default for Audio {
 }
 
 impl Audio {
-    pub fn init() {
-        init_ctx(|| Self::default());
-    }
-
-    pub fn play(&self, src: &str) {
+    pub fn play(&self, src: &'static str) {
         if let Some(snd) = self.0.get(src) {
             snd.set_current_time(0.0);
             let _res = snd.play();
         }
     }
+}
+
+pub fn init() {
+    init_ctx(|| Audio::default());
 }

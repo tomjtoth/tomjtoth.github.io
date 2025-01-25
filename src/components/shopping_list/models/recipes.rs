@@ -5,7 +5,7 @@ use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 
-use crate::utils::to_yaml;
+use crate::utils::{init_ctx, to_yaml};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Lang {
@@ -67,8 +67,7 @@ impl Recipes {
     }
 
     pub fn init() {
-        let mut sig = use_signal(|| Self::default());
-        use_context_provider(|| sig);
+        let mut signal = init_ctx(|| Self::default());
 
         use_future(move || async move {
             let yaml_recipes: HashMap<String, RecipeParserHelper> =
@@ -161,7 +160,7 @@ impl Recipes {
             });
 
             tracing::debug!("recipes.yaml processed");
-            sig.write().0 = recipes;
+            signal.write().0 = recipes;
         });
     }
 }

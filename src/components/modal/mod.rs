@@ -2,11 +2,10 @@ use dioxus::{logger::tracing, prelude::*};
 
 mod button;
 
-use crate::{components::audio::SigAudio, routes::Route};
+use super::audio::AudioSrc;
+use crate::{components::audio::SigAudio, routes::Route, utils::init_ctx};
 use button::Btn;
 pub use button::{Button, Language};
-
-use super::audio::AudioSrc;
 
 type Cb = Callback<MouseEvent>;
 type OptCb = Option<Cb>;
@@ -30,15 +29,20 @@ impl Default for ModalState {
     }
 }
 
+impl ModalState {
+    fn reset(&mut self) {
+        *self = Self::default();
+    }
+}
+
 pub static SOUND: [AudioSrc; 1] = [("/assets/modal.mp3", Some(0.2))];
 
 #[component]
 pub fn Modal() -> Element {
-    let mut state = use_signal(|| ModalState::default());
-    use_context_provider(|| state);
+    let mut state = init_ctx(|| ModalState::default());
     let audio = use_context::<SigAudio>();
 
-    let reset = use_callback(move |_| state.set(ModalState::default()));
+    let reset_state = use_callback(move |_| state.write().reset());
 
     rsx! {
         if let ModalState {
@@ -51,7 +55,7 @@ pub fn Modal() -> Element {
 
                 onclick: move |evt| {
                     tracing::debug!("div#modal-blur clicked");
-                    reset.call(evt);
+                    reset_state.call(evt);
                 },
 
                 div {
@@ -95,7 +99,7 @@ pub fn Modal() -> Element {
                                         lang,
                                         r#type: btn.clone(),
                                         onclick: *onclick,
-                                        reset
+                                        reset: reset_state
                                     }
                                 }
                             })
