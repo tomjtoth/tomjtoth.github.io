@@ -47,7 +47,8 @@ impl Active {
         if self.0.contains(&str) {
             if str.starts_with(&RECIPES_ID) && str.len() > RECIPES_ID.len() {
                 // if a recipe was clicked, deactivate all it's items
-                self.0.retain(|id| !id.starts_with(str));
+                let slr_num_ = format!("{str}-");
+                self.0.retain(|id| !id.starts_with(&slr_num_));
             } else {
                 self.rm(str);
             }
