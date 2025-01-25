@@ -1,4 +1,4 @@
-use dioxus::{logger::tracing, signals::Signal};
+use dioxus::signals::Signal;
 use serde::{Deserialize, Serialize};
 
 use crate::utils::{init_ctx, LocalStorageCompatible};

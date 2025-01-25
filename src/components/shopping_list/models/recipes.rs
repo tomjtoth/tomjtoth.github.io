@@ -48,7 +48,6 @@ pub type SigRecipes = Signal<Recipes>;
 
 impl Default for Recipes {
     fn default() -> Self {
-        tracing::debug!("recipes default invoked");
         Recipes(vec![])
     }
 }

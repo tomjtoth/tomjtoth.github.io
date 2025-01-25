@@ -29,10 +29,10 @@ impl Default for Audio {
 
 impl Audio {
     pub fn play(&self, src: &'static str) {
-        if let Some(snd) = self.0.get(src) {
-            snd.set_current_time(0.0);
-            let _res = snd.play();
-        }
+        let snd = self.0.get(src).expect(&format!("{src} does not exist"));
+        tracing::debug!("playing {src}");
+        snd.set_current_time(0.0);
+        let _res = snd.play();
     }
 }
 
