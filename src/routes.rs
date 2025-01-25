@@ -3,7 +3,6 @@ use dioxus::prelude::*;
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 pub enum Route {
-    #[layout(OneShot)]
     #[layout(Modal)]
     #[layout(Sidepanel)]
     #[route("/")]

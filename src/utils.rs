@@ -30,6 +30,12 @@ pub trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
     }
 }
 
+pub fn init_ctx<T: 'static>(closure: impl FnOnce() -> T) -> Signal<T> {
+    let signal = use_signal(closure);
+    use_context_provider(|| signal);
+    signal
+}
+
 pub fn get_pathname() -> String {
     let loc = window().unwrap().location();
     match loc.pathname() {

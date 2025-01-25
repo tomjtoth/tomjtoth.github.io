@@ -4,7 +4,10 @@ use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 
-use crate::{components::shopping_list::models::RECIPES_ID, utils::LocalStorageCompatible};
+use crate::{
+    components::shopping_list::models::RECIPES_ID,
+    utils::{init_ctx, LocalStorageCompatible},
+};
 
 static RE_RECIPE: Lazy<Regex> =
     Lazy::new(|| Regex::new(&format!("^{}(?:-\\d+)?$", RECIPES_ID.to_string())).unwrap());
@@ -23,8 +26,8 @@ impl LocalStorageCompatible for Active {
 }
 
 impl Active {
-    pub fn init() -> Self {
-        Self::load()
+    pub fn init() {
+        init_ctx(|| Self::load());
     }
 
     pub fn iter(&self) -> std::slice::Iter<String> {

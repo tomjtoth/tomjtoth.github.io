@@ -2,7 +2,7 @@ use chrono::Utc;
 use dioxus::signals::Signal;
 use serde::{Deserialize, Serialize};
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{init_ctx, LocalStorageCompatible};
 
 pub type LuxorRow = [u8; 5];
 type LuxorRows = [LuxorRow; 5];
@@ -39,8 +39,8 @@ impl LocalStorageCompatible for Fields {
 }
 
 impl Fields {
-    pub fn init() -> Self {
-        Self::load()
+    pub fn init() {
+        init_ctx(|| Self::load());
     }
 
     pub fn len(&self) -> usize {
