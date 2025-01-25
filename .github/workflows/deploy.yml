@@ -57,8 +57,11 @@ jobs:
         shell: bash
         run: |
           dx build --release
-          mv /home/runner/work/tomjtoth.github.io/tomjtoth.github.io/target/dx/ttj_apps/release/web/public ./dist
-          cp ./dist/index.html ./dist/404.html
+          mv /home/runner/work/tomjtoth.github.io/tomjtoth.github.io/target/dx/ttj_apps/release/web/public dist
+          cd dist
+          cp index.html 404.html
+          # necessary workaround since I have at least 1 user out there sourcing this
+          mv assets/linux .
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
