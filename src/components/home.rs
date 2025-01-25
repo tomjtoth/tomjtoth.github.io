@@ -1,5 +1,6 @@
-use super::{Body, Header};
 use dioxus::prelude::*;
+
+use crate::components::{body::Body, header::Header};
 
 /// Home page
 #[component]

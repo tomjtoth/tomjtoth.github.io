@@ -18,6 +18,8 @@ pub trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
 
     fn load() -> Self {
         let key = Self::STORAGE_KEY;
+        tracing::debug!("{key} read from localStorage");
+
         if let Some(storage) = window().and_then(|w| w.local_storage().ok()).flatten() {
             if let Ok(Some(value)) = storage.get_item(&key) {
                 serde_json::from_str(&value).unwrap_or(Self::default())

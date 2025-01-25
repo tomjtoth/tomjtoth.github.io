@@ -1,12 +1,12 @@
 use dioxus::prelude::*;
 
 use crate::components::{
+    loader::Loader,
     shopping_list::{
         items::Items,
         models::{Lang, Opts, SigActive, SigRecipes, RECIPES_ID},
         steps::Steps,
     },
-    Loader,
 };
 
 #[component]

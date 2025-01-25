@@ -1,5 +1,10 @@
-use crate::components::*;
 use dioxus::prelude::*;
+
+use crate::components::{
+    arx_fatalis::ArxFatalis, battery_monitor::BatteryMonitor, home::Home, luxor::Luxor,
+    lyrics::Lyrics, modal::Modal, shopping_list::ShoppingList, sidepanel::Sidepanel,
+    visitors::Visitors,
+};
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 pub enum Route {

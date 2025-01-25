@@ -1,17 +1,16 @@
 use dioxus::prelude::*;
 
+mod config;
 mod controls;
 mod items;
-// mod logic;
-mod config;
-pub mod models;
+mod models;
 mod recipes;
 mod steps;
 
-use recipes::Recipes;
-
-use crate::components::{Body, Header};
+use crate::components::{body::Body, header::Header};
 use controls::Controls;
+pub use models::init;
+use recipes::Recipes;
 
 #[component]
 pub fn ShoppingList() -> Element {

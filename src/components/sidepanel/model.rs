@@ -6,13 +6,11 @@ use crate::utils::{init_ctx, LocalStorageCompatible};
 #[derive(Serialize, Deserialize, Clone, Default)]
 pub struct Sidepanel(bool);
 
+pub fn init() -> SigSidepanel {
+    init_ctx(|| Sidepanel::load())
+}
+
 impl Sidepanel {
-    pub fn init() {
-        tracing::debug!("sidepanel state read from LS");
-
-        init_ctx(|| Self::load());
-    }
-
     pub fn is_active(&self) -> bool {
         self.0
     }

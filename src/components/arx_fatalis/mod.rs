@@ -1,5 +1,6 @@
-use crate::components::Header;
 use dioxus::prelude::*;
+
+use crate::components::header::Header;
 
 #[component]
 pub fn ArxFatalis() -> Element {

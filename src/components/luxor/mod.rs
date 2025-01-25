@@ -1,15 +1,18 @@
 use dioxus::{logger::tracing, prelude::*};
-use models::SigFields;
 
 mod controls;
 mod fields;
-pub mod models;
+mod models;
 mod nums_line;
+
+pub use models::init;
+use models::SigFields;
 
 use crate::{
     components::{
+        body::Body,
+        header::Header,
         modal::{Button, Language, ModalState, SigModal},
-        Body, Header,
     },
     routes::Route,
     utils::{init_ctx, url_sp},
