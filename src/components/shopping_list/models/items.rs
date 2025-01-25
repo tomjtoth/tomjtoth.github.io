@@ -1,7 +1,7 @@
 use dioxus::signals::Signal;
 use serde::{Deserialize, Serialize};
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{init_ctx, LocalStorageCompatible};
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Item {
@@ -23,8 +23,8 @@ impl LocalStorageCompatible for Items {
 }
 
 impl Items {
-    pub fn init() -> Self {
-        Self::load()
+    pub fn init() {
+        init_ctx(|| Self::load());
     }
 
     pub fn add(&mut self, item: String) {

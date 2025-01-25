@@ -11,7 +11,7 @@ use crate::components::{
 
 #[component]
 pub fn Recipes() -> Element {
-    let mut recipes = use_context::<SigRecipes>();
+    let recipes = use_context::<SigRecipes>();
     let mut active = use_context::<SigActive>();
 
     let class = if active().is(&RECIPES_ID.to_string()) {
@@ -19,10 +19,6 @@ pub fn Recipes() -> Element {
     } else {
         None
     };
-
-    use_future(move || async move {
-        recipes.write().init().await;
-    });
 
     rsx! {
         if recipes().len() == 0 {

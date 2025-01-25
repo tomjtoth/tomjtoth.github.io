@@ -1,7 +1,7 @@
 use dioxus::signals::Signal;
 use serde::{Deserialize, Serialize};
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{init_ctx, LocalStorageCompatible};
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Numbers(Vec<u8>);
@@ -16,8 +16,8 @@ impl LocalStorageCompatible for Numbers {
 }
 
 impl Numbers {
-    pub fn init() -> Self {
-        Self::load()
+    pub fn init() {
+        init_ctx(|| Self::load());
     }
 
     pub fn len(&self) -> usize {

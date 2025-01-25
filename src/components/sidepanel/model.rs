@@ -1,14 +1,16 @@
-use dioxus::signals::Signal;
+use dioxus::{logger::tracing, signals::Signal};
 use serde::{Deserialize, Serialize};
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{init_ctx, LocalStorageCompatible};
 
 #[derive(Serialize, Deserialize, Clone, Default)]
-pub struct SidepanelState(bool);
+pub struct Sidepanel(bool);
 
-impl SidepanelState {
-    pub fn init() -> Self {
-        Self::load()
+impl Sidepanel {
+    pub fn init() {
+        tracing::debug!("sidepanel state read from LS");
+
+        init_ctx(|| Self::load());
     }
 
     pub fn is_active(&self) -> bool {
@@ -21,8 +23,8 @@ impl SidepanelState {
     }
 }
 
-impl LocalStorageCompatible for SidepanelState {
+impl LocalStorageCompatible for Sidepanel {
     const STORAGE_KEY: &'static str = "sidepanel";
 }
 
-pub type SigSidepanel = Signal<SidepanelState>;
+pub type SigSidepanel = Signal<Sidepanel>;

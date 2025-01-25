@@ -2,9 +2,11 @@ use dioxus::{logger::tracing, prelude::*};
 
 mod button;
 
-use crate::{components::one_shot::SigAudio, routes::Route};
+use crate::{components::audio::model::SigAudio, routes::Route};
 use button::Btn;
 pub use button::{Button, Language};
+
+use super::audio::model::AudioSrc;
 
 type Cb = Callback<MouseEvent>;
 type OptCb = Option<Cb>;
@@ -28,11 +30,12 @@ impl Default for ModalState {
     }
 }
 
+pub static SOUND: [AudioSrc; 1] = [("/assets/modal.mp3", Some(0.2))];
+
 #[component]
 pub fn Modal() -> Element {
     let mut state = use_signal(|| ModalState::default());
     use_context_provider(|| state);
-
     let audio = use_context::<SigAudio>();
 
     let reset = use_callback(move |_| state.set(ModalState::default()));
@@ -77,7 +80,7 @@ pub fn Modal() -> Element {
 
                         {
                             tracing::debug!("playing modal sound");
-                            let _promise = audio.read().modal.play();
+                            audio.read().play(SOUND[0].0);
 
                             let lang = if let Some(explicitly) = lang {
                                 explicitly

@@ -1,19 +1,16 @@
 use dioxus::prelude::*;
-use qrcode::render::svg;
-use qrcode::{EcLevel, QrCode};
+use qrcode::{render::svg, EcLevel, QrCode};
 
 mod config;
-mod model;
+pub mod model;
 
-use crate::{utils::get_pathname, Route};
+use crate::utils::get_pathname;
 use config::LINKS;
 pub use model::*;
 
 #[component]
 pub fn Sidepanel() -> Element {
-    let mut sidepanel = use_signal(|| SidepanelState::init());
-    use_context_provider(|| sidepanel);
-
+    let mut sidepanel = use_context::<SigSidepanel>();
     let mut classes = vec!["border1-e"];
 
     if sidepanel().is_active() {
@@ -69,6 +66,6 @@ pub fn Sidepanel() -> Element {
             }
         }
 
-        Outlet::<Route> {}
+        Outlet::<crate::routes::Route> {}
     }
 }

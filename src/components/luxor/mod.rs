@@ -1,8 +1,9 @@
 use dioxus::{logger::tracing, prelude::*};
+use models::SigFields;
 
 mod controls;
 mod fields;
-mod models;
+pub mod models;
 mod nums_line;
 
 use crate::{
@@ -11,22 +12,15 @@ use crate::{
         Body, Header,
     },
     routes::Route,
-    utils::url_sp,
+    utils::{init_ctx, url_sp},
 };
 use controls::Controls;
-use models::{Fields, Numbers};
 use nums_line::PickedNumsLine;
 
 #[component]
 pub fn Luxor() -> Element {
-    let numbers = use_signal(|| Numbers::init());
-    let mut fields = use_signal(|| Fields::init());
-    let locked = use_signal(|| true);
-
-    use_context_provider(|| numbers);
-    use_context_provider(|| fields);
-    use_context_provider(|| locked);
-
+    init_ctx(|| true);
+    let mut fields = use_context::<SigFields>();
     let mut modal = use_context::<SigModal>();
     let navigator = use_navigator();
 
