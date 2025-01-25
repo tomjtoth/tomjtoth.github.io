@@ -2,17 +2,17 @@ use dioxus::prelude::*;
 
 use crate::components::{
     shopping_list::{
-        init, items::Items, models::RECIPES_ID, steps::Steps, Lang, Opts, SigActive, SigRecipes,
-        TRecipes,
+        items::Items,
+        models::{Lang, Opts, SigActive, SigRecipes, RECIPES_ID},
+        steps::Steps,
     },
     Loader,
 };
 
 #[component]
 pub fn Recipes() -> Element {
-    let mut sig_recipes = use_context::<SigRecipes>();
+    let mut recipes = use_context::<SigRecipes>();
     let mut active = use_context::<SigActive>();
-    let recipes = &sig_recipes.read().0;
 
     let class = if active().is(&RECIPES_ID.to_string()) {
         Some("active")
@@ -21,19 +21,18 @@ pub fn Recipes() -> Element {
     };
 
     use_future(move || async move {
-        let fetched = init().await;
-        sig_recipes.set(TRecipes(fetched));
+        recipes.write().init().await;
     });
 
     rsx! {
-        if recipes.len() == 0 {
+        if recipes().len() == 0 {
             Loader {}
         } else {
             ul {
                 id: RECIPES_ID,
                 class,
 
-                {recipes.iter().enumerate().map(|(i, r)| {
+                {recipes().iter().enumerate().map(|(i, r)| {
                     let key = format!("slr-{i}");
 
                     let class = format!("clickable padded alternating recipe{}",

@@ -1,9 +1,8 @@
 use dioxus::{logger::tracing, prelude::*};
-use web_sys::HtmlAudioElement;
 
 mod button;
 
-use crate::routes::Route;
+use crate::{components::one_shot::SigAudio, routes::Route};
 use button::Btn;
 pub use button::{Button, Language};
 
@@ -34,8 +33,8 @@ pub fn Modal() -> Element {
     let mut state = use_signal(|| ModalState::default());
     use_context_provider(|| state);
 
-    // TODO: make this sound static
-    let sound = HtmlAudioElement::new_with_src(&asset!("/assets/modal.mp3").to_string()).unwrap();
+    let audio = use_context::<SigAudio>();
+
     let reset = use_callback(move |_| state.set(ModalState::default()));
 
     rsx! {
@@ -77,11 +76,8 @@ pub fn Modal() -> Element {
                         id: "modal-buttons",
 
                         {
-                            tracing::debug!("plyaing modal sound");
-                            sound.set_current_time(0.0);
-                            if let Err(_err) = sound.play() {
-                                tracing::error!("playing sound failed in modal");
-                            };
+                            tracing::debug!("playing modal sound");
+                            let _promise = audio.read().modal.play();
 
                             let lang = if let Some(explicitly) = lang {
                                 explicitly
