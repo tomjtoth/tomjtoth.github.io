@@ -48,12 +48,13 @@ impl Active {
     pub fn toggle(&mut self, str: &String) {
         tracing::debug!("toggling {str}");
         if self.0.contains(&str) {
-            if str.starts_with(&RECIPES_ID) && str.len() > RECIPES_ID.len() {
-                // if a recipe was clicked, deactivate all it's items
-                let slr_num_ = format!("{str}-");
-                self.0.retain(|id| !id.starts_with(&slr_num_));
-            } else {
+            if str == RECIPES_ID {
                 self.rm(str);
+            } else {
+                // if a recipe was clicked, deactivate all it's items
+                let slr_num_items = Regex::new(&format!(r"^{str}(?:-\d+)?$")).unwrap();
+
+                self.0.retain(|id| !slr_num_items.is_match(id).unwrap());
             }
         } else {
             self.0.push(str.to_string());
