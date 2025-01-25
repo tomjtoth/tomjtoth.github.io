@@ -2,11 +2,11 @@ use dioxus::{logger::tracing, prelude::*};
 
 mod button;
 
-use crate::{components::audio::model::SigAudio, routes::Route};
+use crate::{components::audio::SigAudio, routes::Route};
 use button::Btn;
 pub use button::{Button, Language};
 
-use super::audio::model::AudioSrc;
+use super::audio::AudioSrc;
 
 type Cb = Callback<MouseEvent>;
 type OptCb = Option<Cb>;
