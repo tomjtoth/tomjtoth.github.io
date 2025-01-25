@@ -15,12 +15,6 @@ use controls::Controls;
 
 #[component]
 pub fn ShoppingList() -> Element {
-    let items = use_signal(|| models::Items::init());
-    use_context_provider(|| items);
-
-    let active = use_signal(|| models::Active::init());
-    use_context_provider(|| active);
-
     rsx! {
         Header {
             title: &"ostoslista",
