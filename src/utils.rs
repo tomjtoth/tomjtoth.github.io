@@ -32,7 +32,13 @@ pub trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
 
 pub fn get_pathname() -> String {
     let loc = window().unwrap().location();
-    loc.pathname().unwrap_or("https://ttj.hu".to_string())
+    match loc.pathname() {
+        Ok(path) => path,
+        Err(err) => {
+            tracing::error!("{:?}", err);
+            "https://ttj.hu".to_string()
+        }
+    }
 }
 
 pub fn url_sp() -> Option<UrlSearchParams> {
