@@ -2,10 +2,7 @@ use dioxus::prelude::*;
 
 use crate::components::{
     modal::{Button, ModalState, SigModal},
-    shopping_list::{
-        models::{SigItems, RECIPES_ID},
-        SigActive,
-    },
+    shopping_list::models::{SigActive, SigItems, RECIPES_ID},
 };
 
 #[component]
