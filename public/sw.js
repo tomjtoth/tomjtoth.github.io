@@ -9,11 +9,16 @@ const urlsToCache = [
 
 function rmOldVersions(cache, matchedUrl) {
   if (matchedUrl) {
-    const [, resource, hashExt, ext] = matchedUrl;
+    const [, resource, hashExt, extension] = matchedUrl;
 
     cache.keys().then((keys) => {
       keys.forEach((req) => {
-        if (req.url.endsWith(ext) && !req.url.endsWith(hashExt)) {
+        if (
+          req.url.startsWith(resource) &&
+          req.url.endsWith(extension) &&
+          // most performant? way to compare hashes
+          !req.url.endsWith(hashExt)
+        ) {
           cache.delete(req);
         }
       });
@@ -23,7 +28,8 @@ function rmOldVersions(cache, matchedUrl) {
 
 const staticMP3 = /\/assets\/(?:arx\/(?:runes|spells)\/[a-z-]+|modal)\.mp3$/;
 const staticPNG = /\/assets\/arx\/runes\/[a-z]+\.png$/;
-const cacheBusters = /(.*\/assets\/ttj_apps(?:_bg)?)-([\w]+\.(wasm|js|css))$/;
+const cacheBusters =
+  /(.*\/assets\/(?:lyrics|recipes|ttj_apps(?:_bg)?))-(\S+\.(wasm|js|css|yaml))$/;
 
 // Install event: Cache resources
 self.addEventListener("install", (event) => {
