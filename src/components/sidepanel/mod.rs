@@ -43,6 +43,7 @@ pub fn Sidepanel() -> Element {
                 })}
             }
             {
+                // TODO: when deployed this *does change* after closing the sidepanel, why?
                 let url = get_url();
 
                 let code = QrCode::with_error_correction_level(
@@ -59,6 +60,7 @@ pub fn Sidepanel() -> Element {
                 rsx! {
                     div {
                         id: "qr-code",
+                        class: "clickable",
                         dangerous_inner_html: svg,
                         onclick: move |_| {
                             text_to_clipboard(&url);
