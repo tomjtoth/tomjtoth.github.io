@@ -1,8 +1,7 @@
-use std::cmp::Ordering;
-
 use dioxus::prelude::*;
 use fancy_regex::Regex;
 use once_cell::sync::Lazy;
+use std::cmp::Ordering;
 
 use crate::components::{
     modal::{Button, ModalState, SigModal},

@@ -4,6 +4,7 @@ pub struct Link2View {
     pub lang: Option<&'static str>,
 }
 
+// TODO: change these to the enums as in the example
 pub static LINKS: &[Link2View] = &[
     Link2View {
         label: "alkuun",
