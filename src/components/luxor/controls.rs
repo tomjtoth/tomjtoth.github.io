@@ -42,7 +42,6 @@ pub fn Controls() -> Element {
                 max: 75,
                 min: 0,
                 autocomplete: "off",
-                autofocus: "on",
                 placeholder: "a következő nyerőszám",
                 value: "{input}",
                 oninput: move |evt| {
