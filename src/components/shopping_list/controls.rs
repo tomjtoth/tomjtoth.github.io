@@ -46,7 +46,6 @@ pub fn Controls() -> Element {
             input {
                 id: "sli-adder",
                 placeholder: "lisää tavara tänne",
-                autofocus: true,
                 value: input(),
                 oninput: move |evt| {
                     evt.prevent_default();
