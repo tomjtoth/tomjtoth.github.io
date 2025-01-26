@@ -1,29 +1,29 @@
-const CACHE_NAME = "dev-v1";
+const CACHE_NAME = "rolling-net-first";
 const urlsToCache = [
+  // bare basics for PWA
   "/",
   "/index.html",
-  "/manifest.json",
-  "/icon.png",
-  "/recipes.yaml",
-  "/lyrics.yaml",
-  "/modal.mp3",
+  "/assets/manifest.json",
+  "/assets/icon.png",
 ];
 
-function deleteAll(cache, these, except) {
-  cache.keys().then((keys) => {
-    keys.forEach((req) => {
-      if (req.url !== except && these.test(req.url)) {
-        cache.delete(req);
-      }
+function rmOldVersions(cache, matchedUrl) {
+  if (matchedUrl) {
+    const [, resource, hashExt, ext] = matchedUrl;
+
+    cache.keys().then((keys) => {
+      keys.forEach((req) => {
+        if (req.url.endsWith(ext) && !req.url.endsWith(hashExt)) {
+          cache.delete(req);
+        }
+      });
     });
-  });
+  }
 }
 
-const arxMP3 = /\/arx\/(?:runes|spells)\/[a-z-]+\.mp3$/;
-const arxPNG = /\/arx\/runes\/[a-z]+\.png$/;
-
-const indexCSS = /\/assets\/index-[\w-]+\.css$/;
-const indexJS = /\/assets\/index-[\w-]+\.js$/;
+const staticMP3 = /\/assets\/(?:arx\/(?:runes|spells)\/[a-z-]+|modal)\.mp3$/;
+const staticPNG = /\/assets\/arx\/runes\/[a-z]+\.png$/;
+const cacheBusters = /(.*\/assets\/ttj_apps(?:_bg)?)-([\w]+\.(wasm|js|css))$/;
 
 // Install event: Cache resources
 self.addEventListener("install", (event) => {
@@ -41,20 +41,19 @@ self.addEventListener("fetch", (event) => {
       const fromCache = await cache.match(event.request);
       const url = event.request.url;
 
-      const isArxMP3 = arxMP3.test(url);
-      const isArxPNG = arxPNG.test(url);
+      const isStaticMP3 = staticMP3.test(url);
+      const isStaticPNG = staticPNG.test(url);
 
-      if (fromCache && (isArxMP3 || isArxPNG)) {
+      if (fromCache && (isStaticMP3 || isStaticPNG)) {
         // these 2 never change
         return fromCache;
       }
 
-      const isIndexJS = indexJS.test(url);
-      const isIndexCSS = indexCSS.test(url);
+      const matchedBuster = url.match(cacheBusters);
 
       let reqExtra;
 
-      if (isArxMP3) {
+      if (isStaticMP3) {
         // 206 OK responses could not be cached
         // requesting without "range" header results in 200 OK
         reqExtra = new Request(url, {
@@ -66,43 +65,26 @@ self.addEventListener("fetch", (event) => {
         });
       }
 
-      const fromNet = fetch(reqExtra || event.request)
+      return fetch(reqExtra || event.request)
         .then((res) => {
           if (res && res.ok) {
-            if (isIndexCSS) deleteAll(cache, indexCSS, url);
-            if (isIndexJS) deleteAll(cache, indexJS, url);
+            rmOldVersions(cache, matchedBuster);
 
             if (
-              (isArxMP3 && res.status === 200) ||
-              isArxPNG ||
-              isIndexCSS ||
-              isIndexJS ||
+              (isStaticMP3 && res.status === 200) ||
+              isStaticPNG ||
+              matchedBuster ||
               urlsToCache.includes(url)
             ) {
               // Update the cache with the new version
               cache.put(event.request, res.clone());
               console.log(`updated response to ${url}`);
             }
-          } else if (isIndexJS) {
-            // either GitHub is down (not likely)
-            // or webpack changed resource names in index.html
-            // during last deploy (most likely)
-
-            const reqIndex = new Request("/index.html");
-            fetch(reqIndex).then((res) => {
-              if (res && res.ok) {
-                cache.put(reqIndex, res.clone());
-                cache.put(new Request("/"), res);
-              }
-            });
           }
 
           return res;
         })
         .catch(() => fromCache); // Fallback to cache if network fails
-
-      // Return the cached response ASAP, but update the cache in the background
-      return fromCache || fromNet;
     })
   );
 });

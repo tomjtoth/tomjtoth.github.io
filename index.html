@@ -5,11 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      // TODO: enable once all functionalities have been implemented
-      // if ("serviceWorker" in navigator) {
-      //   // TODO: remove /assets from the below 3 hrefs once Dioxus has been fixed
-      //   navigator.serviceWorker.register("/assets/service-worker.js");
-      // }
+      if ("serviceWorker" in navigator) {
+        // TODO: remove /assets from the below 3 hrefs once Dioxus has been fixed
+        navigator.serviceWorker.register("/assets/sw.js");
+      }
     </script>
 
     <!-- TODO: remove /assets from the below 3 hrefs once Dioxus has been fixed -->
