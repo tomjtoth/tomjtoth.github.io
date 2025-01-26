@@ -45,9 +45,11 @@ pub fn get_url() -> String {
         if let Ok(str) = win.location().href() {
             str
         } else {
+            tracing::error!("location.href inaccessible");
             fallback
         }
     } else {
+        tracing::error!("window inaccessible");
         fallback
     }
 }
