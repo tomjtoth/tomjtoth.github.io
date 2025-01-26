@@ -1,8 +1,8 @@
-svg.google-translate > path {
+svg.google-translate path {
   fill: var(--col-fg-0);
 }
 
-#songs ul {
+#lyrics ul {
   /* transition: max-height 200ms ease-in-out; */
   list-style: none;
   overflow: hidden;
@@ -10,16 +10,17 @@ svg.google-translate > path {
   max-height: 0px;
 }
 
-#songs {
+#lyrics {
   padding-left: 0px;
+  border-collapse: collapse;
 }
 
-#songs li.active > ul,
-#songs li.active > p {
+#lyrics li.active > ul,
+#lyrics li.active > p {
   max-height: max-content;
 }
 
-#songs li.missing-lyrics:hover {
+#lyrics li.missing-lyrics:hover {
   cursor: not-allowed;
 }
 
@@ -32,7 +33,7 @@ p.lyrics {
   margin: 0px;
 }
 
-#songs a {
+#lyrics a {
   padding-left: 16px;
 }
 

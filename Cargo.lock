@@ -4746,6 +4746,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_yaml",
+ "urlencoding",
  "web-sys",
 ]
 
