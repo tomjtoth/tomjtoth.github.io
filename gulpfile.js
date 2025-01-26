@@ -7,7 +7,7 @@ import autoprefixer from "gulp-autoprefixer";
 const common = (minify = false) =>
   gulp
     .src("src/**/*.css")
-    .pipe(concat("mini.css"))
+    .pipe(concat("ttj_apps.css"))
     .pipe(autoprefixer({ cascade: false }))
     .pipe(gulpif(minify, cleanCSS()))
     .pipe(gulp.dest("public"));

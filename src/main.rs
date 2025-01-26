@@ -24,6 +24,10 @@ fn App() -> Element {
     c::shopping_list::init();
 
     rsx! {
+        document::Link {
+            href: asset!("/assets/ttj_apps.css"),
+            rel: "stylesheet",
+        }
         Router::<routes::Route> {}
     }
 }

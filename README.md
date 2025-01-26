@@ -10,7 +10,7 @@ The TypeScript version still contains a few bugs, giving Rust (+ WASM via Dioxus
 
 - install gulp and its plugins as seen in the [deployment workflow](./.github/workflows/deploy.yml#L53)
 - execute [`npx gulp`](./gulpfile.js) in a shell
-  - to produce `/public/mini.css` (this will be deployed to `/assets/mini.css`)
+  - to produce `/public/ttj_apps.css` (this will be deployed to `/assets/ttj_apps.css`)
   - and monitor for changes (`dx serve` does not recognize changes, as this is not using cache-busting atm)
 
 <!--
