@@ -10,7 +10,7 @@ const common = (minify = false) =>
     .pipe(concat("ttj_apps.css"))
     .pipe(autoprefixer({ cascade: false }))
     .pipe(gulpif(minify, cleanCSS()))
-    .pipe(gulp.dest("public"));
+    .pipe(gulp.dest("assets"));
 
 gulp.task("dev", () => common());
 gulp.task("prod", () => common(true));
