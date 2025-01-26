@@ -9,7 +9,7 @@ const urlsToCache = [
 
 function rmOldVersions(cache, matchedUrl) {
   if (matchedUrl) {
-    const [, resource, hashExt, extension] = matchedUrl;
+    const [whole, resource, hashExt, extension] = matchedUrl;
 
     cache.keys().then((keys) => {
       keys.forEach((req) => {
@@ -19,6 +19,7 @@ function rmOldVersions(cache, matchedUrl) {
           // most performant? way to compare hashes
           !req.url.endsWith(hashExt)
         ) {
+          console.log(`deleted "${req.url}" in favor of "${whole}"`);
           cache.delete(req);
         }
       });
@@ -51,7 +52,7 @@ self.addEventListener("fetch", (event) => {
       const isStaticPNG = staticPNG.test(url);
 
       if (fromCache && (isStaticMP3 || isStaticPNG)) {
-        // these 2 never change
+        console.log(`responding to ${url} from cache w/o network fetch`);
         return fromCache;
       }
 
@@ -60,6 +61,7 @@ self.addEventListener("fetch", (event) => {
       let reqExtra;
 
       if (isStaticMP3) {
+        console.log(`requesting "${url}" without "range" in headers`);
         // 206 OK responses could not be cached
         // requesting without "range" header results in 200 OK
         reqExtra = new Request(url, {
@@ -84,7 +86,7 @@ self.addEventListener("fetch", (event) => {
             ) {
               // Update the cache with the new version
               cache.put(event.request, res.clone());
-              console.log(`updated response to ${url}`);
+              console.log(`updated response to "${url}"`);
             }
           }
 
