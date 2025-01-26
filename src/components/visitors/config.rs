@@ -28,7 +28,7 @@ fn utc_from(str: &'static str) -> OptUtc {
     match parse_str(str) {
         Ok(utc) => Some(utc),
         Err(err) => {
-            tracing::error!(r#"parsing "{str}" resulted in Err: "{err}""#);
+            tracing::debug!(r#"parsing DateTime from "{str}" resulted in Err: "{err}""#);
             None
         }
     }
