@@ -77,12 +77,16 @@ impl Fields {
             }
         }
 
-        self.0.push(Field {
-            id: max_id + 1,
-            order: order + 1,
-            rows: [[0; 5]; 5],
-            imported_at: None,
-        });
+        self.0.insert(
+            idx + 1,
+            Field {
+                id: max_id + 1,
+                order: order + 1,
+                rows: [[0; 5]; 5],
+                imported_at: None,
+            },
+        );
+
         self.save();
     }
 
