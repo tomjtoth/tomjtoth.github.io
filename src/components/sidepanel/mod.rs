@@ -55,10 +55,11 @@ pub fn Sidepanel() -> Element {
                     .build();
 
                 rsx! {
-                    svg {
+                    div {
                         id: "qr-code",
                         dangerous_inner_html: image,
                         onclick: |_| {
+                            // TODO:
                             // navigator.clipboard.writeText(window.location.toString());
                         }
                     }

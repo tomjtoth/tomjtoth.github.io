@@ -21,7 +21,11 @@
 }
 
 #qr-code {
+  width: 200px;
+  height: 200px;
   margin: 0px 25px;
+  display: flex;
+  justify-content: center;
 }
 
 .nav-link {
