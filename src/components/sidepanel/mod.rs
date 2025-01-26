@@ -4,7 +4,7 @@ use qrcode::{render::svg, EcLevel, QrCode};
 mod config;
 mod model;
 
-use crate::utils::get_pathname;
+use crate::utils::{get_url, text_to_clipboard};
 use config::LINKS;
 pub use model::{init, SigSidepanel};
 
@@ -43,12 +43,14 @@ pub fn Sidepanel() -> Element {
                 })}
             }
             {
+                let url = get_url();
+
                 let code = QrCode::with_error_correction_level(
-                    get_pathname().as_bytes(),
+                    url.as_bytes(),
                     EcLevel::L
                 ).unwrap();
 
-                let image = code.render()
+                let svg = code.render()
                     .max_dimensions(200,200)
                     .dark_color(svg::Color("var(--col-fg-0)"))
                     .light_color(svg::Color("var(--col-bg-0)"))
@@ -57,10 +59,9 @@ pub fn Sidepanel() -> Element {
                 rsx! {
                     div {
                         id: "qr-code",
-                        dangerous_inner_html: image,
-                        onclick: |_| {
-                            // TODO:
-                            // navigator.clipboard.writeText(window.location.toString());
+                        dangerous_inner_html: svg,
+                        onclick: move |_| {
+                            text_to_clipboard(&url);
                         }
                     }
                 }

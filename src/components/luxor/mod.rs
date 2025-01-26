@@ -15,7 +15,7 @@ use crate::{
         modal::{Button, Language, ModalState, SigModal},
     },
     routes::Route,
-    utils::{init_ctx, url_sp},
+    utils::{get_search_params, init_ctx},
 };
 use controls::Controls;
 use nums_line::PickedNumsLine;
@@ -51,7 +51,7 @@ pub fn Luxor() -> Element {
     };
 
     use_effect(move || {
-        if let Some(sp) = url_sp() {
+        if let Some(sp) = get_search_params() {
             if let Some(comma_sep_vec_u8) = sp.get("import") {
                 tracing::debug!("importing: {comma_sep_vec_u8}");
 
