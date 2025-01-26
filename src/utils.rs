@@ -38,18 +38,27 @@ pub fn init_ctx<T: 'static>(closure: impl FnOnce() -> T) -> Signal<T> {
     signal
 }
 
-pub fn get_pathname() -> String {
-    let loc = window().unwrap().location();
-    match loc.pathname() {
-        Ok(path) => path,
-        Err(err) => {
-            tracing::error!("{:?}", err);
-            "https://ttj.hu".to_string()
+pub fn get_url() -> String {
+    let fallback = "https://ttj.hu".to_string();
+
+    if let Some(win) = window() {
+        if let Ok(str) = win.location().href() {
+            str
+        } else {
+            fallback
         }
+    } else {
+        fallback
     }
 }
 
-pub fn url_sp() -> Option<UrlSearchParams> {
+pub fn text_to_clipboard(s: &str) {
+    if let Some(win) = window() {
+        let _promise = win.navigator().clipboard().write_text(s);
+    }
+}
+
+pub fn get_search_params() -> Option<UrlSearchParams> {
     let loc = window().unwrap().location();
 
     if let Ok(xx) = loc.search() {
