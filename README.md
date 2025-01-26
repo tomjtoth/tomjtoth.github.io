@@ -6,6 +6,13 @@ These are mostly static websites and other tools I use from different machines w
 
 The TypeScript version still contains a few bugs, giving Rust (+ WASM via Dioxus) another try.
 
+### DevTools
+
+- install gulp and its plugins as seen in the [deployment workflow](./.github/workflows/deploy.yml#L53)
+- execute [`npx gulp`](./gulpfile.js) in a shell
+  - to produce `/public/mini.css` (this will be deployed to `/assets/mini.css`)
+  - and monitor for changes (`dx serve` does not recognize changes, as this is not using cache-busting atm)
+
 <!--
 ## Custom solutions
 
