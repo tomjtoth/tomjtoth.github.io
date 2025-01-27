@@ -1,6 +1,7 @@
 const CACHE_NAME = "rolling-net-first";
-// gets populated during deployment
-const urlsToCache = [];
+const urlsToCache = [
+  // POPULATED DURING DEPLOYMENT
+];
 
 function rmOldVersions(cache, matchedUrl) {
   if (matchedUrl) {
