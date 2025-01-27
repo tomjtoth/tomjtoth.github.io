@@ -65,8 +65,8 @@ jobs:
           mv assets/linux .
 
           # populating urlsToCache in sw.js
-          ASSETS=$(find assets/ \( -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
-          sed -E -i 's|\b(\w+)\s*=\s*\[\]\s*([,;])|\1=["/","/index.html",'${ASSETS}']\2|' assets/sw.js
+          ASSETS=$(find assets/ \( -name 'sw.js' -o -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
+          sed -i 's|"__REPLACED_DURING_DEPLOYMENT__"|'${ASSETS}'|' assets/sw.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
