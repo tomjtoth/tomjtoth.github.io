@@ -6,19 +6,19 @@ const urlsToCache = [
   "__REPLACED_DURING_DEPLOYMENT__",
 ];
 
-function rmOldVersions(cache, matchedUrl) {
-  if (matchedUrl) {
-    const [whole, resource, hashExt, extension] = matchedUrl;
+function rmOldVersions(cache, matched) {
+  if (matched) {
+    const [url, resource, hashExt, extension] = matched;
 
     cache.keys().then((keys) => {
       keys.forEach((req) => {
         if (
           req.url.startsWith(resource) &&
           req.url.endsWith(extension) &&
-          // most performant? way to compare hashes
+          // most performant? way to compare the hash parts
           !req.url.endsWith(hashExt)
         ) {
-          console.log(`deleted "${req.url}" in favor of "${whole}"`);
+          console.log(`deleted "${req.url}" in favor of "${url}"`);
           cache.delete(req);
         }
       });
@@ -53,12 +53,11 @@ self.addEventListener("fetch", (event) => {
       }
 
       const matchedBuster = url.match(cacheBusters);
+      rmOldVersions(cache, matchedBuster);
 
       return fetch(event.request)
         .then((res) => {
           if (res && res.ok) {
-            rmOldVersions(cache, matchedBuster);
-
             if (matchedBuster || urlsToCache.includes(url)) {
               // Update the cache with the new version
               cache.put(event.request, res.clone());
