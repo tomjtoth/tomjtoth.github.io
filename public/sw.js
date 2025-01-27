@@ -5,6 +5,7 @@ const urlsToCache = [
   "/index.html",
   "/assets/manifest.json",
   "/assets/icon.png",
+  "/assets/styles.css",
 ];
 
 function rmOldVersions(cache, matchedUrl) {
@@ -27,10 +28,10 @@ function rmOldVersions(cache, matchedUrl) {
   }
 }
 
-const staticMP3 = /\/assets\/(?:arx\/(?:runes|spells)\/[a-z-]+|modal)\.mp3$/;
+const staticOGG = /\/assets\/(?:arx\/(?:runes|spells)\/[a-z-]+|modal)\.ogg$/;
 const staticPNG = /\/assets\/arx\/runes\/[a-z]+\.png$/;
 const cacheBusters =
-  /(.*\/assets\/(?:lyrics|recipes|ttj_apps(?:_bg)?))-(\S+\.(wasm|js|css|yaml))$/;
+  /(.*\/assets\/(?:lyrics|recipes|ttj_apps(?:_bg)?))-(\S+\.(wasm|js|yaml))$/;
 
 // Install event: Cache resources
 self.addEventListener("install", (event) => {
@@ -48,10 +49,10 @@ self.addEventListener("fetch", (event) => {
       const fromCache = await cache.match(event.request);
       const url = event.request.url;
 
-      const isStaticMP3 = staticMP3.test(url);
+      const isStaticOGG = staticOGG.test(url);
       const isStaticPNG = staticPNG.test(url);
 
-      if (fromCache && (isStaticMP3 || isStaticPNG)) {
+      if (fromCache && (isStaticOGG || isStaticPNG)) {
         console.log(`responding to ${url} from cache w/o network fetch`);
         return fromCache;
       }
@@ -60,7 +61,7 @@ self.addEventListener("fetch", (event) => {
 
       let reqExtra;
 
-      if (isStaticMP3) {
+      if (isStaticOGG) {
         console.log(`requesting "${url}" without "range" in headers`);
         // 206 OK responses could not be cached
         // requesting without "range" header results in 200 OK
@@ -79,7 +80,7 @@ self.addEventListener("fetch", (event) => {
             rmOldVersions(cache, matchedBuster);
 
             if (
-              (isStaticMP3 && res.status === 200) ||
+              (isStaticOGG && res.status === 200) ||
               isStaticPNG ||
               matchedBuster ||
               urlsToCache.includes(url)
