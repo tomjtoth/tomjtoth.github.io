@@ -35,7 +35,7 @@ impl ModalState {
     }
 }
 
-pub static SOUND: [AudioSrc; 1] = [("/assets/modal.ogg", Some(0.2))];
+pub static SOUND: [AudioSrc; 1] = [("/assets/modal.mp3", Some(0.2))];
 
 #[component]
 pub fn Modal() -> Element {
