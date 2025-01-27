@@ -1,12 +1,6 @@
 const CACHE_NAME = "rolling-net-first";
-const urlsToCache = [
-  // bare basics for PWA
-  "/",
-  "/index.html",
-  "/assets/manifest.json",
-  "/assets/icon.png",
-  "/assets/styles.css",
-];
+// gets populated during deployment
+const urlsToCache = [];
 
 function rmOldVersions(cache, matchedUrl) {
   if (matchedUrl) {
@@ -53,7 +47,7 @@ self.addEventListener("fetch", (event) => {
       const isStaticPNG = staticPNG.test(url);
 
       if (fromCache && (isStaticOGG || isStaticPNG)) {
-        console.log(`responding to ${url} from cache w/o network fetch`);
+        console.log(`responding to "${url}" from cache w/o network fetch`);
         return fromCache;
       }
 
