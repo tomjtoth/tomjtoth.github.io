@@ -66,7 +66,7 @@ jobs:
 
           # populating urlsToCache in sw.js
           ASSETS=$(find assets/ \( -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
-          sed -E -i 's|(\w+="rolling-net-first",\w+)=\[\],|\1=['${ASSETS}'],|' assets/sw.js
+          sed -E -i 's|\b(\w+)\s*=\s*\[\]\s*([,;])|\1=["/","/index.html",'${ASSETS}']\2|' assets/sw.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
