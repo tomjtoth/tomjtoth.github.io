@@ -47,17 +47,14 @@ self.addEventListener("fetch", (event) => {
       const fromCache = await cache.match(event.request);
       const url = event.request.url;
 
-      const isStaticOGG = staticOGG.test(url);
-      const isStaticPNG = staticPNG.test(url);
-
-      if (fromCache && (isStaticOGG || isStaticPNG)) {
-        console.log(`responding to "${url}" from cache w/o network fetch`);
+      if (fromCache && (staticOGG.test(url) || staticPNG.test(url))) {
+        console.log(`responding to "${url}" w/o fetching from network`);
         return fromCache;
       }
 
       const matchedBuster = url.match(cacheBusters);
 
-      const fromNet = fetch(event.request)
+      return fetch(event.request)
         .then((res) => {
           if (res && res.ok) {
             rmOldVersions(cache, matchedBuster);
@@ -67,13 +64,11 @@ self.addEventListener("fetch", (event) => {
               cache.put(event.request, res.clone());
               console.log(`updated response to "${url}"`);
             }
+            return res;
           }
-
-          return res;
+          return fromCache;
         })
         .catch(() => fromCache); // Fallback to cache if network fails
-
-      return fromNet || fromCache;
     })
   );
 });
