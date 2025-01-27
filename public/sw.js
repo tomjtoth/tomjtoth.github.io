@@ -1,12 +1,14 @@
 const CACHE_NAME = "rolling-net-first";
 const URLS_TO_CACHE = [
   "/",
-  "/index.html",
   // this is a placeholder for the sed command in `deploy.yml`
   // populates based on dist/assets after `dx build --release`
   "__REPLACED_DURING_DEPLOYMENT__",
 ];
-const FETCH_ALWAYS = ["/", "/index.html"];
+// TODO: maybe "/" is enough
+const FETCH_ALWAYS = ["/"].map((url) =>
+  new URL(url, self.location.origin).toString()
+);
 
 function rmOldVersions(cache, matched) {
   if (matched) {
@@ -37,7 +39,9 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log("Opened cache");
-      return cache.addAll(URLS_TO_CACHE);
+      return cache
+        .addAll(URLS_TO_CACHE)
+        .catch((err) => console.error("Caching failed during install:", err));
     })
   );
 });
@@ -45,14 +49,14 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {
-      const cachedRes = await cache.match(event.request);
+      const navigating = event.request.mode === "navigate";
+      const cachedRes = await cache.match(navigating ? "/" : event.request);
 
       const url = event.request.url;
       console.log(url);
-      const woOrigin = url.replace(self.location.pathname, "");
       const matchedBuster = url.match(CACHE_BUSTERS);
 
-      if (cachedRes && !matchedBuster && !FETCH_ALWAYS.includes(woOrigin)) {
+      if (cachedRes && !matchedBuster && !FETCH_ALWAYS.includes(url)) {
         console.log(`responding to "${url}" w/o fetching from network`);
         return cachedRes;
       }
@@ -67,9 +71,8 @@ self.addEventListener("fetch", (event) => {
               cache.put(event.request, res.clone());
               console.log(`updated response to "${url}"`);
             }
-            return res;
           }
-          return cachedRes;
+          return res;
         })
         .catch(() => cachedRes); // Fallback to cache if network fails
     })
