@@ -58,10 +58,15 @@ jobs:
         run: |
           dx build --release
           mv /home/runner/work/tomjtoth.github.io/tomjtoth.github.io/target/dx/apps/release/web/public dist
-          cp dist/index.html dist/404.html
+          cd dist
+          cp index.html 404.html
 
           # necessary workaround since I have at least 1 user out there sourcing this
-          mv dist/assets/linux dist
+          mv assets/linux .
+
+          # populating urlsToCache in sw.js
+          ARR=$(find assets/ \( -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
+          sed -i "s|const urlsToCache = \[\];|const urlsToCache = [${ARR}];|" assets/sw.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
