@@ -42,6 +42,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "apps"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "chrono-tz",
+ "dioxus",
+ "fancy-regex",
+ "gloo-timers",
+ "once_cell",
+ "qrcode",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "urlencoding",
+ "web-sys",
+]
+
+[[package]]
 name = "ashpd"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4730,25 +4749,6 @@ name = "try-lock"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
-
-[[package]]
-name = "ttj_apps"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "chrono-tz",
- "dioxus",
- "fancy-regex",
- "gloo-timers",
- "once_cell",
- "qrcode",
- "reqwest",
- "serde",
- "serde_json",
- "serde_yaml",
- "urlencoding",
- "web-sys",
-]
 
 [[package]]
 name = "tungstenite"

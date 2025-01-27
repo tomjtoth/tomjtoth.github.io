@@ -31,7 +31,7 @@ function rmOldVersions(cache, matchedUrl) {
 const staticOGG = /\/assets\/(?:arx\/(?:runes|spells)\/[a-z-]+|modal)\.ogg$/;
 const staticPNG = /\/assets\/arx\/runes\/[a-z]+\.png$/;
 const cacheBusters =
-  /(.*\/assets\/(?:lyrics|recipes|ttj_apps(?:_bg)?))-(\S+\.(wasm|js|yaml))$/;
+  /(.*\/assets\/(?:lyrics|recipes|apps(?:_bg)?))-(\S+\.(wasm|js|yaml))$/;
 
 // Install event: Cache resources
 self.addEventListener("install", (event) => {
