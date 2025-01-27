@@ -25,7 +25,7 @@ pub fn Home() -> Element {
             "This site is mostly in Finnish. Here's the link to the "
             a {
               target:"_blank",
-              href: "https://github.com/tomjtoth/tomjtoth.github.io",
+              href: "https://github.com/tomjtoth/tomjtoth.github.io/tree/dioxus",
               "repo"
             }
             " in case you're interested."
