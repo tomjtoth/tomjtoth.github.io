@@ -1,6 +1,9 @@
 const CACHE_NAME = "rolling-net-first";
 const urlsToCache = [
-  // POPULATED DURING DEPLOYMENT
+  "/",
+  "/index.html",
+  // this is a placeholder for the sed command in `deploy.yml`
+  "__REPLACED_DURING_DEPLOYMENT__",
 ];
 
 function rmOldVersions(cache, matchedUrl) {
