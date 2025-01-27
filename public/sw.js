@@ -1,10 +1,12 @@
 const CACHE_NAME = "rolling-net-first";
-const urlsToCache = [
+const URLS_TO_CACHE = [
   "/",
   "/index.html",
   // this is a placeholder for the sed command in `deploy.yml`
+  // populates based on dist/assets after `dx build --release`
   "__REPLACED_DURING_DEPLOYMENT__",
 ];
+const FETCH_ALWAYS = ["/", "/index.html"];
 
 function rmOldVersions(cache, matched) {
   if (matched) {
@@ -14,6 +16,7 @@ function rmOldVersions(cache, matched) {
       keys.forEach((req) => {
         if (
           req.url.startsWith(resource) &&
+          // allowing for e.g. `lyrics.yaml` and `lyrics.something`, too
           req.url.endsWith(extension) &&
           // most performant? way to compare the hash parts
           !req.url.endsWith(hashExt)
@@ -26,9 +29,7 @@ function rmOldVersions(cache, matched) {
   }
 }
 
-const staticOGG = /\/assets\/(?:arx\/(?:runes|spells)\/[a-z-]+|modal)\.ogg$/;
-const staticPNG = /\/assets\/arx\/runes\/[a-z]+\.png$/;
-const cacheBusters =
+const CACHE_BUSTERS =
   /(.*\/assets\/(?:lyrics|recipes|apps(?:_bg)?))-(\S+\.(wasm|js|yaml))$/;
 
 // Install event: Cache resources
@@ -36,7 +37,7 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log("Opened cache");
-      return cache.addAll(urlsToCache);
+      return cache.addAll(URLS_TO_CACHE);
     })
   );
 });
@@ -44,30 +45,33 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {
-      const fromCache = await cache.match(event.request);
-      const url = event.request.url;
+      const cachedRes = await cache.match(event.request);
 
-      if (fromCache && (staticOGG.test(url) || staticPNG.test(url))) {
+      const url = event.request.url;
+      console.log(url);
+      const woOrigin = url.replace(self.location.pathname, "");
+      const matchedBuster = url.match(CACHE_BUSTERS);
+
+      if (cachedRes && !matchedBuster && !FETCH_ALWAYS.includes(woOrigin)) {
         console.log(`responding to "${url}" w/o fetching from network`);
-        return fromCache;
+        return cachedRes;
       }
 
-      const matchedBuster = url.match(cacheBusters);
       rmOldVersions(cache, matchedBuster);
 
       return fetch(event.request)
         .then((res) => {
           if (res && res.ok) {
-            if (matchedBuster || urlsToCache.includes(url)) {
+            if (matchedBuster || URLS_TO_CACHE.includes(url)) {
               // Update the cache with the new version
               cache.put(event.request, res.clone());
               console.log(`updated response to "${url}"`);
             }
             return res;
           }
-          return fromCache;
+          return cachedRes;
         })
-        .catch(() => fromCache); // Fallback to cache if network fails
+        .catch(() => cachedRes); // Fallback to cache if network fails
     })
   );
 });
