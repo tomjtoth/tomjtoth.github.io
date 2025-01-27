@@ -64,9 +64,11 @@ jobs:
           # necessary workaround since I have at least 1 user out there sourcing this
           mv assets/linux .
 
+          cat assets/sw.js
           # populating urlsToCache in sw.js
-          ARR=$(find assets/ \( -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
-          sed -i "s|const urlsToCache=[];|const urlsToCache=[${ARR}];|" assets/sw.js
+          ASSETS=$(find assets/ \( -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
+          # injects ${ASSETS} in the 1st `const name=[];` in the minified sw.js
+          sed -i "s|(const \w+)=\[\];|\1=[${ASSETS}];|" assets/sw.js
           cat assets/sw.js
 
       - name: Setup Pages
