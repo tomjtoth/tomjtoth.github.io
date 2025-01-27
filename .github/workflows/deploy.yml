@@ -66,8 +66,8 @@ jobs:
 
           # populating urlsToCache in sw.js
           ARR=$(find assets/ \( -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
-          echo $ARR
-          sed -i "s|// POPULATED DURING DEPLOYMENT|${ARR}|" assets/sw.js
+          sed -i "s|const urlsToCache = [];|const urlsToCache = [${ARR}];|" assets/sw.js
+          cat assets/sw.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
