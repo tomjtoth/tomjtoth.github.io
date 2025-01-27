@@ -7,10 +7,10 @@ import autoprefixer from "gulp-autoprefixer";
 const common = (minify = false) =>
   gulp
     .src("src/**/*.css")
-    .pipe(concat("ttj_apps.css"))
+    .pipe(concat("styles.css"))
     .pipe(autoprefixer({ cascade: false }))
     .pipe(gulpif(minify, cleanCSS()))
-    .pipe(gulp.dest("assets"));
+    .pipe(gulp.dest("public"));
 
 gulp.task("dev", () => common());
 gulp.task("prod", () => common(true));
