@@ -57,32 +57,12 @@ self.addEventListener("fetch", (event) => {
 
       const matchedBuster = url.match(cacheBusters);
 
-      let reqExtra;
-
-      if (isStaticOGG) {
-        console.log(`requesting "${url}" without "range" in headers`);
-        // 206 OK responses could not be cached
-        // requesting without "range" header results in 200 OK
-        reqExtra = new Request(url, {
-          headers: new Headers(
-            [...event.request.headers.entries()].filter(
-              ([key]) => key.toLowerCase() !== "range"
-            )
-          ),
-        });
-      }
-
-      return fetch(reqExtra || event.request)
+      const fromNet = fetch(event.request)
         .then((res) => {
           if (res && res.ok) {
             rmOldVersions(cache, matchedBuster);
 
-            if (
-              (isStaticOGG && res.status === 200) ||
-              isStaticPNG ||
-              matchedBuster ||
-              urlsToCache.includes(url)
-            ) {
+            if (matchedBuster || urlsToCache.includes(url)) {
               // Update the cache with the new version
               cache.put(event.request, res.clone());
               console.log(`updated response to "${url}"`);
@@ -92,6 +72,8 @@ self.addEventListener("fetch", (event) => {
           return res;
         })
         .catch(() => fromCache); // Fallback to cache if network fails
+
+      return fromNet || fromCache;
     })
   );
 });
