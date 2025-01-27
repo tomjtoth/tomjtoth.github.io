@@ -1,5 +1,5 @@
 [package]
-name = "ttj_apps"
+name = "apps"
 version = "0.1.0"
 authors = ["Tamás Tóth <tomjtoth@gmail.com>"]
 edition = "2021"
