@@ -49,6 +49,7 @@ dependencies = [
  "chrono-tz",
  "dioxus",
  "fancy-regex",
+ "gloo-net",
  "gloo-timers",
  "once_cell",
  "qrcode",
