@@ -19,7 +19,7 @@ pub fn ArxFatalis() -> Element {
         Body {
             class: "arx-fatalis",
 
-            div {}
+            div { id: "runes-spacer" }
             Runes {}
         }
     }
