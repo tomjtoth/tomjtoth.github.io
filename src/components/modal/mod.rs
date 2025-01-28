@@ -35,7 +35,7 @@ impl ModalState {
     }
 }
 
-static SOUND: &'static str = "modal.mp3";
+static SOUND: &'static str = "/modal.mp3";
 pub fn init_sound() -> Vec<AudioSrc> {
     vec![(SOUND.to_string(), vec![AudioOpt::Volume(0.2)])]
 }
