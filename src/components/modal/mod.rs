@@ -2,7 +2,7 @@ use dioxus::{logger::tracing, prelude::*};
 
 mod button;
 
-use super::audio::AudioSrc;
+use super::audio::{AudioOpt, AudioSrc};
 use crate::{components::audio::SigAudio, routes::Route, utils::init_ctx};
 use button::Btn;
 pub use button::{Button, Language};
@@ -35,7 +35,10 @@ impl ModalState {
     }
 }
 
-pub static SOUND: [AudioSrc; 1] = [("/assets/modal.mp3", Some(0.2))];
+static SOUND: &'static str = "modal.mp3";
+pub fn init_sound() -> Vec<AudioSrc> {
+    vec![(SOUND.to_string(), vec![AudioOpt::Volume(0.2)])]
+}
 
 #[component]
 pub fn Modal() -> Element {
@@ -83,7 +86,7 @@ pub fn Modal() -> Element {
                         id: "modal-buttons",
 
                         {
-                            audio.read().play(SOUND[0].0);
+                            audio.read().play(&SOUND.to_string());
 
                             let lang = if let Some(explicitly) = lang {
                                 explicitly
