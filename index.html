@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
+      // TODO: investigate why *.{mp3,png} don't get loaded from the cache
       if ("serviceWorker" in navigator) {
         // TODO: remove /assets from the below link once Dioxus has been fixed
         navigator.serviceWorker.register("/assets/sw.js");
