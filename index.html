@@ -4,19 +4,18 @@
     <title>{app_title}</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
+    <!-- <script>
       if ("serviceWorker" in navigator) {
         // TODO: remove /assets from the below link once Dioxus has been fixed
         navigator.serviceWorker.register("/assets/sw.js");
       }
-    </script>
+    </script> -->
 
     <!-- TODO: remove /assets from the below 3 hrefs once Dioxus has been fixed -->
-    <link rel="manifest" href="/assets/manifest.json" />
+    <!-- <link rel="manifest" href="/assets/manifest.json" />
     <link rel="icon" href="/assets/icon.png" sizes="any" type="image/png" />
-    <link rel="stylesheet" href="/assets/styles.css" />
+    <link rel="stylesheet" href="/assets/styles.css" /> -->
+    <link data-trunk rel="copy-dir" href="public" data-target-path="." />
   </head>
-  <body>
-    <div id="main"></div>
-  </body>
+  <body></body>
 </html>

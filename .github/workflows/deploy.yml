@@ -3,7 +3,7 @@ name: Deploy Dioxus to GitHub Pages
 on:
   push:
     branches:
-      - dioxus
+      - yew
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -36,37 +36,33 @@ jobs:
           target: wasm32-unknown-unknown
           override: true
 
-      - name: Install Dioxus-CLI
+      - name: Install Trunk
         shell: bash
         run: |
           curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-          cargo binstall --no-confirm dioxus-cli
+          cargo binstall --no-confirm trunk
 
-      - uses: Swatinem/rust-cache@v2
+      # - uses: Swatinem/rust-cache@v2
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "latest"
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "latest"
 
-      - name: process CSS files
-        run: |
-          npm install gulp gulp-if gulp-concat gulp-clean-css gulp-autoprefixer
-          npx gulp prod
+      # - name: process CSS files
+      #   run: |
+      #     npm install gulp gulp-if gulp-concat gulp-clean-css gulp-autoprefixer
+      #     npx gulp prod
 
       - name: Build Project 🎁
         shell: bash
         run: |
-          dx build --release
-          mv /home/runner/work/tomjtoth.github.io/tomjtoth.github.io/target/dx/apps/release/web/public dist
+          trunk build --release -d dist
           cd dist
           cp index.html 404.html
 
-          # necessary workaround since I have at least 1 user out there sourcing this
-          mv assets/linux .
-
-          # populating urlsToCache in sw.js
-          ASSETS=$(find assets/ \( -name 'sw.js' -o -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
-          sed -i 's|"__REPLACED_DURING_DEPLOYMENT__"|'${ASSETS}'|' assets/sw.js
+          # # populating URLS_TO_CACHE in sw.js
+          # ASSETS=$(find . \( -name 'linux' -o -name 'sw.js' -o -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
+          # sed -i 's|"__REPLACED_DURING_DEPLOYMENT__"|'${ASSETS}'|' sw.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

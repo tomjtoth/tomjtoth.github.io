@@ -1,29 +1,26 @@
-use dioxus::prelude::*;
+use gloo_net::http::Request;
+use yew::prelude::*;
 
-mod components;
-mod routes;
-mod utils;
+#[function_component]
+fn App() -> Html {
+    wasm_bindgen_futures::spawn_local(async move {
+        let res = Request::get("/modal.mp3").send().await.unwrap();
+        if let Some(sad) = res.body() {
+            let x = web_sys::HtmlAudioElement::new().unwrap();
+            x.set_src("/modal.mp3");
+        }
 
-use components as c;
+        assert_eq!(res.status(), 200);
+    });
 
-fn main() {
-    dioxus::launch(App);
+    html! {
+        <div>
+            <button>{ "+1" }</button>
+            <p>{ "asd" }</p>
+        </div>
+    }
 }
 
-#[component]
-fn App() -> Element {
-    // init static resources
-    c::audio::init();
-
-    // read from localStorage
-    c::sidepanel::init();
-    c::luxor::init();
-
-    // also fetching from server
-    c::lyrics::init();
-    c::shopping_list::init();
-
-    rsx! {
-        Router::<routes::Route> {}
-    }
+fn main() {
+    yew::Renderer::<App>::new().render();
 }
