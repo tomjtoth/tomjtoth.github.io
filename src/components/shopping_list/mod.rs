@@ -15,12 +15,7 @@ use recipes::Recipes;
 #[component]
 pub fn ShoppingList() -> Element {
     rsx! {
-        Header {
-            title: &"ostoslista",
-            Controls {}
-        }
-        Body {
-            Recipes {}
-        }
+        Header { title: "ostoslista", Controls {} }
+        Body { Recipes {} }
     }
 }

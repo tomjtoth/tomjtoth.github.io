@@ -14,16 +14,22 @@ pub fn TableBody(props: TBodyProps) -> Element {
 
     rsx! {
         tbody {
-            {field.rows.iter().enumerate().map( |(idx, row)| {
-                rsx!{
-                    TableRow {
-                        key: "{idx}", // order never changes
-                        field_idx: props.idx,
-                        idx,
-                        row: *row,
-                    }
-                }
-            })}
+            {
+                field
+                    .rows
+                    .iter()
+                    .enumerate()
+                    .map(|(idx, row)| {
+                        rsx! {
+                            TableRow {
+                                key: "{idx}", // order never changes
+                                field_idx: props.idx,
+                                idx,
+                                row: *row,
+                            }
+                        }
+                    })
+            }
         }
     }
 }

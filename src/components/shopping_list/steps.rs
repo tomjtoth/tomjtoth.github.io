@@ -12,15 +12,20 @@ pub fn Steps(props: StepsProps) -> Element {
         ol {
             class: "slr-steps",
             lang: props.lang,
-            onclick: |evt| { evt.stop_propagation(); },
-            {props.steps.iter().enumerate().map(move |(idx, step)| {
-                rsx!{
-                    li {
-                        key: "{idx}",
-                        dangerous_inner_html: "{step}"
-                    }
-                }
-            })}
+            onclick: |evt| {
+                evt.stop_propagation();
+            },
+            {
+                props
+                    .steps
+                    .iter()
+                    .enumerate()
+                    .map(move |(idx, step)| {
+                        rsx! {
+                            li { key: "{idx}", dangerous_inner_html: "{step}" }
+                        }
+                    })
+            }
         }
     }
 }

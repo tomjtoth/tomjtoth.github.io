@@ -58,14 +58,12 @@ pub fn Controls() -> Element {
                 class: "clickable",
                 title: "pyyhi vihreät",
                 onclick: move |_| {
-                    modal.set(ModalState {
-                        prompt: Some(rsx! { "pyyhitäänkö kaikki vihreät?" }),
-                        buttons: vec![
-                            (Button::Yes, Some(reset_active)),
-                            (Button::No, None)
-                        ],
-                        lang: None
-                    })
+                    modal
+                        .set(ModalState {
+                            prompt: Some(rsx! { "pyyhitäänkö kaikki vihreät?" }),
+                            buttons: vec![(Button::Yes, Some(reset_active)), (Button::No, None)],
+                            lang: None,
+                        })
                 },
                 "♻️"
             }

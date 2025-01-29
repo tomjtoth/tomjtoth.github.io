@@ -105,34 +105,27 @@ pub fn Luxor() -> Element {
                     modal.set(ModalState {
                         prompt: Some(rsx! {
                             if invalids.len() > 1 {
-                                p {
-                                    "Az alábbiak nem 0 és 75 közötti számok:"
-                                }
+                                p { "Az alábbiak nem 0 és 75 közötti számok:" }
 
-                                ol {
-                                    style: "user-select: text",
-                                    {invalids.iter().map(|(idx, inv)| {
-                                        rsx! {
-                                            li {
-                                                value: "{idx}",
-                                                "\"{inv}\""
-                                            }
-                                        }
-                                    })}
+                                ol { style: "user-select: text",
+                                    {
+                                        invalids
+                                            .iter()
+                                            .map(|(idx, inv)| {
+                                                rsx! {
+                                                    li { value: "{idx}", "\"{inv}\"" }
+                                                }
+                                            })
+                                    }
                                 }
                             } else {
                                 p {
                                     "#{invalids[0].0} nem jó: "
-                                    p {
-                                        style: "user-select: text;",
-                                        "\"{invalids[0].1}\"."
-                                    }
+                                    p { style: "user-select: text;", "\"{invalids[0].1}\"." }
                                 }
                             }
                             p {
-                                strong {
-                                    "Javítsd ki és próbáld újra!"
-                                }
+                                strong { "Javítsd ki és próbáld újra!" }
                             }
                         }),
                         lang: Some(Language::Hu),
@@ -147,14 +140,8 @@ pub fn Luxor() -> Element {
     });
 
     rsx! {
-        Header {
-            title: &"Luxor",
-            lang: "hu",
-            Controls {}
-        }
-        Body {
-            lang: "hu",
-            class: "luxor",
+        Header { title: "Luxor", lang: "hu", Controls {} }
+        Body { lang: "hu", class: "luxor",
             PickedNumsLine {}
             fields::Fields {}
         }

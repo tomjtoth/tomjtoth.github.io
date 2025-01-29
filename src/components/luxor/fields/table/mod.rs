@@ -14,18 +14,18 @@ pub struct TableProps {
 #[component]
 pub fn Table(props: TableProps) -> Element {
     rsx! {
-        table {
-            class: "luxor",
+        table { class: "luxor",
             thead {
                 tr {
-                    {"LUXOR".chars().map(|char| {
-                        rsx! {
-                            th {
-                                class: "luxor",
-                                "{char}"
-                            }
-                        }
-                    })}
+                    {
+                        "LUXOR"
+                            .chars()
+                            .map(|char| {
+                                rsx! {
+                                    th { class: "luxor", "{char}" }
+                                }
+                            })
+                    }
                 }
             }
             TableBody { idx: props.idx }

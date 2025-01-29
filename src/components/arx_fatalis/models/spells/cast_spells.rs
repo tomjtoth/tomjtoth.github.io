@@ -32,6 +32,10 @@ impl CastSpells {
         Self::load()
     }
 
+    pub fn score(&self) -> u64 {
+        self.score
+    }
+
     pub fn try_cast(&mut self, seq: Vec<Rune>, audio: &Audio) {
         if let Some((spell, _)) = Spell::by_seq(seq) {
             audio.play(&spell.as_src());

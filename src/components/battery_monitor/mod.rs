@@ -5,7 +5,7 @@ use crate::components::header::Header;
 #[component]
 pub fn BatteryMonitor() -> Element {
     rsx! {
-        Header { title: &"akunvalvonta" }
+        Header { title: "akunvalvonta" }
         "WiP"
     }
 }

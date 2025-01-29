@@ -33,30 +33,19 @@ pub fn Sidepanel() -> Element {
                     }
                 }
                 {LINKS.iter().map(|lnk| rsx! {
-                    Link {
-                        class: "nav-link",
-                        to: lnk.to,
-                        lang: lnk.lang,
-
-                        "{lnk.label}"
-                    }
+                    Link { class: "nav-link", to: lnk.to, lang: lnk.lang, "{lnk.label}" }
                 })}
             }
             {
-                // TODO: when deployed this *does change* after closing the sidepanel, why?
                 let url = get_url();
-
-                let code = QrCode::with_error_correction_level(
-                    url.as_bytes(),
-                    EcLevel::L
-                ).unwrap();
-
-                let svg = code.render()
-                    .max_dimensions(200,200)
+                let code = QrCode::with_error_correction_level(url.as_bytes(), EcLevel::L)
+                    .unwrap();
+                let svg = code
+                    .render()
+                    .max_dimensions(200, 200)
                     .dark_color(svg::Color("var(--col-fg-0)"))
                     .light_color(svg::Color("var(--col-bg-0)"))
                     .build();
-
                 rsx! {
                     div {
                         id: "qr-code",
@@ -64,7 +53,7 @@ pub fn Sidepanel() -> Element {
                         dangerous_inner_html: svg,
                         onclick: move |_| {
                             text_to_clipboard(&url);
-                        }
+                        },
                     }
                 }
             }

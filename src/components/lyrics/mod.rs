@@ -13,19 +13,14 @@ pub use models::init;
 #[component]
 pub fn Lyrics() -> Element {
     rsx! {
-        Header {
-            title: &"Låttext",
-            lang: "sv"
-        }
+        Header { title: "Låttext", lang: "sv" }
         Body {
-            p {
-                style: "margin: 16px;",
+            p { style: "margin: 16px;",
 
                 "The below songs are linked to Google Translate "
                 "(or YouTube, when the lyrics are still missing)."
             }
             Artists {}
-        // {uninitialized ? <Loader /> : <Artists />}
         }
     }
 }

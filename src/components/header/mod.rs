@@ -15,14 +15,11 @@ pub fn Header(props: HeaderProps) -> Element {
 
     rsx! {
         document::Title { "{props.title}" }
-        div {
-            id: "header",
-            class: "border1-s",
-            lang: props.lang,
+        div { id: "header", class: "border1-s", lang: props.lang,
 
             span {
-                id:"menu-button",
-                class:"toggler clickable padded",
+                id: "menu-button",
+                class: "toggler clickable padded",
                 onclick: move |_| sidepanel.write().set(true),
 
                 "☰"
@@ -30,6 +27,5 @@ pub fn Header(props: HeaderProps) -> Element {
 
             {props.children}
         }
-
     }
 }

@@ -49,32 +49,19 @@ pub fn text(next: Option<&Visitor>, now: Utc) -> Element {
         let coming = coming(next);
 
         rsx! {
-            if let  Some([ddd, hhh, hh, mm, ss]) = get_times(next, now) {
+            if let Some([ddd, hhh, hh, mm, ss]) = get_times(next, now) {
                 if ddd < 3 {
-                    span {
-                        class,
+                    span { class,
                         "{coming}"
-                        {format!(
-                            "{} {:02}:{:02}:{:02} múlva",
-                            next.name,
-                            hhh,
-                            mm,
-                            ss
-                        )}
+                        {format!("{} {:02}:{:02}:{:02} múlva", next.name, hhh, mm, ss)}
                     }
                 } else if ddd < 7 {
                     "{coming}"
-                    span {
-                        class,
-                        "{next.name} {ddd} nap"
-                    }
+                    span { class, "{next.name} {ddd} nap" }
                     {format!(" {:02}:{:02}:{:02} múlva", hh, mm, ss)}
                 } else {
                     "{coming}"
-                    span {
-                        class,
-                        "{next.name}"
-                    }
+                    span { class, "{next.name}" }
                     {format!(" {ddd} nap {:02}:{:02}:{:02} múlva", hh, mm, ss)}
                 }
             }

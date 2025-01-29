@@ -31,10 +31,6 @@ pub fn Visitors() -> Element {
     });
 
     rsx! {
-        Header {
-            lang: "hu".to_string(),
-            title: &"látogatók",
-            {text()}
-        }
+        Header { lang: "hu".to_string(), title: "látogatók", {text()} }
     }
 }

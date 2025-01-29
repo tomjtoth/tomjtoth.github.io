@@ -48,11 +48,7 @@ pub fn Modal() -> Element {
     let reset_state = use_callback(move |_| state.write().reset());
 
     rsx! {
-        if let ModalState {
-            lang,
-            prompt: Some(children),
-            buttons
-        } = state() {
+        if let ModalState { lang, prompt: Some(children), buttons } = state() {
             div {
                 id: "modal-blur",
 
@@ -69,47 +65,38 @@ pub fn Modal() -> Element {
                             Some(Language::En) => Some("en"),
                             Some(Language::Fi) => Some("fi"),
                             Some(Language::Hu) => Some("hu"),
-                            _ => None
+                            _ => None,
                         }
                     },
 
                     onclick: |evt| {
-                        // the messagebox itself should persist if clicked
                         evt.stop_propagation();
                     },
 
-                    div {
-                        {children}
-                    }
+                    div { {children} }
 
-                    div {
-                        id: "modal-buttons",
+                    div { id: "modal-buttons",
 
                         {
                             audio.read().play(&SOUND.to_string());
-
-                            let lang = if let Some(explicitly) = lang {
-                                explicitly
-                            } else {
-                                Language::Fi
-                            };
-
-                            buttons.iter().map(move |(btn, onclick)| {
-                                rsx! {
-                                    Btn {
-                                        key: "{btn.clone() as usize}",
-                                        lang,
-                                        r#type: btn.clone(),
-                                        onclick: *onclick,
-                                        reset: reset_state
+                            let lang = if let Some(explicitly) = lang { explicitly } else { Language::Fi };
+                            buttons
+                                .iter()
+                                .map(move |(btn, onclick)| {
+                                    rsx! {
+                                        Btn {
+                                            key: "{btn.clone() as usize}",
+                                            lang,
+                                            r#type: btn.clone(),
+                                            onclick: *onclick,
+                                            reset: reset_state,
+                                        }
                                     }
-                                }
-                            })
+                                })
                         }
                     }
                 }
             }
-
         }
 
         Outlet::<Route> {}

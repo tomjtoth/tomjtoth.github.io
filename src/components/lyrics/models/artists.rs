@@ -19,6 +19,10 @@ impl Default for Artists {
 }
 
 impl Artists {
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
+
     pub fn iter(&self) -> std::slice::Iter<Artist> {
         self.0.iter()
     }

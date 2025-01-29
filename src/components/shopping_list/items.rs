@@ -78,8 +78,7 @@ pub fn Items() -> Element {
     });
 
     rsx! {
-        h2 {
-            class: "sli",
+        h2 { class: "sli",
 
             if ul_items.len() > 0 {
                 "tavarat listallasi"
@@ -88,72 +87,58 @@ pub fn Items() -> Element {
             }
         }
 
-        ul {
-            id: "sli",
+        ul { id: "sli",
 
-            {ul_items.into_iter().map(|(idx, id, name)| {
+            {
+                ul_items
+                    .into_iter()
+                    .map(|(idx, id, name)| {
+                        let class = format!(
+                            "clickable padded alternating sli{}",
+                            if active().is(&id) { " active" } else { "" },
+                        );
+                        let toggle_active_id = id.clone();
+                        let toggle_active = move |_| {
+                            active.write().toggle(&toggle_active_id);
+                        };
+                        let rm_item = use_callback({
+                            let id = id.clone();
+                            move |evt: Event<MouseData>| {
+                                evt.stop_propagation();
+                                items.write().rm(&id);
+                                active.write().rm(&id);
+                            }
+                        });
+                        rsx! {
+                            li { key: "{id}", class, onclick: toggle_active,
 
-                let class = format!(
-                    "clickable padded alternating sli{}",
-                    if active().is(&id) {
-                        " active"
-                    } else {
-                        ""
-                    }
-                );
+                                "{name}"
+                                if idx == 0 {
+                                    span { class: "unknown-item", title: "tuntematon tavara", "❓" }
+                                }
 
-                let toggle_active_id = id.clone();
-                let toggle_active =  move |_| {
-                    active.write().toggle(&toggle_active_id);
-                };
+                                if !id.starts_with("slr-") {
+                                    span {
+                                        class: "sli-del clickable",
+                                        onclick: move |evt| {
+                                            evt.stop_propagation();
+                                            modal
+                                                .set(ModalState {
+                                                    prompt: Some(rsx! {
+                                                    "poistetaanko \"{name}\" varmasti?"
+                                                    }),
+                                                    buttons: vec![(Button::Yes, Some(rm_item)), (Button::No, None)],
+                                                    lang: None,
+                                                })
+                                        },
 
-                let rm_item = use_callback({
-                    let id = id.clone();
-                    move |evt: Event<MouseData>| {
-                        evt.stop_propagation();
-                        items.write().rm(&id);
-                        active.write().rm(&id);
-                    }
-                });
 
-                rsx!{
-                    li {
-                        key: "{id}",
-                        class,
-                        onclick: toggle_active,
-
-                        "{name}"
-                        if idx == 0 {
-                            span {
-                                class: "unknown-item",
-                                title: "tuntematon tavara",
-                                "❓"
+                                        "(🚫 poista)"
+                                    }
+                                }
                             }
                         }
-
-                        if !id.starts_with("slr-") {
-                            span {
-                                class: "sli-del clickable",
-                                onclick: move |evt| {
-                                        evt.stop_propagation();
-                                        modal.set(ModalState {
-                                            prompt: Some(rsx! { "poistetaanko \"{name}\" varmasti?" }),
-                                            buttons: vec![
-                                                (Button::Yes, Some(rm_item)),
-                                                (Button::No, None)
-                                            ],
-                                            lang: None
-                                        })
-                                    },
-
-
-                                "(🚫 poista)"
-                            }
-                        }
-                    }
-                }
-            })
-
+                    })
             }
 
         }

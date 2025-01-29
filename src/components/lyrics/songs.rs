@@ -19,71 +19,77 @@ pub fn Songs(props: AlbumsProps) -> Element {
 
     rsx! {
         ul {
-            {props.songs.iter().enumerate().map(|(song_idx, song)| {
-                let key = Rc::new(format!("{}-{}-{}", props.artist_idx, props.album_idx, song_idx));
-                let mut li_class = vec!["padded bordered"];
-
-                if props.songs.len() == 1 || active().is(&key) {
-                    li_class.push("active");
-                }
-
-                let clickable = props.songs.len() > 1;
-
-                let children = if let Some(lyrics) = song.lyrics.clone() {
-                    if lyrics.starts_with("https://") {
-                        li_class.push("missing-lyrics");
-                        li_class.push("non-clickable");
-                        rsx! { super::link::Link { url: Some(lyrics) } }
-                    } else {
-                        let trans = format!(
-                            "https://translate.google.com/?sl=sv&tl=en&text={}&op=translate",
-                            encode(&lyrics)
+            {
+                props
+                    .songs
+                    .iter()
+                    .enumerate()
+                    .map(|(song_idx, song)| {
+                        let key = Rc::new(
+                            format!("{}-{}-{}", props.artist_idx, props.album_idx, song_idx),
                         );
-                        if clickable {
-                            li_class.push("clickable");
+                        let mut li_class = vec!["padded bordered"];
+                        if props.songs.len() == 1 || active().is(&key) {
+                            li_class.push("active");
                         }
-                        rsx! {
-                            super::link::Link { url: Some(trans) }
-                            p {
-                                class: "lyrics",
-                                onclick: |evt| evt.stop_propagation(),
-                                "{lyrics}"
-                            }
-                        }
-                    }
-                } else {
-                    li_class.push("missing-lyrics");
-                    li_class.push("non-clickable");
-                    let search = format!(
-                        "https://www.youtube.com/results?search_query={}",
-                        encode(&format!(
-                            "{} - Topic {}",
-                            artists.read().get(props.artist_idx).name,
-                            song.title
-                        ))
-                    );
-                    rsx! { super::link::Link { url: Some(search) } }
-                };
-
-                rsx! {
-                    li {
-                        key,
-                        class: li_class.join(" "),
-                        onclick: {
-                            let key = key.clone();
-                            move |evt: Event<MouseData>| {
-                                evt.stop_propagation();
+                        let clickable = props.songs.len() > 1;
+                        let children = if let Some(lyrics) = song.lyrics.clone() {
+                            if lyrics.starts_with("https://") {
+                                li_class.push("missing-lyrics");
+                                li_class.push("non-clickable");
+                                rsx! {
+                                    super::link::Link { url: Some(lyrics) }
+                                }
+                            } else {
+                                let trans = format!(
+                                    "https://translate.google.com/?sl=sv&tl=en&text={}&op=translate",
+                                    encode(&lyrics),
+                                );
                                 if clickable {
-                                    active.write().toggle(&key);
+                                    li_class.push("clickable");
+                                }
+                                rsx! {
+                                    super::link::Link { url: Some(trans) }
+                                    p { class: "lyrics", onclick: |evt| evt.stop_propagation(), "{lyrics}" }
                                 }
                             }
-                        },
+                        } else {
+                            li_class.push("missing-lyrics");
+                            li_class.push("non-clickable");
+                            let search = format!(
+                                "https://www.youtube.com/results?search_query={}",
+                                encode(
+                                    &format!(
+                                        "{} - Topic {}",
+                                        artists.read().get(props.artist_idx).name,
+                                        song.title,
+                                    ),
+                                ),
+                            );
+                            rsx! {
+                                super::link::Link { url: Some(search) }
+                            }
+                        };
+                        rsx! {
+                            li {
+                                key,
+                                class: li_class.join(" "),
+                                onclick: {
+                                    let key = key.clone();
+                                    move |evt: Event<MouseData>| {
+                                        evt.stop_propagation();
+                                        if clickable {
+                                            active.write().toggle(&key);
+                                        }
+                                    }
+                                },
 
-                        "{song.title}"
-                        {children}
-                    }
-                }
-            })}
+                                "{song.title}"
+                                {children}
+                            }
+                        }
+                    })
+            }
         }
     }
 }
