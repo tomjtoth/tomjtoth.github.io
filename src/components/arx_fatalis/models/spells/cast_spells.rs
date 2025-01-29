@@ -8,7 +8,10 @@ use crate::{
 };
 
 #[derive(Serialize, Deserialize)]
-pub struct CastSpells(Vec<Spell>, u64);
+pub struct CastSpells {
+    spells: Vec<Spell>,
+    score: u64,
+}
 pub type SigCastSpells = Signal<CastSpells>;
 
 impl LocalStorageCompatible for CastSpells {
@@ -17,7 +20,10 @@ impl LocalStorageCompatible for CastSpells {
 
 impl Default for CastSpells {
     fn default() -> Self {
-        Self(vec![], 0)
+        Self {
+            spells: vec![],
+            score: 0,
+        }
     }
 }
 
@@ -30,8 +36,8 @@ impl CastSpells {
         if let Some((spell, _)) = Spell::by_seq(seq) {
             audio.play(&spell.as_src());
             let (page, seq) = spell.details();
-            self.1 += (page * (seq.len() as u8)) as u64;
-            self.0.push(spell);
+            self.score += (page * (seq.len() as u8)) as u64;
+            self.spells.push(spell);
             self.save();
         } else {
             audio.play(&Spell::Fizzle.as_src());
