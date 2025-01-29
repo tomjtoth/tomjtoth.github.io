@@ -19,12 +19,12 @@
   padding: var(--padding);
 }
 
-#runes > img {
+#runes>img {
   width: 100%;
   height: 100%;
 }
 
-#runes > img:active {
+#runes>img:active {
   animation: glow 0.5s linear;
 }
 
@@ -38,6 +38,6 @@
   }
 }
 
-a.runes {
+a.spells {
   text-decoration: none;
 }
