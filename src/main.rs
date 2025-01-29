@@ -18,6 +18,7 @@ fn App() -> Element {
     // read from localStorage
     c::sidepanel::init();
     c::luxor::init();
+    c::arx_fatalis::init();
 
     // also fetching from server
     c::lyrics::init();
