@@ -65,21 +65,27 @@ impl Default for Audio {
 }
 
 impl Audio {
-    pub fn play(&self, src: &String) -> Option<f64> {
+    pub fn play(&self, src: &String) -> Option<u64> {
+        let mut beginning = 0.0;
+        let mut ret_val = None;
+
         if let Some(snd) = self.0.get(src) {
+            if let Some(val) = snd.starts_at {
+                beginning = val;
+            }
+
+            snd.mp3.set_current_time(beginning);
             tracing::debug!("playing {src}");
-            snd.mp3
-                .set_current_time(if let Some(beginning) = snd.starts_at {
-                    beginning
-                } else {
-                    0.0
-                });
             let _res = snd.mp3.play();
-            snd.next_starts_at
+
+            if let Some(val) = snd.next_starts_at {
+                ret_val = Some(((val - beginning) * 1000.0) as u64)
+            }
         } else {
             tracing::error!("{src} is not loaded into the Audio component");
-            None
         }
+
+        ret_val
     }
 }
 
