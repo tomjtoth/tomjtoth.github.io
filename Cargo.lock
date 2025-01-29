@@ -59,6 +59,7 @@ dependencies = [
  "strum",
  "strum_macros",
  "urlencoding",
+ "wasm-bindgen-futures",
  "web-sys",
 ]
 
