@@ -1,5 +1,5 @@
 use dioxus::{logger::tracing, prelude::*};
-use reqwest::Response;
+use gloo_net::http::{Request, Response};
 use serde::{de::DeserializeOwned, Serialize};
 use web_sys::{window, UrlSearchParams};
 
@@ -77,7 +77,10 @@ pub fn get_search_params() -> Option<UrlSearchParams> {
 async fn fetch(url: String) -> Response {
     let base_url = web_sys::window().unwrap().origin();
     let url = format!("{}{}", base_url, url);
-    reqwest::get(&url).await.expect("failed to fetch {url}")
+    Request::get(&url)
+        .send()
+        .await
+        .expect("failed to fetch {url}")
 }
 
 pub async fn to_yaml<T: DeserializeOwned>(asset: Asset) -> T {
