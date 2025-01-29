@@ -34,6 +34,12 @@ mobile = ["dioxus/mobile"]
 inherits = "dev"
 opt-level = 1
 
+[profile.release]
+opt-level = "z"    # Optimize for size
+lto = true         # Link-time optimization
+# panic = "abort"    # Remove panic handling to reduce size
+# strip = true       # Remove debug symbols
+
 [profile.server-dev]
 inherits = "dev"
 
