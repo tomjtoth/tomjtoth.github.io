@@ -1,19 +1,18 @@
-mod audio;
-mod cast_spells;
-
-pub use audio::init_audio;
-pub use cast_spells::*;
-
+use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::fmt;
-
-use serde::{Deserialize, Serialize};
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
+mod audio;
+mod cast_spells;
+
 use crate::components::arx_fatalis::models::runes::Rune::{self, *};
+pub use audio::init_audio;
+pub use cast_spells::*;
 use Spell::*;
 
-#[derive(Debug, EnumIter, Deserialize, Serialize)]
+#[derive(Debug, EnumIter, Serialize_repr, Deserialize_repr)]
+#[repr(u8)]
 pub enum Spell {
     MegaCheat,
     Fizzle,

@@ -55,6 +55,7 @@ dependencies = [
  "qrcode",
  "serde",
  "serde_json",
+ "serde_repr",
  "serde_yaml",
  "strum",
  "strum_macros",
