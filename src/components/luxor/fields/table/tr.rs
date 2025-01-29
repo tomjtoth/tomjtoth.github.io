@@ -19,11 +19,20 @@ pub fn TableRow(props: TRProps) -> Element {
 
     rsx! {
         tr {
-            {row.iter().enumerate().map(move |(idx, num)| {
-                rsx! {
-                    TableData { field_idx, row_idx, idx, num: *num }
-                }
-            })}
+            {
+                row.iter()
+                    .enumerate()
+                    .map(move |(idx, num)| {
+                        rsx! {
+                            TableData {
+                                field_idx,
+                                row_idx,
+                                idx,
+                                num: *num,
+                            }
+                        }
+                    })
+            }
         }
     }
 }

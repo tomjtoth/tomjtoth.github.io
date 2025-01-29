@@ -32,12 +32,16 @@ pub fn Controls() -> Element {
                     locked.toggle();
                 },
 
-                if locked() {"🔒"} else {"🔓"}
+                if locked() {
+                    "🔒"
+                } else {
+                    "🔓"
+                }
             }
 
             input {
                 id: "luxor-adder",
-                type: "number",
+                r#type: "number",
                 class: "bordered",
                 max: 75,
                 min: 0,
@@ -54,13 +58,16 @@ pub fn Controls() -> Element {
                 class: "padded clickable",
                 title: "jelölések törlése",
                 onclick: move |_| {
-                    modal.set(ModalState {
-                        lang: Some(Language::Hu),
-                        buttons: vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)],
-                        prompt: Some(rsx! {
-                            "Törlöm az " strong{"összes"} " húzott számot"
-                        }),
-                    });
+                    modal
+                        .set(ModalState {
+                            lang: Some(Language::Hu),
+                            buttons: vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)],
+                            prompt: Some(rsx! {
+                                "Törlöm az "
+                                strong { "összes" }
+                                " húzott számot"
+                            }),
+                        });
                 },
                 "♻️"
             }

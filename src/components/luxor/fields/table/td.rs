@@ -49,7 +49,7 @@ pub fn TableData(props: TDProps) -> Element {
         td {
             key: "{idx}", // order never changes
             class: classes.join(" "),
-            onclick:move |evt: Event<MouseData>| {
+            onclick: move |evt: Event<MouseData>| {
                 evt.stop_propagation();
                 if locked() && !numbers().has(num) {
                     numbers.write().add(num);
@@ -57,11 +57,15 @@ pub fn TableData(props: TDProps) -> Element {
             },
 
             if locked() {
-                if num == 0 { "🪲" } else { "{num}" }
+                if num == 0 {
+                    "🪲"
+                } else {
+                    "{num}"
+                }
             } else {
                 input {
                     class: "luxor-num",
-                    type: "number",
+                    r#type: "number",
                     min: 0,
                     max: 75,
                     value: num,
@@ -70,11 +74,10 @@ pub fn TableData(props: TDProps) -> Element {
                             if let Ok(as_u8) = evt.value().parse::<u8>() {
                                 if as_u8 <= 75 {
                                     fields.write().update_num(field_idx, row_idx, idx, as_u8);
-
                                 }
                             }
                         }
-                    }
+                    },
                 }
             }
         }

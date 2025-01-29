@@ -2,6 +2,7 @@ use dioxus::prelude::*;
 use models::{spells::CastSpells, Queue};
 use runes::Runes;
 
+mod controls;
 mod models;
 mod runes;
 
@@ -9,6 +10,7 @@ use crate::{
     components::{body::Body, header::Header},
     utils::init_ctx,
 };
+use controls::Controls;
 pub use models::init_audio;
 
 pub fn init() {
@@ -20,12 +22,8 @@ pub fn ArxFatalis() -> Element {
     init_ctx(|| Queue::default());
 
     rsx! {
-        Header {
-            title: &"Arx Fatalis",
-            // Controls {}
-        }
-        Body {
-            class: "arx-fatalis",
+        Header { title: "Arx Fatalis", Controls {} }
+        Body { class: "arx-fatalis",
 
             div { id: "runes-spacer" }
             Runes {}

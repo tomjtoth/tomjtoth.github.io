@@ -6,13 +6,11 @@ use crate::components::{body::Body, header::Header};
 #[component]
 pub fn Home() -> Element {
     rsx! {
-      Header { title: &"terve" }
+      Header { title: "terve" }
 
-      Body {
-        style: Some("padding: 16px;".to_string()),
+      Body { style: Some("padding: 16px;".to_string()),
 
-        div {
-          lang:"en",
+        div { lang: "en",
           h2 { "DISCLAIMER" }
           p {
             strong {
@@ -24,7 +22,7 @@ pub fn Home() -> Element {
           p {
             "This site is mostly in Finnish. Here's the link to the "
             a {
-              target:"_blank",
+              target: "_blank",
               href: "https://github.com/tomjtoth/tomjtoth.github.io/tree/dioxus",
               "repo"
             }
@@ -52,25 +50,23 @@ pub fn Home() -> Element {
                   "tässä"
                 }
               }
+              li { lang: "en", "multithreaded population of fake data" }
+              li { "taustallaa pyörii PostgreSQL ja Flask 🫣" }
               li {
-                lang:"en",
-                "multithreaded population of fake data"
-              }
-              li{ "taustallaa pyörii PostgreSQL ja Flask 🫣" }
-              li{
                 "siirretty Docker:iin "
                 a {
-                  target:"_blank",
+                  target: "_blank",
                   href: "https://github.com/tomjtoth/veripalvelu/commit/72adb71c10b75aeb43a72b6e4d2288769550ddae",
                   "tässä"
                 }
               }
             }
           }
-          li{ "Saldo"
-            ul{
-              li{"keskeneräinen"}
-              li{
+          li {
+            "Saldo"
+            ul {
+              li { "keskeneräinen" }
+              li {
                 "sekä backend, että frontend on täällä hetkellä JS:ssa kirjoitettu,"
                 "siirrän ne myöhemmin TS:iin, ja sen jälkeen Rust:iin"
               }

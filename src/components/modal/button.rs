@@ -53,7 +53,8 @@ pub fn Btn(props: ModalButtonProps) -> Element {
                     callback.call(evt.clone())
                 }
                 props.reset.call(evt);
-            }, "{text}"
+            },
+            "{text}"
         }
     }
 }

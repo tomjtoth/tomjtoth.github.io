@@ -16,43 +16,52 @@ pub fn Albums(props: AlbumsProps) -> Element {
 
     rsx! {
         ul {
-            {props.albums.iter().enumerate().map(|(album_idx, album)| {
-                let key = Rc::new(format!("{}-{}", props.artist_idx, album_idx));
-                let clickable = props.albums.len() > 1;
+            {
+                props
+                    .albums
+                    .iter()
+                    .enumerate()
+                    .map(|(album_idx, album)| {
+                        let key = Rc::new(format!("{}-{}", props.artist_idx, album_idx));
+                        let clickable = props.albums.len() > 1;
+                        let class = format!(
+                            "padded bordered {}{}",
+                            if clickable { "clickable" } else { "non-clickable" },
+                            if props.albums.len() == 1 || active().is(&key) {
+                                " active"
+                            } else {
+                                ""
+                            },
+                        );
+                        rsx! {
+                            li {
+                                key,
+                                class,
+                                onclick: {
+                                    let key = key.clone();
+                                    move |evt: Event<MouseData>| {
+                                        evt.stop_propagation();
+                                        if clickable {
+                                            active.write().toggle(&key);
+                                        }
+                                    }
+                                },
 
-                let class = format!("padded bordered {}{}",
-                    if clickable { "clickable" } else { "non-clickable" },
-                    if props.albums.len() == 1 || active().is(&key) {" active" } else {""}
-                );
-
-                rsx! {
-                    li {
-                        key,
-                        class,
-                        onclick: {
-                            let key = key.clone();
-                            move |evt:Event<MouseData>| {
-                                evt.stop_propagation();
-                                if clickable {
-                                    active.write().toggle(&key);
+                                if let Some(yyyy) = album.year {
+                                    "{yyyy} - "
                                 }
+                                "{album.title}"
+                                super::link::Link { url: album.url.clone() }
+                                Songs {
+                                    artist_idx: props.artist_idx,
+                                    album_idx,
+                                    songs: album.songs.clone(),
+                                }
+
                             }
-                        },
-
-                        if let Some(yyyy) = album.year {
-                            "{yyyy} - "
                         }
-                        "{album.title}"
-                        super::link::Link { url: album.url.clone() }
-                        Songs {
-                            artist_idx: props.artist_idx,
-                            album_idx,
-                            songs: album.songs.clone(),
-                        }
-
-                    }
-                }
-            })}
+                    })
+            }
         }
     }
 }

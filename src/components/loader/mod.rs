@@ -4,7 +4,7 @@ use dioxus::prelude::*;
 pub fn Loader() -> Element {
     rsx! {
         div { id: "modal-blur",
-            div  { id: "loader" }
+            div { id: "loader" }
         }
     }
 }

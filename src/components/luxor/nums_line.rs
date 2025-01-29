@@ -49,10 +49,11 @@ pub fn PickedNumsLine() -> Element {
     };
 
     rsx! {
-        div {
-            id: "luxor-picked-nums-line",
+        div { id: "luxor-picked-nums-line",
 
-            if nums_len > 10 { "..." }
+            if nums_len > 10 {
+                "..."
+            }
             "{last10_nums.displ_as_dec()}"
 
             if bug.read().blurred {
@@ -63,9 +64,9 @@ pub fn PickedNumsLine() -> Element {
                         bug.set(Bugstate {
                             class: Some("crawling"),
                             left: "-10vw".to_string(),
-                            blurred: false
+                            blurred: false,
                         });
-                    }
+                    },
                 }
             }
 
@@ -75,22 +76,31 @@ pub fn PickedNumsLine() -> Element {
                 onclick: move |evt| {
                     let data = evt.map(|data| data.client_coordinates());
                     let left = format!("{}px", data.data().x - 8.0);
-
-                    modal.set(ModalState {
-                        prompt: Some(rsx! {
-                            "Törlöm az " strong{"utolsó"} " húzott számot"
-                        }),
-                        lang: Some(Language::Hu),
-                        buttons: vec![(Button::Ok, Some(use_callback(move |_| {
-                                tracing::debug!("bug comes in");
-                                bug.set(Bugstate {
-                                    class: Some("crawling"),
-                                    left: left.to_owned(),
-                                    blurred: false
-                                });
-                            }
-                        ))), (Button::Cancel, None)],
-                    });
+                    modal
+                        .set(ModalState {
+                            prompt: Some(rsx! {
+                                "Törlöm az "
+                                strong { "utolsó" }
+                                " húzott számot"
+                            }),
+                            lang: Some(Language::Hu),
+                            buttons: vec![
+                                (
+                                    Button::Ok,
+                                    Some(
+                                        use_callback(move |_| {
+                                            tracing::debug!("bug comes in");
+                                            bug.set(Bugstate {
+                                                class: Some("crawling"),
+                                                left: left.to_owned(),
+                                                blurred: false,
+                                            });
+                                        }),
+                                    ),
+                                ),
+                                (Button::Cancel, None),
+                            ],
+                        });
                 },
                 "⬅️"
             }
@@ -103,31 +113,29 @@ pub fn PickedNumsLine() -> Element {
                 style: "left: {bug.read().left};",
                 ontransitionend: {
                     move |_| {
-                    if bug.read().left == "-10vw".to_string() {
-                        tracing::debug!("bug returns to right unseen");
-                        bug.set(Bugstate {
-                            left: "110vw".to_string(),
-                            class: None,
-                            blurred: false
-                        })
-                    } else {
-                        tracing::debug!("bug's privacy filter on");
-                        let left = bug.read().clone().left;
-                        let class = bug.read().class;
-                        bug.set( Bugstate{
-                            left,
-                            class,
-                            blurred: true
-                        });
-
-                        tracing::debug!("removing last number");
-                        numbers.write().rm_last()
+                        if bug.read().left == "-10vw".to_string() {
+                            tracing::debug!("bug returns to right unseen");
+                            bug.set(Bugstate {
+                                left: "110vw".to_string(),
+                                class: None,
+                                blurred: false,
+                            })
+                        } else {
+                            tracing::debug!("bug's privacy filter on");
+                            let left = bug.read().clone().left;
+                            let class = bug.read().class;
+                            bug.set(Bugstate {
+                                left,
+                                class,
+                                blurred: true,
+                            });
+                            tracing::debug!("removing last number");
+                            numbers.write().rm_last()
+                        }
                     }
-
-                }},
+                },
                 "🪲"
             }
         }
-
     }
 }
