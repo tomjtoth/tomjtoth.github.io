@@ -21,6 +21,7 @@ serde_yaml = "0.9.34"
 strum = "0.26.3"
 strum_macros = "0.26.4"
 urlencoding = "2.1.3"
+wasm-bindgen-futures = "0.4.50"
 web-sys = { version = "0.3.77", features = ["UrlSearchParams", "HtmlAudioElement", "Window", "Storage", "Navigator", "Clipboard"] }
 
 [features]
