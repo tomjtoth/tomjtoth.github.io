@@ -45,7 +45,7 @@ jobs:
         with:
           node-version: "latest"
 
-      - name: process CSS files
+      - name: Process CSS files
         run: |
           npm install gulp gulp-if gulp-concat gulp-clean-css gulp-autoprefixer
           npx gulp prod
@@ -56,7 +56,7 @@ jobs:
           dx build --release
           mv target/dx/apps/release/web/public dist
 
-      - name: post-process built files
+      - name: Post-process built files
         shell: bash
         run: |
           REDIRECTS=(404 $(grep -Po '(?<=#\[route\("/)[^:"]+(?="\)\])' src/routes.rs))
