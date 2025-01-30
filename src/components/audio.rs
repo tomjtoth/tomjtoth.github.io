@@ -18,12 +18,13 @@ pub enum AudioOpt {
     Volume(f64),
     StartsAt(f64),
     NextStartsAt(f64),
+    NotAvailable,
 }
 
 pub type AudioOpts = Vec<AudioOpt>;
 
 struct Inner {
-    mp3: HtmlAudioElement,
+    src: Option<HtmlAudioElement>,
     starts_at: Option<f64>,
     next_starts_at: Option<f64>,
 }
@@ -35,25 +36,35 @@ impl Default for Audio {
         let mut all = arx_sounds();
         all.append(&mut modal_sounds());
 
-        let iterator = all.iter().map(|(src, opts)| {
-            let mp3 = HtmlAudioElement::new_with_src(&format!("/assets{src}")).unwrap();
+        let iterator = all.iter().map(|(path, opts)| {
+            let mut src = None;
+            let mut src_available = true;
+            let mut volume = None;
             let mut starts_at = None;
             let mut next_starts_at = None;
 
             for opt in opts.iter() {
                 match opt {
-                    AudioOpt::Volume(volume) => mp3.set_volume(*volume),
+                    AudioOpt::Volume(vol) => volume = Some(*vol),
                     AudioOpt::StartsAt(start) => starts_at = Some(*start),
                     AudioOpt::NextStartsAt(next) => next_starts_at = Some(*next),
+                    AudioOpt::NotAvailable => src_available = false,
                 }
             }
 
-            mp3.set_preload("auto");
+            if src_available {
+                let audio = HtmlAudioElement::new_with_src(&format!("/assets{path}")).unwrap();
+                audio.set_preload("auto");
+                if let Some(vol) = volume {
+                    audio.set_volume(vol);
+                }
+                src = Some(audio);
+            }
 
             (
-                src.to_string(),
+                path.to_string(),
                 Inner {
-                    mp3,
+                    src,
                     starts_at,
                     next_starts_at,
                 },
@@ -74,9 +85,13 @@ impl Audio {
                 beginning = val;
             }
 
-            snd.mp3.set_current_time(beginning);
-            tracing::debug!("playing {src}");
-            let _res = snd.mp3.play();
+            if let Some(audio) = &snd.src {
+                audio.set_current_time(beginning);
+                tracing::debug!("playing {src}");
+                let _res = audio.play();
+            } else {
+                tracing::error!("{src} is not available in static assets");
+            }
 
             if let Some(val) = snd.next_starts_at {
                 ret_val = Some(((val - beginning) * 1000.0) as u64)

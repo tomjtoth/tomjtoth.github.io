@@ -1,19 +1,24 @@
 use strum::IntoEnumIterator;
 
-use crate::components::audio::AudioSrc;
+use crate::components::audio::{AudioOpt::NotAvailable, AudioSrc};
 
-use super::Spell;
+use super::Spell::{self, *};
 
 pub fn init_audio() -> Vec<AudioSrc> {
     Spell::iter()
-        .map(|spell| {
-            (
-                spell.as_src(),
-                match spell {
-                    // TODO: exceptions come here
-                    _ => vec![],
-                },
-            )
+        .map(|spell| match spell {
+            ActivatePortal
+            | MegaCheat
+            | Fireball
+            | Reveal
+            | Trap
+            | ManaDrain
+            | Chaos
+            | LifeDrain
+            | MassLightningProjection
+            | SlowTime => (spell.as_src(), vec![NotAvailable]),
+
+            _ => (spell.as_src(), vec![]),
         })
         .collect()
 }
