@@ -1,11 +1,10 @@
 use dioxus::prelude::*;
 use qrcode::{render::svg, EcLevel, QrCode};
 
-mod config;
 mod model;
 
+use crate::routes::Route::*;
 use crate::utils::{get_url, text_to_clipboard};
-use config::LINKS;
 pub use model::{init, SigSidepanel};
 
 #[component]
@@ -32,9 +31,23 @@ pub fn Sidepanel() -> Element {
                         "×"
                     }
                 }
-                {LINKS.iter().map(|lnk| rsx! {
-                    Link { class: "nav-link", to: lnk.to, lang: lnk.lang, "{lnk.label}" }
-                })}
+                {
+                    [
+                        ("alkuun", Home, None),
+                        ("látogatók", Visitors, Some("hu")),
+                        ("Luxor sorsolás", Luxor, Some("hu")),
+                        ("akunvalvonta", BatteryMonitor, None),
+                        ("ostoslista", ShoppingList, None),
+                        ("låttext", Lyrics, Some("sv")),
+                        ("Arx Fatails minipeli", ArxFatalis, None),
+                    ]
+                        .into_iter()
+                        .map(|(label, to, lang)| {
+                            rsx! {
+                                Link { class: "nav-link", to, lang, "{label}" }
+                            }
+                        })
+                }
             }
             {
                 let url = get_url();
