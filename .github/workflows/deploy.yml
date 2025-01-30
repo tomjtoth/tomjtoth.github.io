@@ -19,11 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
@@ -58,8 +55,12 @@ jobs:
         run: |
           dx build --release
           mv target/dx/apps/release/web/public dist
+
+      - name: post-process built files
+        shell: bash
+        run: |
           REDIRECTS=(404 $(grep -Po '(?<=#\[route\("/)[^:"]+(?="\)\])' src/routes.rs))
-          
+
           cd dist
           for f in ${REDIRECTS[*]}; do cp index.html $f.html; done
 
@@ -69,6 +70,25 @@ jobs:
           # populating URLS_TO_CACHE in sw.js
           ASSETS=$(find assets/ \( -name 'sw.js' -o -name 'README.md' -o -name '*.br' \) -prune -o -type f -print | awk '{print "\"/" $0 "\""}' | paste -sd "," -)
           sed -i 's|"__REPLACED_DURING_DEPLOYMENT__"|'${ASSETS}'|' assets/sw.js
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: dist/
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
+          path: dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -80,4 +100,4 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@
