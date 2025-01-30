@@ -58,8 +58,13 @@ jobs:
         run: |
           dx build --release
           mv /home/runner/work/tomjtoth.github.io/tomjtoth.github.io/target/dx/apps/release/web/public dist
+          
+          pwd
+          ls
+          REDIRECTS=(404 $(grep -Po '(?<=#\[route\("/)[^:"]+(?="\)\])' src/routes.rs))
+          echo "redirects are: ${REDIRECTS[*]}"
           cd dist
-          cp index.html 404.html
+          for f in ${REDIRECTS[*]}; do cp index.html $f.html; done
 
           # necessary workaround since I have at least 1 user out there sourcing this
           mv assets/linux .
