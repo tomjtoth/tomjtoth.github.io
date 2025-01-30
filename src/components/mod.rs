@@ -8,6 +8,7 @@ pub mod loader;
 pub mod luxor;
 pub mod lyrics;
 pub mod modal;
+pub mod not_found;
 pub mod shopping_list;
 pub mod sidepanel;
 pub mod visitors;

@@ -2,8 +2,8 @@ use dioxus::prelude::*;
 
 use crate::components::{
     arx_fatalis::ArxFatalis, battery_monitor::BatteryMonitor, home::Home, luxor::Luxor,
-    lyrics::Lyrics, modal::Modal, shopping_list::ShoppingList, sidepanel::Sidepanel,
-    visitors::Visitors,
+    lyrics::Lyrics, modal::Modal, not_found::NotFound, shopping_list::ShoppingList,
+    sidepanel::Sidepanel, visitors::Visitors,
 };
 
 #[derive(Debug, Clone, Routable, PartialEq)]
@@ -11,23 +11,26 @@ pub enum Route {
     #[layout(Modal)]
     #[layout(Sidepanel)]
     #[route("/")]
-    Home {},
+    Home,
 
     #[route("/visitors")]
-    Visitors {},
+    Visitors,
 
     #[route("/luxor")]
-    Luxor {},
+    Luxor,
 
     #[route("/battery-monitor")]
-    BatteryMonitor {},
+    BatteryMonitor,
 
     #[route("/shopping-list")]
-    ShoppingList {},
+    ShoppingList,
 
     #[route("/lyrics")]
-    Lyrics {},
+    Lyrics,
 
     #[route("/arx-fatalis")]
-    ArxFatalis {},
+    ArxFatalis,
+
+    #[route("/:..path")]
+    NotFound { path: Vec<String> },
 }
