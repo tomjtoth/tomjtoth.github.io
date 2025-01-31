@@ -10,5 +10,5 @@ pub type SigLocked = Signal<bool>;
 
 pub fn init() {
     Numbers::init();
-    Fields::init();
+    CxFields::init();
 }

@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::luxor::models::{SigFields, SigLocked, SigNumbers};
+use crate::components::luxor::models::{CxFields, SigLocked, SigNumbers};
 
 #[derive(Props, PartialEq, Clone)]
 pub struct TDProps {
@@ -12,7 +12,7 @@ pub struct TDProps {
 
 #[component]
 pub fn TableData(props: TDProps) -> Element {
-    let mut fields = use_context::<SigFields>();
+    let mut fields = use_context::<CxFields>();
     let mut numbers = use_context::<SigNumbers>();
     let locked = use_context::<SigLocked>();
 
@@ -73,7 +73,7 @@ pub fn TableData(props: TDProps) -> Element {
                         if evt.value() != "" {
                             if let Ok(as_u8) = evt.value().parse::<u8>() {
                                 if as_u8 <= 75 {
-                                    fields.write().update_num(field_idx, row_idx, idx, as_u8);
+                                    fields.update_num(field_idx, row_idx, idx, as_u8);
                                 }
                             }
                         }
