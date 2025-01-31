@@ -155,14 +155,11 @@ impl Spell {
 
         for (i, c) in name.chars().enumerate() {
             if c.is_uppercase() {
-                // If not the first character, add a hyphen before uppercase letters
                 if i != 0 {
                     result.push(if let Some(dd) = delim { dd } else { '-' });
                 }
-                // Convert the uppercase letter to lowercase
                 result.push(c.to_ascii_lowercase());
             } else {
-                // Append lowercase letters as-is
                 result.push(c);
             }
         }
