@@ -2,25 +2,14 @@ use controls::Controls;
 use dioxus::prelude::*;
 
 mod controls;
+mod notifications;
 
 use crate::{
     components::{body::Body, header::Header, loader::Loader},
     hooks::{BatMonConf, BatteryState, SigBatMon},
 };
-
-static PLUGGED_IN_STR: &'static str = "ja laturi on vieläkin kiinni";
-static UNPLUGGED_STR: &'static str = "eikä laturi oo kytkettynä";
-
-pub fn noti_txt(charging: bool, lvl100: u8) -> String {
-    format!(
-        "Akun taso on nyt {lvl100}% {}",
-        if charging {
-            PLUGGED_IN_STR
-        } else {
-            UNPLUGGED_STR
-        }
-    )
-}
+pub use notifications::noti_txt;
+use notifications::*;
 
 #[component]
 pub fn BatteryMonitor() -> Element {
@@ -66,13 +55,8 @@ pub fn BatteryMonitor() -> Element {
                         " Sillä, et sivuston mikä näkymä on aktiivinen, "
                         "ei oo väliä, jos vaan pidät tämän välilehden auki."
                     }
-                    {
-                        let lvl100 = (level * 100.0) as u8;
-                        rsx! {
-                            p {
-                                strong { "{noti_txt(charging, lvl100)}" }
-                            }
-                        }
+                    p {
+                        strong { "{noti_txt(charging, level)}" }
                     }
                 } else {
                     p {
