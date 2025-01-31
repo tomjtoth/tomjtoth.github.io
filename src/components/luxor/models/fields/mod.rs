@@ -14,14 +14,6 @@ pub struct CxFields {
     inner: Signal<Inner>,
 }
 
-impl Default for CxFields {
-    fn default() -> Self {
-        CxFields {
-            inner: use_signal(|| Inner::default()),
-        }
-    }
-}
-
 impl CxFields {
     pub fn init() {
         let inner = Inner::init();
