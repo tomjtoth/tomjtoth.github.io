@@ -1,10 +1,12 @@
 use dioxus::prelude::*;
 
 mod components;
+mod hooks;
 mod routes;
 mod utils;
 
 use components as c;
+use hooks as h;
 
 fn main() {
     dioxus::launch(App);
@@ -12,6 +14,8 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    h::BatMon::init();
+
     // init static resources
     c::audio::init();
 

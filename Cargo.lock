@@ -51,6 +51,7 @@ dependencies = [
  "fancy-regex",
  "gloo-net",
  "gloo-timers",
+ "js-sys",
  "once_cell",
  "qrcode",
  "serde",
@@ -60,6 +61,7 @@ dependencies = [
  "strum",
  "strum_macros",
  "urlencoding",
+ "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
 ]
