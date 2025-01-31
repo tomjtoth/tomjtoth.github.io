@@ -6,12 +6,18 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     components::battery_monitor::noti_txt,
-    utils::{init_ctx, LocalStorageCompatible},
+    utils::{allowed_to_notify, init_ctx, notify, LocalStorageCompatible},
 };
 
 use super::{use_battery, BatteryState, UseBattery};
 
 pub type SigBatMon = Signal<BatMon>;
+
+// TODO: refactor ALL Sig* types accross the app
+// remove them, take UsePersistent as an example
+// wrap the signal in the struct, not the other way around!!
+// hence syntax getc cleaner `some_sig.read().some_method()`
+// becomes `some_struct.some_method()`, more readable!
 
 pub struct BatMon {
     conf: Signal<BatMonConf>,
@@ -47,14 +53,16 @@ impl BatMon {
 
         let service = {
             let conf = conf.clone();
-            let delay = Duration::from_secs(1);
+            let second = Duration::from_secs(1);
+            let minute = Duration::from_secs(60);
             use_future(move || async move {
+                // TODO: find a less resource hungry way to wait for BatMan to load
                 while let true = {
                     let bmr = batman.read();
                     bmr.loading
                 } {
                     tracing::debug!("waiting for Battery Manager to load");
-                    sleep(delay.clone()).await;
+                    sleep(second).await;
                 }
 
                 while let (
@@ -75,10 +83,14 @@ impl BatMon {
                         // TODO: works, but only after the next on_change closure call
                         // which updates the signal first
                         // there's about 10 seconds delay
-                        tracing::debug!("{}", noti_txt(s.charging, s.level));
+                        if allowed_to_notify().await {
+                            let message = noti_txt(s.charging, s.level);
+                            notify(&message);
+                            tracing::debug!(r#"notifying user: "{message}""#);
+                        }
                     }
-                    tracing::debug!("waiting {:?}", delay);
-                    sleep(delay).await;
+                    tracing::debug!("waiting {:?}", minute);
+                    sleep(minute).await;
                 }
             })
         };
@@ -95,19 +107,15 @@ impl BatMon {
         bmr.loading
     }
 
-    pub fn toggle(&mut self) {
-        let restarting = {
-            let r = self.conf.read();
-            !r.allowed
-        };
-
+    pub fn set_allowed(&mut self, allowed: bool) {
+        tracing::debug!("set_allowed called with {allowed}");
         {
             let mut w = self.conf.write();
-            w.allowed = restarting;
+            w.allowed = allowed;
             w.save();
         }
 
-        if restarting {
+        if allowed {
             self.service.restart();
         }
     }

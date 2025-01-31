@@ -1,7 +1,9 @@
 use dioxus::{logger::tracing, prelude::*};
 use gloo_net::http::{Request, Response};
 use serde::{de::DeserializeOwned, Serialize};
-use web_sys::{window, UrlSearchParams};
+use web_sys::{window, Notification, NotificationPermission, UrlSearchParams};
+
+use crate::components::modal::{Button, ModalState, SigModal};
 
 pub trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
     const STORAGE_KEY: &'static str;
@@ -104,4 +106,43 @@ impl DisplayBytes for Vec<u8> {
             .collect::<Vec<_>>()
             .join(", ")
     }
+}
+
+pub async fn allowed_to_notify() -> bool {
+    let mut modal = use_context::<SigModal>();
+    let window = window().unwrap();
+    if window.get("Notification").is_none() {
+        modal.set(ModalState {
+            buttons: vec![(Button::Ok, None)],
+            lang: None,
+            prompt: Some(rsx! { "ilmoituksia ei tueta!" }),
+        });
+        return false;
+    }
+
+    if Notification::permission() != NotificationPermission::Granted {
+        let permission_promise = Notification::request_permission().unwrap();
+        let permission = wasm_bindgen_futures::JsFuture::from(permission_promise)
+            .await
+            .unwrap()
+            .as_string()
+            .unwrap();
+
+        if permission == "granted" {
+            notify("näyteilmoitus");
+        } else {
+            modal.set(ModalState {
+                buttons: vec![(Button::Ok, None)],
+                lang: None,
+                prompt: Some(rsx! { "ilmotiukset on estettyjä!" }),
+            });
+            return false;
+        }
+    }
+
+    true
+}
+
+pub fn notify(message: &str) {
+    let _ = Notification::new(message);
 }
