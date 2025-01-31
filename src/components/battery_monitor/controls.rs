@@ -50,13 +50,13 @@ pub fn Controls() -> Element {
                 if s.charging {
                     "⚡"
                 } else {
-                    if (max_val).abs_diff(s.level100) < (min_val).abs_diff(s.level100) {
+                    if (max_val).abs_diff(s.level) < (min_val).abs_diff(s.level) {
                         "🔋"
                     } else {
                         "🪫"
                     }
                 }
-                " {s.level100}%"
+                " {s.level}%"
             }
         }
         input {

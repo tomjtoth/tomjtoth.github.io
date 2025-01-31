@@ -70,13 +70,12 @@ impl BatMon {
                     (c.clone(), bm.state.clone())
                 } {
                     if s.battery_present
-                        && ((s.level100 > upper && s.charging)
-                            || (s.level100 < lower && !s.charging))
+                        && ((s.level > upper && s.charging) || (s.level < lower && !s.charging))
                     {
                         // TODO: works, but only after the next on_change closure call
                         // which updates the signal first
                         // there's about 10 seconds delay
-                        tracing::debug!("{}", noti_txt(s.charging, s.level100));
+                        tracing::debug!("{}", noti_txt(s.charging, s.level));
                     }
                     tracing::debug!("waiting {:?}", delay);
                     sleep(delay).await;

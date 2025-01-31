@@ -7,8 +7,7 @@ use web_sys::window;
 #[derive(Clone)]
 pub struct BatteryState {
     pub charging: bool,
-    pub level: f64,
-    pub level100: u8,
+    pub level: u8,
     pub battery_present: bool,
 }
 
@@ -32,18 +31,13 @@ pub fn use_battery() -> UseBattery {
                 let bm = bm.clone();
                 move || {
                     tracing::debug!("on_change closure triggered");
-                    let level = bm.level();
-                    let charging = bm.charging();
-                    let charging_time = bm.charging_time();
-                    let discharging_time = bm.discharging_time();
-                    let battery_present = charging_time.is_finite() || discharging_time.is_finite();
 
                     let mut w = batman.write();
                     w.state = Some(BatteryState {
-                        level,
-                        level100: (level * 100.0) as u8,
-                        charging,
-                        battery_present,
+                        level: (bm.level() * 100.0) as u8,
+                        charging: bm.charging(),
+                        battery_present: bm.charging_time().is_finite()
+                            || bm.discharging_time().is_finite(),
                     })
                 }
             };
