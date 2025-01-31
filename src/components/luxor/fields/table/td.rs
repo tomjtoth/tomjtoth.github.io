@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::luxor::models::{CxFields, SigLocked, SigNumbers};
+use crate::components::luxor::models::{CxFields, CxNumbers, SigLocked};
 
 #[derive(Props, PartialEq, Clone)]
 pub struct TDProps {
@@ -13,7 +13,7 @@ pub struct TDProps {
 #[component]
 pub fn TableData(props: TDProps) -> Element {
     let mut fields = use_context::<CxFields>();
-    let mut numbers = use_context::<SigNumbers>();
+    let mut numbers = use_context::<CxNumbers>();
     let locked = use_context::<SigLocked>();
 
     let mut classes = vec![];
@@ -41,7 +41,7 @@ pub fn TableData(props: TDProps) -> Element {
         }
     }
 
-    if numbers().has(num) {
+    if numbers.has(num) {
         classes.push("picked");
     }
 
@@ -51,8 +51,8 @@ pub fn TableData(props: TDProps) -> Element {
             class: classes.join(" "),
             onclick: move |evt: Event<MouseData>| {
                 evt.stop_propagation();
-                if locked() && !numbers().has(num) {
-                    numbers.write().add(num);
+                if locked() && !numbers.has(num) {
+                    numbers.add(num);
                 }
             },
 

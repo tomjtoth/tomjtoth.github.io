@@ -1,14 +1,16 @@
 use dioxus::signals::Signal;
 
+mod bug;
 mod fields;
 mod numbers;
 
-pub use fields::*;
-pub use numbers::*;
+pub use bug::Bugstate;
+pub use fields::{CxFields, LuxorRow};
+pub use numbers::CxNumbers;
 
 pub type SigLocked = Signal<bool>;
 
 pub fn init() {
-    Numbers::init();
+    CxNumbers::init();
     CxFields::init();
 }

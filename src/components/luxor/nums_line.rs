@@ -2,36 +2,20 @@ use dioxus::{logger::tracing, prelude::*};
 
 use crate::{
     components::{
-        luxor::models::SigNumbers,
+        luxor::models::{Bugstate, CxNumbers},
         modal::{Button, Language, ModalState, SigModal},
     },
     utils::DisplayBytes,
 };
 
-#[derive(Clone)]
-struct Bugstate {
-    class: Option<&'static str>,
-    left: String,
-    blurred: bool,
-}
-
-impl Default for Bugstate {
-    fn default() -> Self {
-        Bugstate {
-            class: None,
-            left: "110vw".to_string(),
-            blurred: false,
-        }
-    }
-}
-
 #[component]
 pub fn PickedNumsLine() -> Element {
     let mut modal = use_context::<SigModal>();
-    let mut numbers = use_context::<SigNumbers>();
+    let mut numbers = use_context::<CxNumbers>();
+
     let mut bug = use_signal(|| Bugstate::default());
 
-    let nums_len = numbers().len();
+    let nums_len = numbers.len();
 
     let lower = {
         if nums_len > 10 {
@@ -40,7 +24,8 @@ pub fn PickedNumsLine() -> Element {
             0
         }
     };
-    let last10_nums = numbers().get_rg(lower, nums_len).to_vec();
+
+    let last10_nums = numbers.get_rg(lower, nums_len).to_vec();
 
     let deleter_style = if nums_len > 0 {
         None
@@ -105,8 +90,6 @@ pub fn PickedNumsLine() -> Element {
                 "⬅️"
             }
 
-
-
             div {
                 id: "luxor-num-bug",
                 class: bug.read().class,
@@ -130,7 +113,7 @@ pub fn PickedNumsLine() -> Element {
                                 blurred: true,
                             });
                             tracing::debug!("removing last number");
-                            numbers.write().rm_last()
+                            numbers.rm_last()
                         }
                     }
                 },
