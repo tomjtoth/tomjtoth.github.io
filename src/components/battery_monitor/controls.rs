@@ -1,6 +1,9 @@
 use dioxus::prelude::*;
 
-use crate::hooks::{BatMonConf, SigBatMon};
+use crate::{
+    hooks::{BatMonConf, SigBatMon},
+    utils::allowed_to_notify,
+};
 
 #[component]
 pub fn Controls() -> Element {
@@ -14,6 +17,7 @@ pub fn Controls() -> Element {
         let r = batmon.read();
         r.get_state()
     };
+    let mut sig_chkbox = use_signal(|| allowed);
     let disabled = !state.is_some();
 
     rsx! {
@@ -21,19 +25,24 @@ pub fn Controls() -> Element {
         input {
             id: "bat-mon-allowed",
             r#type: "checkbox",
-            checked: allowed,
+            checked: sig_chkbox(),
             class: "clickable",
             disabled,
-            onchange: move |_| {
-                batmon.write().toggle();
+            onchange: move |evt| async move {
+                sig_chkbox.toggle();
+                if evt.checked() && allowed_to_notify().await {
+                    batmon.write().set_allowed(true);
+                } else {
+                    batmon.write().set_allowed(false);
+                    sig_chkbox.set(false);
+                }
             },
         }
         input {
             id: "bat-mon-min",
             r#type: "number",
-            class: "TODO",
             value: min_val,
-            // max: 50,
+            max: 50,
             min: 10,
             disabled,
             title: "alaraja",
@@ -62,7 +71,6 @@ pub fn Controls() -> Element {
         input {
             id: "bat-mon-max",
             r#type: "number",
-            class: "TODO",
             value: max_val,
             max: 90,
             min: 50,

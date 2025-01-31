@@ -2,14 +2,25 @@ use controls::Controls;
 use dioxus::prelude::*;
 
 mod controls;
-mod notifications;
 
 use crate::{
     components::{body::Body, header::Header, loader::Loader},
     hooks::{BatMonConf, BatteryState, SigBatMon},
 };
-pub use notifications::noti_txt;
-use notifications::*;
+
+static PLUGGED_IN_STR: &'static str = "ja laturi on vieläkin kiinni";
+static UNPLUGGED_STR: &'static str = "eikä laturi oo kytkettynä";
+
+pub fn noti_txt(charging: bool, lvl100: u8) -> String {
+    format!(
+        "Akun taso on nyt {lvl100}% {}",
+        if charging {
+            PLUGGED_IN_STR
+        } else {
+            UNPLUGGED_STR
+        }
+    )
+}
 
 #[component]
 pub fn BatteryMonitor() -> Element {
@@ -45,9 +56,8 @@ pub fn BatteryMonitor() -> Element {
                 if let Some(BatteryState { charging, level, .. }) = batmon.read().get_state() {
                     p {
                         if allowed {
-                            "Kerran minuutissa (ala- ja ylärajojen säätö nollaa "
-                            "ajastimen) katsotaan mikä akun tilanne on ja hälytetään "
-                            "tarvittaessa."
+                            "Kerran minuutissa katsotaan mikä akun "
+                            "tilanne on ja hälytetään tarvittaessa."
                         } else {
                             "Jotta hälytykset tulisi, siun pitää sallia "
                             "työkalun pyörimistä taustalla."
