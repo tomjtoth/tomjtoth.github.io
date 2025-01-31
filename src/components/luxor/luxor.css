@@ -6,9 +6,12 @@
 }
 
 #luxor-adder {
-  flex-grow: 1; /* Allow the input to take up the remaining space */
-  max-width: 100%; /* Ensure it doesn't overflow the viewport */
-  min-width: 0; /* Prevent width issues in flex containers */
+  flex-grow: 1;
+  /* Allow the input to take up the remaining space */
+  max-width: 100%;
+  /* Ensure it doesn't overflow the viewport */
+  min-width: 0;
+  /* Prevent width issues in flex containers */
   width: 25px;
   padding: 8px;
 }
@@ -29,6 +32,7 @@
   position: fixed;
   z-index: 1;
   font-size: 25px;
+  user-select: none;
 }
 
 #luxor-num-bug.crawling {
@@ -59,6 +63,7 @@
   80% {
     backdrop-filter: blur(4px);
   }
+
   100% {
     backdrop-filter: blur(0);
   }
@@ -111,7 +116,7 @@ li.luxor {
   text-align: center;
 }
 
-li.luxor > div {
+li.luxor>div {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
@@ -124,7 +129,7 @@ table.luxor {
   border-width: 2px;
 }
 
-table.luxor > tbody {
+table.luxor>tbody {
   border: 2px solid var(--col-fg-0);
 }
 
