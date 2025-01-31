@@ -18,6 +18,10 @@ pub trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
         }
     }
 
+    fn load_sig() -> Signal<Self> {
+        use_signal(|| Self::load())
+    }
+
     fn load() -> Self {
         let key = Self::STORAGE_KEY;
         tracing::debug!("{key} read from localStorage");
