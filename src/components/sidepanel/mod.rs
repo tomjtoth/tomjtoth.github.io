@@ -1,18 +1,18 @@
 use dioxus::prelude::*;
 use qrcode::{render::svg, EcLevel, QrCode};
 
-mod model;
+mod models;
 
 use crate::routes::Route::*;
 use crate::utils::{get_url, text_to_clipboard};
-pub use model::{init, SigSidepanel};
+pub use models::*;
 
 #[component]
 pub fn Sidepanel() -> Element {
-    let mut sidepanel = use_context::<SigSidepanel>();
+    let mut sidepanel = use_context::<CxSidepanel>();
     let mut classes = vec!["border1-e"];
 
-    if sidepanel().is_active() {
+    if sidepanel.is_active() {
         classes.push("active");
     }
 
@@ -20,14 +20,17 @@ pub fn Sidepanel() -> Element {
         div {
             id: "sidepanel",
             class: classes.join(" "),
-            onmouseleave: move |_| sidepanel.write().set(false),
+            onmouseleave: {
+                let mut sidepanel = sidepanel.clone();
+                move |_| sidepanel.hide()
+            },
 
             ul {
                 li {
                     span {
                         class: "toggler nav-link clickable",
                         style: "float: right;",
-                        onclick: move |_| sidepanel.write().set(false),
+                        onclick: move |_| sidepanel.hide(),
                         "×"
                     }
                 }
