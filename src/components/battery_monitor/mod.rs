@@ -1,5 +1,5 @@
 use controls::Controls;
-use dioxus::{logger::tracing, prelude::*};
+use dioxus::prelude::*;
 
 mod controls;
 

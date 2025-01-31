@@ -133,9 +133,3 @@ impl BatMon {
         w.save()
     }
 }
-
-pub enum BatMonConfPart {
-    Min(u8),
-    Max(u8),
-    Run(bool),
-}
