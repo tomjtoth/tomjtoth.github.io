@@ -6,7 +6,7 @@ mod models;
 mod nums_line;
 
 pub use models::init;
-use models::SigFields;
+use models::CxFields;
 
 use crate::{
     components::{
@@ -23,7 +23,7 @@ use nums_line::PickedNumsLine;
 #[component]
 pub fn Luxor() -> Element {
     init_ctx(|| true);
-    let mut fields = use_context::<SigFields>();
+    let mut fields = use_context::<CxFields>();
     let mut modal = use_context::<SigModal>();
     let navigator = use_navigator();
 
@@ -44,7 +44,7 @@ pub fn Luxor() -> Element {
             result[fld_idx][row_idx][col_idx] = res_u8.unwrap();
         }
 
-        fields.write().push(result);
+        fields.push(result);
 
         tracing::debug!("imported from search params, navigating to Luxor");
         navigator.replace(Route::Luxor {});
@@ -93,11 +93,14 @@ pub fn Luxor() -> Element {
                         lang: Some(Language::Hu),
                         buttons: vec![(
                             Button::Ok,
-                            Some(use_callback(move |_| {
-                                tracing::debug!(
-                                    "warned user of number % 25 != 0, calling import_cb"
-                                );
-                                import_cb(vec_opt_u8.clone());
+                            Some(use_callback({
+                                let mut cb = import_cb.clone();
+                                move |_| {
+                                    tracing::debug!(
+                                        "warned user of number % 25 != 0, calling import_cb"
+                                    );
+                                    cb(vec_opt_u8.clone());
+                                }
                             })),
                         )],
                     });

@@ -3,19 +3,23 @@ use serde::{Deserialize, Serialize};
 
 use crate::utils::LocalStorageCompatible;
 
+use super::Field;
+
 #[derive(Serialize, Deserialize)]
 pub struct Inner {
-    pub active: bool,
+    pub fields: Vec<Field>,
 }
 
 impl Default for Inner {
     fn default() -> Self {
-        Self { active: false }
+        Inner {
+            fields: vec![Field::default()],
+        }
     }
 }
 
 impl LocalStorageCompatible for Inner {
-    const STORAGE_KEY: &'static str = "sidepanel";
+    const STORAGE_KEY: &'static str = "luxor-fields";
 }
 
 impl Inner {
