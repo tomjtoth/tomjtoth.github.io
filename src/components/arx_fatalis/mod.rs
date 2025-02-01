@@ -1,20 +1,17 @@
 use dioxus::prelude::*;
-use models::{spells::CastSpells, CxRunes};
-use runes::Runes;
 
 mod controls;
 mod models;
 mod runes;
 
-use crate::{
-    components::{body::Body, header::Header},
-    utils::init_ctx,
-};
+use crate::components::{body::Body, header::Header};
 use controls::Controls;
 pub use models::init_audio;
+use models::{CxRunes, CxSpells};
+use runes::Runes;
 
 pub fn init() {
-    init_ctx(|| CastSpells::init());
+    CxSpells::init();
 }
 
 #[component]

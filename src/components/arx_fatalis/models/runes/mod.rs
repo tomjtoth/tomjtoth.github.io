@@ -10,7 +10,7 @@ use rune::RuneIter;
 use std::{mem, time::Duration};
 use strum::IntoEnumIterator;
 
-use crate::components::{arx_fatalis::models::SigCastSpells, audio::SigAudio};
+use crate::components::{arx_fatalis::models::CxSpells, audio::SigAudio};
 
 #[derive(Clone)]
 pub struct CxRunes {
@@ -25,12 +25,12 @@ impl CxRunes {
 
     pub fn init() {
         let mut inner = use_signal(|| Inner::default());
-        let mut spells = use_context::<SigCastSpells>();
+        let spells = use_context::<CxSpells>();
         let audio = use_context::<SigAudio>();
 
-        let runes = Self {
-            inner,
-            service: use_future(move || async move {
+        let service = use_future(move || {
+            let mut spells = spells.clone();
+            async move {
                 while let Some(delay) = {
                     let mut w = inner.write();
                     if w.index < w.queue.len() {
@@ -58,10 +58,12 @@ impl CxRunes {
                 };
 
                 if seq.len() > 0 {
-                    spells.write().try_cast(seq, &audio.read());
+                    spells.try_cast(seq, &audio.read());
                 }
-            }),
-        };
+            }
+        });
+
+        let runes = Self { inner, service };
 
         use_context_provider(|| runes);
     }

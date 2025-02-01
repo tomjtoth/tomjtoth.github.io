@@ -3,7 +3,7 @@ pub mod spells;
 
 use crate::components::audio::AudioSrc;
 pub use runes::CxRunes;
-pub use spells::SigCastSpells;
+pub use spells::CxSpells;
 
 pub fn init_audio() -> Vec<AudioSrc> {
     let mut rvec = runes::init_audio();

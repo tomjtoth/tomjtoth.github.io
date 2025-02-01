@@ -1,169 +1,62 @@
-use serde_repr::{Deserialize_repr, Serialize_repr};
-use std::fmt;
-use strum::IntoEnumIterator;
-use strum_macros::EnumIter;
+use dioxus::prelude::*;
+use serde::{Deserialize, Serialize};
 
 mod audio;
-mod cast_spells;
+mod spell;
 
-use crate::components::arx_fatalis::models::runes::Rune::{self, *};
 pub use audio::init_audio;
-pub use cast_spells::*;
-use Spell::*;
+use spell::Spell;
 
-#[derive(Debug, EnumIter, Serialize_repr, Deserialize_repr)]
-#[repr(u8)]
-pub enum Spell {
-    MegaCheat,
-    Fizzle,
-    ActivatePortal,
-    MagicMissile,
-    NightVision,
-    Douse,
-    Ignite,
-    Armor,
-    Harm,
-    LowerArmor,
-    Heal,
-    DetectTrap,
-    Fireball,
-    Reveal,
-    IceProjection,
-    Speed,
-    Feed,
-    Telekinesis,
-    ProtectionFromCold,
-    Bless,
-    DispelField,
-    ProtectionFromFire,
-    Curse,
-    Trap,
-    CureEffectsOfPoison,
-    RepelUndead,
-    Levitate,
-    PoisonProjection,
-    SlowDown,
-    DisableTrap,
-    CreateField,
-    RaiseDead,
-    Paralyze,
-    FireField,
-    IceField,
-    Confuse,
-    LightningProjection,
-    FlyingEye,
-    ManaDrain,
-    EnchantObject,
-    Chaos,
-    Invisibility,
-    LifeDrain,
-    Summon,
-    MassParalyze,
-    Incinerate,
-    NegateMagic,
-    MassLightningProjection,
-    MassIncinerate,
-    SlowTime,
-    ControlDemon,
+use crate::{components::audio::Audio, utils::LocalStorageCompatible};
+
+use super::runes::Rune;
+
+#[derive(Clone)]
+pub struct CxSpells {
+    inner: Signal<Inner>,
+    score: u64,
 }
 
-impl fmt::Display for Spell {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:?}", self)
+impl CxSpells {
+    pub fn init() {
+        let inner = Inner::load_sig();
+
+        let mut score = 0;
+        for x in &inner.read().spells {
+            score += x.points()
+        }
+
+        use_context_provider(|| Self { inner, score });
+    }
+
+    pub fn score(&self) -> u64 {
+        self.score
+    }
+
+    pub fn try_cast(&mut self, seq: Vec<Rune>, audio: &Audio) {
+        if let Some((spell, _)) = Spell::by_seq(seq) {
+            audio.play(&spell.as_src());
+            self.score += spell.points();
+            let mut w = self.inner.write();
+            w.spells.push(spell);
+            w.save();
+        } else {
+            audio.play(&Spell::Fizzle.as_src());
+        }
     }
 }
 
-impl Spell {
-    pub fn by_seq(seq: Vec<Rune>) -> Option<(Spell, u8)> {
-        for spell in Spell::iter() {
-            let (page, runes) = spell.details();
-            if seq == runes {
-                return Some((spell, page));
-            }
-        }
-        return None;
+#[derive(Serialize, Deserialize)]
+pub struct Inner {
+    spells: Vec<Spell>,
+}
+
+impl Default for Inner {
+    fn default() -> Self {
+        Self { spells: vec![] }
     }
+}
 
-    // based on https://wiki.arx-libertatis.org/Spells
-    pub fn details(&self) -> (u8, Vec<Rune>) {
-        match self {
-            MegaCheat => (0, vec![Mega, Mega, Mega, Aam, Vitae, Tera]),
-            Fizzle => (0, vec![]),
-            ActivatePortal => (1, vec![Mega, Spacium]),
-            MagicMissile => (1, vec![Aam, Taar]),
-            NightVision => (1, vec![Mega, Vista]),
-            Douse => (1, vec![Nhi, Yok]),
-            Ignite => (1, vec![Aam, Yok]),
-            Armor => (2, vec![Mega, Kaom]),
-            Harm => (2, vec![Rhaa, Vitae]),
-            LowerArmor => (2, vec![Rhaa, Kaom]),
-            Heal => (2, vec![Mega, Vitae]),
-            DetectTrap => (2, vec![Morte, Cosum, Vista]),
-            Fireball => (3, vec![Aam, Yok, Taar]),
-            Reveal => (3, vec![Nhi, Stregum, Vista]),
-            IceProjection => (3, vec![Aam, Fridd, Taar]),
-            Speed => (3, vec![Mega, Movis]),
-            Feed => (3, vec![Aam, Vitae, Cosum]),
-            Telekinesis => (4, vec![Spacium, Comunicatum]),
-            ProtectionFromCold => (4, vec![Fridd, Kaom]),
-            Bless => (4, vec![Mega, Stregum, Vitae]),
-            DispelField => (4, vec![Nhi, Spacium]),
-            ProtectionFromFire => (4, vec![Yok, Kaom]),
-            Curse => (4, vec![Rhaa, Stregum, Vitae]),
-            Trap => (5, vec![Aam, Morte, Cosum]),
-            CureEffectsOfPoison => (5, vec![Nhi, Cetrius]),
-            RepelUndead => (5, vec![Morte, Kaom]),
-            Levitate => (5, vec![Mega, Spacium, Movis]),
-            PoisonProjection => (5, vec![Aam, Cetrius, Taar]),
-            SlowDown => (5, vec![Rhaa, Movis]),
-            DisableTrap => (6, vec![Nhi, Morte, Cosum]),
-            CreateField => (6, vec![Aam, Kaom, Spacium]),
-            RaiseDead => (6, vec![Aam, Morte, Vitae]),
-            Paralyze => (6, vec![Nhi, Movis]),
-            FireField => (7, vec![Aam, Yok, Spacium]),
-            IceField => (7, vec![Aam, Fridd, Spacium]),
-            Confuse => (7, vec![Nhi, Vista]),
-            LightningProjection => (7, vec![Aam, Folgora, Taar]),
-            FlyingEye => (7, vec![Vista, Movis]),
-            ManaDrain => (8, vec![Stregum, Movis]),
-            EnchantObject => (8, vec![Mega, Stregum, Cosum]),
-            Chaos => (8, vec![Aam, Mega, Morte]),
-            Invisibility => (8, vec![Nhi, Vista]),
-            LifeDrain => (8, vec![Vitae, Movis]),
-            Summon => (9, vec![Aam, Vitae, Tera]),
-            MassParalyze => (9, vec![Mega, Nhi, Movis]),
-            Incinerate => (9, vec![Aam, Mega, Yok]),
-            NegateMagic => (9, vec![Nhi, Stregum, Spacium]),
-            MassLightningProjection => (10, vec![Aam, Folgora, Spacium]),
-            MassIncinerate => (10, vec![Mega, Aam, Mega, Yok]),
-            SlowTime => (10, vec![Rhaa, Tempus]),
-            ControlDemon => (10, vec![Movis, Comunicatum]),
-        }
-    }
-
-    pub fn as_src(&self) -> String {
-        format!("/arx/spells/{}.mp3", self.to_kebab_case(None))
-    }
-
-    pub fn name(&self) -> String {
-        self.to_kebab_case(Some(' '))
-    }
-
-    fn to_kebab_case(&self, delim: Option<char>) -> String {
-        let name = self.to_string();
-        let mut result = String::with_capacity(name.len() + 2);
-
-        for (i, c) in name.chars().enumerate() {
-            if c.is_uppercase() {
-                if i != 0 {
-                    result.push(if let Some(dd) = delim { dd } else { '-' });
-                }
-                result.push(c.to_ascii_lowercase());
-            } else {
-                result.push(c);
-            }
-        }
-
-        result
-    }
+impl LocalStorageCompatible for Inner {
+    const STORAGE_KEY: &'static str = "arx-fatalis-cast-spells";
 }
