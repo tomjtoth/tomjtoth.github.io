@@ -10,6 +10,6 @@ pub static RECIPES_ID: &'static str = "slr";
 
 pub fn init() {
     CxActive::init();
-    Items::init();
+    CxItems::init();
     Recipes::init();
 }
