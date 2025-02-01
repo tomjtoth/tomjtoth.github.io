@@ -3,7 +3,7 @@ use std::rc::Rc;
 use dioxus::prelude::*;
 use urlencoding::encode;
 
-use crate::components::lyrics::models::{SigActive, SigArtists};
+use crate::components::lyrics::models::{CxArtists, SigActive};
 
 #[derive(Props, Clone, PartialEq)]
 pub struct AlbumsProps {
@@ -15,7 +15,7 @@ pub struct AlbumsProps {
 #[component]
 pub fn Songs(props: AlbumsProps) -> Element {
     let mut active = use_context::<SigActive>();
-    let artists = use_context::<SigArtists>();
+    let artists = use_context::<CxArtists>();
 
     rsx! {
         ul {
@@ -61,7 +61,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                                 encode(
                                     &format!(
                                         "{} - Topic {}",
-                                        artists.read().get(props.artist_idx).name,
+                                        artists.get(props.artist_idx).name,
                                         song.title,
                                     ),
                                 ),
@@ -78,7 +78,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                                     let key = key.clone();
                                     move |evt: Event<MouseData>| {
                                         evt.stop_propagation();
-                                        if clickable {
+                                        if !li_class.contains(&"non-clickable") {
                                             active.write().toggle(&key);
                                         }
                                     }
