@@ -66,30 +66,3 @@ pub fn Albums(props: AlbumsProps) -> Element {
         }
     }
 }
-
-//       {albums.map(({ title, year, url, songs }, albumIdx) => {
-//         const id = [artistIdx, albumIdx].join("-");
-
-//         return (
-//           <li
-//             key={albumIdx}
-//             {...{
-//               id,
-//               className: `${
-//                 albums.length > 1 ? "clickable " : "non-clickable "
-//               }padded bordered${
-//                 albums.length === 1 || (active as Active).includes(id)
-//                   ? " active"
-//                   : ""
-//               }`,
-//             }}
-//           >
-//             {year && `${year} - `}
-//             {title === "null" ? "mix" : title}
-//             <Logo {...{ url }} />
-//             <Songs {...{ artistIdx, albumIdx, songs }} />
-//           </li>
-//         );
-//       })}
-//   );
-// }
