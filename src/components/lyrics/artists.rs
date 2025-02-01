@@ -6,23 +6,23 @@ use crate::components::{
     loader::Loader,
     lyrics::{
         albums::Albums,
-        models::{SigActive, SigArtists},
+        models::{CxArtists, SigActive},
     },
 };
 
 #[component]
 pub fn Artists() -> Element {
-    let artists = use_context::<SigArtists>();
+    let artists = use_context::<CxArtists>();
     let mut active = use_context::<SigActive>();
 
     rsx! {
-        if artists.read().is_empty() {
+        if artists.is_empty() {
             Loader {}
         } else {
             ul { lang: "sv", id: "lyrics",
                 {
                     artists
-                        .read()
+                        .inner
                         .iter()
                         .enumerate()
                         .map(|(artist_idx, artist)| {
