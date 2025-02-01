@@ -2,7 +2,7 @@ pub mod runes;
 pub mod spells;
 
 use crate::components::audio::AudioSrc;
-pub use runes::CxQueue;
+pub use runes::CxRunes;
 pub use spells::SigCastSpells;
 
 pub fn init_audio() -> Vec<AudioSrc> {
