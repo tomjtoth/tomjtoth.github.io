@@ -15,7 +15,7 @@ pub struct Artist {
 type Inner = Vec<Artist>;
 #[derive(Clone)]
 pub struct CxArtists {
-    pub inner: Signal<Inner>,
+    inner: Signal<Inner>,
 }
 
 impl CxArtists {
@@ -117,12 +117,10 @@ impl CxArtists {
         r.is_empty()
     }
 
-    // TODO: make inner private again and make passing r.iter() work
-    // pub fn map(&self) -> std::vec::IntoIter<Artist> {
-    //     let r = { self.inner.read() };
-    //     let x = r.into_iter();
-    //     x
-    // }
+    pub fn iter_enum(&self) -> impl Iterator<Item = (usize, Artist)> {
+        let r = self.inner.read();
+        r.clone().into_iter().enumerate()
+    }
 
     pub fn get(&self, index: usize) -> Artist {
         let r = self.inner.read();

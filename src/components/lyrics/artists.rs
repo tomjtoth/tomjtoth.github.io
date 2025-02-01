@@ -22,9 +22,7 @@ pub fn Artists() -> Element {
             ul { lang: "sv", id: "lyrics",
                 {
                     artists
-                        .inner
-                        .iter()
-                        .enumerate()
+                        .iter_enum()
                         .map(|(artist_idx, artist)| {
                             let key = Rc::new(artist_idx.to_string());
                             let class = format!(
