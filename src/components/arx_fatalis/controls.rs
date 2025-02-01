@@ -1,11 +1,11 @@
 use dioxus::prelude::*;
 
-use crate::components::arx_fatalis::models::SigCastSpells;
+use crate::components::arx_fatalis::models::CxSpells;
 
 #[component]
 pub fn Controls() -> Element {
-    let spells = use_context::<SigCastSpells>();
-    let score = spells.read().score();
+    let spells = use_context::<CxSpells>();
+    let score = spells.score();
 
     rsx! {
         "💎 {score}"
