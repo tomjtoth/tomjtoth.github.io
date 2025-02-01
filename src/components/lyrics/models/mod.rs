@@ -4,12 +4,12 @@ mod artists;
 mod parser;
 mod songs;
 
-pub use active::*;
+pub use active::CxActive;
 pub use albums::*;
 pub use artists::CxArtists;
 pub use songs::*;
 
 pub fn init() {
     CxArtists::init();
-    Active::init();
+    CxActive::init();
 }
