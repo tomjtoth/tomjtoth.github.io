@@ -5,7 +5,7 @@ mod audio;
 mod queue;
 
 pub use audio::init_audio;
-pub use queue::{Queue, SigQueue};
+pub use queue::CxQueue;
 
 #[derive(Copy, Clone, Debug, EnumIter, PartialEq)]
 pub enum Rune {

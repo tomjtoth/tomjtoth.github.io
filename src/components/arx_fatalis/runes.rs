@@ -7,17 +7,19 @@ use strum::IntoEnumIterator;
 use wasm_bindgen_futures::spawn_local;
 
 use crate::components::{
-    arx_fatalis::models::{runes::Rune, SigCastSpells, SigQueue},
+    arx_fatalis::models::{runes::Rune, CxQueue, SigCastSpells},
     audio::SigAudio,
 };
 
 #[component]
 pub fn Runes() -> Element {
-    let queue = use_context::<SigQueue>();
+    let queue = use_context::<CxQueue>();
     let audio = use_context::<SigAudio>();
     let spells = use_context::<SigCastSpells>();
+    // TODO: move spawn_local into a restartable use_future within CxQueue
 
     rsx! {
+
         div { id: "runes",
             {
                 Rune::iter()
@@ -36,25 +38,19 @@ pub fn Runes() -> Element {
                                     let mut spells = spells.clone();
                                     move |evt: Event<MouseData>| {
                                         evt.stop_propagation();
-                                        let paused = {
-                                            let mut q = queue.write();
-                                            q.push(rune)
-                                        };
+                                        let paused = queue.push(rune);
                                         if paused {
-                                            spawn_local(async move {
-                                                while let Some(delay) = {
-                                                    let mut q = queue.write();
-                                                    q.play(&audio.read())
-                                                } {
-                                                    tracing::debug!("waiting {delay}ms to play next");
-                                                    sleep(Duration::from_millis(delay)).await;
+                                            spawn_local({
+                                                let mut queue = queue.clone();
+                                                async move {
+                                                    while let Some(delay) = queue.play(&audio.read()) {
+                                                        tracing::debug!("waiting {delay}ms to play next");
+                                                        sleep(Duration::from_millis(delay)).await;
+                                                    }
+                                                    let seq = queue.extract();
+                                                    let mut s = spells.write();
+                                                    s.try_cast(seq, &audio.read());
                                                 }
-                                                let seq = {
-                                                    let mut q = queue.write();
-                                                    q.extract()
-                                                };
-                                                let mut s = spells.write();
-                                                s.try_cast(seq, &audio.read());
                                             });
                                         }
                                     }
