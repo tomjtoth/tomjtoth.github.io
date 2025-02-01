@@ -3,7 +3,7 @@ use std::rc::Rc;
 use dioxus::prelude::*;
 use urlencoding::encode;
 
-use crate::components::lyrics::models::{CxArtists, SigActive};
+use crate::components::lyrics::models::{CxActive, CxArtists};
 
 #[derive(Props, Clone, PartialEq)]
 pub struct AlbumsProps {
@@ -14,7 +14,7 @@ pub struct AlbumsProps {
 
 #[component]
 pub fn Songs(props: AlbumsProps) -> Element {
-    let mut active = use_context::<SigActive>();
+    let active = use_context::<CxActive>();
     let artists = use_context::<CxArtists>();
 
     rsx! {
@@ -29,7 +29,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                             format!("{}-{}-{}", props.artist_idx, props.album_idx, song_idx),
                         );
                         let mut li_class = vec!["padded bordered"];
-                        if props.songs.len() == 1 || active().is(&key) {
+                        if props.songs.len() == 1 || active.is(&key) {
                             li_class.push("active");
                         }
                         let clickable = props.songs.len() > 1;
@@ -76,10 +76,11 @@ pub fn Songs(props: AlbumsProps) -> Element {
                                 class: li_class.join(" "),
                                 onclick: {
                                     let key = key.clone();
+                                    let mut active = active.clone();
                                     move |evt: Event<MouseData>| {
                                         evt.stop_propagation();
                                         if !li_class.contains(&"non-clickable") {
-                                            active.write().toggle(&key);
+                                            active.toggle(&key);
                                         }
                                     }
                                 },

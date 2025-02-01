@@ -2,7 +2,7 @@ use std::rc::Rc;
 
 use dioxus::prelude::*;
 
-use crate::components::lyrics::{models::SigActive, songs::Songs};
+use crate::components::lyrics::{models::CxActive, songs::Songs};
 
 #[derive(Props, Clone, PartialEq)]
 pub struct AlbumsProps {
@@ -12,7 +12,7 @@ pub struct AlbumsProps {
 
 #[component]
 pub fn Albums(props: AlbumsProps) -> Element {
-    let mut active = use_context::<SigActive>();
+    let active = use_context::<CxActive>();
 
     rsx! {
         ul {
@@ -27,7 +27,7 @@ pub fn Albums(props: AlbumsProps) -> Element {
                         let class = format!(
                             "padded bordered {}{}",
                             if clickable { "clickable" } else { "non-clickable" },
-                            if props.albums.len() == 1 || active().is(&key) {
+                            if props.albums.len() == 1 || active.is(&key) {
                                 " active"
                             } else {
                                 ""
@@ -39,10 +39,11 @@ pub fn Albums(props: AlbumsProps) -> Element {
                                 class,
                                 onclick: {
                                     let key = key.clone();
+                                    let mut active = active.clone();
                                     move |evt: Event<MouseData>| {
                                         evt.stop_propagation();
                                         if clickable {
-                                            active.write().toggle(&key);
+                                            active.toggle(&key);
                                         }
                                     }
                                 },

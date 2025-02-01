@@ -6,14 +6,14 @@ use crate::components::{
     loader::Loader,
     lyrics::{
         albums::Albums,
-        models::{CxArtists, SigActive},
+        models::{CxActive, CxArtists},
     },
 };
 
 #[component]
 pub fn Artists() -> Element {
     let artists = use_context::<CxArtists>();
-    let mut active = use_context::<SigActive>();
+    let active = use_context::<CxActive>();
 
     rsx! {
         if artists.is_empty() {
@@ -29,7 +29,7 @@ pub fn Artists() -> Element {
                             let key = Rc::new(artist_idx.to_string());
                             let class = format!(
                                 "clickable padded bordered{}",
-                                if active().is(&key) { " active" } else { "" },
+                                if active.is(&key) { " active" } else { "" },
                             );
                             rsx! {
                                 li {
@@ -37,7 +37,8 @@ pub fn Artists() -> Element {
                                     class,
                                     onclick: {
                                         let key = key.clone();
-                                        move |_| active.write().toggle(&key)
+                                        let mut active = active.clone();
+                                        move |_| active.toggle(&key)
                                     },
                                     "{artist.name}"
                                     super::link::Link { url: artist.url.clone() }
