@@ -4,7 +4,7 @@ use crate::components::{
     loader::Loader,
     shopping_list::{
         items::Items,
-        models::{Lang, Opts, SigActive, SigRecipes, RECIPES_ID},
+        models::{CxActive, Lang, Opts, SigRecipes, RECIPES_ID},
         steps::Steps,
     },
 };
@@ -12,9 +12,9 @@ use crate::components::{
 #[component]
 pub fn Recipes() -> Element {
     let recipes = use_context::<SigRecipes>();
-    let mut active = use_context::<SigActive>();
+    let active = use_context::<CxActive>();
 
-    let class = if active().is(&RECIPES_ID.to_string()) {
+    let class = if active.is(&RECIPES_ID.to_string()) {
         Some("active")
     } else {
         None
@@ -34,9 +34,9 @@ pub fn Recipes() -> Element {
                             let key = format!("slr-{i}");
                             let class = format!(
                                 "clickable padded alternating recipe{}",
-                                if let Some(_) = active()
+                                if let Some(_) = active
                                     .iter()
-                                    .position(|stored| stored == &key.to_string())
+                                    .position(|stored| stored == key.to_string())
                                 {
                                     " active"
                                 } else {
@@ -49,8 +49,9 @@ pub fn Recipes() -> Element {
                             };
                             let onclick = {
                                 let key = key.clone();
+                                let mut active = active.clone();
                                 move |_| {
-                                    active.write().toggle(&key);
+                                    active.toggle(&key);
                                 }
                             };
                             let children = rsx! {

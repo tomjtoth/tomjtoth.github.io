@@ -7,7 +7,7 @@ use crate::components::{
     modal::{Button, ModalState, SigModal},
     shopping_list::{
         config::RE_ORDER,
-        models::{SigActive, SigItems, SigRecipes},
+        models::{CxActive, SigItems, SigRecipes},
     },
 };
 static RE_RECIPE_ID: Lazy<Regex> = Lazy::new(|| Regex::new(r"^slr-(?<recId>\d+)$").unwrap());
@@ -29,7 +29,7 @@ fn find_idx(name: &String) -> u16 {
 
 #[component]
 pub fn Items() -> Element {
-    let mut active = use_context::<SigActive>();
+    let active = use_context::<CxActive>();
     let mut items = use_context::<SigItems>();
     let recipes = use_context::<SigRecipes>();
     let mut modal = use_context::<SigModal>();
@@ -45,8 +45,8 @@ pub fn Items() -> Element {
         })
         .collect::<Vec<(u16, String, String)>>();
 
-    for active in active().iter() {
-        if let Ok(Some(mm)) = RE_RECIPE_ID.captures(active) {
+    for id in active.iter() {
+        if let Ok(Some(mm)) = RE_RECIPE_ID.captures(&id) {
             let rec_idx = mm.get(1).unwrap().as_str().parse::<usize>().unwrap();
             let recipe = recipes().get(rec_idx);
             for (idx, item) in recipe.items.iter().enumerate() {
@@ -95,18 +95,22 @@ pub fn Items() -> Element {
                     .map(|(idx, id, name)| {
                         let class = format!(
                             "clickable padded alternating sli{}",
-                            if active().is(&id) { " active" } else { "" },
+                            if active.is(&id) { " active" } else { "" },
                         );
                         let toggle_active_id = id.clone();
-                        let toggle_active = move |_| {
-                            active.write().toggle(&toggle_active_id);
+                        let toggle_active = {
+                            let mut active = active.clone();
+                            move |_| {
+                                active.toggle(&toggle_active_id);
+                            }
                         };
                         let rm_item = use_callback({
                             let id = id.clone();
+                            let mut active = active.clone();
                             move |evt: Event<MouseData>| {
                                 evt.stop_propagation();
                                 items.write().rm(&id);
-                                active.write().rm(&id);
+                                active.rm(&id);
                             }
                         });
                         rsx! {

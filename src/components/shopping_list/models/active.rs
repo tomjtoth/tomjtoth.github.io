@@ -4,41 +4,33 @@ use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    components::shopping_list::models::RECIPES_ID,
-    utils::{init_ctx, LocalStorageCompatible},
-};
+use crate::{components::shopping_list::models::RECIPES_ID, utils::LocalStorageCompatible};
 
 static RE_RECIPE: Lazy<Regex> =
     Lazy::new(|| Regex::new(&format!("^{}(?:-\\d+)?$", RECIPES_ID.to_string())).unwrap());
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Active(Vec<String>);
-
-impl Default for Active {
-    fn default() -> Self {
-        Active(vec![RECIPES_ID.to_string()])
-    }
+#[derive(Clone)]
+pub struct CxActive {
+    inner: Signal<Inner>,
 }
 
-impl LocalStorageCompatible for Active {
-    const STORAGE_KEY: &'static str = "shopping-list-active";
-}
-
-impl Active {
+impl CxActive {
     pub fn init() {
-        init_ctx(|| Self::load());
+        let inner = Inner::load_sig();
+        use_context_provider(|| Self { inner });
     }
 
-    pub fn iter(&self) -> std::slice::Iter<String> {
-        self.0.iter()
+    pub fn iter(&self) -> impl Iterator<Item = String> {
+        let r = self.inner.read();
+        r.active.clone().into_iter()
     }
 
     pub fn is_str(&self, id: &str) -> bool {
         self.is(&id.to_string())
     }
     pub fn is(&self, id: &String) -> bool {
-        self.0.contains(id)
+        let r = self.inner.read();
+        r.active.contains(id)
     }
 
     pub fn toggle_str(&mut self, str: &'static str) {
@@ -47,37 +39,59 @@ impl Active {
 
     pub fn toggle(&mut self, str: &String) {
         tracing::debug!("toggling {str}");
-        if self.0.contains(&str) {
+        if {
+            let r = self.inner.read();
+            r.active.contains(&str)
+        } {
             if str == RECIPES_ID {
                 self.rm(str);
             } else {
                 // if a recipe was clicked, deactivate all it's items
                 let slr_num_items = Regex::new(&format!(r"^{str}(?:-\d+)?$")).unwrap();
-
-                self.0.retain(|id| !slr_num_items.is_match(id).unwrap());
+                let mut w = self.inner.write();
+                w.active.retain(|id| !slr_num_items.is_match(id).unwrap());
             }
         } else {
-            self.0.push(str.to_string());
+            let mut w = self.inner.write();
+            w.active.push(str.to_string());
         }
-        self.save();
-        tracing::debug!("{:?}", self.0);
+        let w = self.inner.write();
+        w.save();
+        tracing::debug!("{:?}", w.active);
     }
 
     pub fn rm(&mut self, str: &String) {
-        self.0.retain(|id| id != str);
-        self.save();
+        let mut w = self.inner.write();
+        w.active.retain(|id| id != str);
+        w.save();
     }
 
     pub fn reset(&mut self) {
-        self.0.retain(|id| {
+        let mut w = self.inner.write();
+        w.active.retain(|id| {
             if let Ok(res) = RE_RECIPE.is_match(id) {
                 res
             } else {
                 false
             }
         });
-        self.save();
+        w.save();
     }
 }
 
-pub type SigActive = Signal<Active>;
+#[derive(Serialize, Deserialize)]
+struct Inner {
+    active: Vec<String>,
+}
+
+impl Default for Inner {
+    fn default() -> Self {
+        Self {
+            active: vec![RECIPES_ID.to_string()],
+        }
+    }
+}
+
+impl LocalStorageCompatible for Inner {
+    const STORAGE_KEY: &'static str = "shopping-list-active";
+}
