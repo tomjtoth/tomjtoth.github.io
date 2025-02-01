@@ -12,10 +12,9 @@ pub struct Artist {
     pub albums: Albums,
 }
 
-type Inner = Vec<Artist>;
 #[derive(Clone)]
 pub struct CxArtists {
-    inner: Signal<Inner>,
+    inner: Signal<Vec<Artist>>,
 }
 
 impl CxArtists {

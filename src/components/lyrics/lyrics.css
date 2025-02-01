@@ -14,13 +14,9 @@ svg.google-translate path {
   padding-left: 0px;
 }
 
-#lyrics li.active > ul,
-#lyrics li.active > p {
+#lyrics li.active>ul,
+#lyrics li.active>p {
   max-height: max-content;
-}
-
-#lyrics li.missing-lyrics:hover {
-  cursor: not-allowed;
 }
 
 p.lyrics {
@@ -36,7 +32,7 @@ p.lyrics {
   padding-left: 16px;
 }
 
-.active > p.lyrics {
+.active>p.lyrics {
   margin: 16px 0px;
   padding: 0px 16px;
 }

@@ -32,11 +32,10 @@ pub fn Songs(props: AlbumsProps) -> Element {
                         if props.songs.len() == 1 || active.is(&key) {
                             li_class.push("active");
                         }
-                        let clickable = props.songs.len() > 1;
+                        let has_siblings = props.songs.len() > 1;
                         let children = if let Some(lyrics) = song.lyrics.clone() {
                             if lyrics.starts_with("https://") {
-                                li_class.push("missing-lyrics");
-                                li_class.push("non-clickable");
+                                li_class.push("clicking-not-allowed");
                                 rsx! {
                                     super::link::Link { url: Some(lyrics) }
                                 }
@@ -45,7 +44,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                                     "https://translate.google.com/?sl=sv&tl=en&text={}&op=translate",
                                     encode(&lyrics),
                                 );
-                                if clickable {
+                                if has_siblings {
                                     li_class.push("clickable");
                                 }
                                 rsx! {
@@ -54,8 +53,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                                 }
                             }
                         } else {
-                            li_class.push("missing-lyrics");
-                            li_class.push("non-clickable");
+                            li_class.push("clicking-not-allowed");
                             let search = format!(
                                 "https://www.youtube.com/results?search_query={}",
                                 encode(
@@ -79,7 +77,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                                     let mut active = active.clone();
                                     move |evt: Event<MouseData>| {
                                         evt.stop_propagation();
-                                        if !li_class.contains(&"non-clickable") {
+                                        if li_class.contains(&"clickable") {
                                             active.toggle(&key);
                                         }
                                     }
