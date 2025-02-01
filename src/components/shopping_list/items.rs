@@ -7,7 +7,7 @@ use crate::components::{
     modal::{Button, ModalState, SigModal},
     shopping_list::{
         config::RE_ORDER,
-        models::{CxActive, CxItems, SigRecipes},
+        models::{CxActive, CxItems, CxRecipes},
     },
 };
 static RE_RECIPE_ID: Lazy<Regex> = Lazy::new(|| Regex::new(r"^slr-(?<recId>\d+)$").unwrap());
@@ -31,7 +31,7 @@ fn find_idx(name: &String) -> u16 {
 pub fn Items() -> Element {
     let active = use_context::<CxActive>();
     let items = use_context::<CxItems>();
-    let recipes = use_context::<SigRecipes>();
+    let recipes = use_context::<CxRecipes>();
     let mut modal = use_context::<SigModal>();
 
     let mut ul_items = items
@@ -48,7 +48,7 @@ pub fn Items() -> Element {
     for id in active.iter() {
         if let Ok(Some(mm)) = RE_RECIPE_ID.captures(&id) {
             let rec_idx = mm.get(1).unwrap().as_str().parse::<usize>().unwrap();
-            let recipe = recipes().get(rec_idx);
+            let recipe = recipes.get(rec_idx);
             for (idx, item) in recipe.items.iter().enumerate() {
                 ul_items.push((
                     find_idx(&item),

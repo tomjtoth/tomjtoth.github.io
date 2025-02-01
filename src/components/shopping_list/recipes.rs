@@ -4,14 +4,14 @@ use crate::components::{
     loader::Loader,
     shopping_list::{
         items::Items,
-        models::{CxActive, Lang, Opts, SigRecipes, RECIPES_ID},
+        models::{CxActive, CxRecipes, RECIPES_ID},
         steps::Steps,
     },
 };
 
 #[component]
 pub fn Recipes() -> Element {
-    let recipes = use_context::<SigRecipes>();
+    let recipes = use_context::<CxRecipes>();
     let active = use_context::<CxActive>();
 
     let class = if active.is(&RECIPES_ID.to_string()) {
@@ -21,15 +21,14 @@ pub fn Recipes() -> Element {
     };
 
     rsx! {
-        if recipes().len() == 0 {
+        if recipes.len() == 0 {
             Loader {}
         } else {
             ul { id: RECIPES_ID, class,
 
                 {
-                    recipes()
-                        .iter()
-                        .enumerate()
+                    recipes
+                        .iter_enum()
                         .map(|(i, r)| {
                             let key = format!("slr-{i}");
                             let class = format!(
@@ -43,10 +42,7 @@ pub fn Recipes() -> Element {
                                     ""
                                 },
                             );
-                            let lang = match &r.opts {
-                                Some(Opts { lang: Lang { title } }) => Some(title),
-                                _ => None,
-                            };
+                            let lang = &r.opts_lang_title();
                             let onclick = {
                                 let key = key.clone();
                                 let mut active = active.clone();

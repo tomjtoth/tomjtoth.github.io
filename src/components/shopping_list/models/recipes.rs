@@ -1,11 +1,10 @@
-use std::{cmp::Ordering, collections::HashMap};
-
 use dioxus::{logger::tracing, prelude::*};
 use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
+use std::{cmp::Ordering, collections::HashMap};
 
-use crate::utils::{init_ctx, to_yaml};
+use crate::utils::to_yaml;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Lang {
@@ -33,6 +32,17 @@ pub struct Recipe {
     pub steps: Vec<String>,
 }
 
+impl Recipe {
+    pub fn opts_lang_title(&self) -> Option<String> {
+        match &self.opts {
+            Some(Opts {
+                lang: Lang { title },
+            }) => Some(title).cloned(),
+            _ => None,
+        }
+    }
+}
+
 static RE_ITEM: Lazy<Regex> = Lazy::new(|| {
     Regex::new(r"(?:(?:\[`(?<nameUrl>[^`]+)`\]\((?<url>.+)\))|`(?<name>[^`]+)`)(?: *[-:])?")
         .unwrap()
@@ -43,30 +53,26 @@ static RE_STRONG: Lazy<Regex> = Lazy::new(|| {
 });
 
 #[derive(Clone)]
-pub struct Recipes(Vec<Recipe>);
-pub type SigRecipes = Signal<Recipes>;
-
-impl Default for Recipes {
-    fn default() -> Self {
-        Recipes(vec![])
-    }
+pub struct CxRecipes {
+    inner: Signal<Vec<Recipe>>,
 }
 
-impl Recipes {
-    pub fn get(&self, idx: usize) -> Recipe {
-        self.0[idx].clone()
+impl CxRecipes {
+    pub fn get(&self, index: usize) -> Recipe {
+        self.inner.get(index).unwrap().clone()
     }
 
     pub fn len(&self) -> usize {
-        self.0.len()
+        self.inner.len()
     }
 
-    pub fn iter(&self) -> std::slice::Iter<Recipe> {
-        self.0.iter()
+    pub fn iter_enum(&self) -> impl Iterator<Item = (usize, Recipe)> {
+        self.inner.read().clone().into_iter().enumerate()
     }
 
     pub fn init() {
-        let mut signal = init_ctx(|| Self::default());
+        let mut inner = use_signal(|| vec![]);
+        use_context_provider(|| Self { inner });
 
         use_future(move || async move {
             let yaml_recipes: HashMap<String, RecipeParserHelper> =
@@ -159,7 +165,7 @@ impl Recipes {
             });
 
             tracing::debug!("recipes.yaml processed");
-            signal.write().0 = recipes;
+            inner.set(recipes);
         });
     }
 }
