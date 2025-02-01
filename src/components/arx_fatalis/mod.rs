@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use models::{spells::CastSpells, Queue};
+use models::{spells::CastSpells, CxQueue};
 use runes::Runes;
 
 mod controls;
@@ -19,7 +19,7 @@ pub fn init() {
 
 #[component]
 pub fn ArxFatalis() -> Element {
-    init_ctx(|| Queue::default());
+    CxQueue::init();
 
     rsx! {
         Header { title: "Arx Fatalis", Controls {} }
