@@ -58,8 +58,8 @@ impl BatMon {
             use_future(move || async move {
                 // TODO: find a less resource hungry way to wait for BatMan to load
                 while let true = {
-                    let bmr = batman.read();
-                    bmr.loading
+                    let r = batman.read();
+                    r.loading
                 } {
                     tracing::debug!("waiting for Battery Manager to load");
                     sleep(second).await;
