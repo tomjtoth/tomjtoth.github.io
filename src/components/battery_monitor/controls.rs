@@ -19,14 +19,19 @@ pub fn Controls() -> Element {
     };
     let mut sig_chkbox = use_signal(|| allowed);
     let disabled = !state.is_some();
+    let class = if disabled {
+        "clicking-not-allowed"
+    } else {
+        "clickable"
+    };
 
     rsx! {
-        label { r#for: "bat-mon-allowed", class: "clickable", "sallittu:" }
+        label { r#for: "bat-mon-allowed", class, "sallittu:" }
         input {
             id: "bat-mon-allowed",
             r#type: "checkbox",
             checked: sig_chkbox(),
-            class: "clickable",
+            class,
             disabled,
             onchange: move |evt| async move {
                 sig_chkbox.toggle();
@@ -44,6 +49,7 @@ pub fn Controls() -> Element {
             value: min_val,
             max: 50,
             min: 10,
+            class,
             disabled,
             title: "alaraja",
             onchange: move |evt| {
@@ -74,6 +80,7 @@ pub fn Controls() -> Element {
             value: max_val,
             max: 90,
             min: 50,
+            class,
             disabled,
             title: "yläraja",
             onchange: move |evt| {
