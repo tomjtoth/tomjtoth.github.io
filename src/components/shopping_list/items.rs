@@ -7,7 +7,7 @@ use crate::components::{
     modal::{Button, ModalState, SigModal},
     shopping_list::{
         config::RE_ORDER,
-        models::{CxActive, SigItems, SigRecipes},
+        models::{CxActive, CxItems, SigRecipes},
     },
 };
 static RE_RECIPE_ID: Lazy<Regex> = Lazy::new(|| Regex::new(r"^slr-(?<recId>\d+)$").unwrap());
@@ -30,11 +30,11 @@ fn find_idx(name: &String) -> u16 {
 #[component]
 pub fn Items() -> Element {
     let active = use_context::<CxActive>();
-    let mut items = use_context::<SigItems>();
+    let items = use_context::<CxItems>();
     let recipes = use_context::<SigRecipes>();
     let mut modal = use_context::<SigModal>();
 
-    let mut ul_items = items()
+    let mut ul_items = items
         .iter()
         .map(|i| {
             (
@@ -106,10 +106,11 @@ pub fn Items() -> Element {
                         };
                         let rm_item = use_callback({
                             let id = id.clone();
+                            let mut items = items.clone();
                             let mut active = active.clone();
                             move |evt: Event<MouseData>| {
                                 evt.stop_propagation();
-                                items.write().rm(&id);
+                                items.rm(&id);
                                 active.rm(&id);
                             }
                         });

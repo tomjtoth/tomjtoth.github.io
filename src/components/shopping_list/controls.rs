@@ -2,13 +2,13 @@ use dioxus::prelude::*;
 
 use crate::components::{
     modal::{Button, ModalState, SigModal},
-    shopping_list::models::{CxActive, SigItems, RECIPES_ID},
+    shopping_list::models::{CxActive, CxItems, RECIPES_ID},
 };
 
 #[component]
 pub fn Controls() -> Element {
     let mut modal = use_context::<SigModal>();
-    let mut items = use_context::<SigItems>();
+    let mut items = use_context::<CxItems>();
     let active = use_context::<CxActive>();
     let mut input = use_signal(|| String::new());
 
@@ -31,7 +31,7 @@ pub fn Controls() -> Element {
 
             onsubmit: move |_| {
                 if !input().trim().is_empty() {
-                    items.write().add(input());
+                    items.add(input());
                 }
                 input.set("".to_string());
             },
