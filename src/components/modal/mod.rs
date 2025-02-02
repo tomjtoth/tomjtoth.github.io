@@ -1,67 +1,35 @@
 use dioxus::{logger::tracing, prelude::*};
 
 mod button;
+mod models;
 
-use crate::{
-    components::audio::{AudioOpt, AudioSrc, CxAudio},
-    routes::Route,
-};
+use crate::{components::audio::CxAudio, routes::Route};
 use button::Btn;
 pub use button::{Button, Language};
-
-type Cb = Callback<MouseEvent>;
-type OptCb = Option<Cb>;
-
-#[derive(Clone, PartialEq)]
-pub struct ModalState {
-    pub lang: Option<Language>,
-    pub prompt: Option<Element>,
-    pub buttons: Vec<(Button, OptCb)>,
-}
-
-pub type SigModal = Signal<ModalState>;
-
-impl Default for ModalState {
-    fn default() -> Self {
-        ModalState {
-            lang: Some(Language::Fi),
-            prompt: None,
-            buttons: vec![(Button::Ok, None)],
-        }
-    }
-}
-
-impl ModalState {
-    fn reset(&mut self) {
-        *self = Self::default();
-    }
-}
-
-static SOUND: &'static str = "/modal.mp3";
-pub fn init_sound() -> Vec<AudioSrc> {
-    vec![(SOUND.to_string(), vec![AudioOpt::Volume(0.2)])]
-}
+pub use models::*;
 
 #[component]
-pub fn Modal() -> Element {
-    let mut state = use_context::<SigModal>();
+pub fn ModalComponent() -> Element {
+    let modal = use_context::<CxModal>();
     let audio = use_context::<CxAudio>();
 
-    let reset_state = use_callback(move |_| state.write().reset());
+    let reset_state = use_callback({
+        let mut modal = modal.clone();
+        move |_| modal.reset()
+    });
 
     rsx! {
-        if let ModalState { lang, prompt: Some(children), buttons } = state() {
+        if let Modal { lang, prompt: Some(children), buttons } = modal.get() {
             div {
-                id: "modal-blur",
+                class: "modal-blur",
 
                 onclick: move |evt| {
-                    tracing::debug!("div#modal-blur clicked");
+                    tracing::debug!("div.modal-blur clicked");
                     reset_state.call(evt);
                 },
 
                 div {
-                    id: "modal",
-                    class: "padded bordered",
+                    class: "modal padded bordered",
                     lang: {
                         match lang {
                             Some(Language::En) => Some("en"),
@@ -80,7 +48,7 @@ pub fn Modal() -> Element {
                     div { id: "modal-buttons",
 
                         {
-                            audio.read().play(&SOUND.to_string());
+                            audio.play(&SOUND.to_string());
                             let lang = if let Some(explicitly) = lang { explicitly } else { Language::Fi };
                             buttons
                                 .iter()

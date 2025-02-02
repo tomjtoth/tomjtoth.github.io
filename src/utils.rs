@@ -3,7 +3,7 @@ use gloo_net::http::{Request, Response};
 use serde::{de::DeserializeOwned, Serialize};
 use web_sys::{window, Notification, NotificationPermission, UrlSearchParams};
 
-use crate::components::modal::{Button, ModalState, SigModal};
+use crate::components::modal::{Button, CxModal};
 
 pub trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
     const STORAGE_KEY: &'static str;
@@ -113,14 +113,12 @@ impl DisplayBytes for Vec<u8> {
 }
 
 pub async fn allowed_to_notify() -> bool {
-    let mut modal = use_context::<SigModal>();
+    let mut modal = use_context::<CxModal>();
     let window = window().unwrap();
     if window.get("Notification").is_none() {
-        modal.set(ModalState {
-            buttons: vec![(Button::Ok, None)],
-            lang: None,
-            prompt: Some(rsx! { "ilmoituksia ei tueta!" }),
-        });
+        modal
+            .buttons(vec![(Button::Ok, None)])
+            .prompt(rsx! { "ilmoituksia ei tueta!" });
         return false;
     }
 
@@ -135,11 +133,9 @@ pub async fn allowed_to_notify() -> bool {
         if permission == "granted" {
             notify("näyteilmoitus");
         } else {
-            modal.set(ModalState {
-                buttons: vec![(Button::Ok, None)],
-                lang: None,
-                prompt: Some(rsx! { "ilmotiukset on estettyjä!" }),
-            });
+            modal
+                .buttons(vec![(Button::Ok, None)])
+                .prompt(rsx! { "ilmotiukset on estettyjä!" });
             return false;
         }
     }

@@ -3,14 +3,14 @@ use dioxus::{logger::tracing, prelude::*};
 use crate::{
     components::{
         luxor::models::{Bugstate, CxNumbers},
-        modal::{Button, Language, ModalState, SigModal},
+        modal::{Button, CxModal, Language},
     },
     utils::DisplayBytes,
 };
 
 #[component]
 pub fn PickedNumsLine() -> Element {
-    let mut modal = use_context::<SigModal>();
+    let mut modal = use_context::<CxModal>();
     let mut numbers = use_context::<CxNumbers>();
 
     let mut bug = use_signal(|| Bugstate::default());
@@ -62,14 +62,9 @@ pub fn PickedNumsLine() -> Element {
                     let data = evt.map(|data| data.client_coordinates());
                     let left = format!("{}px", data.data().x - 8.0);
                     modal
-                        .set(ModalState {
-                            prompt: Some(rsx! {
-                                "Törlöm az "
-                                strong { "utolsó" }
-                                " húzott számot"
-                            }),
-                            lang: Some(Language::Hu),
-                            buttons: vec![
+                        .lang(Language::Hu)
+                        .buttons(
+                            vec![
                                 (
                                     Button::Ok,
                                     Some(
@@ -85,7 +80,12 @@ pub fn PickedNumsLine() -> Element {
                                 ),
                                 (Button::Cancel, None),
                             ],
-                        });
+                        )
+                        .prompt(rsx! {
+                            "Törlöm az "
+                            strong { "utolsó" }
+                            " húzott számot"
+                        })
                 },
                 "⬅️"
             }

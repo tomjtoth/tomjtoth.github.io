@@ -5,9 +5,8 @@ mod hooks;
 mod routes;
 mod utils;
 
-use components::{self as c, modal::ModalState};
+use components as c;
 use hooks as h;
-use utils::init_ctx;
 
 fn main() {
     dioxus::launch(App);
@@ -15,7 +14,7 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-    init_ctx(|| ModalState::default());
+    c::modal::init();
     h::BatMon::init();
 
     // init static resources

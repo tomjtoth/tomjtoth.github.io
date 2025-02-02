@@ -1,12 +1,12 @@
 use crate::components::{
     luxor::models::{CxNumbers, SigLocked},
-    modal::{Button, Language, ModalState, SigModal},
+    modal::{Button, CxModal, Language},
 };
 use dioxus::{logger::tracing, prelude::*};
 
 #[component]
 pub fn Controls() -> Element {
-    let mut modal = use_context::<SigModal>();
+    let mut modal = use_context::<CxModal>();
     let mut numbers = use_context::<CxNumbers>();
 
     let mut locked = use_context::<SigLocked>();
@@ -63,15 +63,13 @@ pub fn Controls() -> Element {
                 title: "jelölések törlése",
                 onclick: move |_| {
                     modal
-                        .set(ModalState {
-                            lang: Some(Language::Hu),
-                            buttons: vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)],
-                            prompt: Some(rsx! {
-                                "Törlöm az "
-                                strong { "összes" }
-                                " húzott számot"
-                            }),
-                        });
+                        .lang(Language::Hu)
+                        .buttons(vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)])
+                        .prompt(rsx! {
+                            "Törlöm az "
+                            strong { "összes" }
+                            " húzott számot"
+                        })
                 },
                 "♻️"
             }
