@@ -15,7 +15,8 @@ pub fn Home() -> Element {
           p {
             strong {
               "This is the Rust + WASM (via Dioxus) version, "
-              "very much Work-in-Progress. 🤓"
+              "very much Work-in-Progress. 🤓 Missing features include "
+              "fetching from cache, feedback in the minigame. "
             }
           }
 
@@ -26,7 +27,7 @@ pub fn Home() -> Element {
               href: "https://github.com/tomjtoth/tomjtoth.github.io/tree/dioxus",
               "repo"
             }
-            " in case you're interested."
+            " in case you're interested. "
             "Excuse my CSS, I like a color when it's hexa looks nice. 🤷‍♂️"
           }
         }
