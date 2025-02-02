@@ -12,7 +12,6 @@ pub struct TDProps {
 
 #[component]
 pub fn TableData(props: TDProps) -> Element {
-    let mut numbers = use_context::<CxNumbers>();
     let locked = use_context::<SigLocked>();
 
     let mut classes = vec![];
@@ -40,7 +39,7 @@ pub fn TableData(props: TDProps) -> Element {
         }
     }
 
-    if numbers.has(num) {
+    if NUMBERS.has(num) {
         classes.push("picked");
     }
 
@@ -48,10 +47,10 @@ pub fn TableData(props: TDProps) -> Element {
         td {
             key: "{idx}", // order never changes
             class: classes.join(" "),
-            onclick: move |evt: Event<MouseData>| {
+            onclick: move |evt| {
                 evt.stop_propagation();
-                if locked() && !numbers.has(num) {
-                    numbers.add(num);
+                if locked() && !NUMBERS.has(num) {
+                    NUMBERS.add(num);
                 }
             },
 
@@ -72,7 +71,7 @@ pub fn TableData(props: TDProps) -> Element {
                         if evt.value() != "" {
                             if let Ok(as_u8) = evt.value().parse::<u8>() {
                                 if as_u8 <= 75 {
-                                    FIELDS.update_num(field_idx, row_idx, idx, as_u8);
+                                    FIELDS.update(field_idx, row_idx, idx, as_u8);
                                 }
                             }
                         }

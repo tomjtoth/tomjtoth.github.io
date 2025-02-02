@@ -2,7 +2,7 @@ use dioxus::{logger::tracing, prelude::*};
 
 use crate::{
     components::{
-        luxor::models::{Bugstate, CxNumbers},
+        luxor::models::*,
         modal::{Button, CxModal, Language},
     },
     utils::DisplayBytes,
@@ -11,11 +11,10 @@ use crate::{
 #[component]
 pub fn PickedNumsLine() -> Element {
     let mut modal = use_context::<CxModal>();
-    let mut numbers = use_context::<CxNumbers>();
 
     let mut bug = use_signal(|| Bugstate::default());
 
-    let nums_len = numbers.len();
+    let nums_len = NUMBERS.len();
 
     let lower = {
         if nums_len > 10 {
@@ -25,7 +24,7 @@ pub fn PickedNumsLine() -> Element {
         }
     };
 
-    let last10_nums = numbers.get_rg(lower, nums_len).to_vec();
+    let last10_nums = NUMBERS.get_rg(lower, nums_len).to_vec();
 
     let deleter_style = if nums_len > 0 {
         None
@@ -113,7 +112,7 @@ pub fn PickedNumsLine() -> Element {
                                 blurred: true,
                             });
                             tracing::debug!("removing last number");
-                            numbers.rm_last()
+                            NUMBERS.rm_last()
                         }
                     }
                 },

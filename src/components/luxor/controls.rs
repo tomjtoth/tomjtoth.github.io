@@ -1,5 +1,5 @@
 use crate::components::{
-    luxor::models::{CxNumbers, SigLocked},
+    luxor::models::*,
     modal::{Button, CxModal, Language},
 };
 use dioxus::{logger::tracing, prelude::*};
@@ -7,17 +7,13 @@ use dioxus::{logger::tracing, prelude::*};
 #[component]
 pub fn Controls() -> Element {
     let mut modal = use_context::<CxModal>();
-    let mut numbers = use_context::<CxNumbers>();
 
     let mut locked = use_context::<SigLocked>();
     let mut input = use_signal(|| "".to_string());
 
-    let clear_nums = use_callback({
-        let mut numbers = numbers.clone();
-        move |_| {
-            tracing::debug!("clearing numbers in luxor state");
-            numbers.clear();
-        }
+    let clear_nums = use_callback(move |_| {
+        tracing::debug!("clearing numbers in luxor state");
+        NUMBERS.clear();
     });
 
     rsx! {
@@ -25,7 +21,7 @@ pub fn Controls() -> Element {
             id: "luxor-control",
             onsubmit: move |_| {
                 if let Ok(as_u8) = input().parse::<u8>() {
-                    numbers.add(as_u8);
+                    NUMBERS.add(as_u8);
                 }
                 input.set("".to_string());
             },
