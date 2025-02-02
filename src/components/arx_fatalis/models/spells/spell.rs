@@ -3,7 +3,10 @@ use std::fmt;
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
-use crate::components::arx_fatalis::models::runes::Rune::{self, *};
+use crate::components::{
+    arx_fatalis::models::runes::Rune::{self, *},
+    audio::*,
+};
 use Spell::*;
 
 #[derive(Debug, EnumIter, Serialize_repr, Deserialize_repr)]
@@ -141,6 +144,10 @@ impl Spell {
         }
     }
 
+    pub fn play(&self) {
+        AUDIO.play(&self.as_src());
+    }
+
     pub fn as_src(&self) -> String {
         format!("/arx/spells/{}.mp3", self.to_kebab_case(None))
     }
@@ -156,7 +163,7 @@ impl Spell {
         for (i, c) in name.chars().enumerate() {
             if c.is_uppercase() {
                 if i != 0 {
-                    result.push(if let Some(dd) = delim { dd } else { '-' });
+                    result.push(if let Some(d) = delim { d } else { '-' });
                 }
                 result.push(c.to_ascii_lowercase());
             } else {

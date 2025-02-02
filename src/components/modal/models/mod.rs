@@ -76,6 +76,6 @@ impl CxModal {
 
 pub static SOUND: &'static str = "/modal.mp3";
 
-pub fn init_sound() -> Vec<AudioSrc> {
+pub fn init_audio() -> Vec<AudioSrc> {
     vec![(SOUND.to_string(), vec![AudioOpt::Volume(0.2)])]
 }

@@ -3,7 +3,7 @@ use dioxus::{logger::tracing, prelude::*};
 mod button;
 mod models;
 
-use crate::{components::audio::CxAudio, routes::Route};
+use crate::{components::audio::*, routes::Route};
 use button::Btn;
 pub use button::{Button, Language};
 pub use models::*;
@@ -11,7 +11,6 @@ pub use models::*;
 #[component]
 pub fn ModalComponent() -> Element {
     let modal = use_context::<CxModal>();
-    let audio = use_context::<CxAudio>();
 
     let reset_state = use_callback({
         let mut modal = modal.clone();
@@ -48,7 +47,7 @@ pub fn ModalComponent() -> Element {
                     div { id: "modal-buttons",
 
                         {
-                            audio.play(&SOUND.to_string());
+                            AUDIO.play(&SOUND.to_string());
                             let lang = if let Some(explicitly) = lang { explicitly } else { Language::Fi };
                             buttons
                                 .iter()
