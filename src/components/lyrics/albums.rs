@@ -2,7 +2,7 @@ use std::rc::Rc;
 
 use dioxus::prelude::*;
 
-use crate::components::lyrics::{models::CxActive, songs::Songs};
+use crate::components::lyrics::{models::*, songs::Songs};
 
 #[derive(Props, Clone, PartialEq)]
 pub struct AlbumsProps {
@@ -12,8 +12,6 @@ pub struct AlbumsProps {
 
 #[component]
 pub fn Albums(props: AlbumsProps) -> Element {
-    let active = use_context::<CxActive>();
-
     rsx! {
         ul {
             {
@@ -22,12 +20,12 @@ pub fn Albums(props: AlbumsProps) -> Element {
                     .iter()
                     .enumerate()
                     .map(|(album_idx, album)| {
-                        let key = Rc::new(format!("{}-{}", props.artist_idx, album_idx));
+                        let id = Rc::new(format!("{}-{}", props.artist_idx, album_idx));
                         let clickable = props.albums.len() > 1;
                         let class = format!(
                             "padded bordered {}{}",
                             if clickable { "clickable" } else { "non-clickable" },
-                            if props.albums.len() == 1 || active.is(&key) {
+                            if props.albums.len() == 1 || ACTIVE.is(&id) {
                                 " active"
                             } else {
                                 ""
@@ -35,16 +33,12 @@ pub fn Albums(props: AlbumsProps) -> Element {
                         );
                         rsx! {
                             li {
-                                key,
+                                key: id.clone(),
                                 class,
-                                onclick: {
-                                    let key = key.clone();
-                                    let mut active = active.clone();
-                                    move |evt: Event<MouseData>| {
-                                        evt.stop_propagation();
-                                        if clickable {
-                                            active.toggle(&key);
-                                        }
+                                onclick: move |evt| {
+                                    evt.stop_propagation();
+                                    if clickable {
+                                        ACTIVE.toggle(&id);
                                     }
                                 },
 

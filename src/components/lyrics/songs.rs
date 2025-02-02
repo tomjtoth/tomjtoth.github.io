@@ -3,7 +3,7 @@ use std::rc::Rc;
 use dioxus::prelude::*;
 use urlencoding::encode;
 
-use crate::components::lyrics::models::{CxActive, CxArtists};
+use crate::components::lyrics::models::*;
 
 #[derive(Props, Clone, PartialEq)]
 pub struct AlbumsProps {
@@ -14,7 +14,6 @@ pub struct AlbumsProps {
 
 #[component]
 pub fn Songs(props: AlbumsProps) -> Element {
-    let active = use_context::<CxActive>();
     let artists = use_context::<CxArtists>();
 
     rsx! {
@@ -25,11 +24,11 @@ pub fn Songs(props: AlbumsProps) -> Element {
                     .iter()
                     .enumerate()
                     .map(|(song_idx, song)| {
-                        let key = Rc::new(
+                        let id = Rc::new(
                             format!("{}-{}-{}", props.artist_idx, props.album_idx, song_idx),
                         );
                         let mut li_class = vec!["padded bordered"];
-                        if props.songs.len() == 1 || active.is(&key) {
+                        if props.songs.len() == 1 || ACTIVE.is(&id) {
                             li_class.push("active");
                         }
                         let has_siblings = props.songs.len() > 1;
@@ -70,16 +69,12 @@ pub fn Songs(props: AlbumsProps) -> Element {
                         };
                         rsx! {
                             li {
-                                key,
+                                key: id.clone(),
                                 class: li_class.join(" "),
-                                onclick: {
-                                    let key = key.clone();
-                                    let mut active = active.clone();
-                                    move |evt: Event<MouseData>| {
-                                        evt.stop_propagation();
-                                        if li_class.contains(&"clickable") {
-                                            active.toggle(&key);
-                                        }
+                                onclick: move |evt| {
+                                    evt.stop_propagation();
+                                    if li_class.contains(&"clickable") {
+                                        ACTIVE.toggle(&id);
                                     }
                                 },
 

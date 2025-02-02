@@ -1,50 +1,37 @@
 use dioxus::logger::tracing;
 use dioxus::prelude::*;
-use serde::{Deserialize, Serialize};
 
 use crate::utils::LocalStorageCompatible;
 
-#[derive(Clone)]
-pub struct CxActive {
-    inner: Signal<Inner>,
-}
-
-impl CxActive {
-    pub fn init() {
-        let inner = Inner::load_sig();
-        use_context_provider(|| CxActive { inner });
-    }
-
-    pub fn is(&self, id: &String) -> bool {
-        let r = self.inner.read();
-        r.active.contains(id)
-    }
-
-    pub fn toggle(&mut self, str: &String) {
-        tracing::debug!("toggling {str}");
-        let mut w = self.inner.write();
-
-        if w.active.contains(&str) {
-            w.active.retain(|id| id != str);
-        } else {
-            w.active.push(str.to_string());
-        }
-        w.save();
-        tracing::debug!("{:?}", w.active);
-    }
-}
-
-#[derive(Serialize, Deserialize)]
-struct Inner {
-    active: Vec<String>,
-}
-
-impl Default for Inner {
-    fn default() -> Self {
-        Inner { active: vec![] }
-    }
-}
-
+type Inner = Vec<String>;
 impl LocalStorageCompatible for Inner {
     const STORAGE_KEY: &'static str = "lyrics-active";
+}
+
+type GsActive = GlobalSignal<Inner>;
+pub static ACTIVE: GsActive = GlobalSignal::new(|| Inner::load());
+
+pub trait TrActive {
+    fn is(&self, id: &String) -> bool;
+    fn toggle(&self, str: &String);
+}
+
+impl TrActive for GsActive {
+    fn is(&self, id: &String) -> bool {
+        self.with(|r| r.contains(id))
+    }
+
+    fn toggle(&self, str: &String) {
+        tracing::debug!("toggling {str}");
+
+        self.with_mut(|w| {
+            if w.contains(&str) {
+                w.retain(|id| id != str);
+            } else {
+                w.push(str.to_string());
+            }
+            w.save();
+            tracing::debug!("{:?}", w);
+        });
+    }
 }
