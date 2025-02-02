@@ -7,8 +7,6 @@ use dioxus::{logger::tracing, prelude::*};
 #[component]
 pub fn Controls() -> Element {
     let mut modal = use_context::<CxModal>();
-
-    let mut locked = use_context::<SigLocked>();
     let mut input = use_signal(|| "".to_string());
 
     let clear_nums = use_callback(move |_| {
@@ -29,10 +27,10 @@ pub fn Controls() -> Element {
             span {
                 class: "padded clickable",
                 onclick: move |_| {
-                    locked.toggle();
+                    LOCK.toggle();
                 },
 
-                if locked() {
+                if LOCK.status() {
                     "🔒"
                 } else {
                     "🔓"
