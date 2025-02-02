@@ -8,7 +8,6 @@ use crate::components::{
 #[component]
 pub fn Controls() -> Element {
     let mut modal = use_context::<CxModal>();
-    let mut items = use_context::<CxItems>();
     let mut input = use_signal(|| String::new());
 
     let (title, emoji) = if ACTIVE.is_str(&RECIPES_ID) {
@@ -27,7 +26,7 @@ pub fn Controls() -> Element {
 
             onsubmit: move |_| {
                 if !input().trim().is_empty() {
-                    items.add(input());
+                    ITEMS.add(input());
                 }
                 input.set("".to_string());
             },
