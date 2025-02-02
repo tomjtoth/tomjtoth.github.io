@@ -8,7 +8,6 @@ mod models;
 mod songs;
 
 use crate::components::{body::Body, header::Header};
-pub use models::init;
 
 #[component]
 pub fn Lyrics() -> Element {

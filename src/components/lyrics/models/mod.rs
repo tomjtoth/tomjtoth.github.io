@@ -6,9 +6,5 @@ mod songs;
 
 pub use active::*;
 pub use albums::*;
-pub use artists::CxArtists;
+pub use artists::*;
 pub use songs::*;
-
-pub fn init() {
-    CxArtists::init();
-}
