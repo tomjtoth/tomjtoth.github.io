@@ -5,13 +5,13 @@ mod table;
 
 use crate::components::{
     luxor::models::{CxFields, SigLocked},
-    modal::{Button, Language, ModalState, SigModal},
+    modal::{Button, CxModal, Language},
 };
 use table::Table;
 
 #[component]
 pub fn Fields() -> Element {
-    let mut modal = use_context::<SigModal>();
+    let modal = use_context::<CxModal>();
     let fields = use_context::<CxFields>();
     let fields_len = fields.len() as u8;
     let deletable = fields.len() > 1;
@@ -96,13 +96,14 @@ pub fn Fields() -> Element {
                                         if deletable {
                                             span {
                                                 class: "clickable padded",
-                                                onclick: move |_| {
-                                                    modal
-                                                        .set(ModalState {
-                                                            lang: Some(Language::Hu),
-                                                            prompt: Some(rsx! { "Biztosan törlöd a mezőt?" }),
-                                                            buttons: vec![(Button::Yes, Some(del_cb_inner)), (Button::No, None)],
-                                                        })
+                                                onclick: {
+                                                    let mut modal = modal.clone();
+                                                    move |_| {
+                                                        modal
+                                                            .lang(Language::Hu)
+                                                            .buttons(vec![(Button::Yes, Some(del_cb_inner)), (Button::No, None)])
+                                                            .prompt(rsx! { "Biztosan törlöd a mezőt?" })
+                                                    }
                                                 },
                                                 "🚫 mező törlése"
                                             }

@@ -1,13 +1,13 @@
 use dioxus::prelude::*;
 
 use crate::components::{
-    modal::{Button, ModalState, SigModal},
+    modal::{Button, CxModal},
     shopping_list::models::{CxActive, CxItems, RECIPES_ID},
 };
 
 #[component]
 pub fn Controls() -> Element {
-    let mut modal = use_context::<SigModal>();
+    let mut modal = use_context::<CxModal>();
     let mut items = use_context::<CxItems>();
     let active = use_context::<CxActive>();
     let mut input = use_signal(|| String::new());
@@ -65,11 +65,8 @@ pub fn Controls() -> Element {
                 title: "pyyhi vihreät",
                 onclick: move |_| {
                     modal
-                        .set(ModalState {
-                            prompt: Some(rsx! { "pyyhitäänkö kaikki vihreät?" }),
-                            buttons: vec![(Button::Yes, Some(reset_active)), (Button::No, None)],
-                            lang: None,
-                        })
+                        .buttons(vec![(Button::Yes, Some(reset_active)), (Button::No, None)])
+                        .prompt(rsx! { "pyyhitäänkö kaikki vihreät?" })
                 },
                 "♻️"
             }

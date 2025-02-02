@@ -7,10 +7,9 @@ pub fn Runes() -> Element {
     let runes = use_context::<CxRunes>();
 
     rsx! {
-
         div { id: "runes",
             {
-                CxRunes::iter_runes()
+                CxRunes::iter()
                     .map(|rune| {
                         let lowercase = rune.to_string().to_lowercase();
                         rsx! {

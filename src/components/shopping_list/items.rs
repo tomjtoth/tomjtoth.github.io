@@ -4,7 +4,7 @@ use once_cell::sync::Lazy;
 use std::cmp::Ordering;
 
 use crate::components::{
-    modal::{Button, ModalState, SigModal},
+    modal::{Button, CxModal},
     shopping_list::{
         config::RE_ORDER,
         models::{CxActive, CxItems, CxRecipes},
@@ -32,7 +32,7 @@ pub fn Items() -> Element {
     let active = use_context::<CxActive>();
     let items = use_context::<CxItems>();
     let recipes = use_context::<CxRecipes>();
-    let mut modal = use_context::<SigModal>();
+    let modal = use_context::<CxModal>();
 
     let mut ul_items = items
         .iter()
@@ -125,19 +125,17 @@ pub fn Items() -> Element {
                                 if !id.starts_with("slr-") {
                                     span {
                                         class: "sli-del clickable",
-                                        onclick: move |evt| {
-                                            evt.stop_propagation();
-                                            modal
-                                                .set(ModalState {
-                                                    prompt: Some(rsx! {
+                                        onclick: {
+                                            let mut modal = modal.clone();
+                                            move |evt: Event<MouseData>| {
+                                                evt.stop_propagation();
+                                                modal
+                                                    .buttons(vec![(Button::Yes, Some(rm_item)), (Button::No, None)])
+                                                    .prompt(rsx! {
                                                     "poistetaanko \"{name}\" varmasti?"
-                                                    }),
-                                                    buttons: vec![(Button::Yes, Some(rm_item)), (Button::No, None)],
-                                                    lang: None,
-                                                })
+                                                    })
+                                            }
                                         },
-
-
                                         "(🚫 poista)"
                                     }
                                 }

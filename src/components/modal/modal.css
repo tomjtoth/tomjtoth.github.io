@@ -1,4 +1,4 @@
-#modal-blur {
+div.modal-blur {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,7 +9,7 @@
   backdrop-filter: blur(20px);
 }
 
-#modal {
+div.modal {
   position: fixed;
   z-index: 3;
   top: 50%;

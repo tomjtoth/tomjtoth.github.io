@@ -12,7 +12,7 @@ use crate::{
     components::{
         body::Body,
         header::Header,
-        modal::{Button, Language, ModalState, SigModal},
+        modal::{Button, CxModal, Language},
     },
     routes::Route,
     utils::{get_search_params, init_ctx},
@@ -24,7 +24,7 @@ use nums_line::PickedNumsLine;
 pub fn Luxor() -> Element {
     init_ctx(|| true);
     let mut fields = use_context::<CxFields>();
-    let mut modal = use_context::<SigModal>();
+    let mut modal = use_context::<CxModal>();
     let navigator = use_navigator();
 
     let mut import_cb = move |arr: Vec<Option<u8>>| {
@@ -84,14 +84,9 @@ pub fn Luxor() -> Element {
                     .collect::<Vec<Option<u8>>>();
 
                 if iterator_len.rem_euclid(25) != 0 {
-                    modal.set(ModalState {
-                        prompt: Some(rsx! {
-                            "25-ösével kell megadni a számokat! "
-                            "A maradékot kipótolom bogarakkal. "
-                            "Majd megszerkeszted a lakatra kattintva.."
-                        }),
-                        lang: Some(Language::Hu),
-                        buttons: vec![(
+                    modal
+                        .lang(Language::Hu)
+                        .buttons(vec![(
                             Button::Ok,
                             Some(use_callback({
                                 let mut cb = import_cb.clone();
@@ -102,38 +97,38 @@ pub fn Luxor() -> Element {
                                     cb(vec_opt_u8.clone());
                                 }
                             })),
-                        )],
-                    });
+                        )])
+                        .prompt(rsx! {
+                            "25-ösével kell megadni a számokat! "
+                            "A maradékot kipótolom bogarakkal. "
+                            "Majd megszerkeszted a lakatra kattintva.."
+                        })
                 } else if invalids.len() != 0 {
-                    modal.set(ModalState {
-                        prompt: Some(rsx! {
-                            if invalids.len() > 1 {
-                                p { "Az alábbiak nem 0 és 75 közötti számok:" }
+                    modal.lang(Language::Hu).prompt(rsx! {
+                        if invalids.len() > 1 {
+                            p { "Az alábbiak nem 0 és 75 közötti számok:" }
 
-                                ol { style: "user-select: text",
-                                    {
-                                        invalids
-                                            .iter()
-                                            .map(|(idx, inv)| {
-                                                rsx! {
-                                                    li { value: "{idx}", "\"{inv}\"" }
-                                                }
-                                            })
-                                    }
-                                }
-                            } else {
-                                p {
-                                    "#{invalids[0].0} nem jó: "
-                                    p { style: "user-select: text;", "\"{invalids[0].1}\"." }
+                            ol { style: "user-select: text",
+                                {
+                                    invalids
+                                        .iter()
+                                        .map(|(idx, inv)| {
+                                            rsx! {
+                                                li { value: "{idx}", "\"{inv}\"" }
+                                            }
+                                        })
                                 }
                             }
+                        } else {
                             p {
-                                strong { "Javítsd ki és próbáld újra!" }
+                                "#{invalids[0].0} nem jó: "
+                                p { style: "user-select: text;", "\"{invalids[0].1}\"." }
                             }
-                        }),
-                        lang: Some(Language::Hu),
-                        ..Default::default()
-                    });
+                        }
+                        p {
+                            strong { "Javítsd ki és próbáld újra!" }
+                        }
+                    })
                 } else {
                     tracing::debug!("calling import_cb");
                     import_cb(vec_opt_u8);
