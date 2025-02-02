@@ -15,7 +15,13 @@ impl LocalStorageCompatible for Fields {
 
 pub type GsFields = GlobalSignal<Fields>;
 
-pub static FIELDS: GsFields = Signal::global(|| Fields::load());
+pub static FIELDS: GsFields = Signal::global(|| {
+    let mut fields = Fields::load();
+    if fields.is_empty() {
+        fields.push(Field::default());
+    }
+    fields
+});
 
 pub trait TrFields {
     fn idx_of(&self, id: u8) -> usize;
