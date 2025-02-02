@@ -7,77 +7,27 @@ mod opts;
 pub use opts::*;
 use AudioOpt::*;
 
-use crate::components::{arx_fatalis::init_audio as arx_sounds, modal::init_sound as modal_sounds};
+use crate::components::{arx_fatalis::init_audio as arx_sounds, modal::init_audio as modal_sounds};
 
-#[derive(Clone, Copy)]
-pub struct CxAudio {
-    inner: Inner,
-}
-
-type Inner = Signal<HashMap<String, Audio>>;
-
-struct Audio {
+#[derive(Clone)]
+pub struct Audio {
     src: Option<HtmlAudioElement>,
     starts_at: Option<f64>,
     next_starts_at: Option<f64>,
 }
 
-pub fn init() {
-    CxAudio::init();
+type CxAudio = GlobalSignal<HashMap<String, Audio>>;
+
+pub trait CxAudioMethods {
+    fn play(&self, src: &String) -> Option<u64>;
 }
 
-impl CxAudio {
-    fn init() {
-        tracing::debug!("Audio::default() called");
-
-        let mut all = arx_sounds();
-        all.append(&mut modal_sounds());
-
-        let iterator = all.into_iter().map(|(path, opts)| {
-            let mut src = None;
-            let mut src_available = true;
-            let mut volume = None;
-            let mut starts_at = None;
-            let mut next_starts_at = None;
-
-            for opt in opts.iter() {
-                match opt {
-                    Volume(vol) => volume = Some(*vol),
-                    StartsAt(start) => starts_at = Some(*start),
-                    NextStartsAt(next) => next_starts_at = Some(*next),
-                    NotAvailable => src_available = false,
-                }
-            }
-
-            if src_available {
-                let audio = HtmlAudioElement::new_with_src(&format!("/assets{path}")).unwrap();
-                audio.set_preload("auto");
-                if let Some(vol) = volume {
-                    audio.set_volume(vol);
-                }
-                src = Some(audio);
-            }
-
-            (
-                path.to_string(),
-                Audio {
-                    src,
-                    starts_at,
-                    next_starts_at,
-                },
-            )
-        });
-
-        let hashmap: HashMap<String, Audio> = HashMap::from_iter(iterator);
-        let inner = use_signal(|| hashmap);
-        use_context_provider(|| CxAudio { inner });
-    }
-
-    pub fn play(&self, src: &String) -> Option<u64> {
+impl CxAudioMethods for CxAudio {
+    fn play(&self, src: &String) -> Option<u64> {
         let mut beginning = 0.0;
         let mut ret_val = None;
 
-        if let Some(snd) = self.inner.read().get(src) {
+        if let Some(snd) = self.read().get(src) {
             if let Some(val) = snd.starts_at {
                 beginning = val;
             }
@@ -100,3 +50,47 @@ impl CxAudio {
         ret_val
     }
 }
+
+pub static AUDIO: CxAudio = Signal::global(|| {
+    tracing::debug!("Audio::default() called");
+
+    let mut all = arx_sounds();
+    all.append(&mut modal_sounds());
+
+    let iterator = all.into_iter().map(|(path, opts)| {
+        let mut src = None;
+        let mut src_available = true;
+        let mut volume = None;
+        let mut starts_at = None;
+        let mut next_starts_at = None;
+
+        for opt in opts.iter() {
+            match opt {
+                Volume(vol) => volume = Some(*vol),
+                StartsAt(start) => starts_at = Some(*start),
+                NextStartsAt(next) => next_starts_at = Some(*next),
+                NotAvailable => src_available = false,
+            }
+        }
+
+        if src_available {
+            let audio = HtmlAudioElement::new_with_src(&format!("/assets{path}")).unwrap();
+            audio.set_preload("auto");
+            if let Some(vol) = volume {
+                audio.set_volume(vol);
+            }
+            src = Some(audio);
+        }
+
+        (
+            path.to_string(),
+            Audio {
+                src,
+                starts_at,
+                next_starts_at,
+            },
+        )
+    });
+
+    HashMap::from_iter(iterator)
+});

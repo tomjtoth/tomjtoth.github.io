@@ -7,7 +7,7 @@ use strum::IntoEnumIterator;
 mod audio;
 mod rune;
 
-use crate::components::{arx_fatalis::models::CxSpells, audio::CxAudio};
+use crate::components::arx_fatalis::models::CxSpells;
 pub use audio::init_audio;
 pub use rune::Rune;
 
@@ -25,7 +25,6 @@ impl CxRunes {
     pub fn init() {
         let mut inner = use_signal(|| Inner::default());
         let spells = use_context::<CxSpells>();
-        let audio = use_context::<CxAudio>();
 
         let service = use_future(move || {
             let mut spells = spells.clone();
@@ -34,10 +33,7 @@ impl CxRunes {
                     let mut w = inner.write();
                     if w.index < w.queue.len() {
                         let rune = w.queue.get(w.index).unwrap();
-                        let delay = {
-                            tracing::debug!("attempting to play run sound");
-                            audio.play(&rune.as_src())
-                        };
+                        let delay = rune.play();
 
                         w.index += 1;
                         delay
@@ -57,7 +53,7 @@ impl CxRunes {
                 };
 
                 if seq.len() > 0 {
-                    spells.try_cast(seq, &audio);
+                    spells.try_cast(seq);
                 }
             }
         });

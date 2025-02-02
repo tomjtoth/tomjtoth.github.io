@@ -14,11 +14,9 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    // init static resources
     c::modal::init();
     h::BatMon::init();
-
-    // init static resources
-    c::audio::init();
 
     // read from localStorage
     c::sidepanel::init();

@@ -7,7 +7,7 @@ mod spell;
 pub use audio::init_audio;
 use spell::Spell;
 
-use crate::{components::audio::CxAudio, utils::LocalStorageCompatible};
+use crate::utils::LocalStorageCompatible;
 
 use super::runes::Rune;
 
@@ -33,15 +33,16 @@ impl CxSpells {
         self.score
     }
 
-    pub fn try_cast(&mut self, seq: Vec<Rune>, audio: &CxAudio) {
+    pub fn try_cast(&mut self, seq: Vec<Rune>) {
         if let Some((spell, _)) = Spell::by_seq(seq) {
-            audio.play(&spell.as_src());
+            spell.play();
+
             self.score += spell.points();
             let mut w = self.inner.write();
             w.spells.push(spell);
             w.save();
         } else {
-            audio.play(&Spell::Fizzle.as_src());
+            Spell::Fizzle.play();
         }
     }
 }
