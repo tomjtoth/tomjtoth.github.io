@@ -1,13 +1,9 @@
 use dioxus::prelude::*;
 
-use crate::components::{
-    modal::{Button, CxModal},
-    shopping_list::models::*,
-};
+use crate::components::{modal::*, shopping_list::models::*};
 
 #[component]
 pub fn Controls() -> Element {
-    let mut modal = use_context::<CxModal>();
     let mut input = use_signal(|| String::new());
 
     let (title, emoji) = if ACTIVE.is_str(&RECIPES_ID) {
@@ -56,7 +52,7 @@ pub fn Controls() -> Element {
                 class: "clickable",
                 title: "pyyhi vihreät",
                 onclick: move |_| {
-                    modal
+                    MODAL
                         .buttons(vec![(Button::Yes, Some(reset_active)), (Button::No, None)])
                         .prompt(rsx! { "pyyhitäänkö kaikki vihreät?" })
                 },

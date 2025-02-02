@@ -10,15 +10,12 @@ pub use models::*;
 
 #[component]
 pub fn ModalComponent() -> Element {
-    let modal = use_context::<CxModal>();
-
-    let reset_state = use_callback({
-        let mut modal = modal.clone();
-        move |_| modal.reset()
-    });
+    let reset_state = use_callback(move |_| MODAL.reset());
+    let r = MODAL.read();
+    let prompt = &r.prompt;
 
     rsx! {
-        if let Modal { lang, prompt: Some(children), buttons } = modal.get() {
+        if let Some(children) = prompt {
             div {
                 class: "modal-blur",
 
@@ -30,7 +27,7 @@ pub fn ModalComponent() -> Element {
                 div {
                     class: "modal padded bordered",
                     lang: {
-                        match lang {
+                        match r.lang {
                             Some(Language::En) => Some("en"),
                             Some(Language::Fi) => Some("fi"),
                             Some(Language::Hu) => Some("hu"),
@@ -48,8 +45,8 @@ pub fn ModalComponent() -> Element {
 
                         {
                             AUDIO.play(&SOUND.to_string());
-                            let lang = if let Some(explicitly) = lang { explicitly } else { Language::Fi };
-                            buttons
+                            let lang = if let Some(explicitly) = r.lang { explicitly } else { Language::Fi };
+                            r.buttons
                                 .iter()
                                 .map(move |(btn, onclick)| {
                                     rsx! {
