@@ -13,6 +13,7 @@ pub use rune::Rune;
 use super::*;
 
 #[derive(Clone)]
+// TODO: convert to GsRunes
 pub struct CxRunes {
     inner: Signal<Inner>,
     service: UseFuture,

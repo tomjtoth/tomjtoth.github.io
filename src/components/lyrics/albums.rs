@@ -21,6 +21,7 @@ pub fn Albums(props: AlbumsProps) -> Element {
                     .enumerate()
                     .map(|(album_idx, album)| {
                         let id = Rc::new(format!("{}-{}", props.artist_idx, album_idx));
+                        let key = id.clone();
                         let clickable = props.albums.len() > 1;
                         let class = format!(
                             "padded bordered {}{}",
@@ -33,7 +34,7 @@ pub fn Albums(props: AlbumsProps) -> Element {
                         );
                         rsx! {
                             li {
-                                key: id.clone(),
+                                key,
                                 class,
                                 onclick: move |evt| {
                                     evt.stop_propagation();
