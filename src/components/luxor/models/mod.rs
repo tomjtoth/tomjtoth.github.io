@@ -6,10 +6,6 @@ mod numbers;
 
 pub use bug::Bugstate;
 pub use fields::*;
-pub use numbers::CxNumbers;
+pub use numbers::*;
 
 pub type SigLocked = Signal<bool>;
-
-pub fn init() {
-    CxNumbers::init();
-}

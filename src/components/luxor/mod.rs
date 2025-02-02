@@ -5,7 +5,6 @@ mod fields;
 mod models;
 mod nums_line;
 
-pub use models::init;
 use models::*;
 
 use crate::{

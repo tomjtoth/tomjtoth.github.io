@@ -19,14 +19,14 @@ pub static FIELDS: GsFields = Signal::global(|| Fields::load());
 
 pub trait TrFields {
     fn idx_of(&self, id: u8) -> usize;
-    fn update_num(&self, field_idx: usize, row_idx: usize, idx: usize, num: u8);
+    fn update(&self, field_idx: usize, row_idx: usize, idx: usize, num: u8);
     fn add_after(&self, id: u8);
     fn rm(&self, id: u8);
     fn import(&self, fields: Vec<[[u8; 5]; 5]>);
 }
 
 impl TrFields for GsFields {
-    fn update_num(&self, field_idx: usize, row_idx: usize, idx: usize, num: u8) {
+    fn update(&self, field_idx: usize, row_idx: usize, idx: usize, num: u8) {
         self.with_mut(|w| {
             w[field_idx].rows[row_idx][idx] = num;
             w.save();
