@@ -5,7 +5,7 @@ mod hooks;
 mod routes;
 mod utils;
 
-use components as c;
+use components::{self as c, audio::AUDIO};
 use hooks as h;
 
 fn main() {
@@ -14,6 +14,10 @@ fn main() {
 
 #[component]
 fn App() -> Element {
+    {
+        let _trip_init = AUDIO.read();
+    }
+
     // init static resources
     c::modal::init();
     h::BatMon::init();
@@ -21,7 +25,6 @@ fn App() -> Element {
     // read from localStorage
     c::sidepanel::init();
     c::luxor::init();
-    c::arx_fatalis::init();
 
     // also fetching from server
     c::lyrics::init();

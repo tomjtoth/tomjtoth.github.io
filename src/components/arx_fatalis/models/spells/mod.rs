@@ -1,63 +1,54 @@
 use dioxus::prelude::*;
-use serde::{Deserialize, Serialize};
 
 mod audio;
 mod spell;
 
+use super::runes::Rune;
+use crate::utils::LocalStorageCompatible;
 pub use audio::init_audio;
 use spell::Spell;
 
-use crate::utils::LocalStorageCompatible;
+pub static SPELLS: GsSpells = Signal::global(|| {
+    let spells = CastSpells::load();
+    let score = spells.iter().map(|x| x.points()).sum();
 
-use super::runes::Rune;
+    Spells { spells, score }
+});
 
-#[derive(Clone)]
-pub struct CxSpells {
-    inner: Signal<Inner>,
+pub struct Spells {
+    spells: CastSpells,
     score: u64,
 }
 
-impl CxSpells {
-    pub fn init() {
-        let inner = Inner::load_sig();
+pub type GsSpells = GlobalSignal<Spells>;
 
-        let mut score = 0;
-        for x in &inner.read().spells {
-            score += x.points()
-        }
+pub trait TrSpells {
+    fn score(&self) -> u64;
+    fn try_cast(&self, seq: Vec<Rune>);
+}
 
-        use_context_provider(|| Self { inner, score });
+impl TrSpells for GsSpells {
+    fn score(&self) -> u64 {
+        self.read().score
     }
 
-    pub fn score(&self) -> u64 {
-        self.score
-    }
-
-    pub fn try_cast(&mut self, seq: Vec<Rune>) {
+    fn try_cast(&self, seq: Vec<Rune>) {
         if let Some((spell, _)) = Spell::by_seq(seq) {
             spell.play();
 
-            self.score += spell.points();
-            let mut w = self.inner.write();
-            w.spells.push(spell);
-            w.save();
+            self.with_mut(|w| {
+                w.score += spell.points();
+                w.spells.push(spell);
+                w.spells.save();
+            });
         } else {
             Spell::Fizzle.play();
         }
     }
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct Inner {
-    spells: Vec<Spell>,
-}
+type CastSpells = Vec<Spell>;
 
-impl Default for Inner {
-    fn default() -> Self {
-        Self { spells: vec![] }
-    }
-}
-
-impl LocalStorageCompatible for Inner {
+impl LocalStorageCompatible for CastSpells {
     const STORAGE_KEY: &'static str = "arx-fatalis-cast-spells";
 }
