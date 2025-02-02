@@ -16,13 +16,13 @@ pub struct Audio {
     next_starts_at: Option<f64>,
 }
 
-type CxAudio = GlobalSignal<HashMap<String, Audio>>;
+type GsAudio = GlobalSignal<HashMap<String, Audio>>;
 
-pub trait CxAudioMethods {
+pub trait TrAudio {
     fn play(&self, src: &String) -> Option<u64>;
 }
 
-impl CxAudioMethods for CxAudio {
+impl TrAudio for GsAudio {
     fn play(&self, src: &String) -> Option<u64> {
         let mut beginning = 0.0;
         let mut ret_val = None;
@@ -51,7 +51,7 @@ impl CxAudioMethods for CxAudio {
     }
 }
 
-pub static AUDIO: CxAudio = Signal::global(|| {
+pub static AUDIO: GsAudio = Signal::global(|| {
     tracing::debug!("Audio::default() called");
 
     let mut all = arx_sounds();
