@@ -1,6 +1,4 @@
 use dioxus::prelude::*;
-use items::Items;
-use models::RECIPES;
 
 mod config;
 mod controls;
@@ -11,7 +9,8 @@ mod steps;
 
 use crate::components::{body::Body, header::Header, loader::Loader};
 use controls::Controls;
-pub use models::init;
+use items::Items;
+use models::*;
 use recipes::Recipes;
 
 #[component]
@@ -20,7 +19,7 @@ pub fn ShoppingList() -> Element {
 
     use_future(move || async move {
         if uninitialized {
-            init().await;
+            RECIPES.init().await;
         }
     });
 
