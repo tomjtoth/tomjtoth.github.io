@@ -1,6 +1,6 @@
 use strum::IntoEnumIterator;
 
-use crate::components::audio::{AudioOpt::NotAvailable, AudioSrc};
+use crate::components::audio::{AudioOpt::*, AudioSrc};
 
 use super::Spell::{self, *};
 
@@ -18,7 +18,7 @@ pub fn init_audio() -> Vec<AudioSrc> {
             | MassLightningProjection
             | SlowTime => (spell.as_src(), vec![NotAvailable]),
 
-            _ => (spell.as_src(), vec![]),
+            _ => (spell.as_src(), vec![Volume(0.75)]),
         })
         .collect()
 }
