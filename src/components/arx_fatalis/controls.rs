@@ -1,11 +1,10 @@
 use dioxus::prelude::*;
 
-use crate::components::arx_fatalis::models::CxSpells;
+use crate::components::arx_fatalis::models::*;
 
 #[component]
 pub fn Controls() -> Element {
-    let spells = use_context::<CxSpells>();
-    let score = spells.score();
+    let score = SPELLS.score();
 
     rsx! {
         "💎 {score}"
