@@ -1,17 +1,12 @@
 use dioxus::{logger::tracing, prelude::*};
 
 use crate::{
-    components::{
-        luxor::models::*,
-        modal::{Button, CxModal, Language},
-    },
+    components::{luxor::models::*, modal::*},
     utils::DisplayBytes,
 };
 
 #[component]
 pub fn PickedNumsLine() -> Element {
-    let mut modal = use_context::<CxModal>();
-
     let mut bug = use_signal(|| Bugstate::default());
 
     let nums_len = NUMBERS.len();
@@ -60,7 +55,7 @@ pub fn PickedNumsLine() -> Element {
                 onclick: move |evt| {
                     let data = evt.map(|data| data.client_coordinates());
                     let left = format!("{}px", data.data().x - 8.0);
-                    modal
+                    MODAL
                         .lang(Language::Hu)
                         .buttons(
                             vec![

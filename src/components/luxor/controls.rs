@@ -1,12 +1,8 @@
-use crate::components::{
-    luxor::models::*,
-    modal::{Button, CxModal, Language},
-};
+use crate::components::{luxor::models::*, modal::*};
 use dioxus::{logger::tracing, prelude::*};
 
 #[component]
 pub fn Controls() -> Element {
-    let mut modal = use_context::<CxModal>();
     let mut input = use_signal(|| "".to_string());
 
     let clear_nums = use_callback(move |_| {
@@ -56,7 +52,7 @@ pub fn Controls() -> Element {
                 class: "padded clickable",
                 title: "jelölések törlése",
                 onclick: move |_| {
-                    modal
+                    MODAL
                         .lang(Language::Hu)
                         .buttons(vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)])
                         .prompt(rsx! {

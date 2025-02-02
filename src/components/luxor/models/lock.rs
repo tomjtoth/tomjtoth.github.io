@@ -7,7 +7,7 @@ pub static LOCK: GsLock = GlobalSignal::new(|| Lock(true));
 /// is this actually necessary? wasn't the below
 /// (as in before this commit) fool-proof?
 /// ```rust
-/// let sig_lock = use_signal(||true);
+/// let sig_lock = use_signal(|| true);
 /// use_context_provider(|| sig_lock);
 /// ```
 ///

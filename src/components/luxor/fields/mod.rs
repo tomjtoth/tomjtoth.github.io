@@ -3,15 +3,11 @@ use dioxus::{logger::tracing, prelude::*};
 
 mod table;
 
-use crate::components::{
-    luxor::models::*,
-    modal::{Button, CxModal, Language},
-};
+use crate::components::{luxor::models::*, modal::*};
 use table::Table;
 
 #[component]
 pub fn Fields() -> Element {
-    let modal = use_context::<CxModal>();
     let fields_len = FIELDS.len() as u8;
     let deletable = FIELDS.len() > 1;
 
@@ -62,14 +58,11 @@ pub fn Fields() -> Element {
                                         if deletable {
                                             span {
                                                 class: "clickable padded",
-                                                onclick: {
-                                                    let mut modal = modal.clone();
-                                                    move |_| {
-                                                        modal
-                                                            .lang(Language::Hu)
-                                                            .buttons(vec![(Button::Yes, Some(del_cb_inner)), (Button::No, None)])
-                                                            .prompt(rsx! { "Biztosan törlöd a mezőt?" })
-                                                    }
+                                                onclick: move |_| {
+                                                    MODAL
+                                                        .lang(Language::Hu)
+                                                        .buttons(vec![(Button::Yes, Some(del_cb_inner)), (Button::No, None)])
+                                                        .prompt(rsx! { "Biztosan törlöd a mezőt?" })
                                                 },
                                                 "🚫 mező törlése"
                                             }

@@ -5,7 +5,7 @@ mod hooks;
 mod routes;
 mod utils;
 
-use components::{self as c, audio::AUDIO};
+use components::audio::AUDIO;
 use hooks as h;
 
 fn main() {
@@ -19,7 +19,6 @@ fn App() -> Element {
     }
 
     // init static resources
-    c::modal::init();
     h::BatMon::init();
 
     rsx! {
