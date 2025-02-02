@@ -8,6 +8,12 @@ use crate::utils::LocalStorageCompatible;
 pub use audio::init_audio;
 use spell::Spell;
 
+type CastSpells = Vec<Spell>;
+
+impl LocalStorageCompatible for CastSpells {
+    const STORAGE_KEY: &'static str = "arx-fatalis-cast-spells";
+}
+
 pub static SPELLS: GsSpells = Signal::global(|| {
     let spells = CastSpells::load();
     let score = spells.iter().map(|x| x.points()).sum();
@@ -20,7 +26,7 @@ pub struct Spells {
     score: u64,
 }
 
-pub type GsSpells = GlobalSignal<Spells>;
+type GsSpells = GlobalSignal<Spells>;
 
 pub trait TrSpells {
     fn score(&self) -> u64;
@@ -45,10 +51,4 @@ impl TrSpells for GsSpells {
             Spell::Fizzle.play();
         }
     }
-}
-
-type CastSpells = Vec<Spell>;
-
-impl LocalStorageCompatible for CastSpells {
-    const STORAGE_KEY: &'static str = "arx-fatalis-cast-spells";
 }
