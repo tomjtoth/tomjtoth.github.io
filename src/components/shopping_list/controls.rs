@@ -2,27 +2,23 @@ use dioxus::prelude::*;
 
 use crate::components::{
     modal::{Button, CxModal},
-    shopping_list::models::{CxActive, CxItems, RECIPES_ID},
+    shopping_list::models::*,
 };
 
 #[component]
 pub fn Controls() -> Element {
     let mut modal = use_context::<CxModal>();
     let mut items = use_context::<CxItems>();
-    let active = use_context::<CxActive>();
     let mut input = use_signal(|| String::new());
 
-    let (title, emoji) = if active.is_str(&RECIPES_ID) {
+    let (title, emoji) = if ACTIVE.is_str(&RECIPES_ID) {
         ("sulje reseptit", "📖")
     } else {
         ("avaa reseptit", "📕")
     };
 
-    let reset_active = use_callback({
-        let mut active = active.clone();
-        move |_| {
-            active.reset();
-        }
+    let reset_active = use_callback(move |_| {
+        ACTIVE.reset();
     });
 
     rsx! {
@@ -40,11 +36,8 @@ pub fn Controls() -> Element {
                 id: "slr-toggler",
                 class: "clickable",
                 title,
-                onclick: {
-                    let mut active = active.clone();
-                    move |_| {
-                        active.toggle_str(RECIPES_ID);
-                    }
+                onclick: move |_| {
+                    ACTIVE.toggle_str(RECIPES_ID);
                 },
                 "{emoji}"
             }

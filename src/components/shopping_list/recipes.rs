@@ -2,19 +2,14 @@ use dioxus::prelude::*;
 
 use crate::components::{
     loader::Loader,
-    shopping_list::{
-        items::Items,
-        models::{CxActive, CxRecipes, RECIPES_ID},
-        steps::Steps,
-    },
+    shopping_list::{items::Items, models::*, steps::Steps},
 };
 
 #[component]
 pub fn Recipes() -> Element {
     let recipes = use_context::<CxRecipes>();
-    let active = use_context::<CxActive>();
 
-    let class = if active.is(&RECIPES_ID.to_string()) {
+    let class = if ACTIVE.is(&RECIPES_ID.to_string()) {
         Some("active")
     } else {
         None
@@ -33,21 +28,13 @@ pub fn Recipes() -> Element {
                             let key = format!("slr-{i}");
                             let class = format!(
                                 "clickable padded alternating recipe{}",
-                                if let Some(_) = active
-                                    .iter()
-                                    .position(|stored| stored == key.to_string())
-                                {
-                                    " active"
-                                } else {
-                                    ""
-                                },
+                                if ACTIVE.is(&key) { " active" } else { "" },
                             );
                             let lang = &r.opts_lang_title();
                             let onclick = {
                                 let key = key.clone();
-                                let mut active = active.clone();
                                 move |_| {
-                                    active.toggle(&key);
+                                    ACTIVE.toggle(&key);
                                 }
                             };
                             let children = rsx! {
