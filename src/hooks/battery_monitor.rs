@@ -78,7 +78,7 @@ impl BatMon {
                     (c.clone(), bm.state.clone())
                 } {
                     if s.battery_present
-                        && ((s.level > upper && s.charging) || (s.level < lower && !s.charging))
+                        && ((s.level >= upper && s.charging) || (s.level <= lower && !s.charging))
                     {
                         // TODO: works, but only after the next on_change closure call
                         // which updates the signal first
