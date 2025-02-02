@@ -9,7 +9,10 @@ pub struct LinkProps {
 pub fn Link(props: LinkProps) -> Element {
     rsx! {
         if let Some(url) = props.url {
-            a { href: url.to_string(), target: "_blank",
+            a {
+                href: url.to_string(),
+                target: "_blank",
+                onclick: |evt| evt.stop_propagation(),
 
                 if url.starts_with("https://translate.google.com") {
                     svg {
