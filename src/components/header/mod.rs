@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::sidepanel::CxSidepanel;
+use crate::components::sidepanel::*;
 
 #[derive(PartialEq, Clone, Props)]
 pub struct HeaderProps {
@@ -11,20 +11,15 @@ pub struct HeaderProps {
 
 #[component]
 pub fn Header(props: HeaderProps) -> Element {
-    let mut sidepanel = use_context::<CxSidepanel>();
-
     rsx! {
         document::Title { "{props.title}" }
         div { id: "header", class: "border1-s", lang: props.lang,
-
             span {
                 id: "menu-button",
                 class: "toggler clickable padded",
-                onclick: move |_| sidepanel.show(),
-
+                onclick: move |_| SIDEPANEL.show(),
                 "☰"
             }
-
             {props.children}
         }
     }
