@@ -14,14 +14,13 @@ use crate::{
         modal::{Button, CxModal, Language},
     },
     routes::Route,
-    utils::{get_search_params, init_ctx},
+    utils::get_search_params,
 };
 use controls::Controls;
 use nums_line::PickedNumsLine;
 
 #[component]
 pub fn Luxor() -> Element {
-    init_ctx(|| true);
     let mut modal = use_context::<CxModal>();
     let navigator = use_navigator();
 

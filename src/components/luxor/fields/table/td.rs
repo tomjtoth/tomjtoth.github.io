@@ -12,8 +12,6 @@ pub struct TDProps {
 
 #[component]
 pub fn TableData(props: TDProps) -> Element {
-    let locked = use_context::<SigLocked>();
-
     let mut classes = vec![];
 
     let TDProps {
@@ -23,7 +21,7 @@ pub fn TableData(props: TDProps) -> Element {
         num,
     } = props;
 
-    if locked() {
+    if LOCK.status() {
         classes.push("clickable");
 
         if row_idx == 1 && (1 <= idx && idx <= 3) {
@@ -49,12 +47,12 @@ pub fn TableData(props: TDProps) -> Element {
             class: classes.join(" "),
             onclick: move |evt| {
                 evt.stop_propagation();
-                if locked() && !NUMBERS.has(num) {
+                if LOCK.status() && !NUMBERS.has(num) {
                     NUMBERS.add(num);
                 }
             },
 
-            if locked() {
+            if LOCK.status() {
                 if num == 0 {
                     "🪲"
                 } else {
