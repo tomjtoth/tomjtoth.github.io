@@ -26,11 +26,10 @@ fn find_idx(name: &String) -> u16 {
 
 #[component]
 pub fn Items() -> Element {
-    let items = use_context::<CxItems>();
     let recipes = use_context::<CxRecipes>();
     let modal = use_context::<CxModal>();
 
-    let mut ul_items = items
+    let mut ul_items = ITEMS
         .iter()
         .map(|i| {
             (
@@ -99,10 +98,9 @@ pub fn Items() -> Element {
                         };
                         let rm_item = use_callback({
                             let id = id.clone();
-                            let mut items = items.clone();
                             move |evt: Event<MouseData>| {
                                 evt.stop_propagation();
-                                items.rm(&id);
+                                ITEMS.rm(&id);
                                 ACTIVE.rm(&id);
                             }
                         });
