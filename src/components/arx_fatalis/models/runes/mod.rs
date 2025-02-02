@@ -1,16 +1,15 @@
-mod audio;
-mod rune;
-
-pub use audio::init_audio;
-pub use rune::Rune;
-
 use dioxus::{logger::tracing, prelude::*};
 use gloo_timers::future::sleep;
 use rune::RuneIter;
 use std::{mem, time::Duration};
 use strum::IntoEnumIterator;
 
-use crate::components::{arx_fatalis::models::CxSpells, audio::SigAudio};
+mod audio;
+mod rune;
+
+use crate::components::{arx_fatalis::models::CxSpells, audio::CxAudio};
+pub use audio::init_audio;
+pub use rune::Rune;
 
 #[derive(Clone)]
 pub struct CxRunes {
@@ -19,14 +18,14 @@ pub struct CxRunes {
 }
 
 impl CxRunes {
-    pub fn iter_runes() -> RuneIter {
+    pub fn iter() -> RuneIter {
         Rune::iter()
     }
 
     pub fn init() {
         let mut inner = use_signal(|| Inner::default());
         let spells = use_context::<CxSpells>();
-        let audio = use_context::<SigAudio>();
+        let audio = use_context::<CxAudio>();
 
         let service = use_future(move || {
             let mut spells = spells.clone();
@@ -37,7 +36,7 @@ impl CxRunes {
                         let rune = w.queue.get(w.index).unwrap();
                         let delay = {
                             tracing::debug!("attempting to play run sound");
-                            audio.read().play(&rune.as_src())
+                            audio.play(&rune.as_src())
                         };
 
                         w.index += 1;
@@ -58,7 +57,7 @@ impl CxRunes {
                 };
 
                 if seq.len() > 0 {
-                    spells.try_cast(seq, &audio.read());
+                    spells.try_cast(seq, &audio);
                 }
             }
         });

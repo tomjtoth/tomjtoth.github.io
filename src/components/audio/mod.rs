@@ -1,42 +1,39 @@
 use std::collections::HashMap;
 
-use dioxus::{logger::tracing, signals::Signal};
+use dioxus::{logger::tracing, prelude::*};
 use web_sys::HtmlAudioElement;
 
-use crate::{
-    components::{arx_fatalis::init_audio as arx_sounds, modal::init_sound as modal_sounds},
-    utils::init_ctx,
-};
+mod opts;
+pub use opts::*;
+use AudioOpt::*;
 
-type Sounds = HashMap<String, Inner>;
+use crate::components::{arx_fatalis::init_audio as arx_sounds, modal::init_sound as modal_sounds};
 
-pub struct Audio(Sounds);
-pub type SigAudio = Signal<Audio>;
-pub type AudioSrc = (String, AudioOpts);
-
-pub enum AudioOpt {
-    Volume(f64),
-    StartsAt(f64),
-    NextStartsAt(f64),
-    NotAvailable,
+#[derive(Clone, Copy)]
+pub struct CxAudio {
+    inner: Inner,
 }
 
-pub type AudioOpts = Vec<AudioOpt>;
+type Inner = Signal<HashMap<String, Audio>>;
 
-struct Inner {
+struct Audio {
     src: Option<HtmlAudioElement>,
     starts_at: Option<f64>,
     next_starts_at: Option<f64>,
 }
 
-impl Default for Audio {
-    fn default() -> Self {
+pub fn init() {
+    CxAudio::init();
+}
+
+impl CxAudio {
+    fn init() {
         tracing::debug!("Audio::default() called");
 
         let mut all = arx_sounds();
         all.append(&mut modal_sounds());
 
-        let iterator = all.iter().map(|(path, opts)| {
+        let iterator = all.into_iter().map(|(path, opts)| {
             let mut src = None;
             let mut src_available = true;
             let mut volume = None;
@@ -45,10 +42,10 @@ impl Default for Audio {
 
             for opt in opts.iter() {
                 match opt {
-                    AudioOpt::Volume(vol) => volume = Some(*vol),
-                    AudioOpt::StartsAt(start) => starts_at = Some(*start),
-                    AudioOpt::NextStartsAt(next) => next_starts_at = Some(*next),
-                    AudioOpt::NotAvailable => src_available = false,
+                    Volume(vol) => volume = Some(*vol),
+                    StartsAt(start) => starts_at = Some(*start),
+                    NextStartsAt(next) => next_starts_at = Some(*next),
+                    NotAvailable => src_available = false,
                 }
             }
 
@@ -63,7 +60,7 @@ impl Default for Audio {
 
             (
                 path.to_string(),
-                Inner {
+                Audio {
                     src,
                     starts_at,
                     next_starts_at,
@@ -71,16 +68,16 @@ impl Default for Audio {
             )
         });
 
-        Audio(HashMap::from_iter(iterator))
+        let hashmap: HashMap<String, Audio> = HashMap::from_iter(iterator);
+        let inner = use_signal(|| hashmap);
+        use_context_provider(|| CxAudio { inner });
     }
-}
 
-impl Audio {
     pub fn play(&self, src: &String) -> Option<u64> {
         let mut beginning = 0.0;
         let mut ret_val = None;
 
-        if let Some(snd) = self.0.get(src) {
+        if let Some(snd) = self.inner.read().get(src) {
             if let Some(val) = snd.starts_at {
                 beginning = val;
             }
@@ -102,8 +99,4 @@ impl Audio {
 
         ret_val
     }
-}
-
-pub fn init() {
-    init_ctx(|| Audio::default());
 }
