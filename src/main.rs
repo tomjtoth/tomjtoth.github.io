@@ -22,9 +22,6 @@ fn App() -> Element {
     c::modal::init();
     h::BatMon::init();
 
-    // read from localStorage
-    c::sidepanel::init();
-
     // also fetching from server
     c::lyrics::init();
     c::shopping_list::init();

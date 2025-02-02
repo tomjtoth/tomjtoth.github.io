@@ -9,28 +9,23 @@ pub use models::*;
 
 #[component]
 pub fn Sidepanel() -> Element {
-    let mut sidepanel = use_context::<CxSidepanel>();
-    let mut classes = vec!["border1-e"];
-
-    if sidepanel.is_active() {
-        classes.push("active");
-    }
+    let class = format!(
+        "border1-e{}",
+        if SIDEPANEL.is_active() { " active" } else { "" }
+    );
 
     rsx! {
         div {
             id: "sidepanel",
-            class: classes.join(" "),
-            onmouseleave: {
-                let mut sidepanel = sidepanel.clone();
-                move |_| sidepanel.hide()
-            },
+            class,
+            onmouseleave: move |_| SIDEPANEL.hide(),
 
             ul {
                 li {
                     span {
                         class: "toggler nav-link clickable",
                         style: "float: right;",
-                        onclick: move |_| sidepanel.hide(),
+                        onclick: move |_| SIDEPANEL.hide(),
                         "×"
                     }
                 }
