@@ -24,7 +24,6 @@ fn App() -> Element {
 
     // also fetching from server
     c::lyrics::init();
-    c::shopping_list::init();
 
     rsx! {
         Router::<routes::Route> {}

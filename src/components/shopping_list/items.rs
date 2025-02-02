@@ -26,7 +26,6 @@ fn find_idx(name: &String) -> u16 {
 
 #[component]
 pub fn Items() -> Element {
-    let recipes = use_context::<CxRecipes>();
     let modal = use_context::<CxModal>();
 
     let mut ul_items = ITEMS
@@ -43,7 +42,7 @@ pub fn Items() -> Element {
     for id in ACTIVE.iter() {
         if let Ok(Some(mm)) = RE_RECIPE_ID.captures(&id) {
             let rec_idx = mm.get(1).unwrap().as_str().parse::<usize>().unwrap();
-            let recipe = recipes.get(rec_idx);
+            let recipe = RECIPES.get(rec_idx).unwrap();
             for (idx, item) in recipe.items.iter().enumerate() {
                 ul_items.push((
                     find_idx(&item),
