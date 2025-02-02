@@ -25,6 +25,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                         let id = Rc::new(
                             format!("{}-{}-{}", props.artist_idx, props.album_idx, song_idx),
                         );
+                        let key = id.clone();
                         let mut li_class = vec!["padded bordered"];
                         if props.songs.len() == 1 || ACTIVE.is(&id) {
                             li_class.push("active");
@@ -67,7 +68,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                         };
                         rsx! {
                             li {
-                                key: id.clone(),
+                                key,
                                 class: li_class.join(" "),
                                 onclick: move |evt| {
                                     evt.stop_propagation();
