@@ -2,8 +2,10 @@ use dioxus::{logger::tracing, prelude::*};
 
 mod button;
 
-use super::audio::{AudioOpt, AudioSrc};
-use crate::{components::audio::SigAudio, routes::Route};
+use crate::{
+    components::audio::{AudioOpt, AudioSrc, CxAudio},
+    routes::Route,
+};
 use button::Btn;
 pub use button::{Button, Language};
 
@@ -43,7 +45,7 @@ pub fn init_sound() -> Vec<AudioSrc> {
 #[component]
 pub fn Modal() -> Element {
     let mut state = use_context::<SigModal>();
-    let audio = use_context::<SigAudio>();
+    let audio = use_context::<CxAudio>();
 
     let reset_state = use_callback(move |_| state.write().reset());
 
