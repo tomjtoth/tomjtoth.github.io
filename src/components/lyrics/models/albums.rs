@@ -1,8 +1,7 @@
 use std::rc::Rc;
 
 use super::songs::Songs;
-
-#[derive(Clone, PartialEq)]
+#[derive(PartialEq)]
 pub struct Album {
     pub title: String,
     pub url: Option<String>,

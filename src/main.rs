@@ -22,9 +22,6 @@ fn App() -> Element {
     c::modal::init();
     h::BatMon::init();
 
-    // also fetching from server
-    c::lyrics::init();
-
     rsx! {
         Router::<routes::Route> {}
     }

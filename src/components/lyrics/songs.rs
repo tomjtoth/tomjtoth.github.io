@@ -14,8 +14,6 @@ pub struct AlbumsProps {
 
 #[component]
 pub fn Songs(props: AlbumsProps) -> Element {
-    let artists = use_context::<CxArtists>();
-
     rsx! {
         ul {
             {
@@ -58,7 +56,7 @@ pub fn Songs(props: AlbumsProps) -> Element {
                                 encode(
                                     &format!(
                                         "{} - Topic {}",
-                                        artists.get(props.artist_idx).name,
+                                        ARTISTS.get(props.artist_idx).unwrap().name,
                                         song.title,
                                     ),
                                 ),

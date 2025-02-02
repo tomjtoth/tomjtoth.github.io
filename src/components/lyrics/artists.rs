@@ -9,16 +9,21 @@ use crate::components::{
 
 #[component]
 pub fn Artists() -> Element {
-    let artists = use_context::<CxArtists>();
+    use_future(|| async {
+        if ARTISTS.is_empty() {
+            ARTISTS.init().await;
+        }
+    });
 
     rsx! {
-        if artists.is_empty() {
+        if ARTISTS.is_empty() {
             Loader {}
         } else {
             ul { lang: "sv", id: "lyrics",
                 {
-                    artists
-                        .iter_enum()
+                    ARTISTS
+                        .iter()
+                        .enumerate()
                         .map(|(artist_idx, artist)| {
                             let id = Rc::new(artist_idx.to_string());
                             let class = format!(
