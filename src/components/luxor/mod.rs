@@ -6,7 +6,7 @@ mod models;
 mod nums_line;
 
 pub use models::init;
-use models::CxFields;
+use models::*;
 
 use crate::{
     components::{
@@ -23,11 +23,10 @@ use nums_line::PickedNumsLine;
 #[component]
 pub fn Luxor() -> Element {
     init_ctx(|| true);
-    let mut fields = use_context::<CxFields>();
     let mut modal = use_context::<CxModal>();
     let navigator = use_navigator();
 
-    let mut import_cb = move |arr: Vec<Option<u8>>| {
+    let import_cb = move |arr: Vec<Option<u8>>| {
         let mut result = vec![];
 
         for (idx, res_u8) in arr.iter().enumerate() {
@@ -44,7 +43,7 @@ pub fn Luxor() -> Element {
             result[fld_idx][row_idx][col_idx] = res_u8.unwrap();
         }
 
-        fields.push(result);
+        FIELDS.import(result);
 
         tracing::debug!("imported from search params, navigating to Luxor");
         navigator.replace(Route::Luxor {});
@@ -89,12 +88,12 @@ pub fn Luxor() -> Element {
                         .buttons(vec![(
                             Button::Ok,
                             Some(use_callback({
-                                let mut cb = import_cb.clone();
+                                let import_cb = import_cb.clone();
                                 move |_| {
                                     tracing::debug!(
                                         "warned user of number % 25 != 0, calling import_cb"
                                     );
-                                    cb(vec_opt_u8.clone());
+                                    import_cb(vec_opt_u8.clone());
                                 }
                             })),
                         )])
