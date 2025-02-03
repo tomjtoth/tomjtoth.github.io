@@ -34,12 +34,6 @@ pub(crate) trait LocalStorageCompatible: Serialize + DeserializeOwned + Default 
     }
 }
 
-pub(crate) fn init_ctx<T: 'static>(closure: impl FnOnce() -> T) -> Signal<T> {
-    let signal = use_signal(closure);
-    use_context_provider(|| signal);
-    signal
-}
-
 pub(crate) fn get_url() -> String {
     let fallback = "https://ttj.hu".to_string();
 
