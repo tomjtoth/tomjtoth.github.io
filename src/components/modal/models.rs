@@ -84,7 +84,11 @@ impl TrModal for GsModal {
     }
 
     fn prompt(&self, prompt: Element) {
-        self.with_mut(|w| w.prompt = Some(prompt));
+        self.with_mut(|w| {
+            let mut m = Modal::default();
+            m.prompt = Some(prompt);
+            *w = m;
+        })
     }
 }
 
