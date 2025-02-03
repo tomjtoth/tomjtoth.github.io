@@ -5,7 +5,7 @@ mod controls;
 
 use crate::{
     components::{body::Body, header::Header, loader::Loader},
-    hooks::{BatMonConf, BatteryState, SigBatMon},
+    hooks::*,
 };
 
 static PLUGGED_IN_STR: &'static str = "ja laturi on vieläkin kiinni";
@@ -24,15 +24,11 @@ pub(crate) fn noti_txt(charging: bool, lvl100: u8) -> String {
 
 #[component]
 pub(crate) fn BatteryMonitor() -> Element {
-    let batmon = use_context::<SigBatMon>();
     let BatMonConf {
         allowed,
         min_val,
         max_val,
-    } = {
-        let r = batmon.read();
-        r.read_conf()
-    };
+    } = BATMON.read_conf();
 
     rsx! {
         Header { title: "akunvalvonta", Controls {} }
@@ -50,10 +46,10 @@ pub(crate) fn BatteryMonitor() -> Element {
                 li { "joko yli {max_val}% {PLUGGED_IN_STR}" }
                 li { "tai alle {min_val}% {UNPLUGGED_STR}" }
             }
-            if batmon.read().loading() {
+            if BATMON.loading() {
                 Loader {}
             } else {
-                if let Some(BatteryState { charging, level, .. }) = batmon.read().get_state() {
+                if let Some(BatteryState { charging, level, .. }) = BATMON.get_state() {
                     p {
                         if allowed {
                             "Kerran minuutissa katsotaan mikä akun "

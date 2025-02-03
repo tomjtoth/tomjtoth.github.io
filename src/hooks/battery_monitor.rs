@@ -1,29 +1,14 @@
-use std::time::Duration;
-
 use dioxus::{logger::tracing, prelude::*};
 use gloo_timers::future::sleep;
 use serde::{Deserialize, Serialize};
+use std::time::Duration;
 
 use crate::{
     components::battery_monitor::noti_txt,
-    utils::{allowed_to_notify, init_ctx, notify, LocalStorageCompatible},
+    utils::{allowed_to_notify, notify, LocalStorageCompatible},
 };
 
 use super::{use_battery, BatteryState, UseBattery};
-
-pub(crate) type SigBatMon = Signal<BatMon>;
-
-// TODO: refactor ALL Sig* types accross the app
-// remove them, take UsePersistent as an example
-// wrap the signal in the struct, not the other way around!!
-// hence syntax getc cleaner `some_sig.read().some_method()`
-// becomes `some_struct.some_method()`, more readable!
-
-pub(crate) struct BatMon {
-    conf: Signal<BatMonConf>,
-    batman: UseBattery,
-    service: UseFuture,
-}
 
 #[derive(Serialize, Deserialize, Clone)]
 pub(crate) struct BatMonConf {
@@ -46,97 +31,113 @@ impl LocalStorageCompatible for BatMonConf {
     const STORAGE_KEY: &'static str = "battery-monitor";
 }
 
-impl BatMon {
-    pub(crate) fn init() {
-        let conf = use_signal(|| BatMonConf::load());
-        let batman = use_battery();
+pub(crate) struct BatMon {
+    conf: Signal<BatMonConf>,
+    batman: UseBattery,
+    service: UseFuture,
+}
 
-        let service = {
-            let conf = conf.clone();
-            let second = Duration::from_secs(1);
-            let minute = Duration::from_secs(60);
-            use_future(move || async move {
-                // TODO: find a less resource hungry way to wait for BatMan to load
-                while let true = {
-                    let r = batman.read();
-                    r.loading
-                } {
-                    tracing::debug!("waiting for Battery Manager to load");
-                    sleep(second).await;
-                }
+type GsBatMon = GlobalSignal<BatMon>;
+pub(crate) static BATMON: GsBatMon = GlobalSignal::new(|| {
+    let conf = use_signal(|| BatMonConf::load());
+    let batman = use_battery();
 
-                while let (
-                    BatMonConf {
-                        allowed: true,
-                        min_val: lower,
-                        max_val: upper,
-                    },
-                    Some(s),
-                ) = {
-                    let c = conf.read();
-                    let bm = batman.read();
-                    (c.clone(), bm.state.clone())
-                } {
-                    if s.battery_present
-                        && ((s.level >= upper && s.charging) || (s.level <= lower && !s.charging))
-                    {
-                        // TODO: works, but only after the next on_change closure call
-                        // which updates the signal first
-                        // there's about 10 seconds delay
-                        if allowed_to_notify().await {
-                            let message = noti_txt(s.charging, s.level);
-                            notify(&message);
-                            tracing::debug!(r#"notifying user: "{message}""#);
-                        }
+    let service = {
+        let conf = conf.clone();
+        let second = Duration::from_secs(1);
+        let minute = Duration::from_secs(60);
+
+        use_future(move || async move {
+            // TODO: find a less resource hungry way to wait for BatMan to load
+            while let true = batman.with(|r| r.loading) {
+                tracing::debug!("waiting for Battery Manager to load");
+                sleep(second).await;
+            }
+
+            while let (
+                BatMonConf {
+                    allowed: true,
+                    min_val: lower,
+                    max_val: upper,
+                },
+                Some(s),
+            ) = {
+                let c = conf.read();
+                let bm = batman.read();
+                (c.clone(), bm.state.clone())
+            } {
+                if s.battery_present
+                    && ((s.level >= upper && s.charging) || (s.level <= lower && !s.charging))
+                {
+                    // TODO: works, but only after the next on_change closure call
+                    // which updates the signal first
+                    // there's about 10 seconds delay
+                    if allowed_to_notify().await {
+                        let message = noti_txt(s.charging, s.level);
+                        notify(&message);
+                        tracing::debug!(r#"notifying user: "{message}""#);
                     }
-                    tracing::debug!("waiting {:?}", minute);
-                    sleep(minute).await;
                 }
-            })
-        };
+                tracing::debug!("waiting {:?}", minute);
+                sleep(minute).await;
+            }
+        })
+    };
 
-        init_ctx(|| BatMon {
-            conf,
-            batman,
-            service,
+    BatMon {
+        conf,
+        batman,
+        service,
+    }
+});
+
+pub(crate) trait TrBatMon {
+    fn loading(&self) -> bool;
+    fn set_allowed(&self, allowed: bool);
+    fn get_state(&self) -> Option<BatteryState>;
+    fn read_conf(&self) -> BatMonConf;
+    fn set_min(&self, val: u8);
+    fn set_max(&self, val: u8);
+}
+
+impl TrBatMon for GsBatMon {
+    fn loading(&self) -> bool {
+        self.with(|r| r.batman.with(|bmr| bmr.loading))
+    }
+
+    fn set_allowed(&self, allowed: bool) {
+        tracing::debug!("set_allowed called with {allowed}");
+        self.with_mut(|r| {
+            r.conf.with_mut(|wc| {
+                wc.allowed = allowed;
+                wc.save();
+            })
+        });
+
+        if allowed {
+            self.with_mut(|r| r.service.restart());
+        }
+    }
+
+    fn get_state(&self) -> Option<BatteryState> {
+        self.read().batman.read().state.clone()
+    }
+
+    fn read_conf(&self) -> BatMonConf {
+        self.read().conf.read().clone()
+    }
+
+    fn set_min(&self, val: u8) {
+        self.write().conf.with_mut(|w| {
+            w.min_val = val;
+            w.save()
         });
     }
 
-    pub(crate) fn loading(&self) -> bool {
-        let bmr = self.batman.read();
-        bmr.loading
-    }
-
-    pub(crate) fn set_allowed(&mut self, allowed: bool) {
-        tracing::debug!("set_allowed called with {allowed}");
-        {
-            let mut w = self.conf.write();
-            w.allowed = allowed;
-            w.save();
-        }
-
-        if allowed {
-            self.service.restart();
-        }
-    }
-
-    pub(crate) fn get_state(&self) -> Option<BatteryState> {
-        self.batman.read().state.clone()
-    }
-
-    pub(crate) fn read_conf(&self) -> BatMonConf {
-        self.conf.read().clone()
-    }
-
-    pub(crate) fn set_min(&mut self, val: u8) {
-        let mut w = self.conf.write();
-        w.min_val = val;
-        w.save()
-    }
-
-    pub(crate) fn set_max(&mut self, val: u8) {
-        let mut w = self.conf.write();
-        w.max_val = val;
-        w.save()
+    fn set_max(&self, val: u8) {
+        self.write().conf.with_mut(|w| {
+            w.max_val = val;
+            w.save()
+        });
     }
 }
