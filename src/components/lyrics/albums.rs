@@ -7,30 +7,27 @@ use crate::components::lyrics::{models::*, songs::Songs};
 #[derive(Props, Clone, PartialEq)]
 pub(crate) struct AlbumsProps {
     artist_idx: usize,
-    albums: super::models::Albums,
 }
 
 #[component]
 pub(crate) fn Albums(props: AlbumsProps) -> Element {
+    let AlbumsProps { artist_idx } = props;
+    let albums = &ARTISTS.get(artist_idx).unwrap().albums;
+
     rsx! {
         ul {
             {
-                props
-                    .albums
+                albums
                     .iter()
                     .enumerate()
                     .map(|(album_idx, album)| {
-                        let id = Rc::new(format!("{}-{}", props.artist_idx, album_idx));
+                        let id = Rc::new(format!("{}-{}", artist_idx, album_idx));
                         let key = id.clone();
-                        let clickable = props.albums.len() > 1;
+                        let clickable = albums.len() > 1;
                         let class = format!(
                             "padded bordered {}{}",
                             if clickable { "clickable" } else { "non-clickable" },
-                            if props.albums.len() == 1 || ACTIVE.is(&id) {
-                                " active"
-                            } else {
-                                ""
-                            },
+                            if albums.len() == 1 || ACTIVE.is(&id) { " active" } else { "" },
                         );
                         rsx! {
                             li {
@@ -48,11 +45,7 @@ pub(crate) fn Albums(props: AlbumsProps) -> Element {
                                 }
                                 "{album.title}"
                                 super::link::Link { url: album.url.clone() }
-                                Songs {
-                                    artist_idx: props.artist_idx,
-                                    album_idx,
-                                    songs: album.songs.clone(),
-                                }
+                                Songs { artist_idx, album_idx }
 
                             }
                         }

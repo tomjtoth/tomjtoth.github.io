@@ -1,12 +1,10 @@
-use std::{cmp::Ordering, rc::Rc};
+use std::cmp::Ordering;
 
 use crate::utils::to_yaml;
 use dioxus::prelude::*;
 
 use super::{albums::Albums, parser, Album, Song};
 
-// TODO: revise all derive marcros
-#[derive(Clone, PartialEq)]
 pub(crate) struct Artist {
     pub(crate) name: String,
     pub(crate) url: Option<String>,
@@ -33,11 +31,11 @@ impl TrArtists for GsArtists {
                     .albums
                     .into_iter()
                     .map(|(title, alb)| {
-                        let songs = Rc::new(Vec::from_iter(
+                        let songs = Vec::from_iter(
                             alb.songs
                                 .into_iter()
                                 .map(|(title, lyrics)| Song { title, lyrics }),
-                        ));
+                        );
 
                         Album {
                             year: alb.year,
@@ -88,7 +86,7 @@ impl TrArtists for GsArtists {
                 Artist {
                     name,
                     url: artist.url,
-                    albums: Rc::new(albums),
+                    albums,
                 }
             })
             .collect();
