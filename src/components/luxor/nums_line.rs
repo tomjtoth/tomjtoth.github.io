@@ -6,7 +6,7 @@ use crate::{
 };
 
 #[component]
-pub fn PickedNumsLine() -> Element {
+pub(crate) fn PickedNumsLine() -> Element {
     let mut bug = use_signal(|| Bugstate::default());
 
     let nums_len = NUMBERS.len();

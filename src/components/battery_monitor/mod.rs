@@ -11,7 +11,7 @@ use crate::{
 static PLUGGED_IN_STR: &'static str = "ja laturi on vieläkin kiinni";
 static UNPLUGGED_STR: &'static str = "eikä laturi oo kytkettynä";
 
-pub fn noti_txt(charging: bool, lvl100: u8) -> String {
+pub(crate) fn noti_txt(charging: bool, lvl100: u8) -> String {
     format!(
         "Akun taso on nyt {lvl100}% {}",
         if charging {
@@ -23,7 +23,7 @@ pub fn noti_txt(charging: bool, lvl100: u8) -> String {
 }
 
 #[component]
-pub fn BatteryMonitor() -> Element {
+pub(crate) fn BatteryMonitor() -> Element {
     let batmon = use_context::<SigBatMon>();
     let BatMonConf {
         allowed,

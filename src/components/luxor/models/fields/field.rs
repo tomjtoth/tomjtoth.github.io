@@ -1,14 +1,14 @@
 use serde::{Deserialize, Serialize};
 
-pub type LuxorRow = [u8; 5];
-pub type LuxorRows = [LuxorRow; 5];
+pub(crate) type LuxorRow = [u8; 5];
+pub(crate) type LuxorRows = [LuxorRow; 5];
 
 #[derive(Serialize, Deserialize, Clone)]
-pub struct Field {
-    pub id: u8,
-    pub order: u8,
-    pub rows: LuxorRows,
-    pub imported_at: Option<i64>,
+pub(crate) struct Field {
+    pub(crate) id: u8,
+    pub(crate) order: u8,
+    pub(crate) rows: LuxorRows,
+    pub(crate) imported_at: Option<i64>,
 }
 
 impl Default for Field {

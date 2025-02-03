@@ -7,7 +7,7 @@ use crate::components::{luxor::models::*, modal::*};
 use table::Table;
 
 #[component]
-pub fn Fields() -> Element {
+pub(crate) fn Fields() -> Element {
     let fields_len = FIELDS.len() as u8;
     let deletable = FIELDS.len() > 1;
 

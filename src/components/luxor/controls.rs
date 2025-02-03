@@ -2,7 +2,7 @@ use crate::components::{luxor::models::*, modal::*};
 use dioxus::{logger::tracing, prelude::*};
 
 #[component]
-pub fn Controls() -> Element {
+pub(crate) fn Controls() -> Element {
     let mut input = use_signal(|| "".to_string());
 
     let clear_nums = use_callback(move |_| {

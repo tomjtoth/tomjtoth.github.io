@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 #[derive(PartialEq, Clone, Props)]
-pub struct BodyProps {
+pub(crate) struct BodyProps {
     class: Option<String>,
     style: Option<String>,
     lang: Option<String>,
@@ -10,7 +10,7 @@ pub struct BodyProps {
 
 /// Main view
 #[component]
-pub fn Body(props: BodyProps) -> Element {
+pub(crate) fn Body(props: BodyProps) -> Element {
     rsx! {
         div {
             id: "body",

@@ -24,16 +24,16 @@ struct RecipeParserHelper {
 }
 
 #[derive(Debug, Clone)]
-pub struct Recipe {
-    pub title: String,
-    pub url: Option<String>,
+pub(crate) struct Recipe {
+    pub(crate) title: String,
+    pub(crate) url: Option<String>,
     opts: Option<Opts>,
-    pub items: Vec<String>,
-    pub steps: Vec<String>,
+    pub(crate) items: Vec<String>,
+    pub(crate) steps: Vec<String>,
 }
 
 impl Recipe {
-    pub fn opts_lang_title(&self) -> Option<String> {
+    pub(crate) fn opts_lang_title(&self) -> Option<String> {
         match &self.opts {
             Some(Opts {
                 lang: Lang { title },
@@ -45,7 +45,7 @@ impl Recipe {
 
 type GsRecipes = GlobalSignal<Vec<Recipe>>;
 
-pub static RECIPES: GsRecipes = GlobalSignal::new(|| vec![]);
+pub(crate) static RECIPES: GsRecipes = GlobalSignal::new(|| vec![]);
 
 static RE_ITEM: Lazy<Regex> = Lazy::new(|| {
     Regex::new(r"(?:(?:\[`(?<nameUrl>[^`]+)`\]\((?<url>.+)\))|`(?<name>[^`]+)`)(?: *[-:])?")
@@ -56,7 +56,7 @@ static RE_STRONG: Lazy<Regex> = Lazy::new(|| {
     Regex::new(r"(?:\*\*(?<vAsterisk>[^*]+)\*\*|\b__(?<vUnderscore>[^_]+)__\b)").unwrap()
 });
 
-pub trait TrRecipes {
+pub(crate) trait TrRecipes {
     async fn init(&self);
 }
 

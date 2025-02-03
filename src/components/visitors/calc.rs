@@ -42,7 +42,7 @@ fn get_times(next: &Visitor, now: Utc) -> Option<[i64; 5]> {
     }
 }
 
-pub fn text(next: Option<&Visitor>, now: Utc) -> Element {
+pub(crate) fn text(next: Option<&Visitor>, now: Utc) -> Element {
     let class = "visitor hu";
 
     if let Some(next) = next {

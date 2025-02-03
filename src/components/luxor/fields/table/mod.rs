@@ -7,12 +7,12 @@ mod tr;
 use tbody::TableBody;
 
 #[derive(Props, PartialEq, Clone)]
-pub struct TableProps {
+pub(crate) struct TableProps {
     idx: usize,
 }
 
 #[component]
-pub fn Table(props: TableProps) -> Element {
+pub(crate) fn Table(props: TableProps) -> Element {
     rsx! {
         table { class: "luxor",
             thead {

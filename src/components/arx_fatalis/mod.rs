@@ -6,11 +6,11 @@ mod runes;
 
 use crate::components::{body::Body, header::Header};
 use controls::Controls;
-pub use models::init_audio;
+pub(crate) use models::init_audio;
 use models::*;
 
 #[component]
-pub fn ArxFatalis() -> Element {
+pub(crate) fn ArxFatalis() -> Element {
     CxRunes::init();
 
     rsx! {

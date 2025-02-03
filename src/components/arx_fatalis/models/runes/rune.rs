@@ -5,7 +5,7 @@ use strum_macros::EnumIter;
 use crate::components::audio::*;
 
 #[derive(Copy, Clone, Debug, EnumIter, PartialEq)]
-pub enum Rune {
+pub(crate) enum Rune {
     Aam,
     Nhi,
     Mega,
@@ -35,11 +35,11 @@ impl fmt::Display for Rune {
 }
 
 impl Rune {
-    pub fn as_src(&self) -> String {
+    pub(crate) fn as_src(&self) -> String {
         format!("/arx/runes/{}.mp3", self.to_string().to_lowercase())
     }
 
-    pub fn play(&self) -> Option<u64> {
+    pub(crate) fn play(&self) -> Option<u64> {
         tracing::debug!("attempting to play rune sound");
         AUDIO.play(&self.as_src())
     }

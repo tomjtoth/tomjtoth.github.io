@@ -3,7 +3,7 @@ mod fields;
 mod lock;
 mod numbers;
 
-pub use bug::Bugstate;
-pub use fields::*;
-pub use lock::*;
-pub use numbers::*;
+pub(crate) use bug::Bugstate;
+pub(crate) use fields::*;
+pub(crate) use lock::*;
+pub(crate) use numbers::*;

@@ -20,7 +20,7 @@ static TRANSLATIONS: Lazy<HashMap<Language, Vec<&'static str>>> = Lazy::new(|| {
 });
 
 #[derive(Props, PartialEq, Clone)]
-pub struct ButtonProps {
+pub(crate) struct ButtonProps {
     lang: Language,
     r#type: super::Button,
     onclick: OptCb,
@@ -28,7 +28,7 @@ pub struct ButtonProps {
 }
 
 #[component]
-pub fn Button(props: ButtonProps) -> Element {
+pub(crate) fn Button(props: ButtonProps) -> Element {
     let translation = TRANSLATIONS.get(&props.lang).unwrap();
     let as_usize = props.r#type as usize;
     let text = translation[as_usize];

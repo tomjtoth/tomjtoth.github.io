@@ -4,9 +4,9 @@ use serde::{Deserialize, Serialize};
 use crate::utils::LocalStorageCompatible;
 
 #[derive(Serialize, Deserialize, Clone)]
-pub struct Item {
-    pub id: u8,
-    pub name: String,
+pub(crate) struct Item {
+    pub(crate) id: u8,
+    pub(crate) name: String,
 }
 
 type Inner = Vec<Item>;
@@ -15,9 +15,9 @@ impl LocalStorageCompatible for Inner {
 }
 type GsItems = GlobalSignal<Inner>;
 
-pub static ITEMS: GsItems = GlobalSignal::new(|| Inner::load());
+pub(crate) static ITEMS: GsItems = GlobalSignal::new(|| Inner::load());
 
-pub trait TrItems {
+pub(crate) trait TrItems {
     fn add(&self, item: String);
     fn rm(&self, str_id: &String);
 }

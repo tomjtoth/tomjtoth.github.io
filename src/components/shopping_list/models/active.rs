@@ -9,7 +9,7 @@ static RE_RECIPE: Lazy<Regex> =
     Lazy::new(|| Regex::new(&format!("^{}(?:-\\d+)?$", RECIPES_ID.to_string())).unwrap());
 
 #[derive(Serialize, Deserialize)]
-pub struct Inner {
+pub(crate) struct Inner {
     active: Vec<String>,
 }
 
@@ -27,9 +27,9 @@ impl LocalStorageCompatible for Inner {
 
 type GsActive = GlobalSignal<Inner>;
 
-pub static ACTIVE: GsActive = GlobalSignal::new(|| Inner::load());
+pub(crate) static ACTIVE: GsActive = GlobalSignal::new(|| Inner::load());
 
-pub trait TrActive {
+pub(crate) trait TrActive {
     fn iter(&self) -> impl Iterator<Item = String>;
     fn is_str(&self, id: &str) -> bool;
     fn is(&self, id: &String) -> bool;

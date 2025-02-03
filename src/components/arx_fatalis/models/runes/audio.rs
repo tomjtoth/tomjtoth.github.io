@@ -1,7 +1,7 @@
 use super::Rune::*;
 use crate::components::audio::{AudioOpt::*, AudioSrc};
 
-pub fn init_audio() -> Vec<AudioSrc> {
+pub(crate) fn init_audio() -> Vec<AudioSrc> {
     vec![
         (Aam, 0.2, 0.7),
         (Nhi, 0.15, 0.7),

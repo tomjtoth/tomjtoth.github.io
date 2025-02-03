@@ -4,13 +4,13 @@ use dioxus::{logger::tracing, prelude::*};
 use web_sys::HtmlAudioElement;
 
 mod opts;
-pub use opts::*;
+pub(crate) use opts::*;
 use AudioOpt::*;
 
 use crate::components::{arx_fatalis::init_audio as arx_sounds, modal::init_audio as modal_sounds};
 
 #[derive(Clone)]
-pub struct Audio {
+pub(crate) struct Audio {
     src: Option<HtmlAudioElement>,
     starts_at: Option<f64>,
     next_starts_at: Option<f64>,
@@ -18,7 +18,7 @@ pub struct Audio {
 
 type GsAudio = GlobalSignal<HashMap<String, Audio>>;
 
-pub trait TrAudio {
+pub(crate) trait TrAudio {
     fn play(&self, src: &String) -> Option<u64>;
 }
 
@@ -51,7 +51,7 @@ impl TrAudio for GsAudio {
     }
 }
 
-pub static AUDIO: GsAudio = Signal::global(|| {
+pub(crate) static AUDIO: GsAudio = Signal::global(|| {
     tracing::debug!("Audio::default() called");
 
     let mut all = arx_sounds();

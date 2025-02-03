@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use crate::components::{modal::*, shopping_list::models::*};
 
 #[component]
-pub fn Controls() -> Element {
+pub(crate) fn Controls() -> Element {
     let mut input = use_signal(|| String::new());
 
     let (title, emoji) = if ACTIVE.is_str(&RECIPES_ID) {

@@ -10,7 +10,7 @@ mod songs;
 use crate::components::{body::Body, header::Header};
 
 #[component]
-pub fn Lyrics() -> Element {
+pub(crate) fn Lyrics() -> Element {
     rsx! {
         Header { title: "Låttext", lang: "sv" }
         Body {

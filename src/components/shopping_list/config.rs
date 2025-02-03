@@ -1,7 +1,7 @@
 use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 
-pub static RE_ORDER: Lazy<Vec<Regex>> = Lazy::new(|| {
+pub(crate) static RE_ORDER: Lazy<Vec<Regex>> = Lazy::new(|| {
     let res = [
         // ennen PRISMA:a
         r"(cit+ari|K-supermarket|K-cit[iy]market)(?::sta)?",

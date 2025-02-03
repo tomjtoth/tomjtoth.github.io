@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use crate::components::luxor::models::*;
 
 #[derive(Props, PartialEq, Clone)]
-pub struct TDProps {
+pub(crate) struct TDProps {
     field_idx: usize,
     row_idx: usize,
     idx: usize,
@@ -11,7 +11,7 @@ pub struct TDProps {
 }
 
 #[component]
-pub fn TableData(props: TDProps) -> Element {
+pub(crate) fn TableData(props: TDProps) -> Element {
     let mut classes = vec![];
 
     let TDProps {

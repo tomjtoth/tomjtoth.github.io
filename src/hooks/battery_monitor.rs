@@ -11,7 +11,7 @@ use crate::{
 
 use super::{use_battery, BatteryState, UseBattery};
 
-pub type SigBatMon = Signal<BatMon>;
+pub(crate) type SigBatMon = Signal<BatMon>;
 
 // TODO: refactor ALL Sig* types accross the app
 // remove them, take UsePersistent as an example
@@ -19,17 +19,17 @@ pub type SigBatMon = Signal<BatMon>;
 // hence syntax getc cleaner `some_sig.read().some_method()`
 // becomes `some_struct.some_method()`, more readable!
 
-pub struct BatMon {
+pub(crate) struct BatMon {
     conf: Signal<BatMonConf>,
     batman: UseBattery,
     service: UseFuture,
 }
 
 #[derive(Serialize, Deserialize, Clone)]
-pub struct BatMonConf {
-    pub min_val: u8,
-    pub max_val: u8,
-    pub allowed: bool,
+pub(crate) struct BatMonConf {
+    pub(crate) min_val: u8,
+    pub(crate) max_val: u8,
+    pub(crate) allowed: bool,
 }
 
 impl Default for BatMonConf {
@@ -47,7 +47,7 @@ impl LocalStorageCompatible for BatMonConf {
 }
 
 impl BatMon {
-    pub fn init() {
+    pub(crate) fn init() {
         let conf = use_signal(|| BatMonConf::load());
         let batman = use_battery();
 
@@ -102,12 +102,12 @@ impl BatMon {
         });
     }
 
-    pub fn loading(&self) -> bool {
+    pub(crate) fn loading(&self) -> bool {
         let bmr = self.batman.read();
         bmr.loading
     }
 
-    pub fn set_allowed(&mut self, allowed: bool) {
+    pub(crate) fn set_allowed(&mut self, allowed: bool) {
         tracing::debug!("set_allowed called with {allowed}");
         {
             let mut w = self.conf.write();
@@ -120,21 +120,21 @@ impl BatMon {
         }
     }
 
-    pub fn get_state(&self) -> Option<BatteryState> {
+    pub(crate) fn get_state(&self) -> Option<BatteryState> {
         self.batman.read().state.clone()
     }
 
-    pub fn read_conf(&self) -> BatMonConf {
+    pub(crate) fn read_conf(&self) -> BatMonConf {
         self.conf.read().clone()
     }
 
-    pub fn set_min(&mut self, val: u8) {
+    pub(crate) fn set_min(&mut self, val: u8) {
         let mut w = self.conf.write();
         w.min_val = val;
         w.save()
     }
 
-    pub fn set_max(&mut self, val: u8) {
+    pub(crate) fn set_max(&mut self, val: u8) {
         let mut w = self.conf.write();
         w.max_val = val;
         w.save()

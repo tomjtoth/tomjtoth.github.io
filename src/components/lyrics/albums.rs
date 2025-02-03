@@ -5,13 +5,13 @@ use dioxus::prelude::*;
 use crate::components::lyrics::{models::*, songs::Songs};
 
 #[derive(Props, Clone, PartialEq)]
-pub struct AlbumsProps {
+pub(crate) struct AlbumsProps {
     artist_idx: usize,
     albums: super::models::Albums,
 }
 
 #[component]
-pub fn Albums(props: AlbumsProps) -> Element {
+pub(crate) fn Albums(props: AlbumsProps) -> Element {
     rsx! {
         ul {
             {

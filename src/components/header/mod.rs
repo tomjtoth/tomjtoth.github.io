@@ -3,14 +3,14 @@ use dioxus::prelude::*;
 use crate::components::sidepanel::*;
 
 #[derive(PartialEq, Clone, Props)]
-pub struct HeaderProps {
+pub(crate) struct HeaderProps {
     lang: Option<String>,
     title: String,
     children: Option<Element>,
 }
 
 #[component]
-pub fn Header(props: HeaderProps) -> Element {
+pub(crate) fn Header(props: HeaderProps) -> Element {
     rsx! {
         document::Title { "{props.title}" }
         div { id: "header", class: "border1-s", lang: props.lang,

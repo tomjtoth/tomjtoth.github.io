@@ -5,7 +5,7 @@ mod spell;
 
 use super::runes::Rune;
 use crate::utils::LocalStorageCompatible;
-pub use audio::init_audio;
+pub(crate) use audio::init_audio;
 use spell::Spell;
 
 type CastSpells = Vec<Spell>;
@@ -14,21 +14,21 @@ impl LocalStorageCompatible for CastSpells {
     const STORAGE_KEY: &'static str = "arx-fatalis-cast-spells";
 }
 
-pub static SPELLS: GsSpells = Signal::global(|| {
+pub(crate) static SPELLS: GsSpells = Signal::global(|| {
     let spells = CastSpells::load();
     let score = spells.iter().map(|x| x.points()).sum();
 
     Spells { spells, score }
 });
 
-pub struct Spells {
+pub(crate) struct Spells {
     spells: CastSpells,
     score: u64,
 }
 
 type GsSpells = GlobalSignal<Spells>;
 
-pub trait TrSpells {
+pub(crate) trait TrSpells {
     fn score(&self) -> u64;
     fn try_cast(&self, seq: Vec<Rune>);
 }

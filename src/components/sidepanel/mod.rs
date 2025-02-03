@@ -5,10 +5,10 @@ mod models;
 
 use crate::routes::Route::*;
 use crate::utils::{get_url, text_to_clipboard};
-pub use models::*;
+pub(crate) use models::*;
 
 #[component]
-pub fn Sidepanel() -> Element {
+pub(crate) fn Sidepanel() -> Element {
     let class = format!(
         "border1-e{}",
         if SIDEPANEL.is_active() { " active" } else { "" }

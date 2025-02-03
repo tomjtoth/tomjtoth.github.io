@@ -5,7 +5,7 @@ use web_sys::{window, Notification, NotificationPermission, UrlSearchParams};
 
 use crate::components::modal::*;
 
-pub trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
+pub(crate) trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
     const STORAGE_KEY: &'static str;
 
     fn save(&self) {
@@ -34,13 +34,13 @@ pub trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
     }
 }
 
-pub fn init_ctx<T: 'static>(closure: impl FnOnce() -> T) -> Signal<T> {
+pub(crate) fn init_ctx<T: 'static>(closure: impl FnOnce() -> T) -> Signal<T> {
     let signal = use_signal(closure);
     use_context_provider(|| signal);
     signal
 }
 
-pub fn get_url() -> String {
+pub(crate) fn get_url() -> String {
     let fallback = "https://ttj.hu".to_string();
 
     if let Some(win) = window() {
@@ -56,13 +56,13 @@ pub fn get_url() -> String {
     }
 }
 
-pub fn text_to_clipboard(s: &str) {
+pub(crate) fn text_to_clipboard(s: &str) {
     if let Some(win) = window() {
         let _promise = win.navigator().clipboard().write_text(s);
     }
 }
 
-pub fn get_search_params() -> Option<UrlSearchParams> {
+pub(crate) fn get_search_params() -> Option<UrlSearchParams> {
     let loc = window().unwrap().location();
 
     if let Ok(xx) = loc.search() {
@@ -85,7 +85,7 @@ async fn fetch(url: String) -> Response {
         .expect("failed to fetch {url}")
 }
 
-pub async fn to_yaml<T: DeserializeOwned>(asset: Asset) -> T {
+pub(crate) async fn to_yaml<T: DeserializeOwned>(asset: Asset) -> T {
     let text = fetch(asset.to_string())
         .await
         .text()
@@ -95,7 +95,7 @@ pub async fn to_yaml<T: DeserializeOwned>(asset: Asset) -> T {
     serde_yaml::from_str::<T>(&text).expect(&format!("parsing the below failed:\n\n{text}"))
 }
 
-pub trait DisplayBytes {
+pub(crate) trait DisplayBytes {
     fn displ_as_dec(&self) -> String;
 }
 
@@ -108,7 +108,7 @@ impl DisplayBytes for Vec<u8> {
     }
 }
 
-pub async fn allowed_to_notify() -> bool {
+pub(crate) async fn allowed_to_notify() -> bool {
     let window = window().unwrap();
     if window.get("Notification").is_none() {
         MODAL
@@ -138,6 +138,6 @@ pub async fn allowed_to_notify() -> bool {
     true
 }
 
-pub fn notify(message: &str) {
+pub(crate) fn notify(message: &str) {
     let _ = Notification::new(message);
 }

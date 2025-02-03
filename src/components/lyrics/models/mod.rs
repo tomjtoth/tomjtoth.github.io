@@ -4,7 +4,7 @@ mod artists;
 mod parser;
 mod songs;
 
-pub use active::*;
-pub use albums::*;
-pub use artists::*;
-pub use songs::*;
+pub(crate) use active::*;
+pub(crate) use albums::*;
+pub(crate) use artists::*;
+pub(crate) use songs::*;

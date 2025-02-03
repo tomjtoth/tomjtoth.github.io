@@ -16,7 +16,7 @@ use controls::Controls;
 use nums_line::PickedNumsLine;
 
 #[component]
-pub fn Luxor() -> Element {
+pub(crate) fn Luxor() -> Element {
     let navigator = use_navigator();
 
     let import_cb = move |arr: Vec<Option<u8>>| {

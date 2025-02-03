@@ -9,9 +9,9 @@ impl LocalStorageCompatible for Inner {
 }
 
 type GsActive = GlobalSignal<Inner>;
-pub static ACTIVE: GsActive = GlobalSignal::new(|| Inner::load());
+pub(crate) static ACTIVE: GsActive = GlobalSignal::new(|| Inner::load());
 
-pub trait TrActive {
+pub(crate) trait TrActive {
     fn is(&self, id: &String) -> bool;
     fn toggle(&self, str: &String);
 }

@@ -4,7 +4,7 @@ use crate::components::{body::Body, header::Header};
 
 /// Home page
 #[component]
-pub fn Home() -> Element {
+pub(crate) fn Home() -> Element {
     rsx! {
       Header { title: "terve" }
 
