@@ -39,16 +39,19 @@ impl Default for Modal {
 }
 
 impl Modal {
+    // /// setter during build of new modal
     // pub(crate) fn lang(&mut self, lang: Language) -> &mut Self {
     //     self.lang = Some(lang);
     //     self
     // }
 
+    /// setter during build of new modal
     pub(crate) fn buttons(&mut self, buttons: Vec<(Button, OptCb)>) -> &mut Self {
         self.buttons = buttons;
         self
     }
 
+    /// finishing step of build
     pub(crate) fn prompt(&mut self, prompt: Element) {
         self.prompt = Some(prompt);
         let owned = mem::take(self);
@@ -71,18 +74,21 @@ impl TrModal for GsModal {
         self.with_mut(|w| *w = Modal::default())
     }
 
+    /// setter during build of new modal
     fn lang(&self, lang: Language) -> Modal {
         let mut m = Modal::default();
         m.lang = Some(lang);
         m
     }
 
+    /// setter during build of new modal
     fn buttons(&self, buttons: Vec<(Button, OptCb)>) -> Modal {
         let mut m = Modal::default();
         m.buttons = buttons;
         m
     }
 
+    // /// finishing step of build
     // fn prompt(&self, prompt: Element) {
     //     self.with_mut(|w| {
     //         let mut m = Modal::default();
