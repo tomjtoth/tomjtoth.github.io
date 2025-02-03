@@ -12,8 +12,8 @@ fn main() {
 #[component]
 fn App() -> Element {
     // tripping initialization on 1st use
-    components::audio::AUDIO.with(|_| {});
-    hooks::BatMon::init();
+    components::audio::AUDIO.read();
+    hooks::BATMON.read();
 
     rsx! {
         Router::<routes::Route> {}

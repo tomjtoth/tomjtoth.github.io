@@ -1,22 +1,15 @@
 use dioxus::prelude::*;
 
-use crate::{
-    hooks::{BatMonConf, SigBatMon},
-    utils::allowed_to_notify,
-};
+use crate::{hooks::*, utils::allowed_to_notify};
 
 #[component]
 pub(crate) fn Controls() -> Element {
-    let mut batmon = use_context::<SigBatMon>();
     let BatMonConf {
         min_val,
         max_val,
         allowed,
-    } = batmon.read().read_conf();
-    let state = {
-        let r = batmon.read();
-        r.get_state()
-    };
+    } = BATMON.read_conf();
+    let state = BATMON.get_state();
     let mut sig_chkbox = use_signal(|| allowed);
     let disabled = !state.is_some();
     let class = if disabled {
@@ -36,9 +29,9 @@ pub(crate) fn Controls() -> Element {
             onchange: move |evt| async move {
                 sig_chkbox.toggle();
                 if evt.checked() && allowed_to_notify().await {
-                    batmon.write().set_allowed(true);
+                    BATMON.set_allowed(true);
                 } else {
-                    batmon.write().set_allowed(false);
+                    BATMON.set_allowed(false);
                     sig_chkbox.set(false);
                 }
             },
@@ -54,7 +47,7 @@ pub(crate) fn Controls() -> Element {
             title: "alaraja",
             onchange: move |evt| {
                 if let Ok(as_u8) = evt.value().parse::<u8>() {
-                    batmon.write().set_min(as_u8);
+                    BATMON.set_min(as_u8);
                 }
             },
         }
@@ -85,72 +78,9 @@ pub(crate) fn Controls() -> Element {
             title: "yläraja",
             onchange: move |evt| {
                 if let Ok(as_u8) = evt.value().parse::<u8>() {
-                    batmon.write().set_max(as_u8);
+                    BATMON.set_max(as_u8);
                 }
             },
         }
     }
 }
-
-// export default function ControlForm({ setModal }: ControlFormProps) {
-//   const dispatch = useAppDispatch();
-//   const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
-//   const { isSupported, loading, charging, level } =
-//     useBattery() as BatteryState;
-//   const lvl100 = Math.round(level * 100);
-
-//   let className;
-//   if (min_val > max_val) className = "invalid";
-
-//   const { reset: resetAllow, ...allow } = useField("checkbox", {
-
-//   });
-
-//   const { reset: _resetMin, ...min } = useField("number", {
-//     id: "bat-mon-min",
-//     className,
-//     initially: min_val,
-//     max: 50,
-//     min: 10,
-//     title: "alaraja",
-//   });
-
-//   const { reset: _resetMax, ...max } = useField("number", {
-//     id: "bat-mon-max",
-//     className,
-//     initially: max_val,
-//     max: 90,
-//     min: 50,
-//     title: "yläraja",
-//   });
-
-//   useEffect(() => {
-//     const id = setTimeout(() => {
-//       dispatch(
-//         setLevels({
-//           min_val: min.value as number,
-//           max_val: max.value as number,
-//         })
-//       );
-//     }, 300);
-
-//     return () => clearTimeout(id);
-//   }, [min.value, max.value]);
-
-//   useEffect(() => {
-//     const dp = () => dispatch(setAllowed(allow.checked));
-
-//     if (allow.checked) {
-//       checkPermission(setModal).then((notiAllowed) => {
-//         if (notiAllowed) dp();
-//         else resetAllow();
-//       });
-//     } else dp();
-//   }, [allow.checked]);
-
-//   return (
-//     isSupported && (
-//
-//     )
-//   );
-// }
