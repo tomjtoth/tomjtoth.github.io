@@ -39,10 +39,10 @@ impl Default for Modal {
 }
 
 impl Modal {
-    pub(crate) fn lang(&mut self, lang: Language) -> &mut Self {
-        self.lang = Some(lang);
-        self
-    }
+    // pub(crate) fn lang(&mut self, lang: Language) -> &mut Self {
+    //     self.lang = Some(lang);
+    //     self
+    // }
 
     pub(crate) fn buttons(&mut self, buttons: Vec<(Button, OptCb)>) -> &mut Self {
         self.buttons = buttons;
@@ -62,7 +62,7 @@ pub(crate) static MODAL: GsModal = GlobalSignal::new(|| Modal::default());
 pub(crate) trait TrModal {
     fn lang(&self, lang: Language) -> Modal;
     fn buttons(&self, buttons: Vec<(Button, OptCb)>) -> Modal;
-    fn prompt(&self, prompt: Element);
+    // fn prompt(&self, prompt: Element);
     fn reset(&self);
 }
 
@@ -83,13 +83,13 @@ impl TrModal for GsModal {
         m
     }
 
-    fn prompt(&self, prompt: Element) {
-        self.with_mut(|w| {
-            let mut m = Modal::default();
-            m.prompt = Some(prompt);
-            *w = m;
-        })
-    }
+    // fn prompt(&self, prompt: Element) {
+    //     self.with_mut(|w| {
+    //         let mut m = Modal::default();
+    //         m.prompt = Some(prompt);
+    //         *w = m;
+    //     })
+    // }
 }
 
 pub(crate) static SOUND: &'static str = "/modal.mp3";
