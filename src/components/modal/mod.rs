@@ -4,8 +4,6 @@ mod button;
 mod models;
 
 use crate::{components::audio::*, routes::Route};
-use button::Btn;
-pub use button::{Button, Language};
 pub use models::*;
 
 #[component]
@@ -50,7 +48,7 @@ pub fn ModalComponent() -> Element {
                                 .iter()
                                 .map(move |(btn, onclick)| {
                                     rsx! {
-                                        Btn {
+                                        button::Button {
                                             key: "{btn.clone() as usize}",
                                             lang,
                                             r#type: btn.clone(),

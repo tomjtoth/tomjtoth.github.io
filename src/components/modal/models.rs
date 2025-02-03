@@ -4,13 +4,23 @@ use dioxus::prelude::*;
 
 use crate::components::audio::{AudioOpt, AudioSrc};
 
-use super::{
-    Button::{self, *},
-    Language::{self, *},
-};
-
 pub(super) type Cb = Callback<MouseEvent>;
 pub(super) type OptCb = Option<Cb>;
+
+#[derive(Debug, Hash, Eq, PartialEq, Clone, Copy)]
+pub(crate) enum Language {
+    Hu,
+    Fi,
+    En,
+}
+
+#[derive(Debug, Hash, Eq, PartialEq, Clone)]
+pub(crate) enum Button {
+    Ok,
+    Cancel,
+    Yes,
+    No,
+}
 
 pub struct Modal {
     pub lang: Option<Language>,
@@ -21,9 +31,9 @@ pub struct Modal {
 impl Default for Modal {
     fn default() -> Self {
         Modal {
-            lang: Some(Fi),
+            lang: Some(Language::Fi),
             prompt: None,
-            buttons: vec![(Ok, None)],
+            buttons: vec![(Button::Ok, None)],
         }
     }
 }
