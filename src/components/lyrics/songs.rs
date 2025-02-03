@@ -9,28 +9,33 @@ use crate::components::lyrics::models::*;
 pub(crate) struct AlbumsProps {
     artist_idx: usize,
     album_idx: usize,
-    songs: super::models::Songs,
 }
 
 #[component]
 pub(crate) fn Songs(props: AlbumsProps) -> Element {
+    let AlbumsProps {
+        artist_idx,
+        album_idx,
+    } = props;
+    let albums = &ARTISTS.get(artist_idx).unwrap().albums;
+    let songs = &albums.get(album_idx).unwrap().songs;
+
     rsx! {
         ul {
             {
-                props
-                    .songs
+                songs
                     .iter()
                     .enumerate()
                     .map(|(song_idx, song)| {
                         let id = Rc::new(
-                            format!("{}-{}-{}", props.artist_idx, props.album_idx, song_idx),
+                            format!("{}-{}-{}", artist_idx, album_idx, song_idx),
                         );
                         let key = id.clone();
                         let mut li_class = vec!["padded bordered"];
-                        if props.songs.len() == 1 || ACTIVE.is(&id) {
+                        if songs.len() == 1 || ACTIVE.is(&id) {
                             li_class.push("active");
                         }
-                        let has_siblings = props.songs.len() > 1;
+                        let has_siblings = songs.len() > 1;
                         let children = if let Some(lyrics) = song.lyrics.clone() {
                             if lyrics.starts_with("https://") {
                                 li_class.push("clicking-not-allowed");
@@ -57,7 +62,7 @@ pub(crate) fn Songs(props: AlbumsProps) -> Element {
                                 encode(
                                     &format!(
                                         "{} - Topic {}",
-                                        ARTISTS.get(props.artist_idx).unwrap().name,
+                                        ARTISTS.get(artist_idx).unwrap().name,
                                         song.title,
                                     ),
                                 ),
@@ -76,7 +81,6 @@ pub(crate) fn Songs(props: AlbumsProps) -> Element {
                                         ACTIVE.toggle(&id);
                                     }
                                 },
-
                                 "{song.title}"
                                 {children}
                             }

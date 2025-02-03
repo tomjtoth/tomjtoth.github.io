@@ -1,7 +1,5 @@
-use std::rc::Rc;
-
 use super::songs::Songs;
-#[derive(PartialEq)]
+
 pub(crate) struct Album {
     pub(crate) title: String,
     pub(crate) url: Option<String>,
@@ -9,4 +7,4 @@ pub(crate) struct Album {
     pub(crate) songs: Songs,
 }
 
-pub(crate) type Albums = Rc<Vec<Album>>;
+pub(crate) type Albums = Vec<Album>;

@@ -35,7 +35,7 @@ pub(crate) fn Artists() -> Element {
                                 li { key, class, onclick: move |_| ACTIVE.toggle(&id),
                                     "{artist.name}"
                                     super::link::Link { url: artist.url.clone() }
-                                    Albums { artist_idx, albums: artist.albums.clone() }
+                                    Albums { artist_idx }
                                 }
                             }
                         })
