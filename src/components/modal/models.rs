@@ -22,10 +22,10 @@ pub(crate) enum Button {
     No,
 }
 
-pub struct Modal {
-    pub lang: Option<Language>,
-    pub prompt: Option<Element>,
-    pub buttons: Vec<(Button, OptCb)>,
+pub(crate) struct Modal {
+    pub(crate) lang: Option<Language>,
+    pub(crate) prompt: Option<Element>,
+    pub(crate) buttons: Vec<(Button, OptCb)>,
 }
 
 impl Default for Modal {
@@ -39,17 +39,17 @@ impl Default for Modal {
 }
 
 impl Modal {
-    pub fn lang(&mut self, lang: Language) -> &mut Self {
+    pub(crate) fn lang(&mut self, lang: Language) -> &mut Self {
         self.lang = Some(lang);
         self
     }
 
-    pub fn buttons(&mut self, buttons: Vec<(Button, OptCb)>) -> &mut Self {
+    pub(crate) fn buttons(&mut self, buttons: Vec<(Button, OptCb)>) -> &mut Self {
         self.buttons = buttons;
         self
     }
 
-    pub fn prompt(&mut self, prompt: Element) {
+    pub(crate) fn prompt(&mut self, prompt: Element) {
         self.prompt = Some(prompt);
         let owned = mem::take(self);
         MODAL.with_mut(|w| mem::replace(w, owned));
@@ -57,9 +57,9 @@ impl Modal {
 }
 
 type GsModal = GlobalSignal<Modal>;
-pub static MODAL: GsModal = GlobalSignal::new(|| Modal::default());
+pub(crate) static MODAL: GsModal = GlobalSignal::new(|| Modal::default());
 
-pub trait TrModal {
+pub(crate) trait TrModal {
     fn lang(&self, lang: Language) -> Modal;
     fn buttons(&self, buttons: Vec<(Button, OptCb)>) -> Modal;
     fn prompt(&self, prompt: Element);
@@ -88,8 +88,8 @@ impl TrModal for GsModal {
     }
 }
 
-pub static SOUND: &'static str = "/modal.mp3";
+pub(crate) static SOUND: &'static str = "/modal.mp3";
 
-pub fn init_audio() -> Vec<AudioSrc> {
+pub(crate) fn init_audio() -> Vec<AudioSrc> {
     vec![(SOUND.to_string(), vec![AudioOpt::Volume(0.2)])]
 }

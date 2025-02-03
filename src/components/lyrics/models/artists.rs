@@ -7,18 +7,18 @@ use super::{albums::Albums, parser, Album, Song};
 
 // TODO: revise all derive marcros
 #[derive(Clone, PartialEq)]
-pub struct Artist {
-    pub name: String,
-    pub url: Option<String>,
-    pub albums: Albums,
+pub(crate) struct Artist {
+    pub(crate) name: String,
+    pub(crate) url: Option<String>,
+    pub(crate) albums: Albums,
 }
 
 type Artists = Vec<Artist>;
 type GsArtists = GlobalSignal<Artists>;
 
-pub static ARTISTS: GsArtists = GlobalSignal::new(|| vec![]);
+pub(crate) static ARTISTS: GsArtists = GlobalSignal::new(|| vec![]);
 
-pub trait TrArtists {
+pub(crate) trait TrArtists {
     async fn init(&self);
 }
 

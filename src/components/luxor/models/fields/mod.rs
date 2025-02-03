@@ -5,7 +5,7 @@ mod field;
 
 use crate::utils::LocalStorageCompatible;
 
-pub use field::*;
+pub(crate) use field::*;
 
 type Fields = Vec<Field>;
 
@@ -13,9 +13,9 @@ impl LocalStorageCompatible for Fields {
     const STORAGE_KEY: &'static str = "luxor-fields";
 }
 
-pub type GsFields = GlobalSignal<Fields>;
+pub(crate) type GsFields = GlobalSignal<Fields>;
 
-pub static FIELDS: GsFields = Signal::global(|| {
+pub(crate) static FIELDS: GsFields = Signal::global(|| {
     let mut fields = Fields::load();
     if fields.is_empty() {
         fields.push(Field::default());
@@ -23,7 +23,7 @@ pub static FIELDS: GsFields = Signal::global(|| {
     fields
 });
 
-pub trait TrFields {
+pub(crate) trait TrFields {
     fn idx_of(&self, id: u8) -> usize;
     fn update(&self, field_idx: usize, row_idx: usize, idx: usize, num: u8);
     fn add_after(&self, id: u8);

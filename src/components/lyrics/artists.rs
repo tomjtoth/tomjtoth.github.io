@@ -8,7 +8,7 @@ use crate::components::{
 };
 
 #[component]
-pub fn Artists() -> Element {
+pub(crate) fn Artists() -> Element {
     use_future(|| async {
         if ARTISTS.is_empty() {
             ARTISTS.init().await;

@@ -1,13 +1,13 @@
 use dioxus::prelude::*;
 
 #[derive(Props, PartialEq, Clone)]
-pub struct StepsProps {
-    pub steps: Vec<String>,
-    pub lang: Option<String>,
+pub(crate) struct StepsProps {
+    pub(crate) steps: Vec<String>,
+    pub(crate) lang: Option<String>,
 }
 
 #[component]
-pub fn Steps(props: StepsProps) -> Element {
+pub(crate) fn Steps(props: StepsProps) -> Element {
     rsx! {
         ol {
             class: "slr-steps",

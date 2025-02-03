@@ -4,10 +4,10 @@ mod button;
 mod models;
 
 use crate::{components::audio::*, routes::Route};
-pub use models::*;
+pub(crate) use models::*;
 
 #[component]
-pub fn ModalComponent() -> Element {
+pub(crate) fn ModalComponent() -> Element {
     let reset_state = use_callback(move |_| MODAL.reset());
     let r = MODAL.read();
     let prompt = &r.prompt;

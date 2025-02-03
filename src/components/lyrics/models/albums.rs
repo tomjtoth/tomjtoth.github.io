@@ -2,11 +2,11 @@ use std::rc::Rc;
 
 use super::songs::Songs;
 #[derive(PartialEq)]
-pub struct Album {
-    pub title: String,
-    pub url: Option<String>,
-    pub year: Option<u16>,
-    pub songs: Songs,
+pub(crate) struct Album {
+    pub(crate) title: String,
+    pub(crate) url: Option<String>,
+    pub(crate) year: Option<u16>,
+    pub(crate) songs: Songs,
 }
 
-pub type Albums = Rc<Vec<Album>>;
+pub(crate) type Albums = Rc<Vec<Album>>;

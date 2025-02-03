@@ -4,7 +4,7 @@ use crate::components::audio::{AudioOpt::*, AudioSrc};
 
 use super::Spell::{self, *};
 
-pub fn init_audio() -> Vec<AudioSrc> {
+pub(crate) fn init_audio() -> Vec<AudioSrc> {
     Spell::iter()
         .map(|spell| match spell {
             ActivatePortal

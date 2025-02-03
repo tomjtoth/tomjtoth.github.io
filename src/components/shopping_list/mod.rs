@@ -14,7 +14,7 @@ use models::*;
 use recipes::Recipes;
 
 #[component]
-pub fn ShoppingList() -> Element {
+pub(crate) fn ShoppingList() -> Element {
     let uninitialized = RECIPES.len() == 0;
 
     use_future(move || async move {

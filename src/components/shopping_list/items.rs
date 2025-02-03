@@ -25,7 +25,7 @@ fn find_idx(name: &String) -> u16 {
 // }
 
 #[component]
-pub fn Items() -> Element {
+pub(crate) fn Items() -> Element {
     let mut ul_items = ITEMS
         .iter()
         .map(|i| {

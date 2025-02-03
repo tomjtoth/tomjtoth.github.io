@@ -6,14 +6,14 @@ use urlencoding::encode;
 use crate::components::lyrics::models::*;
 
 #[derive(Props, Clone, PartialEq)]
-pub struct AlbumsProps {
+pub(crate) struct AlbumsProps {
     artist_idx: usize,
     album_idx: usize,
     songs: super::models::Songs,
 }
 
 #[component]
-pub fn Songs(props: AlbumsProps) -> Element {
+pub(crate) fn Songs(props: AlbumsProps) -> Element {
     rsx! {
         ul {
             {

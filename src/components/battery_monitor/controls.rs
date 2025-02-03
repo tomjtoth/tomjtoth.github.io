@@ -6,7 +6,7 @@ use crate::{
 };
 
 #[component]
-pub fn Controls() -> Element {
+pub(crate) fn Controls() -> Element {
     let mut batmon = use_context::<SigBatMon>();
     let BatMonConf {
         min_val,

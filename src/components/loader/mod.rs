@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 #[component]
-pub fn Loader() -> Element {
+pub(crate) fn Loader() -> Element {
     rsx! {
         div { id: "modal-blur",
             div { id: "loader" }

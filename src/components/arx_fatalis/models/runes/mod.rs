@@ -7,25 +7,25 @@ use strum::IntoEnumIterator;
 mod audio;
 mod rune;
 
-pub use audio::init_audio;
-pub use rune::Rune;
+pub(crate) use audio::init_audio;
+pub(crate) use rune::Rune;
 
 use super::*;
 
 #[derive(Clone)]
 // TODO: convert to GsRunes
-pub struct CxRunes {
+pub(crate) struct CxRunes {
     inner: Signal<Inner>,
     service: UseFuture,
 }
 
 impl CxRunes {
-    pub fn iter() -> RuneIter {
+    pub(crate) fn iter() -> RuneIter {
         Rune::iter()
     }
 
     /// this is not reading from localStorage
-    pub fn init() {
+    pub(crate) fn init() {
         let mut inner = use_signal(|| Inner::default());
 
         let service = use_future(move || async move {
@@ -62,7 +62,7 @@ impl CxRunes {
         use_context_provider(|| runes);
     }
 
-    pub fn push(&mut self, rune: Rune) {
+    pub(crate) fn push(&mut self, rune: Rune) {
         let mut w = self.inner.write();
         w.queue.push(rune);
 
@@ -73,8 +73,8 @@ impl CxRunes {
 }
 
 struct Inner {
-    pub queue: Vec<Rune>,
-    pub index: usize,
+    pub(crate) queue: Vec<Rune>,
+    pub(crate) index: usize,
 }
 
 impl Default for Inner {

@@ -2,8 +2,8 @@ mod active;
 mod items;
 mod recipes;
 
-pub use active::*;
-pub use items::*;
-pub use recipes::*;
+pub(crate) use active::*;
+pub(crate) use items::*;
+pub(crate) use recipes::*;
 
-pub static RECIPES_ID: &'static str = "slr";
+pub(crate) static RECIPES_ID: &'static str = "slr";

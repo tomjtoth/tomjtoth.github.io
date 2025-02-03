@@ -8,11 +8,11 @@ impl LocalStorageCompatible for Numbers {
     const STORAGE_KEY: &'static str = "luxor-numbers";
 }
 
-pub type GsNumbers = GlobalSignal<Numbers>;
+pub(crate) type GsNumbers = GlobalSignal<Numbers>;
 
-pub static NUMBERS: GsNumbers = Signal::global(|| Numbers::load());
+pub(crate) static NUMBERS: GsNumbers = Signal::global(|| Numbers::load());
 
-pub trait TrNumbers {
+pub(crate) trait TrNumbers {
     fn get_rg(&self, lower: usize, upper: usize) -> Vec<u8>;
     fn rm_last(&self);
     fn add(&self, num: u8);

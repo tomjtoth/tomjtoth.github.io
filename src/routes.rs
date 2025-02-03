@@ -7,7 +7,7 @@ use crate::components::{
 };
 
 #[derive(Debug, Clone, Routable, PartialEq)]
-pub enum Route {
+pub(crate) enum Route {
     #[layout(ModalComponent)]
     #[layout(Sidepanel)]
     #[route("/")]

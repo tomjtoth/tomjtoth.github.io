@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use crate::components::arx_fatalis::models::CxRunes;
 
 #[component]
-pub fn Runes() -> Element {
+pub(crate) fn Runes() -> Element {
     let runes = use_context::<CxRunes>();
 
     rsx! {

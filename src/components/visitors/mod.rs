@@ -10,7 +10,7 @@ mod models;
 use crate::components::header::Header;
 
 #[component]
-pub fn Visitors() -> Element {
+pub(crate) fn Visitors() -> Element {
     let mut now = Utc::now();
     let next = VISITORS
         .iter()

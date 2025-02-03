@@ -3,12 +3,12 @@ use dioxus::prelude::*;
 use crate::components::luxor::{fields::table::tr::TableRow, models::*};
 
 #[derive(Props, PartialEq, Clone)]
-pub struct TBodyProps {
+pub(crate) struct TBodyProps {
     idx: usize,
 }
 
 #[component]
-pub fn TableBody(props: TBodyProps) -> Element {
+pub(crate) fn TableBody(props: TBodyProps) -> Element {
     let field = &FIELDS.get(props.idx).unwrap();
 
     rsx! {

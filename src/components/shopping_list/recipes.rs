@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use crate::components::shopping_list::{models::*, steps::Steps};
 
 #[component]
-pub fn Recipes() -> Element {
+pub(crate) fn Recipes() -> Element {
     let class = if ACTIVE.is(&RECIPES_ID.to_string()) {
         Some("active")
     } else {

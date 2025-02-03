@@ -34,7 +34,7 @@ fn utc_from(str: &'static str) -> OptUtc {
     }
 }
 
-pub static VISITORS: Lazy<Vec<Visitor>> = Lazy::new(|| {
+pub(crate) static VISITORS: Lazy<Vec<Visitor>> = Lazy::new(|| {
     let conf = [
         ("öcséém", "2022-06-01 12:00", ""),
         ("Bálint + dr. Nő", "2023-09-01 06:30", ""),

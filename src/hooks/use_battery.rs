@@ -5,20 +5,20 @@ use wasm_bindgen_futures::JsFuture;
 use web_sys::window;
 
 #[derive(Clone)]
-pub struct BatteryState {
-    pub charging: bool,
-    pub level: u8,
-    pub battery_present: bool,
+pub(crate) struct BatteryState {
+    pub(crate) charging: bool,
+    pub(crate) level: u8,
+    pub(crate) battery_present: bool,
 }
 
-pub struct BatMan {
-    pub loading: bool,
-    pub state: Option<BatteryState>,
+pub(crate) struct BatMan {
+    pub(crate) loading: bool,
+    pub(crate) state: Option<BatteryState>,
 }
 
-pub type UseBattery = Signal<BatMan>;
+pub(crate) type UseBattery = Signal<BatMan>;
 
-pub fn use_battery() -> UseBattery {
+pub(crate) fn use_battery() -> UseBattery {
     let mut batman = use_signal(|| BatMan {
         loading: true,
         state: None,

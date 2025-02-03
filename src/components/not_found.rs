@@ -6,13 +6,13 @@ use gloo_timers::future::sleep;
 use crate::routes::Route::Home;
 
 #[derive(Props, Clone, PartialEq)]
-pub struct Props {
+pub(crate) struct Props {
     path: Vec<String>,
 }
 
 /// Home page
 #[component]
-pub fn NotFound(props: Props) -> Element {
+pub(crate) fn NotFound(props: Props) -> Element {
     let navigator = use_navigator();
     let mut counter = use_signal(|| 10u8);
 

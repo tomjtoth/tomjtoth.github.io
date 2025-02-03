@@ -11,7 +11,7 @@ use Spell::*;
 
 #[derive(Debug, EnumIter, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
-pub enum Spell {
+pub(crate) enum Spell {
     MegaCheat,
     Fizzle,
     ActivatePortal,
@@ -72,7 +72,7 @@ impl fmt::Display for Spell {
 }
 
 impl Spell {
-    pub fn by_seq(seq: Vec<Rune>) -> Option<(Spell, u8)> {
+    pub(crate) fn by_seq(seq: Vec<Rune>) -> Option<(Spell, u8)> {
         for spell in Spell::iter() {
             let (page, runes) = spell.details();
             if seq == runes {
@@ -82,7 +82,7 @@ impl Spell {
         return None;
     }
 
-    pub fn points(&self) -> u64 {
+    pub(crate) fn points(&self) -> u64 {
         let (page, seq) = self.details();
         (page * (seq.len() as u8)) as u64
     }
@@ -144,15 +144,15 @@ impl Spell {
         }
     }
 
-    pub fn play(&self) {
+    pub(crate) fn play(&self) {
         AUDIO.play(&self.as_src());
     }
 
-    pub fn as_src(&self) -> String {
+    pub(crate) fn as_src(&self) -> String {
         format!("/arx/spells/{}.mp3", self.to_kebab_case(None))
     }
 
-    pub fn name(&self) -> String {
+    pub(crate) fn name(&self) -> String {
         self.to_kebab_case(Some(' '))
     }
 

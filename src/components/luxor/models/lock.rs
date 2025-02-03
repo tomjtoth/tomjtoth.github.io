@@ -1,8 +1,8 @@
 use dioxus::prelude::*;
 
-pub struct Lock(bool);
+pub(crate) struct Lock(bool);
 type GsLock = GlobalSignal<Lock>;
-pub static LOCK: GsLock = GlobalSignal::new(|| Lock(true));
+pub(crate) static LOCK: GsLock = GlobalSignal::new(|| Lock(true));
 
 /// is this actually necessary? wasn't the below
 /// (as in before this commit) fool-proof?
@@ -11,7 +11,7 @@ pub static LOCK: GsLock = GlobalSignal::new(|| Lock(true));
 /// use_context_provider(|| sig_lock);
 /// ```
 ///
-pub trait TrLock {
+pub(crate) trait TrLock {
     fn status(&self) -> bool;
     fn toggle(&self);
 }

@@ -1,8 +1,8 @@
 #[derive(Clone)]
-pub struct Bugstate {
-    pub class: Option<&'static str>,
-    pub left: String,
-    pub blurred: bool,
+pub(crate) struct Bugstate {
+    pub(crate) class: Option<&'static str>,
+    pub(crate) left: String,
+    pub(crate) blurred: bool,
 }
 
 impl Default for Bugstate {

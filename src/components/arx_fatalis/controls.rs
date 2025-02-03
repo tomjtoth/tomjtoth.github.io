@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use crate::components::arx_fatalis::models::*;
 
 #[component]
-pub fn Controls() -> Element {
+pub(crate) fn Controls() -> Element {
     let score = SPELLS.score();
 
     rsx! {

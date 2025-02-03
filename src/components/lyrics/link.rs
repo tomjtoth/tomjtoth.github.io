@@ -1,12 +1,12 @@
 use dioxus::prelude::*;
 
 #[derive(Props, Clone, PartialEq)]
-pub struct LinkProps {
+pub(crate) struct LinkProps {
     url: Option<String>,
 }
 
 #[component]
-pub fn Link(props: LinkProps) -> Element {
+pub(crate) fn Link(props: LinkProps) -> Element {
     rsx! {
         if let Some(url) = props.url {
             a {

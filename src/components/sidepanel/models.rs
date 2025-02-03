@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use crate::utils::LocalStorageCompatible;
 
 #[derive(Serialize, Deserialize)]
-pub struct Sidepanel {
+pub(crate) struct Sidepanel {
     active: bool,
 }
 
@@ -20,9 +20,9 @@ impl LocalStorageCompatible for Sidepanel {
 
 type GsSidepanel = GlobalSignal<Sidepanel>;
 
-pub static SIDEPANEL: GsSidepanel = GlobalSignal::new(|| Sidepanel::load());
+pub(crate) static SIDEPANEL: GsSidepanel = GlobalSignal::new(|| Sidepanel::load());
 
-pub trait TrSidepanel {
+pub(crate) trait TrSidepanel {
     fn is_active(&self) -> bool;
     fn show(&self);
     fn hide(&self);
