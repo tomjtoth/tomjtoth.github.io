@@ -154,9 +154,9 @@ impl Spell {
         format!("/arx/spells/{}.mp3", self.to_kebab_case(None))
     }
 
-    pub(crate) fn name(&self) -> String {
-        self.to_kebab_case(Some(' '))
-    }
+    // pub(crate) fn name(&self) -> String {
+    //     self.to_kebab_case(Some(' '))
+    // }
 
     fn to_kebab_case(&self, delim: Option<char>) -> String {
         let name = self.to_string();
