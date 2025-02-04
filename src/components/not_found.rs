@@ -19,15 +19,9 @@ pub(crate) fn NotFound(props: Props) -> Element {
     use_future(move || async move {
         let sec = Duration::from_secs(1);
 
-        while {
-            let r = counter();
-            r > 0
-        } {
+        while counter() > 0 {
             sleep(sec).await;
-            {
-                let mut w = counter.write();
-                *w -= 1
-            }
+            *counter.write() -= 1;
         }
 
         navigator.replace(Home)
