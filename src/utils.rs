@@ -1,7 +1,7 @@
 use dioxus::{logger::tracing, prelude::*};
 use gloo_net::http::{Request, Response};
 use serde::{de::DeserializeOwned, Serialize};
-use web_sys::{window, Notification, NotificationPermission, UrlSearchParams};
+use web_sys::{window, Notification, NotificationOptions, NotificationPermission, UrlSearchParams};
 
 use crate::components::modal::*;
 
@@ -146,5 +146,8 @@ pub(crate) async fn allowed_to_notify() -> bool {
 }
 
 pub(crate) fn notify(message: &str) {
-    let _ = Notification::new(message);
+    let opts = NotificationOptions::new();
+    opts.set_icon("/assets/icon.png");
+    opts.set_lang("fi");
+    let _ = Notification::new_with_options(message, &opts);
 }
