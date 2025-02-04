@@ -2,7 +2,7 @@
   padding: 8px;
 }
 
-#bat-mon-min,
-#bat-mon-max {
+#bat-mon-lower,
+#bat-mon-upper {
   width: 30px;
 }
