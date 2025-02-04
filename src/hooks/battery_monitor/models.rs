@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{LSCompatStruct, LSCompatType};
 
 #[derive(Clone, Debug)]
 pub(crate) struct BatteryState {
@@ -27,7 +27,8 @@ impl Default for BatMonConf {
     }
 }
 
-impl LocalStorageCompatible for BatMonConf {
+impl LSCompatType for BatMonConf {}
+impl LSCompatStruct for BatMonConf {
     const STORAGE_KEY: &'static str = "battery-monitor";
 }
 

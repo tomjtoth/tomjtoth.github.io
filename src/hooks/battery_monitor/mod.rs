@@ -2,7 +2,7 @@ use dioxus::{logger::tracing, prelude::*};
 
 use crate::{
     components::battery_monitor::noti_txt,
-    utils::{allowed_to_notify, notify, LocalStorageCompatible},
+    utils::{allowed_to_notify, notify, LSCompatStruct},
 };
 
 mod battery_manager;

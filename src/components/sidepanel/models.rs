@@ -1,39 +1,19 @@
 use dioxus::prelude::*;
-use serde::{Deserialize, Serialize};
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::LSCompatType;
 
-#[derive(Serialize, Deserialize)]
-pub(crate) struct Sidepanel {
-    active: bool,
-}
+static KEY: &'static str = "sidepanel";
+type GsSidepanel = GlobalSignal<bool>;
 
-impl Default for Sidepanel {
-    fn default() -> Self {
-        Self { active: false }
-    }
-}
-
-impl LocalStorageCompatible for Sidepanel {
-    const STORAGE_KEY: &'static str = "sidepanel";
-}
-
-type GsSidepanel = GlobalSignal<Sidepanel>;
-
-pub(crate) static SIDEPANEL: GsSidepanel = GlobalSignal::new(|| Sidepanel::load());
+pub(crate) static SIDEPANEL: GsSidepanel = GlobalSignal::new(|| bool::load_t(KEY));
 
 pub(crate) trait TrSidepanel {
-    fn is_active(&self) -> bool;
     fn show(&self);
     fn hide(&self);
     fn set_to(&self, state: bool);
 }
 
 impl TrSidepanel for GsSidepanel {
-    fn is_active(&self) -> bool {
-        self.read().active
-    }
-
     fn show(&self) {
         self.set_to(true);
     }
@@ -44,8 +24,8 @@ impl TrSidepanel for GsSidepanel {
 
     fn set_to(&self, state: bool) {
         self.with_mut(|w| {
-            w.active = state;
-            w.save();
-        });
+            *w = state;
+            w.save_t(KEY);
+        })
     }
 }

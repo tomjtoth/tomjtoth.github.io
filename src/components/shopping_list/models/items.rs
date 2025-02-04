@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use serde::{Deserialize, Serialize};
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{LSCompatStruct, LSCompatType};
 
 #[derive(Serialize, Deserialize, Clone)]
 pub(crate) struct Item {
@@ -10,7 +10,8 @@ pub(crate) struct Item {
 }
 
 type Inner = Vec<Item>;
-impl LocalStorageCompatible for Inner {
+impl LSCompatType for Inner {}
+impl LSCompatStruct for Inner {
     const STORAGE_KEY: &'static str = "shopping-list-items";
 }
 type GsItems = GlobalSignal<Inner>;

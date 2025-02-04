@@ -1,10 +1,11 @@
 use dioxus::prelude::*;
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{LSCompatStruct, LSCompatType};
 
 type Numbers = Vec<u8>;
 
-impl LocalStorageCompatible for Numbers {
+impl LSCompatType for Numbers {}
+impl LSCompatStruct for Numbers {
     const STORAGE_KEY: &'static str = "luxor-numbers";
 }
 

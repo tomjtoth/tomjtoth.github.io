@@ -3,13 +3,14 @@ use dioxus::prelude::*;
 
 mod field;
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{LSCompatStruct, LSCompatType};
 
 pub(crate) use field::*;
 
 type Fields = Vec<Field>;
 
-impl LocalStorageCompatible for Fields {
+impl LSCompatType for Fields {}
+impl LSCompatStruct for Fields {
     const STORAGE_KEY: &'static str = "luxor-fields";
 }
 
