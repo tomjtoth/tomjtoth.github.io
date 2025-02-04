@@ -1,27 +1,3 @@
 use dioxus::prelude::*;
 
-pub(crate) struct Lock(bool);
-type GsLock = GlobalSignal<Lock>;
-pub(crate) static LOCK: GsLock = GlobalSignal::new(|| Lock(true));
-
-/// is this actually necessary? wasn't the below
-/// (as in before this commit) fool-proof?
-/// ```rust
-/// let sig_lock = use_signal(|| true);
-/// use_context_provider(|| sig_lock);
-/// ```
-///
-pub(crate) trait TrLock {
-    fn status(&self) -> bool;
-    fn toggle(&self);
-}
-
-impl TrLock for GsLock {
-    fn status(&self) -> bool {
-        self.with(|r| r.0)
-    }
-
-    fn toggle(&self) {
-        self.with_mut(|w| w.0 = !w.0);
-    }
-}
+pub(crate) static LOCKED: GlobalSignal<bool> = GlobalSignal::with_name(|| true, "luxor-lock");
