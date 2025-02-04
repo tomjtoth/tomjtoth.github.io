@@ -12,7 +12,7 @@ pub(crate) fn Fields() -> Element {
     let fields_len = FIELDS.len() as u8;
     let deletable = FIELDS.len() > 1;
 
-    let li_class = format!("luxor{}", if LOCK.status() { "" } else { " bordered" });
+    let li_class = format!("luxor{}", if LOCKED() { "" } else { " bordered" });
 
     let add_cb_outer = {
         move |id| {
@@ -46,7 +46,7 @@ pub(crate) fn Fields() -> Element {
                         });
                         rsx! {
                             li { key: "{field.id}", class: li_class.clone(),
-                                if !LOCK.status() {
+                                if !LOCKED() {
                                     if let Some(text) = imported(&field) {
                                         span { class: "padded", "{text}" }
                                     }

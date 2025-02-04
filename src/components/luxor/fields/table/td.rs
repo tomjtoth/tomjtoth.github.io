@@ -21,7 +21,7 @@ pub(crate) fn TableData(props: TDProps) -> Element {
         num,
     } = props;
 
-    if LOCK.status() {
+    if LOCKED() {
         classes.push("clickable");
 
         if row_idx == 1 && (1 <= idx && idx <= 3) {
@@ -47,12 +47,12 @@ pub(crate) fn TableData(props: TDProps) -> Element {
             class: classes.join(" "),
             onclick: move |evt| {
                 evt.stop_propagation();
-                if LOCK.status() && !NUMBERS.has(num) {
+                if LOCKED() && !NUMBERS.has(num) {
                     NUMBERS.add(num);
                 }
             },
 
-            if LOCK.status() {
+            if LOCKED() {
                 if num == 0 {
                     "🪲"
                 } else {
