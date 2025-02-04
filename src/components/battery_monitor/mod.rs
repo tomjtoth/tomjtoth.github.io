@@ -1,10 +1,11 @@
 use controls::Controls;
-use dioxus::prelude::*;
+use dioxus::{logger::tracing, prelude::*};
+use wasm_bindgen_futures::spawn_local;
 
 mod controls;
 
 use crate::{
-    components::{body::Body, header::Header, loader::Loader},
+    components::{body::Body, header::Header, loader::*},
     hooks::*,
 };
 
@@ -26,9 +27,22 @@ pub(crate) fn noti_txt(charging: bool, lvl100: u8) -> String {
 pub(crate) fn BatteryMonitor() -> Element {
     let BatMonConf {
         allowed,
-        min_val,
-        max_val,
-    } = BATMON.read_conf();
+        lower,
+        upper,
+    } = BATMON.conf();
+
+    if !BATMON.loaded() {
+        tracing::debug!("batmon loading -> LOADER.show()");
+        LOADER.show()
+    } else {
+        if LOADER() {
+            spawn_local(async {
+                tracing::debug!("batmon LOADED -> LOADER.hide()");
+                LOADER.hide().await;
+                tracing::debug!("LOADER.hide() *WAS* awaited");
+            });
+        }
+    }
 
     rsx! {
         Header { title: "akunvalvonta", Controls {} }
@@ -43,39 +57,35 @@ pub(crate) fn BatteryMonitor() -> Element {
                 " kun akun taso on"
             }
             ul {
-                li { "joko yli {max_val}% {PLUGGED_IN_STR}" }
-                li { "tai alle {min_val}% {UNPLUGGED_STR}" }
+                li { "joko yli {upper}% {PLUGGED_IN_STR}" }
+                li { "tai alle {lower}% {UNPLUGGED_STR}" }
             }
-            if BATMON.loading() {
-                Loader {}
+            if let Some(BatteryState { charging, level, .. }) = BATMON.state() {
+                p {
+                    if allowed {
+                        "Kerran minuutissa katsotaan mikä akun "
+                        "tilanne on ja hälytetään tarvittaessa."
+                    } else {
+                        "Jotta hälytykset tulisi, siun pitää sallia "
+                        "työkalun pyörimistä taustalla."
+                    }
+                    " Sillä, et sivuston mikä näkymä on aktiivinen, "
+                    "ei oo väliä, jos vaan pidät tämän välilehden auki."
+                }
+                p {
+                    strong { "{noti_txt(charging, level)}" }
+                }
             } else {
-                if let Some(BatteryState { charging, level, .. }) = BATMON.get_state() {
-                    p {
-                        if allowed {
-                            "Kerran minuutissa katsotaan mikä akun "
-                            "tilanne on ja hälytetään tarvittaessa."
-                        } else {
-                            "Jotta hälytykset tulisi, siun pitää sallia "
-                            "työkalun pyörimistä taustalla."
-                        }
-                        " Sillä, et sivuston mikä näkymä on aktiivinen, "
-                        "ei oo väliä, jos vaan pidät tämän välilehden auki."
+                p {
+                    "Valitettavasti tämä selain "
+                    strong { "ei tue tätä toimintaa" }
+                    ". "
+                    a {
+                        href: "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery#browser_compatibility",
+                        target: "_blank",
+                        "Tästä taulukosta"
                     }
-                    p {
-                        strong { "{noti_txt(charging, level)}" }
-                    }
-                } else {
-                    p {
-                        "Valitettavasti tämä selain "
-                        strong { "ei tue tätä toimintaa" }
-                        ". "
-                        a {
-                            href: "https://developer.mozilla.org/en-US/docs/Web/API/Navigator/getBattery#browser_compatibility",
-                            target: "_blank",
-                            "Tästä taulukosta"
-                        }
-                        " näkyy, mitkä selaimet tuetaan nykyään."
-                    }
+                    " näkyy, mitkä selaimet tuetaan nykyään."
                 }
             }
         }

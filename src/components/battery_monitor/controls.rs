@@ -5,11 +5,11 @@ use crate::{hooks::*, utils::allowed_to_notify};
 #[component]
 pub(crate) fn Controls() -> Element {
     let BatMonConf {
-        min_val,
-        max_val,
+        lower,
+        upper,
         allowed,
-    } = BATMON.read_conf();
-    let state = BATMON.get_state();
+    } = BATMON.conf();
+    let state = BATMON.state();
     let mut sig_chkbox = use_signal(|| allowed);
     let disabled = !state.is_some();
     let class = if disabled {
@@ -29,17 +29,17 @@ pub(crate) fn Controls() -> Element {
             onchange: move |evt| async move {
                 sig_chkbox.toggle();
                 if evt.checked() && allowed_to_notify().await {
-                    BATMON.set_allowed(true);
+                    BATMON.allow(true);
                 } else {
-                    BATMON.set_allowed(false);
+                    BATMON.allow(false);
                     sig_chkbox.set(false);
                 }
             },
         }
         input {
-            id: "bat-mon-min",
+            id: "bat-mon-lower",
             r#type: "number",
-            value: min_val,
+            value: lower,
             max: 50,
             min: 10,
             class,
@@ -47,7 +47,7 @@ pub(crate) fn Controls() -> Element {
             title: "alaraja",
             onchange: move |evt| {
                 if let Ok(as_u8) = evt.value().parse::<u8>() {
-                    BATMON.set_min(as_u8);
+                    BATMON.min(as_u8);
                 }
             },
         }
@@ -58,7 +58,7 @@ pub(crate) fn Controls() -> Element {
                 if s.charging {
                     "⚡"
                 } else {
-                    if (max_val).abs_diff(s.level) < (min_val).abs_diff(s.level) {
+                    if (upper).abs_diff(s.level) < (lower).abs_diff(s.level) {
                         "🔋"
                     } else {
                         "🪫"
@@ -68,9 +68,9 @@ pub(crate) fn Controls() -> Element {
             }
         }
         input {
-            id: "bat-mon-max",
+            id: "bat-mon-upper",
             r#type: "number",
-            value: max_val,
+            value: upper,
             max: 90,
             min: 50,
             class,
@@ -78,7 +78,7 @@ pub(crate) fn Controls() -> Element {
             title: "yläraja",
             onchange: move |evt| {
                 if let Ok(as_u8) = evt.value().parse::<u8>() {
-                    BATMON.set_max(as_u8);
+                    BATMON.max(as_u8);
                 }
             },
         }
