@@ -12,76 +12,64 @@ pub(crate) use rune::Rune;
 
 use super::*;
 
-#[derive(Clone)]
-// TODO: convert to GsRunes
-pub(crate) struct CxRunes {
-    inner: Signal<Inner>,
+pub(crate) struct Runes {
+    queue: Vec<Rune>,
+    index: usize,
     service: UseFuture,
 }
 
-impl CxRunes {
-    pub(crate) fn iter() -> RuneIter {
+pub type GsRunes = GlobalSignal<Runes>;
+
+pub(crate) static RUNES: GsRunes = GlobalSignal::new(|| {
+    let service = use_future(move || async move {
+        while let Some(delay) = RUNES.with_mut(|w| {
+            if w.index < w.queue.len() {
+                let rune = w.queue.get(w.index).unwrap();
+                let delay = rune.play();
+
+                w.index += 1;
+                delay
+            } else {
+                tracing::debug!("ran out of runes to cast");
+                None
+            }
+        }) {
+            tracing::debug!("waiting {delay}ms to play next");
+            sleep(Duration::from_millis(delay)).await;
+        }
+
+        let seq = RUNES.with_mut(|w| {
+            w.index = 0;
+            mem::replace(&mut w.queue, vec![])
+        });
+
+        if seq.len() > 0 {
+            SPELLS.try_cast(seq);
+        }
+    });
+
+    Runes {
+        queue: vec![],
+        index: 0,
+        service,
+    }
+});
+
+pub(crate) trait TrRunes {
+    fn iter() -> RuneIter {
         Rune::iter()
     }
 
-    /// this is not reading from localStorage
-    pub(crate) fn init() {
-        let mut inner = use_signal(|| Inner::default());
+    fn push(&self, rune: Rune);
+}
 
-        let service = use_future(move || async move {
-            while let Some(delay) = {
-                let mut w = inner.write();
-                if w.index < w.queue.len() {
-                    let rune = w.queue.get(w.index).unwrap();
-                    let delay = rune.play();
-
-                    w.index += 1;
-                    delay
-                } else {
-                    tracing::debug!("ran out of runes to cast");
-                    None
-                }
-            } {
-                tracing::debug!("waiting {delay}ms to play next");
-                sleep(Duration::from_millis(delay)).await;
-            }
-
-            let seq = {
-                let mut w = inner.write();
-                w.index = 0;
-                mem::replace(&mut w.queue, vec![])
-            };
-
-            if seq.len() > 0 {
-                SPELLS.try_cast(seq);
+impl TrRunes for GsRunes {
+    fn push(&self, rune: Rune) {
+        self.with_mut(|w| {
+            w.queue.push(rune);
+            if w.service.finished() {
+                w.service.restart();
             }
         });
-
-        let runes = Self { inner, service };
-
-        use_context_provider(|| runes);
-    }
-
-    pub(crate) fn push(&mut self, rune: Rune) {
-        let mut w = self.inner.write();
-        w.queue.push(rune);
-
-        if self.service.finished() {
-            self.service.restart();
-        }
-    }
-}
-
-struct Inner {
-    pub(crate) queue: Vec<Rune>,
-    pub(crate) index: usize,
-}
-
-impl Default for Inner {
-    fn default() -> Self {
-        Inner {
-            queue: vec![],
-            index: 0,
-        }
     }
 }
