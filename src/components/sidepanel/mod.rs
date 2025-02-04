@@ -40,7 +40,13 @@ pub(crate) fn Sidepanel() -> Element {
                         .into_iter()
                         .map(|(label, to, lang)| {
                             rsx! {
-                                Link { class: "nav-link", to, lang, "{label}" }
+                                Link {
+                                    class: "nav-link",
+                                    to,
+                                    lang,
+                                    onclick: |_| SIDEPANEL.hide_async(),
+                                    "{label}"
+                                }
                             }
                         })
                 }
