@@ -1,9 +1,9 @@
 use chrono::Utc;
 use dioxus::prelude::*;
 
-mod field;
-
 use crate::utils::{LSCompatStruct, LSCompatType};
+
+mod field;
 
 pub(crate) use field::*;
 

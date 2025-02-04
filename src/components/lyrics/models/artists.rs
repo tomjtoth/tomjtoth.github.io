@@ -1,7 +1,8 @@
 use std::cmp::Ordering;
 
-use crate::utils::to_yaml;
 use dioxus::prelude::*;
+
+use crate::utils::to_yaml;
 
 use super::{albums::Albums, parser, Album, Song};
 

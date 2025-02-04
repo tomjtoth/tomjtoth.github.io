@@ -1,9 +1,10 @@
 use dioxus::{logger::tracing, prelude::*};
 
+use crate::{components::audio::*, routes::Route};
+
 mod button;
 mod models;
 
-use crate::{components::audio::*, routes::Route};
 pub(crate) use models::*;
 
 #[component]

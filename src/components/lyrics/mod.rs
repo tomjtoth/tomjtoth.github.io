@@ -1,4 +1,3 @@
-use artists::Artists;
 use dioxus::prelude::*;
 
 mod albums;
@@ -8,6 +7,8 @@ mod models;
 mod songs;
 
 use crate::components::{body::Body, header::Header};
+
+use artists::Artists;
 
 #[component]
 pub(crate) fn Lyrics() -> Element {

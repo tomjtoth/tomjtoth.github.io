@@ -1,13 +1,14 @@
-use controls::Controls;
 use dioxus::{logger::tracing, prelude::*};
 use wasm_bindgen_futures::spawn_local;
-
-mod controls;
 
 use crate::{
     components::{body::Body, header::Header, loader::*},
     hooks::*,
 };
+
+mod controls;
+
+use controls::Controls;
 
 static PLUGGED_IN_STR: &'static str = "ja laturi on vieläkin kiinni";
 static UNPLUGGED_STR: &'static str = "eikä laturi oo kytkettynä";

@@ -1,6 +1,7 @@
+use std::time::Duration;
+
 use dioxus::{logger::tracing, prelude::*};
 use gloo_timers::future::sleep;
-use std::time::Duration;
 
 use super::*;
 

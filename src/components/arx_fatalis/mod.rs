@@ -1,10 +1,11 @@
 use dioxus::prelude::*;
 
+use crate::components::{body::Body, header::Header};
+
 mod controls;
 mod models;
 mod runes;
 
-use crate::components::{body::Body, header::Header};
 use controls::Controls;
 pub(crate) use models::init_audio;
 use runes::Runes;

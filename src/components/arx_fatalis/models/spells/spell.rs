@@ -1,5 +1,6 @@
-use serde_repr::{Deserialize_repr, Serialize_repr};
 use std::fmt;
+
+use serde_repr::{Deserialize_repr, Serialize_repr};
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
@@ -7,6 +8,7 @@ use crate::components::{
     arx_fatalis::models::runes::Rune::{self, *},
     audio::*,
 };
+
 use Spell::*;
 
 #[derive(Debug, EnumIter, Serialize_repr, Deserialize_repr)]
