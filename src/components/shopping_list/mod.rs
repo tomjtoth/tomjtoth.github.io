@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
 
+use crate::components::{body::Body, header::Header, loader::*};
+
 mod config;
 mod controls;
 mod items;
@@ -7,7 +9,6 @@ mod models;
 mod recipes;
 mod steps;
 
-use crate::components::{body::Body, header::Header, loader::*};
 use controls::Controls;
 use items::Items;
 use models::*;

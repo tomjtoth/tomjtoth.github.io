@@ -1,8 +1,9 @@
+use std::{cmp::Ordering, collections::HashMap};
+
 use dioxus::{logger::tracing, prelude::*};
 use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 use serde::Deserialize;
-use std::{cmp::Ordering, collections::HashMap};
 
 use crate::utils::to_yaml;
 

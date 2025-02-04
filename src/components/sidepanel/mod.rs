@@ -1,10 +1,11 @@
 use dioxus::prelude::*;
 use qrcode::{render::svg, EcLevel, QrCode};
 
-mod models;
-
 use crate::routes::Route::*;
 use crate::utils::{get_url, text_to_clipboard};
+
+mod models;
+
 pub(crate) use models::*;
 
 #[component]

@@ -1,7 +1,8 @@
+use std::{mem, time::Duration};
+
 use dioxus::{logger::tracing, prelude::*};
 use gloo_timers::future::sleep;
 use rune::RuneIter;
-use std::{mem, time::Duration};
 use strum::IntoEnumIterator;
 
 mod audio;

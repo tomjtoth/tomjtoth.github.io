@@ -1,12 +1,14 @@
+use std::cmp::Ordering;
+
 use dioxus::prelude::*;
 use fancy_regex::Regex;
 use once_cell::sync::Lazy;
-use std::cmp::Ordering;
 
 use crate::components::{
     modal::*,
     shopping_list::{config::RE_ORDER, models::*},
 };
+
 static RE_RECIPE_ID: Lazy<Regex> = Lazy::new(|| Regex::new(r"^slr-(?<recId>\d+)$").unwrap());
 
 fn find_idx(name: &String) -> u16 {

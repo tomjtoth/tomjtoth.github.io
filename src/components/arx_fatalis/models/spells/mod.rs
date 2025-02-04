@@ -1,10 +1,12 @@
 use dioxus::prelude::*;
 
+use crate::utils::{LSCompatStruct, LSCompatType};
+
+use super::runes::Rune;
+
 mod audio;
 mod spell;
 
-use super::runes::Rune;
-use crate::utils::{LSCompatStruct, LSCompatType};
 pub(crate) use audio::init_audio;
 use spell::Spell;
 

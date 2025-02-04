@@ -1,5 +1,6 @@
-use super::Rune::*;
 use crate::components::audio::{AudioOpt::*, AudioSrc};
+
+use super::Rune::*;
 
 pub(crate) fn init_audio() -> Vec<AudioSrc> {
     vec![

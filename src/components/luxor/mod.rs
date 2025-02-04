@@ -1,18 +1,18 @@
 use dioxus::{logger::tracing, prelude::*};
 
-mod controls;
-mod fields;
-mod models;
-mod nums_line;
-
-use models::*;
-
 use crate::{
     components::{body::Body, header::Header, modal::*},
     routes::Route,
     utils::get_search_params,
 };
+
+mod controls;
+mod fields;
+mod models;
+mod nums_line;
+
 use controls::Controls;
+use models::*;
 use nums_line::PickedNumsLine;
 
 #[component]

@@ -1,8 +1,9 @@
 use dioxus::prelude::*;
 
+use crate::routes::Route;
+
 mod model;
 
-use crate::routes::Route;
 pub use model::*;
 
 #[component]

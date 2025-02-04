@@ -1,9 +1,10 @@
 use chrono::{TimeZone, Utc};
 use dioxus::{logger::tracing, prelude::*};
 
+use crate::components::{luxor::models::*, modal::*};
+
 mod table;
 
-use crate::components::{luxor::models::*, modal::*};
 use table::Table;
 
 #[component]

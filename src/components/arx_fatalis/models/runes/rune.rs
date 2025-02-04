@@ -1,5 +1,6 @@
-use dioxus::logger::tracing;
 use std::fmt;
+
+use dioxus::logger::tracing;
 use strum_macros::EnumIter;
 
 use crate::components::audio::*;

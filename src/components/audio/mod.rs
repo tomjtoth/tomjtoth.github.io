@@ -4,6 +4,7 @@ use dioxus::{logger::tracing, prelude::*};
 use web_sys::HtmlAudioElement;
 
 mod opts;
+
 pub(crate) use opts::*;
 use AudioOpt::*;
 

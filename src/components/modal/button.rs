@@ -1,6 +1,7 @@
+use std::collections::HashMap;
+
 use dioxus::prelude::*;
 use once_cell::sync::Lazy;
-use std::collections::HashMap;
 
 use super::{
     Cb,

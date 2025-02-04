@@ -1,5 +1,6 @@
-use crate::components::{luxor::models::*, modal::*};
 use dioxus::{logger::tracing, prelude::*};
+
+use crate::components::{luxor::models::*, modal::*};
 
 #[component]
 pub(crate) fn Controls() -> Element {
@@ -23,10 +24,11 @@ pub(crate) fn Controls() -> Element {
             span {
                 class: "padded clickable",
                 onclick: move |_| {
-                    LOCK.toggle();
+                    let to = !LOCKED();
+                    LOCKED.with_mut(|w| *w = to);
                 },
 
-                if LOCK.status() {
+                if LOCKED() {
                     "🔒"
                 } else {
                     "🔓"
