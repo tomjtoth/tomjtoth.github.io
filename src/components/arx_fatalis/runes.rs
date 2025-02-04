@@ -1,15 +1,13 @@
 use dioxus::prelude::*;
 
-use crate::components::arx_fatalis::models::CxRunes;
+use crate::components::arx_fatalis::models::*;
 
 #[component]
 pub(crate) fn Runes() -> Element {
-    let runes = use_context::<CxRunes>();
-
     rsx! {
         div { id: "runes",
             {
-                CxRunes::iter()
+                GsRunes::iter()
                     .map(|rune| {
                         let lowercase = rune.to_string().to_lowercase();
                         rsx! {
@@ -20,12 +18,9 @@ pub(crate) fn Runes() -> Element {
                                 class: "clickable",
                                 draggable: false,
                                 src: "/assets/arx/runes/{lowercase}.png",
-                                onclick: {
-                                    let mut queue = runes.clone();
-                                    move |evt: Event<MouseData>| {
-                                        evt.stop_propagation();
-                                        queue.push(rune);
-                                    }
+                                onclick: move |evt| {
+                                    evt.stop_propagation();
+                                    RUNES.push(rune);
                                 },
                             }
                         }

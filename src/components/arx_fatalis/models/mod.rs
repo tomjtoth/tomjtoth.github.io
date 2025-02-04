@@ -6,9 +6,9 @@ pub(crate) use runes::*;
 pub(crate) use spells::*;
 
 pub(crate) fn init_audio() -> Vec<AudioSrc> {
-    let mut rvec = runes::init_audio();
-    let mut svec = spells::init_audio();
-    svec.append(&mut rvec);
+    let mut runes_vec = runes::init_audio();
+    let mut spells_vec = spells::init_audio();
+    spells_vec.append(&mut runes_vec);
 
-    svec
+    spells_vec
 }
