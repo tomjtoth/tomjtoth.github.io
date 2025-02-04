@@ -4,13 +4,14 @@ mod audio;
 mod spell;
 
 use super::runes::Rune;
-use crate::utils::LocalStorageCompatible;
+use crate::utils::{LSCompatStruct, LSCompatType};
 pub(crate) use audio::init_audio;
 use spell::Spell;
 
 type CastSpells = Vec<Spell>;
 
-impl LocalStorageCompatible for CastSpells {
+impl LSCompatType for CastSpells {}
+impl LSCompatStruct for CastSpells {
     const STORAGE_KEY: &'static str = "arx-fatalis-cast-spells";
 }
 

@@ -1,15 +1,13 @@
 use dioxus::logger::tracing;
 use dioxus::prelude::*;
 
-use crate::utils::LocalStorageCompatible;
+use crate::utils::LSCompatType;
 
 type Inner = Vec<String>;
-impl LocalStorageCompatible for Inner {
-    const STORAGE_KEY: &'static str = "lyrics-active";
-}
+static KEY: &'static str = "lyrics-active";
 
 type GsActive = GlobalSignal<Inner>;
-pub(crate) static ACTIVE: GsActive = GlobalSignal::new(|| Inner::load());
+pub(crate) static ACTIVE: GsActive = GlobalSignal::new(|| Inner::load_t(KEY));
 
 pub(crate) trait TrActive {
     fn is(&self, id: &String) -> bool;
@@ -30,7 +28,7 @@ impl TrActive for GsActive {
             } else {
                 w.push(str.to_string());
             }
-            w.save();
+            w.save_t(KEY);
             tracing::debug!("{:?}", w);
         });
     }

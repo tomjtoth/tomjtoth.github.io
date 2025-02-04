@@ -5,11 +5,9 @@ use web_sys::{window, Notification, NotificationPermission, UrlSearchParams};
 
 use crate::components::modal::*;
 
-pub(crate) trait LocalStorageCompatible: Serialize + DeserializeOwned + Default {
-    const STORAGE_KEY: &'static str;
-
-    fn save(&self) {
-        let key = Self::STORAGE_KEY;
+/// LocalStorage compatibility for more generic types
+pub(crate) trait LSCompatType: Serialize + DeserializeOwned + Default {
+    fn save_t(&self, key: &'static str) {
         let value = serde_json::to_string(self).expect("Serialization failed");
         if let Some(storage) = window().and_then(|w| w.local_storage().ok()).flatten() {
             storage
@@ -18,8 +16,7 @@ pub(crate) trait LocalStorageCompatible: Serialize + DeserializeOwned + Default 
         }
     }
 
-    fn load() -> Self {
-        let key = Self::STORAGE_KEY;
+    fn load_t(key: &'static str) -> Self {
         tracing::debug!("{key} read from localStorage");
 
         if let Some(storage) = window().and_then(|w| w.local_storage().ok()).flatten() {
@@ -31,6 +28,22 @@ pub(crate) trait LocalStorageCompatible: Serialize + DeserializeOwned + Default 
         } else {
             Self::default()
         }
+    }
+}
+
+impl LSCompatType for bool {}
+impl LSCompatType for Vec<String> {}
+
+/// LocalStorage compatibility for structs
+pub(crate) trait LSCompatStruct: LSCompatType {
+    const STORAGE_KEY: &'static str;
+
+    fn save(&self) {
+        self.save_t(Self::STORAGE_KEY);
+    }
+
+    fn load() -> Self {
+        Self::load_t(Self::STORAGE_KEY)
     }
 }
 

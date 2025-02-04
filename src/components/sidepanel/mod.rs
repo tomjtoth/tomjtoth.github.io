@@ -9,10 +9,7 @@ pub(crate) use models::*;
 
 #[component]
 pub(crate) fn Sidepanel() -> Element {
-    let class = format!(
-        "border1-e{}",
-        if SIDEPANEL.is_active() { " active" } else { "" }
-    );
+    let class = format!("border1-e{}", if SIDEPANEL() { " active" } else { "" });
 
     rsx! {
         div {
