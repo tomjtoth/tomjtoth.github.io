@@ -1,13 +1,14 @@
 use dioxus::prelude::*;
 
 use crate::components::{
-    arx_fatalis::ArxFatalis, battery_monitor::BatteryMonitor, home::Home, luxor::Luxor,
-    lyrics::Lyrics, modal::ModalComponent, not_found::NotFound, shopping_list::ShoppingList,
-    sidepanel::Sidepanel, visitors::Visitors,
+    arx_fatalis::ArxFatalis, battery_monitor::BatteryMonitor, home::Home, loader::Loader,
+    luxor::Luxor, lyrics::Lyrics, modal::ModalComponent, not_found::NotFound,
+    shopping_list::ShoppingList, sidepanel::Sidepanel, visitors::Visitors,
 };
 
 #[derive(Debug, Clone, Routable, PartialEq)]
 pub(crate) enum Route {
+    #[layout(Loader)]
     #[layout(ModalComponent)]
     #[layout(Sidepanel)]
     #[route("/")]

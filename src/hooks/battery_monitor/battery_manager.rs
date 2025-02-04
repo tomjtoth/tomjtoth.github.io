@@ -4,49 +4,39 @@ use wasm_bindgen::{prelude::*, JsValue};
 use wasm_bindgen_futures::JsFuture;
 use web_sys::window;
 
-#[derive(Clone)]
-pub(crate) struct BatteryState {
-    pub(crate) charging: bool,
-    pub(crate) level: u8,
-    pub(crate) battery_present: bool,
-}
+use crate::hooks::BatteryState;
 
-pub(crate) struct BatMan {
-    pub(crate) loading: bool,
-    pub(crate) state: Option<BatteryState>,
-}
+use super::BATMON;
 
-pub(crate) type UseBattery = Signal<BatMan>;
-
-pub(crate) fn use_battery() -> UseBattery {
-    let mut batman = use_signal(|| BatMan {
-        loading: true,
-        state: None,
-    });
-
-    use_future(move || async move {
+pub fn init() {
+    use_future(|| async {
         let res_bm = get_battery_manager().await;
         if let Ok(bm) = res_bm {
-            let mut update = {
+            let update = {
                 let bm = bm.clone();
-                move || {
-                    tracing::debug!("on_change closure triggered");
+                move |first_run| {
+                    BATMON.with_mut(|w| {
+                        w.state = Some(BatteryState {
+                            level: (bm.level() * 100.0) as u8,
+                            charging: bm.charging(),
+                            battery_present: bm.charging_time().is_finite()
+                                || bm.discharging_time().is_finite(),
+                        });
 
-                    let mut w = batman.write();
-                    w.state = Some(BatteryState {
-                        level: (bm.level() * 100.0) as u8,
-                        charging: bm.charging(),
-                        battery_present: bm.charging_time().is_finite()
-                            || bm.discharging_time().is_finite(),
-                    })
+                        if first_run {
+                            w.loaded = true;
+                        }
+
+                        tracing::debug!("on_change closure triggered");
+                    });
                 }
             };
 
-            update();
+            update(true);
 
             let on_change = Closure::wrap(Box::new(move || {
-                update();
-            }) as Box<dyn FnMut()>);
+                update(false);
+            }) as Box<dyn Fn()>);
 
             bm.set_onlevelchange(Some(on_change.as_ref().unchecked_ref()));
             bm.set_onchargingchange(Some(on_change.as_ref().unchecked_ref()));
@@ -55,10 +45,11 @@ pub(crate) fn use_battery() -> UseBattery {
 
             on_change.forget();
         }
-        batman.write().loading = false;
+        BATMON.with_mut(|w| {
+            w.loaded = true;
+            w.service.restart();
+        });
     });
-
-    batman
 }
 
 async fn get_battery_manager() -> Result<web_sys::BatteryManager, JsValue> {
