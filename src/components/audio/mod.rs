@@ -8,7 +8,10 @@ mod opts;
 pub(crate) use opts::*;
 use AudioOpt::*;
 
-use crate::components::{arx_fatalis::init_audio as arx_sounds, modal::init_audio as modal_sounds};
+use crate::{
+    components::{arx_fatalis::init_audio as arx_sounds, modal::init_audio as modal_sounds},
+    utils::from_cache,
+};
 
 #[derive(Clone)]
 pub(crate) struct Audio {
@@ -55,43 +58,53 @@ impl TrAudio for GsAudio {
 pub(crate) static AUDIO: GsAudio = Signal::global(|| {
     tracing::debug!("Audio::default() called");
 
-    let mut all = arx_sounds();
-    all.append(&mut modal_sounds());
+    use_future(|| async {
+        let mut all = arx_sounds();
+        all.append(&mut modal_sounds());
 
-    let iterator = all.into_iter().map(|(path, opts)| {
-        let mut src = None;
-        let mut src_available = true;
-        let mut volume = None;
-        let mut starts_at = None;
-        let mut next_starts_at = None;
+        for (path, opts) in all.into_iter() {
+            let mut src = None;
+            let mut src_available = true;
+            let mut volume = None;
+            let mut starts_at = None;
+            let mut next_starts_at = None;
 
-        for opt in opts.iter() {
-            match opt {
-                Volume(vol) => volume = Some(*vol),
-                StartsAt(start) => starts_at = Some(*start),
-                NextStartsAt(next) => next_starts_at = Some(*next),
-                NotAvailable => src_available = false,
+            for opt in opts.iter() {
+                match opt {
+                    Volume(vol) => volume = Some(*vol),
+                    StartsAt(start) => starts_at = Some(*start),
+                    NextStartsAt(next) => next_starts_at = Some(*next),
+                    NotAvailable => src_available = false,
+                }
             }
-        }
 
-        if src_available {
-            let audio = HtmlAudioElement::new_with_src(&format!("/assets{path}")).unwrap();
-            audio.set_preload("auto");
-            if let Some(vol) = volume {
-                audio.set_volume(vol);
+            if src_available {
+                let mut path = format!("/assets{path}");
+                if let Ok(Some(url)) = from_cache(&path).await {
+                    tracing::debug!("loading {path} from cache via url: {url}");
+                    path = url;
+                }
+
+                let audio = HtmlAudioElement::new_with_src(&path).unwrap();
+                audio.set_preload("auto");
+                if let Some(vol) = volume {
+                    audio.set_volume(vol);
+                }
+                src = Some(audio);
             }
-            src = Some(audio);
-        }
 
-        (
-            path.to_string(),
-            Audio {
-                src,
-                starts_at,
-                next_starts_at,
-            },
-        )
+            AUDIO.with_mut(|w| {
+                w.insert(
+                    path.to_string(),
+                    Audio {
+                        src,
+                        starts_at,
+                        next_starts_at,
+                    },
+                )
+            });
+        }
     });
 
-    HashMap::from_iter(iterator)
+    HashMap::new()
 });
