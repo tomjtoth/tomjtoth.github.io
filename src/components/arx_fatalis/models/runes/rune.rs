@@ -3,9 +3,11 @@ use std::fmt;
 use dioxus::logger::tracing;
 use strum_macros::EnumIter;
 
-use crate::components::audio::*;
+use crate::{components::audio::*, utils::from_cache};
 
-#[derive(Copy, Clone, Debug, EnumIter, PartialEq)]
+use super::{TrRunes, RUNES};
+
+#[derive(Copy, Clone, Debug, EnumIter, PartialEq, Eq, Hash)]
 pub(crate) enum Rune {
     Aam,
     Nhi,
@@ -36,12 +38,30 @@ impl fmt::Display for Rune {
 }
 
 impl Rune {
-    pub(crate) fn as_src(&self) -> String {
-        format!("/arx/runes/{}.mp3", self.to_string().to_lowercase())
+    pub(crate) fn src_mp3(&self) -> String {
+        self.src(true)
+    }
+
+    pub(crate) fn src_png(&self) -> String {
+        let url = self.src(false);
+        if let Some(cached) = RUNES.get_png(self) {
+            cached
+        } else {
+            url
+        }
+    }
+
+    fn src(&self, mp3: bool) -> String {
+        format!(
+            "{}/arx/runes/{}.{}",
+            if mp3 { "" } else { "/assets" },
+            self.to_string().to_lowercase(),
+            if mp3 { "mp3" } else { "png" }
+        )
     }
 
     pub(crate) fn play(&self) -> Option<u64> {
         tracing::debug!("attempting to play rune sound");
-        AUDIO.play(&self.as_src())
+        AUDIO.play(&self.src_mp3())
     }
 }

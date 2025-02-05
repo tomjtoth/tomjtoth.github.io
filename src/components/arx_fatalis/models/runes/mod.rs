@@ -1,4 +1,4 @@
-use std::{mem, time::Duration};
+use std::{collections::HashMap, mem, time::Duration};
 
 use dioxus::{logger::tracing, prelude::*};
 use gloo_timers::future::sleep;
@@ -11,12 +11,15 @@ mod rune;
 pub(crate) use audio::init_audio;
 pub(crate) use rune::Rune;
 
+use crate::utils::from_cache;
+
 use super::*;
 
 pub(crate) struct Runes {
     queue: Vec<Rune>,
     index: usize,
     service: UseFuture,
+    cached_urls: HashMap<Rune, String>,
 }
 
 pub type GsRunes = GlobalSignal<Runes>;
@@ -49,10 +52,19 @@ pub(crate) static RUNES: GsRunes = GlobalSignal::new(|| {
         }
     });
 
+    use_future(|| async {
+        for rune in GsRunes::iter() {
+            if let Ok(Some(url)) = from_cache(&rune.src_mp3()).await {
+                RUNES.with_mut(|w| w.cached_urls.insert(rune, url));
+            }
+        }
+    });
+
     Runes {
         queue: vec![],
         index: 0,
         service,
+        cached_urls: HashMap::new(),
     }
 });
 
@@ -62,6 +74,7 @@ pub(crate) trait TrRunes {
     }
 
     fn push(&self, rune: Rune);
+    fn get_png(&self, rune: &Rune) -> Option<String>;
 }
 
 impl TrRunes for GsRunes {
@@ -72,5 +85,9 @@ impl TrRunes for GsRunes {
                 w.service.restart();
             }
         });
+    }
+
+    fn get_png(&self, rune: &Rune) -> Option<String> {
+        self.with(|r| r.cached_urls.get(rune).cloned())
     }
 }

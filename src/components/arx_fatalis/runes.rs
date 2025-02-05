@@ -9,7 +9,7 @@ pub(crate) fn Runes() -> Element {
             {
                 GsRunes::iter()
                     .map(|rune| {
-                        let lowercase = rune.to_string().to_lowercase();
+                        let src = rune.src_png();
                         rsx! {
                             img {
                                 key: "{rune}",
@@ -17,7 +17,7 @@ pub(crate) fn Runes() -> Element {
                                 title: "{rune}",
                                 class: "clickable",
                                 draggable: false,
-                                src: "/assets/arx/runes/{lowercase}.png",
+                                src,
                                 onclick: move |evt| {
                                     evt.stop_propagation();
                                     RUNES.push(rune);
