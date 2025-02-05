@@ -5,6 +5,8 @@ mod hooks;
 mod routes;
 mod utils;
 
+use components::{arx_fatalis::RUNES, audio::AUDIO};
+
 fn main() {
     dioxus::launch(App);
 }
@@ -12,8 +14,9 @@ fn main() {
 #[component]
 fn App() -> Element {
     // tripping initialization on 1st use
-    components::audio::AUDIO.read();
+    AUDIO.read();
     hooks::BATMON.read();
+    RUNES.read();
 
     rsx! {
         Router::<routes::Route> {}

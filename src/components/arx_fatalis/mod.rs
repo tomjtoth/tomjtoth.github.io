@@ -8,6 +8,7 @@ mod runes;
 
 use controls::Controls;
 pub(crate) use models::init_audio;
+pub(crate) use models::RUNES;
 use runes::Runes;
 
 #[component]

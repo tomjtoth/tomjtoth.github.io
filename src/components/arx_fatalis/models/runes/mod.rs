@@ -19,13 +19,13 @@ pub(crate) struct Runes {
     queue: Vec<Rune>,
     index: usize,
     service: UseFuture,
-    cached_urls: HashMap<Rune, String>,
+    cached_pngs: HashMap<Rune, String>,
 }
 
 pub type GsRunes = GlobalSignal<Runes>;
 
 pub(crate) static RUNES: GsRunes = GlobalSignal::new(|| {
-    let service = use_future(move || async move {
+    let service = use_future(|| async {
         while let Some(delay) = RUNES.with_mut(|w| {
             if w.index < w.queue.len() {
                 let rune = w.queue.get(w.index).unwrap();
@@ -34,7 +34,6 @@ pub(crate) static RUNES: GsRunes = GlobalSignal::new(|| {
                 w.index += 1;
                 delay
             } else {
-                tracing::debug!("ran out of runes to cast");
                 None
             }
         }) {
@@ -53,18 +52,22 @@ pub(crate) static RUNES: GsRunes = GlobalSignal::new(|| {
     });
 
     use_future(|| async {
+        tracing::debug!("populating cached_urls");
         for rune in GsRunes::iter() {
-            if let Ok(Some(url)) = from_cache(&rune.src_mp3()).await {
-                RUNES.with_mut(|w| w.cached_urls.insert(rune, url));
+            let url = rune.src_png();
+            if let Ok(Some(cached)) = from_cache(&url).await {
+                tracing::debug!("{url} is available as: {cached}");
+                RUNES.with_mut(|w| w.cached_pngs.insert(rune, cached));
             }
         }
+        tracing::debug!("*DONE* populating cached_urls");
     });
 
     Runes {
         queue: vec![],
         index: 0,
         service,
-        cached_urls: HashMap::new(),
+        cached_pngs: HashMap::new(),
     }
 });
 
@@ -88,6 +91,6 @@ impl TrRunes for GsRunes {
     }
 
     fn get_png(&self, rune: &Rune) -> Option<String> {
-        self.with(|r| r.cached_urls.get(rune).cloned())
+        self.with(|r| r.cached_pngs.get(rune).cloned())
     }
 }
