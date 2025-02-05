@@ -26,6 +26,6 @@ pub(crate) fn init_audio() -> Vec<AudioSrc> {
         (Fridd, 0.15, 1.5),
     ]
     .into_iter()
-    .map(|(rune, start, next)| (rune.as_src(), vec![StartsAt(start), NextStartsAt(next)]))
+    .map(|(rune, start, next)| (rune.src_mp3(), vec![StartsAt(start), NextStartsAt(next)]))
     .collect()
 }
