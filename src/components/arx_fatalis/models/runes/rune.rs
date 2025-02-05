@@ -3,7 +3,7 @@ use std::fmt;
 use dioxus::logger::tracing;
 use strum_macros::EnumIter;
 
-use crate::{components::audio::*, utils::from_cache};
+use crate::components::audio::*;
 
 use super::{TrRunes, RUNES};
 
@@ -45,6 +45,7 @@ impl Rune {
     pub(crate) fn src_png(&self) -> String {
         let url = self.src(false);
         if let Some(cached) = RUNES.get_png(self) {
+            tracing::debug!("using {cached} instead of {url}");
             cached
         } else {
             url
