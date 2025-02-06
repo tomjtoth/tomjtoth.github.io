@@ -5,7 +5,7 @@ use fancy_regex::Regex;
 use once_cell::sync::Lazy;
 use serde::Deserialize;
 
-use crate::utils::to_yaml;
+use crate::utils::{from_cache, to_yaml};
 
 #[derive(Deserialize, Debug, Clone)]
 struct Lang {
@@ -63,8 +63,12 @@ pub(crate) trait TrRecipes {
 
 impl TrRecipes for GsRecipes {
     async fn init(&self) {
-        let yaml_recipes: HashMap<String, RecipeParserHelper> =
-            to_yaml(asset!("/assets/recipes.yaml")).await;
+        let mut url = asset!("/assets/recipes.yaml").to_string();
+        if let Ok(Some(cached)) = from_cache(&url).await {
+            url = cached;
+        }
+
+        let yaml_recipes: HashMap<String, RecipeParserHelper> = to_yaml(&url).await;
 
         let mut recipes = yaml_recipes
             .into_iter()

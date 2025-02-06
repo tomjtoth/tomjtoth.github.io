@@ -2,7 +2,7 @@ use std::cmp::Ordering;
 
 use dioxus::prelude::*;
 
-use crate::utils::to_yaml;
+use crate::utils::{from_cache, to_yaml};
 
 use super::{albums::Albums, parser, Album, Song};
 
@@ -23,7 +23,11 @@ pub(crate) trait TrArtists {
 
 impl TrArtists for GsArtists {
     async fn init(&self) {
-        let pre_parsed = to_yaml::<parser::Artists>(asset!("/assets/lyrics.yaml")).await;
+        let mut url = asset!("/assets/lyrics.yaml").to_string();
+        if let Ok(Some(cached)) = from_cache(&url).await {
+            url = cached
+        }
+        let pre_parsed = to_yaml::<parser::Artists>(&url).await;
 
         let mut parsed: Vec<Artist> = pre_parsed
             .into_iter()
