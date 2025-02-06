@@ -1,4 +1,4 @@
-use dioxus::prelude::*;
+use dioxus::{logger::tracing, prelude::*};
 
 use crate::components::{arx_fatalis::models::*, loader::*};
 
@@ -9,11 +9,12 @@ pub(crate) fn Runes() -> Element {
     use_effect(move || {
         if !initialized {
             LOADER.show();
-        } else {
-            if LOADER() {
-                LOADER.hide();
-            }
         }
+    });
+
+    use_future(move || async move {
+        RUNES.check_cache().await;
+        LOADER.hide();
     });
 
     rsx! {
