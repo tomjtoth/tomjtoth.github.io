@@ -9,14 +9,18 @@ use crate::components::{
 
 #[component]
 pub(crate) fn Artists() -> Element {
-    if ARTISTS.is_empty() {
-        LOADER.show();
-    }
+    let uninitialized = ARTISTS.is_empty();
 
-    use_future(|| async {
-        if ARTISTS.is_empty() {
+    use_effect(move || {
+        if uninitialized {
+            LOADER.show();
+        }
+    });
+
+    use_future(move || async move {
+        if uninitialized {
             ARTISTS.init().await;
-            LOADER.hide().await;
+            LOADER.hide();
         }
     });
 
