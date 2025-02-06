@@ -26,6 +26,7 @@ pub(crate) struct Modal {
     pub(crate) lang: Option<Language>,
     pub(crate) prompt: Option<Element>,
     pub(crate) buttons: Vec<(Button, OptCb)>,
+    pub(crate) silent: bool,
 }
 
 impl Default for Modal {
@@ -34,16 +35,17 @@ impl Default for Modal {
             lang: Some(Language::Fi),
             prompt: None,
             buttons: vec![(Button::Ok, None)],
+            silent: false,
         }
     }
 }
 
 impl Modal {
-    // /// setter during build of new modal
-    // pub(crate) fn lang(&mut self, lang: Language) -> &mut Self {
-    //     self.lang = Some(lang);
-    //     self
-    // }
+    /// setter during build of new modal
+    pub(crate) fn lang(&mut self, lang: Language) -> &mut Self {
+        self.lang = Some(lang);
+        self
+    }
 
     /// setter during build of new modal
     pub(crate) fn buttons(&mut self, buttons: Vec<(Button, OptCb)>) -> &mut Self {
@@ -64,6 +66,7 @@ pub(crate) static MODAL: GsModal = GlobalSignal::new(|| Modal::default());
 
 pub(crate) trait TrModal {
     fn lang(&self, lang: Language) -> Modal;
+    fn silent(&self) -> Modal;
     fn buttons(&self, buttons: Vec<(Button, OptCb)>) -> Modal;
     // fn prompt(&self, prompt: Element);
     fn reset(&self);
@@ -72,6 +75,12 @@ pub(crate) trait TrModal {
 impl TrModal for GsModal {
     fn reset(&self) {
         self.with_mut(|w| *w = Modal::default())
+    }
+
+    fn silent(&self) -> Modal {
+        let mut m = Modal::default();
+        m.silent = true;
+        m
     }
 
     /// setter during build of new modal

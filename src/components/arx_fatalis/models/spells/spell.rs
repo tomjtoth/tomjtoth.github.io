@@ -11,7 +11,7 @@ use crate::components::{
 
 use Spell::*;
 
-#[derive(Debug, EnumIter, Serialize_repr, Deserialize_repr)]
+#[derive(Debug, EnumIter, Serialize_repr, Deserialize_repr, PartialEq)]
 #[repr(u8)]
 pub(crate) enum Spell {
     MegaCheat,
@@ -74,10 +74,10 @@ impl fmt::Display for Spell {
 }
 
 impl Spell {
-    pub(crate) fn by_seq(seq: Vec<Rune>) -> Option<(Spell, u8)> {
+    pub(crate) fn by_seq(seq: &Vec<Rune>) -> Option<(Spell, u8)> {
         for spell in Spell::iter() {
             let (page, runes) = spell.details();
-            if seq == runes {
+            if *seq == runes {
                 return Some((spell, page));
             }
         }
@@ -154,9 +154,9 @@ impl Spell {
         format!("/arx/spells/{}.mp3", self.to_kebab_case(None))
     }
 
-    // pub(crate) fn name(&self) -> String {
-    //     self.to_kebab_case(Some(' '))
-    // }
+    pub(crate) fn name(&self) -> String {
+        self.to_kebab_case(Some(' '))
+    }
 
     fn to_kebab_case(&self, delim: Option<char>) -> String {
         let name = self.to_string();
