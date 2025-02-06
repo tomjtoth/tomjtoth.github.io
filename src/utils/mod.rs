@@ -1,4 +1,4 @@
-use dioxus::{logger::tracing, prelude::*};
+use dioxus::logger::tracing;
 use gloo_net::http::{Request, Response};
 use serde::de::DeserializeOwned;
 use web_sys::{window, UrlSearchParams};
@@ -47,7 +47,7 @@ pub(crate) fn get_search_params() -> Option<UrlSearchParams> {
     }
 }
 
-async fn fetch(url: String) -> Response {
+async fn fetch(url: &String) -> Response {
     let base_url = web_sys::window().unwrap().origin();
     let url = format!("{}{}", base_url, url);
     Request::get(&url)
@@ -56,8 +56,8 @@ async fn fetch(url: String) -> Response {
         .expect("failed to fetch {url}")
 }
 
-pub(crate) async fn to_yaml<T: DeserializeOwned>(asset: Asset) -> T {
-    let text = fetch(asset.to_string())
+pub(crate) async fn to_yaml<T: DeserializeOwned>(url: &String) -> T {
+    let text = fetch(url)
         .await
         .text()
         .await
