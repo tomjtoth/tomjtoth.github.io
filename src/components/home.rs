@@ -15,8 +15,8 @@ pub(crate) fn Home() -> Element {
           p {
             strong {
               "This is the Rust + WASM (via Dioxus) version, "
-              "very much Work-in-Progress. 🤓 Missing features include "
-              "fetching from cache, feedback in the minigame. "
+              "very much Work-in-Progress. 🤓 "
+              "Missing features include feedback in the minigame. "
             }
           }
 
