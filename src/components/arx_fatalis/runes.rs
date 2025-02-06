@@ -1,4 +1,4 @@
-use dioxus::{logger::tracing, prelude::*};
+use dioxus::prelude::*;
 
 use crate::components::{arx_fatalis::models::*, loader::*};
 

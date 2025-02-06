@@ -10,8 +10,8 @@ pub(crate) use models::*;
 #[component]
 pub(crate) fn ModalComponent() -> Element {
     let reset_state = use_callback(move |_| MODAL.reset());
-    let r = MODAL.read();
-    let prompt = &r.prompt;
+    let m = MODAL.read();
+    let prompt = &m.prompt;
 
     rsx! {
         if let Some(children) = prompt {
@@ -26,7 +26,7 @@ pub(crate) fn ModalComponent() -> Element {
                 div {
                     class: "modal padded bordered",
                     lang: {
-                        match r.lang {
+                        match m.lang {
                             Some(Language::En) => Some("en"),
                             Some(Language::Fi) => Some("fi"),
                             Some(Language::Hu) => Some("hu"),
@@ -43,9 +43,11 @@ pub(crate) fn ModalComponent() -> Element {
                     div { id: "modal-buttons",
 
                         {
-                            AUDIO.play(&SOUND.to_string());
-                            let lang = if let Some(explicitly) = r.lang { explicitly } else { Language::Fi };
-                            r.buttons
+                            if !m.silent {
+                                AUDIO.play(&SOUND.to_string());
+                            }
+                            let lang = if let Some(explicitly) = m.lang { explicitly } else { Language::Fi };
+                            m.buttons
                                 .iter()
                                 .map(move |(btn, onclick)| {
                                     rsx! {

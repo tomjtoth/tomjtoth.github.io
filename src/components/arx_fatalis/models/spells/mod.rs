@@ -1,6 +1,9 @@
 use dioxus::prelude::*;
 
-use crate::utils::{LSCompatStruct, LSCompatType};
+use crate::{
+    components::modal::*,
+    utils::{LSCompatStruct, LSCompatType},
+};
 
 use super::runes::Rune;
 
@@ -42,14 +45,46 @@ impl TrSpells for GsSpells {
     }
 
     fn try_cast(&self, seq: Vec<Rune>) {
-        if let Some((spell, _)) = Spell::by_seq(seq) {
+        if let Some((spell, page)) = Spell::by_seq(&seq) {
             spell.play();
+            let name = spell.name();
+
+            let count = self.with(|r| r.spells.iter().filter(|s| *s == &spell).count());
 
             self.with_mut(|w| {
                 w.score += spell.points();
                 w.spells.push(spell);
                 w.spells.save();
             });
+
+            if count <= 3 || count.rem_euclid(10) == 0 {
+                MODAL.silent().lang(Language::En).prompt(rsx! {
+                    p {
+                        if count.rem_euclid(10) == 0 {
+                            "Congrats! This is your {count}th time casting {name}"
+                        } else {
+                            "You cast {name} from page {page}:"
+                        }
+                    }
+                    div {
+                        {
+                            seq.iter()
+                                .map(|rune| {
+                                    let src = rune.src_png();
+                                    rsx! {
+                                        img {
+                                            key: "{rune}",
+                                            alt: "{rune}",
+                                            title: "{rune}",
+                                            draggable: false,
+                                            src,
+                                        }
+                                    }
+                                })
+                        }
+                    }
+                })
+            }
         } else {
             Spell::Fizzle.play();
         }
