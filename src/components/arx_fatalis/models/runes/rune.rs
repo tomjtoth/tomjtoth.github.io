@@ -45,9 +45,10 @@ impl Rune {
     pub(crate) fn src_png(&self) -> String {
         let url = self.src(false);
         if let Some(cached) = RUNES.get_png(self) {
-            tracing::debug!("using {cached} instead of {url}");
+            tracing::info!("using {cached} instead of {url}");
             cached
         } else {
+            tracing::info!("using the original url: {url}");
             url
         }
     }
