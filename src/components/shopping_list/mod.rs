@@ -18,22 +18,24 @@ use recipes::Recipes;
 pub(crate) fn ShoppingList() -> Element {
     let uninitialized = RECIPES.is_empty();
 
-    if uninitialized {
-        LOADER.show();
-    }
+    use_effect(move || {
+        if uninitialized {
+            LOADER.show();
+        }
+    });
 
     use_future(move || async move {
         if uninitialized {
             RECIPES.init().await;
-            LOADER.hide().await;
+            LOADER.hide();
         }
     });
 
     rsx! {
         Header { title: "ostoslista", Controls {} }
         Body {
-            Recipes {}
             if !uninitialized {
+                Recipes {}
                 Items {}
             }
         }

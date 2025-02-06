@@ -1,5 +1,4 @@
 use dioxus::{logger::tracing, prelude::*};
-use wasm_bindgen_futures::spawn_local;
 
 use crate::{
     components::{body::Body, header::Header, loader::*},
@@ -32,18 +31,16 @@ pub(crate) fn BatteryMonitor() -> Element {
         upper,
     } = BATMON.conf();
 
-    if !BATMON.loaded() {
-        tracing::debug!("batmon loading -> LOADER.show()");
-        LOADER.show()
-    } else {
-        if LOADER() {
-            spawn_local(async {
-                tracing::debug!("batmon LOADED -> LOADER.hide()");
-                LOADER.hide().await;
-                tracing::debug!("LOADER.hide() *WAS* awaited");
-            });
+    use_effect(|| {
+        if !BATMON.loaded() {
+            tracing::debug!("batmon loading -> LOADER.show()");
+            LOADER.show()
+        } else {
+            if LOADER() {
+                LOADER.hide();
+            }
         }
-    }
+    });
 
     rsx! {
         Header { title: "akunvalvonta", Controls {} }
