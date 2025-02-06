@@ -49,7 +49,15 @@ pub(crate) fn get_search_params() -> Option<UrlSearchParams> {
 
 async fn fetch(url: &String) -> Response {
     let base_url = web_sys::window().unwrap().origin();
-    let url = format!("{}{}", base_url, url);
+    let url = format!(
+        "{}{}",
+        if !url.starts_with("blob:") {
+            base_url
+        } else {
+            "".to_string()
+        },
+        url
+    );
     Request::get(&url)
         .send()
         .await
