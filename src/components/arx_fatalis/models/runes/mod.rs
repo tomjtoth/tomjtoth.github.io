@@ -19,7 +19,8 @@ pub(crate) struct Runes {
     queue: Vec<Rune>,
     index: usize,
     service: UseFuture,
-    cached_pngs: HashMap<Rune, String>,
+    png_cache: HashMap<Rune, String>,
+    png_cache_checked: bool,
 }
 
 pub type GsRunes = GlobalSignal<Runes>;
@@ -52,14 +53,21 @@ pub(crate) static RUNES: GsRunes = GlobalSignal::new(|| {
     });
 
     use_future(|| async {
+        let mut hm = HashMap::new();
         tracing::debug!("populating cached_urls");
         for rune in GsRunes::iter() {
             let url = rune.src_png();
             if let Ok(Some(cached)) = from_cache(&url).await {
                 tracing::debug!("{url} is available as: {cached}");
-                RUNES.with_mut(|w| w.cached_pngs.insert(rune, cached));
+                hm.insert(rune, cached);
             }
         }
+        RUNES.with_mut(|w| {
+            if hm.len() > 0 {
+                w.png_cache = hm;
+            }
+            w.png_cache_checked = true
+        });
         tracing::debug!("*DONE* populating cached_urls");
     });
 
@@ -67,7 +75,8 @@ pub(crate) static RUNES: GsRunes = GlobalSignal::new(|| {
         queue: vec![],
         index: 0,
         service,
-        cached_pngs: HashMap::new(),
+        png_cache: HashMap::new(),
+        png_cache_checked: false,
     }
 });
 
@@ -78,6 +87,7 @@ pub(crate) trait TrRunes {
 
     fn push(&self, rune: Rune);
     fn get_png(&self, rune: &Rune) -> Option<String>;
+    fn cache_checked(&self) -> bool;
 }
 
 impl TrRunes for GsRunes {
@@ -91,6 +101,10 @@ impl TrRunes for GsRunes {
     }
 
     fn get_png(&self, rune: &Rune) -> Option<String> {
-        self.with(|r| r.cached_pngs.get(rune).cloned())
+        self.read().png_cache.get(rune).cloned()
+    }
+
+    fn cache_checked(&self) -> bool {
+        self.read().png_cache_checked
     }
 }
