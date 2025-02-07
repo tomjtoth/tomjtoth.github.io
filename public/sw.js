@@ -53,7 +53,7 @@ self.addEventListener("fetch", (event) => {
       const cachedRes = await cache.match(event.request);
 
       const url = event.request.url;
-      console.log(url);
+      console.log(`intercepted request of ${url}`);
       const matchedBuster = url.match(CACHE_BUSTERS);
 
       if (cachedRes && !matchedBuster && !FETCH_ALWAYS.includes(url)) {

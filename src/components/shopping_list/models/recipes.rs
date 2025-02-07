@@ -64,9 +64,9 @@ pub(crate) trait TrRecipes {
 impl TrRecipes for GsRecipes {
     async fn init(&self) {
         let mut url = asset!("/assets/recipes.yaml").to_string();
-        if let Ok(Some(cached)) = from_cache(&url).await {
-            url = cached;
-        }
+        // if let Ok(Some(cached)) = from_cache(&url).await {
+        //     url = cached;
+        // }
 
         let yaml_recipes: HashMap<String, RecipeParserHelper> = to_yaml(&url).await;
 

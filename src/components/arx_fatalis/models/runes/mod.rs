@@ -93,19 +93,19 @@ impl TrRunes for GsRunes {
     async fn check_cache(&self) {
         tracing::debug!("populating cached_urls");
 
-        let mut hm = HashMap::new();
-        for rune in GsRunes::iter() {
-            let url = rune.src_png();
-            if let Ok(Some(cached)) = from_cache(&url).await {
-                tracing::debug!("{url} is available as: {cached}");
-                hm.insert(rune, cached);
-            }
-        }
+        // let mut hm = HashMap::new();
+        // for rune in GsRunes::iter() {
+        //     let url = rune.src_png();
+        //     if let Ok(Some(cached)) = from_cache(&url).await {
+        //         tracing::debug!("{url} is available as: {cached}");
+        //         hm.insert(rune, cached);
+        //     }
+        // }
 
         self.with_mut(|w| {
-            if hm.len() > 0 {
-                w.png_cache = hm;
-            }
+            // if hm.len() > 0 {
+            //     w.png_cache = hm;
+            // }
             w.png_cache_checked = true
         });
 

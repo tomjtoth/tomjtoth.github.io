@@ -24,9 +24,9 @@ pub(crate) trait TrArtists {
 impl TrArtists for GsArtists {
     async fn init(&self) {
         let mut url = asset!("/assets/lyrics.yaml").to_string();
-        if let Ok(Some(cached)) = from_cache(&url).await {
-            url = cached
-        }
+        // if let Ok(Some(cached)) = from_cache(&url).await {
+        //     url = cached
+        // }
         let pre_parsed = to_yaml::<parser::Artists>(&url).await;
 
         let mut parsed: Vec<Artist> = pre_parsed
