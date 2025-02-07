@@ -80,10 +80,10 @@ pub(crate) static AUDIO: GsAudio = Signal::global(|| {
 
             if src_available {
                 let mut path = format!("/assets{path}");
-                if let Ok(Some(url)) = from_cache(&path).await {
-                    tracing::debug!("loading {path} from cache via url: {url}");
-                    path = url;
-                }
+                // if let Ok(Some(url)) = from_cache(&path).await {
+                //     tracing::debug!("loading {path} from cache via url: {url}");
+                //     path = url;
+                // }
 
                 let audio = HtmlAudioElement::new_with_src(&path).unwrap();
                 audio.set_preload("auto");
