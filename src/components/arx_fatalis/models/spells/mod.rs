@@ -49,7 +49,7 @@ impl TrSpells for GsSpells {
             spell.play();
             let name = spell.name();
 
-            let count = self.with(|r| r.spells.iter().filter(|s| *s == &spell).count());
+            let count = self.with(|r| r.spells.iter().filter(|s| *s == &spell).count()) + 1;
 
             self.with_mut(|w| {
                 w.score += spell.points();
@@ -57,7 +57,7 @@ impl TrSpells for GsSpells {
                 w.spells.save();
             });
 
-            if count <= 3 || count.rem_euclid(10) == 0 {
+            if count < 3 || count.rem_euclid(10) == 0 {
                 MODAL.silent().en().prompt(rsx! {
                     p {
                         if count.rem_euclid(10) == 0 {
