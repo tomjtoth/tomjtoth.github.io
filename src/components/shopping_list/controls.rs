@@ -52,9 +52,7 @@ pub(crate) fn Controls() -> Element {
                 class: "clickable",
                 title: "pyyhi vihreät",
                 onclick: move |_| {
-                    MODAL
-                        .buttons(vec![(Button::Yes, Some(reset_active)), (Button::No, None)])
-                        .prompt(rsx! { "pyyhitäänkö kaikki vihreät?" })
+                    MODAL.yes(Some(reset_active)).no(None).prompt(rsx! { "pyyhitäänkö kaikki vihreät?" })
                 },
                 "♻️"
             }

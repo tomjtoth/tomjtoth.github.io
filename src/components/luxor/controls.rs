@@ -55,8 +55,9 @@ pub(crate) fn Controls() -> Element {
                 title: "jelölések törlése",
                 onclick: move |_| {
                     MODAL
-                        .lang(Language::Hu)
-                        .buttons(vec![(Button::Ok, Some(clear_nums)), (Button::Cancel, None)])
+                        .hu()
+                        .ok(Some(clear_nums))
+                        .cancel(None)
                         .prompt(rsx! {
                             "Törlöm az "
                             strong { "összes" }

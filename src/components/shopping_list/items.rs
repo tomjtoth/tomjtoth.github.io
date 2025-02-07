@@ -105,22 +105,20 @@ pub(crate) fn Items() -> Element {
                         });
                         rsx! {
                             li { key: "{id}", class, onclick: toggle_active,
-
+                            
                                 "{name}"
                                 if idx == 0 {
                                     span { class: "unknown-item", title: "tuntematon tavara", "❓" }
                                 }
-
+                            
                                 if !id.starts_with("slr-") {
                                     span {
                                         class: "sli-del clickable",
                                         onclick: move |evt: Event<MouseData>| {
                                             evt.stop_propagation();
-                                            MODAL
-                                                .buttons(vec![(Button::Yes, Some(rm_item)), (Button::No, None)])
-                                                .prompt(rsx! {
-                                                "poistetaanko \"{name}\" varmasti?"
-                                                })
+                                            MODAL.yes(Some(rm_item)).no(None).prompt(rsx! {
+                                            "poistetaanko \"{name}\" varmasti?"
+                                            })
                                         },
                                         "(🚫 poista)"
                                     }
@@ -129,7 +127,7 @@ pub(crate) fn Items() -> Element {
                         }
                     })
             }
-
+        
         }
     }
 }

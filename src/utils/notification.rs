@@ -7,7 +7,7 @@ pub(crate) async fn allowed_to_notify() -> bool {
     let window = window().unwrap();
     if window.get("Notification").is_none() {
         MODAL
-            .buttons(vec![(Button::Ok, None)])
+            .ok(None)
             .prompt(rsx! { "ilmoituksia ei tueta!" });
         return false;
     }
@@ -24,7 +24,7 @@ pub(crate) async fn allowed_to_notify() -> bool {
             notify("näyteilmoitus");
         } else {
             MODAL
-                .buttons(vec![(Button::Ok, None)])
+                .ok(None)
                 .prompt(rsx! { "ilmotiukset on estettyjä!" });
             return false;
         }

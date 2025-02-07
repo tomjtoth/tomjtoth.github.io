@@ -77,26 +77,23 @@ pub(crate) fn Luxor() -> Element {
 
                 if iterator_len.rem_euclid(25) != 0 {
                     MODAL
-                        .lang(Language::Hu)
-                        .buttons(vec![(
-                            Button::Ok,
-                            Some(use_callback({
-                                let import_cb = import_cb.clone();
-                                move |_| {
-                                    tracing::debug!(
-                                        "warned user of number % 25 != 0, calling import_cb"
-                                    );
-                                    import_cb(vec_opt_u8.clone());
-                                }
-                            })),
-                        )])
+                        .hu()
+                        .ok(Some(use_callback({
+                            let import_cb = import_cb.clone();
+                            move |_| {
+                                tracing::debug!(
+                                    "warned user of number % 25 != 0, calling import_cb"
+                                );
+                                import_cb(vec_opt_u8.clone());
+                            }
+                        })))
                         .prompt(rsx! {
                             "25-ösével kell megadni a számokat! "
                             "A maradékot kipótolom bogarakkal. "
                             "Majd megszerkeszted a lakatra kattintva.."
                         })
                 } else if invalids.len() != 0 {
-                    MODAL.lang(Language::Hu).prompt(rsx! {
+                    MODAL.hu().prompt(rsx! {
                         if invalids.len() > 1 {
                             p { "Az alábbiak nem 0 és 75 közötti számok:" }
 
