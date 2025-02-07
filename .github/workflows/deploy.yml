@@ -19,11 +19,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
@@ -37,6 +34,33 @@ jobs:
 
       - name: Build Project
         run: npm run build
+
+      - name: Populating service-worker cache
+        shell: bash
+        run: |
+          cd dist
+          # populating URLS_TO_CACHE in sw.js
+          ASSETS=$(find . \( -name 'sw.js' -o -name 'README.md' -o -path './linux' \) -prune -o -type f -print | awk '{print "\"" $0 "\""}' | paste -sd "," -)
+          sed -i 's|"__REPLACED_DURING_DEPLOYMENT__"|'${ASSETS}'|' sw.js
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: dist/
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
