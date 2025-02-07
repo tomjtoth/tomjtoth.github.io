@@ -13,11 +13,8 @@ pub(crate) fn Home() -> Element {
         div { lang: "en",
           h2 { "DISCLAIMER" }
           p {
-            strong {
-              "This is the Rust + WASM (via Dioxus) version, "
-              "very much Work-in-Progress. 🤓 "
-              "Missing features include feedback in the minigame. "
-            }
+            strong { "This is the Dioxus (Rust + WASM) version" }
+            " using localStorage only (no IndexedDB)."
           }
 
           p {
