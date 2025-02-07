@@ -56,25 +56,20 @@ pub(crate) fn PickedNumsLine() -> Element {
                     let data = evt.map(|data| data.client_coordinates());
                     let left = format!("{}px", data.data().x - 8.0);
                     MODAL
-                        .lang(Language::Hu)
-                        .buttons(
-                            vec![
-                                (
-                                    Button::Ok,
-                                    Some(
-                                        use_callback(move |_| {
-                                            tracing::debug!("bug comes in");
-                                            bug.set(Bugstate {
-                                                class: Some("crawling"),
-                                                left: left.to_owned(),
-                                                blurred: false,
-                                            });
-                                        }),
-                                    ),
-                                ),
-                                (Button::Cancel, None),
-                            ],
+                        .hu()
+                        .ok(
+                            Some(
+                                use_callback(move |_| {
+                                    tracing::debug!("bug comes in");
+                                    bug.set(Bugstate {
+                                        class: Some("crawling"),
+                                        left: left.to_owned(),
+                                        blurred: false,
+                                    });
+                                }),
+                            ),
                         )
+                        .cancel(None)
                         .prompt(rsx! {
                             "Törlöm az "
                             strong { "utolsó" }

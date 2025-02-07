@@ -58,7 +58,7 @@ impl TrSpells for GsSpells {
             });
 
             if count <= 3 || count.rem_euclid(10) == 0 {
-                MODAL.silent().lang(Language::En).prompt(rsx! {
+                MODAL.silent().en().prompt(rsx! {
                     p {
                         if count.rem_euclid(10) == 0 {
                             "Congrats! This is your {count}th time casting {name}"

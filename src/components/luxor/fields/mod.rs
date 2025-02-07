@@ -61,8 +61,9 @@ pub(crate) fn Fields() -> Element {
                                                 class: "clickable padded",
                                                 onclick: move |_| {
                                                     MODAL
-                                                        .lang(Language::Hu)
-                                                        .buttons(vec![(Button::Yes, Some(del_cb_inner)), (Button::No, None)])
+                                                        .hu()
+                                                        .yes(Some(del_cb_inner))
+                                                        .no(None)
                                                         .prompt(rsx! { "Biztosan törlöd a mezőt?" })
                                                 },
                                                 "🚫 mező törlése"
@@ -70,7 +71,7 @@ pub(crate) fn Fields() -> Element {
                                         }
                                     }
                                 }
-
+                            
                                 Table { idx }
                             }
                         }
