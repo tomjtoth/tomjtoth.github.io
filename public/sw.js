@@ -5,6 +5,7 @@ const URLS_TO_CACHE = [
   // populates based on dist/assets after `dx build --release`
   "__REPLACED_DURING_DEPLOYMENT__",
 ];
+
 // TODO: maybe "/" is enough
 const FETCH_ALWAYS = ["/"].map((url) =>
   new URL(url, self.location.origin).toString()
@@ -49,8 +50,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {
-      const navigating = event.request.mode === "navigate";
-      const cachedRes = await cache.match(navigating ? "/" : event.request);
+      const cachedRes = await cache.match(event.request);
 
       const url = event.request.url;
       console.log(url);
