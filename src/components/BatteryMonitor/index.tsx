@@ -1,4 +1,5 @@
 import { useBattery } from "react-use";
+
 import { useAppSelector } from "../../hooks";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
 import { BatteryState } from "../../types/battery-monitor";
@@ -11,7 +12,11 @@ import Controls from "./Controls";
 import MainView from "../MainView";
 
 export default function BatteryMonitor() {
-  const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
+  const {
+    lower: lower,
+    upper: upper,
+    allowed,
+  } = useAppSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } =
     useBattery() as BatteryState;
   const lvl100 = Math.round(level * 100);
@@ -28,12 +33,10 @@ export default function BatteryMonitor() {
         </p>
         <ul>
           <li>
-            joko yli {isSupported ? `${max_val}%` : "maksimirajaa"}{" "}
-            {pluggedInStr}
+            joko yli {isSupported ? `${upper}%` : "maksimirajaa"} {pluggedInStr}
           </li>
           <li>
-            tai alle {isSupported ? `${min_val}%` : "minimirajaa"}{" "}
-            {unpluggedStr}
+            tai alle {isSupported ? `${lower}%` : "minimirajaa"} {unpluggedStr}
           </li>
         </ul>
         {isSupported ? (

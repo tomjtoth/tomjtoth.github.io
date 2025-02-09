@@ -11,13 +11,13 @@ import { CxModal } from "../Modal";
 export default function Controls() {
   const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
-  const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
+  const { lower, upper, allowed } = useAppSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } =
     useBattery() as BatteryState;
   const lvl100 = Math.round(level * 100);
 
   let className;
-  if (min_val > max_val) className = "invalid";
+  if (lower > upper) className = "invalid";
 
   const { reset: resetAllow, ...allow } = useField("checkbox", {
     id: "bat-mon-allowed",
@@ -28,7 +28,7 @@ export default function Controls() {
   const { reset: _resetMin, ...min } = useField("number", {
     id: "bat-mon-min",
     className,
-    initially: min_val,
+    initially: lower,
     max: 50,
     min: 10,
     title: "alaraja",
@@ -37,7 +37,7 @@ export default function Controls() {
   const { reset: _resetMax, ...max } = useField("number", {
     id: "bat-mon-max",
     className,
-    initially: max_val,
+    initially: upper,
     max: 90,
     min: 50,
     title: "yläraja",
@@ -47,8 +47,8 @@ export default function Controls() {
     const id = setTimeout(() => {
       dispatch(
         setLevels({
-          min_val: min.value as number,
-          max_val: max.value as number,
+          lower: min.value as number,
+          upper: max.value as number,
         })
       );
     }, 300);
@@ -82,7 +82,7 @@ export default function Controls() {
               {charging
                 ? "⚡"
                 : // lvl100 is closer to max_val, than min_val
-                Math.abs(max_val - lvl100) < Math.abs(min_val - lvl100)
+                Math.abs(upper - lvl100) < Math.abs(lower - lvl100)
                 ? "🔋"
                 : "🪫"}
               {lvl100}%

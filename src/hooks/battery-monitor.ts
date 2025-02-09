@@ -8,7 +8,7 @@ import { BatteryState } from "../types/battery-monitor";
 const SEC = 1000;
 
 export default function () {
-  const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
+  const { lower, upper, allowed } = useAppSelector((s) => s.batteryMonitor);
 
   const { isSupported, level, charging, chargingTime, dischargingTime } =
     useBattery() as BatteryState;
@@ -23,15 +23,12 @@ export default function () {
       (chargingTime !== Infinity || dischargingTime !== Infinity)
     ) {
       const id = setInterval(() => {
-        if (
-          (charging && lvl100 >= max_val) ||
-          (!charging && lvl100 <= min_val)
-        ) {
+        if ((charging && lvl100 >= upper) || (!charging && lvl100 <= lower)) {
           notify(notiText(charging, lvl100));
         }
       }, 60 * SEC);
 
       return () => clearInterval(id);
     }
-  }, [allowed, level, charging, min_val, max_val]);
+  }, [allowed, level, charging, lower, upper]);
 }
