@@ -8,15 +8,15 @@ const name = "battery-monitor";
 const slice = createSlice({
   name,
   initialState: loadObject(name, {
-    min_val: 20,
-    max_val: 80,
+    lower: 20,
+    upper: 80,
     allowed: false,
   }) as State,
 
   reducers: {
     setLevels: (state, { payload }: PayloadAction<Levels>) => {
-      state.min_val = payload.min_val;
-      state.max_val = payload.max_val;
+      state.lower = payload.lower;
+      state.upper = payload.upper;
       storeObject(name, state);
     },
 

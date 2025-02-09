@@ -1,8 +1,8 @@
 import { BatteryState as RUBS } from "react-use/lib/useBattery";
 
 export type Levels = {
-  min_val: number;
-  max_val: number;
+  lower: number;
+  upper: number;
 };
 
 export type State = Levels & {

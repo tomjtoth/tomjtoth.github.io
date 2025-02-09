@@ -1,7 +1,7 @@
 import { setModalType, Text } from "../../types/modal";
 
 export function notify(body: string) {
-  new Notification("Akunvalvonta", { body });
+  new Notification("Akunvalvonta", { body, icon: "/icon.png" });
 }
 
 export const pluggedInStr = "ja laturi on vieläkin kiinni";
