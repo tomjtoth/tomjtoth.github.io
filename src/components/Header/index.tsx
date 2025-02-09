@@ -1,9 +1,9 @@
 import { ReactNode, HTMLAttributes } from "react";
+
 import { useAppDispatch } from "../../hooks";
+import { setSidepanel } from "../../reducers/sidepanel";
 
 import "./header.css";
-
-import { setSidepanel } from "../../reducers/sidepanel";
 
 interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -16,7 +16,7 @@ export default function Header({
   icon,
   children,
   ...props
-}: HeaderProps): JSX.Element {
+}: HeaderProps) {
   document.title = title;
 
   const dispatch = useAppDispatch();
@@ -27,15 +27,13 @@ export default function Header({
         ...props,
         id: "header",
         className: "border1-s",
-
-        onClick: ({ target }) => {
-          if ((target as HTMLElement).classList.contains("toggler")) {
-            dispatch(setSidepanel(true));
-          }
-        },
       }}
     >
-      <span id="menu-button" className="toggler clickable padded">
+      <span
+        id="menu-button"
+        className="clickable padded"
+        onClick={() => dispatch(setSidepanel(true))}
+      >
         &#x2630;
       </span>
       {children}
