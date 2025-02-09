@@ -7,7 +7,7 @@ import "./battery-monitor.css";
 
 import Loader from "../Loader";
 import Header from "../Header";
-import ControlForm from "./ControlForm";
+import Controls from "./Controls";
 import MainView from "../MainView";
 
 export default function BatteryMonitor() {
@@ -19,7 +19,7 @@ export default function BatteryMonitor() {
   return (
     <>
       <Header title="akunvalvonta" icon="🔋">
-        <ControlForm />
+        <Controls />
       </Header>
       <MainView className="padded">
         <p>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useBattery } from "react-use";
 
@@ -6,8 +6,10 @@ import useField from "../../hooks/useField";
 import { checkPermission } from "./notifications";
 import { setLevels, setAllowed } from "../../reducers/battery-monitor";
 import { BatteryState } from "../../types/battery-monitor";
+import { CxModal } from "../Modal";
 
-export default function ControlForm() {
+export default function Controls() {
+  const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
   const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } =
@@ -58,7 +60,7 @@ export default function ControlForm() {
     const dp = () => dispatch(setAllowed(allow.checked));
 
     if (allow.checked) {
-      checkPermission().then((notiAllowed) => {
+      checkPermission(setModal).then((notiAllowed) => {
         if (notiAllowed) dp();
         else resetAllow();
       });
