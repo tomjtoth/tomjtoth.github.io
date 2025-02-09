@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { ControlFormProps } from "../../types/arx-fatalis";
 import { init } from "../../reducers/arx-fatalis";
 
-export default function ControlForm({ noti }: ControlFormProps) {
+export default function Controls() {
   const arx = useAppSelector((s) => s.arxFatalis);
   const dispatch = useAppDispatch();
 
@@ -20,17 +19,7 @@ export default function ControlForm({ noti }: ControlFormProps) {
         target="_blank"
       >
         📖
-        {noti && (
-          <>
-            &nbsp;<sub>{noti.page}</sub>
-          </>
-        )}
       </a>
-      {noti && (
-        <>
-          {noti.spell} ({noti.sequence.join(" + ")})
-        </>
-      )}
       {/* TODO: <span id="reset-runes-score">reset</span> */}
     </>
   );

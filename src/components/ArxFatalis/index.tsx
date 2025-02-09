@@ -1,43 +1,29 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 
-import { Noti } from "../../types/arx-fatalis";
-import useLogic from "./logic";
-import { runes, RE } from "./config";
+import { CxRunesType } from "../../types/arx-fatalis";
+import { RE } from "../../types/arx-fatalis/runes";
 
 import "./arx-fatalis.css";
 
 import Header from "../Header";
-import ControlForm from "./ControlForm";
+import Controls from "./Controls";
 import MainView from "../MainView";
 import Runes from "./Runes";
 
+export const CxRunes = createContext<CxRunesType>(undefined);
+
 export default function ArxFatalis() {
   const [queue, setQueue] = useState<RE[]>([]);
-  const [noti, setNoti] = useState<Noti>();
-
-  useLogic({ queue, setQueue, noti, setNoti });
 
   return (
-    <>
+    <CxRunes.Provider value={{ queue, setQueue }}>
       <Header title="riimut">
-        <ControlForm noti={noti} />
+        <Controls />
       </Header>
-      <MainView
-        className="arx-fatalis"
-        onClick={(e) => {
-          if ((e.target as HTMLElement).tagName == "IMG")
-            setQueue(
-              queue.concat(
-                runes.findIndex(
-                  ({ rune }) => rune === (e.target as HTMLImageElement).title
-                )!
-              )
-            );
-        }}
-      >
+      <MainView className="arx-fatalis">
         <div id="runes-drawing">{/* TODO: implement drawing by finger */}</div>
         <Runes />
       </MainView>
-    </>
+    </CxRunes.Provider>
   );
 }

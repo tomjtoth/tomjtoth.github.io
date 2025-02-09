@@ -19,6 +19,8 @@ export type ModalType = {
   prompt: ReactNode;
   lang?: Language;
   buttons?: Button[];
+  silent?: boolean;
+  removeAfter?: number;
 };
 
 export type setModalType = React.Dispatch<
