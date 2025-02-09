@@ -1,29 +1,39 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 
-import { CxRunesType } from "../../types/arx-fatalis";
 import { RE } from "../../types/arx-fatalis/runes";
+import { Rune } from "../../types/arx-fatalis/runes";
+import useLogic from "./logic";
 
 import "./arx-fatalis.css";
 
 import Header from "../Header";
 import Controls from "./Controls";
 import MainView from "../MainView";
-import Runes from "./Runes";
-
-export const CxRunes = createContext<CxRunesType>(undefined);
+import Img from "./Img";
 
 export default function ArxFatalis() {
   const [queue, setQueue] = useState<RE[]>([]);
+  useLogic({ queue, setQueue });
 
   return (
-    <CxRunes.Provider value={{ queue, setQueue }}>
+    <>
       <Header title="riimut">
         <Controls />
       </Header>
       <MainView className="arx-fatalis">
         <div id="runes-drawing">{/* TODO: implement drawing by finger */}</div>
-        <Runes />
+        <div id="runes">
+          {Rune.arr.map((rune) => (
+            <Img
+              key={rune.str()}
+              {...{
+                rune,
+                onClick: () => setQueue((queue) => [...queue, rune.variant]),
+              }}
+            />
+          ))}
+        </div>
       </MainView>
-    </CxRunes.Provider>
+    </>
   );
 }

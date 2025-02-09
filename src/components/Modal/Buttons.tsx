@@ -18,27 +18,30 @@ export default function Buttons() {
   let autoFocusUnset = true;
 
   return (
-    <div id="modal-buttons">
-      {(buttons ?? []).map(([text, onClick], key) => {
-        let autoFocus;
-        if (autoFocusUnset && (text === Text.Ok || text === Text.Yes)) {
-          autoFocus = true;
-          autoFocusUnset = false;
-        }
+    buttons &&
+    buttons.length > 0 && (
+      <div id="modal-buttons">
+        {buttons.map(([text, onClick], key) => {
+          let autoFocus;
+          if (autoFocusUnset && (text === Text.Ok || text === Text.Yes)) {
+            autoFocus = true;
+            autoFocusUnset = false;
+          }
 
-        return (
-          <button
-            key={key}
-            {...{
-              autoFocus,
-              className: "clickable",
-              onClick,
-            }}
-          >
-            {TEXTS[text][lang ?? Language.Fi]}
-          </button>
-        );
-      })}
-    </div>
+          return (
+            <button
+              key={key}
+              {...{
+                autoFocus,
+                className: "clickable",
+                onClick,
+              }}
+            >
+              {TEXTS[text][lang ?? Language.Fi]}
+            </button>
+          );
+        })}
+      </div>
+    )
   );
 }
