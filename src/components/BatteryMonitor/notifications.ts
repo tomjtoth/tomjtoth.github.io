@@ -1,6 +1,4 @@
-import { useContext } from "react";
-import { CxModal } from "../Modal";
-import { Text } from "../../types/modal";
+import { setModalType, Text } from "../../types/modal";
 
 export function notify(body: string) {
   new Notification("Akunvalvonta", { body });
@@ -15,8 +13,7 @@ export function notiText(charging: boolean, lvl100: number): string {
   }`;
 }
 
-export async function checkPermission() {
-  const { setModal } = useContext(CxModal)!;
+export async function checkPermission(setModal: setModalType) {
   if (!window.Notification) {
     setModal({
       prompt: "ilmoituksia ei tueta",

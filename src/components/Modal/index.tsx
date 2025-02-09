@@ -2,7 +2,7 @@ import { createContext, PropsWithChildren, useState } from "react";
 
 import "./modal.css";
 
-import { ModalType } from "../../types/modal";
+import { ModalType, setModalType } from "../../types/modal";
 import Buttons from "./Buttons";
 
 const SOUND = new Audio("/modal.mp3");
@@ -10,7 +10,7 @@ const SOUND = new Audio("/modal.mp3");
 export const CxModal = createContext<
   | {
       modal?: ModalType;
-      setModal: React.Dispatch<React.SetStateAction<ModalType | undefined>>;
+      setModal: setModalType;
     }
   | undefined
 >(undefined);

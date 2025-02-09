@@ -20,3 +20,7 @@ export type ModalType = {
   lang?: Language;
   buttons?: Button[];
 };
+
+export type setModalType = React.Dispatch<
+  React.SetStateAction<ModalType | undefined>
+>;
