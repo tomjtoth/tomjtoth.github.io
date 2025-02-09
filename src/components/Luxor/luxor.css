@@ -6,9 +6,12 @@
 }
 
 #luxor-adder {
-  flex-grow: 1; /* Allow the input to take up the remaining space */
-  max-width: 100%; /* Ensure it doesn't overflow the viewport */
-  min-width: 0; /* Prevent width issues in flex containers */
+  flex-grow: 1;
+  /* Allow the input to take up the remaining space */
+  max-width: 100%;
+  /* Ensure it doesn't overflow the viewport */
+  min-width: 0;
+  /* Prevent width issues in flex containers */
   width: 25px;
   padding: 8px;
 }
@@ -22,12 +25,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  padding: 8px;
 }
 
 #luxor-num-bug {
   position: fixed;
   z-index: 1;
   font-size: 25px;
+  user-select: none;
 }
 
 #luxor-num-bug.crawling {
@@ -58,6 +63,7 @@
   80% {
     backdrop-filter: blur(4px);
   }
+
   100% {
     backdrop-filter: blur(0);
   }
@@ -101,6 +107,7 @@ ul.luxor {
   flex-wrap: wrap;
   padding-left: 0;
   justify-content: space-evenly;
+  margin: 0px;
 }
 
 li.luxor {
