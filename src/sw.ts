@@ -1,4 +1,3 @@
-// /// <reference lib="es2018" />
 /// <reference lib="webworker" />
 const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis;
 
@@ -6,12 +5,12 @@ const CACHE_NAME: string = "rolling-net-first";
 const URLS_TO_CACHE: string[] = [
   "/",
   // this is a placeholder for the sed command in `deploy.yml`
-  // populates based on dist/assets after `dx build --release`
+  // gets populated based on `dist/*` minus a few exceptions
   "__REPLACED_DURING_DEPLOYMENT__",
 ];
 
 // TODO: maybe "/" is enough
-const FETCH_ALWAYS: string[] = ["/", "/#/"].map((url: string) =>
+const FETCH_ALWAYS: string[] = ["/"].map((url: string) =>
   new URL(url, self.location.origin).toString()
 );
 
@@ -23,9 +22,9 @@ function rmOldVersions(cache: Cache, matched: RegExpMatchArray | null): void {
       keys.forEach((req: Request) => {
         if (
           req.url.startsWith(resource) &&
-          // allowing for e.g. `lyrics.yaml` and `lyrics.something`, too
+          // allowing for both `index.css` and `index.js`
           req.url.endsWith(extension) &&
-          // most performant? way to compare the hash parts
+          // cheapest? way to compare the hash parts
           !req.url.endsWith(hashExt)
         ) {
           console.log(`deleted "${req.url}" in favor of "${url}"`);
