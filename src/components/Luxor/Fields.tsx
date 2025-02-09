@@ -25,7 +25,7 @@ export default function Fields() {
               [DDD, "nappal"],
               [HH, "órával"],
               [MM, "perccel"],
-              [SS, "másodperccel"],
+              [SS >= 1 ? SS : 1, "másodperccel"],
             ] as [number, string][]
           ).find(([val]) => Math.round(val) > 0)!;
 

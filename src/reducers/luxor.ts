@@ -1,16 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
-import type { Field, State } from "../types/luxor";
+import { EMPTY_FIELD, FieldImport, type State } from "../types/luxor";
 import db, { updateFields, numFieldId } from "../services/luxor";
-import { last, maxId } from "../utils";
-
-const emptyField = [
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0],
-];
+import { maxId } from "../utils";
 
 const bug = {
   x: "110vw",
@@ -57,7 +49,7 @@ const slice = createSlice({
       state.fields.splice(order, 0, {
         id: maxId(state.fields) + 1,
         order: order + 1,
-        rows: emptyField,
+        rows: EMPTY_FIELD,
       });
 
       db.saveFields(state);
@@ -107,35 +99,25 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function init(preset: string | null) {
+export function init(imports: FieldImport[]) {
   return async (dispatch: AppDispatch) => {
     const [pickedNums, fields] = await db.load();
 
-    if (preset) {
-      const importedAt = Date.now();
+    if (imports.length > 0) {
       const nextId = maxId(fields) + 1;
-      const fieldsLength = fields.length;
-
+      const len = fields.length + 1;
       fields.push(
-        ...preset.split(",").reduce((fields, numStr, idx) => {
-          if (idx % 25 === 0) {
-            const id = nextId + Math.floor(idx / 25);
-            fields.push({ id, order: fieldsLength + id, rows: [], importedAt });
-          }
-          const { rows } = last(fields) as Field;
-          if (idx % 5 === 0) rows.push([]);
-          const row = last(rows) as number[];
-
-          row.push(Number(numStr));
-
-          return fields;
-        }, [] as Field[])
+        ...imports.map((rest, idx) => ({
+          ...rest,
+          id: nextId + idx,
+          order: len + idx,
+        }))
       );
-
       db.saveFields({ fields });
     }
 
-    if (fields.length === 0) fields.push({ id: 1, order: 1, rows: emptyField });
+    if (fields.length === 0)
+      fields.push({ id: 1, order: 1, rows: EMPTY_FIELD });
 
     dispatch(sa.init({ pickedNums, fields }));
   };

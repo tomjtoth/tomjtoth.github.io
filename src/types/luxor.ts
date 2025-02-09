@@ -11,6 +11,8 @@ export type Field = {
   importedAt?: number;
 };
 
+export type FieldImport = Omit<Field, "id" | "order">;
+
 export type State = {
   fields: Field[];
   pickedNums: number[];
@@ -22,3 +24,11 @@ export type TableBodyProps = {
   rows: number[][];
   fieldId: number;
 };
+
+export const EMPTY_FIELD = [
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0],
+];

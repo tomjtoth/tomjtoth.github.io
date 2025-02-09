@@ -13,7 +13,7 @@ import { Language, Text } from "../../types/modal";
 
 const numOnly = /^\d+$/;
 
-export default function ControlForm() {
+export default function Controls() {
   const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
   const { locked, pickedNums } = useAppSelector((s) => s.luxor);

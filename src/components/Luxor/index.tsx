@@ -1,16 +1,17 @@
 import { useContext, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../hooks";
 import { useLocation, useNavigate } from "react-router";
 
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import { addField, rmField, addNum, init } from "../../reducers/luxor";
-import { CxModal } from "../Modal";
 import { Language, Text } from "../../types/modal";
+import { CxModal } from "../Modal";
+import { processImports } from "../../services/luxor";
 
 import "./luxor.css";
 
 import Header from "../Header";
 import MainView from "../MainView";
-import ControlForm from "./ControlForm";
+import Controls from "./Controls";
 import Fields from "./Fields";
 import PickedNumsLine from "./PickedNumsLine";
 
@@ -23,16 +24,34 @@ export default function Luxor() {
   const { search, pathname } = useLocation();
 
   useEffect(() => {
-    const preset = new URLSearchParams(search).get("preset");
-    if (fields.length == 0) dispatch(init(preset));
-
-    if (preset) navigate(pathname);
+    const imp = new URLSearchParams(search).get("import");
+    const [arr, prompt, critical] = processImports(imp);
+    if (prompt) {
+      setModal({
+        prompt,
+        lang: Language.Hu,
+        buttons: [
+          [
+            Text.Ok,
+            () => {
+              if (!critical) {
+                dispatch(init(arr));
+                navigate(pathname);
+              }
+            },
+          ],
+        ],
+      });
+    } else {
+      dispatch(init(arr));
+      if (imp) navigate(pathname);
+    }
   }, []);
 
   return (
     <>
       <Header title="Luxor" icon="🪲">
-        <ControlForm />
+        <Controls />
       </Header>
       <MainView
         className="luxor"
