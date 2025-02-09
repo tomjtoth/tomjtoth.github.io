@@ -36,14 +36,13 @@ export default function Modal({ children }: PropsWithChildren) {
     modalDiv = (
       <div
         {...{
-          id: "modal-blur",
+          className: "modal-blur",
           onClick: () => setModal(undefined),
         }}
       >
         <div
           {...{
-            id: "modal",
-            className: "padded bordered",
+            className: "modal padded bordered",
             lang,
             onClick: (evt) => {
               if (evt.target === evt.currentTarget) evt.stopPropagation();
