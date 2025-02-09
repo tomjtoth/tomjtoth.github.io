@@ -1,16 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
-import { RUNES } from "../../types/arx-fatalis/runes";
+import { Rune } from "../../types/arx-fatalis/runes";
 import { castSpell } from "../../reducers/arx-fatalis";
-import { CxRunes } from ".";
 import { CxModal } from "../Modal";
-import Rune from "./Rune";
+import Img from "./Img";
 import { Spell } from "../../types/arx-fatalis/spells";
+import { LogicProps } from "../../types/arx-fatalis";
 
-export default function useLogic() {
+export default function useLogic({ queue, setQueue }: LogicProps) {
   const { setModal } = useContext(CxModal)!;
-  const { queue, setQueue } = useContext(CxRunes)!;
   const state = useAppSelector((s) => s.arxFatalis)!;
 
   const dispatch = useAppDispatch();
@@ -21,14 +20,14 @@ export default function useLogic() {
 
     // TODO: not working when caching many of the same rune after one another
     if (idx < queue.length) {
-      const curr = RUNES[queue[idx]]!;
+      const curr = Rune.byVariant(queue[idx])!;
+
       if (curr.mp3.paused) {
-        curr.mp3.currentTime = curr.start;
-        curr.mp3.play();
+        let len = curr.play();
 
         setTimeout(() => {
           setIdx(idx + 1);
-        }, curr.length);
+        }, len);
       }
     } else if (idx > 0) {
       Spell.tryCast(queue, (idx: number, spell: string, page: number) => {
@@ -46,8 +45,8 @@ export default function useLogic() {
                   : `You cast ${spell} from page ${page}:`}
 
                 <div>
-                  {queue.map((rune, idx) => (
-                    <Rune key={idx} {...{ rune }} />
+                  {queue.map((re, idx) => (
+                    <Img key={idx} {...{ rune: Rune.byVariant(re)! }} />
                   ))}
                 </div>
               </>
