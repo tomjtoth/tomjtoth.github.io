@@ -35,9 +35,10 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Populating service-worker cache
+      - name: Build service-worker && populate its cache
         shell: bash
         run: |
+          npm run build-sw
           cd dist
           # populating URLS_TO_CACHE in sw.js
           ASSETS=$(find . \( -name 'sw.js' -o -name 'README.md' -o -path './linux' \) -prune -o -type f -print | awk '{print "\"" $0 "\""}' | paste -sd "," -)
