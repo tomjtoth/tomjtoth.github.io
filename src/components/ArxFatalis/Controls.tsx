@@ -14,7 +14,7 @@ export default function Controls() {
     <>
       💎&nbsp;{arx && arx.score}
       <a
-        className="runes"
+        className="spells"
         href="https://wiki.arx-libertatis.org/Spells"
         target="_blank"
       >
