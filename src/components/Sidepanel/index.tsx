@@ -26,7 +26,9 @@ export default function Sidepanel() {
           </span>
         </li>
         {links.map((lnk, i) => (
-          <Link key={`nav-link-${i}`} className="nav-link" {...lnk} />
+          <li key={`nav-link-${i}`}>
+            <Link className="nav-link" {...lnk} />
+          </li>
         ))}
       </ul>
       <QRCode value={`${window.location.pathname}/#${pathname}`} />
