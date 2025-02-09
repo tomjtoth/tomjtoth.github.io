@@ -26,7 +26,7 @@ export default function Controls() {
   });
 
   const { reset: _resetMin, ...min } = useField("number", {
-    id: "bat-mon-min",
+    id: "bat-mon-lower",
     className,
     initially: lower,
     max: 50,
@@ -35,7 +35,7 @@ export default function Controls() {
   });
 
   const { reset: _resetMax, ...max } = useField("number", {
-    id: "bat-mon-max",
+    id: "bat-mon-upper",
     className,
     initially: upper,
     max: 90,
