@@ -1,26 +1,22 @@
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 
-type LanguageSelection = "hu" | "fi" | "en";
+export enum Language {
+  En = "en",
+  Fi = "fi",
+  Hu = "hu",
+}
 
-export type ModalType =
-  | undefined
-  | {
-      prompt: ReactNode;
-      onSuccess?: CallableFunction;
-      onFailure?: CallableFunction;
-      lang?: LanguageSelection;
-      buttons?: string;
-    };
+export enum Text {
+  Ok,
+  Cancel,
+  Yes,
+  No,
+}
 
-export type setModalType = React.Dispatch<React.SetStateAction<ModalType>>;
+type Button = [Text, MouseEventHandler?];
 
-export type ModalProps = {
-  modal: ModalType;
-  setModal: setModalType;
-  timeOut?: number;
-};
-
-export type ModalButtonsProps = {
-  lang: LanguageSelection;
-  buttons: string;
+export type ModalType = {
+  prompt: ReactNode;
+  lang?: Language;
+  buttons?: Button[];
 };

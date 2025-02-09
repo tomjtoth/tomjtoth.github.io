@@ -1,5 +1,3 @@
-import { setModalType } from "./modal";
-
 export type bugState = {
   privacy: boolean;
   x: number | string;
@@ -23,12 +21,4 @@ export type State = {
 export type TableBodyProps = {
   rows: number[][];
   fieldId: number;
-};
-
-export type ControlFormProps = {
-  setModal: setModalType;
-};
-
-export type PickedNumsLineProps = {
-  setModal: setModalType;
 };

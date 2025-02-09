@@ -7,10 +7,14 @@ import {
   resetActiveItems,
   toggleActive,
 } from "../../reducers/shopping-list";
+import { CxModal } from "../Modal";
+import { useContext } from "react";
+import { Text } from "../../types/modal";
 
 const RE_EMPTY_STRING = /^\s*$/;
 
-export default function ControlForm({ active, setModal }: ControlFormProps) {
+export default function ControlForm({ active }: ControlFormProps) {
+  const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
   const { reset: resetItem, ...item } = useField("text", {
     placeholder: "lisää tavara tänne",
@@ -38,7 +42,10 @@ export default function ControlForm({ active, setModal }: ControlFormProps) {
         } else if (id === "sli-reset") {
           setModal({
             prompt: "pyyhitäänkö kaikki vihreät?",
-            onSuccess: () => dispatch(resetActiveItems()),
+            buttons: [
+              [Text.Yes, () => dispatch(resetActiveItems())],
+              [Text.No],
+            ],
           });
         }
       }}

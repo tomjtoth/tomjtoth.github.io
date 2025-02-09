@@ -1,53 +1,67 @@
-import { useEffect } from "react";
+import { createContext, PropsWithChildren, useState } from "react";
 
 import "./modal.css";
 
+import { ModalType } from "../../types/modal";
 import Buttons from "./Buttons";
-import { ModalProps } from "../../types/modal";
 
-const success = /-(?:ok|yes)$/;
-const failure = /-(?:cancel|no)$/;
-const keepModal = /^modal(?:-buttons)?$/;
-const sound = new Audio("/modal.mp3");
+const SOUND = new Audio("/modal.mp3");
 
-export default function Modal({ modal, setModal, timeOut = 3000 }: ModalProps) {
-  useEffect(() => {
-    const id = setTimeout(() => {
-      setModal(undefined);
-    }, timeOut);
+export const CxModal = createContext<
+  | {
+      modal?: ModalType;
+      setModal: React.Dispatch<React.SetStateAction<ModalType | undefined>>;
+    }
+  | undefined
+>(undefined);
 
-    return () => clearTimeout(id);
-  }, [modal]);
+export default function Modal({ children }: PropsWithChildren) {
+  const [modal, setModal] = useState<ModalType | undefined>(undefined);
 
-  if (!modal) return;
+  // useEffect(() => {
+  //   const id = setTimeout(() => {
+  //     setModal(undefined);
+  //   }, 3000);
 
-  const { prompt, onSuccess, onFailure, lang = "fi", buttons = "oc" } = modal;
+  //   return () => clearTimeout(id);
+  // }, [modal]);
 
-  if (prompt) {
-    sound.currentTime = 0;
-    sound.play();
-  }
+  let modalDiv;
 
-  return (
-    prompt && (
+  if (modal) {
+    const { prompt, lang } = modal;
+
+    modalDiv = (
       <div
         {...{
           id: "modal-blur",
-          onClick: (e) => {
-            const t = e.target as HTMLElement;
-
-            if (success.test(t.id) && onSuccess) onSuccess();
-            else if (failure.test(t.id) && onFailure) onFailure();
-
-            if (!keepModal.test(t.id)) setModal(undefined);
-          },
+          onClick: () => setModal(undefined),
         }}
       >
-        <div id="modal" className="padded bordered">
+        <div
+          {...{
+            id: "modal",
+            className: "padded bordered",
+            lang,
+            onClick: (evt) => {
+              if (evt.target === evt.currentTarget) evt.stopPropagation();
+            },
+          }}
+        >
           {prompt}
-          <Buttons {...{ buttons, lang }} />
+          <Buttons />
         </div>
       </div>
-    )
+    );
+
+    SOUND.currentTime = 0;
+    SOUND.play();
+  }
+
+  return (
+    <CxModal.Provider value={{ modal, setModal }}>
+      {modalDiv}
+      {children}
+    </CxModal.Provider>
   );
 }

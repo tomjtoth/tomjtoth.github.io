@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { init, toggleActive, rmItem } from "../../reducers/shopping-list";
-import { ModalType as ModalType } from "../../types/modal";
+import { CxModal } from "../Modal";
+import { Text } from "../../types/modal";
 
 import "./shopping-list.css";
 
-import Modal from "../Modal";
 import Header from "../Header";
 import MainView from "../MainView";
 import Recipes from "./Recipes";
@@ -16,7 +16,7 @@ import Loader from "../Loader";
 const RE_SLRI = /^sl[ri]/;
 
 export default function ShoppingList() {
-  const [modal, setModal] = useState<ModalType>();
+  const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
   const { recipes, active } = useAppSelector((s) => s.shoppingList);
   const uninitialized = recipes.length === 0;
@@ -27,9 +27,8 @@ export default function ShoppingList() {
 
   return (
     <>
-      <Modal {...{ modal, setModal }} />
       <Header title="ostoslista" icon="🛒">
-        <ControlForm {...{ active, setModal }} />
+        <ControlForm {...{ active }} />
       </Header>
 
       <MainView
@@ -41,8 +40,13 @@ export default function ShoppingList() {
             if (tagName === "SPAN" && classList.contains("sli-del")) {
               setModal({
                 prompt: "poistetaanko varmasti?",
-                onSuccess: () =>
-                  dispatch(rmItem((parentNode as HTMLElement)!.id)),
+                buttons: [
+                  [
+                    Text.Yes,
+                    () => dispatch(rmItem((parentNode as HTMLElement)!.id)),
+                  ],
+                  [Text.No],
+                ],
               });
             } else if (tagName === "LI" && RE_SLRI.test(id)) {
               dispatch(toggleActive(id));

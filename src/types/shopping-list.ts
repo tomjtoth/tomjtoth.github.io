@@ -1,9 +1,8 @@
 import { Active } from "./common";
-import { setModalType } from "./modal";
+import { Language } from "./modal";
 
 export type ControlFormProps = {
   active: Active;
-  setModal: setModalType;
 };
 
 type Step = string;
@@ -34,5 +33,5 @@ export type State = {
 export type StepsProps = {
   recId: string;
   steps: Step[];
-  lang: "hu" | "fi" | undefined;
+  lang: Language | undefined;
 };
