@@ -1,4 +1,4 @@
-#runes-drawing {
+#runes-spacer {
   flex-grow: 1;
   /* background-color: gray; */
 }
@@ -38,6 +38,6 @@
   }
 }
 
-a.runes {
+a.spells {
   text-decoration: none;
 }

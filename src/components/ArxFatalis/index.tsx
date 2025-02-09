@@ -21,7 +21,7 @@ export default function ArxFatalis() {
         <Controls />
       </Header>
       <MainView className="arx-fatalis">
-        <div id="runes-drawing">{/* TODO: implement drawing by finger */}</div>
+        <div id="runes-spacer" />
         <div id="runes">
           {Rune.arr.map((rune) => (
             <Img
