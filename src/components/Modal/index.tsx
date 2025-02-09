@@ -19,17 +19,19 @@ export default function Modal({ children }: PropsWithChildren) {
   const [modal, setModal] = useState<ModalType | undefined>(undefined);
 
   // useEffect(() => {
-  //   const id = setTimeout(() => {
-  //     setModal(undefined);
-  //   }, 3000);
+  //   if (modal && modal.removeAfter !== undefined) {
+  //     const id = setTimeout(() => {
+  //       setModal(undefined);
+  //     }, modal.removeAfter);
 
-  //   return () => clearTimeout(id);
+  //     return () => clearTimeout(id);
+  //   }
   // }, [modal]);
 
   let modalDiv;
 
   if (modal) {
-    const { prompt, lang } = modal;
+    const { prompt, lang, silent } = modal;
 
     modalDiv = (
       <div
@@ -54,8 +56,11 @@ export default function Modal({ children }: PropsWithChildren) {
       </div>
     );
 
-    SOUND.currentTime = 0;
-    SOUND.play();
+    if (!silent) {
+      console.debug("playing modal sound");
+      SOUND.currentTime = 0;
+      SOUND.play();
+    }
   }
 
   return (

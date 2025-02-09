@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
-import db, { spellValue } from "../services/arx-fatalis";
+import db from "../services/arx-fatalis";
 import { State } from "../types/arx-fatalis";
+import { SE, Spell } from "../types/arx-fatalis/spells";
 
 const slice = createSlice({
   name: "arx-fatalis",
@@ -9,9 +10,9 @@ const slice = createSlice({
   reducers: {
     init: (_, { payload }) => payload,
 
-    addSpell: (state, { payload }: PayloadAction<number>) => {
+    addSpell: (state, { payload }: PayloadAction<SE>) => {
       state!.castSpells.push(payload);
-      state!.score += spellValue(payload);
+      state!.score += Spell.pointsOf(payload);
       db.save(state!);
     },
   },
@@ -25,17 +26,18 @@ export function castSpell(spell: number) {
 
 export function init() {
   return (dispatch: AppDispatch) =>
-    db.load().then((castSpells) =>
+    db.load().then((castSpells) => {
+      // Spell.init();
       dispatch(
         sa.init({
           castSpells,
           score: castSpells.reduce(
-            (sum: number, spellIdx) => sum + spellValue(spellIdx),
+            (sum: number, se: SE) => sum + Spell.pointsOf(se),
             0
           ),
         })
-      )
-    );
+      );
+    });
 }
 
 export default slice.reducer;
