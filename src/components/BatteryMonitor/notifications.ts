@@ -1,4 +1,6 @@
-import { setModalType } from "../../types/modal";
+import { useContext } from "react";
+import { CxModal } from "../Modal";
+import { Text } from "../../types/modal";
 
 export function notify(body: string) {
   new Notification("Akunvalvonta", { body });
@@ -13,11 +15,12 @@ export function notiText(charging: boolean, lvl100: number): string {
   }`;
 }
 
-export async function checkPermission(setModal: setModalType) {
+export async function checkPermission() {
+  const { setModal } = useContext(CxModal)!;
   if (!window.Notification) {
     setModal({
       prompt: "ilmoituksia ei tueta",
-      buttons: "o",
+      buttons: [[Text.Ok]],
     });
     return false;
   } else {
@@ -27,7 +30,7 @@ export async function checkPermission(setModal: setModalType) {
       } else {
         setModal({
           prompt: "ilmotiukset on estettyjä",
-          buttons: "o",
+          buttons: [[Text.Ok]],
         });
         return false;
       }

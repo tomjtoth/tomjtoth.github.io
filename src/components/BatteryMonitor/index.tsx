@@ -1,20 +1,16 @@
 import { useBattery } from "react-use";
 import { useAppSelector } from "../../hooks";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
+import { BatteryState } from "../../types/battery-monitor";
 
 import "./battery-monitor.css";
 
 import Loader from "../Loader";
 import Header from "../Header";
-import Modal from "../Modal";
 import ControlForm from "./ControlForm";
 import MainView from "../MainView";
-import { useState } from "react";
-import { ModalType } from "../../types/modal";
-import { BatteryState } from "../../types/battery-monitor";
 
 export default function BatteryMonitor() {
-  const [modal, setModal] = useState<ModalType>();
   const { min_val, max_val, allowed } = useAppSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } =
     useBattery() as BatteryState;
@@ -22,9 +18,8 @@ export default function BatteryMonitor() {
 
   return (
     <>
-      <Modal {...{ modal, setModal }} />
       <Header title="akunvalvonta" icon="🔋">
-        <ControlForm {...{ setModal }} />
+        <ControlForm />
       </Header>
       <MainView className="padded">
         <p>

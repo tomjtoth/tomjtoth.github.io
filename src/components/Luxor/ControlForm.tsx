@@ -7,11 +7,14 @@ import {
   toggleLock,
   addNum,
 } from "../../reducers/luxor";
-import { ControlFormProps } from "../../types/luxor";
+import { useContext } from "react";
+import { CxModal } from "../Modal";
+import { Language, Text } from "../../types/modal";
 
 const numOnly = /^\d+$/;
 
-export default function ControlForm({ setModal }: ControlFormProps) {
+export default function ControlForm() {
+  const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
   const { locked, pickedNums } = useAppSelector((s) => s.luxor);
   const { reset: resetInput, ...num } = useField("number", {
@@ -60,8 +63,8 @@ export default function ControlForm({ setModal }: ControlFormProps) {
                 Törlöm az <strong>összes</strong> húzott számot
               </>
             ),
-            lang: "hu",
-            onSuccess: () => dispatch(clearNums()),
+            lang: Language.Hu,
+            buttons: [[Text.Ok, () => dispatch(clearNums())], [Text.Cancel]],
           })
         }
         title="jelölések törlése"

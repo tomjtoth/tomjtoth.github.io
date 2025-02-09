@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { useLocation, useNavigate } from "react-router";
 
 import { addField, rmField, addNum, init } from "../../reducers/luxor";
-import { ModalType } from "../../types/modal";
+import { CxModal } from "../Modal";
+import { Language, Text } from "../../types/modal";
 
 import "./luxor.css";
 
-import Modal from "../Modal";
 import Header from "../Header";
 import MainView from "../MainView";
 import ControlForm from "./ControlForm";
@@ -15,8 +15,7 @@ import Fields from "./Fields";
 import PickedNumsLine from "./PickedNumsLine";
 
 export default function Luxor() {
-  const [modal, setModal] = useState<ModalType>();
-
+  const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
   const { fields, pickedNums, locked } = useAppSelector((s) => s.luxor);
 
@@ -32,9 +31,8 @@ export default function Luxor() {
 
   return (
     <>
-      <Modal {...{ modal, setModal }} />
       <Header title="Luxor" icon="🪲">
-        <ControlForm {...{ setModal }} />
+        <ControlForm />
       </Header>
       <MainView
         className="luxor"
@@ -46,9 +44,17 @@ export default function Luxor() {
           } else if (classList.contains("luxor-fld-del")) {
             setModal({
               prompt: <>Azt a mezőt most törlöm...</>,
-              lang: "hu",
-              onSuccess: () =>
-                dispatch(rmField((parentNode!.parentNode! as HTMLElement).id)),
+              lang: Language.Hu,
+              buttons: [
+                [
+                  Text.Ok,
+                  () =>
+                    dispatch(
+                      rmField((parentNode!.parentNode! as HTMLElement).id)
+                    ),
+                ],
+                [Text.Cancel],
+              ],
             });
           } else if (locked && tagName === "TD") {
             const asNumber = Number(textContent);
@@ -59,7 +65,7 @@ export default function Luxor() {
       >
         {fields && (
           <>
-            <PickedNumsLine {...{ setModal }} />
+            <PickedNumsLine />
             <Fields />
           </>
         )}

@@ -10,12 +10,13 @@ import ShoppingList from "./components/ShoppingList";
 import ArxFatalis from "./components/ArxFatalis";
 import Visitors from "./components/Visitors";
 import Luxor from "./components/Luxor";
+import Modal from "./components/Modal";
 
 export default function App() {
   useBatteryMonitor();
 
   return (
-    <>
+    <Modal>
       <Sidepanel />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -27,6 +28,6 @@ export default function App() {
         <Route path="/arx-fatalis" element={<ArxFatalis />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </>
+    </Modal>
   );
 }

@@ -6,9 +6,12 @@ import {
   unblurBug,
   resetBug,
 } from "../../reducers/luxor";
-import { PickedNumsLineProps } from "../../types/luxor";
+import { useContext } from "react";
+import { CxModal } from "../Modal";
+import { Language, Text } from "../../types/modal";
 
-export default function PickedNumsLine({ setModal }: PickedNumsLineProps) {
+export default function PickedNumsLine() {
+  const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
   const { pickedNums, bug } = useAppSelector((s) => s.luxor);
 
@@ -46,20 +49,27 @@ export default function PickedNumsLine({ setModal }: PickedNumsLineProps) {
                   Törlöm az <strong>utolsó</strong> húzott számot
                 </>
               ),
-              lang: "hu",
-              onSuccess: () => {
-                dispatch(
-                  bugCrawlsTo(
-                    (
-                      (e.target as HTMLElement).previousSibling as HTMLElement
-                    ).getBoundingClientRect().right - 8
-                  )
-                );
+              lang: Language.Hu,
+              buttons: [
+                [
+                  Text.Ok,
+                  () => {
+                    dispatch(
+                      bugCrawlsTo(
+                        (
+                          (e.target as HTMLElement)
+                            .previousSibling as HTMLElement
+                        ).getBoundingClientRect().right - 8
+                      )
+                    );
 
-                setTimeout(() => {
-                  dispatch(rmLastNum());
-                }, 710);
-              },
+                    setTimeout(() => {
+                      dispatch(rmLastNum());
+                    }, 710);
+                  },
+                ],
+                [Text.Cancel],
+              ],
             })
           }
         >

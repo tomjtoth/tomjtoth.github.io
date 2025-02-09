@@ -1,44 +1,44 @@
-import { ModalButtonsProps } from "../../types/modal";
+import { useContext } from "react";
+import { CxModal } from ".";
+import { Language, Text } from "../../types/modal";
 
-const translations = Object.fromEntries(
-  Object.entries({
-    OK: { hu: "Oké", fi: "Okei" },
-    Cancel: { hu: "Mégse", fi: "Peruuta" },
-    Yes: { hu: "Igen", fi: "Kyllä" },
-    No: { hu: "Nem", fi: "Ei" },
-  }).map(([en, xx]) => [en[0].toLowerCase(), { ...xx, en }])
+const TEXTS = Object.fromEntries(
+  [
+    [Text.Ok, { [Language.Fi]: "Okei", [Language.Hu]: "Oké" }],
+    [Text.Cancel, { [Language.Fi]: "Peruuta", [Language.Hu]: "Mégse" }],
+    [Text.Yes, { [Language.Fi]: "Kyllä", [Language.Hu]: "Igen" }],
+    [Text.No, { [Language.Fi]: "Ei", [Language.Hu]: "Nem" }],
+  ].map(([en, rest]: any) => [en, { ...rest, en: Text[en] }])
 );
 
-export default function Buttons({ lang, buttons }: ModalButtonsProps) {
-  const res = [];
+export default function Buttons() {
+  const { modal } = useContext(CxModal)!;
+  const { lang, buttons } = modal!;
 
   let autoFocusUnset = true;
 
-  for (let i = 0; i < buttons.length; i++) {
-    const ch = buttons.charAt(i);
-    const xx = translations[ch];
+  return (
+    <div id="modal-buttons">
+      {(buttons ?? []).map(([text, onClick], key) => {
+        let autoFocus;
+        if (autoFocusUnset && (text === Text.Ok || text === Text.Yes)) {
+          autoFocus = true;
+          autoFocusUnset = false;
+        }
 
-    let autoFocus;
-    if (autoFocusUnset && (ch === "o" || ch === "y")) {
-      autoFocus = true;
-      autoFocusUnset = false;
-    }
-
-    const id = `modal-${xx.en.toLowerCase()}`;
-
-    res.push(
-      <button
-        key={i}
-        {...{
-          id,
-          className: "clickable",
-          autoFocus,
-        }}
-      >
-        {xx[lang]}
-      </button>
-    );
-  }
-
-  return <div id="modal-buttons">{res}</div>;
+        return (
+          <button
+            key={key}
+            {...{
+              autoFocus,
+              className: "clickable",
+              onClick,
+            }}
+          >
+            {TEXTS[text][lang ?? Language.Fi]}
+          </button>
+        );
+      })}
+    </div>
+  );
 }
