@@ -1,4 +1,5 @@
 import { QRCodeSVG } from "qrcode.react";
+import { MouseEventHandler } from "react";
 
 const QR_OPTS = {
   id: "qr-code",
@@ -12,8 +13,9 @@ const QR_OPTS = {
 
 type QRCodeProps = {
   value: string;
+  onClick: MouseEventHandler;
 };
 
-export default function QRCode({ value }: QRCodeProps) {
-  return <QRCodeSVG {...{ ...QR_OPTS, value }} />;
+export default function QRCode({ value, onClick }: QRCodeProps) {
+  return <QRCodeSVG {...{ ...QR_OPTS, value, onClick }} />;
 }
