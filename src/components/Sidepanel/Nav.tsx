@@ -33,7 +33,7 @@ export default function Nav() {
         </li>
         {links.map((lnk, i) => (
           <li key={i}>
-            <Link className="nav-link" {...lnk} />
+            <Link className="nav-link clickable" {...lnk} draggable={false} />
           </li>
         ))}
       </ul>
