@@ -1,7 +1,6 @@
-import { ReactNode, HTMLAttributes } from "react";
+import { ReactNode, HTMLAttributes, useContext } from "react";
 
-import { useAppDispatch } from "../../hooks";
-import { setSidepanel } from "../../reducers/sidepanel";
+import { CxSidepanel } from "../Sidepanel";
 
 import "./header.css";
 
@@ -19,7 +18,7 @@ export default function Header({
 }: HeaderProps) {
   document.title = title;
 
-  const dispatch = useAppDispatch();
+  const { show } = useContext(CxSidepanel)!;
 
   return (
     <div
@@ -32,7 +31,7 @@ export default function Header({
       <span
         id="menu-button"
         className="clickable padded"
-        onClick={() => dispatch(setSidepanel(true))}
+        onClick={() => show()}
       >
         &#x2630;
       </span>

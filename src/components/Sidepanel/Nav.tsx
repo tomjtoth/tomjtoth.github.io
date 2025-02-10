@@ -1,12 +1,15 @@
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { setSidepanel } from "../../reducers/sidepanel";
-import { NavProps } from "../../types/sidepanel";
+import { useContext } from "react";
+import { CxSidepanel } from ".";
+import { links } from "./config";
+import { Link } from "react-router";
 
-export default function Nav({ children }: NavProps) {
-  const dispatch = useAppDispatch();
-  const className = `border1-e ${
-    useAppSelector((s) => s.sidepanel.active) ? " active" : ""
-  }`;
+import QRCode from "./QRCode";
+
+export default function Nav() {
+  const { active, hide } = useContext(CxSidepanel)!;
+  const className = `border1-e${active ? " active" : ""}`;
+  const url = window.location.toString();
+
   return (
     <nav
       {...{
@@ -14,22 +17,27 @@ export default function Nav({ children }: NavProps) {
         className,
 
         onMouseLeave: (e) => {
-          if ((e.target as HTMLElement).tagName === "NAV") {
-            dispatch(setSidepanel(false));
-          }
+          // triggers only when leaving *the* panel, not its children
+          if (e.target === e.currentTarget) hide();
         },
-
-        onClick: ({ target }) => {
-          const t = target as HTMLElement;
-          if (t.classList.contains("toggler")) {
-            dispatch(setSidepanel(false));
-          } else if (t.closest("#qr-code")) {
-            navigator.clipboard.writeText(window.location.toString());
-          }
+        onClick: (e) => {
+          if (e.target !== e.currentTarget) hide();
         },
       }}
     >
-      {children}
+      <ul>
+        <li>
+          <span className="nav-link clickable" style={{ float: "right" }}>
+            &times;
+          </span>
+        </li>
+        {links.map((lnk, i) => (
+          <li key={i}>
+            <Link className="nav-link" {...lnk} />
+          </li>
+        ))}
+      </ul>
+      <QRCode value={url} onClick={() => navigator.clipboard.writeText(url)} />
     </nav>
   );
 }

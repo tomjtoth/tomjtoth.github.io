@@ -1,37 +1,36 @@
-import { Link, useLocation } from "react-router";
-import { links } from "./config";
+import { createContext, PropsWithChildren, useState } from "react";
 
 import "./sidepanel.css";
 
-import QRCode from "../QRCode";
 import Nav from "./Nav";
 
-export default function Sidepanel() {
-  const { pathname } = useLocation();
+type CxSidepanelType =
+  | undefined
+  | {
+      show: () => void;
+      hide: (delayed?: boolean) => void;
+      active: boolean;
+    };
+
+export const CxSidepanel = createContext<CxSidepanelType>(undefined);
+
+export default function Sidepanel({ children }: PropsWithChildren) {
+  const [active, setActive] = useState(false);
+
+  function show() {
+    setActive(true);
+  }
+
+  function hide() {
+    setTimeout(() => {
+      setActive(false);
+    });
+  }
 
   return (
-    <Nav>
-      <ul
-        style={{
-          listStyle: "none",
-          paddingLeft: 8,
-        }}
-      >
-        <li>
-          <span
-            className="toggler nav-link clickable"
-            style={{ float: "right" }}
-          >
-            &times;
-          </span>
-        </li>
-        {links.map((lnk, i) => (
-          <li key={`nav-link-${i}`}>
-            <Link className="nav-link" {...lnk} />
-          </li>
-        ))}
-      </ul>
-      <QRCode value={`${window.location.pathname}/#${pathname}`} />
-    </Nav>
+    <CxSidepanel.Provider value={{ active, show, hide }}>
+      <Nav />
+      {children}
+    </CxSidepanel.Provider>
   );
 }
