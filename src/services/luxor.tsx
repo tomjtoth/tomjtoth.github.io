@@ -1,7 +1,7 @@
 import { current, isDraft } from "@reduxjs/toolkit";
 import { db } from "../db";
 import { LuxorFields, LuxorNumbers } from "../types/db";
-import { EMPTY_FIELD, FieldImport, State } from "../types/luxor";
+import { EMPTY_FIELD, FieldImport } from "../types/luxor";
 import { ReactNode } from "react";
 
 const id = "luxor";
@@ -15,9 +15,16 @@ export default {
   },
 
   saveFields: ({ fields }: LuxorFields) => {
-    db.luxorFields.bulkPut(
-      fields.map((field) => (isDraft(field) ? current(field) : field))
-    );
+    const res = fields.map(({ id, importedAt, order, rows }) => ({
+      id,
+      importedAt,
+      order,
+      rows: rows.map((r) => r.map((c) => c)),
+    }));
+
+    console.debug("inserting into IDB:", res);
+
+    db.luxorFields.bulkPut(res);
   },
 
   rmField: (id: number) => {
@@ -34,28 +41,6 @@ export default {
     ]);
   },
 };
-
-const re = {
-  allIds: /(\d+)-(\d)-(\d)$/,
-  fieldId: /\d+/,
-};
-
-export function numFieldId(idStr: string) {
-  const [id] = idStr.match(re.fieldId)!;
-  return Number(id);
-}
-
-export function updateFields(state: State) {
-  document
-    .querySelectorAll<HTMLInputElement>("input.luxor-num")
-    .forEach(({ id, value }) => {
-      const [, fieldIdStr, rowIdxStr, cellIdxStr] = id.match(re.allIds)!;
-
-      state.fields.find(({ id }) => id === Number(fieldIdStr))!.rows[
-        Number(rowIdxStr)
-      ][Number(cellIdxStr)] = Number(value);
-    });
-}
 
 export function processImports(
   preset: String | null
