@@ -1,9 +1,16 @@
+import { useContext } from "react";
+
 import { TableBodyProps } from "../../types/luxor";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { between } from "../../utils";
+import { addNum, update } from "../../reducers/luxor";
+import { CxLuxor } from "./logic";
 
 export default function TableBody({ rows, fieldId }: TableBodyProps) {
-  const { locked, pickedNums } = useAppSelector((s) => s.luxor);
+  const { pickedNums } = useAppSelector((s) => s.luxor);
+  const dispatch = useAppDispatch();
+
+  const { locked } = useContext(CxLuxor)!;
 
   return (
     <tbody>
@@ -11,8 +18,6 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
         return (
           <tr key={rowIdx}>
             {cells.map((cell, cellIdx) => {
-              const cellId = `luxor-${fieldId}-${rowIdx}-${cellIdx}`;
-
               const classes = [];
               if (locked) classes.push("clickable");
               if ((pickedNums as number[]).includes(cell))
@@ -35,8 +40,13 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                 <td
                   key={cellIdx}
                   {...{
-                    id: locked ? cellId : undefined,
                     className: classes.join(" "),
+                    onClick: () => {
+                      if (locked) {
+                        if (!(pickedNums as number[]).includes(cell))
+                          dispatch(addNum(cell));
+                      }
+                    },
                   }}
                 >
                   {locked ? (
@@ -49,10 +59,21 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                     <input
                       type="number"
                       className="luxor-num"
-                      min="0"
+                      min={0}
                       max={max}
+                      title={`${min}-${max}`}
                       defaultValue={cell}
-                      id={cellId}
+                      onFocus={(e) => e.target.select()}
+                      onChange={(e) => {
+                        e.target.setCustomValidity("asd");
+                        const num = Number(e.target.value);
+                        if (
+                          !isNaN(num) &&
+                          ((num <= max && num >= min) || num === 0)
+                        ) {
+                          dispatch(update([fieldId, rowIdx, cellIdx, num]));
+                        }
+                      }}
                     />
                   )}
                 </td>

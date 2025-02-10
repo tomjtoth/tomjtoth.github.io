@@ -1,27 +1,25 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { NumberInputProps } from "../../types/hooks";
 import useField from "../../hooks/useField";
-import {
-  clearNums,
-  saveFields,
-  toggleLock,
-  addNum,
-} from "../../reducers/luxor";
+import { clearNums, addNum } from "../../reducers/luxor";
 import { useContext } from "react";
 import { CxModal } from "../Modal";
 import { Language, Text } from "../../types/modal";
-
-const numOnly = /^\d+$/;
+import { CxLuxor } from "./logic";
 
 export default function Controls() {
-  const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
-  const { locked, pickedNums } = useAppSelector((s) => s.luxor);
+  const { pickedNums } = useAppSelector((s) => s.luxor);
+
+  const { setModal } = useContext(CxModal)!;
+  const { locked, toggleLocked } = useContext(CxLuxor)!;
+
   const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
     placeholder: "a következő nyerőszám",
     max: 75,
     min: 0,
+    minLength: 1,
     className: "bordered",
     autoComplete: "off",
   });
@@ -33,24 +31,14 @@ export default function Controls() {
       id="luxor-control"
       onSubmit={(e) => {
         const { value } = num as NumberInputProps;
-        if (
-          numOnly.test(value.toString()) &&
-          !(pickedNums as number[]).includes(value as number)
-        )
+        if (!(pickedNums as number[]).includes(value as number))
           dispatch(addNum(value as number));
 
         resetInput();
         e.preventDefault();
       }}
     >
-      <span
-        className="padded clickable"
-        onClick={() => {
-          if (!locked) dispatch(saveFields());
-
-          dispatch(toggleLock());
-        }}
-      >
+      <span className="padded clickable" onClick={toggleLocked}>
         {locked ? "🔒" : "🔓"}
       </span>
       <input {...num} />

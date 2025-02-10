@@ -1,21 +1,14 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, isDraft, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import { EMPTY_FIELD, FieldImport, type State } from "../types/luxor";
-import db, { updateFields, numFieldId } from "../services/luxor";
+import db from "../services/luxor";
 import { maxId } from "../utils";
-
-const bug = {
-  x: "110vw",
-  privacy: false,
-};
 
 const slice = createSlice({
   name: "luxor",
   initialState: {
     fields: [],
     pickedNums: [],
-    locked: true,
-    bug,
   } as State,
 
   reducers: {
@@ -29,42 +22,52 @@ const slice = createSlice({
       db.saveNums(state);
     },
 
-    toggleLock: (state) => {
-      state.locked = !state.locked;
-    },
-
-    saveFields: (state) => {
-      updateFields(state);
-
+    update: (
+      state,
+      { payload: [fieldId, rowIdx, cellIdx, num] }: PayloadAction<number[]>
+    ) => {
+      const field = state.fields.find((f) => f.id === fieldId)!;
+      field.rows[rowIdx][cellIdx] = num;
       db.saveFields(state);
     },
 
     addField: (state, { payload }) => {
       const { order } = state.fields.find((x) => x.id === payload)!;
 
-      state.fields = state.fields.map((field) =>
-        field.order > order ? { ...field, order: field.order + 1 } : field
+      state.fields = state.fields.map((f) =>
+        f.order > order ? { ...f, order: f.order + 1 } : f
       );
 
-      state.fields.splice(order, 0, {
-        id: maxId(state.fields) + 1,
+      const id = maxId(state.fields) + 1;
+      const newField = {
+        id,
         order: order + 1,
         rows: EMPTY_FIELD,
-      });
+      };
 
+      console.debug(
+        "id:",
+        id,
+        "newField:",
+        newField,
+        "state.fields:",
+        state.fields.map((x) => (isDraft(x) ? current(x) : x))
+      );
+
+      state.fields.splice(order, 0, newField);
+
+      // TODO: investigate why adding multiple fields manually trips Dexie error
       db.saveFields(state);
     },
 
     rmField: (state, { payload }) => {
-      const { order } = state.fields.find((fld) => fld.id === payload)!;
+      const { order } = state.fields.find((f) => f.id === payload)!;
 
       state.fields = state.fields
         // remove the field
-        .filter(({ id }) => id !== payload)
+        .filter((f) => f.id !== payload)
         // move the rest of the queue closer
-        .map((field) =>
-          field.order > order ? { ...field, order: field.order - 1 } : field
-        );
+        .map((f) => (f.order > order ? { ...f, order: f.order - 1 } : f));
 
       db.rmField(payload);
     },
@@ -78,21 +81,9 @@ const slice = createSlice({
       const len = state.pickedNums.length;
 
       if (len > 0) {
-        state.pickedNums.splice(len - 1, 1);
+        state.pickedNums.pop();
         db.saveNums(state);
       }
-    },
-
-    moveBugTo: (state, { payload }) => {
-      state.bug = { x: payload, privacy: false, className: "crawling" };
-    },
-
-    setBugBlur: (state, { payload }: PayloadAction<boolean>) => {
-      state.bug.privacy = payload;
-    },
-
-    resetBug: (state) => {
-      state.bug = bug;
     },
   },
 });
@@ -127,43 +118,24 @@ export function addNum(num: number) {
   return (dispatch: AppDispatch) => dispatch(sa.addNum(num));
 }
 
-export function toggleLock() {
-  return (dispatch: AppDispatch) => dispatch(sa.toggleLock());
-}
-
-export function saveFields() {
-  return (dispatch: AppDispatch) => dispatch(sa.saveFields());
+export function update(arr: number[]) {
+  return (dispatch: AppDispatch) => dispatch(sa.update(arr));
 }
 
 export function clearNums() {
   return (dispatch: AppDispatch) => dispatch(sa.clearNums());
 }
 
-export function addField(id: string) {
-  return (dispatch: AppDispatch) => dispatch(sa.addField(numFieldId(id)));
+export function addField(id: number) {
+  return (dispatch: AppDispatch) => dispatch(sa.addField(id));
 }
 
-export function rmField(id: string) {
-  return (dispatch: AppDispatch) => dispatch(sa.rmField(numFieldId(id)));
+export function rmField(id: number) {
+  return (dispatch: AppDispatch) => dispatch(sa.rmField(id));
 }
 
 export function rmLastNum() {
-  return (dispatch: AppDispatch) => {
-    dispatch(sa.setBugBlur(true));
-    dispatch(sa.rmLastNum());
-  };
-}
-
-export function bugCrawlsTo(x: number | string) {
-  return (dispatch: AppDispatch) => dispatch(sa.moveBugTo(x));
-}
-
-export function unblurBug() {
-  return (dispatch: AppDispatch) => dispatch(sa.setBugBlur(false));
-}
-
-export function resetBug() {
-  return (dispatch: AppDispatch) => dispatch(sa.resetBug());
+  return (dispatch: AppDispatch) => dispatch(sa.rmLastNum());
 }
 
 export default slice.reducer;

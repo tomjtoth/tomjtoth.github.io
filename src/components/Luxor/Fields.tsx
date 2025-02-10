@@ -1,69 +1,90 @@
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Field } from "../../types/luxor";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
+import { addField, rmField } from "../../reducers/luxor";
+import { useContext } from "react";
+import { CxModal } from "../Modal";
+import { Text, Language } from "../../types/modal";
+import { CxLuxor } from "./logic";
 
 export default function Fields() {
-  const { locked, fields } = useAppSelector((s) => s.luxor);
+  const { fields } = useAppSelector((s) => s.luxor);
+  const { setModal } = useContext(CxModal)!;
+  const { locked } = useContext(CxLuxor)!;
+  const dispatch = useAppDispatch();
 
   return (
     <ul className="luxor">
-      {(fields as Field[]).map(({ id: fieldId, rows, importedAt }) => {
-        const deletable = fields!.length > 1;
-
-        let importedSpan = null;
-
-        if (importedAt) {
-          const SS = (Date.now() - new Date(importedAt).valueOf()) / 1000;
-          const MM = SS / 60;
-          const HH = MM / 60;
-          const DDD = HH / 24;
-
-          const [dtNum, dtStr] = (
-            [
-              [DDD, "nappal"],
-              [HH, "órával"],
-              [MM, "perccel"],
-              [SS >= 1 ? SS : 1, "másodperccel"],
-            ] as [number, string][]
-          ).find(([val]) => Math.round(val) > 0)!;
-
-          importedSpan = (
-            <span className="luxor-fld-imported padded">
-              {Math.round(dtNum)} {dtStr} korábbról
-            </span>
-          );
-        }
-
-        return (
-          <li
-            key={fieldId}
-            id={`luxor-${fieldId}`}
-            className={`luxor ${locked ? "" : " bordered"}`}
-          >
-            {!locked && (
-              <>
-                {importedSpan}
-                <div>
-                  <span className="luxor-fld-add clickable padded">
-                    új mező ➕
+      {(fields as Field[]).map(({ id: fieldId, rows, importedAt }) => (
+        <li key={fieldId} className={`luxor ${locked ? "" : " bordered"}`}>
+          {!locked && (
+            <>
+              {importedSpan(importedAt)}
+              <div>
+                <span
+                  className="clickable padded"
+                  onClick={() => dispatch(addField(fieldId))}
+                  tabIndex={0}
+                >
+                  új mező ➕
+                </span>
+                {fields!.length > 1 && (
+                  <span
+                    className=" clickable padded"
+                    tabIndex={0}
+                    onClick={() =>
+                      setModal({
+                        prompt: <>Azt a mezőt most törlöm...</>,
+                        lang: Language.Hu,
+                        buttons: [
+                          [Text.Ok, () => dispatch(rmField(fieldId))],
+                          [Text.Cancel],
+                        ],
+                      })
+                    }
+                  >
+                    🚫 mező törlése
                   </span>
-                  {deletable && (
-                    <span className="luxor-fld-del clickable padded">
-                      🚫 mező törlése
-                    </span>
-                  )}
-                </div>
-              </>
-            )}
-            <table className="luxor">
-              <TableHead />
-              <TableBody {...{ rows, fieldId }} />
-            </table>
-          </li>
-        );
-      })}
+                )}
+              </div>
+            </>
+          )}
+          <table className="luxor">
+            <TableHead />
+            <TableBody {...{ rows, fieldId }} />
+          </table>
+        </li>
+      ))}
     </ul>
   );
+}
+
+function importedSpan(importedAt?: number) {
+  let span = null;
+
+  if (importedAt) {
+    const SS = (Date.now() - new Date(importedAt).valueOf()) / 1000;
+    const MM = SS / 60;
+    const HH = MM / 60;
+    const DDD = HH / 24;
+
+    const [dtNum, dtStr] = (
+      [
+        [DDD, "nappal"],
+        [HH, "órával"],
+        [MM, "perccel"],
+        [SS >= 1 ? SS : 1, "másodperccel"],
+      ] as [number, string][]
+    ).find(([val]) => Math.round(val) > 0)!;
+
+    span = (
+      <span className="padded">
+        {Math.round(dtNum)} {dtStr} korábbról
+      </span>
+    );
+  }
+
+  return span;
 }

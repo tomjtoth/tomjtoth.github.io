@@ -1,88 +1,74 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { last } from "../../utils";
-import {
-  rmLastNum,
-  bugCrawlsTo,
-  unblurBug,
-  resetBug,
-} from "../../reducers/luxor";
-import { useContext } from "react";
+import { rmLastNum } from "../../reducers/luxor";
+import { useContext, useRef } from "react";
 import { CxModal } from "../Modal";
 import { Language, Text } from "../../types/modal";
+import { CxLuxor } from "./logic";
 
 export default function PickedNumsLine() {
-  const { setModal } = useContext(CxModal)!;
   const dispatch = useAppDispatch();
-  const { pickedNums, bug } = useAppSelector((s) => s.luxor);
+  const { pickedNums } = useAppSelector((s) => s.luxor);
+
+  const { setModal } = useContext(CxModal)!;
+  const { bug, moveBug, hideBug, resetBug } = useContext(CxLuxor)!;
+
+  const span = useRef<HTMLSpanElement>(null);
 
   return (
-    <div
-      id="luxor-picked-nums-line"
-      onAnimationEnd={(ev) => {
-        if (ev.animationName === "luxor-bug-privacy-filter") {
-          dispatch(bugCrawlsTo("-10vw"));
-          dispatch(unblurBug());
-        }
-
-        setTimeout(() => {
-          dispatch(resetBug());
-        }, 710);
-      }}
-    >
-      <span>
-        {pickedNums.length === 0 && <>&nbsp;</>}
+    <div id="luxor-picked-nums-line">
+      <span ref={span}>
         {pickedNums.length > 10 && "..."}
         {(last(pickedNums, 10) as number[]).join(", ")}
       </span>
 
-      {bug.privacy && (
-        <div id="luxor-num-bug-priv-filter" style={{ left: bug.x }} />
-      )}
-
-      {pickedNums.length > 0 && (
-        <span
-          className="clickable"
-          onClick={(e) =>
-            setModal({
-              prompt: (
-                <>
-                  Törlöm az <strong>utolsó</strong> húzott számot
-                </>
-              ),
-              lang: Language.Hu,
-              buttons: [
-                [
-                  Text.Ok,
-                  () => {
-                    dispatch(
-                      bugCrawlsTo(
-                        (
-                          (e.target as HTMLElement)
-                            .previousSibling as HTMLElement
-                        ).getBoundingClientRect().right - 8
-                      )
-                    );
-
-                    setTimeout(() => {
-                      dispatch(rmLastNum());
-                    }, 710);
-                  },
-                ],
-                [Text.Cancel],
+      <span
+        className="clickable"
+        style={{ visibility: pickedNums.length === 0 ? "hidden" : undefined }}
+        onClick={() =>
+          setModal({
+            prompt: (
+              <>
+                Törlöm az <strong>utolsó</strong> húzott számot
+              </>
+            ),
+            lang: Language.Hu,
+            buttons: [
+              [
+                Text.Ok,
+                () => moveBug(span.current!.getBoundingClientRect().right - 8),
               ],
-            })
-          }
-        >
-          ⬅️
-        </span>
-      )}
+              [Text.Cancel],
+            ],
+          })
+        }
+      >
+        ⬅️
+      </span>
+
       <div
         id="luxor-num-bug"
-        className={bug.className}
-        style={bug.x ? { left: bug.x } : undefined}
+        className={bug.crawling ? "crawling" : undefined}
+        style={{ left: bug.position }}
+        onTransitionEnd={() => {
+          if (bug.position !== "-10vw" && bug.position !== "110vw") {
+            hideBug();
+            dispatch(rmLastNum());
+          } else if (bug.position === "-10vw") {
+            resetBug();
+          }
+        }}
       >
         🪲
       </div>
+
+      {bug.filtered && (
+        <div
+          id="luxor-num-bug-priv-filter"
+          style={{ left: bug.position }}
+          onAnimationEnd={() => moveBug("-10vw")}
+        />
+      )}
     </div>
   );
 }
