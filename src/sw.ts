@@ -60,7 +60,6 @@ sw.addEventListener("fetch", (event: FetchEvent) => {
       );
 
       const url: string = event.request.url;
-      console.info(`intercepted request of ${url}`);
       const matchedBuster: RegExpMatchArray | null = url.match(CACHE_BUSTERS);
 
       if (cachedRes && !matchedBuster && !FETCH_ALWAYS.includes(url)) {
