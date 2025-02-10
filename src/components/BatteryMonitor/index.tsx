@@ -1,25 +1,29 @@
 import { useBattery } from "react-use";
+import { useContext, useEffect } from "react";
 
+import { CxLoader } from "../Loader";
 import { useAppSelector } from "../../hooks";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
 import { BatteryState } from "../../types/battery-monitor";
 
 import "./battery-monitor.css";
 
-import Loader from "../Loader";
 import Header from "../Header";
 import Controls from "./Controls";
 import MainView from "../MainView";
 
 export default function BatteryMonitor() {
-  const {
-    lower: lower,
-    upper: upper,
-    allowed,
-  } = useAppSelector((s) => s.batteryMonitor);
+  const { lower, upper, allowed } = useAppSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } =
     useBattery() as BatteryState;
   const lvl100 = Math.round(level * 100);
+
+  const loader = useContext(CxLoader);
+
+  useEffect(() => {
+    if (loading) loader.show();
+    else loader.hide();
+  }, [loading]);
 
   return (
     <>
@@ -40,31 +44,26 @@ export default function BatteryMonitor() {
           </li>
         </ul>
         {isSupported ? (
-          loading ? (
-            <Loader />
-          ) : (
-            <>
-              <p>
-                {allowed ? (
-                  <>
-                    Kerran minuutissa (ala- ja ylärajojen säätö nollaa
-                    ajastimen) katsotaan mikä akun tilanne on ja hälytetään
-                    tarvittaessa.
-                  </>
-                ) : (
-                  <>
-                    Jotta hälytykset tulisi, siun pitää sallia työkalun
-                    pyörimistä taustalla.
-                  </>
-                )}{" "}
-                Sillä, et sivuston mikä näkymä on aktiivinen, ei oo väliä, jos
-                vaan pidät tämän välilehden auki.
-              </p>
-              <p>
-                <strong>{notiText(charging, lvl100)}</strong>
-              </p>
-            </>
-          )
+          <>
+            <p>
+              {allowed ? (
+                <>
+                  Kerran minuutissa (ala- ja ylärajojen säätö nollaa ajastimen)
+                  katsotaan mikä akun tilanne on ja hälytetään tarvittaessa.
+                </>
+              ) : (
+                <>
+                  Jotta hälytykset tulisi, siun pitää sallia työkalun pyörimistä
+                  taustalla.
+                </>
+              )}{" "}
+              Sillä, et sivuston mikä näkymä on aktiivinen, ei oo väliä, jos
+              vaan pidät tämän välilehden auki.
+            </p>
+            <p>
+              <strong>{notiText(charging, lvl100)}</strong>
+            </p>
+          </>
         ) : (
           <p>
             Valitettavasti tämä selain <strong>ei tue tätä toimintaa.</strong>{" "}

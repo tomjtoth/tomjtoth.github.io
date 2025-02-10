@@ -11,19 +11,23 @@ import MainView from "../MainView";
 import Recipes from "./Recipes";
 import Items from "./Items";
 import ControlForm from "./ControlForm";
-import Loader from "../Loader";
+import { CxLoader } from "../Loader";
 
 const RE_SLRI = /^sl[ri]/;
 
 export default function ShoppingList() {
   const { setModal } = useContext(CxModal)!;
+  const loader = useContext(CxLoader);
   const dispatch = useAppDispatch();
   const { recipes, active } = useAppSelector((s) => s.shoppingList);
   const uninitialized = recipes.length === 0;
 
   useEffect(() => {
-    if (uninitialized) dispatch(init());
-  }, []);
+    if (uninitialized) {
+      dispatch(init());
+      loader.show();
+    } else loader.hide();
+  }, [uninitialized]);
 
   return (
     <>
@@ -54,9 +58,7 @@ export default function ShoppingList() {
           },
         }}
       >
-        {uninitialized ? (
-          <Loader />
-        ) : (
+        {!uninitialized && (
           <>
             <Recipes />
             <Items />
