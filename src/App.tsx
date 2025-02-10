@@ -11,24 +11,27 @@ import ArxFatalis from "./components/ArxFatalis";
 import Visitors from "./components/Visitors";
 import Luxor from "./components/Luxor";
 import Modal from "./components/Modal";
+import Loader from "./components/Loader";
 
 export default function App() {
   useBatteryMonitor();
 
   return (
-    <Modal>
-      <Sidepanel>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/visitors" element={<Visitors />} />
-          <Route path="/luxor" element={<Luxor />} />
-          <Route path="/shopping-list" element={<ShoppingList />} />
-          <Route path="/battery-monitor" element={<BatteryMonitor />} />
-          <Route path="/lyrics" element={<Lyrics />} />
-          <Route path="/arx-fatalis" element={<ArxFatalis />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Sidepanel>
-    </Modal>
+    <Loader>
+      <Modal>
+        <Sidepanel>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/visitors" element={<Visitors />} />
+            <Route path="/luxor" element={<Luxor />} />
+            <Route path="/shopping-list" element={<ShoppingList />} />
+            <Route path="/battery-monitor" element={<BatteryMonitor />} />
+            <Route path="/lyrics" element={<Lyrics />} />
+            <Route path="/arx-fatalis" element={<ArxFatalis />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Sidepanel>
+      </Modal>
+    </Loader>
   );
 }
