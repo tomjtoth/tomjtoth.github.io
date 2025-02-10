@@ -60,6 +60,7 @@ a.sli {
   flex-grow: 1; /* Allow the input to take up the remaining space */
   max-width: 100%; /* Ensure it doesn't overflow the viewport */
   min-width: 0; /* Prevent width issues in flex containers */
+  width: 30px;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
