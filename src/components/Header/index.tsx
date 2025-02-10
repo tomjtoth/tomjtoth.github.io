@@ -18,7 +18,7 @@ export default function Header({
 }: HeaderProps) {
   document.title = title;
 
-  const { show } = useContext(CxSidepanel)!;
+  const { show } = useContext(CxSidepanel);
 
   return (
     <div
