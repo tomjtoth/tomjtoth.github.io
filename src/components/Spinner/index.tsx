@@ -1,21 +1,22 @@
 import { createContext, PropsWithChildren, useState } from "react";
 
-import "./loader.css";
+import "./spinner.css";
 
-export const CxLoader = createContext({
+export const CxSpinner = createContext({
   show: () => {},
   hide: () => {},
 });
 
-export default function Loader({ children }: PropsWithChildren) {
+export default function Spinner({ children }: PropsWithChildren) {
   const [active, setActive] = useState(false);
 
   return (
-    <CxLoader.Provider
+    <CxSpinner.Provider
       value={{
         show: () => {
           setActive(true);
         },
+
         // hiding with a delay
         hide: () => {
           if (active) setTimeout(() => setActive(false), 250);
@@ -24,11 +25,11 @@ export default function Loader({ children }: PropsWithChildren) {
     >
       {active && (
         <div className="modal-blur">
-          <div id="loader" />
+          <div id="spinner" />
         </div>
       )}
 
       {children}
-    </CxLoader.Provider>
+    </CxSpinner.Provider>
   );
 }

@@ -1,7 +1,7 @@
 import { useBattery } from "react-use";
 import { useContext, useEffect } from "react";
 
-import { CxLoader } from "../Loader";
+import { CxSpinner } from "../Spinner";
 import { useAppSelector } from "../../hooks";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
 import { BatteryState } from "../../types/battery-monitor";
@@ -18,11 +18,11 @@ export default function BatteryMonitor() {
     useBattery() as BatteryState;
   const lvl100 = Math.round(level * 100);
 
-  const loader = useContext(CxLoader);
+  const spinner = useContext(CxSpinner);
 
   useEffect(() => {
-    if (loading) loader.show();
-    else loader.hide();
+    if (loading) spinner.show();
+    else spinner.hide();
   }, [loading]);
 
   return (

@@ -11,13 +11,13 @@ import ArxFatalis from "./components/ArxFatalis";
 import Visitors from "./components/Visitors";
 import Luxor from "./components/Luxor";
 import Modal from "./components/Modal";
-import Loader from "./components/Loader";
+import Spinner from "./components/Spinner";
 
 export default function App() {
   useBatteryMonitor();
 
   return (
-    <Loader>
+    <Spinner>
       <Modal>
         <Sidepanel>
           <Routes>
@@ -32,6 +32,6 @@ export default function App() {
           </Routes>
         </Sidepanel>
       </Modal>
-    </Loader>
+    </Spinner>
   );
 }
