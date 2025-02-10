@@ -3,6 +3,7 @@ import { useAppSelector } from "../../hooks";
 
 import Steps from "./Steps";
 import { Recipe } from "../../types/shopping-list";
+import { Language } from "../../types/modal";
 
 const id = "slr";
 
@@ -41,7 +42,7 @@ export default function Recipes() {
               )}
               <Steps
                 {...{
-                  lang: dish_lang ? "fi" : undefined,
+                  lang: dish_lang ? Language.Fi : undefined,
                   recId,
                   steps,
                 }}
