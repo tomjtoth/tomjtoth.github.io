@@ -1,14 +1,15 @@
+import { useContext } from "react";
 import { Link } from "react-router";
-import { useAppSelector } from "../../hooks";
+
+import { CxShopping } from "./logic";
+import { Language } from "../../types/modal";
 
 import Steps from "./Steps";
-import { Recipe } from "../../types/shopping-list";
-import { Language } from "../../types/modal";
 
 const id = "slr";
 
 export default function Recipes() {
-  const { recipes, active } = useAppSelector((s) => s.shoppingList);
+  const { recipes, active, toggleActive } = useContext(CxShopping)!;
 
   return (
     <ul
@@ -17,7 +18,7 @@ export default function Recipes() {
         className: active.includes(id) ? "active" : undefined,
       }}
     >
-      {(recipes as Recipe[]).map(
+      {recipes.map(
         (
           { title, steps, url, opts: { lang: { title: dish_lang } = {} } = {} },
           recipeIdx
@@ -27,11 +28,13 @@ export default function Recipes() {
           return (
             <li
               key={recipeIdx}
-              id={recId}
               lang={dish_lang}
               className={`clickable padded alternating recipe${
                 active.includes(recId) ? " active" : ""
               }`}
+              onClick={(e) => {
+                if (e.target === e.currentTarget) toggleActive(recId);
+              }}
             >
               {title}
 
@@ -43,7 +46,6 @@ export default function Recipes() {
               <Steps
                 {...{
                   lang: dish_lang ? Language.Fi : undefined,
-                  recId,
                   steps,
                 }}
               />

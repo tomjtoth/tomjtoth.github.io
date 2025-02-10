@@ -1,24 +1,27 @@
-import { useAppSelector } from "../../hooks";
-import { order } from "./config";
-import { Recipe } from "../../types/shopping-list";
+import { useContext } from "react";
 
-const RE_RECIPE_ID = /^slr-(?<recId>\d+)$/;
+import { CxShopping } from "./logic";
+import { order } from "./config";
 
 export default function Items() {
-  const { recipes, active, items } = useAppSelector((s) => s.shoppingList);
+  const { recipes, active, items, toggleActive, rmItem } =
+    useContext(CxShopping)!;
 
-  const ul_items = items.map(({ id, item }) => ({ id: `sli-${id}`, item }));
+  const ul_items = items.map(({ id, name }) => ({
+    id: `sli-${id}`,
+    name,
+  }));
 
   active.forEach((id) => {
-    const match = id.match(RE_RECIPE_ID);
-    if (match) {
-      const recId = Number(match.groups!.recId);
-      const recipe = recipes[recId] as Recipe;
+    const [prefix, recId, ...rest] = id.split("-");
+
+    if (rest.length === 0 && recId !== undefined && prefix === "slr") {
+      const recipe = recipes[Number(recId)];
 
       ul_items.push(
         ...recipe.items.map((item, i) => ({
           id: `${id}-${i}`,
-          item: `${item} (${recipe.title})`,
+          name: `${item} (${recipe.title})`,
         }))
       );
     }
@@ -31,16 +34,17 @@ export default function Items() {
           ? "tavarat listallasi"
           : "listasi on tyhjä, lisää kamaa!"}
       </h2>
+
       <ul id="sli">
         {ul_items
           // find out which regex matches the item, store it's index, too
-          .map(({ item, id }) => ({
-            idx: order.findIndex((regex) => regex.test(item)),
+          .map(({ name, id }) => ({
+            idx: order.findIndex((regex) => regex.test(name)),
             id,
-            item,
+            name,
           }))
           .toSorted((a, b) => a.idx - b.idx)
-          .map(({ idx, id, item }) => {
+          .map(({ idx, id, name }) => {
             const isActive = active.includes(id.toString());
 
             return (
@@ -50,15 +54,25 @@ export default function Items() {
                 className={`clickable padded alternating sli${
                   isActive ? " active" : ""
                 }`}
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) toggleActive(id);
+                }}
               >
-                {item}
+                {name}
+
                 {idx === -1 && (
                   <span className="unknown-item" title="tuntematon tavara">
                     ❓
                   </span>
                 )}
+
                 {!id.toString().startsWith("slr") && (
-                  <span className="sli-del clickable">(🚫 poista)</span>
+                  <span
+                    className="sli-del clickable"
+                    onClick={() => rmItem(id, name)}
+                  >
+                    (🚫 poista)
+                  </span>
                 )}
               </li>
             );
