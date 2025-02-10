@@ -54,6 +54,10 @@ body {
   cursor: initial;
 }
 
+.clicking-not-allowed {
+  cursor: not-allowed;
+}
+
 .padded {
   padding: 16px;
 }
