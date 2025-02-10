@@ -1,15 +1,26 @@
 import { Active } from "./common";
 import { Language } from "./modal";
 
-export type ControlFormProps = {
-  active: Active;
-};
-
 type Step = string;
+
+export type CxShoppingType =
+  | undefined
+  | {
+      loaded: boolean;
+      recipes: Recipe[];
+
+      items: Item[];
+      addItem: (name: string) => void;
+      rmItem: (id: string, name: string) => void;
+
+      active: string[];
+      toggleActive: (id: string) => void;
+      resetActive: () => void;
+    };
 
 export type Item = {
   id: number;
-  item: string;
+  name: string;
 };
 
 export type Recipe = {
@@ -31,7 +42,6 @@ export type State = {
 };
 
 export type StepsProps = {
-  recId: string;
   steps: Step[];
   lang: Language | undefined;
 };

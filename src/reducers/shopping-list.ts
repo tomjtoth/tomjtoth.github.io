@@ -34,7 +34,7 @@ const slice = createSlice({
 
     addItem: (state, { payload }) => {
       const id = maxId(state.items) + 1;
-      state.items.push({ id, item: payload });
+      state.items.push({ id, name: payload });
       db.saveItems(state);
     },
 
