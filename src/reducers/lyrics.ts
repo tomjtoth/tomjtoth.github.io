@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { AppDispatch } from "../store";
 import { fetchYaml, toggle } from "../utils";
 import type { State } from "../types/lyrics";
@@ -12,6 +13,7 @@ const slice = createSlice({
 
     toggleActive: (state, { payload }: PayloadAction<string>) => {
       toggle(state.active, payload);
+      console.debug(`toggling ${payload}`);
       db.save(state);
     },
 
