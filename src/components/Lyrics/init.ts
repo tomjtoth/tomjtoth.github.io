@@ -2,20 +2,20 @@ import { useContext, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 import { init } from "../../reducers/lyrics";
-import { CxLoader } from "../Loader";
+import { CxSpinner } from "../Spinner";
 
 export default function useInit() {
   const dispatch = useAppDispatch();
   const { artists } = useAppSelector((s) => s.lyrics);
   const loaded = artists.length > 0;
 
-  const loader = useContext(CxLoader);
+  const spinner = useContext(CxSpinner);
 
   useEffect(() => {
     if (!loaded) {
       dispatch(init());
-      loader.show();
-    } else loader.hide();
+      spinner.show();
+    } else spinner.hide();
   }, [loaded]);
 
   return loaded;

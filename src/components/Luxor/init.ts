@@ -4,13 +4,13 @@ import { useLocation, useNavigate } from "react-router";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { Language, Text } from "../../types/modal";
 import { CxModal } from "../Modal";
-import { CxLoader } from "../Loader";
+import { CxSpinner } from "../Spinner";
 import { processImports } from "../../services/luxor";
 import { init } from "../../reducers/luxor";
 
 export default function useInit() {
   const { setModal } = useContext(CxModal)!;
-  const loader = useContext(CxLoader);
+  const spinner = useContext(CxSpinner);
 
   const dispatch = useAppDispatch();
   const { fields } = useAppSelector((s) => s.luxor);
@@ -21,7 +21,7 @@ export default function useInit() {
 
   useEffect(() => {
     if (uninitialized) {
-      loader.show();
+      spinner.show();
 
       const imp = new URLSearchParams(search).get("import");
       const [arr, prompt, critical] = processImports(imp);
@@ -46,6 +46,6 @@ export default function useInit() {
         dispatch(init(arr));
         if (imp) navigate(pathname);
       }
-    } else loader.hide();
+    } else spinner.hide();
   }, [uninitialized]);
 }
