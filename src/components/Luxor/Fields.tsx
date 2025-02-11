@@ -1,14 +1,12 @@
 import { useContext } from "react";
 
 import { CxLuxor } from "./logic";
-import { CxModal } from "../Modal";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
 
 export default function Fields() {
-  const modal = useContext(CxModal)!;
-  const { locked, fields, addField, rmField } = useContext(CxLuxor)!;
+  const { modal, locked, fields, addField, rmField } = useContext(CxLuxor)!;
 
   return (
     <ul className="luxor">
