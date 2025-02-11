@@ -1,26 +1,26 @@
 import yaml from "js-yaml";
 
-/**
- * to be used when blocking is necessary or payload is fixed and small sized
- * @param key
- * @param fallback
- * @returns
- */
-export function storeObject<T>(key: string, val: T): T {
-  localStorage.setItem(key, JSON.stringify(val));
-  return val;
-}
+// /**
+//  * to be used when blocking is necessary or payload is fixed and small sized
+//  * @param key
+//  * @param fallback
+//  * @returns
+//  */
+// export function storeObject<T>(key: string, val: T): T {
+//   localStorage.setItem(key, JSON.stringify(val));
+//   return val;
+// }
 
-/**
- * to be used when blocking is necessary or payload is fixed and small sized
- * @param key
- * @param fallback
- * @returns
- */
-export function loadObject<T>(key: string, fallback: T): T {
-  const stored = localStorage.getItem(key);
-  return stored ? JSON.parse(stored) : fallback;
-}
+// /**
+//  * to be used when blocking is necessary or payload is fixed and small sized
+//  * @param key
+//  * @param fallback
+//  * @returns
+//  */
+// export function loadObject<T>(key: string, fallback: T): T {
+//   const stored = localStorage.getItem(key);
+//   return stored ? JSON.parse(stored) : fallback;
+// }
 
 type ReqFileOptions = {
   asYaml?: boolean;
@@ -43,9 +43,9 @@ export function fetchYaml(file: string): Promise<any> {
   return reqFile(file, { asYaml: true });
 }
 
-export function fetchJson(file: string): Promise<any> {
-  return reqFile(file, { asJson: true });
-}
+// export function fetchJson(file: string): Promise<any> {
+//   return reqFile(file, { asJson: true });
+// }
 
 export function toggle<T>(arr: T[], key: T): void {
   const idx = arr.indexOf(key);
