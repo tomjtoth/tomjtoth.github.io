@@ -35,6 +35,6 @@
 }
 
 .nav-link:hover {
-  color: var(--col-1);
+  color: var(--col-fg-1);
   transition: 0.3s;
 }
