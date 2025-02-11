@@ -46,4 +46,5 @@ export type ModalBuilder = {
   removeAfter: (ms: number) => ModalBuilder;
 
   prompt: (prompt: ReactNode) => void;
+  reset: () => void;
 };
