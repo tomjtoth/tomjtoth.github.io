@@ -1,22 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Text, Language, ModalType, ModalBuilder } from "../../types/modal";
 
-const SOUND = new Audio("/modal.mp3");
 const DEFAULT: ModalType = {
   buttons: [],
+  silent: false,
 };
 
 export default function useBuilder() {
   const [modal, setModal] = useState<ModalType>(DEFAULT);
-
-  const { silent, removeAfter } = modal;
-
-  if (silent !== undefined && silent !== true) {
-    console.debug("playing modal sound");
-    SOUND.currentTime = 0;
-    SOUND.play();
-  }
 
   // TODO: handle the default 3 language and 4 button via Proxy
   const builder = {
@@ -101,16 +93,6 @@ export default function useBuilder() {
 
     reset: () => setModal(DEFAULT),
   } as ModalBuilder;
-
-  useEffect(() => {
-    if (removeAfter !== undefined) {
-      const id = setTimeout(() => {
-        setModal(DEFAULT);
-      }, removeAfter);
-
-      return () => clearTimeout(id);
-    }
-  }, [removeAfter]);
 
   return builder;
 }
