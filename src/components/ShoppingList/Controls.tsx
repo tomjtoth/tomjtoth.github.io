@@ -11,7 +11,6 @@ export default function Controls() {
   const { reset: resetItem, ...item } = useField("text", {
     placeholder: "lisää tavara tänne",
     id: "sli-adder",
-    minLength: 1,
   });
 
   const [title, emoji] = active.includes("slr")
@@ -23,9 +22,12 @@ export default function Controls() {
       id="slr-control"
       onSubmit={(e) => {
         const { value } = item as TextInputProps;
+        const trimmed = value.trim();
 
-        addItem(value);
-        resetItem();
+        if (trimmed.length > 0) {
+          addItem(trimmed);
+          resetItem();
+        }
         e.preventDefault();
       }}
     >
