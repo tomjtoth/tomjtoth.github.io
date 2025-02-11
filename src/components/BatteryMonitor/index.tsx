@@ -18,7 +18,7 @@ export default function BatteryMonitor() {
     useBattery() as BatteryState;
   const lvl100 = Math.round(level * 100);
 
-  const spinner = useContext(CxSpinner);
+  const spinner = useContext(CxSpinner)!;
 
   useEffect(() => {
     if (loading) spinner.show();

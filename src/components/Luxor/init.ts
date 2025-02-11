@@ -9,7 +9,7 @@ import { init } from "../../reducers/luxor";
 
 export default function useInit() {
   const modal = useContext(CxModal)!;
-  const spinner = useContext(CxSpinner);
+  const spinner = useContext(CxSpinner)!;
 
   const dispatch = useAppDispatch();
   const { fields } = useAppSelector((s) => s.luxor);

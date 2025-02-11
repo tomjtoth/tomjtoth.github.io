@@ -1,14 +1,7 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { init } from "../../reducers/arx-fatalis";
+import { useAppSelector } from "../../hooks";
 
 export default function Controls() {
   const arx = useAppSelector((s) => s.arxFatalis);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (!arx) dispatch(init());
-  }, []);
 
   return (
     <>

@@ -6,7 +6,7 @@ import { init } from "../../reducers/shopping-list";
 
 export default function useInit(loaded: boolean) {
   const dispatch = useAppDispatch();
-  const spinner = useContext(CxSpinner);
+  const spinner = useContext(CxSpinner)!;
 
   useEffect(() => {
     if (!loaded) {
