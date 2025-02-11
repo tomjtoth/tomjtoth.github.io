@@ -1,7 +1,7 @@
 import { useBattery } from "react-use";
 import { useContext, useEffect } from "react";
 
-import { CxSpinner } from "../Spinner";
+import { CxSpinner } from "../../hooks/spinner";
 import { useAppSelector } from "../../hooks";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
 import { BatteryState } from "../../types/battery-monitor";

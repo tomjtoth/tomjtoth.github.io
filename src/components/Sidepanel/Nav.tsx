@@ -1,7 +1,7 @@
+import { useContext } from "react";
 import { Link } from "react-router";
 
-import { useContext } from "react";
-import { CxSidepanel } from ".";
+import { CxSidepanel } from "../../hooks/sidepanel";
 import { links } from "./config";
 
 import QRCode from "./QRCode";

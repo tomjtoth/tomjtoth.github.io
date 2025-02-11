@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CxLuxor } from "./logic";
+import { CxLuxor } from "../../hooks/luxor";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";

@@ -1,16 +1,16 @@
 import { useState, useEffect, useContext } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from ".";
 
-import { castSpell, init } from "../../reducers/arx-fatalis";
-import { Rune } from "../../types/arx-fatalis/runes";
-import { CxModal } from "../Modal";
-import { CxSpinner } from "../Spinner";
-import { Spell } from "../../types/arx-fatalis/spells";
-import { LogicProps } from "../../types/arx-fatalis";
+import { castSpell, init } from "../reducers/arx-fatalis";
+import { Rune } from "../types/arx-fatalis/runes";
+import { CxModal } from "./modal";
+import { CxSpinner } from "./spinner";
+import { Spell } from "../types/arx-fatalis/spells";
+import { LogicProps } from "../types/arx-fatalis";
 
-import Img from "./Img";
+import Img from "../components/ArxFatalis/Img";
 
-export default function useLogic({ queue, setQueue }: LogicProps) {
+export default function useArxFatalis({ queue, setQueue }: LogicProps) {
   const dispatch = useAppDispatch();
   const arx = useAppSelector((s) => s.arxFatalis);
 

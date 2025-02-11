@@ -1,10 +1,13 @@
-import { useEffect } from "react";
+import { createContext, useEffect } from "react";
 
 import useBuilder from "./builder";
+import { ModalBuilder } from "../../types/modal";
 
 const SOUND = new Audio("/modal.mp3");
 
-export default function useLogic() {
+export const CxModal = createContext<ModalBuilder | undefined>(undefined);
+
+export default function useModal() {
   const res = useBuilder();
 
   const {

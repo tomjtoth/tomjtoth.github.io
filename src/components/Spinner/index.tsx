@@ -1,32 +1,14 @@
-import { createContext, PropsWithChildren, useState } from "react";
-
-import { TCxSpinner } from "../../types/spinner";
+import { PropsWithChildren } from "react";
 
 import "./spinner.css";
-
-export const CxSpinner = createContext<TCxSpinner>(undefined);
+import useSpinner, { CxSpinner } from "../../hooks/spinner";
 
 export default function Spinner({ children }: PropsWithChildren) {
-  const [active, setActive] = useState(false);
-
-  const spinner = {
-    show: () => {
-      console.debug("showing spinner");
-      setActive(true);
-    },
-
-    // hiding with a delay
-    hide: () => {
-      if (active) {
-        console.debug("hiding spinner");
-        setTimeout(() => setActive(false), 250);
-      }
-    },
-  } as TCxSpinner;
+  const logic = useSpinner();
 
   return (
-    <CxSpinner.Provider value={spinner}>
-      {active && (
+    <CxSpinner.Provider value={logic}>
+      {logic.active && (
         <div className="modal-blur">
           <div id="spinner" />
         </div>

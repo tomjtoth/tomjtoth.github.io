@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CxLuxor } from "./logic";
+import { CxLuxor } from "../../hooks/luxor";
 import { NumberInputProps } from "../../types/hooks";
 import useField from "../../hooks/useField";
 

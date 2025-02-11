@@ -1,4 +1,4 @@
-import useLogic, { CxLyrics } from "./logic";
+import useLyrics, { CxLyrics } from "../../hooks/lyrics";
 
 import "./lyrics.css";
 
@@ -7,7 +7,7 @@ import Header from "../Header";
 import MainView from "../MainView";
 
 export default function Lyrics() {
-  const logic = useLogic();
+  const logic = useLyrics();
 
   return (
     <CxLyrics.Provider value={logic}>

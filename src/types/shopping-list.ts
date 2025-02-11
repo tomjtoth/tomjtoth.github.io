@@ -3,20 +3,18 @@ import { Language } from "./modal";
 
 type Step = string;
 
-export type CxShoppingType =
-  | undefined
-  | {
-      loaded: boolean;
-      recipes: Recipe[];
+export type TCxShopping = {
+  loaded: boolean;
+  recipes: Recipe[];
 
-      items: Item[];
-      addItem: (name: string) => void;
-      rmItem: (id: string, name: string) => void;
+  items: Item[];
+  addItem: (name: string) => void;
+  rmItem: (id: string, name: string) => void;
 
-      active: string[];
-      toggleActive: (id: string) => void;
-      resetActive: () => void;
-    };
+  active: string[];
+  toggleActive: (id: string) => void;
+  resetActive: () => void;
+};
 
 export type Item = {
   id: number;

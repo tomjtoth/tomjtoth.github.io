@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CxShopping } from "./logic";
+import { CxShopping } from "../../hooks/shopping-list";
 import { order } from "./config";
 
 export default function Items() {

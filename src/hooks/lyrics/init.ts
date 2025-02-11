@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { init } from "../../reducers/lyrics";
-import { CxSpinner } from "../Spinner";
+import { CxSpinner } from "../../hooks/spinner";
 
 export default function useInit() {
   const dispatch = useAppDispatch();

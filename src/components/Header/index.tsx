@@ -1,6 +1,6 @@
 import { ReactNode, HTMLAttributes, useContext } from "react";
 
-import { CxSidepanel } from "../Sidepanel";
+import { CxSidepanel } from "../../hooks/sidepanel";
 
 import "./header.css";
 

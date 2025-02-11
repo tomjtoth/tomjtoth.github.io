@@ -19,7 +19,7 @@ const DEFAULT = {
 
 export const CxLuxor = createContext<TCxLuxor | undefined>(undefined);
 
-export default function useLogic() {
+export default function useLuxor() {
   const { dispatch, modal, fields, pickedNums } = useInit();
   const [locked, setLocked] = useState(true);
   const [bug, setBug] = useState(DEFAULT as BugState);
