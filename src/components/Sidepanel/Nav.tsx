@@ -1,12 +1,13 @@
+import { Link } from "react-router";
+
 import { useContext } from "react";
 import { CxSidepanel } from ".";
 import { links } from "./config";
-import { Link } from "react-router";
 
 import QRCode from "./QRCode";
 
 export default function Nav() {
-  const { active, hide } = useContext(CxSidepanel);
+  const { active, hide } = useContext(CxSidepanel)!;
   const className = `border1-e${active ? " active" : ""}`;
   const url = window.location.toString();
 
