@@ -19,7 +19,7 @@ export type ModalType = {
   prompt?: ReactNode;
   lang?: Language;
   buttons: Button[];
-  silent?: boolean;
+  silent: boolean;
   removeAfter?: number;
 };
 
