@@ -9,10 +9,10 @@ import Fields from "./Fields";
 import PickedNumsLine from "./PickedNumsLine";
 
 export default function Luxor() {
-  const cxLuxor = useLogic();
+  const logic = useLogic();
 
   return (
-    <CxLuxor.Provider value={cxLuxor}>
+    <CxLuxor.Provider value={logic}>
       <Header title="Luxor" icon="🪲">
         <Controls />
       </Header>
