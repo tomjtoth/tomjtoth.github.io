@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router";
 
-import { CxShopping } from "./logic";
+import { CxShopping } from "../../hooks/shopping-list";
 import { Language } from "../../types/modal";
 
 import Steps from "./Steps";

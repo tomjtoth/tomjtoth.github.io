@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CxShopping } from "./logic";
+import { CxShopping } from "../../hooks/shopping-list";
 import useField from "../../hooks/useField";
 import { TextInputProps } from "../../types/hooks";
 

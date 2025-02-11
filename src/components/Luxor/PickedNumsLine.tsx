@@ -1,7 +1,7 @@
 import { useContext, useRef } from "react";
 
 import { last } from "../../utils";
-import { CxLuxor } from "./logic";
+import { CxLuxor } from "../../hooks/luxor";
 
 export default function PickedNumsLine() {
   const { modal, bug, moveBug, hideBug, resetBug, pickedNums, rmLastNum } =

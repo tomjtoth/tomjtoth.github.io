@@ -6,7 +6,7 @@ import useField from "../../hooks/useField";
 import { checkPermission } from "./notifications";
 import { setLevels, setAllowed } from "../../reducers/battery-monitor";
 import { BatteryState } from "../../types/battery-monitor";
-import { CxModal } from "../Modal";
+import { CxModal } from "../../hooks/modal";
 
 export default function Controls() {
   const modal = useContext(CxModal)!;

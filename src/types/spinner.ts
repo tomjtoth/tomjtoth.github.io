@@ -1,6 +1,5 @@
-export type TCxSpinner =
-  | undefined
-  | {
-      show: () => void;
-      hide: () => void;
-    };
+export type TCxSpinner = {
+  active: boolean;
+  show: () => void;
+  hide: () => void;
+};

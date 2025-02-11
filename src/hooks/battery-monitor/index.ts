@@ -1,9 +1,12 @@
 import { useEffect } from "react";
-import { useAppSelector } from ".";
+import { useAppSelector } from "..";
 import { useBattery } from "react-use";
 
-import { notify, notiText } from "../components/BatteryMonitor/notifications";
-import { BatteryState } from "../types/battery-monitor";
+import {
+  notify,
+  notiText,
+} from "../../components/BatteryMonitor/notifications";
+import { BatteryState } from "../../types/battery-monitor";
 
 const SEC = 1000;
 

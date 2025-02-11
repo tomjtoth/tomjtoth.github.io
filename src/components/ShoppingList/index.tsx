@@ -1,4 +1,4 @@
-import useLogic, { CxShopping } from "./logic";
+import useShoppingList, { CxShopping } from "../../hooks/shopping-list";
 
 import "./shopping-list.css";
 
@@ -9,7 +9,7 @@ import Items from "./Items";
 import Controls from "./Controls";
 
 export default function ShoppingList() {
-  const logic = useLogic();
+  const logic = useShoppingList();
 
   return (
     <CxShopping.Provider value={logic}>

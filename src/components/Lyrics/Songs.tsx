@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import type { SongsProps, Artist } from "../../types/lyrics";
-import { CxLyrics } from "./logic";
+import { CxLyrics } from "../../hooks/lyrics";
 
 import Logo from "./Logos";
 

@@ -1,11 +1,11 @@
 import { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-import { useAppSelector, useAppDispatch } from "../../hooks";
-import { CxModal } from "../Modal";
-import { CxSpinner } from "../Spinner";
+import { useAppSelector, useAppDispatch } from "..";
+import { CxSpinner } from "../spinner";
 import { processImports } from "../../services/luxor";
 import { init } from "../../reducers/luxor";
+import { CxModal } from "../modal";
 
 export default function useInit() {
   const navigate = useNavigate();

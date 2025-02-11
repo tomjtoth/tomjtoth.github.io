@@ -6,7 +6,7 @@ import { toggleActive } from "../../reducers/lyrics";
 
 export const CxLyrics = createContext<TCxLyrics | undefined>(undefined);
 
-export default function useLogic() {
+export default function useLyrics() {
   const { dispatch, artists, active } = useInit();
 
   return {

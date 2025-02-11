@@ -1,4 +1,4 @@
-import useLogic, { CxLuxor } from "./logic";
+import useLuxor, { CxLuxor } from "../../hooks/luxor";
 
 import "./luxor.css";
 
@@ -9,7 +9,7 @@ import Fields from "./Fields";
 import PickedNumsLine from "./PickedNumsLine";
 
 export default function Luxor() {
-  const logic = useLogic();
+  const logic = useLuxor();
 
   return (
     <CxLuxor.Provider value={logic}>

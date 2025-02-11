@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import { TableBodyProps } from "../../types/luxor";
-import { CxLuxor } from "./logic";
+import { CxLuxor } from "../../hooks/luxor";
 import { between } from "../../utils";
 
 function isValid(num: number, min: number, max: number): boolean {

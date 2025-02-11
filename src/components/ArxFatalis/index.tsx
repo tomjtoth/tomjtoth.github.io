@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { RE } from "../../types/arx-fatalis/runes";
 import { Rune } from "../../types/arx-fatalis/runes";
-import useLogic from "./logic";
+import useArxFatalis from "../../hooks/arx-fatalis";
 
 import "./arx-fatalis.css";
 
@@ -13,7 +13,7 @@ import Img from "./Img";
 
 export default function ArxFatalis() {
   const [queue, setQueue] = useState<RE[]>([]);
-  useLogic({ queue, setQueue });
+  useArxFatalis({ queue, setQueue });
 
   return (
     <>

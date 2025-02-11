@@ -1,19 +1,16 @@
-import { createContext, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 
 import "./modal.css";
 
-import { ModalBuilder } from "../../types/modal";
 import Buttons from "./Buttons";
-import useLogic from "./logic";
-
-export const CxModal = createContext<ModalBuilder | undefined>(undefined);
+import useModal, { CxModal } from "../../hooks/modal";
 
 export default function Modal({ children }: PropsWithChildren) {
   const {
     builder,
     reset,
     modal: { lang, prompt, buttons },
-  } = useLogic();
+  } = useModal();
 
   return (
     <CxModal.Provider value={builder}>

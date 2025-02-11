@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { CxLyrics } from "./logic";
+import { CxLyrics } from "../../hooks/lyrics";
 
 import Albums from "./Albums";
 import Logo from "./Logos";

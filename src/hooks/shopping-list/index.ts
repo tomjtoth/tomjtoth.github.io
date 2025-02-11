@@ -1,25 +1,18 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
 import useInit from "./init";
-import { CxModal } from "../Modal";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   addItem,
   resetActiveItems,
   rmItem,
   toggleActive,
 } from "../../reducers/shopping-list";
-import { CxShoppingType } from "../../types/shopping-list";
+import { TCxShopping } from "../../types/shopping-list";
 
-export const CxShopping = createContext<CxShoppingType>(undefined);
+export const CxShopping = createContext<TCxShopping | undefined>(undefined);
 
-export default function useLogic() {
-  const dispatch = useAppDispatch();
-  const { active, items, recipes } = useAppSelector((s) => s.shoppingList);
-  const modal = useContext(CxModal)!;
-
-  const loaded = recipes.length > 0;
-  useInit(loaded);
+export default function useShoppingList() {
+  const { loaded, dispatch, modal, active, items, recipes } = useInit();
 
   return {
     loaded,
@@ -40,5 +33,5 @@ export default function useLogic() {
         .yes(() => dispatch(resetActiveItems()))
         .no()
         .prompt("pyyhitäänkö kaikki vihreät?"),
-  } as CxShoppingType;
+  } as TCxShopping;
 }
