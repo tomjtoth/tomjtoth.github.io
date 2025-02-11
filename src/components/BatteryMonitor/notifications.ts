@@ -1,16 +1,15 @@
 import { ModalBuilder } from "../../types/modal";
 
 export function notify(body: string) {
+  console.debug("notifying user with", body);
   new Notification("Akunvalvonta", { body, icon: "/icon.png" });
 }
 
 export const pluggedInStr = "ja laturi on vieläkin kiinni";
 export const unpluggedStr = "eikä laturi oo kytkettynä";
 
-export function notiText(charging: boolean, lvl100: number): string {
-  return `Akun taso on nyt ${lvl100}% ${
-    charging ? pluggedInStr : unpluggedStr
-  }`;
+export function notiText(charging: boolean, level: number) {
+  return `Akun taso on nyt ${level}% ${charging ? pluggedInStr : unpluggedStr}`;
 }
 
 export async function checkPermission(modal: ModalBuilder) {

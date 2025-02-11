@@ -1,15 +1,22 @@
-import { BatteryState as RUBS } from "react-use/lib/useBattery";
+import { ModalBuilder } from "./modal";
 
-export type Levels = {
-  lower: number;
-  upper: number;
+export type BatteryState = {
+  level: number;
+  charging: boolean;
+  // present: boolean;
 };
 
-export type State = Levels & {
+export type Conf = {
+  lower: number;
+  upper: number;
   allowed: boolean;
 };
 
-export type BatteryState = RUBS & {
+export type TCxBatMon = {
+  modal: ModalBuilder;
   isSupported: boolean;
-  loading: boolean;
+  state?: BatteryState;
+  conf?: Conf;
+  setAllowed: (to: boolean) => void;
+  setLevels: (lower: number, upper: number) => void;
 };

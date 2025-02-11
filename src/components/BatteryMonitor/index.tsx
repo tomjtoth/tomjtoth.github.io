@@ -1,10 +1,8 @@
-import { useBattery } from "react-use";
 import { useContext, useEffect } from "react";
 
 import { CxSpinner } from "../../hooks/spinner";
-import { useAppSelector } from "../../hooks";
+import { CxBatMon } from "../../hooks/battery-monitor";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
-import { BatteryState } from "../../types/battery-monitor";
 
 import "./battery-monitor.css";
 
@@ -13,10 +11,8 @@ import Controls from "./Controls";
 import MainView from "../MainView";
 
 export default function BatteryMonitor() {
-  const { lower, upper, allowed } = useAppSelector((s) => s.batteryMonitor);
-  const { isSupported, loading, charging, level } =
-    useBattery() as BatteryState;
-  const lvl100 = Math.round(level * 100);
+  const { isSupported, state, conf } = useContext(CxBatMon)!;
+  const loading = isSupported && (!state || !conf);
 
   const spinner = useContext(CxSpinner)!;
 
@@ -28,25 +24,26 @@ export default function BatteryMonitor() {
   return (
     <>
       <Header title="akunvalvonta" icon="🔋">
-        <Controls />
+        {conf && <Controls />}
       </Header>
       <MainView className="padded">
         <p>
-          Tää työkalu {isSupported && allowed ? "hälyttää" : "hälyttäisisi"} kun
-          akun taso on
+          Tää työkalu{" "}
+          {state && conf && conf.allowed ? "hälyttää" : "hälyttäisisi"} kun akun
+          taso on
         </p>
         <ul>
           <li>
-            joko yli {isSupported ? `${upper}%` : "maksimirajaa"} {pluggedInStr}
+            joko yli {conf ? `${conf.upper}%` : "maksimirajaa"} {pluggedInStr}
           </li>
           <li>
-            tai alle {isSupported ? `${lower}%` : "minimirajaa"} {unpluggedStr}
+            tai alle {conf ? `${conf.lower}%` : "minimirajaa"} {unpluggedStr}
           </li>
         </ul>
         {isSupported ? (
           <>
             <p>
-              {allowed ? (
+              {conf && conf.allowed ? (
                 <>
                   Kerran minuutissa (ala- ja ylärajojen säätö nollaa ajastimen)
                   katsotaan mikä akun tilanne on ja hälytetään tarvittaessa.
@@ -61,7 +58,9 @@ export default function BatteryMonitor() {
               vaan pidät tämän välilehden auki.
             </p>
             <p>
-              <strong>{notiText(charging, lvl100)}</strong>
+              {state && (
+                <strong>{notiText(state.charging, state.level)}</strong>
+              )}
             </p>
           </>
         ) : (

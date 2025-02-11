@@ -1,63 +1,56 @@
 import { useContext, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useBattery } from "react-use";
 
 import useField from "../../hooks/useField";
 import { checkPermission } from "./notifications";
-import { setLevels, setAllowed } from "../../reducers/battery-monitor";
-import { BatteryState } from "../../types/battery-monitor";
-import { CxModal } from "../../hooks/modal";
+import { CxBatMon } from "../../hooks/battery-monitor";
 
 export default function Controls() {
-  const modal = useContext(CxModal)!;
-  const dispatch = useAppDispatch();
-  const { lower, upper, allowed } = useAppSelector((s) => s.batteryMonitor);
-  const { isSupported, loading, charging, level } =
-    useBattery() as BatteryState;
-  const lvl100 = Math.round(level * 100);
+  const { modal, isSupported, conf, state, setLevels, setAllowed } =
+    useContext(CxBatMon)!;
+  const { upper, lower, allowed } = conf!;
 
-  let className;
-  if (lower > upper) className = "invalid";
+  const style = isSupported ? undefined : { cursor: "not-allowed" };
+  const disabled = isSupported ? undefined : true;
 
   const { reset: resetAllow, ...allow } = useField("checkbox", {
     id: "bat-mon-allowed",
     initially: allowed,
-    className: "clickable",
+    className: isSupported ? "clickable" : undefined,
+    disabled,
+    style,
   });
 
   const { reset: _resetMin, ...min } = useField("number", {
     id: "bat-mon-lower",
-    className,
     initially: lower,
     max: 50,
     min: 10,
     title: "alaraja",
+    disabled,
+    style,
   });
 
   const { reset: _resetMax, ...max } = useField("number", {
     id: "bat-mon-upper",
-    className,
     initially: upper,
     max: 90,
     min: 50,
     title: "yläraja",
+    disabled,
+    style,
   });
 
   useEffect(() => {
-    const id = setTimeout(() => {
-      dispatch(
-        setLevels({
-          lower: min.value as number,
-          upper: max.value as number,
-        })
-      );
-    }, 300);
+    const id = setTimeout(
+      () => setLevels(min.value as number, max.value as number),
+      100
+    );
 
     return () => clearTimeout(id);
   }, [min.value, max.value]);
 
   useEffect(() => {
-    const dp = () => dispatch(setAllowed(allow.checked));
+    const dp = () => setAllowed(allow.checked ?? false);
 
     if (allow.checked) {
       checkPermission(modal).then((notiAllowed) => {
@@ -67,31 +60,43 @@ export default function Controls() {
     } else dp();
   }, [allow.checked]);
 
-  return (
-    isSupported && (
+  let hud = null;
+
+  if (isSupported && !state) {
+    hud = "🤔";
+  } else if (state) {
+    hud = (
       <>
-        <label htmlFor="bat-mon-allowed" className="clickable">
-          sallittu:
-        </label>
-        <input {...allow} />
-        {/* <label htmlFor="bat-mon-min">🪫</label> */}
-        <input {...min} />
-        {!loading && (
-          <>
-            <strong id="bat-mon-hud" className="bordered">
-              {charging
-                ? "⚡"
-                : // lvl100 is closer to max_val, than min_val
-                Math.abs(upper - lvl100) < Math.abs(lower - lvl100)
-                ? "🔋"
-                : "🪫"}
-              {lvl100}%
-            </strong>
-          </>
-        )}
-        <input {...max} />
-        {/* <label htmlFor="bat-mon-max">🔋</label> */}
+        {state.charging
+          ? "⚡"
+          : // lvl100 is closer to max_val, than min_val
+          Math.abs(upper - state.level) < Math.abs(lower - state.level)
+          ? "🔋"
+          : "🪫"}
+        {state.level}%
       </>
-    )
+    );
+  } else {
+    hud = "🧐";
+  }
+
+  return (
+    <div>
+      <label htmlFor="bat-mon-allowed" className="clickable">
+        sallittu:
+      </label>
+      <input {...allow} />
+      {/* <label htmlFor="bat-mon-min">🪫</label> */}
+      <input {...min} />
+      <strong
+        id="bat-mon-hud"
+        className="bordered"
+        title={state ? undefined : "ei toimi"}
+      >
+        {hud}
+      </strong>
+      <input {...max} />
+      {/* <label htmlFor="bat-mon-max">🔋</label> */}
+    </div>
   );
 }
