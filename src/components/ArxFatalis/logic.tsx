@@ -28,7 +28,7 @@ export default function useLogic({ queue, setQueue }: LogicProps) {
   }, [arx]);
 
   useEffect(() => {
-    console.log(idx, queue);
+    console.debug(idx, queue);
 
     // TODO: not working when caching many of the same rune after one another
     if (idx < queue.length) {
