@@ -1,34 +1,19 @@
-import { createContext, PropsWithChildren, useEffect } from "react";
+import { createContext, PropsWithChildren } from "react";
 
 import "./modal.css";
 
 import { ModalBuilder } from "../../types/modal";
 import Buttons from "./Buttons";
-import useBuilder from "./builder";
-
-const SOUND = new Audio("/modal.mp3");
+import useLogic from "./logic";
 
 export const CxModal = createContext<ModalBuilder | undefined>(undefined);
 
 export default function Modal({ children }: PropsWithChildren) {
-  const builder = useBuilder();
-  const { prompt, silent, removeAfter } = builder.modal;
-
-  if (prompt && silent === false) {
-    console.debug("playing modal sound");
-    SOUND.currentTime = 0;
-    SOUND.play();
-  }
-
-  useEffect(() => {
-    if (removeAfter !== undefined) {
-      const id = setTimeout(() => {
-        builder.reset();
-      }, removeAfter);
-
-      return () => clearTimeout(id);
-    }
-  }, [removeAfter]);
+  const {
+    builder,
+    reset,
+    modal: { lang, prompt, buttons },
+  } = useLogic();
 
   return (
     <CxModal.Provider value={builder}>
@@ -36,20 +21,20 @@ export default function Modal({ children }: PropsWithChildren) {
         <div
           {...{
             className: "modal-blur",
-            onClick: () => builder.reset(),
+            onClick: reset,
           }}
         >
           <div
             {...{
               className: "modal padded bordered",
-              lang: builder.modal.lang,
+              lang,
               onClick: (evt) => {
                 if (evt.target === evt.currentTarget) evt.stopPropagation();
               },
             }}
           >
             {prompt}
-            <Buttons />
+            <Buttons {...{ buttons, lang }} />
           </div>
         </div>
       )}
