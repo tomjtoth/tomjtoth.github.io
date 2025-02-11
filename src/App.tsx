@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router";
 
-import useBatteryMonitor from "./hooks/battery-monitor";
+import useBatteryMonitor, { CxBatMon } from "./hooks/battery-monitor";
 
 import Sidepanel from "./components/Sidepanel";
 import Home from "./components/Home";
@@ -14,23 +14,25 @@ import Modal from "./components/Modal";
 import Spinner from "./components/Spinner";
 
 export default function App() {
-  useBatteryMonitor();
+  const batMonLogic = useBatteryMonitor();
 
   return (
     <Spinner>
       <Modal>
-        <Sidepanel>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/visitors" element={<Visitors />} />
-            <Route path="/luxor" element={<Luxor />} />
-            <Route path="/shopping-list" element={<ShoppingList />} />
-            <Route path="/battery-monitor" element={<BatteryMonitor />} />
-            <Route path="/lyrics" element={<Lyrics />} />
-            <Route path="/arx-fatalis" element={<ArxFatalis />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </Sidepanel>
+        <CxBatMon.Provider value={batMonLogic}>
+          <Sidepanel>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/visitors" element={<Visitors />} />
+              <Route path="/luxor" element={<Luxor />} />
+              <Route path="/shopping-list" element={<ShoppingList />} />
+              <Route path="/battery-monitor" element={<BatteryMonitor />} />
+              <Route path="/lyrics" element={<Lyrics />} />
+              <Route path="/arx-fatalis" element={<ArxFatalis />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </Sidepanel>
+        </CxBatMon.Provider>
       </Modal>
     </Spinner>
   );
