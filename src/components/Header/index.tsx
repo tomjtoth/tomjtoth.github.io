@@ -18,7 +18,7 @@ export default function Header({
 }: HeaderProps) {
   document.title = title;
 
-  const { show } = useContext(CxSidepanel);
+  const { show } = useContext(CxSidepanel)!;
 
   return (
     <div
@@ -28,11 +28,7 @@ export default function Header({
         className: "border1-s",
       }}
     >
-      <span
-        id="menu-button"
-        className="clickable padded"
-        onClick={() => show()}
-      >
+      <span id="menu-button" className="clickable padded" onClick={show}>
         &#x2630;
       </span>
       {children}

@@ -1,29 +1,19 @@
-import { createContext, PropsWithChildren, useState } from "react";
+import { createContext, PropsWithChildren } from "react";
+
+import useLogic from "./logic";
+import { TCxSidepanel } from "../../types/sidepanel";
 
 import "./sidepanel.css";
 
 import Nav from "./Nav";
 
-export const CxSidepanel = createContext({
-  show: () => {},
-  hide: () => {},
-  active: false,
-});
+export const CxSidepanel = createContext<TCxSidepanel | undefined>(undefined);
 
 export default function Sidepanel({ children }: PropsWithChildren) {
-  const [active, setActive] = useState(false);
-
-  function show() {
-    setActive(true);
-  }
-
-  // just enough delay to not disappear instantly while views change
-  function hide() {
-    setTimeout(() => setActive(false));
-  }
+  const logic = useLogic();
 
   return (
-    <CxSidepanel.Provider value={{ active, show, hide }}>
+    <CxSidepanel.Provider value={logic}>
       <Nav />
       {children}
     </CxSidepanel.Provider>
