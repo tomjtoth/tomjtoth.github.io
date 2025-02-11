@@ -1,4 +1,4 @@
-export type CxSpinnerType =
+export type TCxSpinner =
   | undefined
   | {
       show: () => void;

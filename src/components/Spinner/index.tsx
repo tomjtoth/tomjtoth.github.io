@@ -1,10 +1,10 @@
 import { createContext, PropsWithChildren, useState } from "react";
 
-import { CxSpinnerType } from "../../types/spinner";
+import { TCxSpinner } from "../../types/spinner";
 
 import "./spinner.css";
 
-export const CxSpinner = createContext<CxSpinnerType>(undefined);
+export const CxSpinner = createContext<TCxSpinner>(undefined);
 
 export default function Spinner({ children }: PropsWithChildren) {
   const [active, setActive] = useState(false);
@@ -22,7 +22,7 @@ export default function Spinner({ children }: PropsWithChildren) {
         setTimeout(() => setActive(false), 250);
       }
     },
-  } as CxSpinnerType;
+  } as TCxSpinner;
 
   return (
     <CxSpinner.Provider value={spinner}>
