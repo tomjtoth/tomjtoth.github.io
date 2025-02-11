@@ -2,14 +2,13 @@ import { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
-import { Language, Text } from "../../types/modal";
 import { CxModal } from "../Modal";
 import { CxSpinner } from "../Spinner";
 import { processImports } from "../../services/luxor";
 import { init } from "../../reducers/luxor";
 
 export default function useInit() {
-  const { setModal } = useContext(CxModal)!;
+  const modal = useContext(CxModal)!;
   const spinner = useContext(CxSpinner);
 
   const dispatch = useAppDispatch();
@@ -27,21 +26,15 @@ export default function useInit() {
       const [arr, prompt, critical] = processImports(imp);
 
       if (prompt) {
-        setModal({
-          prompt,
-          lang: Language.Hu,
-          buttons: [
-            [
-              Text.Ok,
-              () => {
-                if (!critical) {
-                  dispatch(init(arr));
-                  navigate(pathname);
-                }
-              },
-            ],
-          ],
-        });
+        modal
+          .hu()
+          .ok(() => {
+            if (!critical) {
+              dispatch(init(arr));
+              navigate(pathname);
+            }
+          })
+          .prompt(prompt);
       } else {
         dispatch(init(arr));
         if (imp) navigate(pathname);

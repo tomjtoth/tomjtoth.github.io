@@ -6,12 +6,11 @@ import TableBody from "./TableBody";
 import { addField, rmField } from "../../reducers/luxor";
 import { useContext } from "react";
 import { CxModal } from "../Modal";
-import { Text, Language } from "../../types/modal";
 import { CxLuxor } from "./logic";
 
 export default function Fields() {
   const { fields } = useAppSelector((s) => s.luxor);
-  const { setModal } = useContext(CxModal)!;
+  const modal = useContext(CxModal)!;
   const { locked } = useContext(CxLuxor)!;
   const dispatch = useAppDispatch();
 
@@ -35,14 +34,11 @@ export default function Fields() {
                     className=" clickable padded"
                     tabIndex={0}
                     onClick={() =>
-                      setModal({
-                        prompt: <>Azt a mezőt most törlöm...</>,
-                        lang: Language.Hu,
-                        buttons: [
-                          [Text.Ok, () => dispatch(rmField(fieldId))],
-                          [Text.Cancel],
-                        ],
-                      })
+                      modal
+                        .hu()
+                        .ok(() => dispatch(rmField(fieldId)))
+                        .cancel()
+                        .prompt(<>Azt a mezőt most törlöm...</>)
                     }
                   >
                     🚫 mező törlése

@@ -9,7 +9,7 @@ import { Spell } from "../../types/arx-fatalis/spells";
 import { LogicProps } from "../../types/arx-fatalis";
 
 export default function useLogic({ queue, setQueue }: LogicProps) {
-  const { setModal } = useContext(CxModal)!;
+  const modal = useContext(CxModal)!;
   const state = useAppSelector((s) => s.arxFatalis)!;
 
   const dispatch = useAppDispatch();
@@ -35,10 +35,11 @@ export default function useLogic({ queue, setQueue }: LogicProps) {
           state.castSpells.filter((spell) => spell === idx).length + 1;
         if (count < 3 || count % 10 == 0) {
           console.debug(`cast ${idx}, ${count} times => showing modal`);
-          setModal({
-            silent: true,
-            removeAfter: 3000,
-            prompt: (
+          modal
+            .en()
+            .silent()
+            .removeAfter(3000)
+            .prompt(
               <>
                 {count % 10 === 0
                   ? `Congrats! This is your ${count}th time casting ${spell}`
@@ -50,8 +51,7 @@ export default function useLogic({ queue, setQueue }: LogicProps) {
                   ))}
                 </div>
               </>
-            ),
-          });
+            );
         }
 
         dispatch(castSpell(idx));
