@@ -1,22 +1,22 @@
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { toggleSelection } from "../../reducers/lyrics";
+import { useContext } from "react";
+
 import type { SongsProps, Artist } from "../../types/lyrics";
+import { CxLyrics } from "./logic";
 
 import Logo from "./Logos";
 
-const search = ({ name }: Artist, song: string) =>
-  `https://www.youtube.com/results?search_query=${encodeURIComponent(
-    `${name} - Topic ${song}`
-  )}`;
+function search({ name }: Artist, song: string) {
+  const encoded = encodeURIComponent(`${name} - Topic ${song}`);
+  return `https://www.youtube.com/results?search_query=${encoded}`;
+}
 
-const translate = (lyrics: string) =>
-  `https://translate.google.com/?sl=sv&tl=en&text=${encodeURIComponent(
-    lyrics
-  )}&op=translate`;
+function translate(lyrics: string) {
+  const encoded = encodeURIComponent(lyrics);
+  return `https://translate.google.com/?sl=sv&tl=en&text=${encoded}&op=translate`;
+}
 
 export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
-  const dispatch = useAppDispatch();
-  const { artists, active } = useAppSelector((s) => s.lyrics);
+  const { artists, isActive, toggleActive } = useContext(CxLyrics)!;
 
   return (
     <ul>
@@ -24,7 +24,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
         const id = [artistIdx, albumIdx, songIdx].join("-");
         const classes = ["padded bordered"];
         let clickable = songs.length > 1;
-        if (songs.length === 1 || active.includes(id)) classes.push("active");
+        if (songs.length === 1 || isActive(id)) classes.push("active");
 
         let link;
 
@@ -49,8 +49,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
             key={songIdx}
             {...{ className: classes.join(" "), id }}
             onClick={(e) => {
-              if (clickable && e.target === e.currentTarget)
-                dispatch(toggleSelection(id));
+              if (clickable && e.target === e.currentTarget) toggleActive(id);
             }}
           >
             {title}

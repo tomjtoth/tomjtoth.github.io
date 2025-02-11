@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { init } from "../../reducers/lyrics";
 import { CxSpinner } from "../Spinner";
 
 export default function useInit() {
   const dispatch = useAppDispatch();
-  const { artists } = useAppSelector((s) => s.lyrics);
+  const { artists, active } = useAppSelector((s) => s.lyrics);
   const loaded = artists.length > 0;
 
   const spinner = useContext(CxSpinner)!;
@@ -18,5 +18,5 @@ export default function useInit() {
     } else spinner.hide();
   }, [loaded]);
 
-  return loaded;
+  return { dispatch, artists, active };
 }

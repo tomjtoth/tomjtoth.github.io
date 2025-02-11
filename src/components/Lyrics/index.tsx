@@ -1,4 +1,4 @@
-import useInit from "./init";
+import useLogic, { CxLyrics } from "./logic";
 
 import "./lyrics.css";
 
@@ -7,10 +7,10 @@ import Header from "../Header";
 import MainView from "../MainView";
 
 export default function Lyrics() {
-  const loaded = useInit();
+  const logic = useLogic();
 
   return (
-    <>
+    <CxLyrics.Provider value={logic}>
       <Header title="låttext" icon="🎶" />
       <MainView>
         <p
@@ -21,8 +21,8 @@ export default function Lyrics() {
           The below songs are linked to Google Translate (or YouTube, when the
           lyrics are still missing).
         </p>
-        {loaded && <Artists />}
+        <Artists />
       </MainView>
-    </>
+    </CxLyrics.Provider>
   );
 }
