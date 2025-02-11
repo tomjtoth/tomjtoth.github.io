@@ -1,22 +1,18 @@
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { Field } from "../../types/luxor";
+import { useContext } from "react";
+
+import { CxLuxor } from "./logic";
+import { CxModal } from "../Modal";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
-import { addField, rmField } from "../../reducers/luxor";
-import { useContext } from "react";
-import { CxModal } from "../Modal";
-import { CxLuxor } from "./logic";
 
 export default function Fields() {
-  const { fields } = useAppSelector((s) => s.luxor);
   const modal = useContext(CxModal)!;
-  const { locked } = useContext(CxLuxor)!;
-  const dispatch = useAppDispatch();
+  const { locked, fields, addField, rmField } = useContext(CxLuxor)!;
 
   return (
     <ul className="luxor">
-      {(fields as Field[]).map(({ id: fieldId, rows, importedAt }) => (
+      {fields.map(({ id: fieldId, rows, importedAt }) => (
         <li key={fieldId} className={`luxor ${locked ? "" : " bordered"}`}>
           {!locked && (
             <>
@@ -24,7 +20,7 @@ export default function Fields() {
               <div>
                 <span
                   className="clickable padded"
-                  onClick={() => dispatch(addField(fieldId))}
+                  onClick={() => addField(fieldId)}
                   tabIndex={0}
                 >
                   új mező ➕
@@ -36,7 +32,7 @@ export default function Fields() {
                     onClick={() =>
                       modal
                         .hu()
-                        .ok(() => dispatch(rmField(fieldId)))
+                        .ok(() => rmField(fieldId))
                         .cancel()
                         .prompt(<>Azt a mezőt most törlöm...</>)
                     }

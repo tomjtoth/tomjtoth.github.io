@@ -1,14 +1,11 @@
 import { useContext } from "react";
 
 import { TableBodyProps } from "../../types/luxor";
-import { useAppDispatch, useAppSelector } from "../../hooks";
 import { between } from "../../utils";
-import { addNum, update } from "../../reducers/luxor";
 import { CxLuxor } from "./logic";
 
 export default function TableBody({ rows, fieldId }: TableBodyProps) {
-  const { pickedNums } = useAppSelector((s) => s.luxor);
-  const dispatch = useAppDispatch();
+  const { pickedNums, addNum, update } = useContext(CxLuxor)!;
 
   const { locked } = useContext(CxLuxor)!;
 
@@ -44,7 +41,7 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                     onClick: () => {
                       if (locked) {
                         if (!(pickedNums as number[]).includes(cell))
-                          dispatch(addNum(cell));
+                          addNum(cell);
                       }
                     },
                   }}
@@ -69,10 +66,9 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                         const num = Number(e.target.value);
                         if (
                           !isNaN(num) &&
-                          ((num <= max && num >= min) || num === 0)
-                        ) {
-                          dispatch(update([fieldId, rowIdx, cellIdx, num]));
-                        }
+                          (between(num, min, max) || num === 0)
+                        )
+                          update([fieldId, rowIdx, cellIdx, num]);
                       }}
                     />
                   )}

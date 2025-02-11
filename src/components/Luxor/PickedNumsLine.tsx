@@ -1,16 +1,13 @@
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { last } from "../../utils";
-import { rmLastNum } from "../../reducers/luxor";
 import { useContext, useRef } from "react";
+
+import { last } from "../../utils";
 import { CxModal } from "../Modal";
 import { CxLuxor } from "./logic";
 
 export default function PickedNumsLine() {
-  const dispatch = useAppDispatch();
-  const { pickedNums } = useAppSelector((s) => s.luxor);
-
   const modal = useContext(CxModal)!;
-  const { bug, moveBug, hideBug, resetBug } = useContext(CxLuxor)!;
+  const { bug, moveBug, hideBug, resetBug, pickedNums, rmLastNum } =
+    useContext(CxLuxor)!;
 
   const span = useRef<HTMLSpanElement>(null);
 
@@ -46,7 +43,7 @@ export default function PickedNumsLine() {
         onTransitionEnd={() => {
           if (bug.position !== "-10vw" && bug.position !== "110vw") {
             hideBug();
-            dispatch(rmLastNum());
+            rmLastNum();
           } else if (bug.position === "-10vw") {
             resetBug();
           }

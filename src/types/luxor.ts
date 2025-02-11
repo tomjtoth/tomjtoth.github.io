@@ -14,6 +14,16 @@ export type CxLuxorType = {
   moveBug: (position: number | string) => void;
   hideBug: () => void;
   resetBug: () => void;
+
+  pickedNums: number[];
+  addNum: (num: number) => void;
+  update: (arr: number[]) => void;
+  rmLastNum: () => void;
+  clearNums: () => void;
+
+  fields: Field[];
+  addField: (id: number) => void;
+  rmField: (id: number) => void;
 };
 
 export type Field = {

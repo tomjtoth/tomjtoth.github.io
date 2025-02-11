@@ -8,18 +8,19 @@ import { processImports } from "../../services/luxor";
 import { init } from "../../reducers/luxor";
 
 export default function useInit() {
-  const modal = useContext(CxModal)!;
-  const spinner = useContext(CxSpinner)!;
-
-  const dispatch = useAppDispatch();
-  const { fields } = useAppSelector((s) => s.luxor);
-
-  const uninitialized = fields.length === 0;
   const navigate = useNavigate();
   const { search, pathname } = useLocation();
 
+  const dispatch = useAppDispatch();
+  const { fields, pickedNums } = useAppSelector((s) => s.luxor);
+
+  const modal = useContext(CxModal)!;
+  const spinner = useContext(CxSpinner)!;
+
+  const loaded = fields.length > 0;
+
   useEffect(() => {
-    if (uninitialized) {
+    if (!loaded) {
       spinner.show();
 
       const imp = new URLSearchParams(search).get("import");
@@ -40,5 +41,7 @@ export default function useInit() {
         if (imp) navigate(pathname);
       }
     } else spinner.hide();
-  }, [uninitialized]);
+  }, [loaded]);
+
+  return { dispatch, fields, pickedNums };
 }
