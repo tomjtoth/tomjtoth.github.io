@@ -33,3 +33,10 @@ export type State = {
   artists: Artist[];
   active: Active;
 };
+
+export type TCxLyrics = {
+  artists: Artist[];
+
+  isActive: (id: string) => boolean;
+  toggleActive: (id: string) => void;
+};

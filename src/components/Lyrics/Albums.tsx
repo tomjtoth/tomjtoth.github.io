@@ -1,14 +1,13 @@
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useContext } from "react";
+
 import type { AlbumsProps } from "../../types/lyrics";
-import { Active } from "../../types/common";
-import { toggleSelection } from "../../reducers/lyrics";
+import { CxLyrics } from "./logic";
 
 import Songs from "./Songs";
 import Logo from "./Logos";
 
 export default function Albums({ artistIdx, albums }: AlbumsProps) {
-  const dispatch = useAppDispatch();
-  const { active } = useAppSelector((s) => s.lyrics);
+  const { isActive, toggleActive } = useContext(CxLyrics)!;
 
   return (
     <ul>
@@ -24,13 +23,10 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
               className: `${
                 clickable ? "clickable " : "non-clickable "
               }padded bordered${
-                albums.length === 1 || (active as Active).includes(id)
-                  ? " active"
-                  : ""
+                albums.length === 1 || isActive(id) ? " active" : ""
               }`,
               onClick: (e) => {
-                if (clickable && e.target === e.currentTarget)
-                  dispatch(toggleSelection(id));
+                if (clickable && e.target === e.currentTarget) toggleActive(id);
               },
             }}
           >

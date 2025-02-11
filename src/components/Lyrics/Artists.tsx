@@ -1,18 +1,16 @@
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { toggleSelection } from "../../reducers/lyrics";
-import { Active } from "../../types/common";
-import { Artist } from "../../types/lyrics";
+import { useContext } from "react";
+
+import { CxLyrics } from "./logic";
 
 import Albums from "./Albums";
 import Logo from "./Logos";
 
 export default function Artists() {
-  const dispatch = useAppDispatch();
-  const { artists, active } = useAppSelector((s) => s.lyrics);
+  const { artists, isActive, toggleActive } = useContext(CxLyrics)!;
 
   return (
     <ul lang="sv" id="lyrics">
-      {(artists as Artist[]).map(({ name, url, albums }, artistIdx) => {
+      {artists.map(({ name, url, albums }, artistIdx) => {
         const id = [artistIdx].join();
 
         return (
@@ -20,10 +18,10 @@ export default function Artists() {
             key={artistIdx}
             {...{
               className: `clickable padded bordered${
-                (active as Active).includes(id) ? " active" : ""
+                isActive(id) ? " active" : ""
               }`,
               onClick: (e) => {
-                if (e.target === e.currentTarget) dispatch(toggleSelection(id));
+                if (e.target === e.currentTarget) toggleActive(id);
               },
             }}
           >

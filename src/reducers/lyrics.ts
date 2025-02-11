@@ -33,11 +33,11 @@ export function init() {
     );
 }
 
-export function toggleSelection(id: string) {
+export function toggleActive(id: string) {
   return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
 }
 
-export function restSelection() {
+export function resetActive() {
   return (dispatch: AppDispatch) => dispatch(sa.resetActive());
 }
 
