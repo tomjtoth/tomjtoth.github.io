@@ -64,11 +64,8 @@ export function last<T>(arr: T[], n = 1): T | T[] {
   return arr[idx];
 }
 
-export function between(n: number, a: number, b: number): boolean {
-  if (typeof a !== "number" || typeof b !== "number")
-    throw new Error("between needs numbers for comparison");
-
-  return a <= n && n <= b;
+export function between(num: number, lower: number, upper: number): boolean {
+  return lower <= num && num <= upper;
 }
 
 export function maxId<T extends { id: number }>(arr: T[]): number {
