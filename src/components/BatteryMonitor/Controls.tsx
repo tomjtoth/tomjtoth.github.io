@@ -9,7 +9,7 @@ import { BatteryState } from "../../types/battery-monitor";
 import { CxModal } from "../Modal";
 
 export default function Controls() {
-  const { setModal } = useContext(CxModal)!;
+  const modal = useContext(CxModal)!;
   const dispatch = useAppDispatch();
   const { lower, upper, allowed } = useAppSelector((s) => s.batteryMonitor);
   const { isSupported, loading, charging, level } =
@@ -60,7 +60,7 @@ export default function Controls() {
     const dp = () => dispatch(setAllowed(allow.checked));
 
     if (allow.checked) {
-      checkPermission(setModal).then((notiAllowed) => {
+      checkPermission(modal).then((notiAllowed) => {
         if (notiAllowed) dp();
         else resetAllow();
       });

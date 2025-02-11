@@ -3,14 +3,13 @@ import { last } from "../../utils";
 import { rmLastNum } from "../../reducers/luxor";
 import { useContext, useRef } from "react";
 import { CxModal } from "../Modal";
-import { Language, Text } from "../../types/modal";
 import { CxLuxor } from "./logic";
 
 export default function PickedNumsLine() {
   const dispatch = useAppDispatch();
   const { pickedNums } = useAppSelector((s) => s.luxor);
 
-  const { setModal } = useContext(CxModal)!;
+  const modal = useContext(CxModal)!;
   const { bug, moveBug, hideBug, resetBug } = useContext(CxLuxor)!;
 
   const span = useRef<HTMLSpanElement>(null);
@@ -26,21 +25,15 @@ export default function PickedNumsLine() {
         className="clickable"
         style={{ visibility: pickedNums.length === 0 ? "hidden" : undefined }}
         onClick={() =>
-          setModal({
-            prompt: (
+          modal
+            .hu()
+            .ok(() => moveBug(span.current!.getBoundingClientRect().right - 8))
+            .cancel()
+            .prompt(
               <>
                 Törlöm az <strong>utolsó</strong> húzott számot
               </>
-            ),
-            lang: Language.Hu,
-            buttons: [
-              [
-                Text.Ok,
-                () => moveBug(span.current!.getBoundingClientRect().right - 8),
-              ],
-              [Text.Cancel],
-            ],
-          })
+            )
         }
       >
         ⬅️

@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
 
-import { Text } from "../../types/modal";
 import useInit from "./init";
 import { CxModal } from "../Modal";
 import { useAppDispatch, useAppSelector } from "../../hooks";
@@ -17,7 +16,7 @@ export const CxShopping = createContext<CxShoppingType>(undefined);
 export default function useLogic() {
   const dispatch = useAppDispatch();
   const { active, items, recipes } = useAppSelector((s) => s.shoppingList);
-  const { setModal } = useContext(CxModal)!;
+  const modal = useContext(CxModal)!;
 
   const loaded = recipes.length > 0;
   useInit(loaded);
@@ -29,17 +28,17 @@ export default function useLogic() {
     items,
     addItem: (name) => dispatch(addItem(name)),
     rmItem: (id, name) =>
-      setModal({
-        prompt: `poistetaanko ${name} varmasti?`,
-        buttons: [[Text.Yes, () => dispatch(rmItem(id))], [Text.No]],
-      }),
+      modal
+        .yes(() => dispatch(rmItem(id)))
+        .no()
+        .prompt(`poistetaanko ${name} varmasti?`),
 
     active,
     toggleActive: (id) => dispatch(toggleActive(id)),
     resetActive: () =>
-      setModal({
-        prompt: "pyyhitäänkö kaikki vihreät?",
-        buttons: [[Text.Yes, () => dispatch(resetActiveItems())], [Text.No]],
-      }),
+      modal
+        .yes(() => dispatch(resetActiveItems()))
+        .no()
+        .prompt("pyyhitäänkö kaikki vihreät?"),
   } as CxShoppingType;
 }

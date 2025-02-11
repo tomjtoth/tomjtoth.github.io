@@ -4,14 +4,13 @@ import useField from "../../hooks/useField";
 import { clearNums, addNum } from "../../reducers/luxor";
 import { useContext } from "react";
 import { CxModal } from "../Modal";
-import { Language, Text } from "../../types/modal";
 import { CxLuxor } from "./logic";
 
 export default function Controls() {
   const dispatch = useAppDispatch();
   const { pickedNums } = useAppSelector((s) => s.luxor);
 
-  const { setModal } = useContext(CxModal)!;
+  const modal = useContext(CxModal)!;
   const { locked, toggleLocked } = useContext(CxLuxor)!;
 
   const { reset: resetInput, ...num } = useField("number", {
@@ -45,15 +44,15 @@ export default function Controls() {
       <span
         className="padded clickable"
         onClick={() =>
-          setModal({
-            prompt: (
+          modal
+            .hu()
+            .ok(() => dispatch(clearNums()))
+            .cancel()
+            .prompt(
               <>
                 Törlöm az <strong>összes</strong> húzott számot
               </>
-            ),
-            lang: Language.Hu,
-            buttons: [[Text.Ok, () => dispatch(clearNums())], [Text.Cancel]],
-          })
+            )
         }
         title="jelölések törlése"
       >

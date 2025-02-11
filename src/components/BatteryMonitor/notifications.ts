@@ -1,4 +1,4 @@
-import { setModalType, Text } from "../../types/modal";
+import { ModalBuilder } from "../../types/modal";
 
 export function notify(body: string) {
   new Notification("Akunvalvonta", { body, icon: "/icon.png" });
@@ -13,22 +13,18 @@ export function notiText(charging: boolean, lvl100: number): string {
   }`;
 }
 
-export async function checkPermission(setModal: setModalType) {
+export async function checkPermission(modal: ModalBuilder) {
   if (!window.Notification) {
-    setModal({
-      prompt: "ilmoituksia ei tueta",
-      buttons: [[Text.Ok]],
-    });
+    modal.ok().prompt("ilmoituksia ei tueta");
+
     return false;
   } else {
     if (Notification.permission !== "granted") {
       if ((await Notification.requestPermission()) === "granted") {
         notify("näyteilmoitus");
       } else {
-        setModal({
-          prompt: "ilmotiukset on estettyjä",
-          buttons: [[Text.Ok]],
-        });
+        modal.ok().prompt("ilmotiukset on estettyjä");
+
         return false;
       }
     }
