@@ -13,7 +13,6 @@ export default function useBuilder() {
   // TODO: handle the default 3 language and 4 button via Proxy
   const builder = {
     _buffer: DEFAULT,
-    modal,
 
     en: function () {
       this._buffer = { ...this._buffer, lang: Language.En };
@@ -90,9 +89,7 @@ export default function useBuilder() {
       setModal({ ...this._buffer, prompt });
       this._buffer = DEFAULT;
     },
-
-    reset: () => setModal(DEFAULT),
   } as ModalBuilder;
 
-  return builder;
+  return { modal, builder, reset: () => setModal(DEFAULT) };
 }

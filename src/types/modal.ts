@@ -15,21 +15,19 @@ export enum Text {
 
 type Button = [Text | string, MouseEventHandler?];
 
-export type ModalType = {
-  prompt?: ReactNode;
-  lang?: Language;
+export type ModalButtonsProps = {
   buttons: Button[];
+  lang?: Language;
+};
+
+export type ModalType = ModalButtonsProps & {
+  prompt?: ReactNode;
   silent: boolean;
   removeAfter?: number;
 };
 
-export type setModalType = React.Dispatch<
-  React.SetStateAction<ModalType | undefined>
->;
-
 export type ModalBuilder = {
   _buffer: ModalType;
-  modal: ModalType;
 
   en: () => ModalBuilder;
   fi: () => ModalBuilder;
@@ -46,5 +44,4 @@ export type ModalBuilder = {
   removeAfter: (ms: number) => ModalBuilder;
 
   prompt: (prompt: ReactNode) => void;
-  reset: () => void;
 };

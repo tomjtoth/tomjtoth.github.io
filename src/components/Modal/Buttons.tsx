@@ -1,6 +1,4 @@
-import { useContext } from "react";
-import { CxModal } from ".";
-import { Language, Text } from "../../types/modal";
+import { Language, ModalButtonsProps, Text } from "../../types/modal";
 
 const TEXTS = Object.fromEntries(
   [
@@ -11,10 +9,7 @@ const TEXTS = Object.fromEntries(
   ].map(([en, rest]: any) => [en, { ...rest, en: Text[en] }])
 );
 
-export default function Buttons() {
-  const { modal } = useContext(CxModal)!;
-  const { lang, buttons } = modal!;
-
+export default function Buttons({ buttons, lang }: ModalButtonsProps) {
   let autoFocusUnset = true;
 
   return (
@@ -23,6 +18,8 @@ export default function Buttons() {
       <div id="modal-buttons">
         {buttons.map(([text, onClick], key) => {
           let autoFocus;
+
+          // TODO: impl supporting custom text
           if (autoFocusUnset && (text === Text.Ok || text === Text.Yes)) {
             autoFocus = true;
             autoFocusUnset = false;
