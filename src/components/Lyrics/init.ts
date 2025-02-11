@@ -9,7 +9,7 @@ export default function useInit() {
   const { artists } = useAppSelector((s) => s.lyrics);
   const loaded = artists.length > 0;
 
-  const spinner = useContext(CxSpinner);
+  const spinner = useContext(CxSpinner)!;
 
   useEffect(() => {
     if (!loaded) {
