@@ -1,7 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
-import { CxModal } from "../Modal";
-import { BugState, CxLuxorType } from "../../types/luxor";
+import { BugState, TCxLuxor } from "../../types/luxor";
 import useInit from "./init";
 import {
   addField,
@@ -12,22 +11,21 @@ import {
   update,
 } from "../../reducers/luxor";
 
-const BUG_INITIALLY = {
+const DEFAULT = {
   position: "110vw",
   crawling: false,
   filtered: false,
 };
 
-export const CxLuxor = createContext<CxLuxorType | undefined>(undefined);
+export const CxLuxor = createContext<TCxLuxor | undefined>(undefined);
 
 export default function useLogic() {
-  const { dispatch, fields, pickedNums } = useInit();
-  const modal = useContext(CxModal)!;
-
+  const { dispatch, modal, fields, pickedNums } = useInit();
   const [locked, setLocked] = useState(true);
-  const [bug, setBug] = useState(BUG_INITIALLY as BugState);
+  const [bug, setBug] = useState(DEFAULT as BugState);
 
   return {
+    modal,
     locked,
     toggleLocked: () => setLocked(!locked),
 
@@ -35,7 +33,7 @@ export default function useLogic() {
     moveBug: (position: number | string) =>
       setBug({ position, filtered: false, crawling: true }),
     hideBug: () => setBug({ ...bug, filtered: true }),
-    resetBug: () => setBug(BUG_INITIALLY),
+    resetBug: () => setBug(DEFAULT),
 
     pickedNums,
     addNum: (num) => dispatch(addNum(num)),
@@ -55,5 +53,5 @@ export default function useLogic() {
     fields,
     addField: (id) => dispatch(addField(id)),
     rmField: (id) => dispatch(rmField(id)),
-  } as CxLuxorType;
+  } as TCxLuxor;
 }

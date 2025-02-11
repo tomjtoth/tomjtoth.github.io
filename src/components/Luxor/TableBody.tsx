@@ -1,13 +1,15 @@
 import { useContext } from "react";
 
 import { TableBodyProps } from "../../types/luxor";
-import { between } from "../../utils";
 import { CxLuxor } from "./logic";
+import { between } from "../../utils";
+
+function isValid(num: number, min: number, max: number): boolean {
+  return !isNaN(num) && (num === 0 || between(num, min, max));
+}
 
 export default function TableBody({ rows, fieldId }: TableBodyProps) {
-  const { pickedNums, addNum, update } = useContext(CxLuxor)!;
-
-  const { locked } = useContext(CxLuxor)!;
+  const { locked, pickedNums, addNum, update } = useContext(CxLuxor)!;
 
   return (
     <tbody>
@@ -17,8 +19,7 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
             {cells.map((cell, cellIdx) => {
               const classes = [];
               if (locked) classes.push("clickable");
-              if ((pickedNums as number[]).includes(cell))
-                classes.push("picked");
+              if (pickedNums.includes(cell)) classes.push("picked");
 
               if (locked) {
                 if (rowIdx === 1 && between(cellIdx, 1, 3))
@@ -40,8 +41,7 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                     className: classes.join(" "),
                     onClick: () => {
                       if (locked) {
-                        if (!(pickedNums as number[]).includes(cell))
-                          addNum(cell);
+                        if (!pickedNums.includes(cell)) addNum(cell);
                       }
                     },
                   }}
@@ -62,12 +62,8 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                       defaultValue={cell}
                       onFocus={(e) => e.target.select()}
                       onChange={(e) => {
-                        e.target.setCustomValidity("asd");
                         const num = Number(e.target.value);
-                        if (
-                          !isNaN(num) &&
-                          (between(num, min, max) || num === 0)
-                        )
+                        if (isValid(num, min, max))
                           update([fieldId, rowIdx, cellIdx, num]);
                       }}
                     />

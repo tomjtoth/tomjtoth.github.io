@@ -43,5 +43,5 @@ export default function useInit() {
     } else spinner.hide();
   }, [loaded]);
 
-  return { dispatch, fields, pickedNums };
+  return { dispatch, modal, fields, pickedNums };
 }
