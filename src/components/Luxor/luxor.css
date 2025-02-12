@@ -33,10 +33,6 @@
   z-index: 1;
   font-size: 25px;
   user-select: none;
-}
-
-#luxor-num-bug.crawling {
-  transition: left 0.7s;
   animation: animation-move 0.3s infinite;
 }
 
@@ -65,7 +61,7 @@
   }
 
   100% {
-    backdrop-filter: blur(0);
+    backdrop-filter: blur(0px);
   }
 }
 
@@ -75,15 +71,15 @@
 
 @keyframes animation-move {
   0% {
-    transform: rotate(calc(var(--animation-move-dir) - 0deg));
+    transform: rotate(calc(var(--animation-move-dir) + 10deg));
   }
 
   50% {
-    transform: rotate(calc(var(--animation-move-dir) - 15deg));
+    transform: rotate(calc(var(--animation-move-dir) - 10deg));
   }
 
   100% {
-    transform: rotate(calc(var(--animation-move-dir) - 0deg));
+    transform: rotate(calc(var(--animation-move-dir) + 10deg));
   }
 }
 

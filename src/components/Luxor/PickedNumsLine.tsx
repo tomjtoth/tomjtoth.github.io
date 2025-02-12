@@ -22,7 +22,9 @@ export default function PickedNumsLine() {
         onClick={() =>
           modal
             .hu()
-            .ok(() => moveBug(span.current!.getBoundingClientRect().right - 8))
+            .ok(() =>
+              moveBug(span.current!.getBoundingClientRect().right - 8, true)
+            )
             .cancel()
             .prompt(
               <>
@@ -36,8 +38,7 @@ export default function PickedNumsLine() {
 
       <div
         id="luxor-num-bug"
-        className={bug.crawling ? "crawling" : undefined}
-        style={{ left: bug.position }}
+        style={{ left: bug.position, transition: bug.transition }}
         onTransitionEnd={() => {
           if (bug.position !== "-10vw" && bug.position !== "110vw") {
             hideBug();
@@ -54,7 +55,7 @@ export default function PickedNumsLine() {
         <div
           id="luxor-num-bug-priv-filter"
           style={{ left: bug.position }}
-          onAnimationEnd={() => moveBug("-10vw")}
+          onAnimationEnd={() => moveBug("-10vw", false)}
         />
       )}
     </div>
