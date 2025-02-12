@@ -1,7 +1,3 @@
-import { useState } from "react";
-
-import { RE } from "../../types/arx-fatalis/runes";
-import { Rune } from "../../types/arx-fatalis/runes";
 import useArxFatalis from "../../hooks/arx-fatalis";
 
 import "./arx-fatalis.css";
@@ -12,23 +8,20 @@ import MainView from "../MainView";
 import Img from "./Img";
 
 export default function ArxFatalis() {
-  const [queue, setQueue] = useState<RE[]>([]);
-  useArxFatalis({ queue, setQueue });
+  const { arx, runes, push } = useArxFatalis();
 
   return (
     <>
-      <Header title="riimut">
-        <Controls />
-      </Header>
+      <Header title="riimut">{arx && <Controls arx={arx} />}</Header>
       <MainView className="arx-fatalis">
         <div id="runes-spacer" />
         <div id="runes">
-          {Rune.arr.map((rune) => (
+          {runes.map((rune, i) => (
             <Img
-              key={rune.str()}
+              key={i}
               {...{
                 rune,
-                onClick: () => setQueue((queue) => [...queue, rune.variant]),
+                onClick: () => push(rune),
               }}
             />
           ))}
