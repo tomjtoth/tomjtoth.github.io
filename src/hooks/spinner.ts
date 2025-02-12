@@ -6,9 +6,11 @@ export const CxSpinner = createContext<TCxSpinner | undefined>(undefined);
 
 export default function useSpinner() {
   const [active, setActive] = useState(false);
+  const [className, setClassName] = useState<string | undefined>(undefined);
 
   return {
     active,
+    className,
 
     show: () => {
       console.debug("showing spinner");
@@ -19,8 +21,13 @@ export default function useSpinner() {
     hide: () => {
       if (active) {
         console.debug("hiding spinner");
-        setTimeout(() => setActive(false), 250);
+        setClassName("fade-out");
       }
+    },
+
+    reset: () => {
+      setActive(false);
+      setClassName(undefined);
     },
   } as TCxSpinner;
 }
