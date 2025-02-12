@@ -1,11 +1,12 @@
-import { useAppSelector } from "../../hooks";
+import { State } from "../../types/arx-fatalis";
 
-export default function Controls() {
-  const arx = useAppSelector((s) => s.arxFatalis);
-
+export default function Controls({ arx }: { arx: State }) {
   return (
     <>
-      💎&nbsp;{arx && arx.score}
+      <span>
+        💎 <sub style={{ fontSize: "x-small" }}>{arx.score}</sub>
+      </span>
+      <input type="text" placeholder="TODO: filter spells from book" disabled />
       <a
         className="spells"
         href="https://wiki.arx-libertatis.org/Spells"
@@ -13,7 +14,7 @@ export default function Controls() {
       >
         📖
       </a>
-      {/* TODO: <span id="reset-runes-score">reset</span> */}
+      {/* TODO: <span onClick={() => resetScore()}>reset</span> */}
     </>
   );
 }

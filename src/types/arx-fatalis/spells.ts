@@ -1,4 +1,4 @@
-import { RE } from "./runes";
+import { RE, Rune } from "./runes";
 
 export enum SE {
   megaCheat,
@@ -117,24 +117,25 @@ export class Spell {
       [SE.slowTime, [10, [RE.rhaa, RE.tempus], false]],
       [SE.controlDemon, [10, [RE.movis, RE.comunicatum]]],
     ].map(
-      ([se, [page, seq, hasSound = true]]: any) =>
-        new Spell(se, seq, page, hasSound)
+      ([se, [page, seq, hasSound = true]]: any, idx) =>
+        new Spell(se, seq, page, hasSound, idx)
     );
   })();
 
   // based on https://wiki.arx-libertatis.org/Spells
 
   static pointsOf(sEnum: SE) {
-    return this.spells.find((x) => x.spell === sEnum)!.points();
+    return this.spells.find((x) => x.spell === sEnum)!.points;
   }
 
-  static tryCast(seq: RE[], onSuccess: CallableFunction) {
+  static tryCast(seq: Rune[], onSuccess: CallableFunction) {
+    console.debug("trying to cast sequence", seq);
     if (seq.length > 0) {
       const idx = this.spells.findIndex((sp) => sp.seqMatches(seq));
       if (idx > -1) {
         const spell = this.spells[idx];
         spell.play();
-        onSuccess(idx, spell.asStr(), spell.page);
+        onSuccess(spell);
       } else {
         // play fizzle
         this.spells[1].play();
@@ -143,14 +144,22 @@ export class Spell {
   }
 
   private spell: SE;
-  private page: number;
+  page: number;
+  idx: number;
   private seq: RE[];
   private mp3?: HTMLAudioElement;
 
-  constructor(spell: SE, seq: RE[], page: number, hasSound = true) {
+  constructor(
+    spell: SE,
+    seq: RE[],
+    page: number,
+    hasSound: boolean,
+    idx: number
+  ) {
     this.spell = spell;
-    this.seq = seq;
     this.page = page;
+    this.idx = idx;
+    this.seq = seq;
 
     if (hasSound) {
       const path = `/arx/spells/${this.asStr("-")}.mp3`;
@@ -159,15 +168,15 @@ export class Spell {
     }
   }
 
-  points(): number {
+  get points(): number {
     return this.page * this.seq.length;
   }
 
-  seqMatches(seq: RE[]): boolean {
+  seqMatches(seq: Rune[]): boolean {
     if (seq.length !== this.seq.length) return false;
 
     for (let i = 0; i < seq.length; i++) {
-      if (seq[i] !== this.seq[i]) return false;
+      if (seq[i].variant !== this.seq[i]) return false;
     }
 
     return true;
@@ -175,10 +184,14 @@ export class Spell {
 
   play() {
     if (this.mp3) {
-      console.debug(`playing ${this.asStr()}`);
+      console.debug(`playing ${this.name}`);
       this.mp3.currentTime = 0;
       this.mp3.play();
     }
+  }
+
+  get name() {
+    return this.asStr();
   }
 
   asStr(delim = " ") {

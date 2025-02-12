@@ -23,7 +23,7 @@ export enum RE {
 
 export class Rune {
   static arr: Rune[] = (() => {
-    console.debug("initializing Runes audio");
+    console.debug("initializing Runes array");
 
     return [
       [RE.aam, 0.2, 0.7],
@@ -56,7 +56,7 @@ export class Rune {
   variant: RE;
   private startsAt: number;
   private length: number;
-  mp3: HTMLAudioElement;
+  private mp3: HTMLAudioElement;
 
   constructor([rune, start, stop]: [RE, number, number]) {
     this.variant = rune;
@@ -68,10 +68,14 @@ export class Rune {
   }
 
   play() {
-    console.debug(`playing ${this.str(false)}`);
+    console.debug(`playing ${this.name}`);
     this.mp3.currentTime = this.startsAt;
     this.mp3.play();
     return this.length;
+  }
+
+  get name() {
+    return this.str();
   }
 
   str(titleCase = true) {
@@ -89,7 +93,7 @@ export class Rune {
     return `/arx/runes/${this.str(false)}.${ext}`;
   }
 
-  png() {
+  get png() {
     return this.url("png");
   }
 }

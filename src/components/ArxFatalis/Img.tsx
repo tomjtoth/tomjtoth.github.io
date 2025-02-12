@@ -1,16 +1,16 @@
-import { RuneProps } from "../../types/arx-fatalis";
+import { ImgProps } from "../../types/arx-fatalis";
 
-export default function Rune({ rune, onClick }: RuneProps) {
-  const str = rune.str();
+export default function Rune({ rune, onClick }: ImgProps) {
+  const { name, png } = rune;
 
   return (
     <img
       {...{
         draggable: false,
         className: onClick ? "clickable" : "",
-        alt: str,
-        title: str,
-        src: rune.png(),
+        alt: name,
+        title: name,
+        src: png,
         onClick,
       }}
     />
