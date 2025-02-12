@@ -1,9 +1,9 @@
 import { ModalBuilder } from "./modal";
 
 export type BugState = {
+  transition?: string;
   position: number | string;
   filtered: boolean;
-  crawling: boolean;
 };
 
 export type SetBugType = React.Dispatch<React.SetStateAction<BugState>>;
@@ -14,7 +14,7 @@ export type TCxLuxor = {
   toggleLocked: () => void;
 
   bug: BugState;
-  moveBug: (position: number | string) => void;
+  moveBug: (position: number | string, fast: boolean) => void;
   hideBug: () => void;
   resetBug: () => void;
 

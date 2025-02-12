@@ -13,7 +13,6 @@ import {
 
 const DEFAULT = {
   position: "110vw",
-  crawling: false,
   filtered: false,
 };
 
@@ -30,8 +29,8 @@ export default function useLuxor() {
     toggleLocked: () => setLocked(!locked),
 
     bug,
-    moveBug: (position: number | string) =>
-      setBug({ position, filtered: false, crawling: true }),
+    moveBug: (position, fast) =>
+      setBug({ position, filtered: false, transition: fast ? "1s" : "2s" }),
     hideBug: () => setBug({ ...bug, filtered: true }),
     resetBug: () => setBug(DEFAULT),
 
