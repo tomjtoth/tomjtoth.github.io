@@ -130,16 +130,14 @@ export class Spell {
 
   static tryCast(seq: Rune[], onSuccess: CallableFunction) {
     console.debug("trying to cast sequence", seq);
-    if (seq.length > 0) {
-      const idx = this.spells.findIndex((sp) => sp.seqMatches(seq));
-      if (idx > -1) {
-        const spell = this.spells[idx];
-        spell.play();
-        onSuccess(spell);
-      } else {
-        // play fizzle
-        this.spells[1].play();
-      }
+    const idx = this.spells.findIndex((sp) => sp.seqMatches(seq));
+    if (idx > -1) {
+      const spell = this.spells[idx];
+      spell.play();
+      onSuccess(spell);
+    } else {
+      // play fizzle
+      this.spells[1].play();
     }
   }
 

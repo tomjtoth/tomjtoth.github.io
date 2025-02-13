@@ -12,12 +12,10 @@ export default function useArxFatalis() {
 
   const [queue, setQueue] = useState<Rune[]>([]);
   const [idx, setIdx] = useState(-1);
-  const [paused, setPaused] = useState(true);
 
   useEffect(() => {
-    if (paused && queue.length > 0) {
+    if (idx === -1 && queue.length > 0) {
       console.debug("triggering 1st playback");
-      setPaused(false);
       setIdx(0);
     }
   }, [queue]);
@@ -31,36 +29,38 @@ export default function useArxFatalis() {
         setIdx(idx + 1);
       }, delay);
     } else {
-      Spell.tryCast(queue, (spell: Spell) => {
-        const { idx, page, name } = spell;
-        const count = arx!.castSpells.filter((sp) => sp === idx).length + 1;
+      if (queue.length > 0) {
+        Spell.tryCast(queue, (spell: Spell) => {
+          const { idx, page, name } = spell;
+          const count = arx!.castSpells.filter((sp) => sp === idx).length + 1;
 
-        if (count < 3 || count % 10 == 0) {
-          console.debug(`cast ${idx}, ${count} times => showing modal`);
-          modal
-            .en()
-            .silent()
-            .removeAfter(3000)
-            .prompt(
-              <>
-                {count % 10 === 0
-                  ? `Congrats! This is your ${count}th time casting ${name}`
-                  : `You cast ${name} from page ${page}:`}
+          if (count < 3 || count % 10 == 0) {
+            console.debug(`cast ${idx}, ${count} times => showing modal`);
+            modal
+              .en()
+              .silent()
+              .removeAfter(3000)
+              .prompt(
+                <>
+                  {count % 10 === 0
+                    ? `Congrats! This is your ${count}th time casting ${name}`
+                    : `You cast ${name} from page ${page}:`}
 
-                <div style={{ margin: 16 }}>
-                  {queue.map((rune, idx) => (
-                    <Img key={idx} {...{ rune }} />
-                  ))}
-                </div>
-              </>
-            );
-        }
+                  <div style={{ margin: 16 }}>
+                    {queue.map((rune, idx) => (
+                      <Img key={idx} {...{ rune }} />
+                    ))}
+                  </div>
+                </>
+              );
+          }
 
-        dispatch(castSpell(idx));
-      });
+          dispatch(castSpell(idx));
+        });
+      }
 
       setQueue([]);
-      setPaused(true);
+      setIdx(-1);
     }
   }, [idx]);
 
