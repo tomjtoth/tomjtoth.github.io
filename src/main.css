@@ -22,6 +22,26 @@
     --col-bg-alt-b-hover: #477;
     --col-bg-alt-b-active: #474;
   }
+
+  a {
+    color: #81d4fa; /* Brighter light blue for better visibility */
+  }
+
+  a:hover {
+    color: #4fc3f7; /* Slightly darker blue on hover */
+  }
+
+  a:visited {
+    color: #ba68c8; /* Brighter purple for visited links */
+  }
+
+  a:active {
+    color: #ff8a65; /* Brighter orange for active links */
+  }
+
+  a:focus {
+    outline-color: #ffd54f; /* Keep focus outline visible */
+  }
 }
 
 html,
