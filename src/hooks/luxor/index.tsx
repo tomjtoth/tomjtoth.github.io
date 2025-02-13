@@ -1,5 +1,8 @@
+import { useContext } from "react";
+
+import { useAppDispatch, useAppSelector } from "..";
 import { UseLuxor } from "../../types/luxor";
-import useInit from "./init";
+import { CxModal } from "../modal";
 import {
   addField,
   addNum,
@@ -14,7 +17,9 @@ import {
 } from "../../reducers/luxor";
 
 export default function useLuxor() {
-  const { dispatch, modal, ...rs } = useInit();
+  const rs = useAppSelector((s) => s.luxor);
+  const dispatch = useAppDispatch();
+  const modal = useContext(CxModal)!;
 
   return {
     ...rs,

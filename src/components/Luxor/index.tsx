@@ -5,8 +5,11 @@ import MainView from "../MainView";
 import Controls from "./Controls";
 import Fields from "./Fields";
 import PickedNumsLine from "./PickedNumsLine";
+import useInit from "../../hooks/luxor/init";
 
 export default function Luxor() {
+  useInit();
+
   return (
     <>
       <Header title="Luxor" icon="🪲">

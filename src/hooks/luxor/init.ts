@@ -13,9 +13,7 @@ export default function useInit() {
   const modal = useContext(CxModal)!;
   const spinner = useSpinner();
   const { search, pathname } = useLocation();
-  const rs = useAppSelector((s) => s.luxor);
-
-  const loaded = rs.fields.length > 0;
+  const loaded = useAppSelector((s) => s.luxor.fields.length > 0);
 
   useEffect(() => {
     if (!loaded) {
@@ -29,17 +27,15 @@ export default function useInit() {
           .hu()
           .ok(() => {
             if (!critical) {
-              dispatch(init(arr));
+              dispatch(init(arr)).then(spinner.hide);
               navigate(pathname);
             }
           })
           .prompt(prompt);
       } else {
-        dispatch(init(arr));
+        dispatch(init(arr)).then(spinner.hide);
         if (imps) navigate(pathname);
       }
-    } else spinner.hide();
-  }, [loaded]);
-
-  return { dispatch, modal, ...rs };
+    }
+  }, []);
 }
