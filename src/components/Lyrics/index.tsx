@@ -3,8 +3,10 @@ import "./lyrics.css";
 import Artists from "./Artists";
 import Header from "../Header";
 import MainView from "../MainView";
+import useInit from "../../hooks/lyrics/init";
 
 export default function Lyrics() {
+  useInit();
   return (
     <>
       <Header title="låttext" icon="🎶" />

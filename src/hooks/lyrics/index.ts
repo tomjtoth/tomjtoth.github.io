@@ -1,9 +1,10 @@
-import useInit from "./init";
 import { UseLyrics } from "../../types/lyrics";
 import { toggleActive } from "../../reducers/lyrics";
+import { useAppDispatch, useAppSelector } from "..";
 
 export default function useLyrics() {
-  const { dispatch, artists, active } = useInit();
+  const dispatch = useAppDispatch();
+  const { artists, active } = useAppSelector((s) => s.lyrics);
 
   return {
     artists,
