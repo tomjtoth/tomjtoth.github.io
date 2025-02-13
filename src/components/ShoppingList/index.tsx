@@ -7,8 +7,10 @@ import MainView from "../MainView";
 import Recipes from "./Recipes";
 import Items from "./Items";
 import Controls from "./Controls";
+import useInit from "../../hooks/shopping-list/init";
 
 export default function ShoppingList() {
+  useInit();
   const { loaded } = useShoppingList();
 
   return (

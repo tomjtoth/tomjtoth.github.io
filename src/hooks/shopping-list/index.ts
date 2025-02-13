@@ -1,17 +1,22 @@
-import useInit from "./init";
+import { useContext } from "react";
+
+import { useAppDispatch, useAppSelector } from "..";
+import { UseShoppingList } from "../../types/shopping-list";
+import { CxModal } from "../modal";
 import {
   addItem,
   resetActiveItems,
   rmItem,
   toggleActive,
 } from "../../reducers/shopping-list";
-import { UseShoppingList } from "../../types/shopping-list";
 
 export default function useShoppingList() {
-  const { dispatch, modal, loaded, ...rs } = useInit();
+  const dispatch = useAppDispatch();
+  const rs = useAppSelector((s) => s.shoppingList);
+  const modal = useContext(CxModal)!;
 
   return {
-    loaded,
+    loaded: rs.recipes.length > 0,
     ...rs,
 
     addItem: (name) => dispatch(addItem(name)),
