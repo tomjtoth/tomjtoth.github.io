@@ -1,12 +1,9 @@
-import { useContext } from "react";
-
-import { CxShopping } from "../../hooks/shopping-list";
+import useShoppingList from "../../hooks/shopping-list";
 import useField from "../../hooks/useField";
 import { TextInputProps } from "../../types/hooks";
 
 export default function Controls() {
-  const { active, addItem, toggleActive, resetActive } =
-    useContext(CxShopping)!;
+  const { active, addItem, toggleActive, resetActive } = useShoppingList();
 
   const { reset: resetItem, ...item } = useField("text", {
     placeholder: "lisää tavara tänne",

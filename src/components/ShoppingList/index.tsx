@@ -1,4 +1,4 @@
-import useShoppingList, { CxShopping } from "../../hooks/shopping-list";
+import useShoppingList from "../../hooks/shopping-list";
 
 import "./shopping-list.css";
 
@@ -9,22 +9,22 @@ import Items from "./Items";
 import Controls from "./Controls";
 
 export default function ShoppingList() {
-  const logic = useShoppingList();
+  const { loaded } = useShoppingList();
 
   return (
-    <CxShopping.Provider value={logic}>
+    <>
       <Header title="ostoslista" icon="🛒">
         <Controls />
       </Header>
 
       <MainView>
-        {logic!.loaded && (
+        {loaded && (
           <>
             <Recipes />
             <Items />
           </>
         )}
       </MainView>
-    </CxShopping.Provider>
+    </>
   );
 }

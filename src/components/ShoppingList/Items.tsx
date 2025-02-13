@@ -1,11 +1,8 @@
-import { useContext } from "react";
-
-import { CxShopping } from "../../hooks/shopping-list";
+import useShoppingList from "../../hooks/shopping-list";
 import { order } from "./config";
 
 export default function Items() {
-  const { recipes, active, items, toggleActive, rmItem } =
-    useContext(CxShopping)!;
+  const { recipes, active, items, toggleActive, rmItem } = useShoppingList();
 
   const ul_items = items.map(({ id, name }) => ({
     id: `sli-${id}`,
