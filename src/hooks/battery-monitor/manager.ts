@@ -19,7 +19,6 @@ export default function useBatteryManager() {
   useEffect(() => {
     const id = setTimeout(() => {
       dispatch(setBatState(buffer!));
-      console.debug("battery status change debounced: ", buffer);
     }, 50);
 
     return () => clearTimeout(id);
