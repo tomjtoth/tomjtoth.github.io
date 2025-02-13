@@ -1,7 +1,5 @@
-import { useContext } from "react";
-
 import type { SongsProps, Artist } from "../../types/lyrics";
-import { CxLyrics } from "../../hooks/lyrics";
+import useLyrics from "../../hooks/lyrics";
 
 import Logo from "./Logos";
 
@@ -16,7 +14,7 @@ function translate(lyrics: string) {
 }
 
 export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
-  const { artists, isActive, toggleActive } = useContext(CxLyrics)!;
+  const { artists, isActive, toggleActive } = useLyrics();
 
   return (
     <ul>

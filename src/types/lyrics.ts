@@ -34,7 +34,7 @@ export type State = {
   active: Active;
 };
 
-export type TCxLyrics = {
+export type UseLyrics = {
   artists: Artist[];
 
   isActive: (id: string) => boolean;

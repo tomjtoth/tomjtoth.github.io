@@ -1,12 +1,10 @@
-import { useContext } from "react";
-
-import { CxLyrics } from "../../hooks/lyrics";
+import useLyrics from "../../hooks/lyrics";
 
 import Albums from "./Albums";
 import Logo from "./Logos";
 
 export default function Artists() {
-  const { artists, isActive, toggleActive } = useContext(CxLyrics)!;
+  const { artists, isActive, toggleActive } = useLyrics();
 
   return (
     <ul lang="sv" id="lyrics">
