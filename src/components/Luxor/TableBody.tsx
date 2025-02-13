@@ -1,7 +1,5 @@
-import { useContext } from "react";
-
 import { TableBodyProps } from "../../types/luxor";
-import { CxLuxor } from "../../hooks/luxor";
+import useLuxor from "../../hooks/luxor";
 import { between } from "../../utils";
 
 function isValid(num: number, min: number, max: number): boolean {
@@ -9,7 +7,7 @@ function isValid(num: number, min: number, max: number): boolean {
 }
 
 export default function TableBody({ rows, fieldId }: TableBodyProps) {
-  const { locked, pickedNums, addNum, update } = useContext(CxLuxor)!;
+  const { locked, pickedNums, addNum, update } = useLuxor();
 
   return (
     <tbody>

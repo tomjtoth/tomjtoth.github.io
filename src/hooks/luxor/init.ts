@@ -8,23 +8,21 @@ import { init } from "../../reducers/luxor";
 import { CxModal } from "../modal";
 
 export default function useInit() {
-  const navigate = useNavigate();
-  const { search, pathname } = useLocation();
-
   const dispatch = useAppDispatch();
-  const { fields, pickedNums } = useAppSelector((s) => s.luxor);
-
+  const navigate = useNavigate();
   const modal = useContext(CxModal)!;
   const spinner = useSpinner();
+  const { search, pathname } = useLocation();
+  const rs = useAppSelector((s) => s.luxor);
 
-  const loaded = fields.length > 0;
+  const loaded = rs.fields.length > 0;
 
   useEffect(() => {
     if (!loaded) {
       spinner.show();
 
-      const imp = new URLSearchParams(search).get("import");
-      const [arr, prompt, critical] = processImports(imp);
+      const imps = new URLSearchParams(search).get("import");
+      const [arr, prompt, critical] = processImports(imps);
 
       if (prompt) {
         modal
@@ -38,10 +36,10 @@ export default function useInit() {
           .prompt(prompt);
       } else {
         dispatch(init(arr));
-        if (imp) navigate(pathname);
+        if (imps) navigate(pathname);
       }
     } else spinner.hide();
   }, [loaded]);
 
-  return { dispatch, modal, fields, pickedNums };
+  return { dispatch, modal, ...rs };
 }

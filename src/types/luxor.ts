@@ -1,27 +1,24 @@
+import { ModalBuilder } from "./modal";
+
 export type BugState = {
   transition?: string;
   position: number | string;
   filtered: boolean;
 };
 
-export type SetBugType = React.Dispatch<React.SetStateAction<BugState>>;
-
-export type TCxLuxor = {
-  locked: boolean;
+export type UseLuxor = State & {
+  modal: ModalBuilder;
   toggleLocked: () => void;
 
-  bug: BugState;
   moveBug: (position: number | string, fast: boolean) => void;
   hideBug: () => void;
   resetBug: () => void;
 
-  pickedNums: number[];
   addNum: (num: number) => void;
   update: (arr: number[]) => void;
   rmLastNum: () => void;
   clearNums: () => void;
 
-  fields: Field[];
   addField: (id: number) => void;
   rmField: (id: number) => void;
 };
@@ -36,6 +33,8 @@ export type Field = {
 export type FieldImport = Omit<Field, "id" | "order">;
 
 export type State = {
+  locked: boolean;
+  bug: BugState;
   fields: Field[];
   pickedNums: number[];
 };

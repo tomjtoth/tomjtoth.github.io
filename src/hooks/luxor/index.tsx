@@ -1,40 +1,31 @@
-import { createContext, useState } from "react";
-
-import { BugState, TCxLuxor } from "../../types/luxor";
+import { UseLuxor } from "../../types/luxor";
 import useInit from "./init";
 import {
   addField,
   addNum,
   clearNums,
+  hideBug,
+  moveBug,
+  resetBug,
   rmField,
   rmLastNum,
+  toggleLocked,
   update,
 } from "../../reducers/luxor";
 
-const DEFAULT = {
-  position: "110vw",
-  filtered: false,
-};
-
-export const CxLuxor = createContext<TCxLuxor | undefined>(undefined);
-
 export default function useLuxor() {
-  const { dispatch, modal, fields, pickedNums } = useInit();
-  const [locked, setLocked] = useState(true);
-  const [bug, setBug] = useState(DEFAULT as BugState);
+  const { dispatch, modal, ...rs } = useInit();
 
   return {
+    ...rs,
     modal,
-    locked,
-    toggleLocked: () => setLocked(!locked),
 
-    bug,
-    moveBug: (position, fast) =>
-      setBug({ position, filtered: false, transition: fast ? "1s" : "2s" }),
-    hideBug: () => setBug({ ...bug, filtered: true }),
-    resetBug: () => setBug(DEFAULT),
+    toggleLocked: () => dispatch(toggleLocked()),
 
-    pickedNums,
+    moveBug: (position, fast) => dispatch(moveBug(position, fast)),
+    hideBug: () => dispatch(hideBug()),
+    resetBug: () => dispatch(resetBug()),
+
     addNum: (num) => dispatch(addNum(num)),
     update: (arr) => dispatch(update(arr)),
     rmLastNum: () => dispatch(rmLastNum()),
@@ -49,8 +40,7 @@ export default function useLuxor() {
           </>
         ),
 
-    fields,
     addField: (id) => dispatch(addField(id)),
     rmField: (id) => dispatch(rmField(id)),
-  } as TCxLuxor;
+  } as UseLuxor;
 }

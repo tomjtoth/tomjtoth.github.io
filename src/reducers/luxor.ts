@@ -4,9 +4,16 @@ import { EMPTY_FIELD, FieldImport, type State } from "../types/luxor";
 import db from "../services/luxor";
 import { maxId } from "../utils";
 
+const BUG_DEFAULT = {
+  position: "110vw",
+  filtered: false,
+};
+
 const slice = createSlice({
   name: "luxor",
   initialState: {
+    locked: true,
+    bug: BUG_DEFAULT,
     fields: [],
     pickedNums: [],
   } as State,
@@ -16,6 +23,18 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
+
+    setBug: (rs, { payload }) => {
+      rs.bug = payload;
+    },
+
+    hideBug: (rs) => {
+      rs.bug.filtered = true;
+    },
+
+    toggleLocked: (rs) => {
+      rs.locked = !rs.locked;
+    },
 
     addNum: (state, { payload }: PayloadAction<number>) => {
       state.pickedNums.push(payload);
@@ -136,6 +155,25 @@ export function rmField(id: number) {
 
 export function rmLastNum() {
   return (dispatch: AppDispatch) => dispatch(sa.rmLastNum());
+}
+
+export function toggleLocked() {
+  return (disp: AppDispatch) => disp(sa.toggleLocked());
+}
+
+export function moveBug(position: number | string, fast: boolean) {
+  return (disp: AppDispatch) =>
+    disp(
+      sa.setBug({ position, filtered: false, transition: fast ? "1s" : "2s" })
+    );
+}
+
+export function hideBug() {
+  return (disp: AppDispatch) => disp(sa.hideBug());
+}
+
+export function resetBug() {
+  return (disp: AppDispatch) => disp(sa.setBug(BUG_DEFAULT));
 }
 
 export default slice.reducer;

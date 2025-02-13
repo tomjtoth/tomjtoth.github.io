@@ -1,13 +1,11 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 
 import { last } from "../../utils";
-import { CxLuxor } from "../../hooks/luxor";
-import { CxModal } from "../../hooks/modal";
+import useLuxor from "../../hooks/luxor";
 
 export default function PickedNumsLine() {
-  const modal = useContext(CxModal)!;
-  const { bug, moveBug, hideBug, resetBug, pickedNums, rmLastNum } =
-    useContext(CxLuxor)!;
+  const { modal, bug, moveBug, hideBug, resetBug, pickedNums, rmLastNum } =
+    useLuxor();
 
   const span = useRef<HTMLSpanElement>(null);
 

@@ -1,12 +1,9 @@
-import { useContext } from "react";
-
-import { CxLuxor } from "../../hooks/luxor";
-import { NumberInputProps } from "../../types/hooks";
+import useLuxor from "../../hooks/luxor";
 import useField from "../../hooks/useField";
+import { NumberInputProps } from "../../types/hooks";
 
 export default function Controls() {
-  const { locked, toggleLocked, pickedNums, addNum, clearNums } =
-    useContext(CxLuxor)!;
+  const { locked, toggleLocked, pickedNums, addNum, clearNums } = useLuxor();
 
   const { reset: resetInput, ...num } = useField("number", {
     id: "luxor-adder",
