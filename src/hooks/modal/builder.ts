@@ -91,5 +91,12 @@ export default function useBuilder() {
     },
   } as ModalBuilder;
 
-  return { modal, builder, reset: () => setModal(DEFAULT) };
+  return {
+    modal,
+    builder,
+    reset: () => {
+      console.debug("resetting modal");
+      setModal(DEFAULT);
+    },
+  };
 }
