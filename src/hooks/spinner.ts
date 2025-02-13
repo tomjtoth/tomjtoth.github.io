@@ -10,12 +10,7 @@ export default function useSpinner() {
     className,
 
     show: () => dispatch(show()),
-
-    // hiding with a delay
-    hide: () => {
-      if (active) dispatch(fadeOut());
-    },
-
+    hide: () => dispatch(fadeOut()),
     reset: () => dispatch(reset()),
   };
 }
