@@ -1,10 +1,6 @@
-import { createContext } from "react";
-
 import useInit from "./init";
-import { TCxLyrics } from "../../types/lyrics";
+import { UseLyrics } from "../../types/lyrics";
 import { toggleActive } from "../../reducers/lyrics";
-
-export const CxLyrics = createContext<TCxLyrics | undefined>(undefined);
 
 export default function useLyrics() {
   const { dispatch, artists, active } = useInit();
@@ -14,5 +10,5 @@ export default function useLyrics() {
 
     isActive: (id) => active.includes(id),
     toggleActive: (id) => dispatch(toggleActive(id)),
-  } as TCxLyrics;
+  } as UseLyrics;
 }

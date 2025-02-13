@@ -1,5 +1,3 @@
-import useLyrics, { CxLyrics } from "../../hooks/lyrics";
-
 import "./lyrics.css";
 
 import Artists from "./Artists";
@@ -7,10 +5,8 @@ import Header from "../Header";
 import MainView from "../MainView";
 
 export default function Lyrics() {
-  const logic = useLyrics();
-
   return (
-    <CxLyrics.Provider value={logic}>
+    <>
       <Header title="låttext" icon="🎶" />
       <MainView>
         <p
@@ -23,6 +19,6 @@ export default function Lyrics() {
         </p>
         <Artists />
       </MainView>
-    </CxLyrics.Provider>
+    </>
   );
 }
