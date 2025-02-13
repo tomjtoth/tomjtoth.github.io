@@ -11,10 +11,8 @@ export default function useInit() {
 
   useEffect(() => {
     if (!loaded) {
-      dispatch(init());
       spinner.show();
-    } else {
-      spinner.hide();
+      dispatch(init()).then(spinner.hide);
     }
-  }, [loaded]);
+  }, []);
 }
