@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { Link } from "react-router";
 
-import { CxShopping } from "../../hooks/shopping-list";
+import useShoppingList from "../../hooks/shopping-list";
 import { Language } from "../../types/modal";
 
 import Steps from "./Steps";
@@ -9,7 +8,7 @@ import Steps from "./Steps";
 const id = "slr";
 
 export default function Recipes() {
-  const { recipes, active, toggleActive } = useContext(CxShopping)!;
+  const { recipes, active, toggleActive } = useShoppingList();
 
   return (
     <ul

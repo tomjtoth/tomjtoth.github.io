@@ -1,5 +1,3 @@
-import { createContext, useContext } from "react";
-
 import useInit from "./init";
 import {
   addItem,
@@ -7,20 +5,15 @@ import {
   rmItem,
   toggleActive,
 } from "../../reducers/shopping-list";
-import { TCxShopping } from "../../types/shopping-list";
-import { CxModal } from "../modal";
-
-export const CxShopping = createContext<TCxShopping | undefined>(undefined);
+import { UseShoppingList } from "../../types/shopping-list";
 
 export default function useShoppingList() {
-  const modal = useContext(CxModal)!;
-  const { loaded, dispatch, active, items, recipes } = useInit();
+  const { dispatch, modal, loaded, ...rs } = useInit();
 
   return {
     loaded,
-    recipes,
+    ...rs,
 
-    items,
     addItem: (name) => dispatch(addItem(name)),
     rmItem: (id, name) =>
       modal
@@ -28,12 +21,11 @@ export default function useShoppingList() {
         .no()
         .prompt(`poistetaanko ${name} varmasti?`),
 
-    active,
     toggleActive: (id) => dispatch(toggleActive(id)),
     resetActive: () =>
       modal
         .yes(() => dispatch(resetActiveItems()))
         .no()
         .prompt("pyyhitäänkö kaikki vihreät?"),
-  } as TCxShopping;
+  } as UseShoppingList;
 }
