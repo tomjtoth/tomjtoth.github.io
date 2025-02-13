@@ -7,9 +7,7 @@ import useSpinner from "../../hooks/spinner";
 export default function useInit() {
   const spinner = useSpinner();
   const dispatch = useAppDispatch();
-  const { artists, active } = useAppSelector((s) => s.lyrics);
-
-  const loaded = artists.length > 0;
+  const loaded = useAppSelector((s) => s.lyrics.artists.length > 0);
 
   useEffect(() => {
     if (!loaded) {
@@ -19,6 +17,4 @@ export default function useInit() {
       spinner.hide();
     }
   }, [loaded]);
-
-  return { dispatch, artists, active };
 }
