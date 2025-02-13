@@ -8,19 +8,16 @@ import { CxModal } from "../modal";
 export default function useInit() {
   const dispatch = useAppDispatch();
   const arx = useAppSelector((s) => s.arxFatalis);
-  const loaded = arx != null;
 
   const spinner = useSpinner();
   const modal = useContext(CxModal)!;
 
   useEffect(() => {
-    if (!loaded) {
-      dispatch(init());
+    if (arx === null) {
       spinner.show();
-    } else {
-      spinner.hide();
+      dispatch(init()).then(spinner.hide);
     }
-  }, [loaded]);
+  }, []);
 
   return { arx, modal, dispatch };
 }
