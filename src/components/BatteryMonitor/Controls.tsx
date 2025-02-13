@@ -4,6 +4,7 @@ import useField from "../../hooks/useField";
 import { checkPermission } from "./notifications";
 import { CxModal } from "../../hooks/modal";
 import useBatMon from "../../hooks/battery-monitor";
+import { between } from "../../utils";
 
 export default function Controls() {
   const modal = useContext(CxModal)!;
@@ -27,7 +28,7 @@ export default function Controls() {
     initially: lower,
     max: 50,
     min: 10,
-    title: "alaraja",
+    title: "alaraja: 10-50",
     disabled,
     style,
   });
@@ -37,32 +38,42 @@ export default function Controls() {
     initially: upper,
     max: 90,
     min: 50,
-    title: "yläraja",
+    title: "yläraja: 50-90",
     disabled,
     style,
   });
 
   useEffect(() => {
-    const id = setTimeout(
-      () => setLevels(min.value as number, max.value as number),
-      100
-    );
+    const minNum = min.value as number;
+    const maxNum = Number(max.value);
 
-    return () => clearTimeout(id);
+    if (
+      !isNaN(minNum) &&
+      !isNaN(maxNum) &&
+      between(minNum, 10, 50) &&
+      between(maxNum, 50, 90) &&
+      (minNum != lower || maxNum != upper)
+    ) {
+      const id = setTimeout(() => setLevels(minNum, maxNum), 100);
+
+      return () => clearTimeout(id);
+    }
   }, [min.value, max.value]);
 
   useEffect(() => {
-    const dp = () => {
-      if (allow.checked === true || allow.checked === false)
-        setAllowed(allow.checked);
-    };
+    if (allow.checked !== allowed) {
+      const dp = () => {
+        if (allow.checked === true || allow.checked === false)
+          setAllowed(allow.checked);
+      };
 
-    if (allow.checked) {
-      checkPermission(modal).then((notiAllowed) => {
-        if (notiAllowed) dp();
-        else resetAllow();
-      });
-    } else dp();
+      if (allow.checked) {
+        checkPermission(modal).then((notiAllowed) => {
+          if (notiAllowed) dp();
+          else resetAllow();
+        });
+      } else dp();
+    }
   }, [allow.checked]);
 
   let hud = null;
