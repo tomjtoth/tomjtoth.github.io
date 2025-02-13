@@ -1,13 +1,13 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "..";
-import { CxModal } from "../modal";
-import { CxSpinner } from "../spinner";
+import useModal from "../modal";
+import useSpinner from "../spinner";
 import { init } from "../../reducers/shopping-list";
 
 export default function useInit() {
-  const spinner = useContext(CxSpinner)!;
-  const modal = useContext(CxModal)!;
+  const spinner = useSpinner();
+  const { modal } = useModal();
 
   const dispatch = useAppDispatch();
   const { active, items, recipes } = useAppSelector((s) => s.shoppingList);

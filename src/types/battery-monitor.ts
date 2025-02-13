@@ -1,22 +1,30 @@
-import { ModalBuilder } from "./modal";
-
-export type BatteryState = {
+export type BatState = {
   level: number;
   charging: boolean;
   // present: boolean;
 };
 
-export type Conf = {
+export type BatMonConf = {
   lower: number;
   upper: number;
   allowed: boolean;
 };
 
-export type TCxBatMon = {
-  modal: ModalBuilder;
+export type RedState = {
   isSupported: boolean;
-  state?: BatteryState;
-  conf?: Conf;
+  conf?: BatMonConf;
+  state?: BatState;
+};
+
+export type UseBatMon = RedState & {
   setAllowed: (to: boolean) => void;
   setLevels: (lower: number, upper: number) => void;
+};
+
+export type BatteryManager = {
+  addEventListener: (event: string, callback: () => void) => void;
+  level: number;
+  charging: boolean;
+  chargingTime: number;
+  dischargingTime: number;
 };

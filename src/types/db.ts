@@ -1,5 +1,5 @@
 import { State as ArxFatalisState } from "./arx-fatalis";
-import { Conf as BatMonConf } from "./battery-monitor";
+import { BatMonConf as BatMonConf } from "./battery-monitor";
 import { State as LuxorState } from "./luxor";
 import { State as LyricsState } from "./lyrics";
 import { State as ShoppingListState } from "./shopping-list";

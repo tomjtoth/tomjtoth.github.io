@@ -1,7 +1,4 @@
-import { useContext, useEffect } from "react";
-
-import { CxSpinner } from "../../hooks/spinner";
-import { CxBatMon } from "../../hooks/battery-monitor";
+import useBatMon from "../../hooks/battery-monitor";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
 
 import "./battery-monitor.css";
@@ -11,15 +8,7 @@ import Controls from "./Controls";
 import MainView from "../MainView";
 
 export default function BatteryMonitor() {
-  const { isSupported, state, conf } = useContext(CxBatMon)!;
-  const loading = isSupported && (!state || !conf);
-
-  const spinner = useContext(CxSpinner)!;
-
-  useEffect(() => {
-    if (loading) spinner.show();
-    else spinner.hide();
-  }, [loading]);
+  const { isSupported, state, conf } = useBatMon();
 
   return (
     <>

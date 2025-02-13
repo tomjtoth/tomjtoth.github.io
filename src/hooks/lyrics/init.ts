@@ -1,15 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { init } from "../../reducers/lyrics";
-import { CxSpinner } from "../../hooks/spinner";
+import useSpinner from "../../hooks/spinner";
 
 export default function useInit() {
   const dispatch = useAppDispatch();
   const { artists, active } = useAppSelector((s) => s.lyrics);
   const loaded = artists.length > 0;
 
-  const spinner = useContext(CxSpinner)!;
+  const spinner = useSpinner();
 
   useEffect(() => {
     if (!loaded) {
