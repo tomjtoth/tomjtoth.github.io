@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "..";
-import { BatState, BatteryManager } from "../../types/battery-monitor";
+import {
+  BatState,
+  BatteryManager as BatMan,
+} from "../../types/battery-monitor";
 import { setBatState } from "../../reducers/battery-monitor";
 
 // TODO: pass `bmPromise: Promise<BatteryManager>` for mocking
-export default function useBatteryManager() {
+export default function useBatteryManager(navi: any) {
   const dispatch = useAppDispatch();
   const {
     isSupported,
@@ -26,8 +29,8 @@ export default function useBatteryManager() {
 
   // retrieve BatteryManager and attach callbacks for change events
   useEffect(() => {
-    if (isSupported) {
-      (navigator as any).getBattery().then((battery: BatteryManager) => {
+    if (isSupported && "getBattery" in navi) {
+      navi.getBattery().then((battery: BatMan) => {
         function updateBuffer() {
           setBuffer({
             level: Math.round(battery.level * 100),
@@ -44,9 +47,6 @@ export default function useBatteryManager() {
         // battery.addEventListener("chargingtimechange", updateBuffer);
         // battery.addEventListener("dischargingtimechange", updateBuffer);
       });
-    } else {
-      setBuffer(undefined);
-      console.error("Battery API is not supported on this browser.");
     }
   }, []);
 

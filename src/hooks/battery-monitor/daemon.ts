@@ -8,7 +8,8 @@ import useBatteryManager from "./manager";
 import { initBatMon } from "../../reducers/battery-monitor";
 
 export default function useBatMonDaemon() {
-  const { dispatch, isSupported, batState, conf } = useBatteryManager();
+  const { dispatch, isSupported, batState, conf } =
+    useBatteryManager(navigator);
 
   useEffect(() => {
     if (isSupported && conf && conf.allowed && batState) {
