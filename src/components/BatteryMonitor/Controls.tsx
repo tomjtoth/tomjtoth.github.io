@@ -8,13 +8,7 @@ import useBatMon from "../../hooks/battery-monitor";
 export default function Controls() {
   const modal = useContext(CxModal)!;
 
-  const {
-    isSupported,
-    conf,
-    state: state,
-    setLevels,
-    setAllowed,
-  } = useBatMon();
+  const { isSupported, conf, state, setLevels, setAllowed } = useBatMon();
   const { upper, lower, allowed } = conf!;
 
   const style = isSupported ? undefined : { cursor: "not-allowed" };

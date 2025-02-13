@@ -1,3 +1,4 @@
+import useInit from "../../hooks/battery-monitor/init";
 import useBatMon from "../../hooks/battery-monitor";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
 
@@ -8,6 +9,7 @@ import Controls from "./Controls";
 import MainView from "../MainView";
 
 export default function BatteryMonitor() {
+  useInit();
   const { isSupported, state, conf } = useBatMon();
 
   return (
