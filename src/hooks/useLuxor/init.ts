@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-import { useAppSelector, useAppDispatch } from "..";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import useSpinner from "../spinner";
 import { processImports } from "../../services/luxor";
 import { init } from "../../reducers/luxor";
@@ -13,8 +13,8 @@ export default function useInit() {
 
   const dispatch = useAppDispatch();
   const { fields, pickedNums } = useAppSelector((s) => s.luxor);
-
   const modal = useContext(CxModal)!;
+
   const spinner = useSpinner();
 
   const loaded = fields.length > 0;

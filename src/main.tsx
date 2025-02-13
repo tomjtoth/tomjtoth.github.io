@@ -2,9 +2,11 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter } from "react-router";
 import { Provider } from "react-redux";
-import "./main.css";
 
 import { store } from "./store";
+
+import "./main.css";
+
 import App from "./App";
 
 if ("serviceWorker" in navigator) {

@@ -1,33 +1,21 @@
-import { createContext, useState } from "react";
-
-import { TCxSpinner } from "../types/spinner";
-
-export const CxSpinner = createContext<TCxSpinner | undefined>(undefined);
+import { useAppDispatch, useAppSelector } from ".";
+import { fadeOut, reset, show } from "../reducers/spinner";
 
 export default function useSpinner() {
-  const [active, setActive] = useState(false);
-  const [className, setClassName] = useState<string | undefined>(undefined);
+  const dispatch = useAppDispatch();
+  const { active, className } = useAppSelector((s) => s.spinner);
 
   return {
     active,
     className,
 
-    show: () => {
-      console.debug("showing spinner");
-      setActive(true);
-    },
+    show: () => dispatch(show()),
 
     // hiding with a delay
     hide: () => {
-      if (active) {
-        console.debug("hiding spinner");
-        setClassName("fade-out");
-      }
+      if (active) dispatch(fadeOut());
     },
 
-    reset: () => {
-      setActive(false);
-      setClassName(undefined);
-    },
-  } as TCxSpinner;
+    reset: () => dispatch(reset()),
+  };
 }

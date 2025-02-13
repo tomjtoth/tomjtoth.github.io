@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 import useInit from "./init";
 import {
@@ -8,11 +8,13 @@ import {
   toggleActive,
 } from "../../reducers/shopping-list";
 import { TCxShopping } from "../../types/shopping-list";
+import { CxModal } from "../modal";
 
 export const CxShopping = createContext<TCxShopping | undefined>(undefined);
 
 export default function useShoppingList() {
-  const { loaded, dispatch, modal, active, items, recipes } = useInit();
+  const modal = useContext(CxModal)!;
+  const { loaded, dispatch, active, items, recipes } = useInit();
 
   return {
     loaded,

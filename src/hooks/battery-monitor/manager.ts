@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 
-import { BatteryState } from "../../types/battery-monitor";
+import { useAppDispatch, useAppSelector } from "..";
+import { BatState, BatteryManager } from "../../types/battery-monitor";
+import { setBatState } from "../../reducers/battery-monitor";
 
-const isSupported = "getBattery" in navigator;
-
+// TODO: pass `bmPromise: Promise<BatteryManager>` for mocking
 export default function useBatteryManager() {
-  const [buffer, setBuffer] = useState<BatteryState | undefined>(undefined);
-  const [state, setState] = useState(buffer);
+  const dispatch = useAppDispatch();
+  const {
+    isSupported,
+    state: batState,
+    conf,
+  } = useAppSelector((s) => s.batteryMonitor);
+
+  const [buffer, setBuffer] = useState<BatState | undefined>(undefined);
 
   // debounce too frequent changes by 50ms delay
   useEffect(() => {
     const id = setTimeout(() => {
-      setState(buffer);
-      console.debug("battery status change debounced", buffer);
+      dispatch(setBatState(buffer!));
+      console.debug("battery status change debounced: ", buffer);
     }, 50);
 
     return () => clearTimeout(id);
@@ -21,7 +28,7 @@ export default function useBatteryManager() {
   // retrieve BatteryManager and attach callbacks for change events
   useEffect(() => {
     if (isSupported) {
-      (navigator as any).getBattery().then((battery: any) => {
+      (navigator as any).getBattery().then((battery: BatteryManager) => {
         function updateBuffer() {
           setBuffer({
             level: Math.round(battery.level * 100),
@@ -44,5 +51,5 @@ export default function useBatteryManager() {
     }
   }, []);
 
-  return { isSupported, state };
+  return { dispatch, isSupported, batState, conf };
 }

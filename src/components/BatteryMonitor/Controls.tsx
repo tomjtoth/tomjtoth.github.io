@@ -2,11 +2,19 @@ import { useContext, useEffect } from "react";
 
 import useField from "../../hooks/useField";
 import { checkPermission } from "./notifications";
-import { CxBatMon } from "../../hooks/battery-monitor";
+import { CxModal } from "../../hooks/modal";
+import useBatMon from "../../hooks/battery-monitor";
 
 export default function Controls() {
-  const { modal, isSupported, conf, state, setLevels, setAllowed } =
-    useContext(CxBatMon)!;
+  const modal = useContext(CxModal)!;
+
+  const {
+    isSupported,
+    conf,
+    state: state,
+    setLevels,
+    setAllowed,
+  } = useBatMon();
   const { upper, lower, allowed } = conf!;
 
   const style = isSupported ? undefined : { cursor: "not-allowed" };
@@ -50,7 +58,10 @@ export default function Controls() {
   }, [min.value, max.value]);
 
   useEffect(() => {
-    const dp = () => setAllowed(allow.checked ?? false);
+    const dp = () => {
+      if (allow.checked === true || allow.checked === false)
+        setAllowed(allow.checked);
+    };
 
     if (allow.checked) {
       checkPermission(modal).then((notiAllowed) => {

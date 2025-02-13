@@ -1,61 +1,37 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import {
-  notify,
-  notiText,
-} from "../../components/BatteryMonitor/notifications";
-import { Conf, TCxBatMon } from "../../types/battery-monitor";
-import useBatteryManager from "./battery-manager";
-import db from "../../services/battery-monitor";
-import { CxModal } from "../modal";
+import { useAppDispatch, useAppSelector } from "..";
+import useSpinner from "../../hooks/spinner";
+import { setBatAllowed, setBatLevels } from "../../reducers/battery-monitor";
+import { UseBatMon } from "../../types/battery-monitor";
 
-export const CxBatMon = createContext<TCxBatMon | undefined>(undefined);
+export default function useBatMon() {
+  const dispatch = useAppDispatch();
+  const rs = useAppSelector((s) => s.batteryMonitor);
+  const { isSupported, state, conf } = rs;
 
-export default function useBatteryMonitor() {
-  const modal = useContext(CxModal)!;
-  const bat = useBatteryManager();
-  const [conf, setConf] = useState<Conf | undefined>(undefined);
+  const spinner = useSpinner();
 
   useEffect(() => {
-    if (conf) {
-      const { lower, upper, allowed } = conf;
-      // if (allowed && bat.state && bat.state.present) {
-      if (allowed && bat.state) {
-        const { charging, level } = bat.state;
+    const loading = isSupported && (!state || !conf);
+    console.debug("isLoading:", loading, "reducer state:", rs);
 
-        function check() {
-          if ((charging && level >= upper) || (!charging && level <= lower)) {
-            notify(notiText(charging, level));
-          }
-          console.debug("conf", conf, "bat.state", bat.state);
-        }
-
-        check();
-        const id = setInterval(check, 60_000);
-        return () => clearInterval(id);
-      }
+    if (loading) {
+      spinner.show();
     } else {
-      db.load().then((loaded) => setConf(loaded));
+      spinner.hide();
     }
-  }, [conf, bat]);
+  }, [state, conf]);
 
   return {
-    modal,
-    ...bat,
-    conf,
+    ...rs,
+
     setAllowed: (to) => {
-      if (conf) {
-        const next = { ...conf, allowed: to };
-        setConf(next);
-        db.save(next);
-      }
+      dispatch(setBatAllowed(to));
     },
+
     setLevels: (lower, upper) => {
-      if (conf) {
-        const next = { ...conf, lower, upper };
-        setConf(next);
-        db.save(next);
-      }
+      dispatch(setBatLevels({ lower, upper }));
     },
-  } as TCxBatMon;
+  } as UseBatMon;
 }

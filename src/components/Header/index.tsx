@@ -1,6 +1,6 @@
-import { ReactNode, HTMLAttributes, useContext } from "react";
+import { ReactNode, HTMLAttributes } from "react";
 
-import { CxSidepanel } from "../../hooks/sidepanel";
+import useSidepanel from "../../hooks/sidepanel";
 
 import "./header.css";
 
@@ -18,7 +18,7 @@ export default function Header({
 }: HeaderProps) {
   document.title = title;
 
-  const { show } = useContext(CxSidepanel)!;
+  const { show } = useSidepanel();
 
   return (
     <div

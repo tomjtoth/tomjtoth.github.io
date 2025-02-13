@@ -1,18 +1,16 @@
-import { useState, createContext } from "react";
-
-import { TCxSidepanel } from "../types/sidepanel";
-
-export const CxSidepanel = createContext<TCxSidepanel | undefined>(undefined);
+import { useAppDispatch, useAppSelector } from ".";
+import { setSidepanel } from "../reducers/sidepanel";
 
 export default function useSidepanel() {
-  const [active, setActive] = useState(false);
+  const dispatch = useAppDispatch();
+  const active = useAppSelector((s) => s.sidepanel);
 
   return {
     active,
 
-    show: () => setActive(true),
+    show: () => dispatch(setSidepanel(true)),
 
     // just enough delay to not disappear instantly while views change
-    hide: () => setTimeout(() => setActive(false)),
-  } as TCxSidepanel;
+    hide: () => setTimeout(() => dispatch(setSidepanel(false))),
+  };
 }
