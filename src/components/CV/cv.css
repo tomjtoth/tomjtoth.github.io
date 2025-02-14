@@ -4,7 +4,7 @@ div#main.cv {
 
 label#drop-zone + a {
   display: none;
-  margin-left: 16px;
+  margin-left: 8px;
 }
 
 div:has(label#drop-zone):hover > a {

@@ -11,23 +11,22 @@ import Education from "./education";
 import Experience from "./experience";
 import { CxModal } from "../../hooks/modal";
 
-const TEST_UR_CV = <b>upload your CV here</b>;
-
-const DROP_UR_CV = <b>drop it here</b>;
+const UPLOAD_CV = "upload your CV";
+const DROP_CV = "drop files";
 
 export default function CV() {
   const { cv, img, fromItems, fromFiles } = useCV();
-  const [msg, setMsg] = useState(TEST_UR_CV);
+  const [task, setMsg] = useState(UPLOAD_CV);
   const modal = useContext(CxModal)!;
 
   return (
     <>
-      <Header title="CV" onDragEnter={() => setMsg(DROP_UR_CV)}>
+      <Header title="CV" onDragEnter={() => setMsg(DROP_CV)}>
         <div className="bordered padded">
           <label
             id="drop-zone"
             htmlFor="file-upload"
-            className="clickable"
+            className="clickable padded"
             onDrop={(ev) => {
               ev.preventDefault();
 
@@ -37,9 +36,12 @@ export default function CV() {
                 fromFiles(ev.dataTransfer.files);
               }
             }}
-            onDragOver={(e) => e.preventDefault()}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setMsg(UPLOAD_CV);
+            }}
           >
-            {msg}
+            <b>{task} here</b>
           </label>
           <a
             download
@@ -70,7 +72,7 @@ export default function CV() {
           multiple
         />
       </Header>
-      <MainView className="cv" onDragEnter={() => setMsg(DROP_UR_CV)}>
+      <MainView className="cv" onDragEnter={() => setMsg(DROP_CV)}>
         {cv && (
           <>
             <Personal {...{ cv, img }} />
