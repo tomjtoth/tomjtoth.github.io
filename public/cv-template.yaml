@@ -1,0 +1,59 @@
+personal:
+  name: Surname, Rincewind
+  phone: +358 12 345 6789
+  email: rincewind@uu.dw
+  born: Apr 1, 1968
+  sex: male
+  residence: Ankh-Morpork, DW
+  nationality: english
+  languages:
+    english: native
+    agathean: B2
+    someOther: B2
+    lingo: B1
+
+experience:
+  - title: title1
+    company: Unseen University
+    location: Ankh-Morpork, DW
+    from: Aug 1988
+    to: Oct 1988
+    responsibilities:
+      - funny
+      - lines
+      - here
+    highligt: helper of the orangutan librarian
+
+  - title: title2
+    company: Unseen University
+    location: Ankh-Morpork, DW
+    from: Aug 1988
+    to: Oct 1988
+    responsibilities:
+      - funny
+      - lines
+      - here
+    highligt: helper of the orangutan librarian
+
+  - title: Deputy librarian
+    company: Unseen University
+    location: Ankh-Morpork, DW
+    from: Aug 1988
+    to: Oct 1988
+    responsibilities:
+      - funny
+      - lines
+      - here
+    highligt: helper of the orangutan librarian
+
+education:
+  - name: Wizzard
+    from: Sep 2000
+    to: pending
+    institution: Unseen University, High Energy Magic faculty
+    location: Ankh-Morpork, DW
+    details:
+      - eating big dinners
+      - avoiding libraries
+      - wearing pointy hat
+      - forming processes

@@ -1,0 +1,12 @@
+div#main.cv {
+  padding: 16px;
+}
+
+label#drop-zone + a {
+  display: none;
+  margin-left: 16px;
+}
+
+div:has(label#drop-zone):hover > a {
+  display: inline-block;
+}
