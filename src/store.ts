@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import cv from "./reducers/cv";
 import batteryMonitor from "./reducers/battery-monitor";
 import spinner from "./reducers/spinner";
 import sidepanel from "./reducers/sidepanel";
@@ -10,6 +11,7 @@ import luxor from "./reducers/luxor";
 
 export const store = configureStore({
   reducer: {
+    cv,
     batteryMonitor,
     spinner,
     sidepanel,
