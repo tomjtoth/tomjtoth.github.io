@@ -1,24 +1,20 @@
 # About
 
-These tools can be used from platforms without the need to log in.
+These tools can be used from a browser without the need to log in.
 
 ## Custom solutions
 
-### IndexedDB
+### Persistent storage
 
-All, but 2 reducers have been migrated to Dexie.js from localStorage. Sidepanel and battery-monitor both store simple enough data to be quickly (de-)serialized.
+All reducers have been migrated to Dexie.js (Indexed DB) from localStorage.
 
 ### Cache
 
-[SW](./public/sw.js) intercepts requests:
-
-- static assets are served from cache
-- webpack generated .js and .css files are also refreshed along with the cached index.html when necessary
-- the client gets responses from local cache if exists, and should be able to access new resources upon next request
+The [service-worker](./src/sw.ts) intercepts requests and serves them from cache directly if the resource is not of `[name]-[hash].[ext]`; otherwise fetches from the network and updates the cache, removing outdated versions based on hash.
 
 ## Arch Linux
 
-I use the below script to install new machines:
+The files [here](./public/linux/) are for personal use, I use the below script when migrating to new machines:
 
 ```sh
 bash <(curl -L ttj.hu/linux/clonefig.sh)
