@@ -1,5 +1,20 @@
-div#main.cv {
-  padding: 16px;
+#main.cv {
+  /* flex-grow: 1;
+  overflow-y: scroll; */
+  padding-left: 16px;
+  display: flex;
+}
+
+div.cv.personal-container {
+  display: "flex";
+  flex-direction: "column";
+  max-width: "40vw";
+  overflow-y: scroll;
+}
+
+div.cv.edu-work-container {
+  overflow-y: scroll;
+  scrollbar-width: 0px;
 }
 
 label#drop-zone + a {
@@ -9,4 +24,17 @@ label#drop-zone + a {
 
 div:has(label#drop-zone):hover > a {
   display: inline-block;
+}
+
+ul.cv.personal {
+  list-style: none;
+  padding-left: 0px;
+}
+
+span.left-padded {
+  padding-left: 16px;
+}
+
+span.cv.surname {
+  color: var(--col-fg-2);
 }

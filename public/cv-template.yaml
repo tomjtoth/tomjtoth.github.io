@@ -1,5 +1,6 @@
 personal:
-  name: Surname, Rincewind
+  firstname: Rincewind
+  surname: Surname
   phone: +358 12 345 6789
   email: rincewind@uu.dw
   born: Apr 1, 1968

@@ -1,6 +1,8 @@
-import { RedState } from "../../types/cv";
+import useCV from "../../hooks/cv";
 
-export default function Education({ cv }: RedState) {
+export default function Education() {
+  const { cv } = useCV();
+
   return (
     <>
       <h2>

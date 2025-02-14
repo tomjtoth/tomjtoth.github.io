@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 
+import { CxModal } from "../../hooks/modal";
+import useInitCV from "../../hooks/cv/init";
 import useCV from "../../hooks/cv";
 
 import "./cv.css";
@@ -9,13 +11,13 @@ import MainView from "../MainView";
 import Personal from "./personal";
 import Education from "./education";
 import Experience from "./experience";
-import { CxModal } from "../../hooks/modal";
 
 const UPLOAD_CV = "upload your CV";
 const DROP_CV = "drop files";
 
 export default function CV() {
-  const { cv, img, fromItems, fromFiles } = useCV();
+  useInitCV();
+  const { fromItems, fromFiles } = useCV();
   const [task, setMsg] = useState(UPLOAD_CV);
   const modal = useContext(CxModal)!;
 
@@ -73,13 +75,11 @@ export default function CV() {
         />
       </Header>
       <MainView className="cv" onDragEnter={() => setMsg(DROP_CV)}>
-        {cv && (
-          <>
-            <Personal {...{ cv, img }} />
-            <Experience {...{ cv }} />
-            <Education {...{ cv }} />
-          </>
-        )}
+        <Personal />
+        <div>
+          <Experience />
+          <Education />
+        </div>
       </MainView>
     </>
   );

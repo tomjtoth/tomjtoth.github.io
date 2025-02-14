@@ -1,6 +1,6 @@
 export const links = [
   { children: "alkuun", to: "/" },
-  { children: "Curriculum Vitae", to: "/cv", lang: "en" },
+  // { children: "Curriculum Vitae", to: "/cv", lang: "en" },
   { children: "látogatók", to: "/visitors", lang: "hu" },
   { children: "Luxor sorsolás", to: "/luxor", lang: "hu" },
   { children: "akunvalvonta", to: "/battery-monitor" },

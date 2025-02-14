@@ -1,6 +1,8 @@
-import { RedState } from "../../types/cv";
+import useCV from "../../hooks/cv";
 
-export default function Experience({ cv }: RedState) {
+export default function Experience() {
+  const { cv } = useCV();
+
   return (
     <>
       <h2>
