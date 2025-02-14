@@ -1,5 +1,6 @@
 type PersonalDetails = {
-  name: String;
+  firstname: String;
+  surname: String;
   residence: String;
   phone: String;
   email: String;

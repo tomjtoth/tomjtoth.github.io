@@ -1,6 +1,7 @@
 :root {
   --col-fg-0: #111;
   --col-fg-1: #808;
+  --col-fg-2: #333;
   --col-bg-0: #eee;
   --col-bg-alt-a: #ddd;
   --col-bg-alt-a-hover: #add;
@@ -14,6 +15,7 @@
   :root {
     --col-fg-0: #eee;
     --col-fg-1: #d0d;
+    --col-fg-2: #ccc;
     --col-bg-0: #111;
     --col-bg-alt-a: #222;
     --col-bg-alt-a-hover: #255;

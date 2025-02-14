@@ -1,28 +1,14 @@
-import { useEffect } from "react";
 import yaml from "js-yaml";
 
-import { useAppDispatch, useAppSelector } from ".";
-import { CVDetails, UseCV } from "../types/cv";
-import { setCV, setImg } from "../reducers/cv";
-import { fetchYaml } from "../utils";
-import useSpinner from "./spinner";
+import { useAppDispatch, useAppSelector } from "..";
+import { CVDetails, UseCV } from "../../types/cv";
+import { setCV, setImg } from "../../reducers/cv";
+import useSpinner from "../spinner";
 
 export default function useCV() {
   const dispatch = useAppDispatch();
   const spinner = useSpinner();
-  const { cv, img } = useAppSelector((s) => s.cv);
-
-  console.debug("cv", cv, "img", img);
-
-  useEffect(() => {
-    if (!cv) {
-      spinner.show();
-      fetchYaml("/cv-template.yaml").then((yaml) => {
-        dispatch(setCV(yaml));
-        spinner.hide();
-      });
-    }
-  }, []);
+  const rs = useAppSelector((s) => s.cv);
 
   async function fromFiles(list: FileList | File[]) {
     if (list.length > 0) {
@@ -53,8 +39,7 @@ export default function useCV() {
   }
 
   return {
-    cv,
-    img,
+    ...rs,
     fromItems: (list) => {
       const fileList = [...list]
         .map((item) => item.getAsFile())

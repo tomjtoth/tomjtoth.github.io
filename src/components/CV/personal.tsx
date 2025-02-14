@@ -1,22 +1,35 @@
-import { RedState } from "../../types/cv";
+import useCV from "../../hooks/cv";
+import Logos from "./svgs";
 
-export default function Personal({ cv: { personal: p }, img }: RedState) {
-  return (
-    <>
-      <h2>
-        <b>Personal details</b>
-      </h2>
-      <ul className="personal">
-        <li>
-          Phone: <span>{p.phone}</span>
-        </li>
-        <li>
-          Email: <span>{p.email}</span>
-        </li>
-        <li>
-          City of residence: <span>{p.residence}</span>
-        </li>
-        <li>
+export default function Personal() {
+  const { cv, img } = useCV();
+
+  let details = null;
+
+  if (cv) {
+    const p = cv.personal;
+
+    const [svgPhone, svgMail, svgLocation] = Logos();
+
+    details = (
+      <div style={{ paddingTop: 16 }}>
+        <div>
+          <span>
+            <b>{p.firstname.toUpperCase()}</b>
+          </span>{" "}
+          <span className="cv surname">{p.surname.toUpperCase()}</span>
+        </div>
+        <ul className="cv personal">
+          <li>
+            {svgPhone} <span className="left-padded">{p.phone}</span>
+          </li>
+          <li>
+            {svgMail} <span className="left-padded">{p.email}</span>
+          </li>
+          <li>
+            {svgLocation} <span className="left-padded">{p.residence}</span>
+          </li>
+          {/* <li>
           Born: <span>{p.born}</span>
         </li>
         <li>
@@ -24,13 +37,20 @@ export default function Personal({ cv: { personal: p }, img }: RedState) {
         </li>
         <li>
           Sex: <span>{p.sex}</span>
-        </li>
-      </ul>
+        </li> */}
+        </ul>
+      </div>
+    );
+  }
+
+  return (
+    <div className="border1-e cv personal-container">
       <img
         src={img}
         alt="profile picture"
         style={{ maxWidth: "3cm", maxHeight: "5cm" }}
       />
-    </>
+      {details}
+    </div>
   );
 }
