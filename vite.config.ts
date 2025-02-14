@@ -1,7 +1,27 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import { resolve } from "path";
+import terser from "@rollup/plugin-terser";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+  build: {
+    outDir: "dist",
+    rollupOptions: {
+      input: {
+        index: resolve(__dirname, "index.html"), // React app entry
+        sw: resolve(__dirname, "src/sw.ts"), // Service worker entry
+      },
+      output: [
+        {
+          chunkFileNames: "assets/[name]-[hash].js",
+          entryFileNames: (asset) =>
+            asset.name === "sw" ? "sw.js" : "assets/[name]-[hash].js",
+          assetFileNames: "assets/[name]-[hash].[ext]",
+
+          format: "es",
+        },
+      ],
+      plugins: [terser()],
+    },
+    minify: "terser",
+  },
+});
