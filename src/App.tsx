@@ -4,6 +4,8 @@ import useBatMonDaemon from "./hooks/battery-monitor/daemon";
 
 import Sidepanel from "./components/Sidepanel";
 import Home from "./components/Home";
+import CV from "./components/CV";
+import Quotes from "./components/Quotes";
 import BatteryMonitor from "./components/BatteryMonitor";
 import Lyrics from "./components/Lyrics";
 import ShoppingList from "./components/ShoppingList";
@@ -25,6 +27,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cv" element={<CV />} />
+        <Route path="/quotes" element={<Quotes />} />
         <Route path="/visitors" element={<Visitors />} />
         <Route path="/luxor" element={<Luxor />} />
         <Route path="/shopping-list" element={<ShoppingList />} />
