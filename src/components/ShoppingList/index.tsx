@@ -15,7 +15,7 @@ export default function ShoppingList() {
 
   return (
     <>
-      <Header title="ostoslista" icon="🛒">
+      <Header title="ostoslista">
         <Controls />
       </Header>
 
