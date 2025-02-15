@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../store";
-import { fetchYaml, toggle } from "../utils";
+import { toggle } from "../utils";
 import type { State } from "../types/lyrics";
 import db, { parseYaml } from "../services/lyrics";
 
@@ -28,9 +28,10 @@ export const sa = slice.actions;
 
 export function init() {
   return (dispatch: AppDispatch) =>
-    Promise.all([fetchYaml("/lyrics.yaml").then(parseYaml), db.load()]).then(
-      ([artists, active]) => dispatch(sa.init({ artists, active }))
-    );
+    Promise.all([
+      import("../assets/lyrics.yaml").then(parseYaml),
+      db.load(),
+    ]).then(([artists, active]) => dispatch(sa.init({ artists, active })));
 }
 
 export function toggleActive(id: string) {
