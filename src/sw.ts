@@ -54,10 +54,7 @@ sw.addEventListener("install", (event: ExtendableEvent) => {
 sw.addEventListener("fetch", (event: FetchEvent) => {
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache: Cache) => {
-      const navigating: boolean = event.request.mode === "navigate";
-      const cachedRes: Response | undefined = await cache.match(
-        navigating ? "/" : event.request
-      );
+      const cachedRes: Response | undefined = await cache.match(event.request);
 
       const url: string = event.request.url;
       const matchedBuster: RegExpMatchArray | null = url.match(CACHE_BUSTERS);
