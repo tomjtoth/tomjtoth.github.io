@@ -14,9 +14,7 @@ export default function BatteryMonitor() {
 
   return (
     <>
-      <Header title="akunvalvonta" icon="🔋">
-        {conf && <Controls />}
-      </Header>
+      <Header title="akunvalvonta">{conf && <Controls />}</Header>
       <MainView className="padded">
         <p>
           Tää työkalu{" "}

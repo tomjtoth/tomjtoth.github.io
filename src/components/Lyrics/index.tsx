@@ -9,7 +9,7 @@ export default function Lyrics() {
   useInit();
   return (
     <>
-      <Header title="låttext" icon="🎶" />
+      <Header title="låttext" />
       <MainView>
         <p
           style={{

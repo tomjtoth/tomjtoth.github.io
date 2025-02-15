@@ -1,19 +1,18 @@
-import { ReactNode, HTMLAttributes } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 
 import useSidepanel from "../../hooks/sidepanel";
 
 import "./header.css";
 
-interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
+interface HeaderProps
+  extends PropsWithChildren<HTMLAttributes<HTMLDivElement>> {
   title: string;
-  icon?: string;
-  children?: ReactNode;
 }
 
 export default function Header({
   title,
-  icon,
   children,
+  className = "",
   ...props
 }: HeaderProps) {
   document.title = title;
@@ -25,7 +24,7 @@ export default function Header({
       {...{
         ...props,
         id: "header",
-        className: "border1-s",
+        className: `border1-s ${className}`,
       }}
     >
       <span id="menu-button" className="clickable padded" onClick={show}>

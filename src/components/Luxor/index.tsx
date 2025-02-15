@@ -12,7 +12,7 @@ export default function Luxor() {
 
   return (
     <>
-      <Header title="Luxor" icon="🪲">
+      <Header title="Luxor">
         <Controls />
       </Header>
       <MainView className="luxor">
