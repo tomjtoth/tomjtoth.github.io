@@ -19,8 +19,8 @@ export default {
   },
 };
 
-export function parseYaml(yaml: any) {
-  return Object.entries(yaml)
+export function parseYaml(imported: any) {
+  return Object.entries(imported.default)
     .toSorted(([artist_a], [artist_b]) => {
       const lower_a = artist_a.toLowerCase();
       const lower_b = artist_b.toLowerCase();

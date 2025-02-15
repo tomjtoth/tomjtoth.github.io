@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import { State } from "../types/shopping-list";
-import { fetchYaml, maxId } from "../utils";
+import { maxId } from "../utils";
 import db, { parseYaml } from "../services/shopping-list";
 
 const RE_NUMS = /\d+/;
@@ -55,12 +55,14 @@ export function init() {
   return async (dispatch: AppDispatch) => {
     const [active, items] = await db.load();
 
-    dispatch(
-      sa.init({
-        recipes: parseYaml(await fetchYaml("/recipes.yaml")),
-        active,
-        items,
-      })
+    import("../assets/recipes.yaml").then((r) =>
+      dispatch(
+        sa.init({
+          recipes: parseYaml(r.default),
+          active,
+          items,
+        })
+      )
     );
   };
 }

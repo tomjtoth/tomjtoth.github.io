@@ -2,17 +2,19 @@ import { defineConfig } from "vite";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import terser from "@rollup/plugin-terser";
+import yaml from "@rollup/plugin-yaml";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
+  plugins: [yaml()],
   build: {
     outDir: "dist",
     rollupOptions: {
       input: {
-        index: resolve(__dirname, "index.html"), // React app entry
-        sw: resolve(__dirname, "src/sw.ts"), // Service worker entry
+        app: resolve(__dirname, "index.html"),
+        sw: resolve(__dirname, "src/sw.ts"),
       },
       output: [
         {
