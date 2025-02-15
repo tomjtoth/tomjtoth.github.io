@@ -1,4 +1,4 @@
-import yaml from "js-yaml";
+// import yaml from "js-yaml";
 
 // /**
 //  * to be used when blocking is necessary or payload is fixed and small sized
@@ -22,26 +22,26 @@ import yaml from "js-yaml";
 //   return stored ? JSON.parse(stored) : fallback;
 // }
 
-type ReqFileOptions = {
-  asYaml?: boolean;
-  asJson?: boolean;
-};
+// type ReqFileOptions = {
+//   asYaml?: boolean;
+//   asJson?: boolean;
+// };
 
-async function reqFile(
-  file: string,
-  { asYaml = false, asJson = false }: ReqFileOptions = {}
-): Promise<any> {
-  const req = fetch(file);
+// async function reqFile(
+//   file: string,
+//   { asYaml = false, asJson = false }: ReqFileOptions = {}
+// ): Promise<any> {
+//   const req = fetch(file);
 
-  if (asYaml) return yaml.load(await req.then((res) => res.text()));
-  if (asJson) return req.then((res) => res.json());
+//   if (asYaml) return yaml.load(await req.then((res) => res.text()));
+//   if (asJson) return req.then((res) => res.json());
 
-  return req;
-}
+//   return req;
+// }
 
-export function fetchYaml(file: string): Promise<any> {
-  return reqFile(file, { asYaml: true });
-}
+// export function fetchYaml(file: string): Promise<any> {
+//   return reqFile(file, { asYaml: true });
+// }
 
 // export function fetchJson(file: string): Promise<any> {
 //   return reqFile(file, { asJson: true });
