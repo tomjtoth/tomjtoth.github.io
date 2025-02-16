@@ -7,8 +7,15 @@ import yaml from "@rollup/plugin-yaml";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default defineConfig({
+export default defineConfig(() => ({
   plugins: [yaml()],
+  test: {
+    globals: true,
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+    },
+  },
   build: {
     outDir: "dist",
     rollupOptions: {
@@ -29,4 +36,4 @@ export default defineConfig({
     },
     minify: "terser",
   },
-});
+}));
