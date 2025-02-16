@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  test-and-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -58,7 +58,7 @@ jobs:
           path: dist/
 
   deploy:
-    needs: build
+    needs: test-and-build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
