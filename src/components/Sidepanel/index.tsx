@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
 import useSidepanel from "../../hooks/sidepanel";
-import { links } from "./config";
+import { ROUTES_CONFIG } from "../Routes/config";
 
 import "./sidepanel.css";
 
@@ -33,11 +33,21 @@ export default function Sidepanel() {
             &times;
           </span>
         </li>
-        {links.map((lnk, i) => (
-          <li key={i}>
-            <Link className="nav-link clickable" {...lnk} draggable={false} />
-          </li>
-        ))}
+        {ROUTES_CONFIG.filter((x) => x.path != "*").map(
+          ({ path, title, lang }, i) => (
+            <li key={i}>
+              <Link
+                className="nav-link clickable"
+                {...{
+                  to: path,
+                  children: title,
+                  lang,
+                }}
+                draggable={false}
+              />
+            </li>
+          )
+        )}
       </ul>
       <QRCode value={url} onClick={() => navigator.clipboard.writeText(url)} />
     </nav>
