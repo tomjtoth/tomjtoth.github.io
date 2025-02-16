@@ -32,6 +32,14 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Run tests
+        run: npx vitest run --coverage
+
+      - name: Upload results to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
       - name: Build Project
         run: npm run build
 
