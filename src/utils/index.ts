@@ -71,3 +71,25 @@ export function between(num: number, lower: number, upper: number): boolean {
 export function maxId<T extends { id: number }>(arr: T[]): number {
   return Math.max(0, ...arr.map((entity) => entity.id));
 }
+
+const FLAG_EXTRACTOR = /(?<=^|\s)::([A-Z]{2})\b/g;
+
+export function xxToFlags(text: string) {
+  return text.replaceAll(FLAG_EXTRACTOR, (_, code: string) => {
+    const xx = new Intl.DisplayNames(["en"], { type: "region" }).of(code);
+
+    if (xx === code) {
+      return "";
+    }
+
+    return code
+      .split("")
+      .map((c) => String.fromCodePoint(127397 + c.charCodeAt(0)))
+      .join("");
+  });
+}
+
+export function nameOf(fn: CallableFunction) {
+  const name = fn.name;
+  return `function ${name === "" ? "anonymous" : name}`;
+}
