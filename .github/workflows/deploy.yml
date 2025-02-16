@@ -43,7 +43,7 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Build service-worker && populate its cache
+      - name: Populate service-worker cache
         shell: bash
         run: |
           cd dist
