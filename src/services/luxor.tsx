@@ -43,7 +43,7 @@ export default {
 };
 
 export function processImports(
-  preset: String | null
+  preset: string | null
 ): [FieldImport[], ReactNode | null, boolean] {
   let prompt = null;
   const res = [];

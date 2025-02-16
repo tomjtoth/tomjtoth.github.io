@@ -1,9 +1,9 @@
 import { useEffect } from "react";
+import YAML from "js-yaml";
+
 import { useAppDispatch, useAppSelector } from "..";
 import useSpinner from "../spinner";
-import { fetchYaml } from "../../utils";
-import { setCV } from "../../reducers/cv";
-import { CVDetails } from "../../types/cv";
+import { setCV, setURL } from "../../reducers/cv";
 
 export default function useInitCV() {
   const dispatch = useAppDispatch();
@@ -15,8 +15,15 @@ export default function useInitCV() {
   useEffect(() => {
     if (!cv) {
       spinner.show();
-      fetchYaml("/cv-template.yaml").then((yaml: CVDetails) => {
-        dispatch(setCV(yaml));
+      import("../../assets/cv.yaml").then((asset) => {
+        const parsed = asset.default;
+        dispatch(setCV(parsed));
+
+        const yamlStr = YAML.dump(parsed);
+        const blob = new Blob([yamlStr], { type: "application/yaml" });
+        const url = URL.createObjectURL(blob);
+        dispatch(setURL(url));
+
         spinner.hide();
       });
     }

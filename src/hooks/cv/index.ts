@@ -1,12 +1,11 @@
-import yaml from "js-yaml";
-
 import { useAppDispatch, useAppSelector } from "..";
-import { CVDetails, UseCV } from "../../types/cv";
+import { TCV, UseCV } from "../../types/cv";
 import { setCV, setImg } from "../../reducers/cv";
 import useSpinner from "../spinner";
 
 export default function useCV() {
   const dispatch = useAppDispatch();
+
   const spinner = useSpinner();
   const rs = useAppSelector((s) => s.cv);
 
@@ -19,7 +18,12 @@ export default function useCV() {
 
       for (const file of list) {
         if (!cvFound && file.type === "application/yaml") {
-          const res = (await yaml.load(await file.text())) as CVDetails;
+          const [asStr, yaml] = await Promise.all([
+            file.text(),
+            import("js-yaml"),
+          ]);
+
+          const res = (await yaml.default.load(asStr)) as TCV;
           if ("personal" in res && "experience" in res && "education" in res) {
             cvFound = true;
             dispatch(setCV(res));
@@ -38,15 +42,28 @@ export default function useCV() {
     }
   }
 
+  const fromItems = (list: DataTransferItemList) => {
+    const fileList = [...list]
+      .map((item) => item.getAsFile())
+      .filter((f) => f != null);
+
+    fromFiles(fileList);
+  };
+
   return {
     ...rs,
-    fromItems: (list) => {
-      const fileList = [...list]
-        .map((item) => item.getAsFile())
-        .filter((f) => f != null);
 
-      fromFiles(fileList);
+    onDragEnter: () => {},
+    onDrop: (ev) => {
+      ev.preventDefault();
+
+      if (ev.dataTransfer!.items) {
+        fromItems(ev.dataTransfer!.items);
+      } else {
+        fromFiles(ev.dataTransfer!.files);
+      }
     },
+
     fromFiles,
   } as UseCV;
 }
