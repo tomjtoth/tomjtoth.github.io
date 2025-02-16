@@ -35,8 +35,15 @@ function rmOldVersions(cache: Cache, matched: RegExpMatchArray | null): void {
   }
 }
 
-const CACHE_BUSTERS: RegExp =
-  /(.*\/(?:app|lyrics|recipes|cv))-(\S+\.(css|js))$/;
+const CACHE_BUSTERS = RegExp(
+  String.raw`(.*\/(?:${[
+    // deps
+    "app|luxon",
+
+    // resources
+    "lyrics|recipes|cv|visitors",
+  ].join("|")}))-(\S+\.(css|js))$`
+);
 
 // Install event: Cache resources
 sw.addEventListener("install", (event: ExtendableEvent) => {

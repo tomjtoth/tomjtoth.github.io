@@ -1,4 +1,4 @@
 export type Visit = {
-  who: string;
+  guest: string;
   arrival: string;
 };
