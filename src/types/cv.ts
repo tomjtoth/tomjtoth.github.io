@@ -1,45 +1,48 @@
-type PersonalDetails = {
-  firstname: String;
-  surname: String;
-  residence: String;
-  phone: String;
-  email: String;
-  born: String;
-  sex: String;
-  nationality: String;
+import { DragEvent } from "react";
+
+type PersonalData = {
+  firstname: string;
+  surname: string;
+  city: string;
+  phone: string;
+  email: string;
+  born: string;
+  sex: string;
+  nationality: string;
+  languages: Map<string, string>;
 };
 
-type WorkDetails = {
-  title: String;
+export type EduDet = {
+  title: string;
+  school: string;
+  city: string;
+  from: string;
+  to: string;
+  top5?: string[];
+  relevant?: boolean;
+};
+
+export type ExpDet = Omit<EduDet, "school"> & {
+  company: string;
   hours?: string;
-  company: String;
-  location: String;
-  from: String;
-  to: String;
-  responsibilities: string[];
 };
 
-type EducationDetails = {
-  name: String;
-  from: String;
-  to: String;
-  institution: String;
-  location: String;
-  details?: string[];
-};
-
-export type CVDetails = {
-  personal: PersonalDetails;
-  experience: WorkDetails[];
-  education: EducationDetails[];
+export type TCV = {
+  personal: PersonalData;
+  experience: ExpDet[];
+  education: EduDet[];
 };
 
 export type RedState = {
-  cv: CVDetails;
-  img?: string;
+  img: string;
+  cv?: TCV;
+  url?: string;
 };
 
 export type UseCV = RedState & {
-  fromItems: (list: DataTransferItemList) => void;
+  onDragEnter: () => void;
+  onDrop: (ev: DragEvent<HTMLDivElement>) => void;
+
+  // fromItems: (list: DataTransferItemList) => void;
   fromFiles: (list: FileList) => void;
 };

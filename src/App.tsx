@@ -2,17 +2,18 @@ import { Routes, Route, Navigate } from "react-router";
 
 import useBatMonDaemon from "./hooks/battery-monitor/daemon";
 
+import Modal from "./components/Modal";
+import Spinner from "./components/Spinner";
 import Sidepanel from "./components/Sidepanel";
+
 import Home from "./components/Home";
+import CV from "./components/CV";
 import BatteryMonitor from "./components/BatteryMonitor";
 import Lyrics from "./components/Lyrics";
 import ShoppingList from "./components/ShoppingList";
 import ArxFatalis from "./components/ArxFatalis";
 import Visitors from "./components/Visitors";
 import Luxor from "./components/Luxor";
-import Modal from "./components/Modal";
-import Spinner from "./components/Spinner";
-import CV from "./components/CV";
 
 export default function App() {
   useBatMonDaemon();

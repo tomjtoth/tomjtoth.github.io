@@ -1,38 +1,73 @@
-#main.cv {
-  /* flex-grow: 1;
-  overflow-y: scroll; */
-  padding-left: 16px;
+#cv-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#cv {
+  margin: 16px;
+  width: 210mm;
+  min-width: 210mm;
+  height: 297mm;
   display: flex;
 }
 
-div.cv.personal-container {
+ul.cv-personal-data {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.cv-personal-data > li {
+  position: relative;
+  padding-left: 30px;
+}
+
+ul.cv-personal-data > li::before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  /* font-size: 1.2em; */
+}
+
+#file-upload.cv {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  #cv {
+    margin: 0px !important;
+  }
+
+  #main.cv {
+    overflow: visible;
+    border-radius: 0px !important;
+  }
+}
+
+div.cv-personal-container {
   display: "flex";
   flex-direction: "column";
-  max-width: "40vw";
-  overflow-y: scroll;
+  padding: 0px 16px;
+  /* max-width: 40%; */
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-div.cv.edu-work-container {
-  overflow-y: scroll;
-  scrollbar-width: 0px;
+div.cv-edu-work-container {
+  padding: 0 16px;
 }
 
-label#drop-zone + a {
-  display: none;
-  margin-left: 8px;
-}
-
-div:has(label#drop-zone):hover > a {
-  display: inline-block;
-}
-
-ul.cv.personal {
-  list-style: none;
-  padding-left: 0px;
-}
-
-span.left-padded {
-  padding-left: 16px;
+img.cv-profile-pic {
+  width: 3cm;
+  max-width: 3cm;
+  max-height: 5cm;
+  margin: 16px 0;
 }
 
 span.cv.surname {
