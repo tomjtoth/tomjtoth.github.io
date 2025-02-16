@@ -6,7 +6,7 @@ import ShoppingList from "../ShoppingList";
 import ArxFatalis from "../ArxFatalis";
 import Visitors from "../Visitors";
 import Luxor from "../Luxor";
-import { Navigate } from "react-router";
+import Quotes from "../Quotes";
 
 type RouteDetails = {
   path: string;
@@ -28,6 +28,27 @@ export const ROUTES_CONFIG: RouteDetails[] = [
     lang: "en",
   },
   {
+    path: "/battery-monitor",
+    element: <BatteryMonitor />,
+    title: "akunvalvonta",
+  },
+  {
+    path: "/shopping-list",
+    element: <ShoppingList />,
+    title: "ostoslista",
+  },
+  {
+    path: "/quotes",
+    element: <Quotes />,
+    title: "sitaatit",
+  },
+  {
+    path: "/lyrics",
+    element: <Lyrics />,
+    title: "låttext",
+    lang: "sv",
+  },
+  {
     path: "/visitors",
     element: <Visitors />,
     title: "látogatók",
@@ -40,28 +61,8 @@ export const ROUTES_CONFIG: RouteDetails[] = [
     lang: "hu",
   },
   {
-    path: "/battery-monitor",
-    element: <BatteryMonitor />,
-    title: "akunvalvonta",
-  },
-  {
-    path: "/shopping-list",
-    element: <ShoppingList />,
-    title: "ostoslista",
-  },
-  {
-    path: "/lyrics",
-    element: <Lyrics />,
-    title: "låttext",
-    lang: "sv",
-  },
-  {
     path: "/arx-fatalis",
     element: <ArxFatalis />,
     title: "Arx Fatails minipeli",
-  },
-  {
-    path: "*",
-    element: <Navigate to="/" />,
   },
 ];
