@@ -1,13 +1,8 @@
-import { ReactNode, HTMLAttributes } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 
-interface MainViewProps extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode;
-}
+type MainViewProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>>;
 
-export default function MainView({
-  children,
-  ...props
-}: MainViewProps): JSX.Element {
+export default function MainView({ children, ...props }: MainViewProps) {
   return (
     <div
       {...{
