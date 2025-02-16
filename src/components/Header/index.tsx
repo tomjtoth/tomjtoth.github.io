@@ -4,10 +4,9 @@ import useSidepanel from "../../hooks/sidepanel";
 
 import "./header.css";
 
-interface HeaderProps
-  extends PropsWithChildren<HTMLAttributes<HTMLDivElement>> {
+type HeaderProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
   title: string;
-}
+};
 
 export default function Header({
   title,
