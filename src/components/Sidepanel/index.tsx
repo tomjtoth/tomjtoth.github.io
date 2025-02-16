@@ -34,13 +34,13 @@ export default function Sidepanel() {
           </span>
         </li>
         {ROUTES_CONFIG.filter((x) => x.path != "*").map(
-          ({ path, title, lang }, i) => (
+          ({ path, label, lang }, i) => (
             <li key={i}>
               <Link
                 className="nav-link clickable"
                 {...{
                   to: path,
-                  children: title,
+                  children: label,
                   lang,
                 }}
                 draggable={false}

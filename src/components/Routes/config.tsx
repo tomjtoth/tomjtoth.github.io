@@ -11,7 +11,7 @@ import Quotes from "../Quotes";
 type RouteDetails = {
   path: string;
   element: React.ReactElement;
-  title?: string;
+  label?: string;
   lang?: string;
 };
 
@@ -19,50 +19,50 @@ export const ROUTES_CONFIG: RouteDetails[] = [
   {
     path: "/",
     element: <Home />,
-    title: "alkuun",
+    label: "alkuun",
   },
   {
     path: "/cv",
     element: <CV />,
-    title: "Curriculum Vitae",
+    label: "Curriculum Vitae",
     lang: "en",
   },
   {
     path: "/battery-monitor",
     element: <BatteryMonitor />,
-    title: "akunvalvonta",
+    label: "akunvalvonta",
   },
   {
     path: "/shopping-list",
     element: <ShoppingList />,
-    title: "ostoslista",
+    label: "ostoslista",
   },
   {
     path: "/quotes",
     element: <Quotes />,
-    title: "sitaatit",
+    label: "sitaatit",
   },
   {
     path: "/lyrics",
     element: <Lyrics />,
-    title: "låttext",
+    label: "låttext",
     lang: "sv",
   },
   {
     path: "/visitors",
     element: <Visitors />,
-    title: "látogatók",
+    label: "látogatók",
     lang: "hu",
   },
   {
     path: "/luxor",
     element: <Luxor />,
-    title: "Luxor sorsolás",
+    label: "Luxor sorsolás",
     lang: "hu",
   },
   {
     path: "/arx-fatalis",
     element: <ArxFatalis />,
-    title: "Arx Fatails minipeli",
+    label: "Arx Fatails minipeli",
   },
 ];
