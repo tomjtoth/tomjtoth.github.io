@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import useCV from "../../hooks/cv";
 import { EduDet, ExpDet } from "../../types/cv";
 
@@ -8,7 +9,7 @@ type DetailsProps = {
 
 export default function Details({ exp }: DetailsProps) {
   const { cv } = useCV();
-  const [relevant, setRelevant] = useState<boolean[]>([]);
+  const [relevant, setRelevant] = useState<boolean[] | null>(null);
 
   const index = exp ? "experience" : "education";
 
@@ -18,8 +19,9 @@ export default function Details({ exp }: DetailsProps) {
 
   let res = null;
 
-  if (cv) {
+  if (cv && relevant) {
     let buffer = [...relevant];
+    console.debug(`rendering <Details exp={${exp}} />`);
 
     res = (
       <>
