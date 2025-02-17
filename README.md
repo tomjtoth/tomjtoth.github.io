@@ -1,6 +1,15 @@
+[![codecov](https://codecov.io/gh/tomjtoth/tomjtoth.github.io/graph/badge.svg?token=417607S3E8)](https://codecov.io/gh/tomjtoth/tomjtoth.github.io)
+
 # About
 
 These tools can be used from a browser without the need to log in.
+
+## TODO
+
+- **TESTS!** As one can guess based on the shameful number in the above badge. Roadmap:
+  - [ ] get 30% by Jun 1, 2025
+  - [ ] get 60% by Jan 1, 2026
+  - [ ] get 90% by Jun 1, 2026
 
 ## Custom solutions
 
