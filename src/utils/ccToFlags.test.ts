@@ -12,10 +12,10 @@ describe(nameOf(fn), () => {
   });
 
   it("replaces multiple occurences correctly", () => {
-    expect(fn("11 ::HU 22 ::FI")).toBe("11 🇭🇺 22 🇫🇮");
+    expect(fn("11 ::HU 22 ::FI ")).toBe("11 🇭🇺 22 🇫🇮 ");
   });
 
-  it("requires a space on the left", () => {
+  it("requires a space|start on the left", () => {
     expect(fn("11 ::HU 22 ::FI 33::FR")).toBe("11 🇭🇺 22 🇫🇮 33::FR");
   });
 });
