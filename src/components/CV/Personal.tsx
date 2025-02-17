@@ -8,6 +8,7 @@ export default function Personal() {
 
   if (cv) {
     const p = cv.personal;
+    document.title = `CV of ${p.lastname}, ${p.firstname}`;
 
     // const { phone, mail, pin, flags, cake } = SVGs();
 
@@ -15,7 +16,7 @@ export default function Personal() {
       <div>
         <div style={{ textAlign: "center" }}>
           <b>{p.firstname.toUpperCase()}</b>{" "}
-          <span className="cv surname">{p.surname.toUpperCase()}</span>
+          <span className="cv-lastname">{p.lastname.toUpperCase()}</span>
         </div>
         <ul className="cv-personal-data">
           <li data-icon="📞">
@@ -24,8 +25,12 @@ export default function Personal() {
           <li data-icon="✉️">
             <a href={`mailto:${p.email}`}>{p.email}</a>
           </li>
-          <li data-icon="📍">{p.city}</li>
-          <li data-icon="🚩">{p.nationality}</li>
+          <li data-icon="📍">{p.location}</li>
+          {p.cship.map(([flag, nat], i) => (
+            <li data-icon={flag} key={i}>
+              {nat}
+            </li>
+          ))}
           <li data-icon="🎂">{p.born}</li>
         </ul>
       </div>

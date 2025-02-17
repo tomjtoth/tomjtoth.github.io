@@ -11,7 +11,7 @@ export default function Controls() {
     <>
       <input
         type="file"
-        id="file-upload"
+        id="cv-file-upload"
         className="cv"
         accept="image/*,.yaml"
         onChange={(e) => {
@@ -21,7 +21,7 @@ export default function Controls() {
         }}
         multiple
       />
-      <label className="padded bordered clickable" htmlFor="file-upload">
+      <label className="padded bordered clickable" htmlFor="cv-file-upload">
         <b>upload your CV here</b>
       </label>
       <a
@@ -44,7 +44,11 @@ export default function Controls() {
       >
         template
       </a>
-      <span className="clickable padded" title="print" onClick={print}>
+      <span
+        className="clickable padded"
+        title="print (Ctrl + P)"
+        onClick={print}
+      >
         🖨️
       </span>
     </>

@@ -23,7 +23,7 @@ export default function CV() {
         onDragOver: (ev) => ev.preventDefault(),
       }}
     >
-      <Header title="CV" className="no-print">
+      <Header className="no-print">
         <Controls />
       </Header>
       <MainView className="cv">

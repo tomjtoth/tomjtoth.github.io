@@ -2,29 +2,37 @@ import { DragEvent } from "react";
 
 type PersonalData = {
   firstname: string;
-  surname: string;
-  city: string;
+  lastname: string;
+  location: string;
   phone: string;
   email: string;
   born: string;
   sex: string;
-  nationality: string;
+
+  // unprocessed, from the .yaml file
+  citizenship: string | string[];
+  // used during rendering
+  cship: string[][];
+
+  occupation: string | string[];
   languages: Map<string, string>;
 };
 
 export type EduDet = {
-  title: string;
-  school: string;
-  city: string;
+  degree: string;
+  institution: string;
+  location: string;
   from: string;
   to: string;
-  top5?: string[];
   relevant?: boolean;
+  top5?: string[];
 };
 
-export type ExpDet = Omit<EduDet, "school"> & {
-  company: string;
+export type ExpDet = Omit<EduDet, "degree" | "institution"> & {
+  title: string;
+  employer: string;
   hours?: string;
+  summary?: string;
 };
 
 export type TCV = {

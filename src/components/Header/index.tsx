@@ -5,7 +5,7 @@ import useSidepanel from "../../hooks/sidepanel";
 import "./header.css";
 
 type HeaderProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
-  title: string;
+  title?: string;
 };
 
 export default function Header({
@@ -14,7 +14,7 @@ export default function Header({
   className = "",
   ...props
 }: HeaderProps) {
-  document.title = title;
+  if (title) document.title = title;
 
   const { show } = useSidepanel();
 
