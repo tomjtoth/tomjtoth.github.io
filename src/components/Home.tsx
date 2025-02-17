@@ -6,17 +6,26 @@ export default function Home() {
     <>
       <Header title="tervehdys"></Header>
       <MainView style={{ padding: 16 }}>
-        <p lang="en">
-          This site is mostly in Finnish. Here's the link to the{" "}
-          <a
-            target="_blank"
-            href="https://github.com/tomjtoth/tomjtoth.github.io"
-          >
-            repo
-          </a>{" "}
-          in case you're interested. Excuse my CSS, I like a color when it's
-hexa looks nice. 🤷‍♂️
-        </p>
+        <div lang="en">
+          <h2>DISCLAIMER</h2>
+          <p>
+            This site is mostly in Finnish and there are some views in
+            Hungarian, Swedish and English. Here's the link to the{" "}
+            <a
+              target="_blank"
+              href="https://github.com/tomjtoth/tomjtoth.github.io"
+            >
+              repo
+            </a>{" "}
+            in case you're interested. The{" "}
+            <b>CV view is most suitable on a laptop</b> , since it's hard-coded
+            for a single A4, and I recommend trying out the{" "}
+            <b>Arx Fatalis minigame on a phone</b>. 🤓 Optimization for
+            different devices is and will be a constant TODO.. 🫣 Also excuse my
+            CSS, I like a color when it's hexa looks nice. 🤷‍♂️
+          </p>
+        </div>
+
         <h2>Sovellukset joissa backend</h2>
         <p>
           Nämä alla kaikki pyörivät Oraclen ilmaisessa palvelimessa Ruotsissa.
@@ -27,7 +36,7 @@ hexa looks nice. 🤷‍♂️
               Veripalvelu
             </a>
             <ul>
-              <li>HY kurssille palautettava</li>
+              <li>HY:n kurssille palautettu tehtävä</li>
               <li>
                 repo on{" "}
                 <a
@@ -53,11 +62,10 @@ hexa looks nice. 🤷‍♂️
           <li>
             Saldo
             <ul>
-              <li>keskeneräinen</li>
+              <li>tuleva projekti</li>
               <li>
-                sekä backend, että frontend on täällä hetkellä JS:ssa
-                kirjoitettu, siirrän ne myöhemmin TS:iin, ja sen jälkeen
-                Rust:iin
+                tavoitteena kirjata se nextJS:ään, sit toivottavasti siirryn
+                myöhemmin Dioxus:iin (Rust + WASM)
               </li>
             </ul>
           </li>
