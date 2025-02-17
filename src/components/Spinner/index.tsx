@@ -1,9 +1,11 @@
+import { useAppSelector } from "../../hooks";
 import useSpinner from "../../hooks/spinner";
 
 import "./spinner.css";
 
 export default function Spinner() {
-  const { active, className, reset } = useSpinner();
+  const { active, className } = useAppSelector((s) => s.spinner);
+  const { reset } = useSpinner();
 
   return (
     active && (

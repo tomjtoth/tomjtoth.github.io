@@ -4,9 +4,9 @@ import { useAppSelector } from "..";
 
 export default function useInit() {
   const spinner = useSpinner();
-  const loading = useAppSelector((s) => {
+  const [loading, spinnerActive] = useAppSelector((s) => {
     const { isSupported, state, conf } = s.batteryMonitor;
-    return isSupported && (!state || !conf);
+    return [isSupported && (!state || !conf), s.spinner.active];
   });
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function useInit() {
     // init is done by the daemon
     if (loading) {
       spinner.show();
-    } else if (spinner.active) {
+    } else if (spinnerActive) {
       spinner.hide();
     }
   }, [loading]);
