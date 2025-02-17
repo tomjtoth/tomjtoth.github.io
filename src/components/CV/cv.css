@@ -10,8 +10,12 @@
   min-width: 210mm;
   height: 297mm;
   display: flex;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10pt;
+  line-height: 1.2;
 }
 
+ul.cv-languages,
 ul.cv-personal-data {
   list-style: none;
   padding-left: 0;
@@ -24,7 +28,7 @@ ul.cv-personal-data > li {
 }
 
 li.cv-detail,
-li.cv-detail-top5 {
+li.cv-detail-highlights {
   margin-top: 4px;
 }
 
@@ -45,6 +49,7 @@ ul.cv-personal-data > li::before {
 
   #cv {
     margin: 0px !important;
+    overflow: hidden;
   }
 
   #main.cv {

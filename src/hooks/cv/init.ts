@@ -1,31 +1,31 @@
 import { useEffect } from "react";
-import YAML from "js-yaml";
 
 import { useAppDispatch, useAppSelector } from "..";
 import useSpinner from "../spinner";
 import { setCV, setURL } from "../../reducers/cv";
+import { ccToFlags } from "../../utils";
 
 export default function useInitCV() {
   const dispatch = useAppDispatch();
   const spinner = useSpinner();
   const { cv } = useAppSelector((s) => s.cv);
 
-  console.debug("cv", cv);
-
   useEffect(() => {
     if (!cv) {
       spinner.show();
-      import("../../assets/cv.yaml").then((asset) => {
-        const parsed = asset.default;
-        dispatch(setCV(parsed));
+      Promise.all([import("js-yaml"), import("../../assets/cv.yaml?url")]).then(
+        ([YAML, { default: url }]) =>
+          fetch(url)
+            .then((res) => res.text())
+            .then((strYaml) => {
+              const flagsReplaced = ccToFlags(strYaml);
+              const parsed = YAML.load(flagsReplaced);
 
-        const yamlStr = YAML.dump(parsed);
-        const blob = new Blob([yamlStr], { type: "application/yaml" });
-        const url = URL.createObjectURL(blob);
-        dispatch(setURL(url));
-
-        spinner.hide();
-      });
+              dispatch(setCV(parsed));
+              dispatch(setURL(url));
+              spinner.hide();
+            })
+      );
     }
   }, []);
 }
