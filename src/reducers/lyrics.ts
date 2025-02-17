@@ -29,9 +29,14 @@ export const sa = slice.actions;
 export function init() {
   return (dispatch: AppDispatch) =>
     Promise.all([
-      import("../assets/lyrics.yaml").then(parseYaml),
+      import("js-yaml"),
+      import("../assets/lyrics.yaml?raw"),
       db.load(),
-    ]).then(([artists, active]) => dispatch(sa.init({ artists, active })));
+    ]).then(([YAML, { default: strYaml }, active]) => {
+      const artists = parseYaml(YAML.load(strYaml));
+
+      return dispatch(sa.init({ artists, active }));
+    });
 }
 
 export function toggleActive(id: string) {

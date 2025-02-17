@@ -55,14 +55,15 @@ export function init() {
   return async (dispatch: AppDispatch) => {
     const [active, items] = await db.load();
 
-    import("../assets/recipes.yaml").then((r) =>
-      dispatch(
-        sa.init({
-          recipes: parseYaml(r.default),
-          active,
-          items,
-        })
-      )
+    Promise.all([import("js-yaml"), import("../assets/recipes.yaml?raw")]).then(
+      ([YAML, { default: strYaml }]) =>
+        dispatch(
+          sa.init({
+            recipes: parseYaml(YAML.load(strYaml)),
+            active,
+            items,
+          })
+        )
     );
   };
 }
