@@ -74,7 +74,7 @@ export function maxId<T extends { id: number }>(arr: T[]): number {
 
 export const FLAG_EXTRACTOR = /(?<=^|\s)::([A-Z]{2})\b/g;
 
-export function xxToFlags(text: string) {
+export function ccToFlags(text: string) {
   return text.replaceAll(FLAG_EXTRACTOR, (_, code: string) => {
     const xx = new Intl.DisplayNames(["en"], { type: "region" }).of(code);
 

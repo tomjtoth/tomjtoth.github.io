@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { xxToFlags as fn, nameOf } from ".";
+import { ccToFlags as fn, nameOf } from ".";
 
 describe(nameOf(fn), () => {
   it("replaces single occurence", () => {
