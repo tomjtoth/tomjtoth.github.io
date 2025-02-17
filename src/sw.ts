@@ -37,12 +37,12 @@ function rmOldVersions(cache: Cache, matched: RegExpMatchArray | null): void {
 
 const CACHE_BUSTERS = RegExp(
   String.raw`(.*\/(?:${[
-    // deps
-    "app|luxon",
+    // the app and its dependencies
+    "app|luxon|js-yaml",
 
     // resources
     "lyrics|recipes|cv|visitors",
-  ].join("|")}))-(\S+\.(css|js))$`
+  ].join("|")}))-(.+\.(css|js|yaml))$`
 );
 
 // Install event: Cache resources

@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../store";
-import { TCV, RedState } from "../types/cv";
-import { FLAG_EXTRACTOR, ccToFlags } from "../utils";
+import { RedState } from "../types/cv";
 
 const slice = createSlice({
   name: "cv",
@@ -27,30 +26,26 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function setCV({ personal: p, education: edu, experience: exp }: TCV) {
+export function setCV({ personal: p, education, experience }: any) {
   return (dp: AppDispatch) => {
-    const cship = [p.citizenship].flat().map((nat) => {
-      let flag = "🚩";
+    const citizenship = Object.entries(p.citizenship).map(
+      ([flag, nationality]) => ({ flag, nationality })
+    );
 
-      nat = nat.replaceAll(FLAG_EXTRACTOR, (ff) => {
-        flag = ccToFlags(ff);
-        return "";
-      });
-
-      nat.trim();
-
-      return [flag, nat];
-    });
+    const languages = Object.entries(p.languages).map(([flag, lang]) => ({
+      flag,
+      lang,
+    }));
 
     return dp(
       sa.setCV({
         personal: {
           ...p,
-          location: ccToFlags(p.location),
-          cship,
+          citizenship,
+          languages,
         },
-        education: edu.map((e) => ({ ...e, location: ccToFlags(e.location) })),
-        experience: exp.map((e) => ({ ...e, location: ccToFlags(e.location) })),
+        education,
+        experience,
       })
     );
   };

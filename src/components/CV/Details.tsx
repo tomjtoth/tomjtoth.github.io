@@ -124,8 +124,8 @@ export default function Details({ exp }: DetailsProps) {
                 </label>
 
                 <ul>
-                  {det.top5?.map((r, i) => (
-                    <li className="cv-detail-top5" key={i}>
+                  {det.highlights?.map((r, i) => (
+                    <li className="cv-detail-highlights" key={i}>
                       {r}
                     </li>
                   ))}

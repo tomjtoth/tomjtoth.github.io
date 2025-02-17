@@ -6,16 +6,20 @@ type PersonalData = {
   location: string;
   phone: string;
   email: string;
+  website?: string;
   born: string;
   sex: string;
-
-  // unprocessed, from the .yaml file
-  citizenship: string | string[];
-  // used during rendering
-  cship: string[][];
-
-  occupation: string | string[];
-  languages: Map<string, string>;
+  occupation?: string[];
+  citizenship: {
+    flag: string;
+    nationality: string;
+  }[];
+  languages: {
+    flag: string;
+    lang: string;
+  }[];
+  intro?: string;
+  hobbies?: string[];
 };
 
 export type EduDet = {
@@ -25,7 +29,7 @@ export type EduDet = {
   from: string;
   to: string;
   relevant?: boolean;
-  top5?: string[];
+  highlights?: string[];
 };
 
 export type ExpDet = Omit<EduDet, "degree" | "institution"> & {

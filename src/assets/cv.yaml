@@ -1,34 +1,52 @@
+# This is a YAML file, indentation is very important, use an advanced text editor!
+
+# Occurences of "::CC" will be replaced with an emoji flag throughout this file
+# Also there must be:
+# - a space on the left, or beginning of string
+# - a space on the right, or end of string
+# - CC must be a valid country code
+
 personal:
   firstname: Firstname
   lastname: Rincewind
   phone: +88 88 8888
   email: rincewind88@uu.dw
+
+  # optional
+  website: https://discworld.fandom.com/wiki/Rincewind
+  location: Ankh-Morpork, DW
   born: Apr 1, 1950
   sex: male
-  location: Ankh-Morpork, DW
-  citizenship: Ankh-Morporkian ::GB
-  intro: sequences of "::CC" will be replaced with an emoji flag based on the CountryCode
 
+  # the `::CC` sequences (if any) will be on the left side of the list
+  citizenship:
+    ::GB: Ankh-Morporkian
+
+  intro: I asked DeepSeek to compile an approximate CV for this fella' based on Terry Pratchett's Discworld series. The random flags are just for show.
+
+  # can be a string or an array of strings
+  # this is an array of strings
   occupation:
     - Wizzard (self-proclaimed)
     - Adventurer
     - Professional Coward
 
+  # the `::CC` sequences (if any) will be on the left side of the list
   languages:
-    Ankh-Morporkian: native
-    Potato: B1
-    Agathean: B1
-    Many more: A2
+    ::TR: native in Ankh-Morporkian
+    ::CC: B1 in Potato
+    ::CN: B1 in Agathean
+    ::BE: A2 in Many more
 
   skills:
     - Expert-level proficiency in escaping dangerous situations.
     - Ability to survive in hostile environments, including deserts, jungles, and magical realms.
-    - learning new languages instantly
+    - Learning new languages instantly
     - Skilled at thinking on his feet (usually while running).
 
   hobbies:
     - Avoiding danger.
-    - Complaining about his lot in life.
+    - Complaining about my lot in life.
     - Occasionally saving the world (by accident).
 
 experience:
@@ -37,7 +55,7 @@ experience:
     location: all over DW ::SE
     from: Oct 1991
     to: Present
-    top5:
+    highlights:
       - Continued to survive against all odds, often while running away from danger.
       - Occasionally assists the wizards of Unseen University in exchange for food and lodging.
 
@@ -46,7 +64,7 @@ experience:
     location: Ankh-Morpork ::JP
     from: Sep 1990
     to: Jun 1991
-    top5:
+    highlights:
       - Sent to the Counterweight Continent (Agatean Empire) to negotiate trade agreements.
       - Accidentally became a folk hero after defeating a dragon (with minimal effort on his part).
       - Survived a coup attempt and returned home with minimal diplomatic fallout.
@@ -56,7 +74,7 @@ experience:
     location: Ankh-Morpork ::FR
     from: Apr 1986
     to: Aug 1987
-    top5:
+    highlights:
       - Appointed by the Patrician, Lord Vetinari, as part of a bureaucratic reshuffle.
       - Lectured on the dangers of far-off lands, such as the Counterweight Continent and Fourecks.
       - Resigned after being sent on a mission to Fourecks (Australia-equivalent) and nearly dying multiple times.
@@ -67,7 +85,7 @@ experience:
     from: Jan 1985
     to: Apr 1986
     relevant: false
-    top5:
+    highlights:
       - getting away with eating-out-without-paying
 
   - title: Tour Guide and Companion
@@ -75,7 +93,7 @@ experience:
     location: all over DW ::EU
     from: May 1983
     to: Dec 1984
-    top5:
+    highlights:
       - Guided Twoflower across the Discworld, including visits to the Wyrmberg, the Temple of Bel-Shamharoth, and the Edge of the World.
       - Survived numerous life-threatening situations, including encounters with dragons, trolls, and Death himself.
       - Introduced the concept of "insurance" to Ankh-Morpork.
@@ -83,31 +101,39 @@ experience:
   - title: Waiter
     employer: Harga's House of Ribs
     location: Ankh-Morpork ::ES
+
+    # these will render as "during Mar 1972"
     from: Mar 1972
     to: Mar 1972
+
+    # this won't be printed by default, but can be included if necessary
     relevant: false
-    top5:
-      - got free (leftover) food
-      - fired for taking leftover food home
+    highlights:
+      - Got free (leftover) food
+      - Fired for taking leftover food home
 
   - title: Deputy librarian
     employer: Unseen University
     location: Ankh-Morpork ::DE
     from: Feb
     to: Dec 1971
-    top5:
-      - assisted the Librarian (an orangutan) in organizing magical tomes
-      - managed banana provisions
-      - fired after accidentally releasing a swarm of magical books into the wild
+    highlights:
+      - Assisted the Librarian (an orangutan) in organizing magical tomes
+      - Managed banana provisions
+      - Fired after accidentally releasing a swarm of magical books into the wild
 
 education:
   - degree: Failed Wizzardry
     institution: Unseen University
-    location: Ankh-Morpork, ::FI
+    location: Ankh-Morpork ::FI
     from: Sep 1965
     to: May 1970
-    top5:
-      - eating big dinners
-      - possessed by The Octavo
-      - expelled for failing to complete basic magical studies
-      - specialized in Running Away (unofficial major)
+    highlights:
+      - Eating big dinners
+      - Possessed by The Octavo
+      - Expelled for failing to complete basic magical studies
+      - Specialized in Running Away (unofficial major)
+
+  - degree: High school
+    institution: Ankh-Morpork High
+    location: Ankh-Morpork ::RO

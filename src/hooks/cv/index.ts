@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "..";
 import { TCV, UseCV } from "../../types/cv";
 import { setCV, setImg } from "../../reducers/cv";
 import useSpinner from "../spinner";
+import { ccToFlags } from "../../utils";
 
 export default function useCV() {
   const dispatch = useAppDispatch();
@@ -18,14 +19,17 @@ export default function useCV() {
 
       for (const file of list) {
         if (!cvFound && file.type === "application/yaml") {
-          const [asStr, yaml] = await Promise.all([
+          const [asStr, { default: YAML }] = await Promise.all([
             file.text(),
             import("js-yaml"),
           ]);
 
-          const res = (await yaml.default.load(asStr)) as TCV;
+          const replaced = ccToFlags(asStr);
+
+          const res = (await YAML.load(replaced)) as TCV;
           if ("personal" in res && "experience" in res && "education" in res) {
             cvFound = true;
+
             dispatch(setCV(res));
           }
         } else if (!imgFound && file.type.startsWith("image")) {

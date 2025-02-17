@@ -22,17 +22,55 @@ export default function Personal() {
           <li data-icon="📞">
             <a href={`tel:${p.phone}`}>{p.phone}</a>
           </li>
+
           <li data-icon="✉️">
             <a href={`mailto:${p.email}`}>{p.email}</a>
           </li>
+
+          {p.website && (
+            <li data-icon="🌐">
+              <a href={p.website} target="_blank">
+                {p.website.replace("https://", "")}
+              </a>
+            </li>
+          )}
+
           <li data-icon="📍">{p.location}</li>
-          {p.cship.map(([flag, nat], i) => (
+
+          {p.citizenship.map(({ flag, nationality }, i) => (
             <li data-icon={flag} key={i}>
-              {nat}
+              {nationality}
             </li>
           ))}
+
           <li data-icon="🎂">{p.born}</li>
         </ul>
+
+        {p.intro && <p>{p.intro}</p>}
+
+        {p.languages.length > 0 && (
+          <>
+            <h3>Languages</h3>
+            <ul className="cv-languages">
+              {p.languages.map((l, i) => (
+                <li key={i}>
+                  {l.lang}: {l.flag}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {p.hobbies && (
+          <>
+            <h3>Hobbies</h3>
+            <ul>
+              {p.hobbies.map((h, i) => (
+                <li key={i}>{h}</li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     );
   }
