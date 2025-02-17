@@ -4,6 +4,10 @@ These tools can be used from a browser without the need to log in.
 
 ## Custom solutions
 
+### Dynamic imports (assets, libraries)
+
+Managed to keep the size of the base `app-[hash].js` at around 400kB.
+
 ### Persistent storage
 
 All reducers have been migrated to Dexie.js (Indexed DB) from localStorage.
