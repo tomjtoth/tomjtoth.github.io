@@ -72,7 +72,7 @@ export function maxId<T extends { id: number }>(arr: T[]): number {
   return Math.max(0, ...arr.map((entity) => entity.id));
 }
 
-const FLAG_EXTRACTOR = /(?<=^|\s)::([A-Z]{2})\b/g;
+export const FLAG_EXTRACTOR = /(?<=^|\s)::([A-Z]{2})\b/g;
 
 export function xxToFlags(text: string) {
   return text.replaceAll(FLAG_EXTRACTOR, (_, code: string) => {

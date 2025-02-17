@@ -32,34 +32,86 @@ export default function Details({ exp }: DetailsProps) {
         <ul>
           {cv[index].map((det, i) => {
             const inputId = `cv-show-${index}-${i}`;
+            const prefix = `cv.${index}[${i}]`;
 
+            const loc = (
+              <span className="cv-tip" title={`${prefix}.location`}>
+                ({det.location})
+              </span>
+            );
+            const duration = (
+              <>
+                {det.from === det.to ? (
+                  <span className="cv-tip" title={`${prefix}.from`}>
+                    during {det.from}
+                  </span>
+                ) : (
+                  <>
+                    <span className="cv-tip" title={`${prefix}.from`}>
+                      {det.from}
+                    </span>
+
+                    {" - "}
+
+                    <span className="cv-tip" title={`${prefix}.to`}>
+                      {det.to}
+                    </span>
+                  </>
+                )}
+              </>
+            );
             let title = null;
 
             if (exp) {
               det = det as ExpDet;
               title = (
                 <>
-                  <b>{det.title}</b> | {det.from} - {det.to}{" "}
-                  {det.hours && <>({det.hours}) </>}
-                  at <i>{det.company}</i> ({det.city})
+                  <b className="cv-tip" title={`${prefix}.title`}>
+                    {det.title}
+                  </b>{" "}
+                  | {duration}{" "}
+                  {det.hours && (
+                    <span className="cv-tip" title={`${prefix}.hours`}>
+                      ({det.hours})
+                    </span>
+                  )}{" "}
+                  at{" "}
+                  <i className="cv-tip" title={`${prefix}.employer`}>
+                    {det.employer}
+                  </i>{" "}
+                  {loc}
+                  {det.summary && <p>{det.summary}</p>}
                 </>
               );
             } else {
               det = det as EduDet;
               title = (
                 <>
-                  <b>{det.title}</b> | {det.from} - {det.to} at{" "}
-                  <i>{det.school}</i> ({det.city})
+                  <b className="cv-tip" title={`cv.${index}[${i}].degree`}>
+                    {det.degree}
+                  </b>{" "}
+                  | {duration} at{" "}
+                  <i className="cv-tip" title={`cv.${index}[${i}].institution`}>
+                    {det.institution}
+                  </i>{" "}
+                  {loc}
+                  {/* TODO: add title for location, from, to, institution, etc yaml props  */}
                 </>
               );
             }
 
             return (
-              <li key={i} className={buffer[i] ? undefined : "no-print"}>
+              <li
+                key={i}
+                className={`cv-detail${buffer[i] ? "" : " no-print"}`}
+              >
                 <input
                   id={inputId}
                   type="checkbox"
                   checked={buffer[i]}
+                  title={`${
+                    buffer[i] ? "included in" : "hidden from"
+                  } the final printed pdf`}
                   className="no-print clickable"
                   onChange={(e) => {
                     buffer[i] = e.target.checked;
@@ -73,7 +125,9 @@ export default function Details({ exp }: DetailsProps) {
 
                 <ul>
                   {det.top5?.map((r, i) => (
-                    <li key={i}>{r}</li>
+                    <li className="cv-detail-top5" key={i}>
+                      {r}
+                    </li>
                   ))}
                 </ul>
               </li>

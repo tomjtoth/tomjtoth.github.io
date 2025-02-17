@@ -18,18 +18,23 @@ ul.cv-personal-data {
 }
 
 ul.cv-personal-data > li {
+  margin-top: 4px;
   position: relative;
   padding-left: 30px;
+}
+
+li.cv-detail,
+li.cv-detail-top5 {
+  margin-top: 4px;
 }
 
 ul.cv-personal-data > li::before {
   content: attr(data-icon);
   position: absolute;
   left: 0;
-  /* font-size: 1.2em; */
 }
 
-#file-upload.cv {
+#cv-file-upload {
   display: none;
 }
 
@@ -70,6 +75,10 @@ img.cv-profile-pic {
   margin: 16px 0;
 }
 
-span.cv.surname {
+span.cv-lastname {
   color: var(--col-fg-2);
+}
+
+.cv-tip:hover {
+  background-color: var(--col-bg-alt-b);
 }

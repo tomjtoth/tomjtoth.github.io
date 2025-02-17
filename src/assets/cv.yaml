@@ -1,53 +1,113 @@
 personal:
-  firstname: XYZ
-  surname: Rincewind
-  phone: +358 12 345 6789
-  email: rincewind@uu.dw
-  born: Apr 1, 1968
+  firstname: Firstname
+  lastname: Rincewind
+  phone: +88 88 8888
+  email: rincewind88@uu.dw
+  born: Apr 1, 1950
   sex: male
-  city: Ankh-Morpork, DW ::GB
-  nationality: english
+  location: Ankh-Morpork, DW
+  citizenship: Ankh-Morporkian ::GB
+  intro: sequences of "::CC" will be replaced with an emoji flag based on the CountryCode
+
+  occupation:
+    - Wizzard (self-proclaimed)
+    - Adventurer
+    - Professional Coward
+
   languages:
-    english: native
-    agathean: B2
-    someOther: B2
-    lingo: B1
+    Ankh-Morporkian: native
+    Potato: B1
+    Agathean: B1
+    Many more: A2
+
+  skills:
+    - Expert-level proficiency in escaping dangerous situations.
+    - Ability to survive in hostile environments, including deserts, jungles, and magical realms.
+    - learning new languages instantly
+    - Skilled at thinking on his feet (usually while running).
+
+  hobbies:
+    - Avoiding danger.
+    - Complaining about his lot in life.
+    - Occasionally saving the world (by accident).
 
 experience:
-  - title: Job title
-    company: Unseen University
-    city: Ankh-Morpork, DW
-    from: Aug 1988
-    to: Oct 1988
-
-  - title: Job title 2
-    company: Unseen University
-    city: Ankh-Morpork, DW
-    from: Aug 1988
-    to: Oct 1988
+  - title: Professional Survivor
+    employer: Various (Self-Employed)
+    location: all over DW ::SE
+    from: Oct 1991
+    to: Present
     top5:
-      - funny
-      - lines
-      - here
+      - Continued to survive against all odds, often while running away from danger.
+      - Occasionally assists the wizards of Unseen University in exchange for food and lodging.
+
+  - title: Ambassador and Diplomat (Unwilling)
+    employer: Patrician Lord Vetinari
+    location: Ankh-Morpork ::JP
+    from: Sep 1990
+    to: Jun 1991
+    top5:
+      - Sent to the Counterweight Continent (Agatean Empire) to negotiate trade agreements.
+      - Accidentally became a folk hero after defeating a dragon (with minimal effort on his part).
+      - Survived a coup attempt and returned home with minimal diplomatic fallout.
+
+  - title: Professor of Cruel and Unusual Geography
+    employer: Unseen University
+    location: Ankh-Morpork ::FR
+    from: Apr 1986
+    to: Aug 1987
+    top5:
+      - Appointed by the Patrician, Lord Vetinari, as part of a bureaucratic reshuffle.
+      - Lectured on the dangers of far-off lands, such as the Counterweight Continent and Fourecks.
+      - Resigned after being sent on a mission to Fourecks (Australia-equivalent) and nearly dying multiple times.
+
+  - title: Freeloader
+    employer: Self-Employed
+    location: abroad ::US
+    from: Jan 1985
+    to: Apr 1986
+    relevant: false
+    top5:
+      - getting away with eating-out-without-paying
+
+  - title: Tour Guide and Companion
+    employer: Twoflower (Tourist from the Agatean Empire)
+    location: all over DW ::EU
+    from: May 1983
+    to: Dec 1984
+    top5:
+      - Guided Twoflower across the Discworld, including visits to the Wyrmberg, the Temple of Bel-Shamharoth, and the Edge of the World.
+      - Survived numerous life-threatening situations, including encounters with dragons, trolls, and Death himself.
+      - Introduced the concept of "insurance" to Ankh-Morpork.
+
+  - title: Waiter
+    employer: Harga's House of Ribs
+    location: Ankh-Morpork ::ES
+    from: Mar 1972
+    to: Mar 1972
+    relevant: false
+    top5:
+      - got free (leftover) food
+      - fired for taking leftover food home
 
   - title: Deputy librarian
-    company: Unseen University
-    city: Ankh-Morpork, DW
-    from: Aug 1988
-    to: Oct 1988
+    employer: Unseen University
+    location: Ankh-Morpork ::DE
+    from: Feb
+    to: Dec 1971
     top5:
-      - funny
-      - lines
-      - here
+      - assisted the Librarian (an orangutan) in organizing magical tomes
+      - managed banana provisions
+      - fired after accidentally releasing a swarm of magical books into the wild
 
 education:
-  - title: Wizzard
-    from: Sep 2000
-    to: pending
-    school: Unseen University, High Energy Magic faculty
-    city: Ankh-Morpork, DW
+  - degree: Failed Wizzardry
+    institution: Unseen University
+    location: Ankh-Morpork, ::FI
+    from: Sep 1965
+    to: May 1970
     top5:
       - eating big dinners
-      - avoiding libraries
-      - wearing pointy hat
-      - not remembering spells
+      - possessed by The Octavo
+      - expelled for failing to complete basic magical studies
+      - specialized in Running Away (unofficial major)
