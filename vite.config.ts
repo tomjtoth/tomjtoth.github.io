@@ -13,7 +13,7 @@ export default defineConfig(() => ({
     globals: true,
     coverage: {
       provider: "v8",
-      reporter: ["text", "html"],
+      reporter: ["text", "json", "html"],
     },
   },
   build: {
