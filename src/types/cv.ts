@@ -57,4 +57,9 @@ export type UseCV = RedState & {
 
   // fromItems: (list: DataTransferItemList) => void;
   fromFiles: (list: FileList) => Promise<void>;
+  toggle: (exp: boolean, idx: number) => void;
+};
+
+export type DetailsProps = {
+  exp: boolean;
 };

@@ -39,8 +39,8 @@ export default function Controls() {
                 Edit the downloaded template{" "}
                 <u>
                   <b>paying attention to indentation</b>
-                </u>{" "}
-                then re-upload it along with a pic
+                </u>
+                , then re-upload it along with a pic
               </p>
             )
         }
