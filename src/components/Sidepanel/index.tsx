@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
 import useSidepanel from "../../hooks/sidepanel";
-import { ROUTES_CONFIG } from "../Routes/config";
+import { ROUTES_CONFIG } from "../AppRoutes/config";
 
 import "./sidepanel.css";
 

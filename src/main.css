@@ -9,6 +9,9 @@
   --col-bg-alt-b: #bbb;
   --col-bg-alt-b-hover: #8bb;
   --col-bg-alt-b-active: #8b8;
+
+  color: var(--col-fg-0);
+  background-color: var(--col-bg-0);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,23 +50,10 @@
 }
 
 html,
-body {
-  margin: 0;
-  height: 100%;
-}
-
+body,
 #root {
   margin: 0;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--col-bg-0);
-  color: var(--col-fg-0);
-}
-
-#main {
-  flex-grow: 1;
-  overflow-y: scroll;
 }
 
 .clickable {
