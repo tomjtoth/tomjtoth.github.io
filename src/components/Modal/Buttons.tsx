@@ -16,13 +16,19 @@ export default function Buttons({ buttons, lang }: ModalButtonsProps) {
     buttons &&
     buttons.length > 0 && (
       <div id="modal-buttons">
-        {buttons.map(([text, onClick], key) => {
+        {buttons.map(({ text, onClick }, key) => {
           let autoFocus;
+          let label;
 
-          // TODO: impl supporting custom text
-          if (autoFocusUnset && (text === Text.Ok || text === Text.Yes)) {
-            autoFocus = true;
-            autoFocusUnset = false;
+          if (typeof text === "string") {
+            label = text;
+          } else {
+            label = TEXTS[text][lang ?? Language.Fi];
+
+            if (autoFocusUnset && (text === Text.Ok || text === Text.Yes)) {
+              autoFocus = true;
+              autoFocusUnset = false;
+            }
           }
 
           return (
@@ -34,7 +40,7 @@ export default function Buttons({ buttons, lang }: ModalButtonsProps) {
                 onClick,
               }}
             >
-              {TEXTS[text][lang ?? Language.Fi]}
+              {label}
             </button>
           );
         })}

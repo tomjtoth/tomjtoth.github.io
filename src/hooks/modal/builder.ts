@@ -14,63 +14,43 @@ export default function useBuilder() {
   const builder = {
     _buffer: DEFAULT,
 
+    lang: function (lang) {
+      this._buffer = { ...this._buffer, lang };
+      return this;
+    },
+
     en: function () {
-      this._buffer = { ...this._buffer, lang: Language.En };
-      return this;
+      return this.lang(Language.En);
     },
 
-    fi: function () {
-      this._buffer = { ...this._buffer, lang: Language.Fi };
-      return this;
-    },
-
-    hu: function () {
-      this._buffer = { ...this._buffer, lang: Language.Hu };
-      return this;
-    },
-
-    // lang: function (lang: string) {
-    //   setBuffer({ ...buffer, lang });
-    //   return this;
+    // fi: function () {
+    //   return this.lang(Language.Fi);
     // },
 
-    ok: function (onClick?) {
-      this._buffer = {
-        ...this._buffer,
-        buttons: [...this._buffer.buttons, [Text.Ok, onClick]],
-      };
+    hu: function () {
+      return this.lang(Language.Hu);
+    },
 
-      return this;
+    ok: function (onClick?) {
+      return this.button(Text.Ok, onClick);
     },
 
     cancel: function (onClick?) {
-      this._buffer = {
-        ...this._buffer,
-        buttons: [...this._buffer.buttons, [Text.Cancel, onClick]],
-      };
-      return this;
+      return this.button(Text.Cancel, onClick);
     },
 
     yes: function (onClick?) {
-      this._buffer = {
-        ...this._buffer,
-        buttons: [...this._buffer.buttons, [Text.Yes, onClick]],
-      };
-      return this;
+      return this.button(Text.Yes, onClick);
     },
 
     no: function (onClick?) {
-      this._buffer = {
-        ...this._buffer,
-        buttons: [...this._buffer.buttons, [Text.No, onClick]],
-      };
-      return this;
+      return this.button(Text.No, onClick);
     },
 
     button: function (text, onClick?) {
       this._buffer = {
         ...this._buffer,
-        buttons: [...this._buffer.buttons, [text, onClick]],
+        buttons: [...this._buffer.buttons, { text, onClick }],
       };
       return this;
     },
