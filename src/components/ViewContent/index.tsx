@@ -9,7 +9,7 @@ export default function ViewContent({ children, ...props }: MainViewProps) {
     <div
       {...{
         ...props,
-        id: "main",
+        id: "view-content",
       }}
     >
       {children}
