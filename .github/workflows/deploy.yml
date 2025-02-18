@@ -53,7 +53,7 @@ jobs:
           cd dist
 
           # create links to index.html for BrowserRouter (to avoid 404)
-          REDIRECTS=(404 $(sed -En 's/.*path:\s*"\/(.+)".*/\1/p' ../src/components/Routes/config.tsx))
+          REDIRECTS=(404 $(sed -En 's/.*path:\s*"\/(.+)".*/\1/p' ../src/components/AppRoutes/config.tsx))
           for view in ${REDIRECTS[*]}; do cp index.html $view.html; done
 
           # populating URLS_TO_CACHE in sw.js
