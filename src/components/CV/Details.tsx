@@ -1,37 +1,22 @@
-import { useEffect, useState } from "react";
-
 import useCV from "../../hooks/cv";
-import { EduDet, ExpDet } from "../../types/cv";
-
-type DetailsProps = {
-  exp: boolean;
-};
+import { DetailsProps, EduDet, ExpDet } from "../../types/cv";
 
 export default function Details({ exp }: DetailsProps) {
   const { cv } = useCV();
-  const [relevant, setRelevant] = useState<boolean[] | null>(null);
 
   const index = exp ? "experience" : "education";
 
-  useEffect(() => {
-    if (cv) setRelevant(cv[index].map((xp) => xp.relevant ?? true));
-  }, [cv]);
-
   let res = null;
 
-  if (cv && relevant) {
-    let buffer = [...relevant];
-    console.debug(`rendering <Details exp={${exp}} />`);
-
+  if (cv) {
     res = (
       <>
-        <h2>
+        <h3>
           <b>{index.toUpperCase()}</b>
-        </h2>
+        </h3>
 
-        <ul>
+        <ul className="cv-details">
           {cv[index].map((det, i) => {
-            const inputId = `cv-show-${index}-${i}`;
             const prefix = `cv.${index}[${i}]`;
 
             const loc = (
@@ -60,11 +45,11 @@ export default function Details({ exp }: DetailsProps) {
                 )}
               </>
             );
-            let title = null;
+            let liContent = null;
 
             if (exp) {
               det = det as ExpDet;
-              title = (
+              liContent = (
                 <>
                   <b className="cv-tip" title={`${prefix}.title`}>
                     {det.title}
@@ -75,6 +60,7 @@ export default function Details({ exp }: DetailsProps) {
                       ({det.hours})
                     </span>
                   )}{" "}
+                  <br />
                   at{" "}
                   <i className="cv-tip" title={`${prefix}.employer`}>
                     {det.employer}
@@ -85,49 +71,27 @@ export default function Details({ exp }: DetailsProps) {
               );
             } else {
               det = det as EduDet;
-              title = (
+              liContent = (
                 <>
-                  <b className="cv-tip" title={`cv.${index}[${i}].degree`}>
+                  <b className="cv-tip" title={`${prefix}.degree`}>
                     {det.degree}
                   </b>{" "}
                   | {duration} at{" "}
-                  <i className="cv-tip" title={`cv.${index}[${i}].institution`}>
+                  <i className="cv-tip" title={`${prefix}.institution`}>
                     {det.institution}
                   </i>{" "}
                   {loc}
-                  {/* TODO: add title for location, from, to, institution, etc yaml props  */}
                 </>
               );
             }
 
             return (
-              <li
-                key={i}
-                className={`cv-detail${buffer[i] ? "" : " no-print"}`}
-              >
-                <input
-                  id={inputId}
-                  type="checkbox"
-                  checked={buffer[i]}
-                  title={`${
-                    buffer[i] ? "included in" : "hidden from"
-                  } the final printed pdf`}
-                  className="no-print clickable"
-                  onChange={(e) => {
-                    buffer[i] = e.target.checked;
-                    setRelevant(buffer);
-                  }}
-                />
+              <li key={i} className={det.relevant ? undefined : "hidden"}>
+                {liContent}
 
-                <label htmlFor={inputId} className="clickable">
-                  {title}
-                </label>
-
-                <ul>
-                  {det.highlights?.map((r, i) => (
-                    <li className="cv-detail-highlights" key={i}>
-                      {r}
-                    </li>
+                <ul className="cv-detail-highlights">
+                  {det.highlights?.map((highlight, i) => (
+                    <li key={i}>{highlight}</li>
                   ))}
                 </ul>
               </li>

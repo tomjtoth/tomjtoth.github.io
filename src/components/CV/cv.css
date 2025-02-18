@@ -4,15 +4,30 @@
   flex-direction: column;
 }
 
+#main.cv {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 #cv {
   margin: 16px;
   width: 210mm;
   min-width: 210mm;
-  height: 297mm;
   display: flex;
   font-family: "Times New Roman", Times, serif;
-  font-size: 10pt;
+  font-size: 12pt;
   line-height: 1.2;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(297mm - 1px),
+    var(--col-fg-0) calc(297mm - 1px),
+    var(--col-fg-0) 297mm
+  );
+}
+
+#cv .hidden {
+  display: none;
 }
 
 ul.cv-languages,
@@ -28,16 +43,24 @@ ul.cv-personal-data > li {
   padding-left: 30px;
 }
 
-li.cv-detail,
-li.cv-detail-highlights {
-  margin-top: 4px;
-}
-
 ul.cv-languages > li::before,
 ul.cv-personal-data > li::before {
   content: attr(data-icon);
   position: absolute;
   left: 0;
+}
+
+ul.cv-details,
+ul.cv-detail-highlights {
+  padding-left: 20px;
+}
+
+ul.cv-details > li {
+  margin-top: 12px;
+}
+
+ul.cv-detail-highlights > li::marker {
+  content: "✓  ";
 }
 
 #cv-file-upload {
@@ -52,11 +75,7 @@ ul.cv-personal-data > li::before {
   #cv {
     margin: 0px !important;
     overflow: hidden;
-  }
-
-  #main.cv {
-    overflow: visible;
-    border-radius: 0px !important;
+    height: 297mm;
   }
 }
 

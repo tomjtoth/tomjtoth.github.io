@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "..";
+
 import { TCV, UseCV } from "../../types/cv";
-import { setCV, setImg } from "../../reducers/cv";
+import { setCV, setImg, toggleRelevance } from "../../reducers/cv";
 import useSpinner from "../spinner";
 import { ccToFlags } from "../../utils";
 
@@ -11,7 +12,7 @@ export default function useCV() {
   const rs = useAppSelector((s) => s.cv);
 
   function fromFiles(list: FileList | File[]) {
-    return new Promise<void>(async (done, _fail) => {
+    return new Promise<void>(async (done) => {
       if (list.length > 0) {
         spinner.show();
 
@@ -77,5 +78,6 @@ export default function useCV() {
     },
 
     fromFiles,
+    toggle: (exp, idx) => dispatch(toggleRelevance(exp, idx)),
   } as UseCV;
 }

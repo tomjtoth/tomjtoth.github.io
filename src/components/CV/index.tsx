@@ -8,6 +8,7 @@ import Controls from "./Controls";
 import MainView from "../MainView";
 import Personal from "./Personal";
 import Details from "./Details";
+import DetailsToggler from "./DetailsToggler";
 
 export default function CV() {
   useInitCV();
@@ -33,6 +34,16 @@ export default function CV() {
             <Details exp={true} />
             <Details exp={false} />
           </div>
+        </div>
+        <div style={{ margin: 16, padding: "0 16px" }} className="bordered">
+          <h2>CONTROLS</h2>
+          <p>
+            Toggle inclusion of each detail in the printed document via the
+            below checkboxes. You will see horizontal lines every 297mm, try to
+            fit into 1 page.
+          </p>
+          <DetailsToggler exp={true} />
+          <DetailsToggler exp={false} />
         </div>
       </MainView>
     </div>
