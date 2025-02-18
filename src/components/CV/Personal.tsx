@@ -53,8 +53,8 @@ export default function Personal() {
             <h3>Languages</h3>
             <ul className="cv-languages">
               {p.languages.map((l, i) => (
-                <li key={i}>
-                  {l.lang}: {l.flag}
+                <li key={i} data-icon={l.flag}>
+                  {l.lang}
                 </li>
               ))}
             </ul>
