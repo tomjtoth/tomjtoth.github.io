@@ -10,40 +10,48 @@ export default function useCV() {
   const spinner = useSpinner();
   const rs = useAppSelector((s) => s.cv);
 
-  async function fromFiles(list: FileList | File[]) {
-    if (list.length > 0) {
-      spinner.show();
+  function fromFiles(list: FileList | File[]) {
+    return new Promise<void>(async (done, _fail) => {
+      if (list.length > 0) {
+        spinner.show();
 
-      let cvFound = false;
-      let imgFound = false;
+        let cvFound = false;
+        let imgFound = false;
 
-      for (const file of list) {
-        if (!cvFound && file.type === "application/yaml") {
-          const [asStr, { default: YAML }] = await Promise.all([
-            file.text(),
-            import("js-yaml"),
-          ]);
+        for (const file of list) {
+          if (!cvFound && file.type === "application/yaml") {
+            const [asStr, { default: YAML }] = await Promise.all([
+              file.text(),
+              import("js-yaml"),
+            ]);
 
-          const replaced = ccToFlags(asStr);
+            const replaced = ccToFlags(asStr);
 
-          const res = (await YAML.load(replaced)) as TCV;
-          if ("personal" in res && "experience" in res && "education" in res) {
-            cvFound = true;
+            const res = (await YAML.load(replaced)) as TCV;
+            if (
+              "personal" in res &&
+              "experience" in res &&
+              "education" in res
+            ) {
+              cvFound = true;
 
-            dispatch(setCV(res));
+              dispatch(setCV(res));
+            }
+          } else if (!imgFound && file.type.startsWith("image")) {
+            const reader = new FileReader();
+            reader.onload = () => dispatch(setImg(reader.result as string));
+            reader.readAsDataURL(file);
+            imgFound = true;
           }
-        } else if (!imgFound && file.type.startsWith("image")) {
-          const reader = new FileReader();
-          reader.onload = () => dispatch(setImg(reader.result as string));
-          reader.readAsDataURL(file);
-          imgFound = true;
+
+          if (imgFound && cvFound) break;
         }
 
-        if (imgFound && cvFound) break;
+        spinner.hide();
       }
 
-      spinner.hide();
-    }
+      done();
+    });
   }
 
   const fromItems = (list: DataTransferItemList) => {
@@ -51,7 +59,7 @@ export default function useCV() {
       .map((item) => item.getAsFile())
       .filter((f) => f != null);
 
-    fromFiles(fileList);
+    return fromFiles(fileList);
   };
 
   return {

@@ -16,13 +16,16 @@ export default function Controls() {
         accept="image/*,.yaml"
         onChange={(e) => {
           const files = e.target.files;
-          if (files) fromFiles(files);
-          e.target.value = "";
+          if (files) {
+            fromFiles(files).then(() => {
+              e.target.value = "";
+            });
+          }
         }}
         multiple
       />
       <label className="padded bordered clickable" htmlFor="cv-file-upload">
-        <b>upload your CV here</b>
+        <b>drag/upload your CV here</b>
       </label>
       <a
         download="cv-template.yaml"
