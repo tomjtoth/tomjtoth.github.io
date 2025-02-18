@@ -1,16 +1,13 @@
-import useCV from "../../hooks/cv";
-// import SVGs from "./svgs";
+import { useAppSelector } from "../../hooks";
 
 export default function Personal() {
-  const { cv, img } = useCV();
+  const { cv, img } = useAppSelector((s) => s.cv);
 
   let details = null;
 
   if (cv) {
     const p = cv.personal;
     document.title = `CV of ${p.lastname}, ${p.firstname}`;
-
-    // const { phone, mail, pin, flags, cake } = SVGs();
 
     details = (
       <div>

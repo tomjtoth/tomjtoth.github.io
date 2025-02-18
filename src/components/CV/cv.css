@@ -1,26 +1,16 @@
-#cv-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-#main.cv {
+#view-content.cv {
   display: flex;
   flex-wrap: wrap;
 }
 
-#drop-zone {
-  font-size: xx-large;
-  box-shadow: 0 0 20px var(--col-fg-0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #cv {
   margin: 16px;
-  width: 210mm;
-  min-width: 210mm;
+  --width: calc(210mm - 2 * 16px);
+  width: var(--width);
+  min-width: var(--width);
+  height: calc(297mm - 2 * 16px);
+  overflow: hidden;
+
   display: flex;
   font-family: "Times New Roman", Times, serif;
   font-size: 12pt;
@@ -82,8 +72,11 @@ ul.cv-detail-highlights > li::marker {
 
   #cv {
     margin: 0px !important;
-    overflow: hidden;
-    height: 297mm;
+    /* transform: scale(0.85); */
+  }
+
+  #view-content.cv {
+    overflow: hidden !important;
   }
 }
 

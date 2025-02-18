@@ -1,11 +1,13 @@
 import { useContext } from "react";
 
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { CxModal } from "../../hooks/modal";
-import useCV from "../../hooks/cv";
+import { filesToCV } from "../../hooks/cv";
 
 export default function Controls() {
+  const dispatch = useAppDispatch();
+  const { url } = useAppSelector((s) => s.cv);
   const modal = useContext(CxModal)!;
-  const { url, fromFiles } = useCV();
 
   return (
     <>
@@ -17,7 +19,7 @@ export default function Controls() {
         onChange={(e) => {
           const files = e.target.files;
           if (files) {
-            fromFiles(files).then(() => {
+            filesToCV(dispatch, files).then(() => {
               e.target.value = "";
             });
           }

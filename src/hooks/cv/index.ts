@@ -1,73 +1,77 @@
+import { useContext, useEffect } from "react";
+
 import { useAppDispatch, useAppSelector } from "..";
-
-import { TCV, UseCV } from "../../types/cv";
-import { setCV, setImg, toggleRelevance } from "../../reducers/cv";
-import useSpinner from "../spinner";
+import { AppDispatch } from "../../store";
+import { setCV, setImg, setURL } from "../../reducers/cv";
+import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { TCV } from "../../types/cv";
 import { ccToFlags } from "../../utils";
+import { CxFiles } from "../../components/ViewRoot";
 
-export default function useCV() {
-  const dispatch = useAppDispatch();
+export function filesToCV(dispatch: AppDispatch, list: FileList | File[]) {
+  return new Promise<void>(async (done) => {
+    if (list.length > 0) {
+      dispatch(showSpinner());
 
-  const spinner = useSpinner();
-  const rs = useAppSelector((s) => s.cv);
+      let cvFound = false;
+      let imgFound = false;
 
-  function fromFiles(list: FileList | File[]) {
-    return new Promise<void>(async (done) => {
-      if (list.length > 0) {
-        dispatch(showSpinner());
+      for (const file of list) {
+        if (!cvFound && file.type === "application/yaml") {
+          const [asStr, { default: YAML }] = await Promise.all([
+            file.text(),
+            import("js-yaml"),
+          ]);
 
-        let cvFound = false;
-        let imgFound = false;
+          const replaced = ccToFlags(asStr);
 
-        for (const file of list) {
-          if (!cvFound && file.type === "application/yaml") {
-            const [asStr, { default: YAML }] = await Promise.all([
-              file.text(),
-              import("js-yaml"),
-            ]);
+          const res = (await YAML.load(replaced)) as TCV;
+          if ("personal" in res && "experience" in res && "education" in res) {
+            cvFound = true;
 
-            const replaced = ccToFlags(asStr);
-
-            const res = (await YAML.load(replaced)) as TCV;
-            if (
-              "personal" in res &&
-              "experience" in res &&
-              "education" in res
-            ) {
-              cvFound = true;
-
-              dispatch(setCV(res));
-            }
-          } else if (!imgFound && file.type.startsWith("image")) {
-            const reader = new FileReader();
-            reader.onload = () => dispatch(setImg(reader.result as string));
-            reader.readAsDataURL(file);
-            imgFound = true;
+            dispatch(setCV(res));
           }
-
-          if (imgFound && cvFound) break;
+        } else if (!imgFound && file.type.startsWith("image")) {
+          const reader = new FileReader();
+          reader.onload = () => dispatch(setImg(reader.result as string));
+          reader.readAsDataURL(file);
+          imgFound = true;
         }
 
-        dispatch(hideSpinner());
+        if (imgFound && cvFound) break;
       }
 
-      done();
-    });
-  }
+      dispatch(hideSpinner());
+    }
 
-  const fromItems = (list: DataTransferItemList) => {
-    const fileList = [...list]
-      .map((item) => item.getAsFile())
-      .filter((f) => f != null);
+    done();
+  });
+}
 
-    return fromFiles(fileList);
-  };
+export default function useInitCV() {
+  const dispatch = useAppDispatch();
+  const { cv } = useAppSelector((s) => s.cv);
+  const { files } = useContext(CxFiles)!;
 
-  return {
-    ...rs,
+  useEffect(() => {
+    if (files) {
+      filesToCV(dispatch, files);
+    } else if (!cv) {
+      dispatch(showSpinner());
+      Promise.all([
+        import("js-yaml"),
+        import("../../assets/cv.yaml?url").then(({ default: url }) => {
+          dispatch(setURL(url));
 
-    fromItems,
-    fromFiles,
-    toggle: (exp, idx) => dispatch(toggleRelevance(exp, idx)),
-  } as UseCV;
+          return fetch(url).then((res) => res.text());
+        }),
+      ]).then(([YAML, strYaml]) => {
+        const flagsReplaced = ccToFlags(strYaml);
+        const parsed = YAML.load(flagsReplaced);
+
+        dispatch(setCV(parsed));
+        dispatch(hideSpinner());
+      });
+    }
+  }, [files]);
 }

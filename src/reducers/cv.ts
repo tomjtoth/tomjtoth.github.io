@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../store";
-import { EduDet, ExpDet, RedState } from "../types/cv";
+import { EduDet, ExpDet, ReducerState } from "../types/cv";
 
 const slice = createSlice({
   name: "cv",
   initialState: {
     img: "https://upload.wikimedia.org/wikipedia/en/c/c5/Rincewind.png",
-  } as RedState,
+  } as ReducerState,
 
   reducers: {
     setCV: (rs, { payload }) => {

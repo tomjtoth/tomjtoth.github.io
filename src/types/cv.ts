@@ -1,5 +1,3 @@
-import { DragEvent } from "react";
-
 type PersonalData = {
   firstname: string;
   lastname: string;
@@ -45,16 +43,10 @@ export type TCV = {
   education: EduDet[];
 };
 
-export type RedState = {
+export type ReducerState = {
   img: string;
   cv?: TCV;
   url?: string;
-};
-
-export type UseCV = RedState & {
-  fromItems: (list: DataTransferItemList) => void;
-  fromFiles: (list: FileList) => Promise<void>;
-  toggle: (exp: boolean, idx: number) => void;
 };
 
 export type DetailsProps = {

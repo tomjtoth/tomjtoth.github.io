@@ -2,14 +2,20 @@ import { createContext, PropsWithChildren, useState } from "react";
 
 import "./view-root.css";
 
-export const CxFileDropZone = createContext<FileList | File[] | null>(null);
+type Files = FileList | File[] | null;
+type TCxFiles = {
+  files: Files;
+  reset: CallableFunction;
+};
+
+export const CxFiles = createContext<TCxFiles | null>(null);
 
 export default function AppRoot({ children }: PropsWithChildren) {
   const [visible, setVisible] = useState(false);
-  const [files, setFiles] = useState<FileList | File[] | null>(null);
+  const [files, setFiles] = useState<Files>(null);
 
   return (
-    <CxFileDropZone.Provider value={files}>
+    <CxFiles.Provider value={{ files, reset: () => setFiles(null) }}>
       <div
         {...{
           id: "view-root",
@@ -31,12 +37,12 @@ export default function AppRoot({ children }: PropsWithChildren) {
             if (!visible) return;
 
             if (ev.dataTransfer.items.length > 0) {
-              setFiles(
-                [...ev.dataTransfer.items]
-                  .map((item) => item.getAsFile())
-                  .filter((f) => f != null)
-              );
-            } else {
+              const arr = [...ev.dataTransfer.items]
+                .map((item) => item.getAsFile())
+                .filter((f) => f != null);
+
+              if (arr.length > 0) setFiles(arr);
+            } else if (ev.dataTransfer.files.length > 0) {
               setFiles(ev.dataTransfer.files);
             }
 
@@ -53,6 +59,6 @@ export default function AppRoot({ children }: PropsWithChildren) {
 
         {children}
       </div>
-    </CxFileDropZone.Provider>
+    </CxFiles.Provider>
   );
 }
