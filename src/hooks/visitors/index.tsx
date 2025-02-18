@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "..";
 import { initVisitors } from "../../reducers/visitors";
-import useSpinner from "../spinner";
+import { hideSpinner, showSpinner } from "../../reducers/spinner";
 
 const MIN = 60;
 const HOUR = 60 * MIN;
@@ -15,15 +15,14 @@ const pad = (num: number, len = 2) => {
 
 export default function useVisitors() {
   const dispatch = useAppDispatch();
-  const spinner = useSpinner();
   const { next } = useAppSelector((s) => s.visitors);
 
   useEffect(() => {
     if (next === undefined) {
-      spinner.show();
+      dispatch(showSpinner());
       dispatch(initVisitors()).then(() => {
         buildNode();
-        spinner.hide();
+        dispatch(hideSpinner());
       });
     } else {
       buildNode();

@@ -16,7 +16,7 @@ const slice = createSlice({
 const sa = slice.actions;
 
 export function setSidepanel(to: boolean) {
-  return (dp: AppDispatch) => dp(sa.set(to));
+  return (dispatch: AppDispatch) => dispatch(sa.set(to));
 }
 
 export default slice.reducer;

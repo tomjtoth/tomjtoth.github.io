@@ -1,11 +1,11 @@
-import { useAppSelector } from "../../hooks";
-import useSpinner from "../../hooks/spinner";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { resetSpinner } from "../../reducers/spinner";
 
 import "./spinner.css";
 
 export default function Spinner() {
   const { active, className } = useAppSelector((s) => s.spinner);
-  const { reset } = useSpinner();
+  const dispatch = useAppDispatch();
 
   return (
     active && (
@@ -17,7 +17,7 @@ export default function Spinner() {
             onAnimationEnd: (ev) => {
               console.debug("animation", ev.animationName, "ended");
               if (ev.animationName === "zoom-in") {
-                reset();
+                dispatch(resetSpinner());
 
                 // React's async state change is too slow
                 const circle = ev.target as HTMLDivElement;
