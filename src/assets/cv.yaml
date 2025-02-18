@@ -18,11 +18,10 @@ personal:
   born: Apr 1, 1950
   sex: male
 
-  # the `::CC` sequences (if any) will be on the left side of the list
   citizenship:
     ::GB: Ankh-Morporkian
 
-  intro: I asked DeepSeek to compile an approximate CV for this fella' based on Terry Pratchett's Discworld series. The random flags are just for show.
+  intro: I asked DeepSeek to compile an approximate CV for this character based on Terry Pratchett's Discworld series, I can highly recommend the audiobooks read by Nigel Planer.
 
   # can be a string or an array of strings
   # this is an array of strings
@@ -31,12 +30,11 @@ personal:
     - Adventurer
     - Professional Coward
 
-  # the `::CC` sequences (if any) will be on the left side of the list
   languages:
     ::TR: native in Ankh-Morporkian
     ::CC: B1 in Potato
-    ::CN: B1 in Agathean
-    ::BE: A2 in Many more
+    ::CN: B1 in Agatean
+    ::BE: A2 in many more
 
   skills:
     - Expert-level proficiency in escaping dangerous situations.
@@ -54,7 +52,7 @@ experience:
     employer: Various (Self-Employed)
     location: all over DW ::SE
     from: Oct 1991
-    to: Present
+    to: present
     highlights:
       - Continued to survive against all odds, often while running away from danger.
       - Occasionally assists the wizards of Unseen University in exchange for food and lodging.
@@ -82,7 +80,9 @@ experience:
   - title: Freeloader
     employer: Self-Employed
     location: abroad ::US
-    from: Jan 1985
+
+    # rendered as "Jan - Apr 1986"
+    from: Jan
     to: Apr 1986
     relevant: false
     highlights:
@@ -102,7 +102,7 @@ experience:
     employer: Harga's House of Ribs
     location: Ankh-Morpork ::ES
 
-    # these will render as "during Mar 1972"
+    # rendered as "during Mar 1972"
     from: Mar 1972
     to: Mar 1972
 
@@ -137,3 +137,6 @@ education:
   - degree: High school
     institution: Ankh-Morpork High
     location: Ankh-Morpork ::RO
+    from: Sep 1961
+    to: May 1965
+    relevant: false
