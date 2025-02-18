@@ -4,18 +4,18 @@ import Modal from "./components/Modal";
 import Spinner from "./components/Spinner";
 import Sidepanel from "./components/Sidepanel";
 import AppRoutes from "./components/AppRoutes";
-import AppRoot from "./components/AppRoot";
+import ViewRoot from "./components/ViewRoot";
 
 export default function App() {
   useBatMonDaemon();
 
   return (
     <Modal>
-      <AppRoot>
+      <ViewRoot>
         <Spinner />
         <Sidepanel />
         <AppRoutes />
-      </AppRoot>
+      </ViewRoot>
     </Modal>
   );
 }
