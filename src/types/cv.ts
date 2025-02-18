@@ -52,10 +52,7 @@ export type RedState = {
 };
 
 export type UseCV = RedState & {
-  onDragEnter: () => void;
-  onDrop: (ev: DragEvent<HTMLDivElement>) => void;
-
-  // fromItems: (list: DataTransferItemList) => void;
+  fromItems: (list: DataTransferItemList) => void;
   fromFiles: (list: FileList) => Promise<void>;
   toggle: (exp: boolean, idx: number) => void;
 };

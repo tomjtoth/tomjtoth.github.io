@@ -66,17 +66,7 @@ export default function useCV() {
   return {
     ...rs,
 
-    onDragEnter: () => {},
-    onDrop: (ev) => {
-      ev.preventDefault();
-
-      if (ev.dataTransfer!.items) {
-        fromItems(ev.dataTransfer!.items);
-      } else {
-        fromFiles(ev.dataTransfer!.files);
-      }
-    },
-
+    fromItems,
     fromFiles,
     toggle: (exp, idx) => dispatch(toggleRelevance(exp, idx)),
   } as UseCV;

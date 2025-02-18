@@ -9,6 +9,14 @@
   flex-wrap: wrap;
 }
 
+#drop-zone {
+  font-size: xx-large;
+  box-shadow: 0 0 20px var(--col-fg-0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #cv {
   margin: 16px;
   width: 210mm;
