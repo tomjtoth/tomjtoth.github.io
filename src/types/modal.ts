@@ -13,11 +13,14 @@ export enum Text {
   No,
 }
 
-type Button = [Text | string, MouseEventHandler?];
+type Button = {
+  text: Text | string;
+  onClick?: MouseEventHandler;
+};
 
 export type ModalButtonsProps = {
   buttons: Button[];
-  lang?: Language;
+  lang?: Language | string;
 };
 
 export type ModalType = ModalButtonsProps & {
@@ -30,15 +33,15 @@ export type ModalBuilder = {
   _buffer: ModalType;
 
   en: () => ModalBuilder;
-  fi: () => ModalBuilder;
+  // fi: () => ModalBuilder;
   hu: () => ModalBuilder;
-  // lang: (lang: string) => ModalBuilder;
+  lang: (lang: string | Language) => ModalBuilder;
 
   ok: (onClick?: MouseEventHandler) => ModalBuilder;
   cancel: (onClick?: MouseEventHandler) => ModalBuilder;
   yes: (onClick?: MouseEventHandler) => ModalBuilder;
   no: (onClick?: MouseEventHandler) => ModalBuilder;
-  button: (text: string, onClick?: MouseEventHandler) => ModalBuilder;
+  button: (text: string | Text, onClick?: MouseEventHandler) => ModalBuilder;
 
   silent: () => ModalBuilder;
   removeAfter: (ms: number) => ModalBuilder;
