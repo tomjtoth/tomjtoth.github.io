@@ -13,19 +13,20 @@ export default function useInitCV() {
   useEffect(() => {
     if (!cv) {
       spinner.show();
-      Promise.all([import("js-yaml"), import("../../assets/cv.yaml?url")]).then(
-        ([YAML, { default: url }]) =>
-          fetch(url)
-            .then((res) => res.text())
-            .then((strYaml) => {
-              const flagsReplaced = ccToFlags(strYaml);
-              const parsed = YAML.load(flagsReplaced);
+      Promise.all([
+        import("js-yaml"),
+        import("../../assets/cv.yaml?url").then(({ default: url }) => {
+          dispatch(setURL(url));
 
-              dispatch(setCV(parsed));
-              dispatch(setURL(url));
-              spinner.hide();
-            })
-      );
+          return fetch(url).then((res) => res.text());
+        }),
+      ]).then(([YAML, strYaml]) => {
+        const flagsReplaced = ccToFlags(strYaml);
+        const parsed = YAML.load(flagsReplaced);
+
+        dispatch(setCV(parsed));
+        spinner.hide();
+      });
     }
   }, []);
 }
