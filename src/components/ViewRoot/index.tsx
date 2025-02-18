@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useState } from "react";
 
-import "./app-root.css";
+import "./view-root.css";
 
 export const CxFileDropZone = createContext<FileList | File[] | null>(null);
 
@@ -12,7 +12,7 @@ export default function AppRoot({ children }: PropsWithChildren) {
     <CxFileDropZone.Provider value={files}>
       <div
         {...{
-          id: "app-root",
+          id: "view-root",
 
           onDragEnter: (ev) => {
             if (
