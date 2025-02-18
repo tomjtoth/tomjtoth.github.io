@@ -1,4 +1,4 @@
-import useInitCV from "../../hooks/cv/init";
+import useInitCV from "../../hooks/cv";
 
 import "./cv.css";
 
@@ -13,7 +13,7 @@ export default function CV() {
   useInitCV();
 
   return (
-    <DragOverlay>
+    <>
       <ViewHeader className="no-print">
         <Controls />
       </ViewHeader>
@@ -39,6 +39,6 @@ export default function CV() {
           <DetailsToggler exp={false} />
         </div>
       </ViewContent>
-    </DragOverlay>
+    </>
   );
 }

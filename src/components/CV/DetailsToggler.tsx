@@ -1,8 +1,10 @@
-import useCV from "../../hooks/cv";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { toggleRelevance } from "../../reducers/cv";
 import { DetailsProps } from "../../types/cv";
 
 export default function DetailsToggler({ exp }: DetailsProps) {
-  const { cv, toggle } = useCV();
+  const dispatch = useAppDispatch();
+  const { cv } = useAppSelector((s) => s.cv);
 
   const index = exp ? "experience" : "education";
 
@@ -30,7 +32,7 @@ export default function DetailsToggler({ exp }: DetailsProps) {
                     det.relevant ? "included in" : "hidden from"
                   } the final printed pdf`}
                   className="no-print clickable"
-                  onChange={() => toggle(exp, i)}
+                  onChange={() => dispatch(toggleRelevance(exp, i))}
                 />
                 <label htmlFor={inputId} className="clickable">
                   {title} | {det.from} - {det.to}
@@ -43,8 +45,4 @@ export default function DetailsToggler({ exp }: DetailsProps) {
     );
   }
   return res;
-  //   const { cv, toggle } = useCV();
-  //   return (
-  //
-  //   );
 }
