@@ -21,6 +21,7 @@ ul.cv-personal-data {
   padding-left: 0;
 }
 
+ul.cv-languages > li,
 ul.cv-personal-data > li {
   margin-top: 4px;
   position: relative;
@@ -32,6 +33,7 @@ li.cv-detail-highlights {
   margin-top: 4px;
 }
 
+ul.cv-languages > li::before,
 ul.cv-personal-data > li::before {
   content: attr(data-icon);
   position: absolute;
