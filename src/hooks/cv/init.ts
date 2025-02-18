@@ -25,7 +25,7 @@ export default function useInitCV() {
         const parsed = YAML.load(flagsReplaced);
 
         dispatch(setCV(parsed));
-        spinner.hide();
+        dispatch(hideSpinner());
       });
     }
   }, []);

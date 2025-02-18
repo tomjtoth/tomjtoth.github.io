@@ -34,7 +34,7 @@ const slice = createSlice({
 const sa = slice.actions;
 
 export function setCV({ personal: p, education: edu, experience: exp }: any) {
-  return (dp: AppDispatch) => {
+  return (dispatch: AppDispatch) => {
     const citizenship = Object.entries(p.citizenship).map(
       ([flag, nationality]) => ({ flag, nationality })
     );
@@ -44,7 +44,7 @@ export function setCV({ personal: p, education: edu, experience: exp }: any) {
       lang,
     }));
 
-    return dp(
+    return dispatch(
       sa.setCV({
         personal: {
           ...p,
@@ -65,15 +65,15 @@ export function setCV({ personal: p, education: edu, experience: exp }: any) {
 }
 
 export function setImg(img: string) {
-  return (dp: AppDispatch) => dp(sa.setImg(img));
+  return (dispatch: AppDispatch) => dispatch(sa.setImg(img));
 }
 
 export function setURL(url: string) {
-  return (dp: AppDispatch) => dp(sa.setURL(url));
+  return (dispatch: AppDispatch) => dispatch(sa.setURL(url));
 }
 
 export function toggleRelevance(exp: boolean, idx: number) {
-  return (dp: AppDispatch) => dp(sa.toggleRelevance({ exp, idx }));
+  return (dispatch: AppDispatch) => dispatch(sa.toggleRelevance({ exp, idx }));
 }
 
 export default slice.reducer;

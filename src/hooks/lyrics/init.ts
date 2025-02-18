@@ -2,17 +2,16 @@ import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { init } from "../../reducers/lyrics";
-import useSpinner from "../../hooks/spinner";
+import { hideSpinner, showSpinner } from "../../reducers/spinner";
 
 export default function useInit() {
-  const spinner = useSpinner();
   const dispatch = useAppDispatch();
   const loaded = useAppSelector((s) => s.lyrics.artists.length > 0);
 
   useEffect(() => {
     if (!loaded) {
-      spinner.show();
-      dispatch(init()).then(spinner.hide);
+      dispatch(showSpinner());
+      dispatch(init()).then(() => dispatch(hideSpinner()));
     }
   }, []);
 }

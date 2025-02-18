@@ -26,7 +26,7 @@ const sa = slice.actions;
 const CONSONANTS = /^[bcdfghjklmnpqrstvwxz]/i;
 
 export function initVisitors() {
-  return (dp: AppDispatch) =>
+  return (dispatch: AppDispatch) =>
     Promise.all([
       import("luxon"),
       import("js-yaml"),
@@ -61,7 +61,7 @@ export function initVisitors() {
           epoch,
         };
       }
-      dp(sa.init({ next }));
+      dispatch(sa.init({ next }));
     });
 }
 

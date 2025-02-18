@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import useSpinner from "../../hooks/spinner";
-import { useAppSelector } from "..";
+import { useAppDispatch, useAppSelector } from "..";
+import { hideSpinner, showSpinner } from "../../reducers/spinner";
 
 export default function useInit() {
-  const spinner = useSpinner();
+  const dispatch = useAppDispatch();
   const [loading, spinnerActive] = useAppSelector((s) => {
     const { isSupported, state, conf } = s.batteryMonitor;
     return [isSupported && (!state || !conf), s.spinner.active];
@@ -14,9 +14,9 @@ export default function useInit() {
 
     // init is done by the daemon
     if (loading) {
-      spinner.show();
+      dispatch(showSpinner());
     } else if (spinnerActive) {
-      spinner.hide();
+      dispatch(hideSpinner());
     }
   }, [loading]);
 }

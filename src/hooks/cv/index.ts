@@ -14,7 +14,7 @@ export default function useCV() {
   function fromFiles(list: FileList | File[]) {
     return new Promise<void>(async (done) => {
       if (list.length > 0) {
-        spinner.show();
+        dispatch(showSpinner());
 
         let cvFound = false;
         let imgFound = false;
@@ -48,7 +48,7 @@ export default function useCV() {
           if (imgFound && cvFound) break;
         }
 
-        spinner.hide();
+        dispatch(hideSpinner());
       }
 
       done();

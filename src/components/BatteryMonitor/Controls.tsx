@@ -62,17 +62,17 @@ export default function Controls() {
 
   useEffect(() => {
     if (allow.checked !== allowed) {
-      const dp = () => {
+      const dispatch = () => {
         if (allow.checked === true || allow.checked === false)
           setAllowed(allow.checked);
       };
 
       if (allow.checked) {
         checkPermission(modal).then((notiAllowed) => {
-          if (notiAllowed) dp();
+          if (notiAllowed) dispatch();
           else resetAllow();
         });
-      } else dp();
+      } else dispatch();
     }
   }, [allow.checked]);
 
