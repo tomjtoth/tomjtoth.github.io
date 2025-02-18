@@ -1,13 +1,13 @@
-import Header from "../Header";
-import MainView from "../MainView";
+import ViewHeader from "../ViewHeader";
+import ViewContent from "../ViewContent";
 
 import "./quotes.css";
 
 export default function Quotes() {
   return (
     <>
-      <Header title=""></Header>
-      <MainView className="quotes">
+      <ViewHeader title=""></ViewHeader>
+      <ViewContent className="quotes">
         <p>
           <a href="https://goodreads.com/tomjtoth">Tässä</a> on lista miun
           lukemista (kuuntelemista) kirjoista.
@@ -18,7 +18,7 @@ export default function Quotes() {
             <li key={i}></li>
           ))}
         </ul>
-      </MainView>
+      </ViewContent>
     </>
   );
 }

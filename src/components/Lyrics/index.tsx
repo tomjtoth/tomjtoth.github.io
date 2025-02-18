@@ -1,16 +1,16 @@
 import "./lyrics.css";
 
 import Artists from "./Artists";
-import Header from "../Header";
-import MainView from "../MainView";
+import ViewHeader from "../ViewHeader";
+import ViewContent from "../ViewContent";
 import useInit from "../../hooks/lyrics/init";
 
 export default function Lyrics() {
   useInit();
   return (
     <>
-      <Header title="låttext" />
-      <MainView>
+      <ViewHeader title="låttext" />
+      <ViewContent>
         <p
           style={{
             margin: 16,
@@ -20,7 +20,7 @@ export default function Lyrics() {
           lyrics are still missing).
         </p>
         <Artists />
-      </MainView>
+      </ViewContent>
     </>
   );
 }

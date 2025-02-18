@@ -2,13 +2,13 @@ import { HTMLAttributes, PropsWithChildren } from "react";
 
 import useSidepanel from "../../hooks/sidepanel";
 
-import "./header.css";
+import "./view-header.css";
 
 type HeaderProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
   title?: string;
 };
 
-export default function Header({
+export default function ViewHeader({
   title,
   children,
   className = "",
@@ -22,7 +22,7 @@ export default function Header({
     <div
       {...{
         ...props,
-        id: "header",
+        id: "view-header",
         className: `border1-s ${className}`,
       }}
     >

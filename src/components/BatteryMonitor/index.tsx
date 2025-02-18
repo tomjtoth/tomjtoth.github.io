@@ -4,9 +4,9 @@ import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
 
 import "./battery-monitor.css";
 
-import Header from "../Header";
+import ViewHeader from "../ViewHeader";
 import Controls from "./Controls";
-import MainView from "../MainView";
+import ViewContent from "../ViewContent";
 
 export default function BatteryMonitor() {
   useInit();
@@ -14,8 +14,8 @@ export default function BatteryMonitor() {
 
   return (
     <>
-      <Header title="akunvalvonta">{conf && <Controls />}</Header>
-      <MainView className="padded">
+      <ViewHeader title="akunvalvonta">{conf && <Controls />}</ViewHeader>
+      <ViewContent className="padded">
         <p>
           Tää työkalu{" "}
           {state && conf && conf.allowed ? "hälyttää" : "hälyttäisisi"} kun akun
@@ -64,7 +64,7 @@ export default function BatteryMonitor() {
             näkyy, mitkä selaimet tuetaan nykyään.
           </p>
         )}
-      </MainView>
+      </ViewContent>
     </>
   );
 }
