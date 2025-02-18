@@ -1,8 +1,8 @@
 import useInitCV from "../../hooks/cv/init";
-import useCV from "../../hooks/cv";
 
 import "./cv.css";
 
+import DragOverlay from "./DragOverlay";
 import Header from "../Header";
 import Controls from "./Controls";
 import MainView from "../MainView";
@@ -13,17 +13,8 @@ import DetailsToggler from "./DetailsToggler";
 export default function CV() {
   useInitCV();
 
-  const { onDragEnter, onDrop } = useCV();
-
   return (
-    <div
-      {...{
-        id: "cv-container",
-        onDrop,
-        onDragEnter,
-        onDragOver: (ev) => ev.preventDefault(),
-      }}
-    >
+    <DragOverlay>
       <Header className="no-print">
         <Controls />
       </Header>
@@ -35,7 +26,10 @@ export default function CV() {
             <Details exp={false} />
           </div>
         </div>
-        <div style={{ margin: 16, padding: "0 16px" }} className="bordered">
+        <div
+          style={{ margin: 16, padding: "0 16px" }}
+          className="bordered no-print"
+        >
           <h2>CONTROLS</h2>
           <p>
             Toggle inclusion of each detail in the printed document via the
@@ -46,6 +40,6 @@ export default function CV() {
           <DetailsToggler exp={false} />
         </div>
       </MainView>
-    </div>
+    </DragOverlay>
   );
 }
