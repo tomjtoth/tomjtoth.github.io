@@ -22,12 +22,6 @@ export const ROUTES_CONFIG: RouteDetails[] = [
     label: "alkuun",
   },
   {
-    path: "/cv",
-    element: <CV />,
-    label: "Curriculum Vitae",
-    lang: "en",
-  },
-  {
     path: "/battery-monitor",
     element: <BatteryMonitor />,
     label: "akunvalvonta",
@@ -61,8 +55,15 @@ export const ROUTES_CONFIG: RouteDetails[] = [
     lang: "hu",
   },
   {
+    path: "/cv",
+    element: <CV />,
+    label: "Curriculum Vitae",
+    lang: "en",
+  },
+  {
     path: "/arx-fatalis",
     element: <ArxFatalis />,
-    label: "Arx Fatails minipeli",
+    label: "Arx Fatails minigame",
+    lang: "en",
   },
 ];
