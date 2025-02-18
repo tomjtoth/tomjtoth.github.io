@@ -23,7 +23,10 @@ export default function Buttons({ buttons, lang }: ModalButtonsProps) {
           if (typeof text === "string") {
             label = text;
           } else {
-            label = TEXTS[text][lang ?? Language.Fi];
+            label =
+              TEXTS[text][
+                lang ? (lang in Language ? lang : Language.Fi) : Language.Fi
+              ];
 
             if (autoFocusUnset && (text === Text.Ok || text === Text.Yes)) {
               autoFocus = true;
