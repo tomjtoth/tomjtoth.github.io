@@ -2,8 +2,8 @@ import useShoppingList from "../../hooks/shopping-list";
 
 import "./shopping-list.css";
 
-import Header from "../Header";
-import MainView from "../MainView";
+import ViewHeader from "../ViewHeader";
+import ViewContent from "../ViewContent";
 import Recipes from "./Recipes";
 import Items from "./Items";
 import Controls from "./Controls";
@@ -15,18 +15,18 @@ export default function ShoppingList() {
 
   return (
     <>
-      <Header title="ostoslista">
+      <ViewHeader title="ostoslista">
         <Controls />
-      </Header>
+      </ViewHeader>
 
-      <MainView>
+      <ViewContent>
         {loaded && (
           <>
             <Recipes />
             <Items />
           </>
         )}
-      </MainView>
+      </ViewContent>
     </>
   );
 }

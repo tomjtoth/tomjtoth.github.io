@@ -3,7 +3,7 @@
   /* background-color: gray; */
 }
 
-#main.arx-fatalis {
+#view-content.arx-fatalis {
   display: flex;
   flex-direction: column;
 }

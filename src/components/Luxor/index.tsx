@@ -1,7 +1,7 @@
 import "./luxor.css";
 
-import Header from "../Header";
-import MainView from "../MainView";
+import ViewHeader from "../ViewHeader";
+import ViewContent from "../ViewContent";
 import Controls from "./Controls";
 import Fields from "./Fields";
 import PickedNumsLine from "./PickedNumsLine";
@@ -12,13 +12,13 @@ export default function Luxor() {
 
   return (
     <>
-      <Header title="Luxor">
+      <ViewHeader title="Luxor">
         <Controls />
-      </Header>
-      <MainView className="luxor">
+      </ViewHeader>
+      <ViewContent className="luxor">
         <PickedNumsLine />
         <Fields />
-      </MainView>
+      </ViewContent>
     </>
   );
 }

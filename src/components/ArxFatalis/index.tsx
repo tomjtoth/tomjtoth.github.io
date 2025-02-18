@@ -2,9 +2,9 @@ import useArxFatalis from "../../hooks/arx-fatalis";
 
 import "./arx-fatalis.css";
 
-import Header from "../Header";
+import ViewHeader from "../ViewHeader";
 import Controls from "./Controls";
-import MainView from "../MainView";
+import ViewContent from "../ViewContent";
 import Img from "./Img";
 
 export default function ArxFatalis() {
@@ -12,8 +12,8 @@ export default function ArxFatalis() {
 
   return (
     <>
-      <Header title="riimut">{arx && <Controls arx={arx} />}</Header>
-      <MainView className="arx-fatalis">
+      <ViewHeader title="riimut">{arx && <Controls arx={arx} />}</ViewHeader>
+      <ViewContent className="arx-fatalis">
         <div id="runes-spacer" />
         <div id="runes">
           {runes.map((rune, i) => (
@@ -26,7 +26,7 @@ export default function ArxFatalis() {
             />
           ))}
         </div>
-      </MainView>
+      </ViewContent>
     </>
   );
 }

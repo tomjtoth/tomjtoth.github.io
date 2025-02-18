@@ -1,11 +1,11 @@
-import MainView from "./MainView";
-import Header from "./Header";
+import ViewContent from "./ViewContent";
+import ViewHeader from "./ViewHeader";
 
 export default function Home() {
   return (
     <>
-      <Header title="tervehdys"></Header>
-      <MainView style={{ padding: 16 }}>
+      <ViewHeader title="tervehdys"></ViewHeader>
+      <ViewContent style={{ padding: 16 }}>
         <div lang="en">
           <h2>DISCLAIMER</h2>
           <p>
@@ -70,7 +70,7 @@ export default function Home() {
             </ul>
           </li>
         </ul>
-      </MainView>
+      </ViewContent>
     </>
   );
 }

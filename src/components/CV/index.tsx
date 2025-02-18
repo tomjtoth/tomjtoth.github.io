@@ -2,10 +2,9 @@ import useInitCV from "../../hooks/cv/init";
 
 import "./cv.css";
 
-import DragOverlay from "./DragOverlay";
-import Header from "../Header";
+import ViewHeader from "../ViewHeader";
 import Controls from "./Controls";
-import MainView from "../MainView";
+import ViewContent from "../ViewContent";
 import Personal from "./Personal";
 import Details from "./Details";
 import DetailsToggler from "./DetailsToggler";
@@ -15,10 +14,10 @@ export default function CV() {
 
   return (
     <DragOverlay>
-      <Header className="no-print">
+      <ViewHeader className="no-print">
         <Controls />
-      </Header>
-      <MainView className="cv">
+      </ViewHeader>
+      <ViewContent className="cv">
         <div id="cv" className="bordered">
           <Personal />
           <div className="cv-edu-work-container">
@@ -39,7 +38,7 @@ export default function CV() {
           <DetailsToggler exp={true} />
           <DetailsToggler exp={false} />
         </div>
-      </MainView>
+      </ViewContent>
     </DragOverlay>
   );
 }

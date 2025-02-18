@@ -1,8 +1,7 @@
-#header {
+#view-header {
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: margin-left 0.5s;
 }
 
 #menu-button {
