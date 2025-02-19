@@ -1,10 +1,13 @@
-import useLyrics from "../../hooks/lyrics";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { lyricsToggle } from "../../reducers/lyrics";
 
 import Albums from "./Albums";
 import Logo from "./Logos";
 
 export default function Artists() {
-  const { artists, isActive, toggleActive } = useLyrics();
+  const dispatch = useAppDispatch();
+  const artists = useAppSelector((s) => s.lyrics.artists);
+  const active = useAppSelector((s) => s.lyrics.active);
 
   return (
     <ul lang="sv" id="lyrics">
@@ -16,10 +19,10 @@ export default function Artists() {
             key={artistIdx}
             {...{
               className: `clickable padded bordered${
-                isActive(id) ? " active" : ""
+                active.includes(id) ? " active" : ""
               }`,
               onClick: (e) => {
-                if (e.target === e.currentTarget) toggleActive(id);
+                if (e.target === e.currentTarget) dispatch(lyricsToggle(id));
               },
             }}
           >

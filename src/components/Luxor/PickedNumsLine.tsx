@@ -1,11 +1,20 @@
 import { useRef } from "react";
 
 import { last } from "../../utils";
-import useLuxor from "../../hooks/luxor";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  luxorBugHide,
+  luxorBugMove,
+  luxorBugReset,
+  luxorPopNum,
+} from "../../reducers/luxor";
+import useModal from "../../hooks/modal";
 
 export default function PickedNumsLine() {
-  const { modal, bug, moveBug, hideBug, resetBug, pickedNums, rmLastNum } =
-    useLuxor();
+  const pickedNums = useAppSelector((s) => s.luxor.pickedNums);
+  const bug = useAppSelector((s) => s.luxor.bug);
+  const modal = useModal();
+  const dispatch = useAppDispatch();
 
   const span = useRef<HTMLSpanElement>(null);
 
@@ -23,7 +32,12 @@ export default function PickedNumsLine() {
           modal
             .hu()
             .ok(() =>
-              moveBug(span.current!.getBoundingClientRect().right - 8, true)
+              dispatch(
+                luxorBugMove(
+                  span.current!.getBoundingClientRect().right - 8,
+                  true
+                )
+              )
             )
             .cancel()
             .prompt(
@@ -41,10 +55,10 @@ export default function PickedNumsLine() {
         style={{ left: bug.position, transition: bug.transition }}
         onTransitionEnd={() => {
           if (bug.position !== "-10vw" && bug.position !== "110vw") {
-            hideBug();
-            rmLastNum();
+            dispatch(luxorBugHide());
+            dispatch(luxorPopNum());
           } else if (bug.position === "-10vw") {
-            resetBug();
+            dispatch(luxorBugReset());
           }
         }}
       >
@@ -55,7 +69,7 @@ export default function PickedNumsLine() {
         <div
           id="luxor-num-bug-priv-filter"
           style={{ left: bug.position }}
-          onAnimationEnd={() => moveBug("-10vw", false)}
+          onAnimationEnd={() => dispatch(luxorBugMove("-10vw", false))}
         />
       )}
     </div>

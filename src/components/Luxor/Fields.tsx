@@ -1,10 +1,15 @@
-import useLuxor from "../../hooks/luxor";
+import { luxorAddField, luxorRmField } from "../../reducers/luxor";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import useModal from "../../hooks/modal";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
 
 export default function Fields() {
-  const { modal, locked, fields, addField, rmField } = useLuxor();
+  const locked = useAppSelector((s) => s.luxor.locked);
+  const fields = useAppSelector((s) => s.luxor.fields);
+  const dispatch = useAppDispatch();
+  const modal = useModal();
 
   return (
     <ul className="luxor">
@@ -16,7 +21,7 @@ export default function Fields() {
               <div>
                 <span
                   className="clickable padded"
-                  onClick={() => addField(fieldId)}
+                  onClick={() => dispatch(luxorAddField(fieldId))}
                   tabIndex={0}
                 >
                   új mező ➕
@@ -28,7 +33,7 @@ export default function Fields() {
                     onClick={() =>
                       modal
                         .hu()
-                        .ok(() => rmField(fieldId))
+                        .ok(() => dispatch(luxorRmField(fieldId)))
                         .cancel()
                         .prompt(<>Azt a mezőt most törlöm...</>)
                     }

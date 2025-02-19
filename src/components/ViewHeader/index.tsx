@@ -1,6 +1,7 @@
 import { HTMLAttributes, PropsWithChildren } from "react";
 
-import useSidepanel from "../../hooks/sidepanel";
+import { useAppDispatch } from "../../hooks";
+import { showSidepanel } from "../../reducers/sidepanel";
 
 import "./view-header.css";
 
@@ -16,7 +17,7 @@ export default function ViewHeader({
 }: HeaderProps) {
   if (title) document.title = title;
 
-  const { show } = useSidepanel();
+  const dispatch = useAppDispatch();
 
   return (
     <div
@@ -26,7 +27,11 @@ export default function ViewHeader({
         className: `border1-s ${className}`,
       }}
     >
-      <span id="menu-button" className="clickable padded" onClick={show}>
+      <span
+        id="menu-button"
+        className="clickable padded"
+        onClick={() => dispatch(showSidepanel())}
+      >
         &#x2630;
       </span>
       {children}

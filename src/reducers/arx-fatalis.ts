@@ -1,19 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import db from "../services/arx-fatalis";
-import { State } from "../types/arx-fatalis";
-import { SE, Spell } from "../types/arx-fatalis/spells";
+import { SpellEnum, Spell } from "../types/arx-fatalis/spells";
+
+export type State = {
+  loaded: boolean;
+  score: number;
+  castSpells: number[];
+};
 
 const slice = createSlice({
   name: "arx-fatalis",
-  initialState: null as State | null,
+  initialState: {
+    loaded: false,
+    score: 0,
+    castSpells: [],
+  } as State,
   reducers: {
     init: (_, { payload }) => payload,
 
-    addSpell: (state, { payload }: PayloadAction<SE>) => {
-      state!.castSpells.push(payload);
-      state!.score += Spell.pointsOf(payload);
-      db.save(state!);
+    addSpell: (state, { payload }: PayloadAction<SpellEnum>) => {
+      state.castSpells.push(payload);
+      state.score += Spell.pointsOf(payload);
+      db.save(state);
     },
   },
 });
@@ -24,15 +33,15 @@ export function castSpell(spell: number) {
   return (dispatch: AppDispatch) => dispatch(sa.addSpell(spell));
 }
 
-export function init() {
+export function initArx() {
   return (dispatch: AppDispatch) =>
     db.load().then((castSpells) => {
-      // Spell.init();
       dispatch(
         sa.init({
+          loaded: true,
           castSpells,
           score: castSpells.reduce(
-            (sum: number, se: SE) => sum + Spell.pointsOf(se),
+            (sum: number, se: SpellEnum) => sum + Spell.pointsOf(se),
             0
           ),
         })

@@ -1,4 +1,4 @@
-import useBatMonDaemon from "./hooks/battery-monitor/daemon";
+import useBatMonDaemon from "./hooks/battery-monitor-daemon";
 
 import Modal from "./components/Modal";
 import Spinner from "./components/Spinner";

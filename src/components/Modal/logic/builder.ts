@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Text, Language, ModalType, ModalBuilder } from "../../types/modal";
+import { Text, Language, ModalType, ModalBuilder } from "../../../types/modal";
 
 const DEFAULT: ModalType = {
   buttons: [],
@@ -9,6 +9,8 @@ const DEFAULT: ModalType = {
 
 export default function useBuilder() {
   const [modal, setModal] = useState<ModalType>(DEFAULT);
+
+  console.debug("useModalBuilder");
 
   // TODO: handle the default 3 language and 4 button via Proxy
   const builder = {
@@ -70,6 +72,14 @@ export default function useBuilder() {
       this._buffer = DEFAULT;
     },
   } as ModalBuilder;
+
+  // const proxy = new Proxy(builder, {
+  //   get(target, prop, receiver) {
+  //     if (prop in ["ok", "cancel", "yes", "no"]) {
+  //       return 1;
+  //     }
+  //   },
+  // });
 
   return {
     modal,

@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "..";
-import {
-  BatState,
-  BatteryManager as BatMan,
-} from "../../types/battery-monitor";
-import { setBatState } from "../../reducers/battery-monitor";
+import { useAppDispatch, useAppSelector } from ".";
+import { BatState, BatteryManager as BatMan } from "../types/battery-monitor";
+import { setBatMonState } from "../reducers/battery-monitor";
 
-// TODO: pass `bmPromise: Promise<BatteryManager>` for mocking
 export default function useBatteryManager(navi: any) {
   const dispatch = useAppDispatch();
-  const {
-    isSupported,
-    state: batState,
-    conf,
-  } = useAppSelector((s) => s.batteryMonitor);
+  const isSupported = useAppSelector((s) => s.batteryMonitor.isSupported);
 
   const [buffer, setBuffer] = useState<BatState | undefined>(undefined);
 
+  // TODO: is this necessary now that the useselectors have been revised?
   // debounce too frequent changes by 50ms delay
   useEffect(() => {
     const id = setTimeout(() => {
-      dispatch(setBatState(buffer!));
+      dispatch(setBatMonState(buffer!));
     }, 50);
 
     return () => clearTimeout(id);
@@ -49,6 +42,4 @@ export default function useBatteryManager(navi: any) {
       });
     }
   }, []);
-
-  return { dispatch, isSupported, batState, conf };
 }

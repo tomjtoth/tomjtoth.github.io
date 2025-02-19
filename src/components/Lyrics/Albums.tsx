@@ -1,11 +1,13 @@
 import type { AlbumsProps } from "../../types/lyrics";
-import useLyrics from "../../hooks/lyrics";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { lyricsToggle } from "../../reducers/lyrics";
 
 import Songs from "./Songs";
 import Logo from "./Logos";
 
 export default function Albums({ artistIdx, albums }: AlbumsProps) {
-  const { isActive, toggleActive } = useLyrics();
+  const active = useAppSelector((s) => s.lyrics.active);
+  const dispatch = useAppDispatch();
 
   return (
     <ul>
@@ -21,10 +23,11 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
               className: `${
                 clickable ? "clickable " : "non-clickable "
               }padded bordered${
-                albums.length === 1 || isActive(id) ? " active" : ""
+                albums.length === 1 || active.includes(id) ? " active" : ""
               }`,
               onClick: (e) => {
-                if (clickable && e.target === e.currentTarget) toggleActive(id);
+                if (clickable && e.target === e.currentTarget)
+                  dispatch(lyricsToggle(id));
               },
             }}
           >

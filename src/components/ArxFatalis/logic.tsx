@@ -1,14 +1,26 @@
 import { useState, useEffect } from "react";
 
-import useInit from "./init";
-import { castSpell } from "../../reducers/arx-fatalis";
+import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { castSpell, initArx } from "../../reducers/arx-fatalis";
 import { Rune } from "../../types/arx-fatalis/runes";
 import { Spell } from "../../types/arx-fatalis/spells";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import useModal from "../../hooks/modal";
 
-import Img from "../../components/ArxFatalis/Img";
+import Img from "./Img";
 
-export default function useArxFatalis() {
-  const { arx, modal, dispatch } = useInit();
+export default function useLogic() {
+  const castSpells = useAppSelector((s) => s.arxFatalis.castSpells);
+  const loaded = useAppSelector((s) => s.arxFatalis.loaded);
+  const modal = useModal();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!loaded) {
+      dispatch(showSpinner());
+      dispatch(initArx()).then(() => dispatch(hideSpinner()));
+    }
+  }, []);
 
   const [queue, setQueue] = useState<Rune[]>([]);
   const [idx, setIdx] = useState(-1);
@@ -32,7 +44,7 @@ export default function useArxFatalis() {
       if (queue.length > 0) {
         Spell.tryCast(queue, (spell: Spell) => {
           const { idx, page, name } = spell;
-          const count = arx!.castSpells.filter((sp) => sp === idx).length + 1;
+          const count = castSpells.filter((sp) => sp === idx).length + 1;
 
           if (count < 3 || count % 10 == 0) {
             console.debug(`cast ${idx}, ${count} times => showing modal`);
@@ -64,9 +76,5 @@ export default function useArxFatalis() {
     }
   }, [idx]);
 
-  return {
-    arx,
-    runes: Rune.arr,
-    push: (rune: Rune) => setQueue(() => [...queue, rune]),
-  };
+  return (rune: Rune) => setQueue(() => [...queue, rune]);
 }

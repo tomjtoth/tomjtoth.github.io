@@ -1,6 +1,6 @@
-import { RE, Rune } from "./runes";
+import { RuneEnum as RE, Rune } from "./runes";
 
-export enum SE {
+export enum SpellEnum {
   megaCheat,
   fizzle,
   activatePortal,
@@ -54,7 +54,10 @@ export enum SE {
   controlDemon,
 }
 
+const SE = SpellEnum;
+
 export class Spell {
+  // based on https://wiki.arx-libertatis.org/Spells
   private static spells: Spell[] = (() => {
     console.debug("initializing Spells audio");
 
@@ -122,10 +125,8 @@ export class Spell {
     );
   })();
 
-  // based on https://wiki.arx-libertatis.org/Spells
-
-  static pointsOf(sEnum: SE) {
-    return this.spells.find((x) => x.spell === sEnum)!.points;
+  static pointsOf(se: SpellEnum) {
+    return this.spells.find((x) => x.spell === se)!.points;
   }
 
   static tryCast(seq: Rune[], onSuccess: CallableFunction) {
@@ -141,14 +142,14 @@ export class Spell {
     }
   }
 
-  private spell: SE;
+  private spell: SpellEnum;
   page: number;
   idx: number;
   private seq: RE[];
   private mp3?: HTMLAudioElement;
 
   constructor(
-    spell: SE,
+    spell: SpellEnum,
     seq: RE[],
     page: number,
     hasSound: boolean,

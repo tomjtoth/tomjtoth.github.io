@@ -1,4 +1,5 @@
-import useArxFatalis from "../../hooks/arx-fatalis";
+import { Rune } from "../../types/arx-fatalis/runes";
+import useLogic from "./logic";
 
 import "./arx-fatalis.css";
 
@@ -8,15 +9,17 @@ import ViewContent from "../ViewContent";
 import Img from "./Img";
 
 export default function ArxFatalis() {
-  const { arx, runes, push } = useArxFatalis();
+  const push = useLogic();
 
   return (
     <>
-      <ViewHeader title="riimut">{arx && <Controls arx={arx} />}</ViewHeader>
+      <ViewHeader title="riimut">
+        <Controls />
+      </ViewHeader>
       <ViewContent className="arx-fatalis">
         <div id="runes-spacer" />
         <div id="runes">
-          {runes.map((rune, i) => (
+          {Rune.arr.map((rune, i) => (
             <Img
               key={i}
               {...{

@@ -16,7 +16,7 @@ export type RedState = {
   state?: BatState;
 };
 
-export type UseBatMon = RedState & {
+export type UseBatMon = {
   setAllowed: (to: boolean) => void;
   setLevels: (lower: number, upper: number) => void;
 };

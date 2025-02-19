@@ -7,6 +7,8 @@
 
 #view-root > div.modal-blur {
   font-size: xx-large;
+  text-shadow: 0 0 40px var(--col-bg-0), 0 0 20px var(--col-bg-0),
+    0 0 10px var(--col-bg-0);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,13 +1,16 @@
 import { TableBodyProps } from "../../types/luxor";
-import useLuxor from "../../hooks/luxor";
+import { luxorAddNum, luxorUpdate } from "../../reducers/luxor";
 import { between } from "../../utils";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 function isValid(num: number, min: number, max: number): boolean {
   return !isNaN(num) && (num === 0 || between(num, min, max));
 }
 
 export default function TableBody({ rows, fieldId }: TableBodyProps) {
-  const { locked, pickedNums, addNum, update } = useLuxor();
+  const pickedNums = useAppSelector((s) => s.luxor.pickedNums);
+  const locked = useAppSelector((s) => s.luxor.locked);
+  const dispatch = useAppDispatch();
 
   return (
     <tbody>
@@ -39,7 +42,8 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                     className: classes.join(" "),
                     onClick: () => {
                       if (locked) {
-                        if (!pickedNums.includes(cell)) addNum(cell);
+                        if (!pickedNums.includes(cell))
+                          dispatch(luxorAddNum(cell));
                       }
                     },
                   }}
@@ -62,7 +66,9 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                       onChange={(e) => {
                         const num = Number(e.target.value);
                         if (isValid(num, min, max))
-                          update([fieldId, rowIdx, cellIdx, num]);
+                          dispatch(
+                            luxorUpdate([fieldId, rowIdx, cellIdx, num])
+                          );
                       }}
                     />
                   )}

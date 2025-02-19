@@ -1,4 +1,4 @@
-export enum RE {
+export enum RuneEnum {
   aam,
   nhi,
   mega,
@@ -20,6 +20,8 @@ export enum RE {
   rhaa,
   fridd,
 }
+
+const RE = RuneEnum;
 
 export class Rune {
   static arr: Rune[] = (() => {
@@ -49,16 +51,16 @@ export class Rune {
     ].map((row: any) => new Rune(row));
   })();
 
-  static byVariant(variant: RE) {
+  static byVariant(variant: RuneEnum) {
     return this.arr.find((x) => x.variant === variant);
   }
 
-  variant: RE;
+  variant: RuneEnum;
   private startsAt: number;
   private length: number;
   private mp3: HTMLAudioElement;
 
-  constructor([rune, start, stop]: [RE, number, number]) {
+  constructor([rune, start, stop]: [RuneEnum, number, number]) {
     this.variant = rune;
     const path = this.url("mp3");
     this.mp3 = new Audio(path);

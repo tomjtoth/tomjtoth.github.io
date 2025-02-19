@@ -51,36 +51,37 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function init() {
+export function initSL() {
   return async (dispatch: AppDispatch) => {
-    const [active, items] = await db.load();
-
-    Promise.all([import("js-yaml"), import("../assets/recipes.yaml?raw")]).then(
-      ([YAML, { default: strYaml }]) =>
-        dispatch(
-          sa.init({
-            recipes: parseYaml(YAML.load(strYaml)),
-            active,
-            items,
-          })
-        )
+    return Promise.all([
+      db.load(),
+      import("js-yaml"),
+      import("../assets/recipes.yaml?raw"),
+    ]).then(([[active, items], YAML, { default: strYaml }]) =>
+      dispatch(
+        sa.init({
+          recipes: parseYaml(YAML.load(strYaml)),
+          active,
+          items,
+        })
+      )
     );
   };
 }
 
-export function toggleActive(id: string) {
+export function toggleActiveSL(id: string) {
   return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
 }
 
-export function addItem(item: string) {
+export function addItemSL(item: string) {
   return (dispatch: AppDispatch) => dispatch(sa.addItem(item));
 }
 
-export function rmItem(id: string) {
+export function rmItemSL(id: string) {
   return (dispatch: AppDispatch) => dispatch(sa.rmItem(id));
 }
 
-export function resetActiveItems() {
+export function resetActiveSL() {
   return (dispatch: AppDispatch) => dispatch(sa.resetActiveItems());
 }
 

@@ -1,18 +1,24 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
+import { createSelector } from "@reduxjs/toolkit";
 
-import { useAppSelector, useAppDispatch } from "..";
-import { processImports } from "../../services/luxor";
-import { init } from "../../reducers/luxor";
-import { CxModal } from "../modal";
 import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import { processImports } from "../../services/luxor";
+import { initLuxor } from "../../reducers/luxor";
+import useModal from "../../hooks/modal";
 
-export default function useInit() {
+const selLoaded = createSelector(
+  (s) => s.luxor.pickedNums,
+  (nums) => nums.length > 0
+);
+
+export function useInit() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const modal = useContext(CxModal)!;
+  const modal = useModal();
   const { search, pathname } = useLocation();
-  const loaded = useAppSelector((s) => s.luxor.fields.length > 0);
+  const loaded = useAppSelector(selLoaded);
 
   useEffect(() => {
     if (!loaded) {
@@ -26,13 +32,13 @@ export default function useInit() {
           .hu()
           .ok(() => {
             if (!critical) {
-              dispatch(init(arr)).then(() => dispatch(hideSpinner()));
+              dispatch(initLuxor(arr)).then(() => dispatch(hideSpinner()));
               navigate(pathname);
             }
           })
           .prompt(prompt);
       } else {
-        dispatch(init(arr)).then(() => dispatch(hideSpinner()));
+        dispatch(initLuxor(arr)).then(() => dispatch(hideSpinner()));
         if (imps) navigate(pathname);
       }
     }

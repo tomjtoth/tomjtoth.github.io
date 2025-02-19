@@ -4,7 +4,7 @@ import { DetailsProps } from "../../types/cv";
 
 export default function DetailsToggler({ exp }: DetailsProps) {
   const dispatch = useAppDispatch();
-  const { cv } = useAppSelector((s) => s.cv);
+  const cv = useAppSelector((s) => s.cv.cv);
 
   const index = exp ? "experience" : "education";
 

@@ -1,4 +1,4 @@
-import { State as ArxFatalisState } from "./arx-fatalis";
+import { State as ArxFatalisState } from "../reducers/arx-fatalis";
 import { BatMonConf as BatMonConf } from "./battery-monitor";
 import { State as LuxorState } from "./luxor";
 import { State as LyricsState } from "./lyrics";

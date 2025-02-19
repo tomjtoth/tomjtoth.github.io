@@ -1,5 +1,6 @@
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { lyricsToggle } from "../../reducers/lyrics";
 import type { SongsProps, Artist } from "../../types/lyrics";
-import useLyrics from "../../hooks/lyrics";
 
 import Logo from "./Logos";
 
@@ -14,7 +15,9 @@ function translate(lyrics: string) {
 }
 
 export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
-  const { artists, isActive, toggleActive } = useLyrics();
+  const dispatch = useAppDispatch();
+  const artists = useAppSelector((s) => s.lyrics.artists);
+  const active = useAppSelector((s) => s.lyrics.active);
 
   return (
     <ul>
@@ -22,7 +25,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
         const id = [artistIdx, albumIdx, songIdx].join("-");
         const classes = ["padded bordered"];
         let clickable = songs.length > 1;
-        if (songs.length === 1 || isActive(id)) classes.push("active");
+        if (songs.length === 1 || active.includes(id)) classes.push("active");
 
         let link;
 
@@ -47,7 +50,8 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
             key={songIdx}
             {...{ className: classes.join(" "), id }}
             onClick={(e) => {
-              if (clickable && e.target === e.currentTarget) toggleActive(id);
+              if (clickable && e.target === e.currentTarget)
+                dispatch(lyricsToggle(id));
             }}
           >
             {title}

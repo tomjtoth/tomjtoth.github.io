@@ -1,12 +1,25 @@
+import { useEffect } from "react";
+
 import "./lyrics.css";
 
 import Artists from "./Artists";
 import ViewHeader from "../ViewHeader";
 import ViewContent from "../ViewContent";
-import useInit from "../../hooks/lyrics/init";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { init } from "../../reducers/lyrics";
 
 export default function Lyrics() {
-  useInit();
+  const dispatch = useAppDispatch();
+  const loaded = useAppSelector((s) => s.lyrics.artists.length > 0);
+
+  useEffect(() => {
+    if (!loaded) {
+      dispatch(showSpinner());
+      dispatch(init()).then(() => dispatch(hideSpinner()));
+    }
+  }, []);
+
   return (
     <>
       <ViewHeader title="låttext" />
