@@ -42,15 +42,15 @@ export function initBatMon() {
   };
 }
 
-export function setBatState(state: BatState) {
+export function setBatMonState(state: BatState) {
   return (disp: AppDispatch) => disp(sa.setBatState(state));
 }
 
-export function setBatLevels(levels: Omit<BatMonConf, "allowed">) {
-  return (disp: AppDispatch) => disp(sa.setLevels(levels));
+export function setBatMonLevels(lower: number, upper: number) {
+  return (disp: AppDispatch) => disp(sa.setLevels({ lower, upper }));
 }
 
-export function setBatAllowed(to: boolean) {
+export function setBatMonAllowed(to: boolean) {
   return (disp: AppDispatch) => disp(sa.setAllowed(to));
 }
 

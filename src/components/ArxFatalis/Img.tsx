@@ -1,6 +1,13 @@
-import { ImgProps } from "../../types/arx-fatalis";
+import { MouseEventHandler } from "react";
 
-export default function Rune({ rune, onClick }: ImgProps) {
+import { Rune as RuneClass } from "../../types/arx-fatalis/runes";
+
+type ImgProps = {
+  rune: RuneClass;
+  onClick?: MouseEventHandler;
+};
+
+export default function Img({ rune, onClick }: ImgProps) {
   const { name, png } = rune;
 
   return (

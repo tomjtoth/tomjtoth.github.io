@@ -1,13 +1,11 @@
-import { useContext } from "react";
-
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { CxModal } from "../../hooks/modal";
-import { filesToCV } from "../../hooks/cv";
+import { useAppSelector } from "../../hooks";
+import useModal from "../../hooks/modal";
+import { useFilesToCV } from "./logic";
 
 export default function Controls() {
-  const dispatch = useAppDispatch();
-  const { url } = useAppSelector((s) => s.cv);
-  const modal = useContext(CxModal)!;
+  const filesToCV = useFilesToCV();
+  const url = useAppSelector((s) => s.cv.url);
+  const modal = useModal();
 
   return (
     <>
@@ -19,7 +17,7 @@ export default function Controls() {
         onChange={(e) => {
           const files = e.target.files;
           if (files) {
-            filesToCV(dispatch, files).then(() => {
+            filesToCV(files).then(() => {
               e.target.value = "";
             });
           }

@@ -1,16 +1,33 @@
-import useInit from "../../hooks/battery-monitor/init";
-import useBatMon from "../../hooks/battery-monitor";
 import { pluggedInStr, unpluggedStr, notiText } from "./notifications";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 
 import "./battery-monitor.css";
 
 import ViewHeader from "../ViewHeader";
 import Controls from "./Controls";
 import ViewContent from "../ViewContent";
+import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { useEffect } from "react";
 
 export default function BatteryMonitor() {
-  useInit();
-  const { isSupported, state, conf } = useBatMon();
+  const dispatch = useAppDispatch();
+  const conf = useAppSelector((s) => s.batteryMonitor.conf);
+  const state = useAppSelector((s) => s.batteryMonitor.state);
+  const isSupported = useAppSelector((s) => s.batteryMonitor.isSupported);
+  const spinnerActive = useAppSelector((s) => s.spinner.active);
+
+  const loading = isSupported && (!state || !conf);
+
+  useEffect(() => {
+    // init is done by the daemon,
+    // this is only necessary on page-load while
+    // battery-monitor is the active view
+    if (loading) {
+      dispatch(showSpinner());
+    } else if (spinnerActive) {
+      dispatch(hideSpinner());
+    }
+  }, [loading]);
 
   return (
     <>

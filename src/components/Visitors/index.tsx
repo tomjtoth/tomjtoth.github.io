@@ -1,4 +1,4 @@
-import useVisitors from "../../hooks/visitors";
+import useVisitors from "./logic";
 
 import "./visitors.css";
 

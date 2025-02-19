@@ -2,7 +2,7 @@ import { useAppSelector } from "../../hooks";
 import { DetailsProps, EduDet, ExpDet } from "../../types/cv";
 
 export default function Details({ exp }: DetailsProps) {
-  const { cv } = useAppSelector((s) => s.cv);
+  const cv = useAppSelector((s) => s.cv.cv);
 
   const index = exp ? "experience" : "education";
 

@@ -1,15 +1,23 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
 import useField from "../../hooks/useField";
+import useModal from "../../hooks/modal";
 import { checkPermission } from "./notifications";
-import { CxModal } from "../../hooks/modal";
-import useBatMon from "../../hooks/battery-monitor";
 import { between } from "../../utils";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  setBatMonAllowed,
+  setBatMonLevels,
+} from "../../reducers/battery-monitor";
 
 export default function Controls() {
-  const modal = useContext(CxModal)!;
+  const dispatch = useAppDispatch();
+  const modal = useModal();
 
-  const { isSupported, conf, state, setLevels, setAllowed } = useBatMon();
+  const isSupported = useAppSelector((s) => s.batteryMonitor.isSupported);
+  const state = useAppSelector((s) => s.batteryMonitor.state);
+  const conf = useAppSelector((s) => s.batteryMonitor.conf);
+
   const { upper, lower, allowed } = conf!;
 
   const style = isSupported ? undefined : { cursor: "not-allowed" };
@@ -44,7 +52,7 @@ export default function Controls() {
   });
 
   useEffect(() => {
-    const minNum = min.value as number;
+    const minNum = Number(min.value);
     const maxNum = Number(max.value);
 
     if (
@@ -54,7 +62,10 @@ export default function Controls() {
       between(maxNum, 50, 90) &&
       (minNum != lower || maxNum != upper)
     ) {
-      const id = setTimeout(() => setLevels(minNum, maxNum), 100);
+      const id = setTimeout(
+        () => dispatch(setBatMonLevels(minNum, maxNum)),
+        100
+      );
 
       return () => clearTimeout(id);
     }
@@ -62,17 +73,12 @@ export default function Controls() {
 
   useEffect(() => {
     if (allow.checked !== allowed) {
-      const dispatch = () => {
-        if (allow.checked === true || allow.checked === false)
-          setAllowed(allow.checked);
-      };
-
       if (allow.checked) {
         checkPermission(modal).then((notiAllowed) => {
-          if (notiAllowed) dispatch();
+          if (notiAllowed) dispatch(setBatMonAllowed(allow.checked!));
           else resetAllow();
         });
-      } else dispatch();
+      } else dispatch(setBatMonAllowed(allow.checked!));
     }
   }, [allow.checked]);
 

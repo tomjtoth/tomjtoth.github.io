@@ -3,14 +3,14 @@ import { PropsWithChildren } from "react";
 import "./modal.css";
 
 import Buttons from "./Buttons";
-import useModal, { CxModal } from "../../hooks/modal";
+import useLogic, { CxModal } from "./logic";
 
 export default function Modal({ children }: PropsWithChildren) {
   const {
     builder,
     reset,
     modal: { lang, prompt, buttons },
-  } = useModal();
+  } = useLogic();
 
   return (
     <CxModal.Provider value={builder}>

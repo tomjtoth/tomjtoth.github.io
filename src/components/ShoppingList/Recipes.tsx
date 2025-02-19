@@ -1,14 +1,17 @@
 import { Link } from "react-router";
 
-import useShoppingList from "../../hooks/shopping-list";
 import { Language } from "../../types/modal";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { toggleActiveSL } from "../../reducers/shopping-list";
 
 import Steps from "./Steps";
 
 const id = "slr";
 
 export default function Recipes() {
-  const { recipes, active, toggleActive } = useShoppingList();
+  const dispatch = useAppDispatch();
+  const recipes = useAppSelector((s) => s.shoppingList.recipes);
+  const active = useAppSelector((s) => s.shoppingList.active);
 
   return (
     <ul
@@ -32,7 +35,8 @@ export default function Recipes() {
                 active.includes(recId) ? " active" : ""
               }`}
               onClick={(e) => {
-                if (e.target === e.currentTarget) toggleActive(recId);
+                if (e.target === e.currentTarget)
+                  dispatch(toggleActiveSL(recId));
               }}
             >
               {title}

@@ -1,7 +1,8 @@
 import { useAppSelector } from "../../hooks";
 
 export default function Personal() {
-  const { cv, img } = useAppSelector((s) => s.cv);
+  const cv = useAppSelector((s) => s.cv.cv);
+  const img = useAppSelector((s) => s.cv.img);
 
   let details = null;
 

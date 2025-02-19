@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useAppDispatch, useAppSelector } from "..";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { initVisitors } from "../../reducers/visitors";
 import { hideSpinner, showSpinner } from "../../reducers/spinner";
 
@@ -15,7 +15,7 @@ const pad = (num: number, len = 2) => {
 
 export default function useVisitors() {
   const dispatch = useAppDispatch();
-  const { next } = useAppSelector((s) => s.visitors);
+  const next = useAppSelector((s) => s.visitors.next);
 
   useEffect(() => {
     if (next === undefined) {

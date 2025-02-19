@@ -1,4 +1,4 @@
-import useInitCV from "../../hooks/cv";
+import useLogic from "./logic";
 
 import "./cv.css";
 
@@ -10,7 +10,7 @@ import Details from "./Details";
 import DetailsToggler from "./DetailsToggler";
 
 export default function CV() {
-  useInitCV();
+  useLogic();
 
   return (
     <>

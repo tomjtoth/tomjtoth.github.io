@@ -39,11 +39,11 @@ export function init() {
     });
 }
 
-export function toggleActive(id: string) {
+export function lyricsToggle(id: string) {
   return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
 }
 
-export function resetActive() {
+export function lyricsReset() {
   return (dispatch: AppDispatch) => dispatch(sa.resetActive());
 }
 

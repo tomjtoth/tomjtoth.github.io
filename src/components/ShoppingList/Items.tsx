@@ -1,8 +1,14 @@
-import useShoppingList from "../../hooks/shopping-list";
+import { rmItemSL, toggleActiveSL } from "../../reducers/shopping-list";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import useModal from "../../hooks/modal";
 import { order } from "./config";
 
 export default function Items() {
-  const { recipes, active, items, toggleActive, rmItem } = useShoppingList();
+  const dispatch = useAppDispatch();
+  const modal = useModal();
+  const items = useAppSelector((s) => s.shoppingList.items);
+  const active = useAppSelector((s) => s.shoppingList.active);
+  const recipes = useAppSelector((s) => s.shoppingList.recipes);
 
   const ul_items = items.map(({ id, name }) => ({
     id: `sli-${id}`,
@@ -52,7 +58,8 @@ export default function Items() {
                   isActive ? " active" : ""
                 }`}
                 onClick={(e) => {
-                  if (e.target === e.currentTarget) toggleActive(id);
+                  if (e.target === e.currentTarget)
+                    dispatch(toggleActiveSL(id));
                 }}
               >
                 {name}
@@ -66,7 +73,12 @@ export default function Items() {
                 {!id.toString().startsWith("slr") && (
                   <span
                     className="sli-del clickable"
-                    onClick={() => rmItem(id, name)}
+                    onClick={() =>
+                      modal
+                        .yes(() => dispatch(rmItemSL(id)))
+                        .no()
+                        .prompt(`poistetaanko "${name}" varmasti?`)
+                    }
                   >
                     (🚫 poista)
                   </span>

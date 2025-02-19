@@ -1,9 +1,17 @@
-import useShoppingList from "../../hooks/shopping-list";
-import useField from "../../hooks/useField";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { TextInputProps } from "../../types/hooks";
+import useField from "../../hooks/useField";
+import useModal from "../../hooks/modal";
+import {
+  addItemSL,
+  resetActiveSL,
+  toggleActiveSL,
+} from "../../reducers/shopping-list";
 
 export default function Controls() {
-  const { active, addItem, toggleActive, resetActive } = useShoppingList();
+  const dispatch = useAppDispatch();
+  const modal = useModal();
+  const active = useAppSelector((s) => s.shoppingList.active);
 
   const { reset: resetItem, ...item } = useField("text", {
     placeholder: "lisää tavara tänne",
@@ -22,7 +30,7 @@ export default function Controls() {
         const trimmed = value.trim();
 
         if (trimmed.length > 0) {
-          addItem(trimmed);
+          dispatch(addItemSL(trimmed));
           resetItem();
         }
         e.preventDefault();
@@ -32,7 +40,7 @@ export default function Controls() {
         id="slr-toggler"
         className="clickable"
         title={title}
-        onClick={() => toggleActive("slr")}
+        onClick={() => dispatch(toggleActiveSL("slr"))}
       >
         {emoji}
       </span>
@@ -41,7 +49,12 @@ export default function Controls() {
         id="sli-reset"
         className="clickable"
         title="pyyhi vihreät"
-        onClick={() => resetActive()}
+        onClick={() =>
+          modal
+            .yes(() => dispatch(resetActiveSL()))
+            .no()
+            .prompt("pyyhitäänkö kaikki vihreät?")
+        }
       >
         ♻️
       </span>

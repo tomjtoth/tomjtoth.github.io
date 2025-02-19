@@ -1,10 +1,21 @@
-import { State } from "../../types/arx-fatalis";
+import { useAppSelector } from "../../hooks";
 
-export default function Controls({ arx }: { arx: State }) {
+export default function Controls() {
+  const score = useAppSelector((s) => s.arxFatalis.score);
+  const loaded = useAppSelector((s) => s.arxFatalis.loaded);
+
   return (
     <>
       <span>
-        💎 <sub style={{ fontSize: "x-small" }}>{arx.score}</sub>
+        💎{" "}
+        <sub
+          style={{
+            fontSize: "x-small",
+            visibility: loaded ? undefined : "hidden",
+          }}
+        >
+          {score}
+        </sub>
       </span>
       <input type="text" placeholder="TODO: filter spells from book" disabled />
       <a

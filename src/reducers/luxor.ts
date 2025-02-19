@@ -96,7 +96,7 @@ const slice = createSlice({
       db.saveNums(state);
     },
 
-    rmLastNum: (state) => {
+    popNum: (state) => {
       const len = state.pickedNums.length;
 
       if (len > 0) {
@@ -109,7 +109,7 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function init(imports: FieldImport[]) {
+export function initLuxor(imports: FieldImport[]) {
   return async (dispatch: AppDispatch) => {
     const [pickedNums, fields] = await db.load();
 
@@ -133,47 +133,47 @@ export function init(imports: FieldImport[]) {
   };
 }
 
-export function addNum(num: number) {
+export function luxorAddNum(num: number) {
   return (dispatch: AppDispatch) => dispatch(sa.addNum(num));
 }
 
-export function update(arr: number[]) {
+export function luxorUpdate(arr: number[]) {
   return (dispatch: AppDispatch) => dispatch(sa.update(arr));
 }
 
-export function clearNums() {
+export function luxorClearNums() {
   return (dispatch: AppDispatch) => dispatch(sa.clearNums());
 }
 
-export function addField(id: number) {
+export function luxorAddField(id: number) {
   return (dispatch: AppDispatch) => dispatch(sa.addField(id));
 }
 
-export function rmField(id: number) {
+export function luxorRmField(id: number) {
   return (dispatch: AppDispatch) => dispatch(sa.rmField(id));
 }
 
-export function rmLastNum() {
-  return (dispatch: AppDispatch) => dispatch(sa.rmLastNum());
+export function luxorPopNum() {
+  return (dispatch: AppDispatch) => dispatch(sa.popNum());
 }
 
-export function toggleLocked() {
+export function luxorToggleLocked() {
   return (disp: AppDispatch) => disp(sa.toggleLocked());
 }
 
-export function moveBug(position: number | string, fast: boolean) {
-  return (disp: AppDispatch) =>
-    disp(
+export function luxorBugMove(position: number | string, fast: boolean) {
+  return (dispatch: AppDispatch) =>
+    dispatch(
       sa.setBug({ position, filtered: false, transition: fast ? "1s" : "2s" })
     );
 }
 
-export function hideBug() {
-  return (disp: AppDispatch) => disp(sa.hideBug());
+export function luxorBugHide() {
+  return (dispatch: AppDispatch) => dispatch(sa.hideBug());
 }
 
-export function resetBug() {
-  return (disp: AppDispatch) => disp(sa.setBug(BUG_DEFAULT));
+export function luxorBugReset() {
+  return (dispatch: AppDispatch) => dispatch(sa.setBug(BUG_DEFAULT));
 }
 
 export default slice.reducer;

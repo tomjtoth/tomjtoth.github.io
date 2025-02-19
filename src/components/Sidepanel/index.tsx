@@ -1,14 +1,16 @@
 import { Link } from "react-router";
 
-import useSidepanel from "../../hooks/sidepanel";
 import { ROUTES_CONFIG } from "../AppRoutes/config";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { hideSidepanel } from "../../reducers/sidepanel";
 
 import "./sidepanel.css";
 
 import QRCode from "./QRCode";
 
 export default function Sidepanel() {
-  const { active, hide } = useSidepanel();
+  const dispatch = useAppDispatch();
+  const active = useAppSelector((s) => s.sidepanel);
   const className = `border1-e${active ? " active" : ""}`;
   const url = window.location.toString();
 
@@ -20,10 +22,10 @@ export default function Sidepanel() {
 
         onMouseLeave: (e) => {
           // triggers only when leaving *the* panel, not its children
-          if (e.target === e.currentTarget) hide();
+          if (e.target === e.currentTarget) dispatch(hideSidepanel());
         },
         onClick: (e) => {
-          if (e.target !== e.currentTarget) hide();
+          if (e.target !== e.currentTarget) dispatch(hideSidepanel());
         },
       }}
     >

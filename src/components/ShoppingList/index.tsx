@@ -1,4 +1,8 @@
-import useShoppingList from "../../hooks/shopping-list";
+import { useEffect } from "react";
+
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { initSL } from "../../reducers/shopping-list";
 
 import "./shopping-list.css";
 
@@ -7,11 +11,18 @@ import ViewContent from "../ViewContent";
 import Recipes from "./Recipes";
 import Items from "./Items";
 import Controls from "./Controls";
-import useInit from "../../hooks/shopping-list/init";
 
 export default function ShoppingList() {
-  useInit();
-  const { loaded } = useShoppingList();
+  const dispatch = useAppDispatch();
+  const loaded = useAppSelector((s) => s.shoppingList.recipes.length > 0);
+
+  useEffect(() => {
+    if (!loaded) {
+      dispatch(showSpinner());
+      console.debug("fetching recipes");
+      dispatch(initSL()).then(() => dispatch(hideSpinner()));
+    }
+  }, []);
 
   return (
     <>
