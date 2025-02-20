@@ -25,7 +25,9 @@ export default function Buttons({ buttons, lang }: ModalButtonsProps) {
           } else {
             label =
               TEXTS[text][
-                lang ? (lang in Language ? lang : Language.Fi) : Language.Fi
+                lang && Object.values(Language).includes(lang as Language)
+                  ? lang
+                  : Language.Fi
               ];
 
             if (autoFocusUnset && (text === Text.Ok || text === Text.Yes)) {
