@@ -96,21 +96,23 @@ export function nameOf(fn: CallableFunction) {
 
 export function setCookie(
   name: string,
-  value: string,
+  value: string | number,
   maxAgeInDays: number = 7
 ) {
-  const encName = encodeURIComponent(name);
-  const encValue = encodeURIComponent(value);
+  const key = encodeURIComponent(name);
+  const val = encodeURIComponent(value);
   const age = 60 * 60 * 24 * maxAgeInDays;
-  document.cookie = `${encName}=${encValue};max-age=${age};path=/`;
+  document.cookie = `${key}=${val};max-age=${age};path=/`;
 }
 
-export function getCookie(name: string): string | null {
-  const encNameEQ = encodeURIComponent(name) + "=";
+const COOKIES_AMPERSAND = /; */;
 
-  for (const cookie of document.cookie.split(/; */)) {
-    if (cookie.startsWith(encNameEQ)) {
-      return decodeURIComponent(cookie.substring(encNameEQ.length));
+export function getCookie(name: string): string | null {
+  const keyEQ = encodeURIComponent(name) + "=";
+
+  for (const cookie of document.cookie.split(COOKIES_AMPERSAND)) {
+    if (cookie.startsWith(keyEQ)) {
+      return decodeURIComponent(cookie.substring(keyEQ.length));
     }
   }
 
