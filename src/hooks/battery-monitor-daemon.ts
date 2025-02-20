@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { notify, notiText } from "../components/BatteryMonitor/notifications";
 import useBatteryManager from "./battery-manager";
 import { initBatMon } from "../reducers/battery-monitor";
 import { useAppDispatch, useAppSelector } from ".";
+
+const INTERVAL = 60_000;
 
 export default function useBatMonDaemon() {
   const dispatch = useAppDispatch();
@@ -13,23 +15,29 @@ export default function useBatMonDaemon() {
   const batState = useAppSelector((s) => s.batteryMonitor.state);
   const conf = useAppSelector((s) => s.batteryMonitor.conf);
 
-  const batStateLoaded = batState != undefined;
+  const [checkpoint, setCheckpoint] = useState<number>(0);
+
+  function tillNext() {
+    const now = Date.now();
+    const delay = checkpoint <= now ? INTERVAL : checkpoint - now;
+    return delay;
+  }
 
   useEffect(() => {
-    if (isSupported && conf && conf.allowed && batStateLoaded) {
-      const { lower, upper } = conf;
-      const { charging, level } = batState;
-
-      const id = setInterval(() => {
+    if (isSupported && conf && conf.allowed && batState) {
+      const id = setTimeout(() => {
+        const { lower, upper } = conf;
+        const { charging, level } = batState;
         if ((charging && level >= upper) || (!charging && level <= lower)) {
           notify(notiText(charging, level));
         }
-        console.debug("batMonConf:", conf, "batState:", batState);
-      }, 60_000);
+        console.debug("conf", conf, "batState", batState);
+        setCheckpoint(Date.now() + INTERVAL);
+      }, tillNext());
 
-      return () => clearInterval(id);
+      return () => clearTimeout(id);
     } else if (!conf) {
       dispatch(initBatMon());
     }
-  }, [conf, batStateLoaded]);
+  }, [conf, batState, checkpoint]);
 }
