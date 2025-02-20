@@ -1,7 +1,10 @@
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useField,
+  useModal,
+} from "../../hooks";
 import { NumberInputProps } from "../../types/hooks";
-import useField from "../../hooks/useField";
-import useModal from "../../hooks/modal";
 import {
   luxorAddNum,
   luxorClearNums,

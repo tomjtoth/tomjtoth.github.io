@@ -3,10 +3,9 @@ import { useLocation, useNavigate } from "react-router";
 import { createSelector } from "@reduxjs/toolkit";
 
 import { hideSpinner, showSpinner } from "../../reducers/spinner";
-import { useAppSelector, useAppDispatch } from "../../hooks";
+import { useAppSelector, useAppDispatch, useModal } from "../../hooks";
 import { processImports } from "../../services/luxor";
 import { initLuxor } from "../../reducers/luxor";
-import useModal from "../../hooks/modal";
 
 const selLoaded = createSelector(
   (s) => s.luxor.pickedNums,

@@ -1,6 +1,5 @@
 import { rmItemSL, toggleActiveSL } from "../../reducers/shopping-list";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import useModal from "../../hooks/modal";
+import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 import { order } from "./config";
 
 export default function Items() {

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from ".";
 import { BatState, BatteryManager as BatMan } from "../types/battery-monitor";
 import { setBatMonState } from "../reducers/battery-monitor";
 
-export default function useBatteryManager(navi: any) {
+export function useBatteryManager(navi: any) {
   const dispatch = useAppDispatch();
   const isSupported = useAppSelector((s) => s.batteryMonitor.isSupported);
 

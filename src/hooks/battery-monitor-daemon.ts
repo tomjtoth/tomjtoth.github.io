@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 
-import { notify, notiText } from "../components/BatteryMonitor/notifications";
-import useBatteryManager from "./battery-manager";
+import { notiText } from "../components/BatteryMonitor";
 import { initBatMon } from "../reducers/battery-monitor";
-import { useAppDispatch, useAppSelector } from ".";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useNotify,
+  useBatteryManager,
+} from ".";
 
 const INTERVAL = 60_000;
 
-export default function useBatMonDaemon() {
+export function useBatMonDaemon() {
+  const notify = useNotify();
   const dispatch = useAppDispatch();
   useBatteryManager(navigator);
 
@@ -29,7 +34,7 @@ export default function useBatMonDaemon() {
         const { lower, upper } = conf;
         const { charging, level } = batState;
         if ((charging && level >= upper) || (!charging && level <= lower)) {
-          notify(notiText(charging, level));
+          notify("Akunvalvonta", notiText(charging, level));
         }
         console.debug("conf", conf, "batState", batState);
         setCheckpoint(Date.now() + INTERVAL);

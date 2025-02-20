@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 
-import useField from "../../hooks/useField";
-import useModal from "../../hooks/modal";
-import { checkPermission } from "./notifications";
 import { between } from "../../utils";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useField,
+  useNotify,
+} from "../../hooks";
 import {
   setBatMonAllowed,
   setBatMonLevels,
@@ -12,7 +14,7 @@ import {
 
 export default function Controls() {
   const dispatch = useAppDispatch();
-  const modal = useModal();
+  const notify = useNotify();
 
   const isSupported = useAppSelector((s) => s.batteryMonitor.isSupported);
   const state = useAppSelector((s) => s.batteryMonitor.state);
@@ -72,13 +74,11 @@ export default function Controls() {
   }, [min.value, max.value]);
 
   useEffect(() => {
+    const proceed = () => dispatch(setBatMonAllowed(allow.checked!));
     if (allow.checked !== allowed) {
       if (allow.checked) {
-        checkPermission(modal).then((notiAllowed) => {
-          if (notiAllowed) dispatch(setBatMonAllowed(allow.checked!));
-          else resetAllow();
-        });
-      } else dispatch(setBatMonAllowed(allow.checked!));
+        notify("Akunvalvonta", "näyteilmoitus").then(proceed).catch(resetAllow);
+      } else proceed();
     }
   }, [allow.checked]);
 

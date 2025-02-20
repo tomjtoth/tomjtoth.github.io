@@ -1,6 +1,5 @@
 import { luxorAddField, luxorRmField } from "../../reducers/luxor";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import useModal from "../../hooks/modal";
+import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
