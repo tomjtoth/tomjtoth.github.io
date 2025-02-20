@@ -47,7 +47,10 @@ export default function Controls() {
           if (reminded < 2) {
             modal
               .en()
-              .ok(downloadRef.current?.click)
+              .ok(() => {
+                downloadRef.current?.click();
+                setCookie(cookie, reminded + 1);
+              })
               .cancel()
               .prompt(
                 <p>
@@ -61,8 +64,8 @@ export default function Controls() {
           } else {
             // do not prompt more than 2x within 7 days
             downloadRef.current?.click();
+            setCookie(cookie, reminded + 1);
           }
-          setCookie(cookie, reminded + 1);
         }}
       >
         download this template
@@ -77,7 +80,10 @@ export default function Controls() {
           if (reminded < 2) {
             modal
               .en()
-              .ok(uploadRef.current?.click)
+              .ok(() => {
+                uploadRef.current?.click();
+                setCookie(cookie, reminded + 1);
+              })
               .cancel()
               .prompt(
                 <p>
@@ -89,8 +95,8 @@ export default function Controls() {
           } else {
             // do not prompt more than 2x within 7 days
             uploadRef.current?.click();
+            setCookie(cookie, reminded + 1);
           }
-          setCookie(cookie, reminded + 1);
         }}
       >
         <b>upload your CV</b>
@@ -105,7 +111,10 @@ export default function Controls() {
           if (reminded < 2) {
             modal
               .en()
-              .ok(print)
+              .ok(() => {
+                print();
+                setCookie(cookie, reminded + 1);
+              })
               .cancel()
               .prompt(
                 <p>
@@ -116,8 +125,8 @@ export default function Controls() {
           } else {
             // do not prompt more than 2x within 7 days
             print();
+            setCookie(cookie, reminded + 1);
           }
-          setCookie(cookie, reminded + 1);
         }}
       >
         🖨️
