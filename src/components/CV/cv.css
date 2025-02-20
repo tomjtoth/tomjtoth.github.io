@@ -61,7 +61,8 @@ ul.cv-detail-highlights > li::marker {
   content: "✓  ";
 }
 
-#cv-file-upload {
+#cv-upload,
+#cv-download {
   display: none;
 }
 
