@@ -5,6 +5,12 @@ export function useNotify() {
 
   return (title: string, body: string) =>
     new Promise<void>((resolve, reject) => {
+      function notify() {
+        console.debug("new notification", title, body);
+        new Notification(title, { body, icon: "/icon.png" });
+        resolve();
+      }
+
       if (!window.Notification) {
         modal.ok().prompt("tää selain ei tue ilmoituksia");
         reject();
@@ -13,14 +19,13 @@ export function useNotify() {
           Notification.requestPermission().then((res) => {
             if (res !== "granted") {
               modal.ok().prompt("ilmotiukset on estettyjä");
-              reject();
+              return reject();
             }
+            notify();
           });
+        } else {
+          notify();
         }
-
-        console.debug("new notification", title, body);
-        new Notification(title, { body, icon: "/icon.png" });
-        resolve();
       }
     });
 }
