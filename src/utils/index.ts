@@ -93,3 +93,26 @@ export function nameOf(fn: CallableFunction) {
   const name = fn.name;
   return `function ${name === "" ? "anonymous" : name}`;
 }
+
+export function setCookie(
+  name: string,
+  value: string,
+  maxAgeInDays: number = 7
+) {
+  const encName = encodeURIComponent(name);
+  const encValue = encodeURIComponent(value);
+  const age = 60 * 60 * 24 * maxAgeInDays;
+  document.cookie = `${encName}=${encValue};max-age=${age};path=/`;
+}
+
+export function getCookie(name: string): string | null {
+  const encNameEQ = encodeURIComponent(name) + "=";
+
+  for (const cookie of document.cookie.split(/; */)) {
+    if (cookie.startsWith(encNameEQ)) {
+      return decodeURIComponent(cookie.substring(encNameEQ.length));
+    }
+  }
+
+  return null;
+}
