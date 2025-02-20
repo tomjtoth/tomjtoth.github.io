@@ -17,7 +17,7 @@ export default function Modal({ children }: PropsWithChildren) {
       {prompt && (
         <div
           {...{
-            className: "modal-blur",
+            className: "modal-blur no-print",
             onClick: reset,
           }}
         >

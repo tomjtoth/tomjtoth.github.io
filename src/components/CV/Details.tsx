@@ -11,8 +11,8 @@ export default function Details({ exp }: DetailsProps) {
   if (cv) {
     res = (
       <>
-        <h3>
-          <b>{index.toUpperCase()}</b>
+        <h3 className="cv">
+          <b>{index}</b>
         </h3>
 
         <ul className="cv-details">
@@ -76,7 +76,9 @@ export default function Details({ exp }: DetailsProps) {
                   <b className="cv-tip" title={`${prefix}.degree`}>
                     {det.degree}
                   </b>{" "}
-                  | {duration} at{" "}
+                  | {duration}
+                  <br />
+                  at{" "}
                   <i className="cv-tip" title={`${prefix}.institution`}>
                     {det.institution}
                   </i>{" "}

@@ -28,6 +28,12 @@
   display: none;
 }
 
+#cv-controls {
+  margin: 16px;
+  padding: 0 16px;
+  max-height: fit-content;
+}
+
 ul.cv-languages,
 ul.cv-personal-data {
   list-style: none;
@@ -48,6 +54,7 @@ ul.cv-personal-data > li::before {
   left: 0;
 }
 
+ul.cv-hobbies,
 ul.cv-details,
 ul.cv-detail-highlights {
   padding-left: 20px;
@@ -66,6 +73,15 @@ ul.cv-detail-highlights > li::marker {
   display: none;
 }
 
+@page {
+  @bottom-center {
+    content: "This CV was printed via ttj.hu/cv";
+    font-size: 12px;
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
 @media print {
   .no-print {
     display: none !important;
@@ -73,7 +89,8 @@ ul.cv-detail-highlights > li::marker {
 
   #cv {
     margin: 0px !important;
-    /* transform: scale(0.85); */
+    width: calc(210mm - 2 * 2cm);
+    /* transform: scale(0.94); */
   }
 
   #view-content.cv {
@@ -109,4 +126,12 @@ span.cv-lastname {
 
 .cv-tip:hover {
   background-color: var(--col-bg-alt-b);
+}
+
+p.cv-intro {
+  text-align: justify;
+}
+
+h3.cv {
+  text-transform: uppercase;
 }
