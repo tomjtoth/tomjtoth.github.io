@@ -1,4 +1,4 @@
-import { RuneEnum as RE, Rune } from "./runes";
+import { RuneEnum as RE, Rune } from ".";
 
 export enum SpellEnum {
   megaCheat,

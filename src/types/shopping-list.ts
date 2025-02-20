@@ -1,4 +1,4 @@
-import { Active } from "./common";
+import { Active } from ".";
 import { Language } from "./modal";
 
 type Step = string;

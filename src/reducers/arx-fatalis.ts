@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { AppDispatch } from "../store";
 import db from "../services/arx-fatalis";
-import { SpellEnum, Spell } from "../types/arx-fatalis/spells";
-
-export type State = {
-  loaded: boolean;
-  score: number;
-  castSpells: number[];
-};
+import { SpellEnum, Spell, State } from "../types/arx-fatalis";
 
 const slice = createSlice({
   name: "arx-fatalis",

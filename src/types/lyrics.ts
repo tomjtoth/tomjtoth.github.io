@@ -1,4 +1,4 @@
-import { Active } from "./common";
+import { Active } from ".";
 
 export type Song = {
   title: string;

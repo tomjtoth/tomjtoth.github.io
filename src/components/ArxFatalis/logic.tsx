@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 
 import { hideSpinner, showSpinner } from "../../reducers/spinner";
 import { castSpell, initArx } from "../../reducers/arx-fatalis";
-import { Rune } from "../../types/arx-fatalis/runes";
-import { Spell } from "../../types/arx-fatalis/spells";
+import { Rune, Spell } from "../../types/arx-fatalis";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 
 import Img from "./Img";

@@ -1,8 +1,9 @@
 import { current, isDraft } from "@reduxjs/toolkit";
+import { ReactNode } from "react";
+
 import { db } from "../db";
 import { LuxorFields, LuxorNumbers } from "../types/db";
 import { EMPTY_FIELD, FieldImport } from "../types/luxor";
-import { ReactNode } from "react";
 
 const id = "luxor";
 
