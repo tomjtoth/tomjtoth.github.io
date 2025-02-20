@@ -1,12 +1,8 @@
-import { State as ArxFatalisState } from "../reducers/arx-fatalis";
+import { State as ArxFatalisState } from "./arx-fatalis";
 import { BatMonConf as BatMonConf } from "./battery-monitor";
 import { State as LuxorState } from "./luxor";
 import { State as LyricsState } from "./lyrics";
 import { State as ShoppingListState } from "./shopping-list";
-
-// type NumId = {
-//   id: number;
-// };
 
 type StrId = {
   id: string;
