@@ -25,10 +25,7 @@ export default function CV() {
             <Details exp={false} />
           </div>
         </div>
-        <div
-          style={{ margin: 16, padding: "0 16px" }}
-          className="bordered no-print"
-        >
+        <div id="cv-controls" className="bordered no-print">
           <h2>CONTROLS</h2>
           <p>
             Toggle inclusion of each detail in the printed document via the
