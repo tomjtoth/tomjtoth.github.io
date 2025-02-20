@@ -1,113 +1,65 @@
 /// <reference lib="webworker" />
 const sw = self as unknown as ServiceWorkerGlobalScope & typeof globalThis;
 
-const CACHE_NAME: string = "rolling-net-first";
-const URLS_TO_CACHE: string[] = [
+const CACHE_NAME = "rolling";
+const URLS_TO_CACHE = [
   "/",
   // this is a placeholder for the sed command in `deploy.yml`
   // gets populated based on `dist/*` minus a few exceptions
   "__REPLACED_DURING_DEPLOYMENT__",
-];
-
-// TODO: maybe "/" is enough
-const FETCH_ALWAYS: string[] = ["/"].map((url: string) =>
-  new URL(url, self.location.origin).toString()
-);
-
-function rmOldVersions(cache: Cache, matched: RegExpMatchArray | null): void {
-  if (matched) {
-    const [url, resource, hashExt, extension] = matched;
-
-    cache.keys().then((keys: readonly Request[]) => {
-      keys.forEach((req: Request) => {
-        if (
-          req.url.startsWith(resource) &&
-          // allowing for both `index.css` and `index.js`
-          req.url.endsWith(extension) &&
-          // cheapest? way to compare the hash parts
-          !req.url.endsWith(hashExt)
-        ) {
-          console.log(`deleted "${req.url}" in favor of "${url}"`);
-          cache.delete(req);
-        }
-      });
-    });
-  }
-}
-
-const CACHE_BUSTERS = RegExp(
-  String.raw`(.*\/(?:${[
-    // the app and its dependencies
-    "app|luxon|js-yaml",
-
-    // resources
-    "lyrics|recipes|cv|visitors",
-  ].join("|")}))-(.+\.(css|js|yaml))$`
-);
+].map((url) => new URL(url, self.location.origin).toString());
 
 // Install event: Cache resources
-sw.addEventListener("install", (event: ExtendableEvent) => {
+sw.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache: Cache) => {
+    caches.open(CACHE_NAME).then((cache) => {
       console.info("Opened cache");
       return cache
         .addAll(URLS_TO_CACHE)
-        .catch((err: Error) =>
-          console.error("Caching failed during install:", err)
-        );
+        .catch((err) => console.error("Caching failed during install:", err));
     })
   );
 });
 
-sw.addEventListener("fetch", (event: FetchEvent) => {
+sw.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.open(CACHE_NAME).then(async (cache: Cache) => {
-      const cachedRes: Response | undefined = await cache.match(event.request);
-
-      const url: string = event.request.url;
-      const matchedBuster: RegExpMatchArray | null = url.match(CACHE_BUSTERS);
-
-      if (cachedRes && !matchedBuster && !FETCH_ALWAYS.includes(url)) {
-        console.info(`responding to "${url}" w/o fetching from network`);
-        return cachedRes;
-      }
-
-      rmOldVersions(cache, matchedBuster);
-
-      return fetch(event.request)
-        .then((res: Response) => {
-          if (res && res.ok) {
-            if (matchedBuster || URLS_TO_CACHE.includes(url)) {
-              // Update the cache with the new version
-              cache.put(event.request, res.clone());
-              console.log(`updated response to "${url}"`);
-            }
-          }
-          return res;
-        })
-        .catch(
-          // Fallback to cache if network fails
-          () =>
-            cachedRes ||
-            // return something explicitly for TypeScript
-            new Response("Network error", { status: 408 })
-        );
-    })
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.match(event.request).then((response) => {
+        if (response) {
+          console.info(
+            `responding to "${event.request.url}" w/o fetching from network`
+          );
+        }
+        return response ?? fetch(event.request);
+      })
+    )
   );
 });
 
 // Activate event: Clean up old caches
-sw.addEventListener("activate", (event: ExtendableEvent) => {
-  const cacheWhitelist: string[] = [CACHE_NAME];
+sw.addEventListener("activate", (event) => {
+  const cacheWhitelist = [CACHE_NAME];
+
   event.waitUntil(
-    caches.keys().then((cacheNames: string[]) => {
-      return Promise.all(
-        cacheNames.map((cacheName: string) => {
+    caches.keys().then((cacheNames) =>
+      Promise.all(
+        cacheNames.map((cacheName) => {
           if (!cacheWhitelist.includes(cacheName)) {
             return caches.delete(cacheName);
+          } else {
+            return caches.open(cacheName).then((cache) =>
+              cache.keys().then((requests) =>
+                requests.map((req) => {
+                  if (!URLS_TO_CACHE.includes(req.url)) {
+                    console.info(`deleting ${req.url} from cache`);
+                    return cache.delete(req);
+                  }
+                })
+              )
+            );
           }
         })
-      );
-    })
+      )
+    )
   );
 });
