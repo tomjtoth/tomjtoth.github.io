@@ -4,8 +4,7 @@ import { hideSpinner, showSpinner } from "../../reducers/spinner";
 import { castSpell, initArx } from "../../reducers/arx-fatalis";
 import { Rune } from "../../types/arx-fatalis/runes";
 import { Spell } from "../../types/arx-fatalis/spells";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import useModal from "../../hooks/modal";
+import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 
 import Img from "./Img";
 

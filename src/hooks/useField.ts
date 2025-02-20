@@ -7,7 +7,7 @@ import {
   TextInputProps,
 } from "../types/hooks";
 
-export default function useField(
+export function useField(
   type: FieldType,
   { initially = "", ...rest }: Props = {}
 ) {

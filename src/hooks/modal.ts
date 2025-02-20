@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { CxModal } from "../components/Modal/logic";
 
-export default function useModal() {
+export function useModal() {
   return useContext(CxModal)!;
 }

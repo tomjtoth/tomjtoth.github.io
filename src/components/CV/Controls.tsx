@@ -1,7 +1,6 @@
 import { useRef } from "react";
 
-import { useAppSelector } from "../../hooks";
-import useModal from "../../hooks/modal";
+import { useAppSelector, useModal } from "../../hooks";
 import { useFilesToCV } from "./logic";
 import { getCookie, setCookie } from "../../utils";
 

@@ -1,14 +1,13 @@
 import { useRef } from "react";
 
 import { last } from "../../utils";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 import {
   luxorBugHide,
   luxorBugMove,
   luxorBugReset,
   luxorPopNum,
 } from "../../reducers/luxor";
-import useModal from "../../hooks/modal";
 
 export default function PickedNumsLine() {
   const pickedNums = useAppSelector((s) => s.luxor.pickedNums);
