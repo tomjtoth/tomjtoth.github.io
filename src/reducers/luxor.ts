@@ -1,6 +1,6 @@
 import { createSlice, current, isDraft, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
-import { EMPTY_FIELD, FieldImport, type State } from "../types/luxor";
+import { emptyField, FieldImport, type State } from "../types/luxor";
 import db from "../services/luxor";
 import { maxId } from "../utils";
 
@@ -61,7 +61,7 @@ const slice = createSlice({
       const newField = {
         id,
         order: order + 1,
-        rows: EMPTY_FIELD,
+        rows: emptyField(),
       };
 
       console.debug(
@@ -127,7 +127,7 @@ export function initLuxor(imports: FieldImport[]) {
     }
 
     if (fields.length === 0)
-      fields.push({ id: 1, order: 1, rows: EMPTY_FIELD });
+      fields.push({ id: 1, order: 1, rows: emptyField() });
 
     dispatch(sa.init({ pickedNums, fields }));
   };

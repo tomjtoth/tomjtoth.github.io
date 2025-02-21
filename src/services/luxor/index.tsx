@@ -1,9 +1,9 @@
 import { current, isDraft } from "@reduxjs/toolkit";
 import { ReactNode } from "react";
 
-import { db } from "../db";
-import { LuxorFields, LuxorNumbers } from "../types/db";
-import { EMPTY_FIELD, FieldImport } from "../types/luxor";
+import { db } from "../../db";
+import { LuxorFields, LuxorNumbers } from "../../types/db";
+import { emptyField, FieldImport } from "../../types/luxor";
 
 const id = "luxor";
 
@@ -45,8 +45,8 @@ export default {
 
 export function processImports(
   preset: string | null
-): [FieldImport[], ReactNode | null, boolean] {
-  let prompt = null;
+): [FieldImport[], ReactNode[], boolean] {
+  const prompt = [];
   const res = [];
   let critical = false;
   const invalids = [] as [number, string][];
@@ -64,7 +64,7 @@ export function processImports(
 
         if (fieldRem === 0) {
           fields.push({
-            rows: EMPTY_FIELD,
+            rows: emptyField(),
             importedAt,
           });
         }
@@ -82,36 +82,41 @@ export function processImports(
 
     console.debug("invalid numbers:", invalids);
 
-    prompt = invalids.length > 0 && (
-      <>
-        {(critical = true)}
-        {invalids.length === 1 ? (
-          <p>
-            A {invalids[0][0]}. szám nem jó:{" "}
-            <span style={{ userSelect: "text" }}>"{invalids[0][1]}"</span>.
-          </p>
-        ) : (
-          <>
-            <p>Az alábbiak nem 0 és 75 közötti számok:</p>
-            <ol>
-              {invalids.map(([idx, num]) => {
-                return (
-                  <li key={idx} value={idx}>
-                    "{num}"
-                  </li>
-                );
-              })}
-            </ol>
-          </>
-        )}
-        {arr.length % 25 !== 0 && (
-          <p>
-            25-ösével kell megadni a számokat! A maradékot kipótolom bogarakkal.
-            " "Majd megszerkeszted a lakatra kattintva..
-          </p>
-        )}
-      </>
-    );
+    if (invalids.length > 0) {
+      prompt.push(
+        <>
+          {(critical = true)}
+          {invalids.length === 1 ? (
+            <p>
+              A {invalids[0][0]}. szám nem jó:{" "}
+              <span style={{ userSelect: "text" }}>"{invalids[0][1]}"</span>.
+            </p>
+          ) : (
+            <>
+              <p>Az alábbiak nem 0 és 75 közötti számok:</p>
+              <ol>
+                {invalids.map(([idx, num]) => {
+                  return (
+                    <li key={idx} value={idx}>
+                      "{num}"
+                    </li>
+                  );
+                })}
+              </ol>
+            </>
+          )}
+        </>
+      );
+    }
+
+    if (arr.length % 25 !== 0) {
+      prompt.push(
+        <p>
+          25-ösével kell megadni a számokat! A maradékot kipótolom bogarakkal.
+          Majd megszerkeszted a lakatra kattintva..
+        </p>
+      );
+    }
   }
 
   return [res, prompt, critical];
