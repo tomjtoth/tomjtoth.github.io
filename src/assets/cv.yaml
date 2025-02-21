@@ -14,10 +14,10 @@ personal:
 
   # optional
   website: https://discworld.fandom.com/wiki/Rincewind
+
   location: Ankh-Morpork, DW
   born: Apr 1, 1950
   sex: male
-
   citizenship:
     ::GB: Ankh-Morporkian
 
@@ -36,16 +36,15 @@ personal:
     ::CN: B1 in Agatean
     ::BE: A2 in many more
 
-  skills:
-    - Expert-level proficiency in escaping dangerous situations.
-    - Ability to survive in hostile environments, including deserts, jungles, and magical realms.
-    - Learning new languages instantly
-    - Skilled at thinking on his feet (usually while running).
-
   hobbies:
     - Avoiding danger.
     - Complaining about my lot in life.
     - Occasionally saving the world (by accident).
+
+skills:
+  # - Expert-level proficiency in escaping dangerous situations.
+  - Ability to survive in hostile environments, including deserts, jungles, and magical realms.
+  - Skilled at thinking on his feet (usually while running).
 
 experience:
   - title: Professional Survivor
@@ -65,7 +64,6 @@ experience:
     highlights:
       - Sent to the Counterweight Continent (Agatean Empire) to negotiate trade agreements.
       - Accidentally became a folk hero after defeating a dragon (with minimal effort on his part).
-      - Survived a coup attempt and returned home with minimal diplomatic fallout.
 
   - title: Professor of Cruel and Unusual Geography
     employer: Unseen University
@@ -75,7 +73,6 @@ experience:
     highlights:
       - Appointed by the Patrician, Lord Vetinari, as part of a bureaucratic reshuffle.
       - Lectured on the dangers of far-off lands, such as the Counterweight Continent and Fourecks.
-      - Resigned after being sent on a mission to Fourecks (Australia-equivalent) and nearly dying multiple times.
 
   - title: Freeloader
     employer: Self-Employed
@@ -117,9 +114,9 @@ experience:
     location: Ankh-Morpork ::DE
     from: Feb
     to: Dec 1971
+    relevant: false
     highlights:
       - Assisted the Librarian (an orangutan) in organizing magical tomes
-      - Managed banana provisions
       - Fired after accidentally releasing a swarm of magical books into the wild
 
 education:
@@ -129,8 +126,6 @@ education:
     from: Sep 1965
     to: May 1970
     highlights:
-      - Eating big dinners
-      - Possessed by The Octavo
       - Expelled for failing to complete basic magical studies
       - Specialized in Running Away (unofficial major)
 

@@ -33,7 +33,12 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function setCV({ personal: p, education: edu, experience: exp }: any) {
+export function setCV({
+  personal: p,
+  education: edu,
+  experience: exp,
+  skills,
+}: any) {
   return (dispatch: AppDispatch) => {
     const citizenship = Object.entries(p.citizenship).map(
       ([flag, nationality]) => ({ flag, nationality })
@@ -51,6 +56,7 @@ export function setCV({ personal: p, education: edu, experience: exp }: any) {
           citizenship,
           languages,
         },
+        skills,
         education: edu.map((e: EduDet) => ({
           ...e,
           relevant: e.relevant ?? true,

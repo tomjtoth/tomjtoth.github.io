@@ -1,4 +1,6 @@
-type PersonalData = {
+export { isCV } from "./isCV";
+
+export type PersonalData = {
   firstname: string;
   lastname: string;
   location: string;
@@ -34,13 +36,13 @@ export type ExpDet = Omit<EduDet, "degree" | "institution"> & {
   title: string;
   employer: string;
   hours?: string;
-  summary?: string;
 };
 
 export type TCV = {
   personal: PersonalData;
   experience: ExpDet[];
   education: EduDet[];
+  skills: string[];
 };
 
 export type ReducerState = {

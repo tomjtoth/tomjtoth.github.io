@@ -66,7 +66,6 @@ export default function Details({ exp }: DetailsProps) {
                     {det.employer}
                   </i>{" "}
                   {loc}
-                  {det.summary && <p>{det.summary}</p>}
                 </>
               );
             } else {

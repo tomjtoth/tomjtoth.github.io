@@ -8,6 +8,7 @@ import ViewContent from "../ViewContent";
 import Personal from "./Personal";
 import Details from "./Details";
 import DetailsToggler from "./DetailsToggler";
+import Skills from "./Skills";
 
 export default function CV() {
   useLogic();
@@ -18,19 +19,23 @@ export default function CV() {
         <Controls />
       </ViewHeader>
       <ViewContent className="cv">
-        <div id="cv" className="bordered">
-          <Personal />
-          <div className="cv-edu-work-container">
-            <Details exp={true} />
-            <Details exp={false} />
+        <div id="cv-page">
+          <div id="cv" className="bordered">
+            <Personal />
+            <div className="cv-edu-work-container">
+              <Details exp={true} />
+              <Skills />
+              <Details exp={false} />
+            </div>
           </div>
         </div>
+
         <div id="cv-controls" className="bordered no-print">
           <h2>CONTROLS</h2>
           <p>
             Toggle inclusion of each detail in the printed document via the
             below checkboxes. You will see horizontal lines every 297mm, try to
-            fit into 1 page.
+            fit into 1 page. There's a hard-coded 10mm margin currently.
           </p>
           <DetailsToggler exp={true} />
           <DetailsToggler exp={false} />

@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setCV, setImg, setURL } from "../../reducers/cv";
 import { hideSpinner, showSpinner } from "../../reducers/spinner";
-import { TCV } from "../../types/cv";
+import { isCV } from "../../types/cv/isCV";
 import { ccToFlags } from "../../utils";
 import { CxFiles } from "../ViewRoot";
 
@@ -27,12 +27,8 @@ export function useFilesToCV() {
 
             const replaced = ccToFlags(asStr);
 
-            const res = (await YAML.load(replaced)) as TCV;
-            if (
-              "personal" in res &&
-              "experience" in res &&
-              "education" in res
-            ) {
+            const res = await YAML.load(replaced);
+            if (isCV(res)) {
               cvFound = true;
 
               dispatch(setCV(res));

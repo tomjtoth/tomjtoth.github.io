@@ -3,17 +3,10 @@
   flex-wrap: wrap;
 }
 
-#cv {
+#cv-page {
+  width: 210mm;
+  border: 1px solid var(--col-fg-0);
   margin: 16px;
-  --width: calc(210mm - 2 * 16px);
-  width: var(--width);
-  min-width: var(--width);
-  overflow: hidden;
-
-  display: flex;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 12pt;
-  line-height: 1.2;
   background: repeating-linear-gradient(
     to bottom,
     transparent,
@@ -21,6 +14,15 @@
     var(--col-fg-0) calc(297mm - 1px),
     var(--col-fg-0) 297mm
   );
+}
+
+#cv {
+  margin: 10mm;
+
+  display: flex;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 12pt;
+  line-height: 1.2;
 }
 
 #cv .hidden {
@@ -31,6 +33,41 @@
   margin: 16px;
   padding: 0 16px;
   max-height: fit-content;
+  max-width: calc(210mm - 2 * 16px);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  #cv-page {
+    height: 297mm;
+    margin: 0px;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  #view-content.cv {
+    overflow: hidden !important;
+  }
+}
+
+#cv-personal-container {
+  display: "flex";
+  flex-direction: "column";
+  padding: 0px 16px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div.cv-edu-work-container {
+  padding: 0 16px;
 }
 
 ul.cv-languages,
@@ -53,6 +90,7 @@ ul.cv-personal-data > li::before {
   left: 0;
 }
 
+#cv-skills,
 ul.cv-hobbies,
 ul.cv-details,
 ul.cv-detail-highlights {
@@ -63,6 +101,7 @@ ul.cv-details > li {
   margin-top: 12px;
 }
 
+#cv-skills > li::marker,
 ul.cv-detail-highlights > li::marker {
   content: "✓  ";
 }
@@ -72,38 +111,7 @@ ul.cv-detail-highlights > li::marker {
   display: none;
 }
 
-@media print {
-  .no-print {
-    display: none !important;
-  }
-
-  #cv {
-    margin: 0px !important;
-    width: calc(210mm - 2 * 2cm);
-    height: calc(297mm - 2 * 16px);
-  }
-
-  #view-content.cv {
-    overflow: hidden !important;
-  }
-}
-
-div.cv-personal-container {
-  display: "flex";
-  flex-direction: "column";
-  padding: 0px 16px;
-  /* max-width: 40%; */
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-div.cv-edu-work-container {
-  padding: 0 16px;
-}
-
-div.cv-pic-container {
+#cv-img-container {
   border-radius: 50%;
   width: 200px;
   height: 200px;
@@ -113,7 +121,7 @@ div.cv-pic-container {
   margin: 16px 0px;
 }
 
-div.cv-pic-container > img {
+#cv-img-container > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
