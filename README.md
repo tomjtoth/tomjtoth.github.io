@@ -2,35 +2,35 @@
 
 # About
 
-These tools can be used from a browser without the need to log in.
+These tools are accessible from a browser without requiring a login.
 
 ## TODO
 
-- **TESTS!** As one can guess based on the shameful number in the above badge. Roadmap:
-  - [ ] get 30% by Jun 1, 2025
-  - [ ] get 60% by Jan 1, 2026
-  - [ ] get 90% by Jun 1, 2026
+- **TESTS!** As indicated by the current coverage percentage shown in the badge above. Roadmap:
+  - [ ] Achieve 30% coverage by Jun 1, 2025
+  - [ ] Achieve 60% coverage by Jan 1, 2026
+  - [ ] Achieve 90% coverage by Jun 1, 2026
 
-## Custom solutions
+## Custom Solutions
 
-### Dynamic imports (assets, libraries)
+### Dynamic Imports (Assets, Libraries)
 
-Managed to keep the size of the base `app-[hash].js` at around 400kB.
+The base `app-[hash].js` file size has been maintained at approximately 400kB.
 
-### Persistent storage
+### Persistent Storage
 
-All reducers have been migrated to Dexie.js (Indexed DB) from localStorage.
+All reducers have been migrated from localStorage to Dexie.js (IndexedDB).
 
 ### Cache
 
-The [service-worker](./src/sw.ts) intercepts requests and serves them from cache directly if the resource is not of `[name]-[hash].[ext]`; otherwise fetches from the network and updates the cache, removing outdated versions based on hash.
+The [service worker](./src/sw.ts) is configured to serve cached responses for all requests, relying on the browser to handle cache updates.
 
 ## Arch Linux
 
-The files [here](./public/linux/) are for personal use, I use the below script when migrating to new machines:
+The files located [here](./public/linux/) are for personal use. I use the following script when migrating to new machines:
 
 ```sh
 bash <(curl -L ttj.hu/linux/clonefig.sh)
 ```
 
-[Aliases](/public/linux/bash_aliases) are also sourced from a few machines.
+These [aliases](/public/linux/bash_aliases) are also sourced from a few machines.
