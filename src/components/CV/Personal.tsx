@@ -105,12 +105,9 @@ export default function Personal() {
 
   return (
     <div className="border1-e cv-personal-container">
-      <img
-        src={img}
-        className="cv-profile-pic"
-        alt="profile picture"
-        draggable={false}
-      />
+      <div className="cv-pic-container">
+        <img src={img} alt="profile picture" draggable={false} />
+      </div>
       {details}
     </div>
   );

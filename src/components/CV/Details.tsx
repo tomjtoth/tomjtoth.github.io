@@ -93,7 +93,13 @@ export default function Details({ exp }: DetailsProps) {
 
                 <ul className="cv-detail-highlights">
                   {det.highlights?.map((highlight, i) => (
-                    <li key={i}>{highlight}</li>
+                    <li
+                      key={i}
+                      className="cv-tip"
+                      title={`${prefix}.highlights[${i}]`}
+                    >
+                      {highlight}
+                    </li>
                   ))}
                 </ul>
               </li>
