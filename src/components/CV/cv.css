@@ -8,7 +8,6 @@
   --width: calc(210mm - 2 * 16px);
   width: var(--width);
   min-width: var(--width);
-  height: calc(297mm - 2 * 16px);
   overflow: hidden;
 
   display: flex;
@@ -73,15 +72,6 @@ ul.cv-detail-highlights > li::marker {
   display: none;
 }
 
-@page {
-  @bottom-center {
-    content: "This CV was printed via ttj.hu/cv";
-    font-size: 12px;
-    margin: 0px;
-    padding: 0px;
-  }
-}
-
 @media print {
   .no-print {
     display: none !important;
@@ -90,7 +80,7 @@ ul.cv-detail-highlights > li::marker {
   #cv {
     margin: 0px !important;
     width: calc(210mm - 2 * 2cm);
-    /* transform: scale(0.94); */
+    height: calc(297mm - 2 * 16px);
   }
 
   #view-content.cv {
@@ -113,11 +103,20 @@ div.cv-edu-work-container {
   padding: 0 16px;
 }
 
-img.cv-profile-pic {
-  width: 3cm;
-  max-width: 3cm;
-  max-height: 5cm;
-  margin: 16px 0;
+div.cv-pic-container {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border: 2px solid var(--col-fg-0);
+  display: inline-block;
+  margin: 16px 0px;
+}
+
+div.cv-pic-container > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 span.cv-lastname {
