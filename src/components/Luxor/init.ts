@@ -26,7 +26,7 @@ export function useInit() {
       const imps = new URLSearchParams(search).get("import");
       const [arr, prompt, critical] = processImports(imps);
 
-      if (prompt) {
+      if (prompt.length > 0) {
         modal
           .hu()
           .ok(() => {
