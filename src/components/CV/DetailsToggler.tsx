@@ -13,9 +13,7 @@ export default function DetailsToggler({ exp }: DetailsProps) {
   if (cv) {
     res = (
       <>
-        <h3>
-          <b>{index.toUpperCase()}</b>
-        </h3>
+        <h3 className="cv">{index}</h3>
         <ul>
           {cv[index].map((det, i) => {
             const title = "title" in det ? det.title : det.degree;
@@ -35,7 +33,10 @@ export default function DetailsToggler({ exp }: DetailsProps) {
                   onChange={() => dispatch(toggleRelevance(exp, i))}
                 />
                 <label htmlFor={inputId} className="clickable">
-                  {title} | {det.from} - {det.to}
+                  {title} |{" "}
+                  {det.from === det.to
+                    ? `during ${det.from}`
+                    : `${det.from} - ${det.to}`}
                 </label>
               </li>
             );
