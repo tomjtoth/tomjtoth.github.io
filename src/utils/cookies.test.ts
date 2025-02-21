@@ -1,32 +1,15 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
 
 import { setCookie as set, getCookie as get, nameOf } from ".";
 
-let cookies = {};
-
-// Mock the global document object if it doesn't exist
-if (typeof global.document === "undefined") {
-  global.document = {};
-
-  Object.defineProperty(global.document, "cookie", {
-    get: () => {
-      return Object.entries(cookies)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("; ");
-    },
-    set: (cookie) => {
-      const eqIdx = cookie.indexOf("=");
-      const key = cookie.substring(0, eqIdx);
-      const val = cookie.substring(eqIdx + 1);
-      cookies[key] = val;
-    },
-    configurable: true,
-  });
-}
-
 describe(nameOf(set), () => {
   beforeEach(() => {
-    cookies = {};
+    // Expire all cookies before each test in DOM
+    document.cookie.split(";").forEach((cookie) => {
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+    });
   });
 
   it("setting and getting the same cookie works", () => {
