@@ -65,20 +65,19 @@ export default function useLogic() {
       processFiles(files);
     } else if (!cv) {
       dispatch(showSpinner());
-      Promise.all([
-        import("js-yaml"),
-        import("../../assets/cv.yaml?url").then(({ default: url }) => {
-          dispatch(setURL(url));
+      Promise.all([import("js-yaml"), import("../../assets/cv.yaml?raw")]).then(
+        ([YAML, { default: strYaml }]) => {
+          const flagsReplaced = ccToFlags(strYaml);
+          const parsed = YAML.load(flagsReplaced);
 
-          return fetch(url).then((res) => res.text());
-        }),
-      ]).then(([YAML, strYaml]) => {
-        const flagsReplaced = ccToFlags(strYaml);
-        const parsed = YAML.load(flagsReplaced);
+          const blob = new Blob([strYaml], { type: "application/yaml" });
+          const blobUrl = URL.createObjectURL(blob);
 
-        dispatch(setCV(parsed));
-        dispatch(hideSpinner());
-      });
+          dispatch(setURL(blobUrl));
+          dispatch(setCV(parsed));
+          dispatch(hideSpinner());
+        }
+      );
     }
   }, [files]);
 }
