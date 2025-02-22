@@ -28,6 +28,9 @@ export default function CV() {
               <Details exp={false} />
             </div>
           </div>
+          <div id="cv-footer">
+            this page was generated at {window.location.toString()}
+          </div>
         </div>
 
         <div id="cv-controls" className="bordered no-print">

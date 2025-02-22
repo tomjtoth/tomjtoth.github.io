@@ -14,6 +14,9 @@
     var(--col-fg-0) calc(297mm - 1px),
     var(--col-fg-0) 297mm
   );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #cv {
@@ -23,6 +26,10 @@
   font-family: "Times New Roman", Times, serif;
   font-size: 12pt;
   line-height: 1.2;
+}
+
+#cv-footer {
+  display: none;
 }
 
 #cv .hidden {
@@ -44,6 +51,14 @@
   #cv-page {
     height: 297mm;
     margin: 0px;
+  }
+
+  #cv {
+    margin-bottom: 2mm;
+  }
+
+  #cv-footer {
+    display: block;
   }
 
   @page {
@@ -127,7 +142,7 @@ ul.cv-detail-highlights > li::marker {
   object-fit: cover;
 }
 
-span.cv-lastname {
+#cv-lastname {
   color: var(--col-fg-2);
 }
 
@@ -135,7 +150,7 @@ span.cv-lastname {
   background-color: var(--col-bg-alt-b);
 }
 
-p.cv-intro {
+#cv-intro {
   text-align: justify;
 }
 
