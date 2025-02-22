@@ -23,7 +23,7 @@ export default function Controls() {
     max: 75,
     min: 0,
     minLength: 1,
-    className: "bordered",
+    className: "border rounded",
     autoComplete: "off",
   });
 
@@ -42,14 +42,14 @@ export default function Controls() {
       }}
     >
       <span
-        className="padded clickable"
+        className="p-4 clickable"
         onClick={() => dispatch(luxorToggleLocked())}
       >
         {locked ? "🔒" : "🔓"}
       </span>
       <input {...num} />
       <span
-        className="padded clickable"
+        className="p-4 clickable"
         onClick={() =>
           modal
             .hu()

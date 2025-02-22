@@ -38,7 +38,7 @@ export default function Controls() {
       />
 
       <span
-        className="clickable padded bordered"
+        className="clickable p-4 border rounded"
         onClick={() => {
           const cookie = "cv-downloaded";
           const reminded = Number(getCookie(cookie) ?? "0");
@@ -71,7 +71,7 @@ export default function Controls() {
       </span>
 
       <span
-        className="padded bordered clickable"
+        className="p-4 border rounded clickable"
         onClick={() => {
           const cookie = "cv-uploaded";
           const reminded = Number(getCookie(cookie) ?? "0");
@@ -101,7 +101,7 @@ export default function Controls() {
         <b>upload your CV</b>
       </span>
       <span
-        className="clickable padded"
+        className="clickable p-4"
         title="print (Ctrl + P)"
         onClick={() => {
           const cookie = "cv-printed";

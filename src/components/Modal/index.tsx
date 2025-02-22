@@ -23,7 +23,7 @@ export default function Modal({ children }: PropsWithChildren) {
         >
           <div
             {...{
-              className: "modal padded bordered",
+              className: "modal p-4 border rounded",
               lang,
               onClick: (evt) => {
                 if (evt.target === evt.currentTarget) evt.stopPropagation();

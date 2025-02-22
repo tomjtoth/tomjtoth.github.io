@@ -13,13 +13,16 @@ export default function Fields() {
   return (
     <ul className="luxor">
       {fields.map(({ id: fieldId, rows, importedAt }) => (
-        <li key={fieldId} className={`luxor ${locked ? "" : " bordered"}`}>
+        <li
+          key={fieldId}
+          className={`luxor ${locked ? "" : " border rounded"}`}
+        >
           {!locked && (
             <>
               {importedSpan(importedAt)}
               <div>
                 <span
-                  className="clickable padded"
+                  className="clickable p-4"
                   onClick={() => dispatch(luxorAddField(fieldId))}
                   tabIndex={0}
                 >
@@ -27,7 +30,7 @@ export default function Fields() {
                 </span>
                 {fields!.length > 1 && (
                   <span
-                    className=" clickable padded"
+                    className=" clickable p-4"
                     tabIndex={0}
                     onClick={() =>
                       modal
@@ -72,7 +75,7 @@ function importedSpan(importedAt?: number) {
     ).find(([val]) => Math.round(val) > 0)!;
 
     span = (
-      <span className="padded">
+      <span className="p-4">
         {Math.round(dtNum)} {dtStr} korábbról
       </span>
     );

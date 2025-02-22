@@ -22,7 +22,7 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
             {...{
               className: `${
                 clickable ? "clickable " : "non-clickable "
-              }padded bordered${
+              }p-4 border rounded${
                 albums.length === 1 || active.includes(id) ? " active" : ""
               }`,
               onClick: (e) => {

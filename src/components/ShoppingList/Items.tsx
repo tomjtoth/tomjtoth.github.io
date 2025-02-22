@@ -53,7 +53,7 @@ export default function Items() {
               <li
                 key={id}
                 id={id.toString()}
-                className={`clickable padded alternating sli${
+                className={`clickable p-4 alternating sli${
                   isActive ? " active" : ""
                 }`}
                 onClick={(e) => {

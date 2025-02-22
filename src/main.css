@@ -1,3 +1,8 @@
+@layer theme, base, components, utilities;
+
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
 :root {
   --col-fg-0: #111;
   --col-fg-1: #808;
@@ -28,93 +33,67 @@
     --col-bg-alt-b-active: #474;
   }
 
-  a:not(.nav-link) {
-    color: #81d4fa; /* Brighter light blue for better visibility */
-  }
+  @layer components {
+    a {
+      @apply text-blue-300;
 
-  a:hover:not(.nav-link) {
-    color: #4fc3f7; /* Slightly darker blue on hover */
-  }
+      &:hover {
+        @apply text-blue-400;
+      }
 
-  a:visited:not(.nav-link) {
-    color: #ba68c8; /* Brighter purple for visited links */
-  }
+      &:visited {
+        @apply text-purple-300;
+      }
 
-  a:active:not(.nav-link) {
-    color: #ff8a65; /* Brighter orange for active links */
-  }
+      &:active {
+        @apply text-orange-300;
+      }
 
-  a:focus:not(.nav-link) {
-    outline-color: #ffd54f; /* Keep focus outline visible */
+      &:focus {
+        @apply outline-yellow-300;
+      }
+
+      nav & {
+        @apply text-inherit;
+      }
+    }
   }
 }
 
 html,
 body,
 #root {
-  margin: 0;
-  height: 100%;
+  @apply m-0 h-full;
 }
 
 .clickable {
-  user-select: none;
-  cursor: pointer;
+  @apply select-none cursor-pointer;
 }
 
 .non-clickable {
-  user-select: initial;
-  cursor: initial;
-}
-
-.clicking-not-allowed {
-  cursor: not-allowed;
-}
-
-.padded {
-  padding: 16px;
-}
-
-.bordered {
-  border: 1px solid var(--col-fg-0);
-  border-radius: 4px;
+  @apply select-auto cursor-auto;
 }
 
 li.alternating {
-  background-color: var(--col-bg-alt-a);
-}
+  @apply bg-[var(--col-bg-alt-a)];
 
-li.alternating:hover {
-  background-color: var(--col-bg-alt-a-hover);
-}
+  &:hover {
+    @apply bg-[var(--col-bg-alt-a-hover)];
+  }
 
-li.alternating.active {
-  background-color: var(--col-bg-alt-a-active);
-}
+  &.active {
+    @apply bg-[var(--col-bg-alt-a-active)];
+  }
 
-li.alternating:nth-child(even) {
-  background-color: var(--col-bg-alt-b);
-}
+  &:nth-child(even) {
+    @apply bg-[var(--col-bg-alt-b)];
+  }
 
-li.alternating:nth-child(even):hover {
-  background-color: var(--col-bg-alt-b-hover);
-}
+  &:nth-child(even):hover {
+    @apply bg-[var(--col-bg-alt-b-hover)];
+  }
 
-li.alternating:nth-child(even).active {
-  background-color: var(--col-bg-alt-b-active);
-}
-
-.border1-n {
-  border-top: 1px solid var(--col-fg-0);
-}
-
-.border1-w {
-  border-left: 1px solid var(--col-fg-0);
-}
-
-.border1-e {
-  border-right: 1px solid var(--col-fg-0);
-}
-
-.border1-s {
-  border-bottom: 1px solid var(--col-fg-0);
+  &:nth-child(even).active {
+    @apply bg-[var(--col-bg-alt-b-active)];
+  }
 }
