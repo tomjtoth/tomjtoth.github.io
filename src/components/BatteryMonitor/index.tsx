@@ -1,12 +1,10 @@
+import { useEffect } from "react";
+
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
-import "./battery-monitor.css";
-
-import ViewHeader from "../ViewHeader";
+import { ViewHeader, ViewContent } from "..";
 import Controls from "./Controls";
-import ViewContent from "../ViewContent";
 import { hideSpinner, showSpinner } from "../../reducers/spinner";
-import { useEffect } from "react";
 
 const pluggedInStr = "ja laturi on vieläkin kiinni";
 const unpluggedStr = "eikä laturi oo kytkettynä";
@@ -15,7 +13,7 @@ export function notiText(charging: boolean, level: number) {
   return `Akun taso on nyt ${level}% ${charging ? pluggedInStr : unpluggedStr}`;
 }
 
-export default function BatteryMonitor() {
+export function BatteryMonitor() {
   const dispatch = useAppDispatch();
   const conf = useAppSelector((s) => s.batteryMonitor.conf);
   const state = useAppSelector((s) => s.batteryMonitor.state);

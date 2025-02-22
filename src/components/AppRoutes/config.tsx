@@ -1,12 +1,14 @@
-import Home from "../Home";
-import CV from "../CV";
-import BatteryMonitor from "../BatteryMonitor";
-import Lyrics from "../Lyrics";
-import ShoppingList from "../ShoppingList";
-import ArxFatalis from "../ArxFatalis";
-import Visitors from "../Visitors";
-import Luxor from "../Luxor";
-import Quotes from "../Quotes";
+import {
+  Home,
+  CV,
+  BatteryMonitor,
+  Lyrics,
+  ShoppingList,
+  ArxFatalis,
+  Visitors,
+  Luxor,
+  Quotes,
+} from "..";
 
 type RouteDetails = {
   path: string;

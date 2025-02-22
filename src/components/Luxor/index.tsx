@@ -2,13 +2,12 @@ import { useInit } from "./init";
 
 import "./luxor.css";
 
-import ViewHeader from "../ViewHeader";
-import ViewContent from "../ViewContent";
+import { ViewHeader, ViewContent } from "..";
 import Controls from "./Controls";
 import Fields from "./Fields";
 import PickedNumsLine from "./PickedNumsLine";
 
-export default function Luxor() {
+export function Luxor() {
   useInit();
 
   return (

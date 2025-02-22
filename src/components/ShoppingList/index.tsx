@@ -6,13 +6,12 @@ import { initSL } from "../../reducers/shopping-list";
 
 import "./shopping-list.css";
 
-import ViewHeader from "../ViewHeader";
-import ViewContent from "../ViewContent";
+import { ViewHeader, ViewContent } from "..";
 import Recipes from "./Recipes";
 import Items from "./Items";
 import Controls from "./Controls";
 
-export default function ShoppingList() {
+export function ShoppingList() {
   const dispatch = useAppDispatch();
   const loaded = useAppSelector((s) => s.shoppingList.recipes.length > 0);
 

@@ -3,12 +3,11 @@ import useLogic from "./logic";
 
 import "./arx-fatalis.css";
 
-import ViewHeader from "../ViewHeader";
+import { ViewHeader, ViewContent } from "..";
 import Controls from "./Controls";
-import ViewContent from "../ViewContent";
 import Img from "./Img";
 
-export default function ArxFatalis() {
+export function ArxFatalis() {
   const push = useLogic();
 
   return (
@@ -16,7 +15,7 @@ export default function ArxFatalis() {
       <ViewHeader title="riimut">
         <Controls />
       </ViewHeader>
-      <ViewContent className="arx-fatalis">
+      <ViewContent className="flex flex-col">
         <div id="runes-spacer" />
         <div id="runes">
           {Rune.arr.map((rune, i) => (

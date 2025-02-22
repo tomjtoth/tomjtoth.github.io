@@ -1,10 +1,6 @@
 import { useBatMonDaemon } from "./hooks";
 
-import Modal from "./components/Modal";
-import Spinner from "./components/Spinner";
-import Sidepanel from "./components/Sidepanel";
-import AppRoutes from "./components/AppRoutes";
-import ViewRoot from "./components/ViewRoot";
+import { Modal, Spinner, Sidepanel, AppRoutes, ViewRoot } from "./components";
 
 export default function App() {
   useBatMonDaemon();

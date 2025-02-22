@@ -1,15 +1,13 @@
 import { HTMLAttributes, PropsWithChildren } from "react";
 
-import { useAppDispatch } from "../../hooks";
-import { showSidepanel } from "../../reducers/sidepanel";
-
-import "./view-header.css";
+import { useAppDispatch } from "../hooks";
+import { showSidepanel } from "../reducers/sidepanel";
 
 type HeaderProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
   title?: string;
 };
 
-export default function ViewHeader({
+export function ViewHeader({
   title,
   children,
   className = "",
@@ -23,13 +21,11 @@ export default function ViewHeader({
     <div
       {...{
         ...props,
-        id: "view-header",
-        className: `border-b ${className}`,
+        className: `border-b flex items-center gap-2 ${className}`,
       }}
     >
       <span
-        id="menu-button"
-        className="clickable p-4"
+        className="clickable p-4 text-[25px] w-[25px]"
         onClick={() => dispatch(showSidepanel())}
       >
         &#x2630;

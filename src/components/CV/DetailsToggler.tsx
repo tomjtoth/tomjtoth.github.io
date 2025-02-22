@@ -29,7 +29,7 @@ export default function DetailsToggler({ exp }: DetailsProps) {
                   title={`${
                     det.relevant ? "included in" : "hidden from"
                   } the final printed pdf`}
-                  className="no-print clickable"
+                  className="print:hidden clickable"
                   onChange={() => dispatch(toggleRelevance(exp, i))}
                 />
                 <label htmlFor={inputId} className="clickable">

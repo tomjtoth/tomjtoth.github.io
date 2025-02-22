@@ -1,7 +1,7 @@
 import { Route, Routes, Navigate } from "react-router";
 import { ROUTES_CONFIG } from "./config";
 
-export default function AppRoutes() {
+export function AppRoutes() {
   return (
     <Routes>
       {ROUTES_CONFIG.concat({

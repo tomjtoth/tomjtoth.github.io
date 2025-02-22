@@ -5,7 +5,7 @@ import "./modal.css";
 import Buttons from "./Buttons";
 import useLogic, { CxModal } from "./logic";
 
-export default function Modal({ children }: PropsWithChildren) {
+export function Modal({ children }: PropsWithChildren) {
   const {
     builder,
     reset,
@@ -17,7 +17,7 @@ export default function Modal({ children }: PropsWithChildren) {
       {prompt && (
         <div
           {...{
-            className: "modal-blur no-print",
+            className: "modal-blur print:hidden",
             onClick: reset,
           }}
         >

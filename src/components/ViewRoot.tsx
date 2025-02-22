@@ -1,7 +1,5 @@
 import { createContext, PropsWithChildren, useState } from "react";
 
-import "./view-root.css";
-
 type Files = FileList | File[] | null;
 type TCxFiles = {
   files: Files;
@@ -10,7 +8,7 @@ type TCxFiles = {
 
 export const CxFiles = createContext<TCxFiles | null>(null);
 
-export default function AppRoot({ children }: PropsWithChildren) {
+export function ViewRoot({ children }: PropsWithChildren) {
   const [visible, setVisible] = useState(false);
   const [files, setFiles] = useState<Files>(null);
 
@@ -18,7 +16,7 @@ export default function AppRoot({ children }: PropsWithChildren) {
     <CxFiles.Provider value={{ files, reset: () => setFiles(null) }}>
       <div
         {...{
-          id: "view-root",
+          className: "m-0 h-full flex flex-col",
 
           onDragEnter: (ev) => {
             if (
@@ -54,7 +52,9 @@ export default function AppRoot({ children }: PropsWithChildren) {
         }}
       >
         {visible && (
-          <div className="modal-blur">Try dropping on the blurred area 🤞</div>
+          <div className="text-2xl flex items-center justify-center drop-shadow-md modal-blur">
+            Try dropping on the blurred area 🤞
+          </div>
         )}
 
         {children}
@@ -62,3 +62,5 @@ export default function AppRoot({ children }: PropsWithChildren) {
     </CxFiles.Provider>
   );
 }
+
+// text-shadow: 0 0 40px var(--col-bg-0), 0 0 20px var(--col-bg-0), 0 0 10px var(--col-bg-0);

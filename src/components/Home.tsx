@@ -1,7 +1,6 @@
-import ViewContent from "./ViewContent";
-import ViewHeader from "./ViewHeader";
+import { ViewHeader, ViewContent } from ".";
 
-export default function Home() {
+export function Home() {
   return (
     <>
       <ViewHeader title="tervehdys"></ViewHeader>
