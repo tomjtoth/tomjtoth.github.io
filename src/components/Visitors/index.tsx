@@ -2,9 +2,9 @@ import useVisitors from "./logic";
 
 import "./visitors.css";
 
-import ViewHeader from "../ViewHeader";
+import { ViewHeader } from "..";
 
-export default function Visitors() {
+export function Visitors() {
   const node = useVisitors();
 
   return (

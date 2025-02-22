@@ -15,6 +15,6 @@ type QRCodeProps = {
   onClick: MouseEventHandler;
 };
 
-export default function QRCode({ value, onClick }: QRCodeProps) {
+export function QRCode({ value, onClick }: QRCodeProps) {
   return <QRCodeSVG {...{ ...QR_OPTS, value, onClick }} />;
 }

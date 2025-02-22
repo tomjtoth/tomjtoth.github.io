@@ -3,13 +3,12 @@ import { useEffect } from "react";
 import "./lyrics.css";
 
 import Artists from "./Artists";
-import ViewHeader from "../ViewHeader";
-import ViewContent from "../ViewContent";
+import { ViewHeader, ViewContent } from "..";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { hideSpinner, showSpinner } from "../../reducers/spinner";
 import { init } from "../../reducers/lyrics";
 
-export default function Lyrics() {
+export function Lyrics() {
   const dispatch = useAppDispatch();
   const loaded = useAppSelector((s) => s.lyrics.artists.length > 0);
 
@@ -24,11 +23,7 @@ export default function Lyrics() {
     <>
       <ViewHeader title="låttext" />
       <ViewContent>
-        <p
-          style={{
-            margin: 16,
-          }}
-        >
+        <p className="m-4">
           The below songs are linked to Google Translate (or YouTube, when the
           lyrics are still missing).
         </p>

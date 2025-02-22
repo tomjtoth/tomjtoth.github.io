@@ -3,11 +3,6 @@
   /* background-color: gray; */
 }
 
-#view-content.arx-fatalis {
-  display: flex;
-  flex-direction: column;
-}
-
 #runes {
   --padding: 5vmin;
   display: grid;

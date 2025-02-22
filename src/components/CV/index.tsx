@@ -2,23 +2,22 @@ import useLogic from "./logic";
 
 import "./cv.css";
 
-import ViewHeader from "../ViewHeader";
+import { ViewHeader, ViewContent } from "..";
 import Controls from "./Controls";
-import ViewContent from "../ViewContent";
 import Personal from "./Personal";
 import Details from "./Details";
 import DetailsToggler from "./DetailsToggler";
 import Skills from "./Skills";
 
-export default function CV() {
+export function CV() {
   useLogic();
 
   return (
     <>
-      <ViewHeader className="no-print">
+      <ViewHeader className="print:hidden">
         <Controls />
       </ViewHeader>
-      <ViewContent className="cv">
+      <ViewContent className="flex flex-wrap print:overflow-hidden">
         <div id="cv-page">
           <div id="cv" className="border rounded">
             <Personal />
@@ -33,7 +32,7 @@ export default function CV() {
           </div>
         </div>
 
-        <div id="cv-controls" className="border rounded no-print">
+        <div id="cv-controls" className="border rounded print:hidden">
           <h2>CONTROLS</h2>
           <p>
             Toggle inclusion of each detail in the printed document via the

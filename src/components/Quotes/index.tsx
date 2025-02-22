@@ -1,13 +1,10 @@
-import ViewHeader from "../ViewHeader";
-import ViewContent from "../ViewContent";
+import { ViewHeader, ViewContent } from "..";
 
-import "./quotes.css";
-
-export default function Quotes() {
+export function Quotes() {
   return (
     <>
       <ViewHeader title=""></ViewHeader>
-      <ViewContent className="quotes">
+      <ViewContent className="p-4">
         <p>
           <a href="https://goodreads.com/tomjtoth">Tässä</a> on lista miun
           lukemista (kuuntelemista) kirjoista.

@@ -3,7 +3,7 @@ import { resetSpinner } from "../../reducers/spinner";
 
 import "./spinner.css";
 
-export default function Spinner() {
+export function Spinner() {
   // destructuring is fine for this component,
   // there's only these 2 props in reducer state...
   const { active, className } = useAppSelector((s) => s.spinner);

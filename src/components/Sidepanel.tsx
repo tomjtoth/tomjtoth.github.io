@@ -4,9 +4,9 @@ import { ROUTES_CONFIG } from "./AppRoutes/config";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { hideSidepanel } from "../reducers/sidepanel";
 
-import QRCode from "./QRCode";
+import { QRCode } from ".";
 
-export default function Sidepanel() {
+export function Sidepanel() {
   const dispatch = useAppDispatch();
   const active = useAppSelector((s) => s.sidepanel);
   const url = window.location.toString();
@@ -17,9 +17,9 @@ export default function Sidepanel() {
   return (
     <nav
       {...{
-        className: `z-1 h-full fixed w-[225px] top-0 pr-[25px] border-r duration-500 bg-[var(--col-bg-0)] -left-${
+        className: `z-1 h-full fixed w-[225px] top-0 pr-[25px] border-r duration-500 bg-[var(--col-bg-0)] -left-[${
           active ? 0 : 251
-        }`,
+        }px]`,
 
         onMouseLeave: (e) => {
           // triggers only when leaving *the* panel, not its children
