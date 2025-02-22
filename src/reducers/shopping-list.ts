@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { AppDispatch } from "../store";
 import { State } from "../types/shopping-list";
 import { maxId } from "../utils";

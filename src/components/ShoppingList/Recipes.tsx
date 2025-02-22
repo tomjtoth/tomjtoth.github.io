@@ -31,7 +31,7 @@ export default function Recipes() {
             <li
               key={recipeIdx}
               lang={dish_lang}
-              className={`clickable padded alternating recipe${
+              className={`clickable p-4 alternating recipe${
                 active.includes(recId) ? " active" : ""
               }`}
               onClick={(e) => {

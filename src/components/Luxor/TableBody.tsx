@@ -24,13 +24,13 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
 
               if (locked) {
                 if (rowIdx === 1 && between(cellIdx, 1, 3))
-                  classes.push("border1-n");
+                  classes.push("border-t");
                 if (rowIdx === 3 && between(cellIdx, 1, 3))
-                  classes.push("border1-s");
+                  classes.push("border-b");
                 if (cellIdx === 1 && between(rowIdx, 1, 3))
-                  classes.push("border1-w");
+                  classes.push("border-l");
                 if (cellIdx === 3 && between(rowIdx, 1, 3))
-                  classes.push("border1-e");
+                  classes.push("border-r");
               }
 
               const min = cellIdx * 15 + 1;

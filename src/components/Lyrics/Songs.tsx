@@ -23,7 +23,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
     <ul>
       {songs.map(({ title, lyrics }, songIdx) => {
         const id = [artistIdx, albumIdx, songIdx].join("-");
-        const classes = ["padded bordered"];
+        const classes = ["p-4 border rounded"];
         let clickable = songs.length > 1;
         if (songs.length === 1 || active.includes(id)) classes.push("active");
 
@@ -32,7 +32,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
         if (lyrics) {
           if (lyrics.startsWith("http")) {
             link = <Logo url={lyrics} />;
-            classes.push("clicking-not-allowed");
+            classes.push("cursor-not-allowed");
             clickable = false;
           } else {
             if (clickable) classes.push("clickable");
@@ -40,7 +40,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
           }
         } else {
           link = <Logo url={search(artists[artistIdx], title)} />;
-          classes.push("clicking-not-allowed");
+          classes.push("cursor-not-allowed");
           clickable = false;
           lyrics = "http";
         }

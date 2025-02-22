@@ -20,7 +20,7 @@ export default function CV() {
       </ViewHeader>
       <ViewContent className="cv">
         <div id="cv-page">
-          <div id="cv" className="bordered">
+          <div id="cv" className="border rounded">
             <Personal />
             <div className="cv-edu-work-container">
               <Details exp={true} />
@@ -33,7 +33,7 @@ export default function CV() {
           </div>
         </div>
 
-        <div id="cv-controls" className="bordered no-print">
+        <div id="cv-controls" className="border rounded no-print">
           <h2>CONTROLS</h2>
           <p>
             Toggle inclusion of each detail in the printed document via the

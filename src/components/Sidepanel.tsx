@@ -1,24 +1,25 @@
 import { Link } from "react-router";
 
-import { ROUTES_CONFIG } from "../AppRoutes/config";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { hideSidepanel } from "../../reducers/sidepanel";
-
-import "./sidepanel.css";
+import { ROUTES_CONFIG } from "./AppRoutes/config";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { hideSidepanel } from "../reducers/sidepanel";
 
 import QRCode from "./QRCode";
 
 export default function Sidepanel() {
   const dispatch = useAppDispatch();
   const active = useAppSelector((s) => s.sidepanel);
-  const className = `border1-e${active ? " active" : ""}`;
   const url = window.location.toString();
+
+  const linkClass =
+    "no-underline p-2 pl-4 select-none cursor-pointer block transition duration-300 text-[var(--col-fg-0)] hover:text-[var(--col-fg-1)]";
 
   return (
     <nav
       {...{
-        id: "sidepanel",
-        className,
+        className: `z-1 h-full fixed w-[225px] top-0 pr-[25px] border-r duration-500 bg-[var(--col-bg-0)] -left-${
+          active ? 0 : 251
+        }`,
 
         onMouseLeave: (e) => {
           // triggers only when leaving *the* panel, not its children
@@ -29,23 +30,22 @@ export default function Sidepanel() {
         },
       }}
     >
-      <ul>
+      <ul className="my-4 ml-4 pl-0 list-none">
         <li>
-          <span className="nav-link clickable" style={{ float: "right" }}>
-            &times;
-          </span>
+          <span className={`${linkClass} float-right`}>&times;</span>
         </li>
         {ROUTES_CONFIG.filter((x) => x.path != "*").map(
           ({ path, label, lang }, i) => (
             <li key={i}>
               <Link
-                className="nav-link clickable"
                 {...{
+                  className: linkClass,
+                  draggable: false,
+
                   to: path,
                   children: label,
                   lang,
                 }}
-                draggable={false}
               />
             </li>
           )

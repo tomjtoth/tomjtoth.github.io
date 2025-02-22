@@ -2,12 +2,11 @@ import { QRCodeSVG } from "qrcode.react";
 import { MouseEventHandler } from "react";
 
 const QR_OPTS = {
-  id: "qr-code",
   title: "click to copy URL",
   marginSize: 4,
   bgColor: "var(--col-bg-0)",
   fgColor: "var(--col-fg-0)",
-  className: "clickable",
+  className: "clickable m-[25px]",
   size: 200,
 };
 

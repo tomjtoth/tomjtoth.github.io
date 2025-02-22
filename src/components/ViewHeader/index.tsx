@@ -24,12 +24,12 @@ export default function ViewHeader({
       {...{
         ...props,
         id: "view-header",
-        className: `border1-s ${className}`,
+        className: `border-b ${className}`,
       }}
     >
       <span
         id="menu-button"
-        className="clickable padded"
+        className="clickable p-4"
         onClick={() => dispatch(showSidepanel())}
       >
         &#x2630;

@@ -112,7 +112,7 @@ export default function Controls() {
       <input {...min} />
       <strong
         id="bat-mon-hud"
-        className="bordered"
+        className="border rounded"
         title={state ? undefined : "ei toimi"}
       >
         {hud}

@@ -38,7 +38,7 @@ export default function BatteryMonitor() {
   return (
     <>
       <ViewHeader title="akunvalvonta">{conf && <Controls />}</ViewHeader>
-      <ViewContent className="padded">
+      <ViewContent className="p-4">
         <p>
           Tää työkalu{" "}
           {state && conf && conf.allowed ? "hälyttää" : "hälyttäisisi"} kun akun

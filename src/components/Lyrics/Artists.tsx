@@ -18,7 +18,7 @@ export default function Artists() {
           <li
             key={artistIdx}
             {...{
-              className: `clickable padded bordered${
+              className: `clickable p-4 border rounded${
                 active.includes(id) ? " active" : ""
               }`,
               onClick: (e) => {
