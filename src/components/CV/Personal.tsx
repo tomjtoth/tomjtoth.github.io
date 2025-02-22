@@ -18,7 +18,11 @@ export default function Personal() {
           <b className="cv-tip" title={`${prefix}.firstname`}>
             {p.firstname.toUpperCase()}
           </b>{" "}
-          <span className="cv-lastname cv-tip" title={`${prefix}.lastname`}>
+          <span
+            id="cv-lastname"
+            className="cv-tip"
+            title={`${prefix}.lastname`}
+          >
             {p.lastname.toUpperCase()}
           </span>
         </div>
@@ -60,7 +64,7 @@ export default function Personal() {
         </ul>
 
         {p.intro && (
-          <p className="cv-intro cv-tip" title={`${prefix}.intro`}>
+          <p id="cv-intro" className="cv-tip" title={`${prefix}.intro`}>
             {p.intro}
           </p>
         )}
