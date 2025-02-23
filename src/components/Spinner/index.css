@@ -5,8 +5,8 @@
   left: 50%;
   width: 50vmin;
   height: 50vmin;
-  border: 16px solid var(--col-bg-0);
-  border-top: 16px solid var(--col-bg-alt-b);
+  border: 16px solid var(--color-bg-0);
+  border-top: 16px solid var(--color-bg-alt-b);
   border-radius: 50%;
 
   animation: spin 1s linear infinite;
@@ -27,7 +27,7 @@
 }
 
 #spinner.fade-out {
-  border-top: 16px solid var(--col-bg-0);
+  border-top: 16px solid var(--color-bg-0);
   animation: zoom-in var(--spinner-fade-out-delay) ease-in-out;
 }
 

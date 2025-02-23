@@ -18,15 +18,19 @@ export default function PickedNumsLine() {
   const span = useRef<HTMLSpanElement>(null);
 
   return (
-    <div id="luxor-picked-nums-line">
+    <div
+      id="luxor-picked-nums-line"
+      className="flex items-center justify-center gap-2 p-2"
+    >
       <span ref={span}>
         {pickedNums.length > 10 && "..."}
         {(last(pickedNums, 10) as number[]).join(", ")}
       </span>
 
       <span
-        className="clickable"
-        style={{ visibility: pickedNums.length === 0 ? "hidden" : undefined }}
+        className={`clickable ${
+          pickedNums.length === 0 ? "invisible" : "visible"
+        }`}
         onClick={() =>
           modal
             .hu()
@@ -50,7 +54,7 @@ export default function PickedNumsLine() {
       </span>
 
       <div
-        id="luxor-num-bug"
+        className="fixed z-1 text-4xl select-none animate-luxor-bug"
         style={{ left: bug.position, transition: bug.transition }}
         onTransitionEnd={() => {
           if (bug.position !== "-10vw" && bug.position !== "110vw") {
@@ -66,7 +70,7 @@ export default function PickedNumsLine() {
 
       {bug.filtered && (
         <div
-          id="luxor-num-bug-priv-filter"
+          className="fixed z-2 w-15 h-15 rounded-full border-2 border-red-500 cursor-not-allowed -translate-x-[50%] animate-luxor-bug-blur"
           style={{ left: bug.position }}
           onAnimationEnd={() => dispatch(luxorBugMove("-10vw", false))}
         />

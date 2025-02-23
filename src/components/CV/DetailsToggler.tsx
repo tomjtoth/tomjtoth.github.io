@@ -13,7 +13,7 @@ export default function DetailsToggler({ exp }: DetailsProps) {
   if (cv) {
     res = (
       <>
-        <h3 className="cv">{index}</h3>
+        <h3 className="uppercase">{index}</h3>
         <ul>
           {cv[index].map((det, i) => {
             const title = "title" in det ? det.title : det.degree;

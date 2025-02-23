@@ -56,7 +56,7 @@ export default function useLogic() {
                     ? `Congrats! This is your ${count}th time casting ${name}`
                     : `You cast ${name} from page ${page}:`}
 
-                  <div style={{ margin: 16 }}>
+                  <div className="m-4 flex gap-4">
                     {queue.map((rune, idx) => (
                       <Img key={idx} {...{ rune }} />
                     ))}

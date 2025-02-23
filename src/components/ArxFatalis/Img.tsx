@@ -14,7 +14,7 @@ export default function Img({ rune, onClick }: ImgProps) {
     <img
       {...{
         draggable: false,
-        className: onClick ? "clickable" : "",
+        className: onClick ? "clickable" : undefined,
         alt: name,
         title: name,
         src: png,

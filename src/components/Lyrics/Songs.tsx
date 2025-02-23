@@ -25,8 +25,6 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
         const id = [artistIdx, albumIdx, songIdx].join("-");
         const classes = ["p-4 border rounded"];
         let clickable = songs.length > 1;
-        if (songs.length === 1 || active.includes(id)) classes.push("active");
-
         let link;
 
         if (lyrics) {
@@ -56,7 +54,17 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
           >
             {title}
             {link}
-            {!lyrics.startsWith("http") && <p className="lyrics">{lyrics}</p>}
+            {!lyrics.startsWith("http") && (
+              <p
+                className={`whitespace-pre-line select-all cursor-text max-h-0 overflow-hidden m-0${
+                  songs.length === 1 || active.includes(id)
+                    ? " my-4 px-4 max-h-max"
+                    : ""
+                }`}
+              >
+                {lyrics}
+              </p>
+            )}
           </li>
         );
       })}

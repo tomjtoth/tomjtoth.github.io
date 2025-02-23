@@ -1,7 +1,5 @@
 import { useInit } from "./init";
 
-import "./luxor.css";
-
 import { ViewHeader, ViewContent } from "..";
 import Controls from "./Controls";
 import Fields from "./Fields";

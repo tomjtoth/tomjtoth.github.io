@@ -4,7 +4,7 @@ export function Home() {
   return (
     <>
       <ViewHeader title="tervehdys"></ViewHeader>
-      <ViewContent style={{ padding: 16 }}>
+      <ViewContent className="p-4">
         <div lang="en">
           <h2>DISCLAIMER</h2>
           <p>

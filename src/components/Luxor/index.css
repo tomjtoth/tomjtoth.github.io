@@ -1,0 +1,26 @@
+@theme {
+  --animate-luxor-bug: luxor-bug 0.3s ease-in-out infinite;
+  --animate-luxor-bug-blur: luxor-bug-blur 1s linear;
+
+  @keyframes luxor-bug {
+    0%,
+    100% {
+      transform: rotate(calc(-90deg + 10deg));
+    }
+
+    50% {
+      transform: rotate(calc(-90deg - 10deg));
+    }
+  }
+
+  @keyframes luxor-bug-blur {
+    0%,
+    80% {
+      backdrop-filter: blur(4px);
+    }
+
+    100% {
+      backdrop-filter: blur(0px);
+    }
+  }
+}

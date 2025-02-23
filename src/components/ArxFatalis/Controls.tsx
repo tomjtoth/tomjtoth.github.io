@@ -8,18 +8,13 @@ export default function Controls() {
     <>
       <span>
         💎{" "}
-        <sub
-          style={{
-            fontSize: "x-small",
-            visibility: loaded ? undefined : "hidden",
-          }}
-        >
+        <sub className={`text-xs ${loaded ? "visible" : "invisible"}`}>
           {score}
         </sub>
       </span>
       <input type="text" placeholder="TODO: filter spells from book" disabled />
       <a
-        className="spells"
+        className="no-underline"
         href="https://wiki.arx-libertatis.org/Spells"
         target="_blank"
       >

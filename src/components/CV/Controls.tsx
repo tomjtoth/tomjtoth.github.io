@@ -15,16 +15,15 @@ export default function Controls() {
   return (
     <>
       <a
-        id="cv-download"
+        className="hidden"
         ref={downloadRef}
         download="cv-template.yaml"
         href={url}
       />
       <input
-        id="cv-upload"
         ref={uploadRef}
         type="file"
-        className="cv"
+        className="hidden"
         accept="image/*,.yaml"
         onChange={(e) => {
           const files = e.target.files;

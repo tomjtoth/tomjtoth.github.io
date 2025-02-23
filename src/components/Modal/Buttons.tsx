@@ -15,7 +15,7 @@ export default function Buttons({ buttons, lang }: ModalButtonsProps) {
   return (
     buttons &&
     buttons.length > 0 && (
-      <div id="modal-buttons">
+      <div className="m-4 mb-2 flex justify-evenly gap-8">
         {buttons.map(({ text, onClick }, key) => {
           let autoFocus;
           let label;

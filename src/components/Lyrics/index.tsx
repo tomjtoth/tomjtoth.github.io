@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 
-import "./lyrics.css";
-
 import Artists from "./Artists";
 import { ViewHeader, ViewContent } from "..";
 import { useAppDispatch, useAppSelector } from "../../hooks";

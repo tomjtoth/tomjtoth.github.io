@@ -16,10 +16,7 @@ export default function Controls() {
   const modal = useModal();
   const active = useAppSelector((s) => s.shoppingList.active);
 
-  const { reset: resetItem, ...item } = useField("text", {
-    placeholder: "lisää tavara tänne",
-    id: "sli-adder",
-  });
+  const { reset: resetItem, ...item } = useField("text");
 
   const [title, emoji] = active.includes("slr")
     ? ["sulje reseptit", "📖"]
@@ -27,7 +24,7 @@ export default function Controls() {
 
   return (
     <form
-      id="slr-control"
+      className="w-full flex items-center gap-2 py-2"
       onSubmit={(e) => {
         const { value } = item as TextInputProps;
         const trimmed = value.trim();
@@ -40,17 +37,19 @@ export default function Controls() {
       }}
     >
       <span
-        id="slr-toggler"
-        className="clickable"
+        className="clickable mx-4 shrink-0 whitespace-nowrap"
         title={title}
         onClick={() => dispatch(toggleActiveSL("slr"))}
       >
         {emoji}
       </span>
-      <input {...item} />
+      <input
+        {...item}
+        placeholder="lisää tavara tänne"
+        className="placeholder:text-center grow max-w-full min-w-0 w-7 p-2 border rounded"
+      />
       <span
-        id="sli-reset"
-        className="clickable"
+        className="clickable mx-4 shrink-0 whitespace-nowrap"
         title="pyyhi vihreät"
         onClick={() =>
           modal

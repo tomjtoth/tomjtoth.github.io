@@ -1,8 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { resetSpinner } from "../../reducers/spinner";
 
-import "./spinner.css";
-
 export function Spinner() {
   // destructuring is fine for this component,
   // there's only these 2 props in reducer state...

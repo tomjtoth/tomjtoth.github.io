@@ -8,8 +8,8 @@ export default function Skills() {
   if (cv) {
     res = (
       <div>
-        <h3 className="cv">Skills</h3>
-        <ul id="cv-skills">
+        <h3>SKILLS</h3>
+        <ul id="cv-skills" className="pl-5 *:marker:content-['✓__']">
           {cv.skills.map((skill, i) => (
             <li key={i} className="cv-tip" title={`cv.skills[${i}]`}>
               {skill}

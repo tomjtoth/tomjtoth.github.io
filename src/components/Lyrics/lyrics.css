@@ -1,38 +1,10 @@
-svg.google-translate path {
-  fill: var(--col-fg-0);
-}
-
 #lyrics ul {
-  /* transition: max-height 200ms ease-in-out; */
   list-style: none;
   overflow: hidden;
   padding-left: 0px;
   max-height: 0px;
 }
 
-#lyrics {
-  padding-left: 0px;
-}
-
-#lyrics li.active > ul,
-#lyrics li.active > p {
+#lyrics li.active > ul {
   max-height: max-content;
-}
-
-p.lyrics {
-  white-space: pre-line;
-  user-select: all;
-  cursor: text;
-  max-height: 0;
-  overflow: hidden;
-  margin: 0px;
-}
-
-#lyrics a {
-  padding-left: 16px;
-}
-
-.active > p.lyrics {
-  margin: 16px 0px;
-  padding: 0px 16px;
 }

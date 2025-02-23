@@ -52,7 +52,16 @@ export function ViewRoot({ children }: PropsWithChildren) {
         }}
       >
         {visible && (
-          <div className="text-2xl flex items-center justify-center drop-shadow-md modal-blur">
+          <div
+            className="text-2xl flex items-center justify-center modal-blur"
+            style={{
+              textShadow: `
+                0 0 40px var(--color-bg-0),
+                0 0 20px var(--color-bg-0),
+                0 0 10px var(--color-bg-0)
+                `,
+            }}
+          >
             Try dropping on the blurred area 🤞
           </div>
         )}
@@ -62,5 +71,3 @@ export function ViewRoot({ children }: PropsWithChildren) {
     </CxFiles.Provider>
   );
 }
-
-// text-shadow: 0 0 40px var(--col-bg-0), 0 0 20px var(--col-bg-0), 0 0 10px var(--col-bg-0);
