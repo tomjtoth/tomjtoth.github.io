@@ -51,8 +51,8 @@ export function initVisitors() {
       });
 
       if (nextVisit) {
-        const opening = `${nextVisit.guest.includes("+") ? "Jönnek" : "Jön"} ${
-          CONSONANTS.test(nextVisit.guest) ? "a" : "az"
+        const opening = `${nextVisit.name.includes("+") ? "Jönnek" : "Jön"} ${
+          CONSONANTS.test(nextVisit.name) ? "a" : "az"
         } `;
 
         next = {

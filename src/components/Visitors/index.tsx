@@ -1,11 +1,9 @@
-import useVisitors from "./logic";
-
-import "./visitors.css";
+import useLogic from "./logic";
 
 import { ViewHeader } from "..";
 
 export function Visitors() {
-  const node = useVisitors();
+  const node = useLogic();
 
   return (
     <ViewHeader lang="hu" title="látogatók">
