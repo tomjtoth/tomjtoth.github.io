@@ -50,7 +50,7 @@ export default function useLogic() {
           const MM = pad(Math.floor((diff % HOUR) / MIN));
           const SS = pad(diff % MIN);
 
-          const cn = "animate-visitor-hu";
+          const cn = "animate-visitors-hu";
 
           if (DDD <= 3)
             return (
