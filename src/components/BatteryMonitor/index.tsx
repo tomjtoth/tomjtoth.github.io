@@ -35,7 +35,9 @@ export function BatteryMonitor() {
 
   return (
     <>
-      <ViewHeader title="akunvalvonta">{conf && <Controls />}</ViewHeader>
+      <ViewHeader title="akunvalvonta">
+        {isSupported && conf && <Controls />}
+      </ViewHeader>
       <ViewContent className="p-4">
         <p>
           Tää työkalu{" "}

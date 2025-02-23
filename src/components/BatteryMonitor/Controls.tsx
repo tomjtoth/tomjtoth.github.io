@@ -27,7 +27,7 @@ export default function Controls() {
   const { reset: resetAllow, ...allow } = useField("checkbox", {
     id: "bat-mon-allowed",
     initially: allowed,
-    className: isSupported ? "clickable" : "cursor-not-allowed",
+    className: "mr-2 clickable",
     disabled,
   });
 
@@ -38,7 +38,7 @@ export default function Controls() {
     min: 10,
     title: "alaraja: 10-50",
     disabled,
-    className: `w-[30px]${isSupported ? "" : " cursor-not-allowed"}`,
+    className: "w-8",
   });
 
   const { reset: _resetMax, ...max } = useField("number", {
@@ -48,7 +48,7 @@ export default function Controls() {
     min: 50,
     title: "yläraja: 50-90",
     disabled,
-    className: `w-[30px]${isSupported ? "" : " cursor-not-allowed"}`,
+    className: "w-8",
   });
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function Controls() {
 
   let hud = null;
 
-  if (isSupported && !state) {
+  if (!state) {
     hud = "🤔";
   } else if (state) {
     hud = (
@@ -96,8 +96,6 @@ export default function Controls() {
         {state.level}%
       </>
     );
-  } else {
-    hud = "🧐";
   }
 
   return (
@@ -106,16 +104,9 @@ export default function Controls() {
         sallittu:
       </label>
       <input {...allow} />
-      {/* <label htmlFor="bat-mon-min">🪫</label> */}
       <input {...min} />
-      <strong
-        className="border rounded p-2"
-        title={state ? undefined : "ei toimi"}
-      >
-        {hud}
-      </strong>
+      <strong className="border rounded p-2 mx-2">{hud}</strong>
       <input {...max} />
-      {/* <label htmlFor="bat-mon-max">🔋</label> */}
     </div>
   );
 }
