@@ -89,7 +89,7 @@ export function processImports(
           {invalids.length === 1 ? (
             <p>
               A {invalids[0][0]}. szám nem jó:{" "}
-              <span style={{ userSelect: "text" }}>"{invalids[0][1]}"</span>.
+              <span className="select-text">"{invalids[0][1]}"</span>.
             </p>
           ) : (
             <>

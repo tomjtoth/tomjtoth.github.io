@@ -1,0 +1,18 @@
+#slr li.active > ol {
+  max-height: max-content;
+  margin: 16px;
+  padding: 24px;
+}
+
+code.sli {
+  color: var(--color-fg-1);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+a.sli {
+  text-decoration: none;
+  margin: 0 0.5em;
+  text-shadow: 0 0 16px var(--color-fg-1);
+}

@@ -31,13 +31,13 @@ export default function Items() {
 
   return (
     <>
-      <h2 className="sli">
+      <h2 className="text-center text-xl m-0 py-4 select-none">
         {ul_items.length > 0
           ? "tavarat listallasi"
           : "listasi on tyhjä, lisää kamaa!"}
       </h2>
 
-      <ul id="sli">
+      <ul className="list-none pl-0 m-0">
         {ul_items
           // find out which regex matches the item, store it's index, too
           .map(({ name, id }) => ({
@@ -64,14 +64,17 @@ export default function Items() {
                 {name}
 
                 {idx === -1 && (
-                  <span className="unknown-item" title="tuntematon tavara">
+                  <span
+                    className="select-none cursor-help ml-4"
+                    title="tuntematon tavara"
+                  >
                     ❓
                   </span>
                 )}
 
                 {!id.toString().startsWith("slr") && (
                   <span
-                    className="sli-del clickable"
+                    className="ml-4 clickable"
                     onClick={() =>
                       modal
                         .yes(() => dispatch(rmItemSL(id)))

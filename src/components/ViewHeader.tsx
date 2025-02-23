@@ -25,7 +25,7 @@ export function ViewHeader({
       }}
     >
       <span
-        className="clickable p-4 text-[25px] w-[25px]"
+        className="clickable p-4 text-2xl w-[25px]"
         onClick={() => dispatch(showSidepanel())}
       >
         &#x2630;

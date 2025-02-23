@@ -12,14 +12,15 @@ export function Sidepanel() {
   const url = window.location.toString();
 
   const linkClass =
-    "no-underline p-2 pl-4 select-none cursor-pointer block transition duration-300 text-[var(--col-fg-0)] hover:text-[var(--col-fg-1)]";
+    "no-underline p-2 pl-4 select-none cursor-pointer block transition duration-300 text-fg-0 hover:text-fg-1";
 
   return (
     <nav
       {...{
-        className: `z-1 h-full fixed w-[225px] top-0 pr-[25px] border-r duration-500 bg-[var(--col-bg-0)] -left-[${
-          active ? 0 : 251
-        }px]`,
+        className: `z-1 h-full fixed w-[225px] top-0 pr-[25px] border-r duration-500 bg-bg-0`,
+        style: {
+          left: active ? 0 : -251,
+        },
 
         onMouseLeave: (e) => {
           // triggers only when leaving *the* panel, not its children

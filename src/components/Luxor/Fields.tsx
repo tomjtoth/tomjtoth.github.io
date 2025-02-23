@@ -11,16 +11,16 @@ export default function Fields() {
   const modal = useModal();
 
   return (
-    <ul className="luxor">
+    <ul className="list-none flex flex-wrap pl-0 justify-evenly m-0">
       {fields.map(({ id: fieldId, rows, importedAt }) => (
         <li
           key={fieldId}
-          className={`luxor ${locked ? "" : " border rounded"}`}
+          className={`m-2 p-2 text-center ${locked ? "" : " border rounded"}`}
         >
           {!locked && (
             <>
               {importedSpan(importedAt)}
-              <div>
+              <div className="flex flex-row-reverse justify-between mb-4">
                 <span
                   className="clickable p-4"
                   onClick={() => dispatch(luxorAddField(fieldId))}
@@ -46,7 +46,7 @@ export default function Fields() {
               </div>
             </>
           )}
-          <table className="luxor">
+          <table className="border-collapse text-2xl">
             <TableHead />
             <TableBody {...{ rows, fieldId }} />
           </table>

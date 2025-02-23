@@ -13,14 +13,15 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
   const dispatch = useAppDispatch();
 
   return (
-    <tbody>
+    <tbody className="border-2">
       {rows.map((cells, rowIdx) => {
         return (
           <tr key={rowIdx}>
             {cells.map((cell, cellIdx) => {
-              const classes = [];
+              const classes = ["p-1"];
               if (locked) classes.push("clickable");
-              if (pickedNums.includes(cell)) classes.push("picked");
+              if (pickedNums.includes(cell))
+                classes.push("bg-red-500 text-white");
 
               if (locked) {
                 if (rowIdx === 1 && between(cellIdx, 1, 3))
@@ -57,7 +58,7 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                   ) : (
                     <input
                       type="number"
-                      className="luxor-num"
+                      className="p-1 w-10"
                       min={0}
                       max={max}
                       title={`${min}-${max}`}

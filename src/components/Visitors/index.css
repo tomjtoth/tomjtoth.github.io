@@ -1,0 +1,21 @@
+@theme {
+  --animate-visitors-hu: visitors-hu 2s infinite;
+
+  @keyframes visitors-hu {
+    0%,
+    100% {
+      background-color: red;
+      color: white;
+    }
+
+    33% {
+      background-color: white;
+      color: green;
+    }
+
+    66% {
+      background-color: green;
+      color: red;
+    }
+  }
+}

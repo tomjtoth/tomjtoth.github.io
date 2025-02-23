@@ -7,7 +7,7 @@ export default function Logos({ url }: Props) {
     <a href={url} target="_blank">
       {url.startsWith("https://translate.google.com") ? (
         <svg
-          className="google-translate"
+          className="fill-fg-0"
           width="16"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"

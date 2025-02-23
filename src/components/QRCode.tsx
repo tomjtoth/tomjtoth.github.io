@@ -4,8 +4,8 @@ import { MouseEventHandler } from "react";
 const QR_OPTS = {
   title: "click to copy URL",
   marginSize: 4,
-  bgColor: "var(--col-bg-0)",
-  fgColor: "var(--col-fg-0)",
+  bgColor: "var(--color-bg-0)",
+  fgColor: "var(--color-fg-0)",
   className: "clickable m-[25px]",
   size: 200,
 };

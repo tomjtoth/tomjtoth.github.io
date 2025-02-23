@@ -11,11 +11,11 @@ export default function Details({ exp }: DetailsProps) {
   if (cv) {
     res = (
       <>
-        <h3 className="cv">
+        <h3 className="uppercase">
           <b>{index}</b>
         </h3>
 
-        <ul className="cv-details">
+        <ul className="pl-5 *:mt-3">
           {cv[index].map((det, i) => {
             const prefix = `cv.${index}[${i}]`;
 
@@ -90,7 +90,7 @@ export default function Details({ exp }: DetailsProps) {
               <li key={i} className={det.relevant ? undefined : "hidden"}>
                 {liContent}
 
-                <ul className="cv-detail-highlights">
+                <ul className="cv-detail-highlights pl-5 *:marker:content-['✓__']">
                   {det.highlights?.map((highlight, i) => (
                     <li
                       key={i}

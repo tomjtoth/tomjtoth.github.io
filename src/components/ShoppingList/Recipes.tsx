@@ -15,9 +15,10 @@ export default function Recipes() {
 
   return (
     <ul
+      id="slr"
+      className="overflow-hidden max-h-0 list-none pl-0 m-0"
       {...{
-        id,
-        className: active.includes(id) ? "active" : undefined,
+        style: active.includes(id) ? { maxHeight: "max-content" } : undefined,
       }}
     >
       {recipes.map(
