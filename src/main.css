@@ -8,6 +8,7 @@
 @import "./components/Lyrics/index.css";
 @import "./components/ShoppingList/index.css";
 @import "./components/Spinner/index.css";
+@import "./components/Visitors/index.css";
 
 @theme {
   --color-fg-0: #111;
