@@ -118,3 +118,8 @@ export function getCookie(name: string): string | null {
 
   return null;
 }
+
+export function pad(num: number | string, len = 2) {
+  const padded = `00${num}`;
+  return padded.slice(padded.length - len);
+}
