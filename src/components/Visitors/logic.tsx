@@ -3,15 +3,11 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { initVisitors } from "../../reducers/visitors";
 import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { pad } from "../../utils";
 
 const MIN = 60;
 const HOUR = 60 * MIN;
 const DAY = 24 * HOUR;
-
-const pad = (num: number, len = 2) => {
-  const padded = `00${num}`;
-  return padded.slice(padded.length - len);
-};
 
 export default function useLogic() {
   const dispatch = useAppDispatch();
@@ -56,7 +52,7 @@ export default function useLogic() {
             return (
               <span className={cn}>
                 {opening}
-                {name} {pad(DDD * Number(HH))}:{MM}:{SS} múlva
+                {name} {pad(DDD >= 1 ? DDD * Number(HH) : HH)}:{MM}:{SS} múlva
               </span>
             );
 
