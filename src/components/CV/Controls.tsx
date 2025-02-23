@@ -99,34 +99,7 @@ export default function Controls() {
       >
         <b>upload your CV</b>
       </span>
-      <span
-        className="clickable p-4"
-        title="print (Ctrl + P)"
-        onClick={() => {
-          const cookie = "cv-printed";
-          const reminded = Number(getCookie(cookie) ?? "0");
-
-          if (reminded < 2) {
-            modal
-              .en()
-              .ok(() => {
-                print();
-                setCookie(cookie, reminded + 1);
-              })
-              .cancel()
-              .prompt(
-                <p>
-                  I recommend setting a 94% scale and default marings, that was
-                  working fine for me
-                </p>
-              );
-          } else {
-            // do not prompt more than 2x within 7 days
-            print();
-            setCookie(cookie, reminded + 1);
-          }
-        }}
-      >
+      <span className="clickable p-4" title="print (Ctrl + P)" onClick={print}>
         🖨️
       </span>
     </>
