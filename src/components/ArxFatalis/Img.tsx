@@ -1,10 +1,9 @@
-import { MouseEventHandler } from "react";
+import { ImgHTMLAttributes } from "react";
 
 import { Rune as RuneClass } from "../../types/arx-fatalis/runes";
 
-type ImgProps = {
+type ImgProps = ImgHTMLAttributes<HTMLImageElement> & {
   rune: RuneClass;
-  onClick?: MouseEventHandler;
 };
 
 export default function Img({ rune, onClick }: ImgProps) {
