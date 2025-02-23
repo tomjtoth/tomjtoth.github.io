@@ -18,11 +18,11 @@ export default function Controls() {
   const pickedNums = useAppSelector((s) => s.luxor.pickedNums);
 
   const { reset: resetInput, ...num } = useField("number", {
-        placeholder: "a következő nyerőszám",
+    placeholder: "a következő nyerőszám",
     max: 75,
     min: 0,
-        className:
-"border rounded grow max-w-full min-w-0 w-6 p-2 placeholder:text-center",
+    className:
+      "border rounded grow max-w-full min-w-0 w-6 p-2 placeholder:text-center",
     autoComplete: "off",
   });
 
@@ -33,8 +33,9 @@ export default function Controls() {
       className="w-full flex items-center gap-2"
       onSubmit={(e) => {
         const { value } = num as NumberInputProps;
-        if (!pickedNums.includes(value as number))
+        if (value !== "" && !pickedNums.includes(value as number)) {
           dispatch(luxorAddNum(value as number));
+        }
 
         resetInput();
         e.preventDefault();
