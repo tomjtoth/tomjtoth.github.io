@@ -13,7 +13,7 @@ const pad = (num: number, len = 2) => {
   return padded.slice(padded.length - len);
 };
 
-export default function useVisitors() {
+export default function useLogic() {
   const dispatch = useAppDispatch();
   const next = useAppSelector((s) => s.visitors.next);
 
@@ -42,7 +42,7 @@ export default function useVisitors() {
     setNode(
       (function () {
         if (next) {
-          const { epoch, guest, opening } = next;
+          const { epoch, name, opening } = next;
 
           const diff = Math.floor((epoch - Date.now()) / 1000);
           const DDD = Math.floor(diff / DAY);
@@ -50,13 +50,13 @@ export default function useVisitors() {
           const MM = pad(Math.floor((diff % HOUR) / MIN));
           const SS = pad(diff % MIN);
 
-          const cn = "visitor hu";
+          const cn = "animate-visitor-hu";
 
           if (DDD <= 3)
             return (
               <span className={cn}>
                 {opening}
-                {guest} {pad(DDD * Number(HH))}:{MM}:{SS} múlva
+                {name} {pad(DDD * Number(HH))}:{MM}:{SS} múlva
               </span>
             );
 
@@ -65,7 +65,7 @@ export default function useVisitors() {
               <>
                 {opening}
                 <span className={cn}>
-                  {guest} {DDD} nap
+                  {name} {DDD} nap
                 </span>{" "}
                 {HH}:{MM}:{SS} múlva
               </>
@@ -74,7 +74,7 @@ export default function useVisitors() {
           return (
             <>
               {opening}
-              <span className={cn}>{guest}</span> {DDD} nap {HH}:{MM}:{SS} múlva
+              <span className={cn}>{name}</span> {DDD} nap {HH}:{MM}:{SS} múlva
             </>
           );
         }
