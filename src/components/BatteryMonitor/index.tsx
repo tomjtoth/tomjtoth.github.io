@@ -41,7 +41,7 @@ export function BatteryMonitor() {
       <ViewContent className="p-4">
         <p>
           Tää työkalu{" "}
-          {state && conf && conf.allowed ? "hälyttää" : "hälyttäisisi"} kun akun
+          {state && conf && conf.allowed ? "hälyttää" : "hälyttäisi"} kun akun
           taso on
         </p>
         <ul>
