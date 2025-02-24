@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { hideSidepanel } from "../reducers/sidepanel";
 
 import { QRCode } from ".";
+import { IS_TOUCH_DEVICE } from "../utils";
 
 export function Sidepanel() {
   const dispatch = useAppDispatch();
@@ -53,6 +54,15 @@ export function Sidepanel() {
         )}
       </ul>
       <QRCode value={url} onClick={() => navigator.clipboard.writeText(url)} />
+      {IS_TOUCH_DEVICE && (
+        <span
+          lang="en"
+          className="p-4 border rounded float-right"
+          onClick={() => location.reload()}
+        >
+          refresh ♻️
+        </span>
+      )}
     </nav>
   );
 }
