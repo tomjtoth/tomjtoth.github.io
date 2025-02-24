@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 
 type State = {
-  active: boolean;
-  className?: string;
+  visible: boolean;
+  fading?: boolean;
 };
 
 const DEFAULT = {
-  active: false,
+  visible: false,
 } as State;
 
 const slice = createSlice({
@@ -22,19 +22,19 @@ const slice = createSlice({
 const sa = slice.actions;
 
 export function resetSpinner() {
-  console.debug("resetting spinner to deafult");
+  console.debug("resetting spinner to default");
   return (dispatch: AppDispatch) => dispatch(sa.set(DEFAULT));
 }
 
 export function hideSpinner() {
   console.debug("fading out spinner");
   return (dispatch: AppDispatch) =>
-    dispatch(sa.set({ active: true, className: "fade-out" }));
+    dispatch(sa.set({ visible: true, fading: true }));
 }
 
 export function showSpinner() {
   console.debug("showing spinner");
-  return (dispatch: AppDispatch) => dispatch(sa.set({ active: true }));
+  return (dispatch: AppDispatch) => dispatch(sa.set({ visible: true }));
 }
 
 export default slice.reducer;

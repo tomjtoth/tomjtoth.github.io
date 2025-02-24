@@ -18,7 +18,7 @@ export function BatteryMonitor() {
   const conf = useAppSelector((s) => s.batteryMonitor.conf);
   const state = useAppSelector((s) => s.batteryMonitor.state);
   const isSupported = useAppSelector((s) => s.batteryMonitor.isSupported);
-  const spinnerActive = useAppSelector((s) => s.spinner.active);
+  const spinnerVisible = useAppSelector((s) => s.spinner.visible);
 
   const loading = isSupported && (!state || !conf);
 
@@ -28,7 +28,7 @@ export function BatteryMonitor() {
     // battery-monitor is the active view
     if (loading) {
       dispatch(showSpinner());
-    } else if (spinnerActive) {
+    } else if (spinnerVisible) {
       dispatch(hideSpinner());
     }
   }, [loading]);
