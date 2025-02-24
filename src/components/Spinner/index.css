@@ -1,58 +1,17 @@
-#spinner {
-  position: fixed;
-  z-index: 3;
-  top: 50%;
-  left: 50%;
-  width: 50vmin;
-  height: 50vmin;
-  border: 16px solid var(--color-bg-0);
-  border-top: 16px solid var(--color-bg-alt-b);
-  border-radius: 50%;
+@theme {
+  --animate-modal-de-blur: modal-de-blur 0.5s ease-in-out;
+  --animate-spinner-zooming: spinner-zooming 0.5s ease-in-out;
 
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: translate(-50%, -50%) rotate(0deg);
+  @keyframes modal-de-blur {
+    100% {
+      background-color: rgba(0, 0, 0, 0);
+      backdrop-filter: blur(0px);
+    }
   }
 
-  100% {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-
-:root {
-  --spinner-fade-out-delay: 500ms;
-}
-
-#spinner.fade-out {
-  border-top: 16px solid var(--color-bg-0);
-  animation: zoom-in var(--spinner-fade-out-delay) ease-in-out;
-}
-
-@keyframes zoom-in {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  100% {
-    transform: translate(-50%, -50%) scale(10);
-  }
-}
-
-.modal-blur:has(#spinner.fade-out) {
-  animation: fade-blur-out var(--spinner-fade-out-delay) ease-in-out;
-}
-
-@keyframes fade-blur-out {
-  0% {
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-  }
-
-  100% {
-    background-color: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(0px);
+  @keyframes spinner-zooming {
+    100% {
+      transform: scale(10);
+    }
   }
 }

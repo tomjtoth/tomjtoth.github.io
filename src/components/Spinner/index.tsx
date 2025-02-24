@@ -1,33 +1,34 @@
+import { useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { resetSpinner } from "../../reducers/spinner";
 
 export function Spinner() {
   // destructuring is fine for this component,
   // there's only these 2 props in reducer state...
-  const { active, className } = useAppSelector((s) => s.spinner);
+  const { visible, fading } = useAppSelector((s) => s.spinner);
   const dispatch = useAppDispatch();
+  const blur = useRef<HTMLDivElement>(null);
 
-  return active ? (
-    <div className="modal-blur">
+  return !visible ? null : (
+    <div
+      ref={blur}
+      className={`modal-blur${fading ? " animate-modal-de-blur" : ""}`}
+      onAnimationEnd={(ev) => {
+        console.debug("animation", ev.animationName, "ended");
+        if (ev.animationName === "modal-de-blur") {
+          dispatch(resetSpinner());
+
+          // blur.current!.style.visibility = "hidden";
+        }
+      }}
+    >
       <div
-        {...{
-          id: "spinner",
-          className,
-          onAnimationEnd: (ev) => {
-            console.debug("animation", ev.animationName, "ended");
-            if (ev.animationName === "zoom-in") {
-              dispatch(resetSpinner());
-
-              // React's async state change is too slow
-              const circle = ev.target as HTMLDivElement;
-              const blur = circle.parentNode as HTMLDivElement;
-              [circle, blur].forEach(
-                (div) => (div.style.visibility = "hidden")
-              );
-            }
-          },
-        }}
-      />
+        className={`fixed z-3 left-1/2 top-1/2 -translate-1/2${
+          fading ? " animate-spinner-zooming" : ""
+        }`}
+      >
+        <div className="animate-spin border-bg-0 rounded-[50%] border-t-bg-alt-b border-16 w-[50vmin] h-[50vmin]" />
+      </div>
     </div>
-  ) : null;
+  );
 }
