@@ -12,20 +12,20 @@ export function Sidepanel() {
   const url = window.location.toString();
 
   const linkClass =
-    "no-underline p-2 pl-4 select-none cursor-pointer block transition duration-300 text-fg-0 hover:text-fg-1";
+    "no-underline p-2 pl-4 select-none cursor-pointer block duration-300 text-fg-0 hover:text-fg-1";
 
   return (
     <nav
       {...{
-        className: `z-1 h-full fixed w-[225px] top-0 pr-[25px] border-r duration-500 bg-bg-0`,
-        style: {
-          left: active ? 0 : -251,
-        },
+        className: `z-1 h-full fixed w-[225px] top-0 pr-[25px] border-r duration-300 bg-bg-0 ${
+          active ? "left-0" : "-left-[251px]"
+        }`,
 
         onMouseLeave: (e) => {
           // triggers only when leaving *the* panel, not its children
           if (e.target === e.currentTarget) dispatch(hideSidepanel());
         },
+
         onClick: (e) => {
           if (e.target !== e.currentTarget) dispatch(hideSidepanel());
         },
@@ -36,15 +36,15 @@ export function Sidepanel() {
           <span className={`${linkClass} float-right`}>&times;</span>
         </li>
         {ROUTES_CONFIG.filter((x) => x.path != "*").map(
-          ({ path, label, lang }, i) => (
+          ({ path: to, label: children, lang }, i) => (
             <li key={i}>
               <Link
                 {...{
                   className: linkClass,
                   draggable: false,
 
-                  to: path,
-                  children: label,
+                  to,
+                  children,
                   lang,
                 }}
               />
