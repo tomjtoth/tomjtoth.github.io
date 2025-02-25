@@ -40,22 +40,23 @@ export function BatteryMonitor() {
       </ViewHeader>
       <ViewContent className="p-4">
         <p>
-          Tää työkalu{" "}
-          {state && conf && conf.allowed ? "hälyttää" : "hälyttäisi"} kun akun
-          taso on
+          Tää työkalu {state && conf?.allowed ? "hälyttää" : "hälyttäisi"} kun
+          akun taso on
         </p>
         <ul>
           <li>
-            joko yli {conf ? `${conf.upper}%` : "maksimirajaa"} {pluggedInStr}
+            joko yli {isSupported && conf ? `${conf.upper}%` : "maksimirajaa"}{" "}
+            {pluggedInStr}
           </li>
           <li>
-            tai alle {conf ? `${conf.lower}%` : "minimirajaa"} {unpluggedStr}
+            tai alle {isSupported && conf ? `${conf.lower}%` : "minimirajaa"}{" "}
+            {unpluggedStr}
           </li>
         </ul>
         {isSupported ? (
           <>
             <p>
-              {conf && conf.allowed ? (
+              {conf?.allowed ? (
                 <>
                   Kerran minuutissa (ala- ja ylärajojen säätö nollaa ajastimen)
                   katsotaan mikä akun tilanne on ja hälytetään tarvittaessa.
