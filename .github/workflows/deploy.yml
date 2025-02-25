@@ -53,12 +53,8 @@ jobs:
           cd dist
 
           # create links to index.html for BrowserRouter (to avoid 404)
-          REDIRECTS=($(sed -En 's/.*path:\s*"\/(.+)".*/\1/p' ../src/components/AppRoutes/config.tsx))
-          for view in ${REDIRECTS[*]}; do
-            mkdir $view
-            cp index.html $view/index.html
-          done
-          cp index.html 404.html
+          REDIRECTS=(404 $(sed -En 's/.*path:\s*"\/(.+)".*/\1/p' ../src/components/AppRoutes/config.tsx))
+          for view in ${REDIRECTS[*]}; do cp index.html $view.html; done
 
           # populating URLS_TO_CACHE in sw.js
           ASSETS=$(find . \( -name 'sw.js' -o -name 'README.md' -o -path './linux' \) -prune -o -type f -print | awk '{print "\"" $0 "\""}' | paste -sd "," -)
