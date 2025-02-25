@@ -41,7 +41,9 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Build Project
-        run: npm run build
+        run: |
+          export VITE_GIT_HASH=$(git rev-parse --short=8 HEAD)
+          npm run build
 
       - name: Routes
         shell: bash

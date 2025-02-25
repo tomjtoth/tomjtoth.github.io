@@ -7,6 +7,8 @@ import { hideSidepanel } from "../reducers/sidepanel";
 import { QRCode } from ".";
 import { IS_TOUCH_DEVICE } from "../utils";
 
+const HASH = import.meta.env.VITE_GIT_HASH;
+
 export function Sidepanel() {
   const dispatch = useAppDispatch();
   const active = useAppSelector((s) => s.sidepanel);
@@ -63,6 +65,7 @@ export function Sidepanel() {
           refresh ♻️
         </span>
       )}
+      {HASH && <span className="float-right mr-5">ver: {HASH}</span>}
     </nav>
   );
 }
