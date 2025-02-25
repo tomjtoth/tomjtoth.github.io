@@ -12,6 +12,7 @@ const BUG_DEFAULT = {
 const slice = createSlice({
   name: "luxor",
   initialState: {
+    loaded: false,
     locked: true,
     bug: BUG_DEFAULT,
     fields: [],
@@ -129,7 +130,7 @@ export function initLuxor(imports: FieldImport[]) {
     if (fields.length === 0)
       fields.push({ id: 1, order: 1, rows: emptyField() });
 
-    dispatch(sa.init({ pickedNums, fields }));
+    dispatch(sa.init({ pickedNums, fields, loaded: true }));
   };
 }
 
