@@ -14,6 +14,7 @@ export type Field = {
 export type FieldImport = Omit<Field, "id" | "order">;
 
 export type State = {
+  loaded: boolean;
   locked: boolean;
   bug: BugState;
   fields: Field[];
