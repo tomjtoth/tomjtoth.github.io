@@ -7,10 +7,7 @@ import {
   useField,
   useNotify,
 } from "../../hooks";
-import {
-  setBatMonAllowed,
-  setBatMonLevels,
-} from "../../reducers/battery-monitor";
+import { bm } from "../../reducers";
 
 export default function Controls() {
   const dispatch = useAppDispatch();
@@ -62,17 +59,14 @@ export default function Controls() {
       between(maxNum, 50, 90) &&
       (minNum != lower || maxNum != upper)
     ) {
-      const id = setTimeout(
-        () => dispatch(setBatMonLevels(minNum, maxNum)),
-        100
-      );
+      const id = setTimeout(() => dispatch(bm.setLevels(minNum, maxNum)), 100);
 
       return () => clearTimeout(id);
     }
   }, [min.value, max.value]);
 
   useEffect(() => {
-    const proceed = () => dispatch(setBatMonAllowed(allow.checked!));
+    const proceed = () => dispatch(bm.setAllowed(allow.checked!));
     if (allow.checked !== allowed) {
       if (allow.checked) {
         notify("Akunvalvonta", "näyteilmoitus").then(proceed).catch(resetAllow);

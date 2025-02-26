@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { toggleRelevance } from "../../reducers/cv";
+import { cv as cvr } from "../../reducers";
 import { DetailsProps } from "../../types/cv";
 
 export default function DetailsToggler({ exp }: DetailsProps) {
@@ -30,7 +30,7 @@ export default function DetailsToggler({ exp }: DetailsProps) {
                     det.relevant ? "included in" : "hidden from"
                   } the final printed pdf`}
                   className="print:hidden clickable"
-                  onChange={() => dispatch(toggleRelevance(exp, i))}
+                  onChange={() => dispatch(cvr.toggle(exp, i))}
                 />
                 <label htmlFor={inputId} className="clickable">
                   {title} |{" "}

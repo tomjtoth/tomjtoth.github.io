@@ -110,71 +110,73 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function initLuxor(imports: FieldImport[]) {
-  return async (dispatch: AppDispatch) => {
-    const [pickedNums, fields] = await db.load();
+export const lux = {
+  init: (imports: FieldImport[]) => {
+    return async (dispatch: AppDispatch) => {
+      const [pickedNums, fields] = await db.load();
 
-    if (imports.length > 0) {
-      const nextId = maxId(fields) + 1;
-      const len = fields.length + 1;
-      fields.push(
-        ...imports.map((rest, idx) => ({
-          ...rest,
-          id: nextId + idx,
-          order: len + idx,
-        }))
+      if (imports.length > 0) {
+        const nextId = maxId(fields) + 1;
+        const len = fields.length + 1;
+        fields.push(
+          ...imports.map((rest, idx) => ({
+            ...rest,
+            id: nextId + idx,
+            order: len + idx,
+          }))
+        );
+        db.saveFields({ fields });
+      }
+
+      if (fields.length === 0)
+        fields.push({ id: 1, order: 1, rows: emptyField() });
+
+      dispatch(sa.init({ pickedNums, fields, loaded: true }));
+    };
+  },
+
+  addNum: (num: number) => {
+    return (dispatch: AppDispatch) => dispatch(sa.addNum(num));
+  },
+
+  update: (arr: number[]) => {
+    return (dispatch: AppDispatch) => dispatch(sa.update(arr));
+  },
+
+  clear: () => {
+    return (dispatch: AppDispatch) => dispatch(sa.clearNums());
+  },
+
+  addField: (id: number) => {
+    return (dispatch: AppDispatch) => dispatch(sa.addField(id));
+  },
+
+  rmField: (id: number) => {
+    return (dispatch: AppDispatch) => dispatch(sa.rmField(id));
+  },
+
+  pop: () => {
+    return (dispatch: AppDispatch) => dispatch(sa.popNum());
+  },
+
+  toggleLocked: () => {
+    return (disp: AppDispatch) => disp(sa.toggleLocked());
+  },
+
+  bugMove: (position: number | string, fast: boolean) => {
+    return (dispatch: AppDispatch) =>
+      dispatch(
+        sa.setBug({ position, filtered: false, transition: fast ? "1s" : "2s" })
       );
-      db.saveFields({ fields });
-    }
+  },
 
-    if (fields.length === 0)
-      fields.push({ id: 1, order: 1, rows: emptyField() });
+  bugHide: () => {
+    return (dispatch: AppDispatch) => dispatch(sa.hideBug());
+  },
 
-    dispatch(sa.init({ pickedNums, fields, loaded: true }));
-  };
-}
-
-export function luxorAddNum(num: number) {
-  return (dispatch: AppDispatch) => dispatch(sa.addNum(num));
-}
-
-export function luxorUpdate(arr: number[]) {
-  return (dispatch: AppDispatch) => dispatch(sa.update(arr));
-}
-
-export function luxorClearNums() {
-  return (dispatch: AppDispatch) => dispatch(sa.clearNums());
-}
-
-export function luxorAddField(id: number) {
-  return (dispatch: AppDispatch) => dispatch(sa.addField(id));
-}
-
-export function luxorRmField(id: number) {
-  return (dispatch: AppDispatch) => dispatch(sa.rmField(id));
-}
-
-export function luxorPopNum() {
-  return (dispatch: AppDispatch) => dispatch(sa.popNum());
-}
-
-export function luxorToggleLocked() {
-  return (disp: AppDispatch) => disp(sa.toggleLocked());
-}
-
-export function luxorBugMove(position: number | string, fast: boolean) {
-  return (dispatch: AppDispatch) =>
-    dispatch(
-      sa.setBug({ position, filtered: false, transition: fast ? "1s" : "2s" })
-    );
-}
-
-export function luxorBugHide() {
-  return (dispatch: AppDispatch) => dispatch(sa.hideBug());
-}
-
-export function luxorBugReset() {
-  return (dispatch: AppDispatch) => dispatch(sa.setBug(BUG_DEFAULT));
-}
+  bugReset: () => {
+    return (dispatch: AppDispatch) => dispatch(sa.setBug(BUG_DEFAULT));
+  },
+};
 
 export default slice.reducer;

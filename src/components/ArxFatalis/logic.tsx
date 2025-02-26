@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { hideSpinner, showSpinner } from "../../reducers/spinner";
-import { castSpell, initArx } from "../../reducers/arx-fatalis";
+import { arx, spin } from "../../reducers";
 import { Rune, Spell } from "../../types/arx-fatalis";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 
@@ -15,8 +14,8 @@ export default function useLogic() {
 
   useEffect(() => {
     if (!loaded) {
-      dispatch(showSpinner());
-      dispatch(initArx()).then(() => dispatch(hideSpinner()));
+      dispatch(spin.show());
+      dispatch(arx.init()).then(() => dispatch(spin.hide()));
     }
   }, []);
 
@@ -65,7 +64,7 @@ export default function useLogic() {
               );
           }
 
-          dispatch(castSpell(idx));
+          dispatch(arx.cast(idx));
         });
       }
 

@@ -24,24 +24,26 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function castSpell(spell: number) {
-  return (dispatch: AppDispatch) => dispatch(sa.addSpell(spell));
-}
+export const arx = {
+  cast: (spell: number) => {
+    return (dispatch: AppDispatch) => dispatch(sa.addSpell(spell));
+  },
 
-export function initArx() {
-  return (dispatch: AppDispatch) =>
-    db.load().then((castSpells) => {
-      dispatch(
-        sa.init({
-          loaded: true,
-          castSpells,
-          score: castSpells.reduce(
-            (sum: number, se: SpellEnum) => sum + Spell.pointsOf(se),
-            0
-          ),
-        })
-      );
-    });
-}
+  init: () => {
+    return (dispatch: AppDispatch) =>
+      db.load().then((castSpells) => {
+        dispatch(
+          sa.init({
+            loaded: true,
+            castSpells,
+            score: castSpells.reduce(
+              (sum: number, se: SpellEnum) => sum + Spell.pointsOf(se),
+              0
+            ),
+          })
+        );
+      });
+  },
+};
 
 export default slice.reducer;

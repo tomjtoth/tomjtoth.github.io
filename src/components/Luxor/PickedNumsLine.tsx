@@ -2,12 +2,7 @@ import { useRef } from "react";
 
 import { last } from "../../utils";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
-import {
-  luxorBugHide,
-  luxorBugMove,
-  luxorBugReset,
-  luxorPopNum,
-} from "../../reducers/luxor";
+import { lux } from "../../reducers";
 
 export default function PickedNumsLine() {
   const pickedNums = useAppSelector((s) => s.luxor.pickedNums);
@@ -36,7 +31,7 @@ export default function PickedNumsLine() {
             .hu()
             .ok(() =>
               dispatch(
-                luxorBugMove(
+                lux.bugMove(
                   span.current!.getBoundingClientRect().right - 8,
                   true
                 )
@@ -58,10 +53,10 @@ export default function PickedNumsLine() {
         style={{ left: bug.position, transition: bug.transition }}
         onTransitionEnd={() => {
           if (bug.position !== "-10vw" && bug.position !== "110vw") {
-            dispatch(luxorBugHide());
-            dispatch(luxorPopNum());
+            dispatch(lux.bugHide());
+            dispatch(lux.pop());
           } else if (bug.position === "-10vw") {
-            dispatch(luxorBugReset());
+            dispatch(lux.bugReset());
           }
         }}
       >
@@ -72,7 +67,7 @@ export default function PickedNumsLine() {
         <div
           className="fixed z-2 w-15 h-15 rounded-full border-2 border-red-500 cursor-not-allowed -translate-x-[50%] animate-luxor-bug-blur"
           style={{ left: bug.position }}
-          onAnimationEnd={() => dispatch(luxorBugMove("-10vw", false))}
+          onAnimationEnd={() => dispatch(lux.bugMove("-10vw", false))}
         />
       )}
     </div>

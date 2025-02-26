@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
-
 import { ViewHeader, ViewContent } from "..";
+import { spin } from "../../reducers";
+
 import Controls from "./Controls";
-import { hideSpinner, showSpinner } from "../../reducers/spinner";
 
 const pluggedInStr = "ja laturi on vieläkin kiinni";
 const unpluggedStr = "eikä laturi oo kytkettynä";
@@ -27,9 +27,9 @@ export function BatteryMonitor() {
     // this is only necessary on page-load while
     // battery-monitor is the active view
     if (loading) {
-      dispatch(showSpinner());
+      dispatch(spin.show());
     } else if (spinnerVisible) {
-      dispatch(hideSpinner());
+      dispatch(spin.hide());
     }
   }, [loading]);
 

@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
-import Artists from "./Artists";
 import { ViewHeader, ViewContent } from "..";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { hideSpinner, showSpinner } from "../../reducers/spinner";
-import { init } from "../../reducers/lyrics";
+import { spin, lyr } from "../../reducers";
+
+import Artists from "./Artists";
 
 export function Lyrics() {
   const dispatch = useAppDispatch();
@@ -12,8 +12,8 @@ export function Lyrics() {
 
   useEffect(() => {
     if (!loaded) {
-      dispatch(showSpinner());
-      dispatch(init()).then(() => dispatch(hideSpinner()));
+      dispatch(spin.show());
+      dispatch(lyr.init()).then(() => dispatch(spin.hide()));
     }
   }, []);
 

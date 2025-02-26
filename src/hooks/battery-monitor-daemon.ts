@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { notiText } from "../components/BatteryMonitor";
-import { initBatMon } from "../reducers/battery-monitor";
+import { bm } from "../reducers";
 import {
   useAppDispatch,
   useAppSelector,
@@ -42,7 +42,7 @@ export function useBatMonDaemon() {
 
       return () => clearTimeout(id);
     } else if (!conf) {
-      dispatch(initBatMon());
+      dispatch(bm.init());
     }
   }, [conf, batState, checkpoint]);
 }

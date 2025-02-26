@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { hideSpinner, showSpinner } from "../../reducers/spinner";
-import { initSL } from "../../reducers/shopping-list";
+import { spin, sl } from "../../reducers";
 
 import { ViewHeader, ViewContent } from "..";
 import Recipes from "./Recipes";
@@ -15,9 +14,9 @@ export function ShoppingList() {
 
   useEffect(() => {
     if (!loaded) {
-      dispatch(showSpinner());
+      dispatch(spin.show());
       console.debug("fetching recipes");
-      dispatch(initSL()).then(() => dispatch(hideSpinner()));
+      dispatch(sl.init()).then(() => dispatch(spin.hide()));
     }
   }, []);
 

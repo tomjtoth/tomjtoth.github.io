@@ -15,19 +15,21 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function showSidepanel() {
-  return (dispatch: AppDispatch) => dispatch(sa.set(true));
-}
+export const sp = {
+  show: () => {
+    return (dispatch: AppDispatch) => dispatch(sa.set(true));
+  },
 
-export function hideSidepanel() {
-  return (dispatch: AppDispatch) => {
-    new Promise<void>((done) =>
-      setTimeout(() => {
-        dispatch(sa.set(false));
-        done();
-      })
-    );
-  };
-}
+  hide: () => {
+    return (dispatch: AppDispatch) => {
+      new Promise<void>((done) =>
+        setTimeout(() => {
+          dispatch(sa.set(false));
+          done();
+        })
+      );
+    };
+  },
+};
 
 export default slice.reducer;

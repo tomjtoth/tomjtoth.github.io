@@ -52,38 +52,40 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function initSL() {
-  return async (dispatch: AppDispatch) => {
-    return Promise.all([
-      db.load(),
-      import("js-yaml"),
-      import("../assets/recipes.yaml?raw"),
-    ]).then(([[active, items], YAML, { default: strYaml }]) =>
-      dispatch(
-        sa.init({
-          recipes: parseYaml(YAML.load(strYaml)),
-          active,
-          items,
-        })
-      )
-    );
-  };
-}
+export const sl = {
+  init: () => {
+    return async (dispatch: AppDispatch) => {
+      return Promise.all([
+        db.load(),
+        import("js-yaml"),
+        import("../assets/recipes.yaml?raw"),
+      ]).then(([[active, items], YAML, { default: strYaml }]) =>
+        dispatch(
+          sa.init({
+            recipes: parseYaml(YAML.load(strYaml)),
+            active,
+            items,
+          })
+        )
+      );
+    };
+  },
 
-export function toggleActiveSL(id: string) {
-  return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
-}
+  toggle: (id: string) => {
+    return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
+  },
 
-export function addItemSL(item: string) {
-  return (dispatch: AppDispatch) => dispatch(sa.addItem(item));
-}
+  addItem: (item: string) => {
+    return (dispatch: AppDispatch) => dispatch(sa.addItem(item));
+  },
 
-export function rmItemSL(id: string) {
-  return (dispatch: AppDispatch) => dispatch(sa.rmItem(id));
-}
+  rmItem: (id: string) => {
+    return (dispatch: AppDispatch) => dispatch(sa.rmItem(id));
+  },
 
-export function resetActiveSL() {
-  return (dispatch: AppDispatch) => dispatch(sa.resetActiveItems());
-}
+  reset: () => {
+    return (dispatch: AppDispatch) => dispatch(sa.resetActiveItems());
+  },
+};
 
 export default slice.reducer;
