@@ -1,6 +1,7 @@
 import { useRef } from "react";
+
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { resetSpinner } from "../../reducers/spinner";
+import { spin } from "../../reducers";
 
 export function Spinner() {
   // destructuring is fine for this component,
@@ -16,7 +17,7 @@ export function Spinner() {
       onAnimationEnd={(ev) => {
         console.debug("animation", ev.animationName, "ended");
         if (ev.animationName === "modal-de-blur") {
-          dispatch(resetSpinner());
+          dispatch(spin.reset());
 
           // blur.current!.style.visibility = "hidden";
         }

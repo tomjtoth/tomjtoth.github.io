@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { spin, lux } from "../../reducers";
 import { useAppSelector, useAppDispatch, useModal } from "../../hooks";
 import { processImports } from "../../services/luxor";
-import { initLuxor } from "../../reducers/luxor";
 
 export function useInit() {
   const dispatch = useAppDispatch();
@@ -15,7 +14,7 @@ export function useInit() {
 
   useEffect(() => {
     if (!loaded) {
-      dispatch(showSpinner());
+      dispatch(spin.show());
 
       const imps = new URLSearchParams(search).get("import");
       const [arr, prompt, critical] = processImports(imps);
@@ -25,13 +24,13 @@ export function useInit() {
           .hu()
           .ok(() => {
             if (!critical) {
-              dispatch(initLuxor(arr)).then(() => dispatch(hideSpinner()));
+              dispatch(lux.init(arr)).then(() => dispatch(spin.hide()));
               navigate(pathname);
             }
           })
           .prompt(prompt);
       } else {
-        dispatch(initLuxor(arr)).then(() => dispatch(hideSpinner()));
+        dispatch(lux.init(arr)).then(() => dispatch(spin.hide()));
         if (imps) navigate(pathname);
       }
     }

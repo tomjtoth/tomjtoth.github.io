@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { initVisitors } from "../../reducers/visitors";
-import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { vis, spin } from "../../reducers";
 import { pad } from "../../utils";
 
 const MIN = 60;
@@ -15,10 +14,10 @@ export default function useLogic() {
 
   useEffect(() => {
     if (next === undefined) {
-      dispatch(showSpinner());
-      dispatch(initVisitors()).then(() => {
+      dispatch(spin.show());
+      dispatch(vis.init()).then(() => {
         buildNode();
-        dispatch(hideSpinner());
+        dispatch(spin.hide());
       });
     } else {
       buildNode();

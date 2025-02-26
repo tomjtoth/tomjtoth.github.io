@@ -1,7 +1,7 @@
 import { HTMLAttributes, PropsWithChildren } from "react";
 
 import { useAppDispatch } from "../hooks";
-import { showSidepanel } from "../reducers/sidepanel";
+import { sp } from "../reducers";
 
 type HeaderProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
   title?: string;
@@ -26,7 +26,7 @@ export function ViewHeader({
     >
       <span
         className="clickable p-4 text-2xl w-[25px]"
-        onClick={() => dispatch(showSidepanel())}
+        onClick={() => dispatch(sp.show())}
       >
         &#x2630;
       </span>

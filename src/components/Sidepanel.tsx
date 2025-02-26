@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 import { ROUTES_CONFIG } from "./AppRoutes/config";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { hideSidepanel } from "../reducers/sidepanel";
+import { sp } from "../reducers";
 
 import { QRCode } from ".";
 import { IS_TOUCH_DEVICE } from "../utils";
@@ -26,11 +26,11 @@ export function Sidepanel() {
 
         onMouseLeave: (e) => {
           // triggers only when leaving *the* panel, not its children
-          if (e.target === e.currentTarget) dispatch(hideSidepanel());
+          if (e.target === e.currentTarget) dispatch(sp.hide());
         },
 
         onClick: (e) => {
-          if (e.target !== e.currentTarget) dispatch(hideSidepanel());
+          if (e.target !== e.currentTarget) dispatch(sp.show());
         },
       }}
     >

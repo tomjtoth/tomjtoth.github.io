@@ -21,20 +21,22 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function resetSpinner() {
-  console.debug("resetting spinner to default");
-  return (dispatch: AppDispatch) => dispatch(sa.set(DEFAULT));
-}
+export const spin = {
+  reset: () => {
+    console.debug("resetting spinner to default");
+    return (dispatch: AppDispatch) => dispatch(sa.set(DEFAULT));
+  },
 
-export function hideSpinner() {
-  console.debug("fading out spinner");
-  return (dispatch: AppDispatch) =>
-    dispatch(sa.set({ visible: true, fading: true }));
-}
+  hide: () => {
+    console.debug("fading out spinner");
+    return (dispatch: AppDispatch) =>
+      dispatch(sa.set({ visible: true, fading: true }));
+  },
 
-export function showSpinner() {
-  console.debug("showing spinner");
-  return (dispatch: AppDispatch) => dispatch(sa.set({ visible: true }));
-}
+  show: () => {
+    console.debug("showing spinner");
+    return (dispatch: AppDispatch) => dispatch(sa.set({ visible: true }));
+  },
+};
 
 export default slice.reducer;

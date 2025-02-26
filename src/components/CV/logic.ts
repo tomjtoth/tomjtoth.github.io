@@ -1,8 +1,7 @@
 import { useContext, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { setCV, setImg, setURL } from "../../reducers/cv";
-import { hideSpinner, showSpinner } from "../../reducers/spinner";
+import { cv as cvr, spin } from "../../reducers";
 import { isCV } from "../../types/cv/isCV";
 import { ccToFlags } from "../../utils";
 import { CxFiles } from "../ViewRoot";
@@ -13,7 +12,7 @@ export function useFilesToCV() {
   return (list: FileList | File[]) =>
     new Promise<void>(async (done) => {
       if (list.length > 0) {
-        dispatch(showSpinner());
+        dispatch(spin.show());
 
         let cvFound = false;
         let imgFound = false;
@@ -31,11 +30,11 @@ export function useFilesToCV() {
             if (isCV(res)) {
               cvFound = true;
 
-              dispatch(setCV(res));
+              dispatch(cvr.setCV(res));
             }
           } else if (!imgFound && file.type.startsWith("image")) {
             const reader = new FileReader();
-            reader.onload = () => dispatch(setImg(reader.result as string));
+            reader.onload = () => dispatch(cvr.setImg(reader.result as string));
             reader.readAsDataURL(file);
             imgFound = true;
           }
@@ -43,7 +42,7 @@ export function useFilesToCV() {
           if (imgFound && cvFound) break;
         }
 
-        dispatch(hideSpinner());
+        dispatch(spin.hide());
       }
 
       done();
@@ -60,7 +59,7 @@ export default function useLogic() {
     if (files) {
       processFiles(files);
     } else if (!cv) {
-      dispatch(showSpinner());
+      dispatch(spin.hide());
       Promise.all([import("js-yaml"), import("../../assets/cv.yaml?raw")]).then(
         ([YAML, { default: strYaml }]) => {
           const flagsReplaced = ccToFlags(strYaml);
@@ -69,9 +68,9 @@ export default function useLogic() {
           const blob = new Blob([strYaml], { type: "application/yaml" });
           const blobUrl = URL.createObjectURL(blob);
 
-          dispatch(setURL(blobUrl));
-          dispatch(setCV(parsed));
-          dispatch(hideSpinner());
+          dispatch(cvr.setURL(blobUrl));
+          dispatch(cvr.setCV(parsed));
+          dispatch(spin.hide());
         }
       );
     }

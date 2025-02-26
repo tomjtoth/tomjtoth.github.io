@@ -5,11 +5,7 @@ import {
   useModal,
 } from "../../hooks";
 import { NumberInputProps } from "../../types/hooks";
-import {
-  luxorAddNum,
-  luxorClearNums,
-  luxorToggleLocked,
-} from "../../reducers/luxor";
+import { lux } from "../../reducers";
 
 export default function Controls() {
   const dispatch = useAppDispatch();
@@ -34,7 +30,7 @@ export default function Controls() {
       onSubmit={(e) => {
         const { value } = num as NumberInputProps;
         if (value !== "" && !pickedNums.includes(value as number)) {
-          dispatch(luxorAddNum(value as number));
+          dispatch(lux.addNum(value as number));
         }
 
         resetInput();
@@ -43,7 +39,7 @@ export default function Controls() {
     >
       <span
         className="p-4 clickable"
-        onClick={() => dispatch(luxorToggleLocked())}
+        onClick={() => dispatch(lux.toggleLocked())}
       >
         {locked ? "🔒" : "🔓"}
       </span>
@@ -53,7 +49,7 @@ export default function Controls() {
         onClick={() =>
           modal
             .hu()
-            .ok(() => dispatch(luxorClearNums()))
+            .ok(() => dispatch(lux.clear()))
             .cancel()
             .prompt(
               <>

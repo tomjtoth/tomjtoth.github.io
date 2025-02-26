@@ -26,25 +26,27 @@ const slice = createSlice({
 
 export const sa = slice.actions;
 
-export function init() {
-  return (dispatch: AppDispatch) =>
-    Promise.all([
-      import("js-yaml"),
-      import("../assets/lyrics.yaml?raw"),
-      db.load(),
-    ]).then(([YAML, { default: strYaml }, active]) => {
-      const artists = parseYaml(YAML.load(strYaml));
+export const lyr = {
+  init: () => {
+    return (dispatch: AppDispatch) =>
+      Promise.all([
+        import("js-yaml"),
+        import("../assets/lyrics.yaml?raw"),
+        db.load(),
+      ]).then(([YAML, { default: strYaml }, active]) => {
+        const artists = parseYaml(YAML.load(strYaml));
 
-      return dispatch(sa.init({ artists, active }));
-    });
-}
+        return dispatch(sa.init({ artists, active }));
+      });
+  },
 
-export function lyricsToggle(id: string) {
-  return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
-}
+  toggle: (id: string) => {
+    return (dispatch: AppDispatch) => dispatch(sa.toggleActive(id));
+  },
 
-export function lyricsReset() {
-  return (dispatch: AppDispatch) => dispatch(sa.resetActive());
-}
+  reset: () => {
+    return (dispatch: AppDispatch) => dispatch(sa.resetActive());
+  },
+};
 
 export default slice.reducer;

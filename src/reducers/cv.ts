@@ -33,53 +33,50 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export function setCV({
-  personal: p,
-  education: edu,
-  experience: exp,
-  skills,
-}: any) {
-  return (dispatch: AppDispatch) => {
-    const citizenship = Object.entries(p.citizenship).map(
-      ([flag, nationality]) => ({ flag, nationality })
-    );
+export const cv = {
+  setCV: ({ personal: p, education: edu, experience: exp, skills }: any) => {
+    return (dispatch: AppDispatch) => {
+      const citizenship = Object.entries(p.citizenship).map(
+        ([flag, nationality]) => ({ flag, nationality })
+      );
 
-    const languages = Object.entries(p.languages).map(([flag, lang]) => ({
-      flag,
-      lang,
-    }));
+      const languages = Object.entries(p.languages).map(([flag, lang]) => ({
+        flag,
+        lang,
+      }));
 
-    return dispatch(
-      sa.setCV({
-        personal: {
-          ...p,
-          citizenship,
-          languages,
-        },
-        skills,
-        education: edu.map((e: EduDet) => ({
-          ...e,
-          relevant: e.relevant ?? true,
-        })),
-        experience: exp.map((e: ExpDet) => ({
-          ...e,
-          relevant: e.relevant ?? true,
-        })),
-      })
-    );
-  };
-}
+      return dispatch(
+        sa.setCV({
+          personal: {
+            ...p,
+            citizenship,
+            languages,
+          },
+          skills,
+          education: edu.map((e: EduDet) => ({
+            ...e,
+            relevant: e.relevant ?? true,
+          })),
+          experience: exp.map((e: ExpDet) => ({
+            ...e,
+            relevant: e.relevant ?? true,
+          })),
+        })
+      );
+    };
+  },
+  setImg: (img: string) => {
+    return (dispatch: AppDispatch) => dispatch(sa.setImg(img));
+  },
 
-export function setImg(img: string) {
-  return (dispatch: AppDispatch) => dispatch(sa.setImg(img));
-}
+  setURL: (url: string) => {
+    return (dispatch: AppDispatch) => dispatch(sa.setURL(url));
+  },
 
-export function setURL(url: string) {
-  return (dispatch: AppDispatch) => dispatch(sa.setURL(url));
-}
-
-export function toggleRelevance(exp: boolean, idx: number) {
-  return (dispatch: AppDispatch) => dispatch(sa.toggleRelevance({ exp, idx }));
-}
+  toggle: (exp: boolean, idx: number) => {
+    return (dispatch: AppDispatch) =>
+      dispatch(sa.toggleRelevance({ exp, idx }));
+  },
+};
 
 export default slice.reducer;

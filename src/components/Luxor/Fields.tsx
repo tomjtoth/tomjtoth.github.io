@@ -1,5 +1,5 @@
-import { luxorAddField, luxorRmField } from "../../reducers/luxor";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
+import { lux } from "../../reducers";
 
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
@@ -23,7 +23,7 @@ export default function Fields() {
               <div className="flex flex-row-reverse justify-between mb-4">
                 <span
                   className="clickable p-4"
-                  onClick={() => dispatch(luxorAddField(fieldId))}
+                  onClick={() => dispatch(lux.addField(fieldId))}
                   tabIndex={0}
                 >
                   új mező ➕
@@ -35,7 +35,7 @@ export default function Fields() {
                     onClick={() =>
                       modal
                         .hu()
-                        .ok(() => dispatch(luxorRmField(fieldId)))
+                        .ok(() => dispatch(lux.rmField(fieldId)))
                         .cancel()
                         .prompt(<>Azt a mezőt most törlöm...</>)
                     }

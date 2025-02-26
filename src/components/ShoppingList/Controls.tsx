@@ -5,11 +5,7 @@ import {
   useModal,
 } from "../../hooks";
 import { TextInputProps } from "../../types/hooks";
-import {
-  addItemSL,
-  resetActiveSL,
-  toggleActiveSL,
-} from "../../reducers/shopping-list";
+import { sl } from "../../reducers";
 
 export default function Controls() {
   const dispatch = useAppDispatch();
@@ -30,7 +26,7 @@ export default function Controls() {
         const trimmed = value.trim();
 
         if (trimmed.length > 0) {
-          dispatch(addItemSL(trimmed));
+          dispatch(sl.addItem(trimmed));
           resetItem();
         }
         e.preventDefault();
@@ -39,7 +35,7 @@ export default function Controls() {
       <span
         className="clickable mx-4 shrink-0 whitespace-nowrap"
         title={title}
-        onClick={() => dispatch(toggleActiveSL("slr"))}
+        onClick={() => dispatch(sl.toggle("slr"))}
       >
         {emoji}
       </span>
@@ -53,7 +49,7 @@ export default function Controls() {
         title="pyyhi vihreät"
         onClick={() =>
           modal
-            .yes(() => dispatch(resetActiveSL()))
+            .yes(() => dispatch(sl.reset()))
             .no()
             .prompt("pyyhitäänkö kaikki vihreät?")
         }

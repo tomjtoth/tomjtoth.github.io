@@ -1,4 +1,4 @@
-import { rmItemSL, toggleActiveSL } from "../../reducers/shopping-list";
+import { sl } from "../../reducers";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 import { order } from "./config";
 
@@ -57,8 +57,7 @@ export default function Items() {
                   isActive ? " active" : ""
                 }`}
                 onClick={(e) => {
-                  if (e.target === e.currentTarget)
-                    dispatch(toggleActiveSL(id));
+                  if (e.target === e.currentTarget) dispatch(sl.toggle(id));
                 }}
               >
                 {name}
@@ -77,7 +76,7 @@ export default function Items() {
                     className="ml-4 clickable"
                     onClick={() =>
                       modal
-                        .yes(() => dispatch(rmItemSL(id)))
+                        .yes(() => dispatch(sl.rmItem(id)))
                         .no()
                         .prompt(`poistetaanko "${name}" varmasti?`)
                     }
