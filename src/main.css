@@ -26,7 +26,7 @@
 }
 
 @layer components {
-  .modal-blur {
+  .bg-blur {
     @apply fixed top-0 left-0 z-2 w-full h-full;
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(20px);

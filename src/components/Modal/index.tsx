@@ -15,7 +15,7 @@ export function Modal({ children }: PropsWithChildren) {
       {prompt && (
         <div
           {...{
-            className: "modal-blur print:hidden",
+            className: "bg-blur print:hidden",
             onClick: reset,
           }}
         >
