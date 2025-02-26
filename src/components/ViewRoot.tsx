@@ -53,7 +53,7 @@ export function ViewRoot({ children }: PropsWithChildren) {
       >
         {visible && (
           <div
-            className="text-2xl flex items-center justify-center modal-blur"
+            className="text-2xl flex items-center justify-center bg-blur"
             style={{
               textShadow: `
                 0 0 40px var(--color-bg-0),

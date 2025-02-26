@@ -13,7 +13,7 @@ export function Spinner() {
   return !visible ? null : (
     <div
       ref={blur}
-      className={`modal-blur${fading ? " animate-modal-de-blur" : ""}`}
+      className={`bg-blur${fading ? " animate-modal-de-blur" : ""}`}
       onAnimationEnd={(ev) => {
         console.debug("animation", ev.animationName, "ended");
         if (ev.animationName === "modal-de-blur") {
