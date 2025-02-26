@@ -45,7 +45,7 @@ jobs:
 
       - name: Build Project
         run: |
-          export VITE_GIT_HASH=$(git rev-parse --short=8 HEAD)
+          export VITE_GIT_HASH=$(git rev-parse --short=7 HEAD)
           npm run build
 
       - name: Routes
