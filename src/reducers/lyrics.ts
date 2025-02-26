@@ -24,7 +24,7 @@ const slice = createSlice({
   },
 });
 
-export const sa = slice.actions;
+const sa = slice.actions;
 
 export const lyr = {
   init: () => {
