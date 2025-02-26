@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Link } from "react-router";
 
 import { ROUTES_CONFIG } from "./AppRoutes/config";
@@ -6,13 +7,13 @@ import { sp } from "../reducers";
 
 import { QRCode } from ".";
 import { IS_TOUCH_DEVICE } from "../utils";
-
 const HASH = import.meta.env.VITE_GIT_HASH;
 
 export function Sidepanel() {
   const dispatch = useAppDispatch();
   const active = useAppSelector((s) => s.sidepanel);
   const url = window.location.toString();
+  const verRef = useRef<HTMLSpanElement>(null);
 
   const linkClass =
     "no-underline p-2 pl-4 select-none cursor-pointer block duration-300 text-fg-0 hover:text-fg-1";
@@ -30,7 +31,12 @@ export function Sidepanel() {
         },
 
         onClick: (e) => {
-          if (e.target !== e.currentTarget) dispatch(sp.show());
+          if (
+            ![e.currentTarget, verRef.current as Node].includes(
+              e.target as Node
+            )
+          )
+            dispatch(sp.hide());
         },
       }}
     >
@@ -56,16 +62,17 @@ export function Sidepanel() {
         )}
       </ul>
       <QRCode value={url} onClick={() => navigator.clipboard.writeText(url)} />
-      {IS_TOUCH_DEVICE && (
-        <span
-          lang="en"
-          className="p-4 border rounded float-right"
-          onClick={() => location.reload()}
-        >
-          refresh ♻️
-        </span>
-      )}
-      {HASH && <span className="float-right mr-5">ver: {HASH}</span>}
+      <div lang="en" className="ml-[25px] flex gap-4 flex-col items-center">
+        {IS_TOUCH_DEVICE && (
+          <span
+            className="p-4 border rounded"
+            onClick={() => location.reload()}
+          >
+            refresh ♻️
+          </span>
+        )}
+        <span ref={verRef}>ver: {HASH ?? 88888888}</span>
+      </div>
     </nav>
   );
 }
