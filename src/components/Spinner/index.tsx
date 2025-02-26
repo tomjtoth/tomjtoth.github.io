@@ -13,10 +13,10 @@ export function Spinner() {
   return !visible ? null : (
     <div
       ref={blur}
-      className={`bg-blur${fading ? " animate-modal-de-blur" : ""}`}
+      className={`bg-blur${fading ? " animate-bg-deblur" : ""}`}
       onAnimationEnd={(ev) => {
         console.debug("animation", ev.animationName, "ended");
-        if (ev.animationName === "modal-de-blur") {
+        if (ev.animationName === "bg-deblur") {
           dispatch(spin.reset());
 
           // blur.current!.style.visibility = "hidden";
@@ -24,7 +24,7 @@ export function Spinner() {
       }}
     >
       <div
-        className={`fixed z-3 left-1/2 top-1/2 -translate-1/2${
+        className={`fixed z-20 left-1/2 top-1/2 -translate-1/2${
           fading ? " animate-spinner-zooming" : ""
         }`}
       >
