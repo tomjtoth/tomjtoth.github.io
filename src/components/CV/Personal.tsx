@@ -110,7 +110,7 @@ export default function Personal() {
   return (
     <div
       id="cv-personal-container"
-      className="border-r flex flex-col px-4 w-4/10 items-center"
+      className="md:border-r print:border-r flex flex-col px-4 md:w-4/10 print:w-4/10 items-center"
     >
       <div
         id="cv-img-container"

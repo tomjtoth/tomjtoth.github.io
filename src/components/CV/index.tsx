@@ -15,20 +15,9 @@ export function CV() {
       <ViewHeader className="print:hidden">
         <Controls />
       </ViewHeader>
-      <ViewContent className="flex flex-wrap print:overflow-hidden">
-        <div
-          style={{
-            background: `repeating-linear-gradient(
-              to bottom,
-              transparent,
-              transparent calc(297mm - 1px),
-              var(--color-fg-0) calc(297mm - 1px),
-              var(--color-fg-0) 297mm
-            )`,
-          }}
-          className="flex flex-col items-center w-[210mm] border m-4 print:border-none print:h-[297mm] print:m-0"
-        >
-          <div className="print:mb-[2mm] border rounded m-[10mm] flex text-[12pt] leading-[1.2] font-cv">
+      <ViewContent className="flex flex-wrap">
+        <div className="flex flex-col items-center max-w-[210mm] md:w-[210mm] md:border md:m-4 print:border-none print:h-[297mm] print:m-0 print:overflow-hidden lg:bg-297-fg0">
+          <div className="print:mb-[2mm] md:border print:border rounded md:m-[10mm] print:m-[10mm] flex flex-col md:flex-row print:flex-row text-[12pt] leading-[1.2] font-cv">
             <Personal />
             <div className="px-4">
               <Details exp={true} />
