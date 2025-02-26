@@ -1,8 +1,8 @@
 @theme {
-  --animate-modal-de-blur: modal-de-blur 0.5s ease-in-out;
+  --animate-bg-deblur: bg-deblur 0.5s ease-in-out;
   --animate-spinner-zooming: spinner-zooming 0.5s ease-in-out;
 
-  @keyframes modal-de-blur {
+  @keyframes bg-deblur {
     100% {
       background-color: rgba(0, 0, 0, 0);
       backdrop-filter: blur(0px);

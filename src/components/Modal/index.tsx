@@ -22,7 +22,7 @@ export function Modal({ children }: PropsWithChildren) {
           <div
             {...{
               className:
-                "fixed z-3 top-1/2 left-1/2 -translate-1/2 p-4 text-center select-none bg-bg-0 border rounded",
+                "fixed z-20 top-1/2 left-1/2 -translate-1/2 p-4 text-center select-none bg-bg-0 border rounded",
               lang,
               onClick: (evt) => {
                 if (evt.target === evt.currentTarget) evt.stopPropagation();

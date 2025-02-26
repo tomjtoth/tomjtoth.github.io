@@ -16,10 +16,10 @@
   --color-fg-2: #333;
   --color-bg-0: #eee;
   --color-bg-alt-a: #ddd;
-  --color-bg-alt-a-hover: #add;
-  --color-bg-alt-a-active: #ada;
   --color-bg-alt-b: #bbb;
+  --color-bg-alt-a-hover: #add;
   --color-bg-alt-b-hover: #8bb;
+  --color-bg-alt-a-active: #ada;
   --color-bg-alt-b-active: #8b8;
 
   --font-cv: "Times New Roman", Times, serif;
@@ -27,7 +27,7 @@
 
 @layer components {
   .bg-blur {
-    @apply fixed top-0 left-0 z-2 w-full h-full;
+    @apply fixed top-0 left-0 z-10 w-full h-full;
     background-color: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(20px);
   }
@@ -44,10 +44,10 @@
     --color-fg-2: #ccc;
     --color-bg-0: #111;
     --color-bg-alt-a: #222;
-    --color-bg-alt-a-hover: #255;
-    --color-bg-alt-a-active: #252;
     --color-bg-alt-b: #444;
+    --color-bg-alt-a-hover: #255;
     --color-bg-alt-b-hover: #477;
+    --color-bg-alt-a-active: #252;
     --color-bg-alt-b-active: #474;
   }
 
