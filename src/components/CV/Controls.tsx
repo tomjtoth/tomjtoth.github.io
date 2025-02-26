@@ -37,7 +37,7 @@ export default function Controls() {
       />
 
       <span
-        className="clickable p-4 border rounded"
+        className="clickable p-2 border rounded"
         onClick={() => {
           const cookie = "cv-downloaded";
           const reminded = Number(getCookie(cookie) ?? "0");
@@ -66,11 +66,12 @@ export default function Controls() {
           }
         }}
       >
-        download this template
+        <span className="hidden sm:contents">download this </span>
+        template
       </span>
 
       <span
-        className="p-4 border rounded clickable"
+        className="p-2 border rounded clickable"
         onClick={() => {
           const cookie = "cv-uploaded";
           const reminded = Number(getCookie(cookie) ?? "0");
@@ -97,7 +98,10 @@ export default function Controls() {
           }
         }}
       >
-        <b>upload your CV</b>
+        <b>
+          upload
+          <span className="hidden sm:contents"> your CV</span>
+        </b>
       </span>
       <span className="clickable p-4" title="print (Ctrl + P)" onClick={print}>
         🖨️

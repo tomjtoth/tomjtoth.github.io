@@ -8,3 +8,13 @@
 .cv-tip:hover {
   @apply bg-bg-alt-b;
 }
+
+@utility bg-297-fg0 {
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent calc(297mm - 1px),
+    var(--color-fg-0) calc(297mm - 1px),
+    var(--color-fg-0) 297mm
+  );
+}
