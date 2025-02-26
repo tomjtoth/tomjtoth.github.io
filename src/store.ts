@@ -9,6 +9,7 @@ import shoppingList from "./reducers/shopping-list";
 import arxFatalis from "./reducers/arx-fatalis";
 import luxor from "./reducers/luxor";
 import visitors from "./reducers/visitors";
+import quotes from "./reducers/quotes";
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +22,7 @@ export const store = configureStore({
     arxFatalis,
     luxor,
     visitors,
+    quotes,
   },
 });
 
