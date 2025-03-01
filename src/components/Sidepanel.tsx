@@ -76,7 +76,13 @@ export function Sidepanel() {
               refresh ♻️
             </span>
           )}
-          <span ref={verRef}>ver: {HASH ?? 88888888}</span>
+          <span
+            ref={verRef}
+            className="clickable"
+            onClick={() => navigator.clipboard.writeText(HASH)}
+          >
+            ver: {HASH ?? 88888888}
+          </span>
         </div>
       </nav>
     </>
