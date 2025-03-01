@@ -2,8 +2,7 @@ import { useContext } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
 
 import type { AppDispatch, AppStore, RootState } from "../store";
-import { CxModal } from "../components/Modal/logic";
-import { CxSpeech } from "../components";
+import { CxModal, CxSpeech } from "../components";
 
 export * from "./battery-manager";
 export * from "./battery-monitor-daemon";
