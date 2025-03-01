@@ -6,9 +6,11 @@ import Personal from "./Personal";
 import Details from "./Details";
 import DetailsToggler from "./DetailsToggler";
 import Skills from "./Skills";
+import { useFiles } from "../../hooks";
 
 export function CV() {
-  useLogic();
+  const cxFiles = useFiles();
+  useLogic(cxFiles);
 
   return (
     <>
@@ -16,7 +18,12 @@ export function CV() {
         <Controls />
       </ViewHeader>
       <ViewContent className="flex flex-wrap print:overflow-hidden">
-        <div className="flex flex-col items-center max-w-[210mm] md:w-[210mm] md:border md:m-4 print:border-none print:h-[297mm] print:m-0 lg:bg-297-fg0">
+        <cxFiles.dropZone className="h-full w-full z-10" />
+        <div
+          className="flex flex-col items-center max-w-[210mm] md:w-[210mm] md:border md:m-4 print:border-none print:h-[297mm] print:m-0 lg:bg-297-fg0"
+          onDragEnter={cxFiles.onDragEnter}
+          onDragLeave={cxFiles.onDragLeave}
+        >
           <div className="print:mb-[2mm] md:border print:border rounded md:m-[10mm] print:m-[10mm] flex flex-col md:flex-row print:flex-row text-[12pt] leading-[1.2] font-cv">
             <Personal />
             <div className="px-4">

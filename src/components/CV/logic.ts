@@ -1,10 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { TCxFiles, useAppDispatch, useAppSelector } from "../../hooks";
 import { cv as cvr, spin } from "../../reducers";
 import { isCV } from "../../types/cv/isCV";
 import { ccToFlags } from "../../utils";
-import { CxFiles } from "../ViewRoot";
 
 export function useFilesToCV() {
   const dispatch = useAppDispatch();
@@ -49,15 +48,14 @@ export function useFilesToCV() {
     });
 }
 
-export default function useLogic() {
+export default function useLogic(cxFiles: TCxFiles) {
   const dispatch = useAppDispatch();
   const cv = useAppSelector((s) => s.cv.cv);
-  const files = useContext(CxFiles)!.files;
   const processFiles = useFilesToCV();
 
   useEffect(() => {
-    if (files) {
-      processFiles(files);
+    if (cxFiles.files.length > 0) {
+      processFiles(cxFiles.files).then(cxFiles.reset);
     } else if (!cv) {
       dispatch(spin.hide());
       Promise.all([import("js-yaml"), import("../../assets/cv.yaml?raw")]).then(
@@ -74,5 +72,5 @@ export default function useLogic() {
         }
       );
     }
-  }, [files]);
+  }, [cxFiles.files]);
 }

@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 import Buttons from "./Buttons";
 import useLogic, { CxModal } from "./logic";
 
-export function Modal({ children }: PropsWithChildren) {
+export function ModalProvider({ children }: PropsWithChildren) {
   const {
     builder,
     reset,
