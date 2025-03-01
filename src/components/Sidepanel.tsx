@@ -7,7 +7,7 @@ import { sp } from "../reducers";
 
 import { QRCode } from ".";
 import { IS_TOUCH_DEVICE } from "../utils";
-const HASH = import.meta.env.VITE_GIT_HASH;
+const HASH = import.meta.env.VITE_GIT_HASH ?? 88888888;
 
 export function Sidepanel() {
   const dispatch = useAppDispatch();
@@ -81,7 +81,7 @@ export function Sidepanel() {
             className="clickable"
             onClick={() => navigator.clipboard.writeText(HASH)}
           >
-            ver: {HASH ?? 88888888}
+            ver: {HASH}
           </span>
         </div>
       </nav>
