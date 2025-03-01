@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { TCxFiles, useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector, useFiles } from "../../hooks";
 import { cv as cvr, spin } from "../../reducers";
 import { isCV } from "../../types/cv/isCV";
 import { ccToFlags } from "../../utils";
@@ -48,10 +48,11 @@ export function useFilesToCV() {
     });
 }
 
-export default function useLogic(cxFiles: TCxFiles) {
+export default function useLogic() {
   const dispatch = useAppDispatch();
   const cv = useAppSelector((s) => s.cv.cv);
   const processFiles = useFilesToCV();
+  const cxFiles = useFiles();
 
   useEffect(() => {
     if (cxFiles.files.length > 0) {

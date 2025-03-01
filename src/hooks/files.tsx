@@ -1,36 +1,40 @@
-import { DragEvent, DragEventHandler, useState } from "react";
+import { DragEvent, useState, createContext, useContext } from "react";
 
 type Files = File[];
 type Event = DragEvent<HTMLDivElement>;
 
-const DZ_CLASSES = `z-10 relative flex items-center justify-center backdrop-blur-md bg-black/40 text-shadow-40-20-10-bg0 text-2xl`;
+const DZ_CLASSES = `z-10 fixed h-full w-full left-0 top-0 flex items-center justify-center backdrop-blur-md bg-black/40 text-shadow-40-20-10-bg0 text-2xl`;
 
-export type TCxFiles = {
+const ccx = createContext<TCxFiles | null>(null);
+
+type TCxFiles = {
   files: Files;
   reset: () => void;
-  dropZone: ({ className }: { className?: string }) => React.ReactNode;
-  onDragEnter: DragEventHandler;
-  onDragLeave: DragEventHandler;
 };
 
-export function useFiles() {
+export const useFiles = () => useContext(ccx)!;
+
+export function useFilesVR() {
   const [visible, setVisible] = useState(false);
   const [files, setFiles] = useState<Files>([]);
 
   return {
-    files,
-    reset: () => setFiles([]),
+    onDragEnter: (ev: Event) => {
+      if (
+        !visible &&
+        [...ev.dataTransfer.items].filter((x) => x.kind === "file").length > 0
+      ) {
+        setVisible(true);
+      }
+    },
 
-    /**
-     *
-     */
-    dropZone: ({ className = "" }) => {
+    dropZone: () => {
       if (!visible) return null;
 
       return (
         <div
           {...{
-            className: `${DZ_CLASSES} ${className}`,
+            className: DZ_CLASSES,
 
             onDragOver: (ev: Event) => ev.preventDefault(),
             onDragLeave: () => setVisible(false),
@@ -57,14 +61,10 @@ export function useFiles() {
         </div>
       );
     },
-
-    onDragEnter: (ev: Event) => {
-      if (
-        !visible &&
-        [...ev.dataTransfer.items].filter((x) => x.kind === "file").length > 0
-      ) {
-        setVisible(true);
-      }
+    ccx,
+    cx: {
+      files,
+      reset: () => setFiles([]),
     },
-  } as TCxFiles;
+  };
 }
