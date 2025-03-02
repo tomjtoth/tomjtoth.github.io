@@ -10,12 +10,12 @@ type StrId = {
 };
 
 export type LuxorFields = Pick<LuxorState, "fields">;
-
 export type LyricsActive = Pick<LyricsState, "active">;
 export type QuotesData = Pick<QuotesState, "active" | "wpm">;
 export type ArxFatalisSpells = Pick<ArxFatalisState, "castSpells">;
 export type LuxorNumbers = Pick<LuxorState, "pickedNums">;
 export type ShoppingListActive = Pick<ShoppingListState, "active">;
+export type SpeechSynthData = { choice: number };
 export type MiscData = StrId &
   (
     | QuotesData
@@ -24,4 +24,5 @@ export type MiscData = StrId &
     | LuxorNumbers
     | ShoppingListActive
     | BatMonConf
+    | SpeechSynthData
   );

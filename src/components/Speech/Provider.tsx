@@ -7,12 +7,16 @@ import {
   useState,
 } from "react";
 
+import db from "../../services/speech-synth";
+
 type TCxSpeech = {
   speak: CallableFunction;
   speaking: boolean;
   paused: boolean;
+
   stop: () => void;
-  toggle: () => void;
+  pause: () => void;
+  resume: () => void;
   selector: {
     choice: number;
     voices: SpeechSynthesisVoice[];
@@ -33,17 +37,19 @@ export function SpeechProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     if (isSupported) {
-      const arr = synth.getVoices();
-      console.debug("synth voices loaded", arr);
-      arr.sort((a, b) => {
-        const lower_a = a.name.toLowerCase();
-        const lower_b = b.name.toLowerCase();
-        if (lower_a < lower_b) return -1;
-        if (lower_a > lower_b) return 1;
-        return 0;
-      });
+      Promise.all([synth.getVoices(), db.load()]).then(([arr, { choice }]) => {
+        console.debug("synth voices loaded", arr);
+        arr.sort((a, b) => {
+          const lower_a = a.name.toLowerCase();
+          const lower_b = b.name.toLowerCase();
+          if (lower_a < lower_b) return -1;
+          if (lower_a > lower_b) return 1;
+          return 0;
+        });
 
-      setVoices(arr);
+        setVoices(arr);
+        setChoice(choice);
+      });
     }
   }, []);
 
@@ -55,7 +61,9 @@ export function SpeechProvider({ children }: PropsWithChildren) {
           : {
               speaking,
               paused,
-              toggle: () => (!paused ? synth.pause() : synth.resume()),
+
+              resume: () => synth.resume(),
+              pause: () => synth.pause(),
               stop: () => {
                 setSpeaking(false);
                 setPaused(false);
@@ -66,7 +74,9 @@ export function SpeechProvider({ children }: PropsWithChildren) {
                 choice,
                 voices,
                 onChange: (ev: ChangeEvent<HTMLSelectElement>) => {
-                  setChoice(Number(ev.target.value));
+                  const choice = Number(ev.target.value);
+                  setChoice(choice);
+                  db.save(choice);
                 },
               },
 

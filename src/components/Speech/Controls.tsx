@@ -16,9 +16,13 @@ export function SpeechControls() {
     "sm:border-none sm:rounded-none",
   ];
 
-  return ss?.speaking || ss?.paused ? (
+  return ss?.speaking ? (
     <div className={classes.join(" ")}>
-      <span onClick={ss.toggle}>{ss.paused ? "▶️" : "⏸️"}</span>
+      {ss.paused ? (
+        <span onClick={ss.resume}>▶️</span>
+      ) : (
+        <span onClick={ss.pause}>⏸️</span>
+      )}
       <select
         className="max-w-30"
         onChange={ss.selector.onChange}
