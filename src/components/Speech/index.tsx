@@ -1,2 +1,2 @@
 export * from "./Provider";
-export * from "./Selector";
+export * from "./Overlay";
