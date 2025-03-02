@@ -84,7 +84,12 @@ export function SpeechProvider({ children }: PropsWithChildren) {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.voice = voices[choice];
 
-                utterance.onend = () => setSpeaking(false);
+                utterance.onend = () => {
+                  if (!synth.pending) {
+                    setSpeaking(false);
+                    setPaused(false);
+                  }
+                };
                 utterance.onpause = () => setPaused(true);
                 utterance.onresume = () => setPaused(false);
 
