@@ -12,9 +12,14 @@ export default function Controls() {
           {score}
         </sub>
       </span>
-      <input type="text" placeholder="TODO: filter spells from book" disabled />
+      <input
+        type="text"
+        placeholder="TODO: filter spells from book"
+        className="grow"
+        disabled
+      />
       <a
-        className="no-underline"
+        className="no-underline px-4"
         href="https://wiki.arx-libertatis.org/Spells"
         target="_blank"
       >
