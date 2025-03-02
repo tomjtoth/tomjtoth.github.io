@@ -7,8 +7,6 @@ import {
   useState,
 } from "react";
 
-import { SpeechOverlay } from ".";
-
 type TCxSpeech = {
   speak: CallableFunction;
   speaking: boolean;
@@ -33,29 +31,28 @@ export function SpeechProvider({ children }: PropsWithChildren) {
   const [paused, setPaused] = useState(false);
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
 
-  function loadVoices() {
-    const arr = synth.getVoices();
-    console.debug("synth voices loaded", arr);
-
-    setVoices(arr);
-  }
-
   useEffect(() => {
     if (isSupported) {
-      // in Google Chrome the voices are not ready on page load
-      // if ("onvoiceschanged" in synth) {
-      //   synth.onvoiceschanged = loadVoices;
-      // } else {
-      loadVoices();
-      // }
+      const arr = synth.getVoices();
+      console.debug("synth voices loaded", arr);
+      arr.sort((a, b) => {
+        const lower_a = a.name.toLowerCase();
+        const lower_b = b.name.toLowerCase();
+        if (lower_a < lower_b) return -1;
+        if (lower_a > lower_b) return 1;
+        return 0;
+      });
+
+      setVoices(arr);
     }
   }, []);
 
   return (
     <CxSpeech.Provider
       value={
-        isSupported //&& voices.length > 0
-          ? {
+        !isSupported //&& voices.length > 0
+          ? null
+          : {
               speaking,
               paused,
               toggle: () => (!paused ? synth.pause() : synth.resume()),
@@ -87,11 +84,9 @@ export function SpeechProvider({ children }: PropsWithChildren) {
                 setPaused(false);
               },
             }
-          : null
       }
     >
       {children}
-      <SpeechOverlay />
     </CxSpeech.Provider>
   );
 }
