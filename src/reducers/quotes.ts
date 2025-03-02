@@ -9,14 +9,16 @@ const slice = createSlice({
   name: "quotes",
   initialState: {
     loaded: false,
+    wpm: 0,
     active: [],
     data: [],
   } as RState,
 
   reducers: {
-    init: (_, { payload: { data, active } }) => ({
+    init: (_, { payload: { data, active, wpm } }) => ({
       loaded: true,
-      data: [data],
+      data: [{ ...data, name: "Yhteensä" }],
+      wpm,
       active,
     }),
 
@@ -29,24 +31,41 @@ const slice = createSlice({
       rs.active = [];
       db.save(rs);
     },
+
+    setWPM: (rs, { payload }) => {
+      rs.wpm = payload;
+    },
   },
 });
 
 const sa = slice.actions;
 
 const WORD = /\w+/g;
+const PUNCHLINE = /\*\*((.).+?(.))\*\*/g;
 
 function recurse(rawData: any): Omit<Data, "name"> {
   let words = 0;
 
   const items = Object.entries(rawData).map(([name, value]) => {
-    if (typeof value === "string") {
-      const w = [...value.matchAll(WORD)].length;
-      words += w;
+    const quoteWithUrl =
+      typeof value === "object" && "url" in value! && "quote" in value;
+
+    if (typeof value === "string" || quoteWithUrl) {
+      const pls = [] as string[];
+
+      let val = quoteWithUrl ? (value.quote as string) : (value as string);
+      val = val.replaceAll(PUNCHLINE, (_, pl) => {
+        pls.push(pl);
+        return pl;
+      });
+
+      const wc = [...val.matchAll(WORD)].length;
+      words += wc;
 
       return {
-        quote: value,
-        words: w,
+        quote: val,
+        punchline: pls.length > 0 ? pls.join(" ") : undefined,
+        words: wc,
       } as Quote;
     } else {
       const res = recurse(value);
@@ -55,7 +74,7 @@ function recurse(rawData: any): Omit<Data, "name"> {
     }
   });
 
-  return { words, items: items };
+  return { words, items };
 }
 
 export const qts = {
@@ -65,12 +84,12 @@ export const qts = {
         import("js-yaml"),
         import("../assets/quotes.yaml?raw"),
         db.load(),
-      ]).then(([YAML, { default: strYaml }, active]) => {
+      ]).then(([YAML, { default: strYaml }, { wpm, active }]) => {
         const parsed = YAML.load(strYaml) as any;
 
         const data = recurse(parsed);
 
-        return dispatch(sa.init({ active, data }));
+        return dispatch(sa.init({ wpm, active, data }));
       });
     };
   },
@@ -84,6 +103,10 @@ export const qts = {
 
   reset: () => {
     return (dispatch: AppDispatch) => dispatch(sa.reset());
+  },
+
+  setWPM: (wpm: number) => {
+    return (dispatch: AppDispatch) => dispatch(sa.setWPM(wpm));
   },
 };
 

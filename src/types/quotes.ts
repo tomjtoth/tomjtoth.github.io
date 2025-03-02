@@ -2,6 +2,7 @@ import { Active } from ".";
 
 export type Quote = {
   quote: string;
+  punchline?: string;
   words: number;
 };
 
@@ -20,5 +21,6 @@ export type ListProps = {
 export type RState = {
   loaded: boolean;
   active: Active;
+  wpm: number;
   data: Data[];
 };

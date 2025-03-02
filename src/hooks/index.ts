@@ -15,4 +15,4 @@ export const useAppSelector = useSelector.withTypes<RootState>();
 export const useAppStore = useStore.withTypes<AppStore>();
 
 export const useModal = () => useContext(CxModal)!;
-export const useSpeech = () => useContext(CxSpeech)!;
+export const useSpeech = () => useContext(CxSpeech);

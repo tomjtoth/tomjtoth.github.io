@@ -5,6 +5,7 @@ import { spin, qts } from "../../reducers";
 
 import { ViewHeader, ViewContent } from "..";
 import { List } from "./List";
+import Controls from "./Controls";
 
 export function Quotes() {
   const dispatch = useAppDispatch();
@@ -20,16 +21,17 @@ export function Quotes() {
 
   return (
     <>
-      <ViewHeader title="Sitaatit">WiP</ViewHeader>
-      <ViewContent className="p-4">
-        <p>
+      <ViewHeader title="Sitaatit">
+        <Controls />
+      </ViewHeader>
+      <ViewContent>
+        <p className="p-4">
           Keräsin tähän näkymään muutaman sitaatin joista tykkäsin. Miun{" "}
           <a href="https://goodreads.com/tomjtoth" target="_blank">
             Goodreads profiilista
           </a>{" "}
           pääsee käsiksi lukemieni kirjoihin. Alla listassa näkyy myös
-          estimaatit jokaisen kappaleen kohdalla lukuajasta. Kaiken lukeminen
-          kestäisi ... TODO calc
+          estimaatit jokaisen kappaleen kohdalla lukuajasta.
         </p>
         <List {...{ items }} />
       </ViewContent>

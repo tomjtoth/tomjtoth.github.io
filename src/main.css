@@ -2,10 +2,12 @@
 
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+
 @import "./components/ArxFatalis/index.css";
 @import "./components/CV/index.css";
 @import "./components/Luxor/index.css";
 @import "./components/Lyrics/index.css";
+@import "./components/Quotes/index.css";
 @import "./components/ShoppingList/index.css";
 @import "./components/Spinner/index.css";
 @import "./components/Visitors/index.css";
@@ -27,9 +29,7 @@
 
 @layer components {
   .bg-blur {
-    @apply fixed top-0 left-0 z-10 w-full h-full;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
+    @apply fixed top-0 left-0 z-10 w-full h-full backdrop-blur-md bg-black/40;
   }
 }
 
@@ -84,11 +84,16 @@ body,
   @apply overscroll-y-none m-0 h-full;
 }
 
-.clickable {
+@utility text-shadow-40-20-10-bg0 {
+  text-shadow: 0 0 40px var(--color-bg-0), 0 0 20px var(--color-bg-0),
+    0 0 10px var(--color-bg-0);
+}
+
+@utility clickable {
   @apply select-none cursor-pointer;
 }
 
-.non-clickable {
+@utility non-clickable {
   @apply select-auto cursor-auto;
 }
 

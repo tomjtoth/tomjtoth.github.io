@@ -12,13 +12,13 @@ type StrId = {
 export type LuxorFields = Pick<LuxorState, "fields">;
 
 export type LyricsActive = Pick<LyricsState, "active">;
-export type QuotesActive = Pick<QuotesState, "active">;
+export type QuotesData = Pick<QuotesState, "active" | "wpm">;
 export type ArxFatalisSpells = Pick<ArxFatalisState, "castSpells">;
 export type LuxorNumbers = Pick<LuxorState, "pickedNums">;
 export type ShoppingListActive = Pick<ShoppingListState, "active">;
 export type MiscData = StrId &
   (
-    | QuotesActive
+    | QuotesData
     | LyricsActive
     | ArxFatalisSpells
     | LuxorNumbers

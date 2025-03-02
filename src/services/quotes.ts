@@ -1,19 +1,25 @@
 import { current, isDraft } from "@reduxjs/toolkit";
 import { db } from "../db";
-import { QuotesActive } from "../types/db";
+import { QuotesData } from "../types/db";
 
 const id = "quotes";
 
 export default {
-  save: ({ active }: QuotesActive) => {
+  save: ({ active, wpm }: QuotesData) => {
     db.misc.put({
       id,
       active: isDraft(active) ? current(active) : active,
-    } as QuotesActive);
+      wpm,
+    } as QuotesData);
   },
 
   load: async () => {
     const stored = await db.misc.get(id);
-    return stored ? (stored as QuotesActive).active : [];
+    if (stored) {
+      const s = stored as QuotesData;
+      return { wpm: s.wpm, active: s.active };
+    }
+
+    return { wpm: 238, active: [] };
   },
 };
