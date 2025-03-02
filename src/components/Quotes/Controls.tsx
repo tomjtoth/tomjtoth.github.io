@@ -8,7 +8,9 @@ export default function Controls() {
 
   return (
     <>
-      <label htmlFor="wpm">lukunopeus: </label>
+      <label className="hidden sm:contents" htmlFor="wpm">
+        lukunopeus:{" "}
+      </label>
       <input
         type="number"
         id="wpm"
@@ -22,7 +24,9 @@ export default function Controls() {
           }
         }}
       />
-      <span className="clickable" onClick={() => dispatch(qts.reset())}>
+      wpm
+      <span className="grow"></span>
+      <span className="clickable px-4" onClick={() => dispatch(qts.reset())}>
         ♻️
       </span>
     </>

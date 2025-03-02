@@ -1,11 +1,11 @@
 import { useAppSelector, useSpeech } from "../../hooks";
 import { ListProps } from "../../types/quotes";
-import useInfo from "./useInfo";
+
+import Info from "./Info";
 
 export function List({ items, parentId }: ListProps) {
   const active = useAppSelector((s) => s.quotes.active);
   const ss = useSpeech();
-  const info = useInfo();
 
   return (
     <ul
@@ -25,21 +25,18 @@ export function List({ items, parentId }: ListProps) {
           >
             {"quote" in item ? (
               <>
-                {info(item.words, id)}
-                {ss && (
-                  <span
-                    className="ml-2 clickable"
-                    onClick={() => ss.speak(item.quote)}
-                  >
-                    🤖
-                  </span>
-                )}
-                {item.punchline && (
-                  <>
-                    {" "}
-                    <b>{item.punchline}</b>
-                  </>
-                )}
+                <div className="flex *:content-center">
+                  <Info wordCount={item.words} id={id} />
+                  {ss && (
+                    <span
+                      className="mx-2 clickable p-1 border rounded"
+                      onClick={() => ss.speak(item.quote)}
+                    >
+                      🤖
+                    </span>
+                  )}
+                  {item.punchline && <b>{item.punchline}</b>}
+                </div>
 
                 <p
                   className={`whitespace-pre-line px-1 ${
@@ -52,7 +49,7 @@ export function List({ items, parentId }: ListProps) {
             ) : (
               <>
                 {item.name}
-                {info(item.words, id)}
+                <Info wordCount={item.words} id={id} />
 
                 <List {...{ items: item.items, parentId: id }} />
               </>
