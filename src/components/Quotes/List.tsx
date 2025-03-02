@@ -29,13 +29,14 @@ export function List({ items, parentId }: ListProps) {
                   <Info wordCount={item.words} id={id} />
                   {ss && (
                     <span
-                      className="mx-2 clickable p-1 border rounded"
+                      className="ml-2 clickable p-1 border rounded"
+                      title="lue ääneen"
                       onClick={() => ss.speak(item.quote)}
                     >
                       🤖
                     </span>
                   )}
-                  {item.punchline && <b>{item.punchline}</b>}
+                  {item.punchline && <b className="ml-2">{item.punchline}</b>}
                 </div>
 
                 <p
