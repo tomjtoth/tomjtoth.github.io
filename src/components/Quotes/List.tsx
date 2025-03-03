@@ -1,13 +1,13 @@
-import { useAppDispatch, useAppSelector, useSpeech } from "../../hooks";
-import { qts } from "../../reducers";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { qts, ss as ssr } from "../../reducers";
 import { ListProps } from "../../types/quotes";
 
 import Info from "./Info";
 
 export function List({ items, indices: parentIndices }: ListProps) {
   const active = useAppSelector((s) => s.quotes.active);
+  const ss = useAppSelector((s) => s.speechSynth);
   const dispatch = useAppDispatch();
-  const ss = useSpeech();
 
   return (
     <ul
@@ -45,7 +45,7 @@ export function List({ items, indices: parentIndices }: ListProps) {
                     <span
                       className="ml-2 clickable p-1 border rounded"
                       title="lue ääneen"
-                      onClick={() => ss.speak(item.quote)}
+                      onClick={() => dispatch(ssr.speak(item.quote))}
                     >
                       🤖
                     </span>

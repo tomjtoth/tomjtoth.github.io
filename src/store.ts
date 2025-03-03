@@ -10,6 +10,7 @@ import arxFatalis from "./reducers/arx-fatalis";
 import luxor from "./reducers/luxor";
 import visitors from "./reducers/visitors";
 import quotes from "./reducers/quotes";
+import speechSynth, { ss } from "./reducers/speech-synth";
 
 export const store = configureStore({
   reducer: {
@@ -23,7 +24,12 @@ export const store = configureStore({
     luxor,
     visitors,
     quotes,
+    speechSynth,
   },
+});
+
+window.addEventListener("load", () => {
+  store.dispatch(ss.init());
 });
 
 // Get the type of our store variable

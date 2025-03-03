@@ -2,18 +2,18 @@ import { HTMLAttributes, PropsWithChildren } from "react";
 
 import { useAppDispatch } from "../hooks";
 import { sp } from "../reducers";
-import { SpeechControls } from "./Speech";
+import { MediaControls } from "./Playback";
 
 type HeaderProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
   title?: string;
-  speechControlsFirst?: boolean;
+  mediaControlsFirst?: boolean;
 };
 
 export function ViewHeader({
   title,
   children,
   className = "",
-  speechControlsFirst = false,
+  mediaControlsFirst = false,
   ...props
 }: HeaderProps) {
   if (title) document.title = title;
@@ -33,9 +33,9 @@ export function ViewHeader({
       >
         &#x2630;
       </span>
-      {speechControlsFirst && <SpeechControls />}
+      {mediaControlsFirst && <MediaControls />}
       {children}
-      {!speechControlsFirst && <SpeechControls />}
+      {!mediaControlsFirst && <MediaControls />}
     </div>
   );
 }

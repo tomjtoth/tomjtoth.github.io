@@ -7,4 +7,5 @@ export * from "./quotes";
 export * from "./shopping-list";
 export * from "./sidepanel";
 export * from "./spinner";
+export * from "./speech-synth";
 export * from "./visitors";

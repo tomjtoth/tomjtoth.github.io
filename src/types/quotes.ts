@@ -1,10 +1,4 @@
-import { Active } from ".";
-
-export enum PlaybackState {
-  Playing,
-  Paused,
-  Stopped,
-}
+import { Active, PlaybackState } from ".";
 
 export type Quote = {
   quote: string;

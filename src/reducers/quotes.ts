@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WritableDraft } from "immer";
 
 import { AppDispatch } from "../store";
-import { Data, PlaybackState as PBS, Quote, RState } from "../types/quotes";
+import { PlaybackState as PBS } from "../types";
+import { Data, Quote, RState } from "../types/quotes";
 import db from "../services/quotes";
 import { toggle } from "../utils";
 

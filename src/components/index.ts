@@ -11,7 +11,7 @@ export * from "./Quotes";
 export * from "./ShoppingList";
 export * from "./Sidepanel";
 export * from "./Spinner";
-export * from "./Speech";
+export * from "./Playback";
 export * from "./ViewContent";
 export * from "./ViewHeader";
 export * from "./ViewRoot";
