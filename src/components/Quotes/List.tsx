@@ -24,7 +24,7 @@ export function List({ items, indices: parentIndices }: ListProps) {
         return (
           <li
             key={i}
-            className={`p-2 px-0.5 sm:p-4 sm:px-1.5 mt-2 ${
+            className={`p-2 pr-1 sm:p-4 sm:pr-2 mt-2 ${
               parentIndices.length > 0 ? "border rounded" : ""
             }`}
           >

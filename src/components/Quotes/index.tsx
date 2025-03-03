@@ -25,7 +25,7 @@ export function Quotes() {
         <Controls />
       </ViewHeader>
       <ViewContent>
-        <p className="p-4">
+        <p className="p-2 sm:p-4">
           Keräsin tähän näkymään muutaman sitaatin joista tykkäsin. Miun{" "}
           <a href="https://goodreads.com/tomjtoth" target="_blank">
             Goodreads profiilista
