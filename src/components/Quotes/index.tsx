@@ -33,7 +33,7 @@ export function Quotes() {
           pääsee käsiksi lukemieni kirjoihin. Alla listassa näkyy myös
           estimaatit jokaisen kappaleen kohdalla lukuajasta.
         </p>
-        <List {...{ items }} />
+        <List {...{ items, indices: [] }} />
       </ViewContent>
     </>
   );

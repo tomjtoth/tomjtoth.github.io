@@ -1,8 +1,18 @@
 import { Active } from ".";
 
+export enum PlaybackState {
+  Playing,
+  Paused,
+  Stopped,
+}
+
 export type Quote = {
   quote: string;
   punchline?: string;
+  audio?: {
+    url: string;
+    state: PlaybackState;
+  };
   words: number;
 };
 
@@ -14,7 +24,7 @@ export type Data = {
 };
 
 export type ListProps = {
-  parentId?: string;
+  indices: number[];
   items: (Data | Quote)[];
 };
 

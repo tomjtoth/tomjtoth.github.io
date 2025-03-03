@@ -1,32 +1,46 @@
-import { useAppSelector, useSpeech } from "../../hooks";
+import { useAppDispatch, useAppSelector, useSpeech } from "../../hooks";
+import { qts } from "../../reducers";
 import { ListProps } from "../../types/quotes";
 
 import Info from "./Info";
 
-export function List({ items, parentId }: ListProps) {
+export function List({ items, indices: parentIndices }: ListProps) {
   const active = useAppSelector((s) => s.quotes.active);
+  const dispatch = useAppDispatch();
   const ss = useSpeech();
 
   return (
     <ul
-      className={`list-none ${
-        !parentId || active.includes(parentId) ? "" : "hidden"
-      } ${!parentId ? "pl-0" : "pl-0"}`}
+      className={`list-none pl-0 ${
+        parentIndices.length === 0 || active.includes(parentIndices.join("-"))
+          ? ""
+          : "hidden"
+      }`}
     >
       {items.map((item, i) => {
-        const id = parentId ? `${parentId}-${i}` : i.toString();
+        const indices = [...parentIndices, i];
+        const strId = indices.join("-");
 
         return (
           <li
             key={i}
             className={`p-2 px-0.5 sm:p-4 sm:px-1.5 mt-2 ${
-              parentId ? "border rounded" : ""
+              parentIndices.length > 0 ? "border rounded" : ""
             }`}
           >
             {"quote" in item ? (
               <>
                 <div className="flex *:content-center">
-                  <Info wordCount={item.words} id={id} />
+                  <Info wordCount={item.words} id={strId} />
+                  {item.audio && (
+                    <span
+                      className="ml-2 clickable p-1 border rounded"
+                      title="äänikirjasta pätkä"
+                      onClick={() => dispatch(qts.play(indices))}
+                    >
+                      🗣️
+                    </span>
+                  )}
                   {ss && (
                     <span
                       className="ml-2 clickable p-1 border rounded"
@@ -41,7 +55,7 @@ export function List({ items, parentId }: ListProps) {
 
                 <p
                   className={`whitespace-pre-line px-1 ${
-                    active.includes(id) ? "" : "hidden"
+                    active.includes(strId) ? "" : "hidden"
                   }`}
                 >
                   {item.quote}
@@ -50,9 +64,9 @@ export function List({ items, parentId }: ListProps) {
             ) : (
               <>
                 {item.name}
-                <Info wordCount={item.words} id={id} />
+                <Info wordCount={item.words} id={strId} />
 
-                <List {...{ items: item.items, parentId: id }} />
+                <List {...{ items: item.items, indices }} />
               </>
             )}
           </li>

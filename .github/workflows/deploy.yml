@@ -70,7 +70,7 @@ jobs:
           for view in ${REDIRECTS[*]}; do cp index.html $view.html; done
 
           # populating URLS_TO_CACHE in sw.js
-          ASSETS=$(find . \( -name 'sw.js' -o -name 'README.md' -o -path './linux' \) -prune -o -type f -print | awk '{print "\"" $0 "\""}' | paste -sd "," -)
+          ASSETS=$(find . \( -name 'sw.js' -o -name 'README.md' -o -path './linux' -o -path './quotes' \) -prune -o -type f -print | awk '{print "\"" $0 "\""}' | paste -sd "," -)
           sed -i 's|"__REPLACED_DURING_DEPLOYMENT__"|'${ASSETS}'|' sw.js
 
       - name: Setup Pages
