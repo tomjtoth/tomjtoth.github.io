@@ -36,7 +36,7 @@ export function List({ items, indices: parentIndices }: ListProps) {
                     <span
                       className="ml-2 clickable p-1 border rounded"
                       title="äänikirjasta pätkä"
-                      onClick={() => dispatch(qts.play(indices))}
+                      onClick={() => dispatch(qts.play(item.audio!.url))}
                     >
                       🗣️
                     </span>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../store";
 import db from "../services/speech-synth";
 import { PlaybackState as PBS } from "../types";
+import { qts } from "./quotes";
 
 const isSupported = "speechSynthesis" in window;
 const SYNTH = window.speechSynthesis;
@@ -91,17 +92,18 @@ export const ss = {
 
   speak: (text: string) => {
     return (dispatch: AppDispatch, getRootState: () => RootState) => {
-      const rs = getRootState().speechSynth;
+      const rs = getRootState();
+      const speechState = rs.speechSynth;
+      const pbQuotes = rs.quotes.pbState;
+
+      if (pbQuotes !== PBS.Stopped) dispatch(qts.stop());
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = VOICES[rs.voice];
+      utterance.voice = VOICES[speechState.voice];
 
       utterance.onend = () => {
         if (!SYNTH.pending) dispatch(sa.setPBState(PBS.Stopped));
       };
-
-      // utterance.onpause = () => dispatch(sa.setPBState(PBS.Paused));
-      // utterance.onresume = () => dispatch(sa.setPBState(PBS.Playing));
 
       SYNTH.cancel();
       SYNTH.speak(utterance);

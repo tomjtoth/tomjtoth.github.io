@@ -1,16 +1,17 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WritableDraft } from "immer";
+import { createSlice } from "@reduxjs/toolkit";
 
-import { AppDispatch } from "../store";
-import { PlaybackState as PBS } from "../types";
+import { AppDispatch, RootState } from "../store";
+import { PlaybackState as PB } from "../types";
 import { Data, Quote, RState } from "../types/quotes";
 import db from "../services/quotes";
 import { toggle } from "../utils";
+import { ss } from ".";
 
 const slice = createSlice({
   name: "quotes",
   initialState: {
     loaded: false,
+    pbState: PB.Stopped,
     wpm: 0,
     active: [],
     data: [],
@@ -19,6 +20,7 @@ const slice = createSlice({
   reducers: {
     init: (_, { payload: { data, active, wpm } }) => ({
       loaded: true,
+      pbState: PB.Stopped,
       data: [{ ...data, name: "Yhteensä" }],
       wpm,
       active,
@@ -38,41 +40,26 @@ const slice = createSlice({
       rs.wpm = payload;
     },
 
-    play: (rs, { payload }: PayloadAction<number[]>) => {
-      const { quote, audio } = dig(rs, payload);
-      audio.play();
-      quote.audio!.state = PBS.Playing;
-    },
-
-    pause: (rs, { payload }) => {
-      const { quote, audio } = dig(rs, payload);
-      audio.pause();
-      quote.audio!.state = PBS.Paused;
-    },
-
-    stop: (rs, { payload }) => {
-      const { quote, audio } = dig(rs, payload);
-      audio.pause();
-      audio.currentTime = 0.0;
-      quote.audio!.state = PBS.Stopped;
+    setPBState: (rs, { payload }) => {
+      rs.pbState = payload;
     },
   },
 });
 
-function dig(rs: WritableDraft<RState>, indices: number[]) {
-  let node = rs.data;
-  let quote = null as null | Quote;
+// function dig(rs: WritableDraft<RState>, indices: number[]) {
+//   let node = rs.data;
+//   let quote = null as null | Quote;
 
-  for (const i of indices) {
-    if ("quote" in node[i]) {
-      quote = node[i] as Quote;
-    } else {
-      node = node[i].items as Data[];
-    }
-  }
+//   for (const i of indices) {
+//     if ("quote" in node[i]) {
+//       quote = node[i] as Quote;
+//     } else {
+//       node = node[i].items as Data[];
+//     }
+//   }
 
-  return { quote: quote!, audio: HTML_AUDIO_ELEMENTS.get(quote!.audio?.url!)! };
-}
+//   return { quote: quote!, audio: HTML_AUDIO_ELEMENTS.get(quote!.audio?.url!)! };
+// }
 
 const sa = slice.actions;
 
@@ -80,6 +67,7 @@ const WORD = /\w+/g;
 const PUNCHLINE = /\*\*((.).+?(.))\*\*/g;
 
 const HTML_AUDIO_ELEMENTS = new Map<string, HTMLAudioElement>();
+let CURR_AUDIO: HTMLAudioElement;
 
 export const qts = {
   init: () => {
@@ -110,13 +98,13 @@ export const qts = {
               const url = value.url as string;
               const mp3 = new Audio(url);
 
-              mp3.onended = () => {
-                dispatch(sa.stop([...indices, i]));
-              };
+              mp3.onended = () => dispatch(sa.setPBState(PB.Stopped));
+              mp3.onpause = () => dispatch(sa.setPBState(PB.Paused));
+              mp3.onplay = () => dispatch(sa.setPBState(PB.Playing));
 
               HTML_AUDIO_ELEMENTS.set(url, mp3);
 
-              audio = { url, state: PBS.Stopped };
+              audio = { url, state: PB.Stopped };
             }
 
             return {
@@ -164,16 +152,34 @@ export const qts = {
     return (dispatch: AppDispatch) => dispatch(sa.setWPM(wpm));
   },
 
-  play: (indices: number[]) => (dispatch: AppDispatch) => {
-    return dispatch(sa.play(indices));
+  play:
+    (url?: string) => (dispatch: AppDispatch, getState: () => RootState) => {
+      const pbSpeech = getState().speechSynth.pbState;
+
+      if (pbSpeech !== PB.Stopped) dispatch(ss.stop());
+
+      if (url) {
+        const mp3 = HTML_AUDIO_ELEMENTS.get(url)!;
+        mp3.play();
+        CURR_AUDIO = mp3;
+      } else {
+        CURR_AUDIO.play();
+      }
+    },
+
+  pause: () => () => {
+    CURR_AUDIO.pause();
   },
 
-  pause: (indices: number[]) => (dispatch: AppDispatch) => {
-    return dispatch(sa.pause(indices));
-  },
-
-  stop: (indices: number[]) => (dispatch: AppDispatch) => {
-    return dispatch(sa.stop(indices));
+  stop: () => (dispatch: AppDispatch, getRootState: () => RootState) => {
+    const rs = getRootState().quotes;
+    if (rs.pbState === PB.Playing) {
+      const len = CURR_AUDIO.duration;
+      CURR_AUDIO.currentTime = len;
+    } else {
+      CURR_AUDIO.currentTime = 0;
+      dispatch(sa.setPBState(PB.Stopped));
+    }
   },
 };
 

@@ -24,6 +24,7 @@ export type ListProps = {
 
 export type RState = {
   loaded: boolean;
+  pbState: PlaybackState;
   active: Active;
   wpm: number;
   data: Data[];
