@@ -11,7 +11,16 @@ These tools are accessible from a browser without requiring a login.
   - [ ] Achieve 60% coverage by Jan 1, 2026
   - [ ] Achieve 90% coverage by Jun 1, 2026
 
-## Custom Solutions
+## Development
+
+Using git LFS for audio resources, clone using the below commands:
+
+```sh
+git clone https://github.com/tomjtoth/tomjtoth.github.io
+cd tomjtoth.github.io
+git lfs install
+git lfs pull
+```
 
 ### Dynamic Imports (Assets, Libraries)
 
@@ -33,4 +42,4 @@ The files located [here](./public/linux/) are for personal use. I use the follow
 bash <(curl -L ttj.hu/linux/clonefig.sh)
 ```
 
-These [aliases](/public/linux/bash_aliases) are also sourced from a few machines.
+These [aliases](./public/linux/bash_aliases) are also sourced from a few machines.
