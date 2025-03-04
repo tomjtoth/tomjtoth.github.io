@@ -38,6 +38,7 @@ const slice = createSlice({
 
     setWPM: (rs, { payload }) => {
       rs.wpm = payload;
+      db.save(rs);
     },
 
     setPBState: (rs, { payload }) => {
