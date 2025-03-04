@@ -1,4 +1,4 @@
-import { sl } from "../../reducers";
+import { tSL } from "../../reducers";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
 import { order } from "./config";
 
@@ -57,7 +57,7 @@ export default function Items() {
                   isActive ? " active" : ""
                 }`}
                 onClick={(e) => {
-                  if (e.target === e.currentTarget) dispatch(sl.toggle(id));
+                  if (e.target === e.currentTarget) dispatch(tSL.toggle(id));
                 }}
               >
                 {name}
@@ -76,7 +76,7 @@ export default function Items() {
                     className="ml-4 clickable"
                     onClick={() =>
                       modal
-                        .yes(() => dispatch(sl.rmItem(id)))
+                        .yes(() => dispatch(tSL.rmItem(id)))
                         .no()
                         .prompt(`poistetaanko "${name}" varmasti?`)
                     }

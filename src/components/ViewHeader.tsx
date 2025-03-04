@@ -1,7 +1,7 @@
 import { HTMLAttributes, PropsWithChildren } from "react";
 
 import { useAppDispatch } from "../hooks";
-import { sp } from "../reducers";
+import { tSP } from "../reducers";
 import { MediaControls } from "./Playback";
 
 type HeaderProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>> & {
@@ -29,7 +29,7 @@ export function ViewHeader({
     >
       <span
         className="clickable p-4 text-2xl w-[25px]"
-        onClick={() => dispatch(sp.show())}
+        onClick={() => dispatch(tSP.show())}
       >
         &#x2630;
       </span>

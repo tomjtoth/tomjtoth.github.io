@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 
-import { arx, spin } from "../../reducers";
+import { tArx } from "../../reducers";
 import { Rune, Spell } from "../../types/arx-fatalis";
-import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useModal,
+  useSpinner,
+} from "../../hooks";
 
 import Img from "./Img";
 
@@ -11,13 +16,7 @@ export default function useLogic() {
   const loaded = useAppSelector((s) => s.arxFatalis.loaded);
   const modal = useModal();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (!loaded) {
-      dispatch(spin.show());
-      dispatch(arx.init()).then(() => dispatch(spin.hide()));
-    }
-  }, []);
+  useSpinner(loaded);
 
   const [queue, setQueue] = useState<Rune[]>([]);
   const [idx, setIdx] = useState(-1);
@@ -64,7 +63,7 @@ export default function useLogic() {
               );
           }
 
-          dispatch(arx.cast(idx));
+          dispatch(tArx.cast(idx));
         });
       }
 

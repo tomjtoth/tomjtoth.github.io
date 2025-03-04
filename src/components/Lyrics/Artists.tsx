@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { lyr } from "../../reducers";
+import { tLyr } from "../../reducers";
 
 import Albums from "./Albums";
 import Logo from "./Logos";
@@ -22,7 +22,7 @@ export default function Artists() {
                 active.includes(id) ? " active" : ""
               }`,
               onClick: (e) => {
-                if (e.target === e.currentTarget) dispatch(lyr.toggle(id));
+                if (e.target === e.currentTarget) dispatch(tLyr.toggle(id));
               },
             }}
           >

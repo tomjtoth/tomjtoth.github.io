@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { lyr } from "../../reducers";
+import { tLyr } from "../../reducers";
 import type { SongsProps, Artist } from "../../types/lyrics";
 
 import Logo from "./Logos";
@@ -49,7 +49,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
             {...{ className: classes.join(" "), id }}
             onClick={(e) => {
               if (clickable && e.target === e.currentTarget)
-                dispatch(lyr.toggle(id));
+                dispatch(tLyr.toggle(id));
             }}
           >
             {title}

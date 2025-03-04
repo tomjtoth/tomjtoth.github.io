@@ -15,7 +15,10 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export const sp = {
+/**
+ * # Thunks of Sidepanel
+ */
+export const tSP = {
   show: () => {
     return (dispatch: AppDispatch) => dispatch(sa.set(true));
   },

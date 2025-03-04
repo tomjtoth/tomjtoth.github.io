@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { qts } from "../../reducers";
+import { tQt } from "../../reducers";
 import { PlaybackState as PB } from "../../types";
 
 import { CLASSES } from "./classes";
@@ -12,11 +12,11 @@ export function QuotesControls() {
     <div className={CLASSES.join(" ")}>
       <span>🗣️</span>
       {qt.pbState === PB.Paused ? (
-        <span onClick={() => dispatch(qts.play())}>▶️</span>
+        <span onClick={() => dispatch(tQt.play())}>▶️</span>
       ) : (
-        <span onClick={() => dispatch(qts.pause())}>⏸️</span>
+        <span onClick={() => dispatch(tQt.pause())}>⏸️</span>
       )}
-      <span onClick={() => dispatch(qts.stop())}>⏹️</span>
+      <span onClick={() => dispatch(tQt.stop())}>⏹️</span>
     </div>
   ) : null;
 }

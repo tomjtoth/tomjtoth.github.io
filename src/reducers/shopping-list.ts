@@ -52,7 +52,10 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export const sl = {
+/**
+ * # Thunks of Shopping List
+ */
+export const tSL = {
   init: () => {
     return async (dispatch: AppDispatch) => {
       return Promise.all([

@@ -26,7 +26,10 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export const lyr = {
+/**
+ * # Thunks of Lyrics
+ */
+export const tLyr = {
   init: () => {
     return (dispatch: AppDispatch) =>
       Promise.all([

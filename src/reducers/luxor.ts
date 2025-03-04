@@ -110,7 +110,10 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export const lux = {
+/**
+ * # Thunks of Luxor
+ */
+export const tLux = {
   init: (imports: FieldImport[]) => {
     return async (dispatch: AppDispatch) => {
       const [pickedNums, fields] = await db.load();
@@ -160,7 +163,7 @@ export const lux = {
   },
 
   toggleLocked: () => {
-    return (disp: AppDispatch) => disp(sa.toggleLocked());
+    return (dispatch: AppDispatch) => dispatch(sa.toggleLocked());
   },
 
   bugMove: (position: number | string, fast: boolean) => {

@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 import { ROUTES_CONFIG } from "./AppRoutes/config";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { sp } from "../reducers";
+import { tSP } from "../reducers";
 
 import { QRCode } from ".";
 import { IS_TOUCH_DEVICE } from "../utils";
@@ -21,7 +21,7 @@ export function Sidepanel() {
   return (
     <>
       {active && (
-        <div className="bg-blur" onClick={() => dispatch(sp.hide())} />
+        <div className="bg-blur" onClick={() => dispatch(tSP.hide())} />
       )}
 
       <nav
@@ -32,7 +32,7 @@ export function Sidepanel() {
 
           onMouseLeave: (e) => {
             // triggers only when leaving *the* panel, not its children
-            if (e.target === e.currentTarget) dispatch(sp.hide());
+            if (e.target === e.currentTarget) dispatch(tSP.hide());
           },
 
           onClick: (e) => {
@@ -41,7 +41,7 @@ export function Sidepanel() {
                 e.target as Node
               )
             )
-              dispatch(sp.hide());
+              dispatch(tSP.hide());
           },
         }}
       >

@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 
-import { useAppDispatch, useAppSelector, useFiles } from "../../hooks";
-import { cv as cvr, spin } from "../../reducers";
+import {
+  useSpinner,
+  useAppDispatch,
+  useAppSelector,
+  useFiles,
+} from "../../hooks";
+import { tCV, tSpin } from "../../reducers";
 import { isCV } from "../../types/cv/isCV";
 import { ccToFlags } from "../../utils";
 
@@ -11,7 +16,7 @@ export function useFilesToCV() {
   return (list: FileList | File[]) =>
     new Promise<void>(async (done) => {
       if (list.length > 0) {
-        dispatch(spin.show());
+        dispatch(tSpin.show());
 
         let cvFound = false;
         let imgFound = false;
@@ -29,19 +34,18 @@ export function useFilesToCV() {
             if (isCV(res)) {
               cvFound = true;
 
-              dispatch(cvr.setCV(res));
+              dispatch(tCV.setCV(res));
             }
           } else if (!imgFound && file.type.startsWith("image")) {
             const reader = new FileReader();
-            reader.onload = () => dispatch(cvr.setImg(reader.result as string));
+            reader.onload = () => dispatch(tCV.setImg(reader.result as string));
             reader.readAsDataURL(file);
             imgFound = true;
           }
 
           if (imgFound && cvFound) break;
         }
-
-        dispatch(spin.hide());
+        dispatch(tSpin.hide());
       }
 
       done();
@@ -49,29 +53,15 @@ export function useFilesToCV() {
 }
 
 export default function useLogic() {
-  const dispatch = useAppDispatch();
   const cv = useAppSelector((s) => s.cv.cv);
   const processFiles = useFilesToCV();
   const cxFiles = useFiles();
+  const loaded = cv !== undefined;
+  useSpinner(loaded);
 
   useEffect(() => {
     if (cxFiles.files.length > 0) {
       processFiles(cxFiles.files).then(cxFiles.reset);
-    } else if (!cv) {
-      dispatch(spin.hide());
-      Promise.all([import("js-yaml"), import("../../assets/cv.yaml?raw")]).then(
-        ([YAML, { default: strYaml }]) => {
-          const flagsReplaced = ccToFlags(strYaml);
-          const parsed = YAML.load(flagsReplaced);
-
-          const blob = new Blob([strYaml], { type: "application/yaml" });
-          const blobUrl = URL.createObjectURL(blob);
-
-          dispatch(cvr.setURL(blobUrl));
-          dispatch(cvr.setCV(parsed));
-          dispatch(spin.hide());
-        }
-      );
     }
   }, [cxFiles.files]);
 }

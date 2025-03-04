@@ -5,7 +5,7 @@ import {
   useModal,
 } from "../../hooks";
 import { NumberInputProps } from "../../types/hooks";
-import { lux } from "../../reducers";
+import { tLux } from "../../reducers";
 
 export default function Controls() {
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ export default function Controls() {
       onSubmit={(e) => {
         const { value } = num as NumberInputProps;
         if (value !== "" && !pickedNums.includes(value as number)) {
-          dispatch(lux.addNum(value as number));
+          dispatch(tLux.addNum(value as number));
         }
 
         resetInput();
@@ -39,7 +39,7 @@ export default function Controls() {
     >
       <span
         className="p-4 clickable"
-        onClick={() => dispatch(lux.toggleLocked())}
+        onClick={() => dispatch(tLux.toggleLocked())}
       >
         {locked ? "🔒" : "🔓"}
       </span>
@@ -49,7 +49,7 @@ export default function Controls() {
         onClick={() =>
           modal
             .hu()
-            .ok(() => dispatch(lux.clear()))
+            .ok(() => dispatch(tLux.clear()))
             .cancel()
             .prompt(
               <>

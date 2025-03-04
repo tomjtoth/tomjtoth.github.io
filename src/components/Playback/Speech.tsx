@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { ss as ssr } from "../../reducers";
+import { tSS } from "../../reducers";
 import { PlaybackState as PB } from "../../types";
 
 import { CLASSES } from "./classes";
@@ -15,7 +15,7 @@ export function SpeechControls() {
         className="max-w-30 md:max-w-70"
         onChange={(ev) => {
           const choice = Number(ev.target.value);
-          dispatch(ssr.setVoice(choice));
+          dispatch(tSS.setVoice(choice));
         }}
         value={ss.voice}
       >
@@ -26,11 +26,11 @@ export function SpeechControls() {
         ))}
       </select>
       {ss.pbState === PB.Paused ? (
-        <span onClick={() => dispatch(ssr.resume())}>▶️</span>
+        <span onClick={() => dispatch(tSS.resume())}>▶️</span>
       ) : (
-        <span onClick={() => dispatch(ssr.pause())}>⏸️</span>
+        <span onClick={() => dispatch(tSS.pause())}>⏸️</span>
       )}
-      <span onClick={() => dispatch(ssr.stop())}>⏹️</span>
+      <span onClick={() => dispatch(tSS.stop())}>⏹️</span>
     </div>
   ) : null;
 }

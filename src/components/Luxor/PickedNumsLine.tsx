@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import { last } from "../../utils";
 import { useAppDispatch, useAppSelector, useModal } from "../../hooks";
-import { lux } from "../../reducers";
+import { tLux } from "../../reducers";
 
 export default function PickedNumsLine() {
   const pickedNums = useAppSelector((s) => s.luxor.pickedNums);
@@ -31,7 +31,7 @@ export default function PickedNumsLine() {
             .hu()
             .ok(() =>
               dispatch(
-                lux.bugMove(
+                tLux.bugMove(
                   span.current!.getBoundingClientRect().right - 8,
                   true
                 )
@@ -53,10 +53,10 @@ export default function PickedNumsLine() {
         style={{ left: bug.position, transition: bug.transition }}
         onTransitionEnd={() => {
           if (bug.position !== "-10vw" && bug.position !== "110vw") {
-            dispatch(lux.bugHide());
-            dispatch(lux.pop());
+            dispatch(tLux.bugHide());
+            dispatch(tLux.pop());
           } else if (bug.position === "-10vw") {
-            dispatch(lux.bugReset());
+            dispatch(tLux.bugReset());
           }
         }}
       >
@@ -67,7 +67,7 @@ export default function PickedNumsLine() {
         <div
           className="fixed z-2 w-15 h-15 rounded-full border-2 border-red-500 cursor-not-allowed -translate-x-[50%] animate-luxor-bug-blur"
           style={{ left: bug.position }}
-          onAnimationEnd={() => dispatch(lux.bugMove("-10vw", false))}
+          onAnimationEnd={() => dispatch(tLux.bugMove("-10vw", false))}
         />
       )}
     </div>

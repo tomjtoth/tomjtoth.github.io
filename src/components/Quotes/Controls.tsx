@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { qts } from "../../reducers";
+import { tQt } from "../../reducers";
 import { between } from "../../utils";
 
 export default function Controls() {
@@ -20,13 +20,13 @@ export default function Controls() {
           const strVal = ev.target.value;
           if (strVal !== "") {
             const numVal = Number(strVal);
-            if (between(numVal, 10, 1000)) dispatch(qts.setWPM(numVal));
+            if (between(numVal, 10, 1000)) dispatch(tQt.setWPM(numVal));
           }
         }}
       />
       wpm
       <span className="grow"></span>
-      <span className="clickable px-4" onClick={() => dispatch(qts.reset())}>
+      <span className="clickable px-4" onClick={() => dispatch(tQt.reset())}>
         ♻️
       </span>
     </>

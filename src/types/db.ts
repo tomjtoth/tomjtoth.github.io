@@ -15,7 +15,7 @@ export type QuotesData = Pick<QuotesState, "active" | "wpm">;
 export type ArxFatalisSpells = Pick<ArxFatalisState, "castSpells">;
 export type LuxorNumbers = Pick<LuxorState, "pickedNums">;
 export type ShoppingListActive = Pick<ShoppingListState, "active">;
-export type SpeechSynthData = { choice: number };
+export type SpeechSynthData = { voice: number };
 export type MiscData = StrId &
   (
     | QuotesData

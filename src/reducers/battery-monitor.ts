@@ -36,7 +36,10 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export const bm = {
+/**
+ * # Thunks of Battery Monitor
+ */
+export const tBM = {
   init: () => {
     return async (dispatch: AppDispatch) => {
       db.load().then((conf) => dispatch(sa.init(conf)));
@@ -44,15 +47,15 @@ export const bm = {
   },
 
   setState: (state: BatState) => {
-    return (disp: AppDispatch) => disp(sa.setBatState(state));
+    return (dispatch: AppDispatch) => dispatch(sa.setBatState(state));
   },
 
   setLevels: (lower: number, upper: number) => {
-    return (disp: AppDispatch) => disp(sa.setLevels({ lower, upper }));
+    return (dispatch: AppDispatch) => dispatch(sa.setLevels({ lower, upper }));
   },
 
   setAllowed: (to: boolean) => {
-    return (disp: AppDispatch) => disp(sa.setAllowed(to));
+    return (dispatch: AppDispatch) => dispatch(sa.setAllowed(to));
   },
 };
 

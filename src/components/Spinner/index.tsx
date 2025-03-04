@@ -1,25 +1,17 @@
-import { useRef } from "react";
-
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { spin } from "../../reducers";
+import { tSpin } from "../../reducers";
 
 export function Spinner() {
-  // destructuring is fine for this component,
-  // there's only these 2 props in reducer state...
   const { visible, fading } = useAppSelector((s) => s.spinner);
   const dispatch = useAppDispatch();
-  const blur = useRef<HTMLDivElement>(null);
 
   return !visible ? null : (
     <div
-      ref={blur}
       className={`bg-blur${fading ? " animate-bg-deblur" : ""}`}
       onAnimationEnd={(ev) => {
         console.debug("animation", ev.animationName, "ended");
         if (ev.animationName === "bg-deblur") {
-          dispatch(spin.reset());
-
-          // blur.current!.style.visibility = "hidden";
+          dispatch(tSpin.reset());
         }
       }}
     >

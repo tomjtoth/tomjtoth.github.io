@@ -1,6 +1,6 @@
 import type { AlbumsProps } from "../../types/lyrics";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { lyr } from "../../reducers";
+import { tLyr } from "../../reducers";
 
 import Songs from "./Songs";
 import Logo from "./Logos";
@@ -27,7 +27,7 @@ export default function Albums({ artistIdx, albums }: AlbumsProps) {
               }`,
               onClick: (e) => {
                 if (clickable && e.target === e.currentTarget)
-                  dispatch(lyr.toggle(id));
+                  dispatch(tLyr.toggle(id));
               },
             }}
           >

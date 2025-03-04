@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from ".";
 import { BatState, BatteryManager as BatMan } from "../types/battery-monitor";
-import { bm } from "../reducers";
+import { tBM } from "../reducers";
 
 export function useBatteryManager(navi: any) {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ export function useBatteryManager(navi: any) {
   // debounce too frequent changes by 50ms delay
   useEffect(() => {
     const id = setTimeout(() => {
-      dispatch(bm.setState(buffer!));
+      dispatch(tBM.setState(buffer!));
     }, 50);
 
     return () => clearTimeout(id);

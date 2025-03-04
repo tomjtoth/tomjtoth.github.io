@@ -24,7 +24,11 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export const arx = {
+/**
+ * # Thunks of Arx Fatalis
+ */
+
+export const tArx = {
   cast: (spell: number) => {
     return (dispatch: AppDispatch) => dispatch(sa.addSpell(spell));
   },

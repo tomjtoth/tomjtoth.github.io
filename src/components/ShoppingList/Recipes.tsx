@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 import { Language } from "../../types/modal";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { sl } from "../../reducers";
+import { tSL } from "../../reducers";
 
 import Steps from "./Steps";
 
@@ -35,7 +35,7 @@ export default function Recipes() {
                 active.includes(recId) ? " active" : ""
               }`}
               onClick={(e) => {
-                if (e.target === e.currentTarget) dispatch(sl.toggle(recId));
+                if (e.target === e.currentTarget) dispatch(tSL.toggle(recId));
               }}
             >
               {title}

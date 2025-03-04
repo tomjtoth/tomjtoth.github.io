@@ -125,3 +125,7 @@ export function pad(num: number | string, len = 2) {
 }
 
 export const IS_TOUCH_DEVICE = navigator.maxTouchPoints > 0;
+
+export function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

@@ -1,8 +1,5 @@
-import { useEffect } from "react";
-
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useSpinner, useAppSelector } from "../../hooks";
 import { ViewHeader, ViewContent } from "..";
-import { spin } from "../../reducers";
 
 import Controls from "./Controls";
 
@@ -14,24 +11,12 @@ export function notiText(charging: boolean, level: number) {
 }
 
 export function BatteryMonitor() {
-  const dispatch = useAppDispatch();
   const conf = useAppSelector((s) => s.batteryMonitor.conf);
   const state = useAppSelector((s) => s.batteryMonitor.state);
   const isSupported = useAppSelector((s) => s.batteryMonitor.isSupported);
-  const spinnerVisible = useAppSelector((s) => s.spinner.visible);
 
-  const loading = isSupported && (!state || !conf);
-
-  useEffect(() => {
-    // init is done by the daemon,
-    // this is only necessary on page-load while
-    // battery-monitor is the active view
-    if (loading) {
-      dispatch(spin.show());
-    } else if (spinnerVisible) {
-      dispatch(spin.hide());
-    }
-  }, [loading]);
+  const loaded = isSupported && state !== undefined && conf !== undefined;
+  useSpinner(loaded);
 
   return (
     <>

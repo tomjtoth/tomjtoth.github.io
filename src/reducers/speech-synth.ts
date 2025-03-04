@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { AppDispatch, RootState } from "../store";
 import db from "../services/speech-synth";
-import { PlaybackState as PBS } from "../types";
-import { qts } from "./quotes";
+import { PlaybackState as PB } from "../types";
+import { tQt } from "./quotes";
 
 const isSupported = "speechSynthesis" in window;
 const SYNTH = window.speechSynthesis;
@@ -15,7 +15,7 @@ type Selectable = {
 
 type RState = {
   isSupported: boolean;
-  pbState: PBS;
+  pbState: PB;
   voice: number;
   selectables: Selectable[];
 };
@@ -24,7 +24,7 @@ const slice = createSlice({
   name: "speech-synth",
   initialState: {
     isSupported,
-    pbState: PBS.Stopped,
+    pbState: PB.Stopped,
     voice: 0,
     selectables: [],
   } as RState,
@@ -48,10 +48,13 @@ const sa = slice.actions;
 
 let VOICES: SpeechSynthesisVoice[];
 
-export const ss = {
+/**
+ * # Thunks of Speech Synthesis
+ */
+export const tSS = {
   init: () => (dispatch: AppDispatch) => {
     if (isSupported) {
-      db.load().then(({ choice }) => dispatch(sa.setVoice(choice)));
+      db.load().then(({ voice }) => dispatch(sa.setVoice(voice)));
 
       VOICES = SYNTH.getVoices().toSorted((a, b) => {
         const lower_a = a.lang.toLowerCase();
@@ -77,17 +80,17 @@ export const ss = {
 
   resume: () => (dispatch: AppDispatch) => {
     SYNTH.resume();
-    dispatch(sa.setPBState(PBS.Playing));
+    dispatch(sa.setPBState(PB.Playing));
   },
 
   pause: () => (dispatch: AppDispatch) => {
     SYNTH.pause();
-    dispatch(sa.setPBState(PBS.Paused));
+    dispatch(sa.setPBState(PB.Paused));
   },
 
   stop: () => (dispatch: AppDispatch) => {
     SYNTH.cancel();
-    dispatch(sa.setPBState(PBS.Stopped));
+    dispatch(sa.setPBState(PB.Stopped));
   },
 
   speak: (text: string) => {
@@ -96,18 +99,18 @@ export const ss = {
       const speechState = rs.speechSynth;
       const pbQuotes = rs.quotes.pbState;
 
-      if (pbQuotes !== PBS.Stopped) dispatch(qts.stop());
+      if (pbQuotes !== PB.Stopped) dispatch(tQt.stop());
 
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.voice = VOICES[speechState.voice];
 
       utterance.onend = () => {
-        if (!SYNTH.pending) dispatch(sa.setPBState(PBS.Stopped));
+        if (!SYNTH.pending) dispatch(sa.setPBState(PB.Stopped));
       };
 
       SYNTH.cancel();
       SYNTH.speak(utterance);
-      dispatch(sa.setPBState(PBS.Playing));
+      dispatch(sa.setPBState(PB.Playing));
     };
   },
 };

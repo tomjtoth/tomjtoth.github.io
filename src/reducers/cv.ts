@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { AppDispatch } from "../store";
 import { EduDet, ExpDet, ReducerState } from "../types/cv";
+import { ccToFlags } from "../utils";
 
 const slice = createSlice({
   name: "cv",
@@ -33,7 +34,25 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export const cv = {
+/**
+ * # Thunks of CV
+ */
+export const tCV = {
+  init: () => (dispatch: AppDispatch) => {
+    Promise.all([import("js-yaml"), import("../assets/cv.yaml?raw")]).then(
+      ([YAML, { default: strYaml }]) => {
+        const flagsReplaced = ccToFlags(strYaml);
+        const parsed = YAML.load(flagsReplaced);
+
+        const blob = new Blob([strYaml], { type: "application/yaml" });
+        const blobUrl = URL.createObjectURL(blob);
+
+        dispatch(tCV.setURL(blobUrl));
+        dispatch(tCV.setCV(parsed));
+      }
+    );
+  },
+
   setCV: ({ personal: p, education: edu, experience: exp, skills }: any) => {
     return (dispatch: AppDispatch) => {
       const citizenship = Object.entries(p.citizenship).map(
@@ -65,6 +84,7 @@ export const cv = {
       );
     };
   },
+
   setImg: (img: string) => {
     return (dispatch: AppDispatch) => dispatch(sa.setImg(img));
   },

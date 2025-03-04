@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { qts, ss as ssr } from "../../reducers";
+import { tQt, tSS } from "../../reducers";
 import { ListProps } from "../../types/quotes";
 
 import Info from "./Info";
@@ -36,7 +36,7 @@ export function List({ items, indices: parentIndices }: ListProps) {
                     <span
                       className="ml-2 clickable p-1 border rounded"
                       title="äänikirjasta pätkä"
-                      onClick={() => dispatch(qts.play(item.audio!.url))}
+                      onClick={() => dispatch(tQt.play(item.audio!.url))}
                     >
                       🗣️
                     </span>
@@ -45,7 +45,7 @@ export function List({ items, indices: parentIndices }: ListProps) {
                     <span
                       className="ml-2 clickable p-1 border rounded"
                       title="lue ääneen"
-                      onClick={() => dispatch(ssr.speak(item.quote))}
+                      onClick={() => dispatch(tSS.speak(item.quote))}
                     >
                       🤖
                     </span>

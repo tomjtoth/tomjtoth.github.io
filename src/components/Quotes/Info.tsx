@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { qts } from "../../reducers";
+import { tQt } from "../../reducers";
 import { pad } from "../../utils";
 
 type InfoProps = {
@@ -19,7 +19,7 @@ export default function Info({ wordCount, id }: InfoProps) {
   return (
     <span
       className="border rounded p-1 clickable ml-2 pr-2 shrink-0"
-      onClick={() => dispatch(qts.toggle(id))}
+      onClick={() => dispatch(tQt.toggle(id))}
     >
       <span className="hidden sm:contents">{wordCount} sanaa </span>
       <span className="hidden md:contents">@ {wpm}wpm ~ </span>

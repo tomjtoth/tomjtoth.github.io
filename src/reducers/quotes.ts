@@ -5,7 +5,7 @@ import { PlaybackState as PB } from "../types";
 import { Data, Quote, RState } from "../types/quotes";
 import db from "../services/quotes";
 import { toggle } from "../utils";
-import { ss } from ".";
+import { tSS } from ".";
 
 const slice = createSlice({
   name: "quotes",
@@ -69,7 +69,10 @@ const PUNCHLINE = /\*\*((.).+?(.))\*\*/g;
 const HTML_AUDIO_ELEMENTS = new Map<string, HTMLAudioElement>();
 let CURR_AUDIO: HTMLAudioElement;
 
-export const qts = {
+/**
+ * # Thunks of Quotes
+ */
+export const tQt = {
   init: () => {
     return (dispatch: AppDispatch) => {
       function recurse(rawData: any, indices: number[]): Omit<Data, "name"> {
@@ -156,7 +159,7 @@ export const qts = {
     (url?: string) => (dispatch: AppDispatch, getState: () => RootState) => {
       const pbSpeech = getState().speechSynth.pbState;
 
-      if (pbSpeech !== PB.Stopped) dispatch(ss.stop());
+      if (pbSpeech !== PB.Stopped) dispatch(tSS.stop());
 
       if (url) {
         const mp3 = HTML_AUDIO_ELEMENTS.get(url)!;

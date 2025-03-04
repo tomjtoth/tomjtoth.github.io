@@ -1,23 +1,13 @@
-import { useEffect } from "react";
-
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { spin, qts } from "../../reducers";
+import { useSpinner, useAppSelector } from "../../hooks";
 
 import { ViewHeader, ViewContent } from "..";
 import { List } from "./List";
 import Controls from "./Controls";
 
 export function Quotes() {
-  const dispatch = useAppDispatch();
   const items = useAppSelector((s) => s.quotes.data);
   const loaded = useAppSelector((s) => s.quotes.loaded);
-
-  useEffect(() => {
-    if (!loaded) {
-      dispatch(spin.show());
-      dispatch(qts.init()).then(() => dispatch(spin.hide()));
-    }
-  }, []);
+  useSpinner(loaded);
 
   return (
     <>

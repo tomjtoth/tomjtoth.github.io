@@ -1,5 +1,5 @@
 import { TableBodyProps } from "../../types/luxor";
-import { lux } from "../../reducers";
+import { tLux } from "../../reducers";
 import { between } from "../../utils";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
@@ -44,7 +44,7 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                     onClick: () => {
                       if (locked) {
                         if (!pickedNums.includes(cell))
-                          dispatch(lux.addNum(cell));
+                          dispatch(tLux.addNum(cell));
                       }
                     },
                   }}
@@ -67,7 +67,9 @@ export default function TableBody({ rows, fieldId }: TableBodyProps) {
                       onChange={(e) => {
                         const num = Number(e.target.value);
                         if (isValid(num, min, max))
-                          dispatch(lux.update([fieldId, rowIdx, cellIdx, num]));
+                          dispatch(
+                            tLux.update([fieldId, rowIdx, cellIdx, num])
+                          );
                       }}
                     />
                   )}

@@ -1,8 +1,13 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-import { spin, lux } from "../../reducers";
-import { useAppSelector, useAppDispatch, useModal } from "../../hooks";
+import { tLux, tSpin } from "../../reducers";
+import {
+  useAppSelector,
+  useAppDispatch,
+  useModal,
+  useSpinner,
+} from "../../hooks";
 import { processImports } from "../../services/luxor";
 
 export function useInit() {
@@ -11,26 +16,26 @@ export function useInit() {
   const modal = useModal();
   const { search, pathname } = useLocation();
   const loaded = useAppSelector((s) => s.luxor.loaded);
+  useSpinner(loaded);
 
   useEffect(() => {
     if (!loaded) {
-      dispatch(spin.show());
-
       const imps = new URLSearchParams(search).get("import");
       const [arr, prompt, critical] = processImports(imps);
 
       if (prompt.length > 0) {
+        dispatch(tSpin.hide());
         modal
           .hu()
           .ok(() => {
             if (!critical) {
-              dispatch(lux.init(arr)).then(() => dispatch(spin.hide()));
+              dispatch(tLux.init(arr));
               navigate(pathname);
             }
           })
           .prompt(prompt);
       } else {
-        dispatch(lux.init(arr)).then(() => dispatch(spin.hide()));
+        dispatch(tLux.init(arr));
         if (imps) navigate(pathname);
       }
     }

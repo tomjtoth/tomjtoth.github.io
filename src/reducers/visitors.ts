@@ -25,7 +25,10 @@ const sa = slice.actions;
 
 const CONSONANTS = /^[bcdfghjklmnpqrstvwxz]/i;
 
-export const vis = {
+/**
+ * # Thunks of Visitors
+ */
+export const tVis = {
   init: () => {
     return (dispatch: AppDispatch) =>
       Promise.all([

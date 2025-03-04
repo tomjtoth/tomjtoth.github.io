@@ -21,7 +21,10 @@ const slice = createSlice({
 
 const sa = slice.actions;
 
-export const spin = {
+/**
+ * # Thunks of Spinner
+ */
+export const tSpin = {
   reset: () => {
     console.debug("resetting spinner to default");
     return (dispatch: AppDispatch) => dispatch(sa.set(DEFAULT));

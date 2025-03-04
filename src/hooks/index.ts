@@ -9,6 +9,7 @@ export * from "./battery-monitor-daemon";
 export * from "./notifications";
 export * from "./useField";
 export * from "./files";
+export * from "./spinner";
 
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
