@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { tSP } from "../reducers";
 
 import { QRCode } from ".";
-import { IS_TOUCH_DEVICE } from "../utils";
+
 const HASH = import.meta.env.VITE_GIT_HASH ?? 88888888;
 
 export function Sidepanel() {
@@ -68,14 +68,6 @@ export function Sidepanel() {
           onClick={() => navigator.clipboard.writeText(url)}
         />
         <div lang="en" className="ml-[25px] flex gap-4 flex-col items-center">
-          {IS_TOUCH_DEVICE && (
-            <span
-              className="p-4 border rounded"
-              onClick={() => location.reload()}
-            >
-              refresh ♻️
-            </span>
-          )}
           <span
             ref={verRef}
             className="clickable"

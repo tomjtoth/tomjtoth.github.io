@@ -81,7 +81,7 @@
 html,
 body,
 #root {
-  @apply overscroll-y-none m-0 h-full;
+  @apply m-0 h-full;
 }
 
 @utility text-shadow-40-20-10-bg0 {
