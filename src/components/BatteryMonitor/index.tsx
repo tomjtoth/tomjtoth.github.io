@@ -15,8 +15,8 @@ export function BatteryMonitor() {
   const state = useAppSelector((s) => s.batteryMonitor.state);
   const isSupported = useAppSelector((s) => s.batteryMonitor.isSupported);
 
-  const loaded = isSupported && state !== undefined && conf !== undefined;
-  useSpinner(loaded);
+  const loaded = state !== undefined && conf !== undefined;
+  useSpinner(isSupported ? loaded : true);
 
   return (
     <>
