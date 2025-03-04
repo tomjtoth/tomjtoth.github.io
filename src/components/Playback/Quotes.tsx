@@ -8,7 +8,7 @@ export function QuotesControls() {
   const dispatch = useAppDispatch();
   const qt = useAppSelector((s) => s.quotes);
 
-  return qt.pbState !== PB.Stopped ? (
+  return qt.pbState === PB.Stopped ? null : (
     <div className={CLASSES.join(" ")}>
       <span>🗣️</span>
       {qt.pbState === PB.Paused ? (
@@ -18,5 +18,5 @@ export function QuotesControls() {
       )}
       <span onClick={() => dispatch(tQt.stop())}>⏹️</span>
     </div>
-  ) : null;
+  );
 }

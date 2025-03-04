@@ -8,7 +8,7 @@ export function SpeechControls() {
   const dispatch = useAppDispatch();
   const ss = useAppSelector((s) => s.speechSynth);
 
-  return ss.pbState !== PB.Stopped ? (
+  return ss.pbState === PB.Stopped ? null : (
     <div className={CLASSES.join(" ")}>
       <span>🤖</span>
       <select
@@ -32,5 +32,5 @@ export function SpeechControls() {
       )}
       <span onClick={() => dispatch(tSS.stop())}>⏹️</span>
     </div>
-  ) : null;
+  );
 }

@@ -1,6 +1,7 @@
 export const CLASSES = [
   // everywhere
   "flex items-center gap-3 [&_span]:not-first:clickable [&_span]:text-2xl",
+  "[&_span]:first:cursor-default",
 
   // on mobile
   "p-4 fixed bottom-10 z-5 left-1/2 -translate-x-1/2 bg-bg-0",
