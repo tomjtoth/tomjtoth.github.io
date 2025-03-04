@@ -41,7 +41,7 @@ export function List({ items, indices: parentIndices }: ListProps) {
                       🗣️
                     </span>
                   )}
-                  {ss && (
+                  {ss.isSupported && (
                     <span
                       className="ml-2 clickable p-1 border rounded"
                       title="lue ääneen"
