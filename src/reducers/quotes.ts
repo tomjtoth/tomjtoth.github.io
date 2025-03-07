@@ -66,6 +66,7 @@ const sa = slice.actions;
 
 const WORD = /\w+/g;
 const PUNCHLINE = /\*\*((.).+?(.))\*\*/g;
+const LOWERCASE = /[a-z]/;
 
 const HTML_AUDIO_ELEMENTS = new Map<string, HTMLAudioElement>();
 let CURR_AUDIO: HTMLAudioElement;
@@ -89,8 +90,12 @@ export const tQt = {
             let val = quoteWithUrl
               ? (value.quote as string)
               : (value as string);
-            val = val.replaceAll(PUNCHLINE, (_, pl) => {
-              pls.push(pl);
+            val = val.replaceAll(PUNCHLINE, (_, pl, firstChar, lastChar) => {
+              pls.push(
+                `${LOWERCASE.test(firstChar) ? "..." : ""}${pl}${
+                  LOWERCASE.test(lastChar) ? "..." : ""
+                }`
+              );
               return pl;
             });
 
