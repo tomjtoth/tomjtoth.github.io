@@ -164,6 +164,10 @@ export const tQt = {
 
       if (url) {
         const mp3 = HTML_AUDIO_ELEMENTS.get(url)!;
+        if (CURR_AUDIO && CURR_AUDIO !== mp3) {
+          CURR_AUDIO.pause();
+          CURR_AUDIO.currentTime = 0;
+        }
         mp3.play();
         CURR_AUDIO = mp3;
       } else {
