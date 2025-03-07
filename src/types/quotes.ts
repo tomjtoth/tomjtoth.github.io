@@ -1,9 +1,14 @@
 import { Active, PlaybackState } from ".";
 
-export type Quote = {
-  quote: string;
+export type Quote = (
+  | {
+      quote: string;
+    }
+  | {
+      innerHTML: string;
+    }
+) & {
   punchline?: string;
-  setInnerHTML?: boolean;
   audio?: {
     url: string;
     state: PlaybackState;

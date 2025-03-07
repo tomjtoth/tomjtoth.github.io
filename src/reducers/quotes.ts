@@ -81,15 +81,30 @@ export const tQt = {
         let words = 0;
 
         const items = Object.entries(rawData).map(([name, value], i) => {
+          const simpleQuote = typeof value === "string";
+
           const quoteWithUrl =
             typeof value === "object" && "url" in value! && "quote" in value;
 
-          if (typeof value === "string" || quoteWithUrl) {
+          const dangerousQuote =
+            typeof value === "object" && "innerHTML" in value!;
+
+          const dangerousQuoteWithUrl = dangerousQuote && "url" in value;
+
+          if (
+            simpleQuote ||
+            quoteWithUrl ||
+            dangerousQuote ||
+            dangerousQuoteWithUrl
+          ) {
             const pls = [] as string[];
 
-            let val = quoteWithUrl
+            let val = dangerousQuote
+              ? (value.innerHTML as string)
+              : quoteWithUrl
               ? (value.quote as string)
               : (value as string);
+
             val = val.replaceAll(PUNCHLINE, (_, pl, firstChar, lastChar) => {
               pls.push(
                 `${LOWERCASE.test(firstChar) ? "..." : ""}${pl}${
@@ -102,9 +117,17 @@ export const tQt = {
             const wc = [...val.matchAll(WORD)].length;
             words += wc;
 
-            let audio;
-            let setInnerHTML;
-            if (quoteWithUrl) {
+            const res = {
+              punchline: pls.length > 0 ? pls.join(" ") : undefined,
+              words: wc,
+            } as Quote;
+
+            if (simpleQuote || quoteWithUrl)
+              (res as { quote: string }).quote = val;
+            if (dangerousQuote || dangerousQuoteWithUrl)
+              (res as { innerHTML: string }).innerHTML = val;
+
+            if (quoteWithUrl || dangerousQuoteWithUrl) {
               const url = value.url as string;
               const mp3 = new Audio(url);
 
@@ -114,17 +137,10 @@ export const tQt = {
 
               HTML_AUDIO_ELEMENTS.set(url, mp3);
 
-              audio = { url, state: PB.Stopped };
-              setInnerHTML = true;
+              res.audio = { url, state: PB.Stopped };
             }
 
-            return {
-              quote: val,
-              audio,
-              setInnerHTML,
-              punchline: pls.length > 0 ? pls.join(" ") : undefined,
-              words: wc,
-            } as Quote;
+            return res;
           } else {
             const res = recurse(value, [...indices, i]);
             words += res.words;

@@ -28,7 +28,7 @@ export function List({ items, indices: parentIndices }: ListProps) {
               parentIndices.length > 0 ? "border rounded" : ""
             }`}
           >
-            {"quote" in item ? (
+            {"quote" in item || "innerHTML" in item ? (
               <>
                 <div className="flex *:content-center">
                   <Info wordCount={item.words} id={strId} />
@@ -45,7 +45,21 @@ export function List({ items, indices: parentIndices }: ListProps) {
                     <span
                       className="ml-2 clickable p-1 border rounded"
                       title="robotti lukee"
-                      onClick={() => dispatch(tSS.speak(item.quote))}
+                      onClick={(ev) => {
+                        let text;
+
+                        if ("innerHTML" in item) {
+                          const span = ev.target as HTMLSpanElement;
+                          const div = span.parentNode as HTMLDivElement;
+                          const p = div.nextSibling as HTMLParagraphElement;
+
+                          text = p.textContent!;
+                        } else {
+                          text = item.quote;
+                        }
+
+                        dispatch(tSS.speak(text));
+                      }}
                     >
                       🤖
                     </span>
@@ -53,12 +67,12 @@ export function List({ items, indices: parentIndices }: ListProps) {
                   {item.punchline && <b className="ml-2">{item.punchline}</b>}
                 </div>
 
-                {item.setInnerHTML ? (
+                {"innerHTML" in item ? (
                   <p
                     className={`whitespace-pre-line px-1 ${
                       active.includes(strId) ? "" : "hidden"
                     }`}
-                    dangerouslySetInnerHTML={{ __html: item.quote }}
+                    dangerouslySetInnerHTML={{ __html: item.innerHTML }}
                   />
                 ) : (
                   <p
