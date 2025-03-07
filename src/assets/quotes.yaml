@@ -289,6 +289,7 @@ Terry Pratchett:
           He was seventy-six percent sure he was going to get at least seven degrees colder.
 
       - url: quotes/Terry-Pratchett/The-Discworld/15-MenAtArms-050822-051007-Detritious-in-fridge.mp3
+        setInnerHTML: true
         quote: |
           Detritus sat and steamed. Now he felt hungry—not for food, but for things to think about. As the temperature sank, the efficiency of his brain increased even more. It needed something to do.
 
@@ -302,7 +303,8 @@ Terry Pratchett:
 
           Part of his brain gave some thought to this. There was a high probability of rescue. That meant he’d have to leave. That meant he’d become stupid again, as sure as 
 
-          10^3 (M_c / M_p)alpha^sigma alpha^G -1/2N = 10N
+          10<sup>-3</sup> (M <sub>c</sub> / M<sub>p</sub>) &alpha;<sup>&sigma;</sup> &alpha; <sup>G</sup> - <sup>1</sup>&frasl;<sub>2</sub> N = 10N
+
 
           Better make the most of it, then.
 

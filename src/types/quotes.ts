@@ -3,6 +3,7 @@ import { Active, PlaybackState } from ".";
 export type Quote = {
   quote: string;
   punchline?: string;
+  setInnerHTML?: boolean;
   audio?: {
     url: string;
     state: PlaybackState;

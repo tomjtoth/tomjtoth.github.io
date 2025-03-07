@@ -98,6 +98,7 @@ export const tQt = {
             words += wc;
 
             let audio;
+            let setInnerHTML;
             if (quoteWithUrl) {
               const url = value.url as string;
               const mp3 = new Audio(url);
@@ -109,11 +110,13 @@ export const tQt = {
               HTML_AUDIO_ELEMENTS.set(url, mp3);
 
               audio = { url, state: PB.Stopped };
+              setInnerHTML = true;
             }
 
             return {
               quote: val,
               audio,
+              setInnerHTML,
               punchline: pls.length > 0 ? pls.join(" ") : undefined,
               words: wc,
             } as Quote;

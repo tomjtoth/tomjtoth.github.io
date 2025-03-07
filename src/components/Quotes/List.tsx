@@ -53,13 +53,22 @@ export function List({ items, indices: parentIndices }: ListProps) {
                   {item.punchline && <b className="ml-2">{item.punchline}</b>}
                 </div>
 
-                <p
-                  className={`whitespace-pre-line px-1 ${
-                    active.includes(strId) ? "" : "hidden"
-                  }`}
-                >
-                  {item.quote}
-                </p>
+                {item.setInnerHTML ? (
+                  <p
+                    className={`whitespace-pre-line px-1 ${
+                      active.includes(strId) ? "" : "hidden"
+                    }`}
+                    dangerouslySetInnerHTML={{ __html: item.quote }}
+                  />
+                ) : (
+                  <p
+                    className={`whitespace-pre-line px-1 ${
+                      active.includes(strId) ? "" : "hidden"
+                    }`}
+                  >
+                    {item.quote}
+                  </p>
+                )}
               </>
             ) : (
               <>
