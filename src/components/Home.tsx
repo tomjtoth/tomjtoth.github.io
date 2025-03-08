@@ -16,12 +16,8 @@ export function Home() {
             >
               repo
             </a>{" "}
-            in case you're interested. The{" "}
-            <b>CV view is most suitable on a laptop</b> , since it's hard-coded
-            for a single A4, and I recommend trying out the{" "}
-            <b>Arx Fatalis minigame on a phone</b>. 🤓 Optimization for
-            different devices is and will be a constant TODO.. 🫣 Also excuse my
-            CSS, I like a color when it's hexa looks nice. 🤷‍♂️
+            in case you're interested. Excuse my CSS, I like a color when it's
+            hexa looks nice. 🤷‍♂️
           </p>
         </div>
 
