@@ -33,7 +33,7 @@ export default function Controls() {
       }}
     >
       <span
-        className="clickable mx-4 shrink-0 whitespace-nowrap"
+        className="clickable mx-2 p-2 shrink-0 whitespace-nowrap"
         title={title}
         onClick={() => dispatch(tSL.toggle("slr"))}
       >
@@ -45,7 +45,7 @@ export default function Controls() {
         className="placeholder:text-center grow max-w-full min-w-0 w-7 p-2 border rounded"
       />
       <span
-        className="clickable mx-4 shrink-0 whitespace-nowrap"
+        className="clickable mx-2 p-2 shrink-0 whitespace-nowrap"
         title="pyyhi vihreät"
         onClick={() =>
           modal

@@ -26,7 +26,10 @@ export default function Controls() {
       />
       wpm
       <span className="grow"></span>
-      <span className="clickable px-4" onClick={() => dispatch(tQt.reset())}>
+      <span
+        className="clickable p-2 mx-2"
+        onClick={() => dispatch(tQt.reset())}
+      >
         ♻️
       </span>
     </>

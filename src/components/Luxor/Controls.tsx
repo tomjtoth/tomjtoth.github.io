@@ -38,14 +38,14 @@ export default function Controls() {
       }}
     >
       <span
-        className="p-4 clickable"
+        className="p-2 mx-2 clickable"
         onClick={() => dispatch(tLux.toggleLocked())}
       >
         {locked ? "🔒" : "🔓"}
       </span>
       <input {...num} />
       <span
-        className="p-4 clickable"
+        className="p-2 mx-2 clickable"
         onClick={() =>
           modal
             .hu()

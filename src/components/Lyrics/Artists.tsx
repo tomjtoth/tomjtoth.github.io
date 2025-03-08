@@ -10,7 +10,7 @@ export default function Artists() {
   const active = useAppSelector((s) => s.lyrics.active);
 
   return (
-    <ul lang="sv" id="lyrics" className="pl-0 [&_a]:pl-4">
+    <ul lang="sv" id="lyrics" className="pl-0 [&_a]:p-2 [&_a]:ml-2">
       {artists.map(({ name, url, albums }, artistIdx) => {
         const id = [artistIdx].join();
 

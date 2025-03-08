@@ -103,7 +103,11 @@ export default function Controls() {
           <span className="hidden sm:contents"> your CV</span>
         </b>
       </span>
-      <span className="clickable p-4" title="print (Ctrl + P)" onClick={print}>
+      <span
+        className="clickable p-2 mx-2"
+        title="print (Ctrl + P)"
+        onClick={print}
+      >
         🖨️
       </span>
     </>

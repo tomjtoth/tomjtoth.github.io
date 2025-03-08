@@ -23,7 +23,7 @@ export default function PickedNumsLine() {
       </span>
 
       <span
-        className={`clickable ${
+        className={`clickable ml-2 p-2 ${
           pickedNums.length === 0 ? "invisible" : "visible"
         }`}
         onClick={() =>

@@ -19,7 +19,7 @@ export default function Controls() {
         disabled
       />
       <a
-        className="no-underline px-4"
+        className="no-underline p-2 mx-2"
         href="https://wiki.arx-libertatis.org/Spells"
         target="_blank"
       >
