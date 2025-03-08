@@ -124,6 +124,11 @@ export function pad(num: number | string, len = 2) {
   return padded.slice(padded.length - len);
 }
 
+export function secToMMSS(SS: number) {
+  const MM = SS / 60;
+  return `${pad(Math.floor(MM))}:${pad(Math.floor(SS % 60))}`;
+}
+
 export const IS_TOUCH_DEVICE = navigator.maxTouchPoints > 0;
 
 export function sleep(ms: number) {
