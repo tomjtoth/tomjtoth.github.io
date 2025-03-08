@@ -1,6 +1,6 @@
 import { useSpinner, useAppSelector } from "../../hooks";
 
-import { ViewHeader, ViewContent } from "..";
+import { ViewHeader, ViewContent, CxMediaControlsPadding } from "..";
 import { List } from "./List";
 import Controls from "./Controls";
 
@@ -10,7 +10,7 @@ export function Quotes() {
   useSpinner(loaded);
 
   return (
-    <>
+    <CxMediaControlsPadding.Provider value={false}>
       <ViewHeader title="Sitaatit">
         <Controls />
       </ViewHeader>
@@ -25,6 +25,6 @@ export function Quotes() {
         </p>
         <List {...{ items, indices: [] }} />
       </ViewContent>
-    </>
+    </CxMediaControlsPadding.Provider>
   );
 }
