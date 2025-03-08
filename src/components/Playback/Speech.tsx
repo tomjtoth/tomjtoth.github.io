@@ -11,6 +11,11 @@ export function SpeechControls() {
   return ss.pbState === PB.Stopped ? null : (
     <div className={CLASSES.join(" ")}>
       <span>🤖</span>
+      {ss.pbState === PB.Paused ? (
+        <span onClick={() => dispatch(tSS.resume())}>▶️</span>
+      ) : (
+        <span onClick={() => dispatch(tSS.pause())}>⏸️</span>
+      )}
       <select
         className="max-w-30 md:max-w-70"
         onChange={(ev) => {
@@ -25,11 +30,6 @@ export function SpeechControls() {
           </option>
         ))}
       </select>
-      {ss.pbState === PB.Paused ? (
-        <span onClick={() => dispatch(tSS.resume())}>▶️</span>
-      ) : (
-        <span onClick={() => dispatch(tSS.pause())}>⏸️</span>
-      )}
       <span onClick={() => dispatch(tSS.stop())}>⏹️</span>
     </div>
   );
