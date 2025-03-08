@@ -28,9 +28,15 @@ export type ListProps = {
   items: (Data | Quote)[];
 };
 
+type Playback = {
+  state: PlaybackState;
+  currentTime: number;
+  duration: number;
+};
+
 export type RState = {
   loaded: boolean;
-  pbState: PlaybackState;
+  playback: Playback;
   active: Active;
   wpm: number;
   data: Data[];

@@ -97,7 +97,7 @@ export const tSS = {
     return (dispatch: AppDispatch, getRootState: () => RootState) => {
       const rs = getRootState();
       const speechState = rs.speechSynth;
-      const pbQuotes = rs.quotes.pbState;
+      const pbQuotes = rs.quotes.playback.state;
 
       if (pbQuotes !== PB.Stopped) dispatch(tQt.stop());
 

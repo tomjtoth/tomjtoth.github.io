@@ -11,20 +11,23 @@ const slice = createSlice({
   name: "quotes",
   initialState: {
     loaded: false,
-    pbState: PB.Stopped,
+    playback: {
+      state: PB.Stopped,
+      currentTime: 0,
+      duration: 0,
+    },
     wpm: 0,
     active: [],
     data: [],
   } as RState,
 
   reducers: {
-    init: (_, { payload: { data, active, wpm } }) => ({
-      loaded: true,
-      pbState: PB.Stopped,
-      data: [{ ...data, name: "Yhteensä" }],
-      wpm,
-      active,
-    }),
+    init: (rs, { payload: { data, active, wpm } }) => {
+      rs.loaded = true;
+      rs.data = [{ ...data, name: "Yhteensä" }];
+      rs.wpm = wpm;
+      rs.active = active;
+    },
 
     toggle: (rs, { payload }) => {
       toggle(rs.active, payload);
@@ -42,7 +45,12 @@ const slice = createSlice({
     },
 
     setPBState: (rs, { payload }) => {
-      rs.pbState = payload;
+      rs.playback.state = payload;
+      rs.playback.duration = payload === PB.Stopped ? 0 : CURR_AUDIO.duration;
+    },
+
+    updatePBTime: (rs) => {
+      rs.playback.currentTime = CURR_AUDIO.currentTime;
     },
   },
 });
@@ -134,6 +142,7 @@ export const tQt = {
               mp3.onended = () => dispatch(sa.setPBState(PB.Stopped));
               mp3.onpause = () => dispatch(sa.setPBState(PB.Paused));
               mp3.onplay = () => dispatch(sa.setPBState(PB.Playing));
+              mp3.ontimeupdate = () => dispatch(sa.updatePBTime());
 
               HTML_AUDIO_ELEMENTS.set(url, mp3);
 
@@ -180,6 +189,10 @@ export const tQt = {
     return (dispatch: AppDispatch) => dispatch(sa.setWPM(wpm));
   },
 
+  seek: (timeStr: string) => () => {
+    CURR_AUDIO.currentTime = Number(timeStr);
+  },
+
   play:
     (url?: string) => (dispatch: AppDispatch, getState: () => RootState) => {
       const pbSpeech = getState().speechSynth.pbState;
@@ -205,7 +218,7 @@ export const tQt = {
 
   stop: () => (dispatch: AppDispatch, getRootState: () => RootState) => {
     const rs = getRootState().quotes;
-    if (rs.pbState === PB.Playing) {
+    if (rs.playback.state === PB.Playing) {
       const len = CURR_AUDIO.duration;
       CURR_AUDIO.currentTime = len;
     } else {
