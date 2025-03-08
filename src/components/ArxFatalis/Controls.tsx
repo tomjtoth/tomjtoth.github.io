@@ -15,7 +15,7 @@ export default function Controls() {
       <input
         type="text"
         placeholder="TODO: filter spells from book"
-        className="grow"
+        className="grow w-8"
         disabled
       />
       <a

@@ -2,7 +2,7 @@ import { IS_TOUCH_DEVICE } from "../../utils";
 import { Rune } from "../../types/arx-fatalis/runes";
 import useLogic from "./logic";
 
-import { ViewHeader, ViewContent } from "..";
+import { ViewHeader, ViewContent, CxMediaControlsPadding } from "..";
 import Controls from "./Controls";
 import Img from "./Img";
 
@@ -10,7 +10,7 @@ export function ArxFatalis() {
   const push = useLogic();
 
   return (
-    <>
+    <CxMediaControlsPadding.Provider value={false}>
       <ViewHeader title="riimut">
         <Controls />
       </ViewHeader>
@@ -33,6 +33,6 @@ export function ArxFatalis() {
           ))}
         </div>
       </ViewContent>
-    </>
+    </CxMediaControlsPadding.Provider>
   );
 }
