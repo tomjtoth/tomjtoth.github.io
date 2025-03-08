@@ -15,7 +15,7 @@ export function ArxFatalis() {
       </ViewHeader>
       <ViewContent className="flex flex-col">
         <div className="grow" />
-        <div className="grid grid-cols-5 grid-rows-4 gap-[5vmin] max-w-[calc(100vmin-10vmin)] max-h-[calc(100vmin-10vmin)] p-[5vmin] *:w-full *:h-full *:active:animate-rune-glow">
+        <div className="grid grid-cols-5 grid-rows-4 gap-[5vmin] max-w-[calc(100vmin-15vmin)] max-h-[calc(100vmin-15vmin)] p-[5vmin] *:w-full *:h-full *:active:animate-rune-glow">
           {Rune.arr.map((rune, i) => (
             <Img
               key={i}
