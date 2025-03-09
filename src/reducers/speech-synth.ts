@@ -4,9 +4,9 @@ import { AppDispatch, RootState } from "../store";
 import db from "../services/speech-synth";
 import { PlaybackState as PB } from "../types";
 import { tQt } from "./quotes";
+import { SpeechManager } from "../types/speech-synth";
 
 const isSupported = "speechSynthesis" in window;
-const SYNTH = window.speechSynthesis;
 
 type Selectable = {
   name: string;
@@ -15,8 +15,13 @@ type Selectable = {
 
 type RState = {
   isSupported: boolean;
-  pbState: PB;
+  playback: {
+    state: PB;
+    progress: number;
+  };
   voice: number;
+  rate: number;
+  pitch: number;
   selectables: Selectable[];
 };
 
@@ -24,14 +29,34 @@ const slice = createSlice({
   name: "speech-synth",
   initialState: {
     isSupported,
-    pbState: PB.Stopped,
+    playback: {
+      state: PB.Stopped,
+      progress: 0,
+    },
     voice: 0,
+    rate: 1,
+    pitch: 1,
     selectables: [],
   } as RState,
 
   reducers: {
-    setVoice: (rs, { payload }) => {
-      rs.voice = payload;
+    setConf: (rs, { payload: { voice, rate, pitch } }) => {
+      if (voice) {
+        rs.voice = voice;
+        MANAGER.voice = voice;
+      }
+
+      if (rate) {
+        rs.rate = rate;
+        MANAGER.rate = rate;
+      }
+
+      if (pitch) {
+        rs.pitch = pitch;
+        MANAGER.pitch = pitch;
+      }
+
+      db.save(rs);
     },
 
     populateSelectorList: (rs, { payload }) => {
@@ -39,14 +64,18 @@ const slice = createSlice({
     },
 
     setPBState: (rs, { payload }) => {
-      rs.pbState = payload;
+      rs.playback.state = payload;
+    },
+
+    setProgress: (rs, { payload }) => {
+      rs.playback.progress = payload;
     },
   },
 });
 
 const sa = slice.actions;
 
-let VOICES: SpeechSynthesisVoice[];
+let MANAGER: SpeechManager;
 
 /**
  * # Thunks of Speech Synthesis
@@ -54,62 +83,57 @@ let VOICES: SpeechSynthesisVoice[];
 export const tSS = {
   init: () => (dispatch: AppDispatch) => {
     if (isSupported) {
-      db.load().then(({ voice }) => dispatch(sa.setVoice(voice)));
-
-      VOICES = SYNTH.getVoices().toSorted((a, b) => {
-        const lower_a = a.lang.toLowerCase();
-        const lower_b = b.lang.toLowerCase();
-        if (lower_a < lower_b) return -1;
-        if (lower_a > lower_b) return 1;
-        return 0;
+      db.load().then(({ voice, rate, pitch }) => {
+        MANAGER = new SpeechManager();
+        dispatch(sa.setConf({ voice, rate, pitch }));
+        dispatch(sa.populateSelectorList(MANAGER.getSelection()));
       });
-
-      dispatch(
-        sa.populateSelectorList(
-          VOICES.map(({ name, lang }) => ({ name, lang }))
-        )
-      );
-      console.debug(VOICES.length, "synth voices loaded");
     }
   },
 
-  setVoice: (idx: number) => (dispatch: AppDispatch) => {
-    dispatch(sa.setVoice(idx));
-    db.save(idx);
+  setVoice: (strIdx: string) => (dispatch: AppDispatch) => {
+    const asNum = Number(strIdx);
+    dispatch(sa.setConf({ voice: asNum }));
+  },
+
+  setRate: (strRate: string) => (dispatch: AppDispatch) => {
+    const asNum = Number(strRate);
+    dispatch(sa.setConf({ rate: asNum }));
+  },
+
+  setPitch: (strPitch: string) => (dispatch: AppDispatch) => {
+    const asNum = Number(strPitch);
+    dispatch(sa.setConf({ pitch: asNum }));
   },
 
   resume: () => (dispatch: AppDispatch) => {
-    SYNTH.resume();
+    MANAGER.resume();
     dispatch(sa.setPBState(PB.Playing));
   },
 
   pause: () => (dispatch: AppDispatch) => {
-    SYNTH.pause();
+    MANAGER.pause();
     dispatch(sa.setPBState(PB.Paused));
   },
 
   stop: () => (dispatch: AppDispatch) => {
-    SYNTH.cancel();
+    MANAGER.stop();
+    dispatch(sa.setProgress(0));
     dispatch(sa.setPBState(PB.Stopped));
   },
 
   speak: (text: string) => {
-    return (dispatch: AppDispatch, getRootState: () => RootState) => {
-      const rs = getRootState();
-      const speechState = rs.speechSynth;
-      const pbQuotes = rs.quotes.playback.state;
+    return (dispatch: AppDispatch, getRS: () => RootState) => {
+      if (getRS().quotes.playback.state !== PB.Stopped) dispatch(tQt.stop());
 
-      if (pbQuotes !== PB.Stopped) dispatch(tQt.stop());
-
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = VOICES[speechState.voice];
-
-      utterance.onend = () => {
-        if (!SYNTH.pending) dispatch(sa.setPBState(PB.Stopped));
-      };
-
-      SYNTH.cancel();
-      SYNTH.speak(utterance);
+      MANAGER.speak({
+        text,
+        onEnd: () => {
+          dispatch(sa.setProgress(0));
+          dispatch(sa.setPBState(PB.Stopped));
+        },
+        onProgress: (num: number) => dispatch(sa.setProgress(num)),
+      });
       dispatch(sa.setPBState(PB.Playing));
     };
   },

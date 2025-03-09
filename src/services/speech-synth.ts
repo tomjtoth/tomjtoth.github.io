@@ -1,23 +1,25 @@
 import { db } from "../db";
-import { SpeechSynthData } from "../types/db";
+import { SpeechSynthData } from "../types/speech-synth";
 
 const id = "speech-synth";
 
 export default {
-  save: (voice: number) => {
+  save: ({ voice, rate, pitch }: SpeechSynthData) => {
     db.misc.put({
       id,
       voice,
+      rate,
+      pitch,
     } as SpeechSynthData);
   },
 
   load: async () => {
-    const stored = await db.misc.get(id);
-    if (stored) {
-      const s = stored as SpeechSynthData;
-      return { voice: s.voice };
-    }
+    const {
+      voice = 0,
+      rate = 1,
+      pitch = 1,
+    } = ((await db.misc.get(id)) as SpeechSynthData) ?? {};
 
-    return { choice: 0 };
+    return { voice, rate, pitch };
   },
 };

@@ -195,7 +195,7 @@ export const tQt = {
 
   play:
     (url?: string) => (dispatch: AppDispatch, getState: () => RootState) => {
-      const pbSpeech = getState().speechSynth.pbState;
+      const pbSpeech = getState().speechSynth.playback.state;
 
       if (pbSpeech !== PB.Stopped) dispatch(tSS.stop());
 

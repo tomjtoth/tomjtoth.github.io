@@ -4,6 +4,7 @@ import { State as LuxorState } from "./luxor";
 import { State as LyricsState } from "./lyrics";
 import { RState as QuotesState } from "./quotes";
 import { State as ShoppingListState } from "./shopping-list";
+import { SpeechSynthData } from "./speech-synth";
 
 type StrId = {
   id: string;
@@ -15,7 +16,6 @@ export type QuotesData = Pick<QuotesState, "active" | "wpm">;
 export type ArxFatalisSpells = Pick<ArxFatalisState, "castSpells">;
 export type LuxorNumbers = Pick<LuxorState, "pickedNums">;
 export type ShoppingListActive = Pick<ShoppingListState, "active">;
-export type SpeechSynthData = { voice: number };
 export type MiscData = StrId &
   (
     | QuotesData
