@@ -11,7 +11,7 @@ export function QuotesControls() {
 
   return qt.playback.state === PB.Stopped ? null : (
     <div className={CLASSES.join(" ")}>
-      <span>🗣️</span>
+      <span className="cursor-not-allowed select-none">🗣️</span>
       {qt.playback.state === PB.Paused ? (
         <span onClick={() => dispatch(tQt.play())}>▶️</span>
       ) : (
