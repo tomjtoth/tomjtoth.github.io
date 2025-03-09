@@ -20,7 +20,7 @@ export default function Controls() {
 
   return (
     <form
-      className="w-full flex items-center gap-2 py-2"
+      className="w-full flex items-center gap-2 my-2"
       onSubmit={(e) => {
         const { value } = item as TextInputProps;
         const trimmed = value.trim();
