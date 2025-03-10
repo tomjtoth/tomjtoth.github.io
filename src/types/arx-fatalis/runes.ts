@@ -56,24 +56,24 @@ export class Rune {
   }
 
   variant: RuneEnum;
-  private startsAt: number;
-  private length: number;
-  private mp3: HTMLAudioElement;
+  #startsAt: number;
+  #length: number;
+  #mp3: HTMLAudioElement;
 
   constructor([rune, start, stop]: [RuneEnum, number, number]) {
     this.variant = rune;
-    const path = this.url("mp3");
-    this.mp3 = new Audio(path);
-    this.mp3.preload = "auto";
-    this.startsAt = start;
-    this.length = Math.round((stop - start) * 1000);
+    const path = this.#url("mp3");
+    this.#mp3 = new Audio(path);
+    this.#mp3.preload = "auto";
+    this.#startsAt = start;
+    this.#length = Math.round((stop - start) * 1000);
   }
 
   play() {
     console.debug(`playing ${this.name}`);
-    this.mp3.currentTime = this.startsAt;
-    this.mp3.play();
-    return this.length;
+    this.#mp3.currentTime = this.#startsAt;
+    this.#mp3.play();
+    return this.#length;
   }
 
   get name() {
@@ -91,11 +91,11 @@ export class Rune {
     return name;
   }
 
-  private url(ext = "mp3") {
+  #url(ext = "mp3") {
     return `/arx/runes/${this.str(false)}.${ext}`;
   }
 
   get png() {
-    return this.url("png");
+    return this.#url("png");
   }
 }

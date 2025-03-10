@@ -58,7 +58,7 @@ const SE = SpellEnum;
 
 export class Spell {
   // based on https://wiki.arx-libertatis.org/Spells
-  private static spells: Spell[] = (() => {
+  static #spells: Spell[] = (() => {
     console.debug("initializing Spells audio");
 
     return [
@@ -126,27 +126,27 @@ export class Spell {
   })();
 
   static pointsOf(se: SpellEnum) {
-    return this.spells.find((x) => x.spell === se)!.points;
+    return this.#spells.find((x) => x.#spell === se)!.points;
   }
 
   static tryCast(seq: Rune[], onSuccess: CallableFunction) {
     console.debug("trying to cast sequence", seq);
-    const idx = this.spells.findIndex((sp) => sp.seqMatches(seq));
+    const idx = this.#spells.findIndex((sp) => sp.seqMatches(seq));
     if (idx > -1) {
-      const spell = this.spells[idx];
+      const spell = this.#spells[idx];
       spell.play();
       onSuccess(spell);
     } else {
       // play fizzle
-      this.spells[1].play();
+      this.#spells[1].play();
     }
   }
 
-  private spell: SpellEnum;
+  #spell: SpellEnum;
   page: number;
   idx: number;
-  private seq: RE[];
-  private mp3?: HTMLAudioElement;
+  #seq: RE[];
+  #mp3?: HTMLAudioElement;
 
   constructor(
     spell: SpellEnum,
@@ -155,37 +155,37 @@ export class Spell {
     hasSound: boolean,
     idx: number
   ) {
-    this.spell = spell;
+    this.#spell = spell;
     this.page = page;
     this.idx = idx;
-    this.seq = seq;
+    this.#seq = seq;
 
     if (hasSound) {
       const path = `/arx/spells/${this.asStr("-")}.mp3`;
-      this.mp3 = new Audio(path);
-      this.mp3.preload = "auto";
+      this.#mp3 = new Audio(path);
+      this.#mp3.preload = "auto";
     }
   }
 
   get points(): number {
-    return this.page * this.seq.length;
+    return this.page * this.#seq.length;
   }
 
   seqMatches(seq: Rune[]): boolean {
-    if (seq.length !== this.seq.length) return false;
+    if (seq.length !== this.#seq.length) return false;
 
     for (let i = 0; i < seq.length; i++) {
-      if (seq[i].variant !== this.seq[i]) return false;
+      if (seq[i].variant !== this.#seq[i]) return false;
     }
 
     return true;
   }
 
   play() {
-    if (this.mp3) {
+    if (this.#mp3) {
       console.debug(`playing ${this.name}`);
-      this.mp3.currentTime = 0;
-      this.mp3.play();
+      this.#mp3.currentTime = 0;
+      this.#mp3.play();
     }
   }
 
@@ -196,7 +196,7 @@ export class Spell {
   asStr(delim = " ") {
     let res = "";
 
-    for (let ch of SE[this.spell]) {
+    for (let ch of SE[this.#spell]) {
       if (ch === ch.toUpperCase()) {
         res += delim;
         ch = ch.toLowerCase();
