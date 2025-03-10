@@ -1,4 +1,4 @@
-export { isCV } from "./isCV";
+export * from "./isCV";
 
 export type PersonalData = {
   firstname: string;
