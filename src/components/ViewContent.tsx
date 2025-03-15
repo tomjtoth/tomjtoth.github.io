@@ -22,7 +22,7 @@ export function ViewContent({
       {...{
         ...props,
         ref,
-        className: `flex-grow overflow-y-scroll ${className}`,
+        className: `flex-grow overflow-y-auto ${className}`,
       }}
     >
       {children}
