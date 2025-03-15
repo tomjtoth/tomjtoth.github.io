@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { Link } from "react-router";
 
 import { ROUTES_CONFIG } from "./AppRoutes/config";
@@ -13,10 +12,16 @@ export function Sidepanel() {
   const dispatch = useAppDispatch();
   const active = useAppSelector((s) => s.sidepanel);
   const url = window.location.toString();
-  const verRef = useRef<HTMLSpanElement>(null);
 
   const linkClass =
     "no-underline p-2 pl-4 select-none cursor-pointer block duration-300 text-fg-0 hover:text-fg-1";
+
+  const navClasses = [
+    "z-20 h-full fixed top-0 bg-bg-0 w-[80vw] sm:w-[225px]",
+    "flex flex-col items-center",
+    "overflow-y-auto border-r duration-300",
+    active ? "left-0" : "-left-[calc(80vw+1px)] sm:-left-[226px]",
+  ];
 
   return (
     <>
@@ -26,29 +31,17 @@ export function Sidepanel() {
 
       <nav
         {...{
-          className: `z-20 h-full fixed w-[225px] top-0 pr-[25px] border-r duration-300 bg-bg-0 ${
-            active ? "left-0" : "-left-[251px]"
-          }`,
-
-          onMouseLeave: (e) => {
-            // triggers only when leaving *the* panel, not its children
-            if (e.target === e.currentTarget) dispatch(tSP.hide());
-          },
+          className: navClasses.join(" "),
 
           onClick: (e) => {
-            if (
-              ![e.currentTarget, verRef.current as Node].includes(
-                e.target as Node
-              )
-            )
-              dispatch(tSP.hide());
+            if (e.target !== e.currentTarget) dispatch(tSP.hide());
           },
         }}
       >
-        <ul className="my-4 ml-4 pl-0 list-none">
+        <ul className="pl-0 mb-0 list-none">
           {ROUTES_CONFIG.filter((x) => x.path != "*").map(
             ({ path: to, label: children, lang }, i) => (
-              <li key={i}>
+              <li key={i} className="text-center sm:text-left">
                 <Link
                   {...{
                     className: linkClass,
@@ -67,15 +60,12 @@ export function Sidepanel() {
           value={url}
           onClick={() => navigator.clipboard.writeText(url)}
         />
-        <div lang="en" className="ml-[25px] flex gap-4 flex-col items-center">
-          <span
-            ref={verRef}
-            className="clickable"
-            onClick={() => navigator.clipboard.writeText(HASH)}
-          >
-            ver: {HASH}
-          </span>
-        </div>
+        <span
+          className="clickable mb-4"
+          onClick={() => navigator.clipboard.writeText(HASH)}
+        >
+          ver: {HASH}
+        </span>
       </nav>
     </>
   );

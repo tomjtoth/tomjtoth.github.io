@@ -6,7 +6,7 @@ const QR_OPTS = {
   marginSize: 4,
   bgColor: "var(--color-bg-0)",
   fgColor: "var(--color-fg-0)",
-  className: "clickable m-[25px]",
+  className: "clickable shrink-0",
   size: 200,
 };
 
