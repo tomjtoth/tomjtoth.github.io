@@ -1,3 +1,6 @@
+import { useContext } from "react";
+
+import { CxViewContent } from "..";
 import {
   useAppDispatch,
   useAppSelector,
@@ -11,10 +14,13 @@ export default function Controls() {
   const dispatch = useAppDispatch();
   const modal = useModal();
   const active = useAppSelector((s) => s.shoppingList.active);
+  const vcRef = useContext(CxViewContent);
 
   const { reset: resetItem, ...item } = useField("text");
 
-  const [title, emoji] = active.includes("slr")
+  const slrIsActive = active.includes("slr");
+
+  const [title, emoji] = slrIsActive
     ? ["sulje reseptit", "📖"]
     : ["avaa reseptit", "📕"];
 
@@ -35,7 +41,14 @@ export default function Controls() {
       <span
         className="clickable mx-2 p-2 shrink-0 whitespace-nowrap"
         title={title}
-        onClick={() => dispatch(tSL.toggle("slr"))}
+        onClick={() => {
+          dispatch(tSL.toggle("slr"));
+          if (!slrIsActive)
+            vcRef?.current?.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+        }}
       >
         {emoji}
       </span>
