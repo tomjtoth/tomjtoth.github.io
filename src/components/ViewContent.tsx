@@ -4,11 +4,22 @@ import {
   PropsWithChildren,
   RefObject,
   useContext,
+  useRef,
 } from "react";
 
-export const CxViewContent = createContext<RefObject<HTMLDivElement> | null>(
-  null
-);
+const CxViewContent = createContext<RefObject<HTMLDivElement> | null>(null);
+
+export function useViewContentRef() {
+  return useContext(CxViewContent);
+}
+
+export function ViewContentRefProvider({ children }: PropsWithChildren) {
+  const vcRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <CxViewContent.Provider value={vcRef}>{children}</CxViewContent.Provider>
+  );
+}
 
 export function ViewContent({
   children,

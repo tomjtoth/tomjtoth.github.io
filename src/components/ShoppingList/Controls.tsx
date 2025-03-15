@@ -1,6 +1,4 @@
-import { useContext } from "react";
-
-import { CxViewContent } from "..";
+import { useViewContentRef } from "..";
 import {
   useAppDispatch,
   useAppSelector,
@@ -14,7 +12,7 @@ export default function Controls() {
   const dispatch = useAppDispatch();
   const modal = useModal();
   const active = useAppSelector((s) => s.shoppingList.active);
-  const vcRef = useContext(CxViewContent);
+  const vcRef = useViewContentRef();
 
   const { reset: resetItem, ...item } = useField("text");
 

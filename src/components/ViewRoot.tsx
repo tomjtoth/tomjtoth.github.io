@@ -1,16 +1,15 @@
-import { PropsWithChildren, useRef } from "react";
+import { PropsWithChildren } from "react";
 
-import { ModalProvider, CxViewContent } from ".";
+import { ModalProvider, ViewContentRefProvider } from ".";
 import { useFilesVR } from "../hooks";
 
 export function ViewRoot({ children }: PropsWithChildren) {
   const files = useFilesVR();
-  const vcRef = useRef<HTMLDivElement>(null);
 
   return (
     <ModalProvider>
       <files.ccx.Provider value={files.cx}>
-        <CxViewContent.Provider value={vcRef}>
+        <ViewContentRefProvider>
           <div
             className="m-0 h-full flex flex-col"
             onDragEnter={files.onDragEnter}
@@ -18,7 +17,7 @@ export function ViewRoot({ children }: PropsWithChildren) {
             <files.dropZone />
             {children}
           </div>
-        </CxViewContent.Provider>
+        </ViewContentRefProvider>
       </files.ccx.Provider>
     </ModalProvider>
   );
