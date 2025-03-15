@@ -20,7 +20,7 @@ export function SpeechControls() {
     >
       <div className="p-4 fixed top-1/2 left-1/2 -translate-1/2 max-w-2/3 bg-bg-0 border rounded">
         <p className="mt-0 text-lg text-center">
-          Muutokset tulee voimaan seuraavalla kappaleella.
+          Muutokset tulee voimaan kun robotti pääsee seuraavaan kappaleeseen.
         </p>
         <div className="grid gap-4 sm:gap-2 sm:grid-cols-[fit-content(200px)_1fr] [&_label]:text-center sm:[&_label]:text-right">
           <label htmlFor="voice-selector">ääni:</label>
