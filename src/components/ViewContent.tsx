@@ -9,6 +9,9 @@ import {
 
 const CxViewContent = createContext<RefObject<HTMLDivElement> | null>(null);
 
+/**
+ * same as document.getElementById("view-content")
+ */
 export function useViewContentRef() {
   return useContext(CxViewContent);
 }
