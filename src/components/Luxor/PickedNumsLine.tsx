@@ -17,6 +17,29 @@ export default function PickedNumsLine() {
       id="luxor-picked-nums-line"
       className="flex items-center justify-center gap-2 p-2"
     >
+      <span
+        className="clickable p-2 mx-2"
+        onClick={() =>
+          modal
+            .hu()
+            .ok(() => dispatch(tLux.rick()))
+            .cancel()
+            .prompt(
+              <>
+                <h3>
+                  Jövő heti számok <sub>(béta-verzió)</sub>
+                </h3>
+                <p>
+                  A Szerencsejáték Zrt. által publikált korábban kihúzott számok
+                  és Machine Learning (Mesterséges intelligencia) segítségével
+                  most megnézheted a jövő heti számokat.
+                </p>
+              </>
+            )
+        }
+      >
+        🔮
+      </span>
       <span ref={span}>
         {pickedNums.length > 10 && "..."}
         {(last(pickedNums, 10) as number[]).join(", ")}
@@ -24,7 +47,7 @@ export default function PickedNumsLine() {
 
       <span
         className={`clickable ml-2 p-2 ${
-          pickedNums.length === 0 ? "invisible" : "visible"
+          pickedNums.length === 0 ? "hidden" : "visible"
         }`}
         onClick={() =>
           modal

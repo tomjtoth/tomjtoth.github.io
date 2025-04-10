@@ -45,18 +45,6 @@ export default function Controls() {
       </span>
       <input {...num} />
       <span
-        className="clickable p-2 mx-2"
-        onClick={() =>
-          modal
-            .hu()
-            .yes(() => dispatch(tLux.rick()))
-            .no()
-            .prompt(<>Biztos megnézed a jövő heti nyerőszámokat?</>)
-        }
-      >
-        🔮
-      </span>
-      <span
         className="p-2 mx-2 clickable"
         onClick={() =>
           modal
