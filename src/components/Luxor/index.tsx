@@ -10,7 +10,7 @@ export function Luxor() {
   useInit();
   const rick = useAppSelector((s) => s.luxor.rick);
   const classes = `z-5 fixed bottom-0 duration-150 -translate-x-1/2 ${
-    rick ? "left-1/2" : "left-3/2"
+    rick ? "left-1/2" : "left-4/2"
   }`;
 
   return (
