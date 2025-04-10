@@ -30,9 +30,10 @@ export default function PickedNumsLine() {
                   Jövő heti számok <sub>(béta-verzió)</sub>
                 </h3>
                 <p>
-                  A Szerencsejáték Zrt. által publikált korábban kihúzott számok
-                  és Machine Learning (Mesterséges intelligencia) segítségével
-                  most megnézheted a jövő heti számokat.
+                  A <em>Szerencsejáték Zrt.</em> által publikált korábban
+                  kihúzott számok és{" "}
+                  <em>Machine Learning (Mesterséges intelligencia)</em>{" "}
+                  segítségével most megnézheted a jövő heti számokat.
                 </p>
               </>
             )
