@@ -9,9 +9,16 @@ const BUG_DEFAULT = {
   filtered: false,
 };
 
+const RICK = new Audio("/rick.mp3");
+const SCRATCH = new Audio("/record-scratch.mp3");
+
+RICK.volume = 0.5;
+SCRATCH.volume = 0.5;
+
 const slice = createSlice({
   name: "luxor",
   initialState: {
+    rick: false,
     loaded: false,
     locked: true,
     bug: BUG_DEFAULT,
@@ -24,6 +31,10 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
+
+    setRick: (rs, { payload }) => {
+      rs.rick = payload;
+    },
 
     setBug: (rs, { payload }) => {
       rs.bug = payload;
@@ -136,6 +147,19 @@ export const tLux = {
 
       dispatch(sa.init({ pickedNums, fields, loaded: true }));
     };
+  },
+
+  rick: () => async (dispatch: AppDispatch) => {
+    dispatch(sa.setRick(true));
+    RICK.currentTime = 0;
+    RICK.play();
+
+    await new Promise<void>((done) => setTimeout(() => done(), 8500));
+
+    dispatch(sa.setRick(false));
+    SCRATCH.currentTime = 0;
+    SCRATCH.play();
+    RICK.pause();
   },
 
   addNum: (num: number) => {
