@@ -2,7 +2,7 @@ import { createSlice, current, isDraft, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import { emptyField, FieldImport, type State } from "../types/luxor";
 import db from "../services/luxor";
-import { maxId } from "../utils";
+import { maxId, sleep } from "../utils";
 
 const BUG_DEFAULT = {
   position: "110vw",
@@ -155,12 +155,15 @@ export const tLux = {
       RICK.currentTime = 0;
       RICK.play();
 
-      await new Promise<void>((done) => setTimeout(() => done(), 8500));
+      await sleep(8500);
 
-      dispatch(sa.setRick(false));
       SCRATCH.currentTime = 0;
       SCRATCH.play();
       RICK.pause();
+
+      await sleep(250);
+
+      dispatch(sa.setRick(false));
     }
   },
 
