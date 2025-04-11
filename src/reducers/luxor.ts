@@ -150,16 +150,18 @@ export const tLux = {
   },
 
   rick: () => async (dispatch: AppDispatch) => {
-    dispatch(sa.setRick(true));
-    RICK.currentTime = 0;
-    RICK.play();
+    if (RICK.paused) {
+      dispatch(sa.setRick(true));
+      RICK.currentTime = 0;
+      RICK.play();
 
-    await new Promise<void>((done) => setTimeout(() => done(), 8500));
+      await new Promise<void>((done) => setTimeout(() => done(), 8500));
 
-    dispatch(sa.setRick(false));
-    SCRATCH.currentTime = 0;
-    SCRATCH.play();
-    RICK.pause();
+      dispatch(sa.setRick(false));
+      SCRATCH.currentTime = 0;
+      SCRATCH.play();
+      RICK.pause();
+    }
   },
 
   addNum: (num: number) => {
