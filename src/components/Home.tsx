@@ -66,18 +66,20 @@ export function Home() {
       <ViewHeader title="tervehdys"></ViewHeader>
       <ViewContent className="p-4">
         <div lang="en">
-          <h2>DISCLAIMER</h2>
+          <h2>Welcome!</h2>
           <p>
-            This site for my personal use and is mostly in Finnish. There are
-            also some tools in Hungarian, Swedish and English. Here's the link
-            to the{" "}
+            Most of the site is in Finnish, but there are also some parts in
+            Hungarian, Swedish and English. Thorough language support is not on
+            my TODO list currently, as I speak/study all four. Optimization for
+            larger screens is in progress with ultra-low priority (since I
+            mostly visit this page from my phone). Check out the{" "}
             <a
               target="_blank"
               href="https://github.com/tomjtoth/tomjtoth.github.io"
             >
-              repo
+              source code
             </a>{" "}
-            in case you're interested.
+            for all the details.
           </p>
         </div>
 
