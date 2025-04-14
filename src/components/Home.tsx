@@ -1,5 +1,65 @@
 import { ViewHeader, ViewContent } from ".";
 
+type App = {
+  title: string;
+  desc?: string;
+  hy?: boolean;
+  prod?: string;
+  repo?: string;
+  highlights: string[];
+};
+
+const APPS: App[] = [
+  {
+    title: "Saldo",
+    highlights: [
+      "aloitin tätä Rust:ssa ennen, kuin hain HY:lle, ja se on edelleen kesken",
+      "kolmesti uudelleenkirjoitettu, Done:in jälkeen uusi kokeilu Next.js:ssä",
+    ],
+  },
+
+  {
+    title: "Veripalvelu",
+    prod: "https://veripalvelu.ttj.hu",
+    repo: "https://github.com/tomjtoth/veripalvelu",
+    highlights: [
+      "multithreaded population of fake data",
+      "taustalla pyörii PostgreSQL ja Flask 🫣",
+    ],
+  },
+
+  {
+    title: "Ratebeer",
+    prod: "https://ratebeer.ttj.hu",
+    repo: "https://github.com/tomjtoth/ratebeer",
+    highlights: ["Ruby on Rails"],
+  },
+
+  {
+    title: "Done",
+    prod: "https://done.ttj.hu",
+    repo: "https://github.com/tomjtoth/done",
+    highlights: [
+      "Next.js",
+      "sisältää 5 haavoittuvuutta OWASP:in 2021 listalta 🤩",
+    ],
+  },
+
+  {
+    title: "Blogi lista",
+    prod: "https://bloglist.ttj.hu",
+    repo: "https://github.com/tomjtoth/fullstack-open",
+    highlights: ["taustalla mongoDB"],
+  },
+
+  {
+    title: "Puhelinluettelo",
+    prod: "https://puhelinluettelo.ttj.hu",
+    repo: "https://github.com/tomjtoth/fullstack-open",
+    highlights: ["taustalla mongoDB"],
+  },
+];
+
 export function Home() {
   return (
     <>
@@ -8,62 +68,50 @@ export function Home() {
         <div lang="en">
           <h2>DISCLAIMER</h2>
           <p>
-            This site is mostly in Finnish and there are some views in
-            Hungarian, Swedish and English. Here's the link to the{" "}
+            This site for my personal use and is mostly in Finnish. There are
+            also some tools in Hungarian, Swedish and English. Here's the link
+            to the{" "}
             <a
               target="_blank"
               href="https://github.com/tomjtoth/tomjtoth.github.io"
             >
               repo
             </a>{" "}
-            in case you're interested. Excuse my CSS, I like a color when it's
-            hexa looks nice. 🤷‍♂️
+            in case you're interested.
           </p>
         </div>
 
         <h2>Sovellukset joissa backend</h2>
         <p>
-          Nämä alla kaikki pyörivät Oraclen ilmaisessa palvelimessa Ruotsissa.
+          Alla sovellukset ovat palautuksia HY:n eri kursseille, laitoin ne
+          pyörimään Oracle:n Always Free VPS:ssä Ruotsissa. SSL serti ja
+          CNAME:it CloudFlare:ssa kattaa <b>*.ttj.hu</b> ala-domain nimet.
         </p>
         <ul>
-          <li>
-            <a target="_blank" href="https://apps.ttj.hu/veripalvelu">
-              Veripalvelu
-            </a>
-            <ul>
-              <li>HY:n kurssille palautettu tehtävä</li>
-              <li>
-                repo on{" "}
-                <a
-                  target="_blank"
-                  href="https://github.com/tomjtoth/veripalvelu"
-                >
-                  tässä
-                </a>
-              </li>
-              <li lang="en">multithreaded population of fake data</li>
-              <li>taustallaa pyörii PostgreSQL ja Flask 🫣</li>
-              <li>
-                siirretty Docker:iin{" "}
-                <a
-                  target="_blank"
-                  href="https://github.com/tomjtoth/veripalvelu/commit/72adb71c10b75aeb43a72b6e4d2288769550ddae"
-                >
-                  tässä
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            Saldo
-            <ul>
-              <li>tuleva projekti</li>
-              <li>
-                tavoitteena kirjata se nextJS:ään, sit toivottavasti siirryn
-                myöhemmin Dioxus:iin (Rust + WASM)
-              </li>
-            </ul>
-          </li>
+          {APPS.map(({ title, prod, repo, highlights }, i) => (
+            <li key={i}>
+              {prod ? (
+                <a {...{ target: "_blank", href: prod }}>{title}</a>
+              ) : (
+                title
+              )}
+              {repo && (
+                <>
+                  {" "}
+                  (
+                  <a target="_blank" href={repo}>
+                    repo
+                  </a>
+                  )
+                </>
+              )}
+              <ul>
+                {highlights.map((point, i) => (
+                  <li key={i}>{point}</li>
+                ))}
+              </ul>
+            </li>
+          ))}
         </ul>
       </ViewContent>
     </>
