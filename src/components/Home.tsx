@@ -83,7 +83,7 @@ export function Home() {
           </p>
         </div>
 
-        <h2>Sovellukset joissa backend</h2>
+        <h2 id="apps">Sovellukset joissa backend</h2>
         <p>
           Alla sovellukset ovat palautuksia HY:n eri kursseille, laitoin ne
           pyörimään Oracle:n Always Free VPS:ssä Ruotsissa. SSL serti ja
