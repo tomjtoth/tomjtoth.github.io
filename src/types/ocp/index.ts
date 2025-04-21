@@ -82,17 +82,17 @@ type SkillModifier = {
 type Modifier = { _encoded?: number | string } & (AttrModifier | SkillModifier);
 
 export class Character {
-  static from(qs: string) {}
+  // static from(qs: string) {}
 
-  #progress = [];
+  // #progress = [];
   #modifiers: Modifier[] = [];
   level = 1;
 
   constructor(
     race: Race,
     sex: Sex,
-    majorAttributes: Attribute[],
-    majorSkills: Skill[],
+    // majorAttributes: Attribute[],
+    // majorSkills: Skill[],
     specialization: Specialization
   ) {
     switch (race) {
