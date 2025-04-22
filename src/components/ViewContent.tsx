@@ -7,7 +7,9 @@ import {
   useRef,
 } from "react";
 
-const CxViewContent = createContext<RefObject<HTMLDivElement> | null>(null);
+const CxViewContent = createContext<RefObject<HTMLDivElement | null> | null>(
+  null
+);
 
 /**
  * same as document.getElementById("view-content")
