@@ -8,6 +8,7 @@ import {
   Visitors,
   Luxor,
   Quotes,
+  OCP,
 } from "..";
 
 type RouteDetails = {
@@ -60,6 +61,12 @@ export const ROUTES_CONFIG: RouteDetails[] = [
     path: "/cv",
     element: <CV />,
     label: "Curriculum Vitae",
+    lang: "en",
+  },
+  {
+    path: "/ocp",
+    element: <OCP />,
+    label: "Oblivion CP",
     lang: "en",
   },
   {

@@ -6,6 +6,7 @@ export * from "./Home";
 export * from "./Luxor";
 export * from "./Lyrics";
 export * from "./Modal";
+export * from "./OCP";
 export * from "./QRCode";
 export * from "./Quotes";
 export * from "./ShoppingList";
