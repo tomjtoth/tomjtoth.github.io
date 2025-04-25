@@ -9,6 +9,7 @@ import shoppingList, { tSL } from "./reducers/shopping-list";
 import arxFatalis, { tArx } from "./reducers/arx-fatalis";
 import luxor from "./reducers/luxor";
 import visitors, { tVis } from "./reducers/visitors";
+import ocp, { tOCP } from "./reducers/ocp";
 import quotes, { tQt } from "./reducers/quotes";
 import speechSynth, { tSS } from "./reducers/speech-synth";
 import { sleep } from "./utils";
@@ -20,6 +21,7 @@ export const store = configureStore({
     spinner,
     sidepanel,
     lyrics,
+    ocp,
     shoppingList,
     arxFatalis,
     luxor,
@@ -35,6 +37,7 @@ window.addEventListener("load", async () => {
     [5, tArx.init],
 
     // fetching & parsing files
+    [20, tOCP.init],
     [20, tVis.init],
     [20, tQt.init],
     [20, tSL.init],

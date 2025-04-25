@@ -3,6 +3,7 @@ export * from "./battery-monitor";
 export * from "./cv";
 export * from "./luxor";
 export * from "./lyrics";
+export * from "./ocp";
 export * from "./quotes";
 export * from "./shopping-list";
 export * from "./sidepanel";
