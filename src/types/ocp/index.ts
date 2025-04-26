@@ -1,15 +1,3 @@
-enum Attribute {
-  Strength,
-  Intelligence,
-  Willpower,
-  Agility,
-  Speed,
-  Endurance,
-  Personality,
-
-  Luck,
-}
-
 enum Race {
   Altmer,
   Argonian,
@@ -23,46 +11,64 @@ enum Race {
   Redguard,
 }
 
-enum Sex {
+enum Gender {
   Male,
   Female,
 }
 
+enum Birthsign {
+  Apprentice,
+  Atronach,
+  Lady,
+  Lord,
+  Lover,
+  Mage,
+  Ritual,
+  Serpent,
+  Shadow,
+  Steed,
+  Thief,
+  Tower,
+  Warrior,
+}
+
+enum Attribute {
+  Strength,
+  Intelligence,
+  Willpower,
+  Agility,
+  Speed,
+  Endurance,
+  Personality,
+  Luck,
+}
+
 enum Skill {
-  // Strength
+  // Combat
+  Armorer,
+  Athletics,
   Blade,
+  Block,
   Blunt,
   Hand_to_Hand,
-
-  // Endurance
-  Armorer,
-  Block,
   Heavy_Armor,
 
-  // Speed
-  Athletics,
+  //
+  Alchemy,
+  Alteration,
+  Conjuration,
+  Destruction,
+  Illusion,
+  Mysticism,
+  Restoration,
+
   Acrobatics,
   Light_Armor,
-
-  // Agility
+  Marksman,
+  Mercantile,
   Security,
   Sneak,
-  Marksman,
-
-  // Personality
-  Mercantile,
   Speechcraft,
-  Illusion,
-
-  // Intelligence
-  Alchemy,
-  Conjuration,
-  Mysticism,
-
-  // Willpower
-  Alteration,
-  Destruction,
-  Restoration,
 }
 
 enum Specialization {
