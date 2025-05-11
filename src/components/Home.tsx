@@ -36,9 +36,9 @@ const APPS: App[] = [
   },
 
   {
-    title: "Done",
-    prod: "https://done.ttj.hu",
-    repo: "https://github.com/tomjtoth/done",
+    title: "Events",
+    prod: "https://events.ttj.hu",
+    repo: "https://github.com/tomjtoth/events",
     highlights: [
       "Next.js",
       "sisältää 5 haavoittuvuutta OWASP:in 2021 listalta 🤩",
