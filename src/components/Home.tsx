@@ -12,10 +12,9 @@ type App = {
 const APPS: App[] = [
   {
     title: "Saldo",
-    highlights: [
-      "aloitin tätä Rust:ssa ennen, kuin hain HY:lle, ja se on edelleen kesken",
-      "kolmesti uudelleenkirjoitettu, Done:in jälkeen uusi kokeilu Next.js:ssä",
-    ],
+    prod: "https://saldo.ttj.hu",
+    repo: "https://github.com/tomjtoth/saldo",
+    highlights: ["Next.js", "NextAuth", "Sequelize"],
   },
 
   {
