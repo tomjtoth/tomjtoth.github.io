@@ -26,37 +26,6 @@ const APPS: App[] = [
       "taustalla pyörii PostgreSQL ja Flask 🫣",
     ],
   },
-
-  {
-    title: "Ratebeer",
-    prod: "https://ratebeer.ttj.hu",
-    repo: "https://github.com/tomjtoth/ratebeer",
-    highlights: ["Ruby on Rails"],
-  },
-
-  {
-    title: "Events",
-    prod: "https://events.ttj.hu",
-    repo: "https://github.com/tomjtoth/events",
-    highlights: [
-      "Next.js",
-      "sisältää 5 haavoittuvuutta OWASP:in 2021 listalta 🤩",
-    ],
-  },
-
-  {
-    title: "Blogi lista",
-    prod: "https://bloglist.ttj.hu",
-    repo: "https://github.com/tomjtoth/fullstack-open",
-    highlights: ["taustalla mongoDB"],
-  },
-
-  {
-    title: "Puhelinluettelo",
-    prod: "https://puhelinluettelo.ttj.hu",
-    repo: "https://github.com/tomjtoth/fullstack-open",
-    highlights: ["taustalla mongoDB"],
-  },
 ];
 
 export function Home() {
