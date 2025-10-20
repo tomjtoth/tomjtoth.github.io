@@ -19,11 +19,12 @@ export default function Details({ exp }: DetailsProps) {
           {cv[index].map((det, i) => {
             const prefix = `cv.${index}[${i}]`;
 
-            const loc = (
+            const loc = det.location ? (
               <span className="cv-tip" title={`${prefix}.location`}>
                 ({det.location})
               </span>
-            );
+            ) : null;
+
             const duration = (
               <>
                 {det.from === det.to ? (
@@ -45,6 +46,7 @@ export default function Details({ exp }: DetailsProps) {
                 )}
               </>
             );
+
             let liContent = null;
 
             if (exp) {
