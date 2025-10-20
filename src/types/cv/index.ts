@@ -34,7 +34,7 @@ export type EduDet = {
 
 export type ExpDet = Omit<EduDet, "degree" | "institution"> & {
   title: string;
-  employer: string;
+  employer?: string;
   hours?: string;
 };
 
