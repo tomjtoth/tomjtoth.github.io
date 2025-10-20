@@ -28,6 +28,7 @@ const APPS: App[] = [
     title: "Veripalvelu",
     prod: "https://veripalvelu.ttj.hu",
     repo: "https://github.com/tomjtoth/veripalvelu",
+    hy: true,
     highlights: [
       "multithreaded population of fake data",
       "taustalla pyörii PostgreSQL ja Flask 🫣",
@@ -59,13 +60,9 @@ export function Home() {
         </div>
 
         <h2 id="apps">Sovellukset joissa backend</h2>
-        <p>
-          Alla sovellukset ovat palautuksia HY:n eri kursseille, laitoin ne
-          pyörimään Oracle:n Always Free VPS:ssä Ruotsissa. SSL serti ja
-          CNAME:it CloudFlare:ssa kattaa <b>*.ttj.hu</b> ala-domain nimet.
-        </p>
+        <p>Alla sovellukset pyörivät Oracle:n Always Free VPS:ssä Ruotsissa.</p>
         <ul>
-          {APPS.map(({ title, prod, repo, highlights }, i) => (
+          {APPS.map(({ title, prod, repo, highlights, hy }, i) => (
             <li key={i}>
               {prod ? (
                 <a {...{ target: "_blank", href: prod }}>{title}</a>
@@ -83,6 +80,7 @@ export function Home() {
                 </>
               )}
               <ul>
+                {hy && <li>on palautettava tehtävä HY:n kurssille</li>}
                 {highlights.map((point, i) => (
                   <li key={i}>{point}</li>
                 ))}
