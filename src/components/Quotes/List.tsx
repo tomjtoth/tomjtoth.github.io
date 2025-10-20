@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { tQt, tSS } from "../../reducers";
 import { ListProps } from "../../types/quotes";
-import { fastHash } from "../../utils";
 
 import Info from "./Info";
 
@@ -18,16 +17,7 @@ export function List({ items, hashes: parentHashes }: ListProps) {
           : "hidden"
       }`}
     >
-      {items.map((item) => {
-        // TODO: move this to reducer and do it once during initialization
-        const hash = fastHash(
-          "name" in item
-            ? item.name
-            : "quote" in item
-            ? item.quote
-            : item.innerHTML
-        );
-
+      {items.map(({ hash, ...item }) => {
         const hashes = [...parentHashes, hash];
         const strId = hashes.join("-");
 

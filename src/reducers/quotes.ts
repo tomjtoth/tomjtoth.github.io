@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "../store";
 import { PlaybackState as PB } from "../types";
 import { Data, Quote, RState } from "../types/quotes";
 import db from "../services/quotes";
-import { toggle } from "../utils";
+import { fastHash, toggle } from "../utils";
 import { tSS } from ".";
 
 const slice = createSlice({
@@ -24,7 +24,7 @@ const slice = createSlice({
   reducers: {
     init: (rs, { payload: { data, active, wpm } }) => {
       rs.loaded = true;
-      rs.data = [{ ...data, name: "Yhteensä" }];
+      rs.data = [data];
       rs.wpm = wpm;
       rs.active = active;
     },
@@ -85,7 +85,10 @@ let CURR_AUDIO: HTMLAudioElement;
 export const tQt = {
   init: () => {
     return (dispatch: AppDispatch) => {
-      function recurse(rawData: any, indices: number[]): Omit<Data, "name"> {
+      function recurse(
+        rawData: any,
+        indices: number[]
+      ): Omit<Data, "name" | "hash"> {
         let words = 0;
 
         const items = Object.entries(rawData).map(([name, value], i) => {
@@ -105,7 +108,7 @@ export const tQt = {
             dangerousQuote ||
             dangerousQuoteWithUrl
           ) {
-            const pls = [] as string[];
+            const punchlines: string[] = [];
 
             let val = dangerousQuote
               ? (value.innerHTML as string)
@@ -114,7 +117,7 @@ export const tQt = {
               : (value as string);
 
             val = val.replaceAll(PUNCHLINE, (_, pl, firstChar, lastChar) => {
-              pls.push(
+              punchlines.push(
                 `${LOWERCASE.test(firstChar) ? "..." : ""}${pl}${
                   LOWERCASE.test(lastChar) ? "..." : ""
                 }`
@@ -126,7 +129,9 @@ export const tQt = {
             words += wc;
 
             const res = {
-              punchline: pls.length > 0 ? pls.join(" ") : undefined,
+              hash: fastHash(val),
+              punchline:
+                punchlines.length > 0 ? punchlines.join(" ") : undefined,
               words: wc,
             } as Quote;
 
@@ -153,7 +158,7 @@ export const tQt = {
           } else {
             const res = recurse(value, [...indices, i]);
             words += res.words;
-            return { name, ...res } as Data;
+            return { name, hash: fastHash(name), ...res };
           }
         });
 
@@ -168,6 +173,10 @@ export const tQt = {
         const parsed = YAML.load(strYaml) as any;
 
         const data = recurse(parsed, [0]);
+
+        const realData = data as Data;
+        realData.name = "Yhteensä";
+        realData.hash = fastHash(realData.name);
 
         return dispatch(sa.init({ wpm, active, data }));
       });
