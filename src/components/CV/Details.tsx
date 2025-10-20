@@ -61,10 +61,16 @@ export default function Details({ exp }: DetailsProps) {
                     </span>
                   )}{" "}
                   <br />
-                  at{" "}
-                  <i className="cv-tip" title={`${prefix}.employer`}>
-                    {det.employer}
-                  </i>{" "}
+                  {!!det.employer ? (
+                    <>
+                      at{" "}
+                      <i className="cv-tip" title={`${prefix}.employer`}>
+                        {det.employer}
+                      </i>
+                    </>
+                  ) : (
+                    <>alongside my studies</>
+                  )}{" "}
                   {loc}
                 </>
               );
