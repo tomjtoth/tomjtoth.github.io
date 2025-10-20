@@ -1,27 +1,25 @@
 import { Active, PlaybackState } from ".";
 
-export type Quote = (
-  | {
-      quote: string;
-    }
-  | {
-      innerHTML: string;
-    }
-) & {
+interface Common {
+  hash: string;
+  words: number;
+}
+
+interface QuoteBase extends Common {
   punchline?: string;
   audio?: {
     url: string;
     state: PlaybackState;
   };
-  words: number;
-};
+}
+
+export type Quote = QuoteBase & ({ quote: string } | { innerHTML: string });
 
 /// a writer, series or book
-export type Data = {
+export interface Data extends Common {
   name: string;
   items: (Data | Quote)[];
-  words: number;
-};
+}
 
 export type ListProps = {
   hashes: string[];
