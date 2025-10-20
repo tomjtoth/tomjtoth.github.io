@@ -133,3 +133,13 @@ export const IS_TOUCH_DEVICE = navigator.maxTouchPoints > 0;
 export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function fastHash(str: string, length = 8) {
+  let h = 2166136261 >>> 0; // FNV-1a 32-bit
+
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return ("0000000" + (h >>> 0).toString(16)).slice(-length);
+}
