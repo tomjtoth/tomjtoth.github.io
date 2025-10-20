@@ -23,7 +23,7 @@ export function Quotes() {
           pääsee käsiksi lukemieni kirjoihin. Alla listassa näkyy myös
           estimaatit jokaisen kappaleen kohdalla lukuajasta.
         </p>
-        <List {...{ items, indices: [] }} />
+        <List {...{ items, hashes: [] }} />
       </ViewContent>
     </CxMediaControlsPadding.Provider>
   );

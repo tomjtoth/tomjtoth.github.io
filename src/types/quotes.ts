@@ -24,7 +24,7 @@ export type Data = {
 };
 
 export type ListProps = {
-  indices: number[];
+  hashes: string[];
   items: (Data | Quote)[];
 };
 

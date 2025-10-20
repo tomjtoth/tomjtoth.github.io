@@ -1,10 +1,11 @@
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { tQt, tSS } from "../../reducers";
 import { ListProps } from "../../types/quotes";
+import { fastHash } from "../../utils";
 
 import Info from "./Info";
 
-export function List({ items, indices: parentIndices }: ListProps) {
+export function List({ items, hashes: parentHashes }: ListProps) {
   const active = useAppSelector((s) => s.quotes.active);
   const ss = useAppSelector((s) => s.speechSynth);
   const dispatch = useAppDispatch();
@@ -12,20 +13,29 @@ export function List({ items, indices: parentIndices }: ListProps) {
   return (
     <ul
       className={`list-none pl-0 ${
-        parentIndices.length === 0 || active.includes(parentIndices.join("-"))
+        parentHashes.length === 0 || active.includes(parentHashes.join("-"))
           ? ""
           : "hidden"
       }`}
     >
-      {items.map((item, i) => {
-        const indices = [...parentIndices, i];
-        const strId = indices.join("-");
+      {items.map((item) => {
+        // TODO: move this to reducer and do it once during initialization
+        const hash = fastHash(
+          "name" in item
+            ? item.name
+            : "quote" in item
+            ? item.quote
+            : item.innerHTML
+        );
+
+        const hashes = [...parentHashes, hash];
+        const strId = hashes.join("-");
 
         return (
           <li
-            key={i}
+            key={hash}
             className={`p-2 pr-1 sm:p-4 sm:pr-2 mt-2 ${
-              parentIndices.length > 0 ? "border rounded" : ""
+              parentHashes.length > 0 ? "border rounded" : ""
             }`}
           >
             {"quote" in item || "innerHTML" in item ? (
@@ -89,7 +99,7 @@ export function List({ items, indices: parentIndices }: ListProps) {
                 {item.name}
                 <Info wordCount={item.words} id={strId} />
 
-                <List {...{ items: item.items, indices }} />
+                <List {...{ items: item.items, hashes }} />
               </>
             )}
           </li>
