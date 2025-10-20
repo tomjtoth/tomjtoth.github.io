@@ -1,15 +1,15 @@
-[![codecov](https://codecov.io/gh/tomjtoth/tomjtoth.github.io/graph/badge.svg?token=417607S3E8)](https://codecov.io/gh/tomjtoth/tomjtoth.github.io)
+<!-- [![codecov](https://codecov.io/gh/tomjtoth/tomjtoth.github.io/graph/badge.svg?token=417607S3E8)](https://codecov.io/gh/tomjtoth/tomjtoth.github.io) -->
 
 # About
 
 These tools are accessible from a browser without requiring a login.
 
-## TODO
+<!-- ## TODO
 
 - **TESTS!** As indicated by the current coverage percentage shown in the badge above. Roadmap:
-  - [ ] Achieve 30% coverage by Jun 1, 2025
-  - [ ] Achieve 60% coverage by Jan 1, 2026
-  - [ ] Achieve 90% coverage by Jun 1, 2026
+  - [ ] Achieve 30% coverage by Jun 1, 2026
+  - [ ] Achieve 60% coverage by Jan 1, 2027
+  - [ ] Achieve 90% coverage by Jun 1, 2027 -->
 
 ## Development
 
