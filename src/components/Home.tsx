@@ -14,7 +14,14 @@ const APPS: App[] = [
     title: "Saldo",
     prod: "https://saldo.ttj.hu",
     repo: "https://github.com/tomjtoth/saldo",
-    highlights: ["Next.js", "NextAuth", "Sequelize", "Tailwind CSS"],
+    highlights: [
+      "Next.js",
+      "NextAuth",
+      "Drizzle-ORM",
+      "Tailwind CSS",
+      "Cypress",
+      "Docker",
+    ],
   },
 
   {
