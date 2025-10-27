@@ -1,33 +1,41 @@
 import { Active } from ".";
 
-export type Song = {
+interface WithHash {
+  hash: string;
+}
+
+export interface Song extends WithHash {
   title: string;
   lyrics: string;
-};
+}
 
-export type Album = {
+export interface Album extends WithHash {
   title?: string;
   url?: string;
   year?: number;
   songs: Song[];
-};
+}
 
-export type Artist = {
+export interface Artist extends WithHash {
   name: string;
   url?: string;
   albums: Album[];
-};
+}
 
-export type AlbumsProps = {
+interface WithParentHashes {
+  parentHashes: string[];
+}
+
+export interface AlbumsProps extends WithParentHashes {
   artistIdx: number;
   albums: Album[];
-};
+}
 
-export type SongsProps = {
+export interface SongsProps extends WithParentHashes {
   artistIdx: number;
   albumIdx: number;
   songs: Song[];
-};
+}
 
 export type State = {
   artists: Artist[];
