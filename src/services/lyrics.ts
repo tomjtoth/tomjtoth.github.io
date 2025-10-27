@@ -1,4 +1,6 @@
 import { current, isDraft } from "@reduxjs/toolkit";
+
+import { fastHash } from "../utils";
 import { db } from "../db";
 import { LyricsActive } from "../types/db";
 import { Artist, Album, Song } from "../types/lyrics";
@@ -21,6 +23,7 @@ export default {
 
 export function parseYaml(imported: any) {
   return Object.entries(imported)
+
     .toSorted(([artist_a], [artist_b]) => {
       const lower_a = artist_a.toLowerCase();
       const lower_b = artist_b.toLowerCase();
@@ -32,6 +35,7 @@ export function parseYaml(imported: any) {
 
     .map(([name, { url, ...albums }]: [string, any]) => {
       const sorted = Object.entries(albums)
+
         .toSorted(([title_a, a], [title_b, b]) => {
           // move the mix album to the beginning
           if (title_a === "null") return -1;
@@ -56,16 +60,19 @@ export function parseYaml(imported: any) {
 
           return year_diff;
         })
+
         .map(([title, album]) => {
           const { url, year, ...songs } = album as any;
 
           return {
+            hash: fastHash(title),
             title,
             year,
             url,
             songs: Object.entries(songs).map(
               ([title, lyrics]) =>
                 ({
+                  hash: fastHash(title),
                   title,
                   lyrics,
                 } as Song)
@@ -73,6 +80,6 @@ export function parseYaml(imported: any) {
           } as Album;
         });
 
-      return { name, url, albums: sorted } as Artist;
+      return { name, url, albums: sorted, hash: fastHash(name) } as Artist;
     });
 }
