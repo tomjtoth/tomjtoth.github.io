@@ -14,15 +14,15 @@ function translate(lyrics: string) {
   return `https://translate.google.com/?sl=sv&tl=en&text=${encoded}&op=translate`;
 }
 
-export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
+export default function Songs({ artistIdx, songs, parentHashes }: SongsProps) {
   const dispatch = useAppDispatch();
   const artists = useAppSelector((s) => s.lyrics.artists);
   const active = useAppSelector((s) => s.lyrics.active);
 
   return (
     <ul>
-      {songs.map(({ title, lyrics }, songIdx) => {
-        const id = [artistIdx, albumIdx, songIdx].join("-");
+      {songs.map(({ title, lyrics, hash }) => {
+        const id = parentHashes.concat(hash).join("-");
         const classes = ["p-4 border rounded"];
         let clickable = songs.length > 1;
         let link;
@@ -45,7 +45,7 @@ export default function Songs({ artistIdx, albumIdx, songs }: SongsProps) {
 
         return (
           <li
-            key={songIdx}
+            key={hash}
             {...{ className: classes.join(" "), id }}
             onClick={(e) => {
               if (clickable && e.target === e.currentTarget)
