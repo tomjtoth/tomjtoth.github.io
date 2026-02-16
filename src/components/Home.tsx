@@ -16,11 +16,11 @@ const APPS: App[] = [
     repo: "https://github.com/tomjtoth/saldo",
     highlights: [
       "Next.js",
-      "NextAuth",
+      "Auth.js",
       "Drizzle-ORM",
+      "SQLite",
       "Tailwind CSS",
       "Cypress",
-      "Docker",
     ],
   },
 
@@ -39,16 +39,17 @@ const APPS: App[] = [
 export function Home() {
   return (
     <>
-      <ViewHeader title="tervehdys"></ViewHeader>
+      <ViewHeader title="sovellukset"></ViewHeader>
       <ViewContent className="p-4">
         <div lang="en">
           <h2>Welcome!</h2>
           <p>
-            Most of the site is in Finnish, but there are also some parts in
-            Hungarian, Swedish and English. Thorough language support is not on
-            my TODO list currently, as I speak/study all four. Optimization for
-            larger screens is in progress with ultra-low priority (since I
-            mostly visit this page from my phone). Check out the{" "}
+            This site is a collection of client-side tools/miniapps for my
+            personal use. Most of them are in Finnish, but there are also some
+            in Hungarian, Swedish and English. A unified language support is
+            currently unplanned, as I speak/study all four languages, hence the
+            diversity. An experimental rewrite was started in Rust using Dioxus,
+            and will probably be continued some day. Check out the{" "}
             <a
               target="_blank"
               href="https://github.com/tomjtoth/tomjtoth.github.io"
@@ -60,7 +61,7 @@ export function Home() {
         </div>
 
         <h2 id="apps">Sovellukset joissa backend</h2>
-        <p>Alla sovellukset pyörivät Oracle:n Always Free VPS:ssä Ruotsissa.</p>
+        <p>Alla sovellukset pyörivät minun k3s klusterissa Ruotsissa.</p>
         <ul>
           {APPS.map(({ title, prod, repo, highlights, hy }, i) => (
             <li key={i}>
