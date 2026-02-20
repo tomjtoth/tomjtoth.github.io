@@ -87,80 +87,82 @@ export const tQt = {
     return (dispatch: AppDispatch) => {
       function recurse(
         rawData: any,
-        indices: number[]
+        indices: number[],
       ): Omit<Data, "name" | "hash"> {
         let words = 0;
 
-        const items = Object.entries(rawData).map(([name, value], i) => {
-          const simpleQuote = typeof value === "string";
+        const items = Object.entries(rawData)
+          .toSorted(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))
+          .map(([name, value], i) => {
+            const simpleQuote = typeof value === "string";
 
-          const quoteWithUrl =
-            typeof value === "object" && "url" in value! && "quote" in value;
+            const quoteWithUrl =
+              typeof value === "object" && "url" in value! && "quote" in value;
 
-          const dangerousQuote =
-            typeof value === "object" && "innerHTML" in value!;
+            const dangerousQuote =
+              typeof value === "object" && "innerHTML" in value!;
 
-          const dangerousQuoteWithUrl = dangerousQuote && "url" in value;
+            const dangerousQuoteWithUrl = dangerousQuote && "url" in value;
 
-          if (
-            simpleQuote ||
-            quoteWithUrl ||
-            dangerousQuote ||
-            dangerousQuoteWithUrl
-          ) {
-            const punchlines: string[] = [];
+            if (
+              simpleQuote ||
+              quoteWithUrl ||
+              dangerousQuote ||
+              dangerousQuoteWithUrl
+            ) {
+              const punchlines: string[] = [];
 
-            let val = dangerousQuote
-              ? (value.innerHTML as string)
-              : quoteWithUrl
-              ? (value.quote as string)
-              : (value as string);
+              let val = dangerousQuote
+                ? (value.innerHTML as string)
+                : quoteWithUrl
+                  ? (value.quote as string)
+                  : (value as string);
 
-            val = val.replaceAll(PUNCHLINE, (_, pl, firstChar, lastChar) => {
-              punchlines.push(
-                `${LOWERCASE.test(firstChar) ? "..." : ""}${pl}${
-                  LOWERCASE.test(lastChar) ? "..." : ""
-                }`
-              );
-              return pl;
-            });
+              val = val.replaceAll(PUNCHLINE, (_, pl, firstChar, lastChar) => {
+                punchlines.push(
+                  `${LOWERCASE.test(firstChar) ? "..." : ""}${pl}${
+                    LOWERCASE.test(lastChar) ? "..." : ""
+                  }`,
+                );
+                return pl;
+              });
 
-            const wc = [...val.matchAll(WORD)].length;
-            words += wc;
+              const wc = [...val.matchAll(WORD)].length;
+              words += wc;
 
-            const res = {
-              hash: fastHash(val),
-              punchline:
-                punchlines.length > 0 ? punchlines.join(" ") : undefined,
-              words: wc,
-            } as Quote;
+              const res = {
+                hash: fastHash(val),
+                punchline:
+                  punchlines.length > 0 ? punchlines.join(" ") : undefined,
+                words: wc,
+              } as Quote;
 
-            if (simpleQuote || quoteWithUrl)
-              (res as { quote: string }).quote = val;
-            if (dangerousQuote || dangerousQuoteWithUrl)
-              (res as { innerHTML: string }).innerHTML = val;
+              if (simpleQuote || quoteWithUrl)
+                (res as { quote: string }).quote = val;
+              if (dangerousQuote || dangerousQuoteWithUrl)
+                (res as { innerHTML: string }).innerHTML = val;
 
-            if (quoteWithUrl || dangerousQuoteWithUrl) {
-              const url = value.url as string;
-              const mp3 = new Audio(url);
+              if (quoteWithUrl || dangerousQuoteWithUrl) {
+                const url = value.url as string;
+                const mp3 = new Audio(url);
 
-              mp3.onended = () => dispatch(sa.setPBState(PB.Stopped));
-              mp3.onpause = () => dispatch(sa.setPBState(PB.Paused));
-              mp3.onplay = () => dispatch(sa.setPBState(PB.Playing));
-              mp3.ontimeupdate = () => dispatch(sa.updatePBTime());
+                mp3.onended = () => dispatch(sa.setPBState(PB.Stopped));
+                mp3.onpause = () => dispatch(sa.setPBState(PB.Paused));
+                mp3.onplay = () => dispatch(sa.setPBState(PB.Playing));
+                mp3.ontimeupdate = () => dispatch(sa.updatePBTime());
 
-              HTML_AUDIO_ELEMENTS.set(url, mp3);
+                HTML_AUDIO_ELEMENTS.set(url, mp3);
 
-              res.audio = { url, state: PB.Stopped };
+                res.audio = { url, state: PB.Stopped };
+              }
+
+              return res;
+            } else {
+              const res = recurse(value, [...indices, i]);
+              words += res.words;
+              return { name, hash: fastHash(name), ...res };
             }
-
-            return res;
-          } else {
-            const res = recurse(value, [...indices, i]);
-            words += res.words;
-            return { name, hash: fastHash(name), ...res };
-          }
-        });
+          });
 
         return { words, items };
       }
