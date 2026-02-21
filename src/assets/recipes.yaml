@@ -204,31 +204,16 @@
     - paista laatikkoa uunin alatasolla noin 40 minuuttia.
 
 🫑 Täytetyt paprikat kaurasuurimoilla:
-Ainekset:
-3 paprikaa
-1,5 dl Kinnarin Tilan kaurasuurimoita
-1 lihaliemikuutio
-400 g jauhelihaa
-1 sipuli
-2 valkosipulinkynttä
-1 tl suolaa
-1 tl paprikajauhetta
-1 tl mustapippuria
-1 tl kuivattua persiljaa
-½ pkt koskenlaskija sulatejuustoa
-1 rkl sinappia
-1 muna
-Päälle:
-150 g juustoraastetta
-
-Valmistusohje:
-1. Pese ja halkaise paprikat, poista siemenet. Lado paprikat uunivuokaan leivinpaperin päälle.
-2. Keitä kaurasuurimoita lihaliemellä maustetussa vedessä n. 15 minuuttia.
-3. Kuori ja pilko sipuli ja valkosipuli. Kuullota niitä hetki öljyssä paistinpannulla. Lisää jauheliha ja ruskista. Mausta seos.
-4. Kuutioi sulatejuusto pienemmäksi ja lisää paistinpannulle jauhelihan joukkoon. Anna juuston hetki sulaa.
-5. Kaada täyte kulhoon ja sekoita joukkoon kaurasuurimot. Lisää sinappi ja muna.
-6. Jaa täyte paprikoiden sisään ja ripottele juustoraastetta pinnalle.
-7. Paista uunin keskitasolla 200 asteessa n. 30 minuuttia.
-
-
-    
+  steps:
+    - pese ja halkaise `3 paprikaa`, poista siemenet
+    - lado paprikat uunivuokaan `leivinpaperin` päälle
+    - keitä `1,5 dl Kinnarin Tilan kaurasuurimoita` `lihaliemikuutio` -lla maustetussa vedessä n. 15 minuuttia
+    - kuori ja pilko `sipuli` ja `2 valkosipulinkynttä`, kuullota niitä hetki öljyssä paistinpannulla
+    - lisää `400 g jauhelihaa` ja ruskista
+    - mausta seos `tl suola` -lla, `tl paprikajauhe` -ella, `tl mustapippuri`- lla, `tl kuivatuu persilja` -lla
+    - kuutioi `½ pkt koskenlaskija sulatejuustoa` pienemmäksi
+    - lisää paistinpannulle jauhelihan joukkoon, anna juuston hetki sulaa
+    - kaada täyte kulhoon ja sekoita joukkoon kaurasuurimot
+    - lisää `rkl sinappi` ja `muna`
+    - jaa täyte paprikoiden sisään ja ripottele `150 g juustoraastetta` pinnalle
+    - paista uunin keskitasolla 200 asteessa n. 30 minuuttia
