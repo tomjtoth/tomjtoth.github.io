@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
-    "@tailwindcss/vite": "^4.1.16",
+    "@tailwindcss/vite": "^4.2.1",
     "dexie": "^4.0.10",
     "js-yaml": "^4.1.0",
     "luxon": "^3.5.0",
