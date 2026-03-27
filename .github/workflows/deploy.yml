@@ -19,9 +19,42 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test-build-deploy:
-    if: contains(github.event.head_commit.message, '#deploy')
+  gen-tag:
+    name: Generate tag
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.setter.outputs.tag }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Generate tags
+        id: setter
+        run: |
+          git fetch --tags || true
+
+          TAG=v$(cat package.json | jq -r '.version')
+
+          if ! git tag --list | grep -qx "$TAG"; then
+            echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+            printf '✅ %s\n   %s' \
+              "Found new tag: $TAG." \
+              "Continuing to deploy."
+          else
+            echo "tag=" >> $GITHUB_OUTPUT
+            
+            printf '❌ %s\n   %s' \
+              "$TAG is already present in repo." \
+              "Not going to re-deploy."
+          fi
+
+  test-build-deploy:
+    runs-on: ubuntu-latest
+    needs: gen-tag
+    if: needs.gen-tag.outputs.tag != ''
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
