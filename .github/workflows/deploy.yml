@@ -75,8 +75,7 @@ jobs:
         uses: actions/setup-node@v6
 
       - name: Install Dependencies
-        # legacy peer deps since PR-71(?)
-        run: npm install --legacy-peer-deps
+        run: npm ci
 
       - name: Run tests
         run: npx vitest run --coverage
