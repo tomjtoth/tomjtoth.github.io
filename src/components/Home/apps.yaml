@@ -1,0 +1,28 @@
+😬 Cringe:
+  desc: deittisovellus, jossa leffojen hahmot ja ihmiset sekäsin
+  prod: https://cringe.ttj.hu
+  repo: https://github.com/tomjtoth/cringe
+  highlights:
+    - toteutettu Dioxus (Rust + WASM) fullstack framework :illa
+    - muotoilin Tailwind :in avulla
+    - kirjautuminen OAuth2 avulla
+    - tietokantana Postgres, johon yhdistyn sqlx :in avulla
+
+🤑 Saldo:
+  desc: kirjanpitosovellus
+  prod: https://saldo.ttj.hu
+  repo: https://github.com/tomjtoth/saldo
+  highlights:
+    - toteutettu Next.js :llä
+    - muotoilin Tailwind :in avulla
+    - kirjautuminen Auth.js :in avulla
+    - tietokantana SQLite johon yhdistyn Drizzle-ORM kautta
+    - E2E testit kirjasin Cypress :ssä
+
+🩸 Veripalvelu:
+  desc: palautettava tehtävä jossa monta Easter Egg
+  prod: https://veripalvelu.ttj.hu
+  repo: https://github.com/tomjtoth/veripalvelu
+  highlights:
+    - multithreaded population of fake data
+    - taustalla pyörii PostgreSQL ja Flask

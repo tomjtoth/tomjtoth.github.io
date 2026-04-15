@@ -3,12 +3,13 @@ import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import terser from "@rollup/plugin-terser";
 import tailwindcss from "@tailwindcss/vite";
+import yaml from "@rollup/plugin-yaml";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig(() => ({
-  plugins: [tailwindcss()],
+  plugins: [tailwindcss(), yaml()],
   test: {
     globals: true,
     environment: "jsdom",
