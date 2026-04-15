@@ -26,8 +26,7 @@ export function Home() {
             personal use. Most of them are in Finnish, but there are also some
             in Hungarian, Swedish and English. A unified language support is
             currently unplanned, as I speak/study all four languages, hence the
-            diversity. An experimental rewrite was started in Rust using Dioxus,
-            and will probably be continued some day. Check out the{" "}
+            diversity. Check out the{" "}
             <a
               target="_blank"
               href="https://github.com/tomjtoth/tomjtoth.github.io"
@@ -50,7 +49,7 @@ export function Home() {
                   {prod ? (
                     <a {...{ target: "_blank", href: prod }}>{strTitle}</a>
                   ) : (
-                    <h3>title</h3>
+                    <b>{strTitle}</b>
                   )}
                   {(repo || desc) && (
                     <>
