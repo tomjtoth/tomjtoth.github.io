@@ -90,10 +90,6 @@ jobs:
           export VITE_GIT_HASH=$(git rev-parse --short=7 HEAD)
           npm run build
 
-      - name: Routes
-        shell: bash
-        run: |
-
       - name: Populate service-worker cache
         shell: bash
         run: |
