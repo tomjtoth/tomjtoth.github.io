@@ -40,14 +40,13 @@ export function Home() {
 
         <h2 id="apps">Sovellukset joissa backend</h2>
         <p>Alla sovellukset pyörivät minun k3s klusterissa Ruotsissa.</p>
-        <ul className="[&>*+*]:mt-2 [&>li]:marker:content-[attr(data-marker)] [&>li]:marker:text-center">
+        <ul className="[&>*+*]:mt-2 [&>li]:marker:content-[attr(data-marker)]">
           {Object.entries(APPS).map(
             ([title, { desc, prod, repo, highlights }]) => {
               const [_, emoji, strTitle] = title.split(RE_TITLE_SPLITTER);
 
               return (
-                <li key={title} data-marker={emoji}>
-                  &nbsp;
+                <li key={title} data-marker={emoji + "\u00A0"}>
                   {prod ? (
                     <a {...{ target: "_blank", href: prod }}>{strTitle}</a>
                   ) : (
@@ -66,7 +65,9 @@ export function Home() {
                   )}
                   <ul>
                     {highlights.map((point, i) => (
-                      <li key={i}>{point}</li>
+                      <li key={i} data-marker="✓&nbsp;">
+                        {point}
+                      </li>
                     ))}
                   </ul>
                 </li>
