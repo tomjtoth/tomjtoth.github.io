@@ -30,9 +30,8 @@ export default function Controls() {
           <>
             <h3>Warning</h3>
             <p>
-              Firefox generates larger PDFs, than Chrome.
-              <b>Consider using Chrome</b>
-              to print this instead.
+              Firefox generates larger PDFs, than Chrome.{" "}
+              <b>Consider using Chrome</b> to print this instead.
             </p>
             <p>Still want to print here?</p>
           </>,
