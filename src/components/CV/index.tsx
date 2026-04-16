@@ -26,7 +26,10 @@ export function CV() {
             </div>
           </div>
           <div className="hidden print:block">
-            this page was generated at {window.location.toString()}
+            this page was generated at{" "}
+            <a href={window.location.toString()}>
+              {window.location.toString()}
+            </a>
           </div>
         </div>
 
