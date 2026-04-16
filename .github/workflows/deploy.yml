@@ -127,7 +127,7 @@ jobs:
 
       - name: Create tag
         run: |
-          TAG=v${{ needs.gen-tag.outputs.tag }}
+          TAG=${{ needs.gen-tag.outputs.tag }}
 
           # create annotated tag and push it back to the repo
           git config user.name "github-actions[bot]"
