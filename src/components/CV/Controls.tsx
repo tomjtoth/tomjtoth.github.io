@@ -12,6 +12,36 @@ export default function Controls() {
   const uploadRef = useRef<HTMLInputElement | null>(null);
   const downloadRef = useRef<HTMLAnchorElement | null>(null);
 
+  const print = () => {
+    const cookie = "cv-print-firefox";
+    const reminded = Number(getCookie(cookie) ?? "0");
+    const isFirefox =
+      typeof navigator !== "undefined" && /firefox/i.test(navigator.userAgent);
+
+    if (isFirefox && reminded < 2) {
+      modal
+        .en()
+        .yes(() => {
+          window.print();
+          setCookie(cookie, reminded + 1);
+        })
+        .no()
+        .prompt(
+          <>
+            <h3>Warning</h3>
+            <p>
+              Firefox generates larger PDFs, than Chrome.
+              <b>Consider using Chrome</b>
+              to print this instead.
+            </p>
+            <p>Still want to print here?</p>
+          </>,
+        );
+    } else {
+      window.print();
+    }
+  };
+
   return (
     <>
       <a
@@ -57,7 +87,7 @@ export default function Controls() {
                     <b>paying attention to indentation</b>
                   </u>
                   , then re-upload it along with a pic.
-                </p>
+                </p>,
               );
           } else {
             // do not prompt more than 2x within 7 days
@@ -89,7 +119,7 @@ export default function Controls() {
                   You can pick any image or <code>*.yaml</code> files, only the
                   first one of both types will be recognized. Alternatively you
                   can drag and drop files anywhere.
-                </p>
+                </p>,
               );
           } else {
             // do not prompt more than 2x within 7 days
