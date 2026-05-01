@@ -33,13 +33,3 @@ All reducers have been migrated from localStorage to Dexie.js (IndexedDB).
 ### Cache
 
 The [service worker](./src/sw.ts) is configured to serve cached responses for all requests, relying on the browser to handle cache updates.
-
-## Arch Linux
-
-The files located [here](./public/linux/) are for personal use. I use the following script when migrating to new machines:
-
-```sh
-bash <(curl -L ttj.hu/linux/clonefig.sh)
-```
-
-These [aliases](./public/linux/bash_aliases) are also sourced from a few machines.
