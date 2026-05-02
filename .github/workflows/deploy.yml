@@ -21,9 +21,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-env:
-  REBUILDING: ${{ github.event_name == 'repository_dispatch' }}
-
 jobs:
   gen-tag:
     name: Generate tag
@@ -42,7 +39,7 @@ jobs:
 
           TAG=v$(cat package.json | jq -r '.version')
 
-          if [ "$REBUILDING" = "true" ]; then
+          if [ "${{ github.event_name == 'repository_dispatch' }}" = "true" ]; then
             echo "tag=$TAG" >> $GITHUB_OUTPUT
             echo "✅ Rebuilding $TAG\n"
           elif ! git tag --list | grep -qx "$TAG"; then
@@ -135,7 +132,7 @@ jobs:
     needs:
       - gen-tag
       - test-build-deploy
-    if: ${{ needs.gen-tag.outputs.tag != '' && env.REBUILDING != 'true' }}
+    if: ${{ needs.gen-tag.outputs.tag != '' && github.event_name != 'repository_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
