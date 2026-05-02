@@ -41,7 +41,7 @@ jobs:
 
           if [ "${{ github.event_name == 'repository_dispatch' }}" = "true" ]; then
             echo "tag=$TAG" >> $GITHUB_OUTPUT
-            echo "✅ Rebuilding $TAG\n"
+            echo "✅ Rebuilding $TAG"
           elif ! git tag --list | grep -qx "$TAG"; then
             echo "tag=$TAG" >> $GITHUB_OUTPUT
 
