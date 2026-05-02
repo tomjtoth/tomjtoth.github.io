@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+  repository_dispatch:
+    types: [rebuild]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -17,6 +20,9 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: true
+
+env:
+  REBUILDING: ${{ github.event_name == 'repository_dispatch' }}
 
 jobs:
   gen-tag:
@@ -36,7 +42,10 @@ jobs:
 
           TAG=v$(cat package.json | jq -r '.version')
 
-          if ! git tag --list | grep -qx "$TAG"; then
+          if [ "$REBUILDING" = "true" ]; then
+            echo "tag=$TAG" >> $GITHUB_OUTPUT
+            echo "✅ Rebuilding $TAG\n"
+          elif ! git tag --list | grep -qx "$TAG"; then
             echo "tag=$TAG" >> $GITHUB_OUTPUT
 
             printf '✅ %s\n   %s' \
@@ -126,6 +135,7 @@ jobs:
     needs:
       - gen-tag
       - test-build-deploy
+    if: ${{ needs.gen-tag.outputs.tag != '' && env.REBUILDING != 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
