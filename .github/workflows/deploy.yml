@@ -85,6 +85,12 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      - name: Include clonefig.sh from the ops repo
+        run: |
+          curl -sSL --fail-with-body \
+            https://raw.githubusercontent.com/tomjtoth/ops/main/bin/clonefig.sh \
+            -o public/clonefig.sh
+
       - name: Build Project
         run: |
           export VITE_GIT_HASH=$(git rev-parse --short=7 HEAD)
