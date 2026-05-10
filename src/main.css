@@ -85,7 +85,9 @@ body,
 }
 
 @utility text-shadow-40-20-10-bg0 {
-  text-shadow: 0 0 40px var(--color-bg-0), 0 0 20px var(--color-bg-0),
+  text-shadow:
+    0 0 40px var(--color-bg-0),
+    0 0 20px var(--color-bg-0),
     0 0 10px var(--color-bg-0);
 }
 
